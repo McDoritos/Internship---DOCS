@@ -17,28 +17,24 @@ def guardar_registo(registo):
 
 def nova_semana():
     hoje = datetime.today()
-    segunda = hoje - timedelta(days=hoje.weekday())
+    quarta = hoje - timedelta(days=(hoje.weekday() - 2) % 7)
     return {
-        "inicio_semana": segunda.strftime('%Y-%m-%d'),
+        "inicio_semana": quarta.strftime('%Y-%m-%d'),
         "tarefas": []
     }
 
 def atualizar_semana_se_necessario(registo):
-    """Cria uma nova semana apenas se já mudou a semana atual (segunda-feira),
-       comparando só as datas — assim não somos enganados pela hora do dia."""
+    """Cria uma nova semana apenas se já mudou a semana atual (quarta-feira)."""
     hoje = datetime.today()
-    # comparar apenas as datas (sem hora)
-    segunda_hoje_date = (hoje - timedelta(days=hoje.weekday())).date()
+    quarta_hoje_date = (hoje - timedelta(days=(hoje.weekday() - 2) % 7)).date()
 
     if not registo:
         registo.append(nova_semana())
         return
 
-    # converter a string guardada para date()
     ultima_semana_date = datetime.strptime(registo[-1]['inicio_semana'], '%Y-%m-%d').date()
 
-    # só criar nova semana se a segunda-feira actual for posterior à última registada
-    if segunda_hoje_date > ultima_semana_date:
+    if quarta_hoje_date > ultima_semana_date:
         registo.append(nova_semana())
 
 def obter_semana_atual(registo):
