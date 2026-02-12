@@ -1,0 +1,92 @@
+Ouput for file ../Test_Files\clinical-trial-extracted_e1.txt
+To determine the final logical expression that captures all the conditions from the problem, we evaluate each condition separately and combine them into a single logical expression using the allowed operators (`=` for equality, `AND` for conjunction, and `OR` for disjunction where applicable).
+
+---
+
+### 🔍 **Conditions Breakdown**
+
+1. **ECOG Performance Status (0–1):**  
+   - `ecog_ps == "0"` OR `ecog_ps == "1"`  
+   - ✅ **Logical:** `ecog_ps IN ("0", "1")`
+
+2. **At Least One Measurable Lesion (RECIST 1.1):**  
+   - `measurable_lesion == "yes"`  
+   - ✅ **Logical:** `measurable_lesion == "yes"`
+
+3. **Absolute Neutrophil Count (ANC) ≥ 1.5 × 10⁹/L:**  
+   - `ANC >= 1.5e9`  
+   - ✅ **Logical:** `ANC >= 1.5e9`
+
+4. **Platelets ≥ 100 × 10⁹/L:**  
+   - `platelets >= 100e9`  
+   - ✅ **Logical:** `platelets >= 100e9`
+
+5. **Hemoglobin ≥ 9 g/dL:**  
+   - `hemoglobin >= 9`  
+   - ✅ **Logical:** `hemoglobin >= 9`
+
+6. **AST ≤ 2.5 × ULN (with liver metastases):**  
+   - `AST <= 2.5eULN`  
+   - If `liver_metastases == "yes"`, then `AST <= 5eULN`  
+   - ✅ **Logical:**  
+     ```
+     (AST <= 2.5eULN) AND ((liver_metastases == "yes") → (AST <= 5eULN))
+     ```
+
+7. **Liver Metastases:**  
+   - `liver_metastases == "yes"`  
+   - ✅ **Logical:** `liver_metastases == "yes"`
+
+---
+
+### 🧩 **Final Logical Expression**
+
+Combining all conditions using `AND` and `OR` as appropriate, we get:
+
+$$
+\text{Condition} = 
+\left( \text{ecog_ps} \in \{"0", "1"\} \right) 
+\land 
+\left( \text{measurable_lesion} == "yes" \right) 
+\land 
+\left( \text{ANC} \geq 1.5e9 \right) 
+\land 
+\left( \text{platelets} \geq 100e9 \right) 
+\land 
+\left( \text{hemoglobin} \geq 9 \right) 
+\land 
+\left( 
+\left( \text{AST} \leq 2.5eULN \right) 
+\land 
+\left( \text{liver_metastases} == "yes" \rightarrow \text{AST} \leq 5eULN \right) 
+\right) 
+\land 
+\left( \text{liver_metastases} == "yes" \right)
+$$
+
+---
+
+### ✅ **Final Answer (in boxed format)**
+
+$$
+\boxed{
+\left( \text{ecog_ps} \in \{"0", "1"\} \right) 
+\land 
+\left( \text{measurable_lesion} == "yes" \right) 
+\land 
+\left( \text{ANC} \geq 1.5e9 \right) 
+\land 
+\left( \text{platelets} \geq 100e9 \right) 
+\land 
+\left( \text{hemoglobin} \geq 9 \right) 
+\land 
+\left( 
+\left( \text{AST} \leq 2.5eULN \right) 
+\land 
+\left( \text{liver_metastases} == "yes" \rightarrow \text{AST} \leq 5eULN \right) 
+\right) 
+\land 
+\left( \text{liver_metastases} == "yes" \right)
+}
+$$
+

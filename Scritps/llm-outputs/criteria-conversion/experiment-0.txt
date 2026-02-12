@@ -1,0 +1,8 @@
+Ouput for file ../Test_Files\clinical-trial_e1.txt
+{
+  "criterion": {
+    "type": "inclusion",
+    "logic": "age >= 18 AND stage == 'IV' AND progression_date != null AND ecog_ps == '0' OR ecog_ps == '1' AND molecular_status == 'unknown' AND ANC >= 1.5e9 AND platelets >= 100e9 AND hemoglobin >= 9 AND AST <= 2.5eULN AND ALT <= 2.5eULN AND bilirubin <= 1.5eULN AND creatinine_clearance >= 40 AND control == 'negative' AND control == 'yes'"
+  }
+}
+
