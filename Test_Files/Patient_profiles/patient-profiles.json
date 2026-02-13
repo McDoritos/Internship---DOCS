@@ -1,0 +1,137 @@
+[
+  {
+    "patient_id":1,
+    "name": "Ana Martins",
+    "age_or_birthdate": 62,
+    "ecog_ps": 1,
+    "diagnosis": "Metastatic non-small cell lung cancer (NSCLC)",
+    "diagnosis_date": "2023-04-12",
+    "molecular_status": {
+      "EGFR": "negative",
+      "ALK": "negative",
+      "ROS1": "negative",
+      "PD-L1": "10%"
+    },
+    "stage": "IV",
+    "treatments": {
+      "1_treatment": {
+        "type": "Platinum-based chemotherapy + anti-PD-1",
+        "start_date": "2023-05-10",
+        "end_date": "2023-10-15"
+      },
+      "2_treatment": {
+        "type": "None",
+        "start_date": null,
+        "end_date": null
+      }
+    },
+    "control": {
+      "progressed_after_first_line": true,
+      "measurable_lesion_recist": true,
+      "anc": 2.1,
+      "platelets": 210,
+      "hemoglobin": 11.2,
+      "ast": 1.8,
+      "alt": 1.6,
+      "bilirubin": 1.0,
+      "creatinine_clearance": 65,
+      "brain_metastases": false,
+      "autoimmune_disease": false,
+      "interstitial_lung_disease": false,
+      "active_infection": false,
+      "prior_lumitax": false,
+      "other_active_malignancy_3y": false,
+      "signed_informed_consent": true
+    }
+  },
+  {
+    "patient_id":2,
+    "name": "Carlos Ferreira",
+    "age_or_birthdate": 58,
+    "ecog_ps": 0,
+    "diagnosis": "Metastatic non-small cell lung cancer (NSCLC)",
+    "diagnosis_date": "2022-11-20",
+    "molecular_status": {
+      "EGFR": "positive",
+      "ALK": "negative",
+      "ROS1": "negative",
+      "PD-L1": "5%"
+    },
+    "stage": "IV",
+    "treatments": {
+      "1_treatment": {
+        "type": "Platinum-based chemotherapy + anti-PD-1",
+        "start_date": "2023-01-05",
+        "end_date": "2023-06-01"
+      },
+      "2_treatment": {
+        "type": "None",
+        "start_date": null,
+        "end_date": null
+      }
+    },
+    "control": {
+      "progressed_after_first_line": true,
+      "measurable_lesion_recist": true,
+      "anc": 3.0,
+      "platelets": 180,
+      "hemoglobin": 12.5,
+      "ast": 1.2,
+      "alt": 1.1,
+      "bilirubin": 0.8,
+      "creatinine_clearance": 72,
+      "brain_metastases": false,
+      "autoimmune_disease": false,
+      "interstitial_lung_disease": false,
+      "active_infection": false,
+      "prior_lumitax": false,
+      "other_active_malignancy_3y": false,
+      "signed_informed_consent": true
+    }
+  },
+  {
+    "patient_id":3,
+    "name": "Maria Lopes",
+    "age_or_birthdate": 74,
+    "ecog_ps": 2,
+    "diagnosis": "Metastatic non-small cell lung cancer (NSCLC)",
+    "diagnosis_date": "2021-09-03",
+    "molecular_status": {
+      "EGFR": "negative",
+      "ALK": "negative",
+      "ROS1": "negative",
+      "PD-L1": "0%"
+    },
+    "stage": "IV",
+    "treatments": {
+      "1_treatment": {
+        "type": "Platinum-based chemotherapy + anti-PD-1",
+        "start_date": "2021-10-10",
+        "end_date": "2022-03-20"
+      },
+      "2_treatment": {
+        "type": "None",
+        "start_date": null,
+        "end_date": null
+      }
+    },
+    "control": {
+      "progressed_after_first_line": true,
+      "measurable_lesion_recist": true,
+      "anc": 1.3,
+      "platelets": 95,
+      "hemoglobin": 8.7,
+      "ast": 2.0,
+      "alt": 2.1,
+      "bilirubin": 1.2,
+      "creatinine_clearance": 55,
+      "brain_metastases": false,
+      "autoimmune_disease": false,
+      "interstitial_lung_disease": false,
+      "active_infection": false,
+      "prior_lumitax": false,
+      "other_active_malignancy_3y": false,
+      "signed_informed_consent": true
+    }
+  }
+]
