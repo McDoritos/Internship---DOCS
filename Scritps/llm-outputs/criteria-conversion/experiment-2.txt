@@ -1,0 +1,37 @@
+Ouput for file ../Test_Files\clinical-trial-extracted_e1.txt
+{
+  "criteria": [
+    {
+      "type": "inclusion",
+      "logic": "(ecog_ps in {\"0\", \"1\"})"
+    },
+    {
+      "type": "inclusion",
+      "logic": "(measurable_lesion == \"yes\")"
+    },
+    {
+      "type": "inclusion",
+      "logic": "(ANC >= 1.5e9)"
+    },
+    {
+      "type": "inclusion",
+      "logic": "(platelets >= 100e9)"
+    },
+    {
+      "type": "inclusion",
+      "logic": "(hemoglobin >= 9)"
+    },
+    {
+      "type": "inclusion",
+      "logic": "(AST <= 2.5eULN)"
+    },
+    {
+      "type": "inclusion",
+      "logic": "(liver_metastases == \"yes\" -> AST <= 5eULN)"
+    },
+    {
+      "type": "inclusion",
+      "logic": "(liver_metastases == \"yes\")"
+    }
+  ]
+}
