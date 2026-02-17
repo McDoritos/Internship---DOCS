@@ -1,0 +1,36 @@
+{
+  "age_or_birthdate": 62,
+  "ecog_ps": 1,
+  "diagnosis": "Adenocarcinoma do pulmão direito",
+  "diagnosis_date": null,
+  "molecular_status": {
+    "PD-L1": "TPS 10%",
+    "EGFR": "mutação exon 19 (deleção)",
+    "ALK": "negativo",
+    "ROS1": "negativo"
+  },
+  "stage": "IV A (metastização óssea)",
+  "treatments": {
+    "1_treatment": {
+      "start_date": "12-11-2025",
+      "end_date": null
+    },
+    "2_treatment": {
+      "start_date": null,
+      "end_date": null
+    }
+  },
+  "control": {
+    "brain_metastases": false,
+    "bone_metastases": true,
+    "targeted_therapy": "Osimertinib 80 mg id",
+    "comorbidities": [
+      "Hipertensão arterial",
+      "Diabetes mellitus tipo 2",
+      "Dislipidemia"
+    ],
+    "prior_surgeries": [
+      "Colecistectomia laparoscópica (2018)"
+    ]
+  }
+}
