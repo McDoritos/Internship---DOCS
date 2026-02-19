@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "44 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Raro"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Pulmão direito",
+    "histology": "Adenocarcinoma",
+    "grade": "G2",
+    "diagnosis_date": "2025-03-10",
+    "stage": {
+      "tnm": "cT2N2M1c",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Cérebro"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "TPS 10%",
+    "NGS": "Rearranjo ALK positivo",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["Asma ligeira"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Nega neoplasias familiares"],
+    "home_medications": ["Budesonida inalatória"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Crânio",
+        "date": "2025-03-15",
+        "findings": "Duas lesões metastáticas supratentoriais <1cm."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pulmão direito",
+        "date": "2025-03-12",
+        "histology": "Adenocarcinoma",
+        "immunohistochemistry": "TTF1+, ALK rearranjado por FISH"
+      }
+    ]
+  },
+  "symptoms": ["Tosse seca", "Cefaleias ligeiras"],
+  "weight": "59 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Alectinib",
+      "intent": "Paliativo",
+      "start_date": "2025-03-20",
+      "end_date": "Em curso",
+      "dose_modifications": "Sem necessidade",
+      "toxicity_events": "Mialgias G1"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Cérebro",
+      "dose": "20 Gy",
+      "fractions": "5",
+      "start_date": "2025-03-25",
+      "end_date": "2025-03-31"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-06-20",
+    "reason_for_visit": "Avaliação resposta RM",
+    "planned_next_steps": "Manter alectinib",
+    "next_appointment": "2025-09-20"
+  },
+  "administrative": {
+    "physician": "Dr(a). Miguel Santos",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Pulmonar"
+  }
+}

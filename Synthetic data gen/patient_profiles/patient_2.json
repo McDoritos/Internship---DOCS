@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "59 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 40 UMA",
+    "alcohol_use": "Moderado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Pulmão direito",
+    "histology": "Adenocarcinoma",
+    "grade": "Moderadamente diferenciado",
+    "diagnosis_date": "2025-04-20",
+    "stage": {
+      "tnm": "cT3N2M1b",
+      "overall_stage": "IVB"
+    },
+    "metastatic_sites": ["Osso", "Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "TPS 0%",
+    "NGS": "KRAS G12C mutado",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["DPOC", "HTA"],
+    "past_surgical": ["Herniorrafia inguinal"],
+    "family_history": ["Pai com cancro do pulmão"],
+    "home_medications": ["Amlodipina 5 mg", "Tiotrópio"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-04-18",
+        "findings": "Massa pulmonar direita 6 cm com adenopatias mediastínicas e lesões hepáticas múltiplas."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pulmão direito",
+        "date": "2025-04-20",
+        "histology": "Adenocarcinoma",
+        "immunohistochemistry": "TTF1+, CK7+, PD-L1 0%"
+      }
+    ]
+  },
+  "symptoms": ["Dispneia de esforço", "Dor lombar", "Perda ponderal 5 kg"],
+  "weight": "70 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Carboplatina + Pemetrexed + Pembrolizumab",
+      "intent": "Paliativo",
+      "start_date": "2025-05-05",
+      "end_date": "2025-09-10",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Fadiga G2, anemia G1"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Coluna lombar",
+      "dose": "20 Gy",
+      "fractions": "5",
+      "start_date": "2025-05-20",
+      "end_date": "2025-05-26"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-10-01",
+    "reason_for_visit": "Avaliação de resposta",
+    "planned_next_steps": "Manutenção com pembrolizumab",
+    "next_appointment": "2025-10-22"
+  },
+  "administrative": {
+    "physician": "Dr(a). Judy Paulo",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Pulmonar"
+  }
+}

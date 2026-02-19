@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "63 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Raro"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Mama direita",
+    "histology": "Carcinoma invasor NST",
+    "grade": "G2",
+    "diagnosis_date": "2024-12-10",
+    "stage": {
+      "tnm": "pT2N2M0",
+      "overall_stage": "IIIA"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "ER 90%, PR 40%",
+    "HER2": "Negativo",
+    "PD-L1": "Negativo",
+    "NGS": "Não realizado",
+    "genetic_testing": "Negativo"
+  },
+  "medical_history": {
+    "past_medical": ["HTA"],
+    "past_surgical": ["Histerectomia"],
+    "family_history": ["Nega"],
+    "home_medications": ["Ramipril 5 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Mamária",
+        "date": "2024-12-01",
+        "findings": "Lesão 3,2 cm mama direita com adenopatias axilares."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Mama direita",
+        "date": "2024-12-05",
+        "histology": "Carcinoma invasor NST",
+        "immunohistochemistry": "ER 90%, PR 40%, HER2 negativo"
+      }
+    ]
+  },
+  "symptoms": ["Nódulo mamário"],
+  "weight": "74 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Cirurgia + QT adjuvante (AC-T)",
+      "intent": "Adjuvante",
+      "start_date": "2025-01-15",
+      "end_date": "2025-06-15",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Náuseas G1, alopecia"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Mama direita",
+      "dose": "50 Gy",
+      "fractions": "25",
+      "start_date": "2025-07-01",
+      "end_date": "2025-08-05"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-10-10",
+    "reason_for_visit": "Consulta de vigilância",
+    "planned_next_steps": "Início hormonoterapia com anastrozol",
+    "next_appointment": "2026-01-10"
+  },
+  "administrative": {
+    "physician": "Dr(a). Carla Mendes",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Mama"
+  }
+}

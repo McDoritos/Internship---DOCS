@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "64 anos",
+    "sex": "Masculino",
+    "smoking_status": "Fumador ativo 50 UMA",
+    "alcohol_use": "Elevado"
+  },
+  "performance_status": {
+    "ecog_ps": 2
+  },
+  "diagnosis": {
+    "primary_site": "Pulmão direito",
+    "histology": "Carcinoma de pequenas células",
+    "grade": "Alto grau",
+    "diagnosis_date": "2025-02-01",
+    "stage": {
+      "tnm": "T4N3M1c",
+      "overall_stage": "Extenso (IV)"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "N/A",
+    "PD-L1": "Não realizado",
+    "NGS": "Não realizado",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["DPOC", "HTA"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Pai fumador com neoplasia pulmonar"],
+    "home_medications": ["Broncodilatador inalatório", "Ramipril 5 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-01-28",
+        "findings": "Massa hilar direita com adenopatias mediastínicas e múltiplas lesões hepáticas."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pulmão direito",
+        "date": "2025-02-01",
+        "histology": "Carcinoma de pequenas células",
+        "immunohistochemistry": "Synaptophysin+, Chromogranin+, Ki67 80%"
+      }
+    ]
+  },
+  "symptoms": ["Dispneia", "Tosse produtiva", "Perda ponderal 8 kg"],
+  "weight": "67 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Carboplatina + Etoposido + Atezolizumab",
+      "intent": "Paliativo",
+      "start_date": "2025-02-10",
+      "end_date": "2025-06-15",
+      "dose_modifications": "Atraso ciclo 3 por neutropenia G4",
+      "toxicity_events": "Neutropenia G4, fadiga G2"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-07-01",
+    "reason_for_visit": "Avaliação pós 4 ciclos",
+    "planned_next_steps": "Manutenção com atezolizumab",
+    "next_appointment": "2025-07-22"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Pulmonar"
+  }
+}

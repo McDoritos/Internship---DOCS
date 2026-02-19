@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "81 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 50 UMA",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 3
+  },
+  "diagnosis": {
+    "primary_site": "Pulmão direito",
+    "histology": "Adenocarcinoma",
+    "grade": "Pouco diferenciado",
+    "diagnosis_date": "2025-02-15",
+    "stage": {
+      "tnm": "cT2N2M1b",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "TPS 5%",
+    "NGS": "Negativo",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["DPOC", "Doença coronária crónica"],
+    "past_surgical": ["Herniorrafia inguinal"],
+    "family_history": ["Nega"],
+    "home_medications": ["Broncodilatadores", "AAS 100 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-02-10",
+        "findings": "Massa pulmonar direita 4 cm com metastização hepática."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pulmão direito",
+        "date": "2025-02-15",
+        "histology": "Adenocarcinoma pouco diferenciado",
+        "immunohistochemistry": "TTF1+, PD-L1 5%"
+      }
+    ]
+  },
+  "symptoms": ["Astenia G2", "Dispneia em repouso"],
+  "weight": "60 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Cuidados de suporte",
+      "intent": "Paliativo exclusivo",
+      "start_date": "2025-02-20",
+      "end_date": "Em curso",
+      "dose_modifications": "Não aplicável",
+      "toxicity_events": "Não aplicável"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-04-15",
+    "reason_for_visit": "Avaliação sintomática",
+    "planned_next_steps": "Manter controlo sintomático",
+    "next_appointment": "2025-05-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica"
+  }
+}

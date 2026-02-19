@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "71 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Mama direita",
+    "histology": "Carcinoma invasor NST",
+    "grade": "G2",
+    "diagnosis_date": "2023-09-10",
+    "stage": {
+      "tnm": "cT1N1M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Osso"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "ER 100%, PR 60%",
+    "HER2": "Negativo",
+    "PD-L1": "Negativo",
+    "NGS": "PIK3CA mutado",
+    "genetic_testing": "Negativo"
+  },
+  "medical_history": {
+    "past_medical": ["Osteoporose", "HTA"],
+    "past_surgical": ["Histerectomia"],
+    "family_history": ["Nega"],
+    "home_medications": ["Alendronato semanal", "Amlodipina 5 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "PET-CT",
+        "date": "2023-09-05",
+        "findings": "Captação óssea múltipla vertebral e pélvica."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Lesão óssea ilíaca",
+        "date": "2023-09-08",
+        "histology": "Metástase de carcinoma mamário",
+        "immunohistochemistry": "ER+, PR+, HER2-"
+      }
+    ]
+  },
+  "symptoms": ["Dor lombar mecânica"],
+  "weight": "72 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Letrozol + Palbociclib",
+      "intent": "Paliativo",
+      "start_date": "2023-09-20",
+      "end_date": "Em curso",
+      "dose_modifications": "Redução palbociclib para 100 mg por neutropenia G3",
+      "toxicity_events": "Neutropenia G3"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Coluna lombar",
+      "dose": "20 Gy",
+      "fractions": "5",
+      "start_date": "2023-10-01",
+      "end_date": "2023-10-07"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-05-15",
+    "reason_for_visit": "Consulta de rotina",
+    "planned_next_steps": "Manter hormonoterapia + CDK4/6",
+    "next_appointment": "2025-08-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Carla Mendes",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Mama"
+  }
+}

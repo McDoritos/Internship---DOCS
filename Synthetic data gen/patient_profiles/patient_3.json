@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "72 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ativo 60 UMA",
+    "alcohol_use": "Elevado"
+  },
+  "performance_status": {
+    "ecog_ps": 2
+  },
+  "diagnosis": {
+    "primary_site": "Pulmão esquerdo",
+    "histology": "Carcinoma escamoso",
+    "grade": "G2",
+    "diagnosis_date": "2025-03-01",
+    "stage": {
+      "tnm": "cT4N3M1c",
+      "overall_stage": "IVC"
+    },
+    "metastatic_sites": ["Osso", "Cérebro"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "TPS 80%",
+    "NGS": "Sem mutações acionáveis",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["DPOC", "HTA"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Irmão com neoplasia pulmonar"],
+    "home_medications": ["Broncodilatadores inalados"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Crânio",
+        "date": "2025-03-05",
+        "findings": "Metástase cerebral frontal direita 2 cm."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pulmão esquerdo",
+        "date": "2025-03-01",
+        "histology": "Carcinoma escamoso",
+        "immunohistochemistry": "p40+, CK5/6+, PD-L1 TPS 80%"
+      }
+    ]
+  },
+  "symptoms": ["Hemoptises", "Cefaleias", "Dor torácica"],
+  "weight": "68 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Pembrolizumab",
+      "intent": "Paliativo",
+      "start_date": "2025-03-15",
+      "end_date": "Em curso",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Fadiga G1"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Cérebro",
+      "dose": "20 Gy",
+      "fractions": "5",
+      "start_date": "2025-03-10",
+      "end_date": "2025-03-16"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-06-15",
+    "reason_for_visit": "Reavaliação clínica",
+    "planned_next_steps": "Manter imunoterapia",
+    "next_appointment": "2025-07-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Miguel Santos",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Pulmonar"
+  }
+}

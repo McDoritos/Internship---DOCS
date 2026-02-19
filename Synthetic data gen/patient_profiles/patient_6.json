@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "52 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Social ocasional"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Mama esquerda",
+    "histology": "Carcinoma invasor NST",
+    "grade": "G3",
+    "diagnosis_date": "2024-11-18",
+    "stage": {
+      "tnm": "cT2N1M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "ER negativo, PR negativo",
+    "HER2": "Positivo (3+)",
+    "PD-L1": "Negativo",
+    "NGS": "Sem mutações acionáveis adicionais",
+    "genetic_testing": "BRCA1/2 negativo"
+  },
+  "medical_history": {
+    "past_medical": ["Dislipidémia"],
+    "past_surgical": ["Cesarianas x2"],
+    "family_history": ["Tia materna com carcinoma mamário"],
+    "home_medications": ["Atorvastatina 20 mg id"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "PET-CT",
+        "date": "2024-11-25",
+        "findings": "Lesão mamária esquerda hipermetabólica e múltiplas lesões hepáticas compatíveis com metastização."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Mama esquerda",
+        "date": "2024-11-20",
+        "histology": "Carcinoma invasor NST G3",
+        "immunohistochemistry": "ER-, PR-, HER2 3+, Ki67 60%"
+      }
+    ]
+  },
+  "symptoms": ["Nódulo mamário", "Desconforto hipocôndrio direito", "Astenia G1"],
+  "weight": "68 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Docetaxel + Trastuzumab + Pertuzumab (THP)",
+      "intent": "Paliativo",
+      "start_date": "2024-12-05",
+      "end_date": "2025-04-10",
+      "dose_modifications": "Redução de 20% docetaxel após C4 por neutropenia G3",
+      "toxicity_events": "Neutropenia G3, diarreia G1, alopecia"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-05-02",
+    "reason_for_visit": "Avaliação de resposta após 6 ciclos",
+    "planned_next_steps": "Manutenção com trastuzumab + pertuzumab",
+    "next_appointment": "2025-06-01"
+  },
+  "administrative": {
+    "physician": "Dr(a). Judy Paulo",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica"
+  }
+}
