@@ -1,0 +1,60 @@
+IMPORTANT:
+- The output must be entirely synthetic.
+- Do NOT copy, paraphrase, or reproduce real clinical text from the examples.
+- Learn only the formatting, tone, abbreviations, and structural style.
+
+CLINICAL CONSISTENCY RULES:
+- Ensure strict internal consistency with the patient profile (diagnosis, stage, molecular profile, treatment lines, ECOG, comorbidities).
+- Maintain chronological coherence between diagnosis date, treatments, imaging, and follow-up.
+- Toxicities must match the type of therapy administered.
+- Imaging findings must align with the known disease stage.
+- Avoid introducing biomarkers or treatments not present in the patient profile unless clinically justified.
+
+STYLE REQUIREMENTS:
+- Write in European Portuguese (Portugal).
+- Follow the structural style of Portuguese oncology outpatient notes.
+- Include realistic oncology terminology and abbreviations (e.g., ECOG-PS, G1/G2 toxicities, C1/C2 cycles, TC TAP, PET-CT, RM, etc.).
+- Maintain a professional hospital tone.
+- Reflect the patient's clinical evolution and psychosocial context when appropriate.
+
+FORMAT REQUIREMENTS:
+The diary must include:
+- Hospital/Unit name
+- Type of consultation (Consulta Externa / HDIA / Follow-up)
+- Date and time
+- Physician name
+- Age
+- Diagnosis and stage
+- ECOG-PS
+- Narrative sections such as:
+    - HDA (História da Doença Atual) or equivalent
+    - S/ (Subjetivo)
+    - O/ (Objetivo)
+    - P/ (Plano)
+    - The structure must remain equivalent, but the exact abbreviations must not appear in the output.
+- Mention relevant laboratory or imaging results if clinically appropriate.
+
+CONTENT DEPTH REQUIREMENT:
+- The diary must implicitly cover:
+    - Patient identification
+    - Diagnosis and disease characteristics
+    - Clinical history and comorbidities
+    - Functional assessment
+    - Treatment plan and rationale
+    - Follow-up strategy
+    - Safety monitoring and adverse events (if applicable)
+
+Here you have the abstract template that defines the conceptual structure of the diary:
+<TEMPLATE>
+{{TEMPLATE_TEXT}}
+</TEMPLATE>
+
+Below is the patient profile:
+<PATIENT>
+{{PATIENT_PROF}}
+</PATIENT>
+
+Below are example real clinical diaries for structural learning only:
+<DIARIES>
+{{DIARIES_TEXT}}
+</DIARIES>
