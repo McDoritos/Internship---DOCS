@@ -17,55 +17,110 @@ STYLE REQUIREMENTS:
 - Maintain a professional hospital tone.
 - Reflect the patient's clinical evolution and psychosocial context when appropriate.
 
-STRUCTURAL FLEXIBILITY RULE:
-- Preserve the clinical logic, not the visual template.
-- Avoid repeating the exact same header formatting.
-- Vary how institutional and diagnostic information is introduced.
-- Section titles may appear, disappear, or be partially integrated in the narrative.
-- Do NOT reproduce identical macro-structure from previous outputs.
-- If the previous diary started with an institutional header block, consider integrating part of it inline.
-- Maintain realism, but reduce template rigidity.
-- The last generated clinicald diary will be provided, not for you to use it as a template but to avoid repeating the exact structure, phrasing and terms of it.
+STRUCTURAL STYLE REQUIREMENT (MANDATORY):
+- The diary MUST begin with a realistic institutional header block, similar to Portuguese SClínico exports, including:
+  - Institution name
+  - "Diário Clínico"
+  - Type of consultation
+  - Date and time
+  - Physician identification
+  - Closing footer such as "Processado por computador - SClínico" and page reference.
+- After the header, the clinical body must follow the visual and structural logic observed in the provided real examples.
+- The structure must feel organically hospital-generated, not template-generated.
+- Do NOT enforce a fixed checklist order.
+- Do NOT force rigid SOAP structure unless naturally present in the example set.
 
-INFORMATIONAL REQUIREMENTS (MANDATORY):
-The diary must contain the following informational components:
-- Institutional identification
-- Consultation type and date
-- Physician identification
-- Patient age and sex
-- Diagnosis and staging
-- ECOG performance status
-- Clinical history
-- Subjective complaints
-- Objective findings (labs, imaging, exam)
-- Therapeutic plan
-- Follow-up plan
+DOCUMENTAL MIXING REQUIREMENT:
+- Allow insertion of internal clinical workflow notes (e.g., discussed in tumor board, autorização solicitada à CFT, referenciado a RT, articulado com Pneumologia, etc.).
+- Allow partially transcribed imaging excerpts (not necessarily full formal reports).
+- Administrative interleaving is permitted (e.g., scheduling notes, future consultation dates, internal referrals).
+- Prior examinations (MCDTs prévios) may appear in mixed order if clinically coherent.
 
-These elements must be present, but the visual formatting and order may vary slightly.
+CONTROLLED IMPERFECTION REQUIREMENT:
+- Mild formatting inconsistencies are acceptable.
+- Occasional capitalization inconsistencies may occur.
+- Not all sections need symmetrical structure.
+- Some imaging reports may appear partially transcribed.
+- Minor repetition of clinically relevant information is acceptable.
+- Avoid perfectly clean academic formatting.
+
+DOCUMENT FLOW VARIABILITY RULE:
+- The diary does NOT need to follow a clean logical progression.
+- Clinical information may appear in non-linear order if chronologically coherent.
+- Treatment plans may appear before full imaging detail.
+- Prior decisions may be re-mentioned later in the note.
+- Blocks such as "Plano", "Resumo", or "Avaliação" may be omitted or merged into surrounding text.
+
+STRUCTURAL ASYMMETRY REQUIREMENT:
+- Avoid consistently structured labeled sections.
+- Some diaries may contain dense uninterrupted clinical blocks.
+- Some notes may lack explicit headers for sub-sections.
+- Avoid perfectly formatted bullet symmetry.
+
+REALISTIC DOCUMENT NOISE:
+- May include references such as:
+    - "Discutido em reunião multidisciplinar"
+    - "Pedido enviado à CFT"
+    - "Aguarda marcação RT"
+    - "Articulado com Pneumologia"
+    - "Consulta HDIA agendada"
+- Not all abbreviations need expansion.
+- Laboratory values may appear inline without structured label.
+
+WRITING STYLE CONSTRAINT:
+- Use telegraphic medical syntax.
+- Avoid excessive explanatory sentences.
+- Prefer short clinical statements.
+- Do not justify obvious oncology decisions unless clinically complex.
+- Avoid literary phrasing.
+
+AUTHENTICITY CONSTRAINT:
+- The diary must resemble an exported hospital clinical note.
+- Formatting imperfections (line breaks, spacing, mixed capitalization) similar to real SClínico outputs are allowed.
+- The document may include dense clinical blocks without narrative smoothing.
+
+All clinically relevant information from the patient profile must be represented in the diary.
+The order and visual distribution may vary naturally.
 
 The clinical reasoning flow must reflect:
 - Evolution of disease
 - Current complaints
 - Clinical assessment
 - Management decision
-
-Section labels are optional and may be integrated naturally.
+- Ongoing monitoring plan
 
 CONTENT DEPTH REQUIREMENT:
-- The diary must implicitly cover:
+- The diary must cover:
     - Patient identification
     - Diagnosis and disease characteristics
     - Clinical history and comorbidities
     - Functional assessment
+    - Treatment line identification
     - Treatment plan and rationale
     - Follow-up strategy
     - Safety monitoring and adverse events (if applicable)
 
+- When clinically applicable, include:
+    - At least one quantified laboratory value (numeric result + unit).
+    - At least one imaging description containing measurable or descriptive disease detail.
+    - Explicit treatment line identification (e.g., 1ª linha, manutenção).
+    - Molecular/biomarker data when relevant.
+
 LENGTH MODE INTERPRETATION:
-The required length of the clinical diary will be provided and below you have a clear interpretation of what each terms means 
-- short → brief, telegraphic, minimal elaboration.
-- medium → balanced clinical documentation.
-- long → extended documentation with deeper contextualization, expanded assessment, and more detailed follow-up reasoning.
+The required length of the clinical diary will be provided.
+- short → brief, telegraphic, minimal elaboration. Limited contextual history. Focused visit.
+- medium → balanced clinical documentation with moderate longitudinal reference.
+- long → complex longitudinal oncology documentation.
+    The diary should simulate accumulation of clinical history across time.
+    It may include:
+        - Multiple prior imaging dates
+        - Treatment modifications
+        - Dose adjustments
+        - Intercurrent hospitalizations
+        - Multi-specialty interaction
+        - Repeated ECOG references
+        - Administrative and workflow layering
+    The document should feel dense and organically accumulated.
 
 Below you have the length for the clinical diary:
 <LENGTH>
@@ -87,11 +142,6 @@ Below is the patient profile:
 <PATIENT>
 {{PATIENT_PROF}}
 </PATIENT>
-
-Below are the last clinical diaries that you have already generated
-<GENERATED_DIARIES>
-{{GENERATED_DIARIES_TEXT}}
-</GENERATED_DIARIES>
 
 Below are example real clinical diaries for structural learning only:
 <DIARIES>

@@ -1,0 +1,332 @@
+Model: llama-3.3-70b-versatile
+
+                    Stylistic Mode: narrative-dominant
+
+                    Length Mode: long
+
+                    Temperature:0.7
+
+                    system prompt: 
+You are a synthetic oncological clinical diary generation assistant.
+
+Your task is to generate fully fictional oncology‑related clinical diary entries based on:
+- Example oncology clinical diaries that will be provided;
+- Patient profiles that will be provided;
+- Abstract template of this clinical diaries will be provided;
+- Last previously generated clinical diary will be provided;
+- Stylistic mode of the clinical diary will be provided.
+
+                    Generation prompt: 
+IMPORTANT:
+- The output must be entirely synthetic.
+- Do NOT copy, paraphrase, or reproduce real clinical text from the examples.
+- Learn only the formatting, tone, abbreviations, and structural style.
+
+CLINICAL CONSISTENCY RULES:
+- Ensure strict internal consistency with the patient profile (diagnosis, stage, molecular profile, treatment lines, ECOG, comorbidities).
+- Maintain chronological coherence between diagnosis date, treatments, imaging, and follow-up.
+- Toxicities must match the type of therapy administered.
+- Imaging findings must align with the known disease stage.
+- Avoid introducing biomarkers or treatments not present in the patient profile unless clinically justified.
+
+STYLE REQUIREMENTS:
+- Write in European Portuguese (Portugal).
+- Follow the structural style of Portuguese oncology outpatient notes.
+- Include realistic oncology terminology and abbreviations (e.g., ECOG-PS, G1/G2 toxicities, C1/C2 cycles, TC TAP, PET-CT, RM, etc.).
+- Maintain a professional hospital tone.
+- Reflect the patient's clinical evolution and psychosocial context when appropriate.
+
+STRUCTURAL FLEXIBILITY RULE:
+- Preserve the clinical logic, not the visual template.
+- Avoid repeating the exact same header formatting.
+- Vary how institutional and diagnostic information is introduced.
+- Section titles may appear, disappear, or be partially integrated in the narrative.
+- Do NOT reproduce identical macro-structure from previous outputs.
+- If the previous diary started with an institutional header block, consider integrating part of it inline.
+- Maintain realism, but reduce template rigidity.
+
+INFORMATIONAL REQUIREMENTS (MANDATORY):
+The diary must contain the following informational components:
+- Institutional identification
+- Consultation type and date
+- Physician identification
+- Patient age and sex
+- Diagnosis and staging
+- ECOG performance status
+- Clinical history
+- Subjective complaints
+- Objective findings (labs, imaging, exam)
+- Therapeutic plan
+- Follow-up plan
+
+These elements must be present, but the visual formatting and order may vary slightly.
+
+The clinical reasoning flow must reflect:
+- Evolution of disease
+- Current complaints
+- Clinical assessment
+- Management decision
+
+Section labels are optional and may be integrated naturally.
+
+CONTENT DEPTH REQUIREMENT:
+- The diary must implicitly cover:
+    - Patient identification
+    - Diagnosis and disease characteristics
+    - Clinical history and comorbidities
+    - Functional assessment
+    - Treatment plan and rationale
+    - Follow-up strategy
+    - Safety monitoring and adverse events (if applicable)
+
+LENGTH MODE INTERPRETATION:
+The required length of the clinical diary will be provided and below you have a clear interpretation of what each terms means 
+- short → brief, telegraphic, minimal elaboration.
+- medium → balanced clinical documentation.
+- long → extended documentation with deeper contextualization, expanded assessment, and more detailed follow-up reasoning.
+
+Below you have the length for the clinical diary:
+<LENGTH>
+long
+</LENGTH>
+
+You must adopt the stylistic mode specified.
+STYLISTIC MODE FOR THIS DIARY:
+<STYLISTIC>
+narrative-dominant
+</STYLISTIC>
+
+Here you have the abstract template that defines the conceptual structure of the diary:
+<TEMPLATE>
+Patient Identification
+- Age, sex
+- Date of consultation
+
+Diagnosis and Disease Characteristics
+- Primary diagnosis
+- Disease stage or classification
+- Molecular or biomarker status (if applicable)
+- Relevant comorbidities or prior malignancies
+
+Clinical History
+- History of present illness (HPI)
+  - Symptom onset, duration, severity
+  - Diagnostic imaging or lab results
+  - Previous interventions (surgical, pharmacological)
+- Past medical history
+- Surgical history
+- Medication history
+- Family medical history
+
+Assessment at Consultation
+- ECOG Performance Status or equivalent functional assessment
+- Vital signs (weight, blood pressure, etc.)
+- Relevant laboratory values or biomarkers
+- Physical exam findings
+- Imaging studies and results
+
+Planned Interventions or Treatment
+- Proposed pharmacological therapy
+  - Drug names, doses, schedules
+- Proposed surgical or procedural interventions
+- Radiotherapy plans (if applicable)
+- Monitoring or follow-up procedures
+
+Treatment Rationale
+- Explanation for treatment choice based on:
+  - Disease stage and biology
+  - Patient functional status
+  - Safety considerations
+  - Evidence from guidelines or prior studies
+
+Follow-up and Outcomes Tracking
+- Planned follow-up dates and assessments
+- Metrics to track disease progression (e.g., tumor size, metastasis, lab values)
+- Adverse events and safety monitoring
+- Patient-reported outcomes (optional)
+
+Comments / Notes
+- Additional considerations or observations by clinician
+- Any relevant patient preferences or social considerations
+</TEMPLATE>
+
+Below is the patient profile:
+<PATIENT>
+{"demographics": {"age_or_birthdate": "47 anos", "sex": "Feminino", "smoking_status": "Nunca fumou", "alcohol_use": "Social ocasional"}, "performance_status": {"ecog_ps": 0}, "diagnosis": {"primary_site": "Mama esquerda", "histology": "Carcinoma invasor NST", "grade": "G3", "diagnosis_date": "2025-06-12", "stage": {"tnm": "cT2N1M0", "overall_stage": "IIIA"}, "metastatic_sites": []}, "molecular_profile": {"hormone_receptors": "ER negativo, PR negativo", "HER2": "Negativo (0)", "PD-L1": "CPS 15", "NGS": "Sem muta\u00e7\u00f5es acion\u00e1veis", "genetic_testing": "BRCA1/2 negativo"}, "medical_history": {"past_medical": ["Hipotiroidismo"], "past_surgical": ["Apendicectomia"], "family_history": ["M\u00e3e com carcinoma da mama aos 62 anos"], "home_medications": ["Levotiroxina 100 mcg id"]}, "diagnostic_workup": {"imaging": [{"type": "PET-CT", "date": "2025-06-20", "findings": "Les\u00e3o mam\u00e1ria esquerda hipermetab\u00f3lica com adenopatias axilares homolaterais, sem evid\u00eancia de metastiza\u00e7\u00e3o \u00e0 dist\u00e2ncia."}], "biopsies": [{"site": "Mama esquerda", "date": "2025-06-15", "histology": "Carcinoma invasor NST G3", "immunohistochemistry": "ER-, PR-, HER2 0, Ki67 70%"}]}, "symptoms": ["N\u00f3dulo mam\u00e1rio palp\u00e1vel", "Astenia G1"], "weight": "62 kg", "treatments": [{"line_number": 1, "regimen": "Paclitaxel semanal + Carboplatina seguido de AC", "intent": "Neoadjuvante", "start_date": "2025-07-01", "end_date": "2025-11-01", "dose_modifications": "Atraso 1 semana por neutropenia G2", "toxicity_events": "Neutropenia G2, epistaxis ligeira, alopecia"}], "radiotherapy": [], "follow_up": {"control_date": "2025-11-15", "reason_for_visit": "Avalia\u00e7\u00e3o pr\u00e9-cir\u00fargica", "planned_next_steps": "Cirurgia conservadora + esvaziamento axilar", "next_appointment": "2025-12-01"}, "administrative": {"physician": "Dr(a). Judy Paulo", "clinic_location": "ULS Coimbra", "service": "Oncologia M\u00e9dica Mama"}}
+</PATIENT>
+
+Below are the last clinical diaries that you have already generated
+<GENERATED_DIARIES>
+No previous diaries available.
+</GENERATED_DIARIES>
+
+Below are example real clinical diaries for structural learning only:
+<DIARIES>
+UNIDADE LOCAL DE SAÚDE COIMBRA
+Diário Clínico
+Consulta Externa
+05-11-2025 12:00
+Dr(a). Judy Paulo (HUC-ONCOLOGIA MEDICA)
+
+65 anos
+Diagnóstico: Carcinoma mamário invasor, NST provável G3
+Estadio: cT1c NO
+Status molecular:
+Recetores hormonais negativos.
+HER2 negativo (score 0).
+- Triplo negativo
+- Teste genetico - pedido a 27/08/2025 - negativo Não foram detetadas variantes patogénicas, provavelmente patogénicas e/ou de significado clínico incerto, incluindo CNVs.
+
+DT Ginecologia 05/08/2025: Proposta para QTNA: PET agendada para 20/08 (com possibilidade de ser antecipada) Pedida RM mamária
+Pedir estudo genético Pedida marcação clip mama
+
+PET/CT 08/2025 - Lesão neoplásica maligna de alto grau metabólico mamária esquerda com metastização ganglionar axilar homolateral.
+Formações ganglionares axilares direitas, inespecíficas.
+Densificações nodulares pulmonares direitas, inespecíficas
+Se PET/CT MO - QTNA 12 semanas de Paclitaxel + carboplatina AUC 1,5 >> 4 ciclos AC
+
+Antecedentes pessoais patológicos:
+- médicos: tumor maligno renal esquerdo,
+- Cirúrgicos: nefrectomia esquerda.
+
+MH: nega
+
+S/ Sem febre ou queixas. astenia grau 1 epistaxis esporádica e escassa.
+
+O/ Doente coc
+ECOG-PS 0
+Peso 65
+analises CAN 1180
+
+P/- adio 1 semana a 10a semana de paclitaxel + carboplatinal
+- faz carboximaltose
+- discutido caso com grupo de mama
+- inicia folifer
+PC de OM 12/11/2025 com analises e h de dia
+Processado por computador - SClinico
+Pag. 1/1
+
+
+UNIDADE LOCAL DE SAÚDE
+COIMBRA
+Diário Clínico
+Consulta Externa
+20-10-2025 10:30
+CANIA ANULUNA
+Dr(a). Judy Paulo (HUC-ONCOLOGIA HDIA PNEUMOLOGIA FOLLOW UP)
+
+Doente de 56 anos,
+Fumador >25UMA
+Diagnóstico: carcinoma do pulmão, metastiozação óssea, ganglionar e hepática - PD-LA TPS 2, 
+Estadio: IV B inicial
+
+História da Doença Atual
+Quadro de lombalgia desde final de maio, com TC a demonstrar fratura patológica de L2, abordada e cimentada pela NC em Agosto de 2025 com biópsia a demonstrar METASTASE DE CARCINOMA COM ESTUDO IMUNOHISTOQUÍMICO A PONTANDO PARA DIFERENCIAÇÃO ESCA MOSA.
+Retorna por alectuamento por dor não controlada.
+
+TC-TAP: No mediastino e hilos pulmonares não se identificam alterações tomodensitométricas, nomeadamente adenopatias. O estudo pulmonar não evidencia alterações tomodensitométricas suspeitas de infiltração neoplásica. Fígado de morfologia e dimensões normais contornos regulares e textura homogénea, não se identificando lesões nodulares sólidas ou quísticas. Não há dilatação das vias biliares. Vesícula biliar de parede fina e sem alterações do conteúdo. Glândulas supra-renais com calcificações lineares, assim como um nódulo hipodenso na glândula esquerda com 11 mm, traduzindo provavelmente adenoma. Pâncreas, baço e rim direito sem alterações tomodensitométricas. No rim esquerdo identificamos um quisto cortical simples com 27 x 18 mm. Não se identificam alterações tomodensitométricas pélvicos. Não há adenopatias das cadeias abdominais e pélvicas, nem derrame peritoneal ou retroperitoneal. Há fractura patológica do corpo vertebral de L2, a caracterizar por biopsia dirigida por TAC.
+
+- Colonoscopia 2024: Colonoscopia total. Cólon muito redundante. Exame de difícil conclusão. Progressão até ao cego. Fundo de saco do cego e válvula ileo-cecal sem alterações. No transverso proximal (cego como referência) excisado, com pinça de biópsia (frasco 1, 1 fragmento) micropólipo; no transverso médio excisado (fragmento não recuperado), com ansa diatérmica, pólipo séssil com 8 mm; no reto/sigmoide excisados (frasco 2, 3 fragmentos), com pinça de biópsias, 6 micropólipos. Escara de polipectomia com ansa bem no final. Restante mucosa (ascendente e descendente) sem alterações.À inspeção anal, sem alterações. Toque retal (sob sedação): sem massas endoluminais, dedo de luva sem sangue.
+
+- Produto de biópsia de L2: Descrição Macroscópica: Recebeu-se já fixado em solução de formol, um fragmento cilíndrico esbranquiçado e firme com focos endurecidos de aspecto calcificado e com 10 mm de comprimento.
+Descrição Histológica: Observa-se tecido ósseo esponjoso com espaços intertrabeculares infiltrados por uma neoplasia epitelial maligna. É constituída por maciços e cordões de células redondas ou poligonais com citoplasma eosinófilo ou claro e atipia nuclear, num estroma fibroso.
+O estudo imunohistoquímico mostra positividade difusa das células tumorais para CAM5.2 e 34BE12, expressão variável para CK5-6 e CK7, positividade focal para P63 e negatividade para P40, GATA 3, CK20, PAX8, TTF1 e PSA.
+Conclusão:: Lesão óssea lombar (L2): Metástase de Carcinoma com estudo imunohistoquímico apontando para diferenciação escamosa (34BE12, CK5-6, P63), nesta amostragem.
+PET 18F-FDG: Destaca-se, no segmento superior do lobo inferior do pulmão direito, nódulo
+Processado por computador - SClínico
+Pag. 1/4
+
+
+UNIDADE LOCAL DE SAÚDE COIMBRA
+Diário Clínico
+Consulta Externa
+05-11-2025 10:00
+Dr(a). Judy Paulo (HUC-ONCOLOGIA HDIA PNEUMOLOGIA FOLLOW UP)
+
+58 anos,
+ECOG-PS 0
+Diagnóstico de: Adenocarcinoma do pulmão
+Estadio IV (metastização pulmonar bilateral
+- Status molecular PD-L1 negativo
+- NGS - KRAS mutado G12A
+
+HDA
+- TC tórax (16/06/2025)
+- BFO (17/06/2025): ..e PD-L1 (22C3, Dako): TPS =0%; TPS <1; resultado negativo. DIAGNÓSTICO ANÁTOMO-PATOLÓGICO: Adenocarcinoma do pulmão. (NOTA: foi excluida a hipótese de MX de carcinoma
+1
+da tiróide)
+- EFV com DLCO (21/07/2025):
+- Ecocardiograma (08/07/2025): Função sistólica global preservada de ambos os ventrículos
+TC- CE sem contraste - sem lesões expansivas
+Tc toracoabdominopélvica - sem lesões extra pulmonares/ganglionares
+
+Proposta de tratamento: quimioterapia com carboplatina + pemetrexed + pembrolizumab (já colicitado à CFT)
+- c1 de carboplatina com pemetrexed 03/09/2025
+
+Resumo:
+Adenocarcinoma do pulmão, PD-L1 negativo
+ESTADIO T3(>7cm) N2 M1a (pulmão)
+Vai fazer TC AP e crânio: 24/07
+NGS-mut KRAS G12A
+
+Antecedentes pessoais patológicos:
+- médicos:
+# psoriase
+# Tiroidectomia total em 24-06-2004 por carcinoma papilar da tiróide classificado como T3m Nx R1 (7a. edição) / T1am Nx R1 (8a. edição). Administração de iodo 131 para tratamento ablativo em 27-09-2004 (4.440 MBQ)
+# Excisão de quisto sebáceo dorsal 2019
+# Psoríase em placas
+# Discopatia L5-S1
+#HTA
+# Dislipidémia
+
+MH: eutirox 150 alternado com 137 id, omeprazol 1id, Pitavastatina, 2 mg id, Brometo de umec lidínio + Vilanterol [Anoro Ellipta], 55 μg +22 μg agrava suspendeu, Sulodexida [Vessel], 250 LSU suspendeu, Amlodipina, 5 mg 1id noite, substituiu olmesartan medoxomilo, 20 mg id.
+
+Processado por computador - SClínico
+Pag. 1/2
+
+
+UNIDADE LOCAL DE SAÚDE COIMBRA
+Diário Clínico
+Consulta Externa
+05-11-2025 10:30
+Dr(a). Judy Paulo (HUC-ONCOLOGIA HDIA PNEUMOLOGIA FOLLOW UP)
+
+Doente de 78 anos,
+ECOG-PS 2-3
+Diagnóstico: Adenocarcinoma pulmão,
+status molecular: PD-L1 5%, NGS negativo
+Atualmente estadio IV metastização óssea extensa
+C1 carboplatino/pemetrexed a 30/07/2025 ( efetuou 2 ciclos)
+
+AP: neo pulmão sobmetido a SBRT - SBRT com a dose de 48Gy/4fr com terminus a 18/04/2024
+
+MCDTs prévios:
+- TC controlo 03/07/2024:
+- TC-T 23/11/2024:
+- TC-CE25/03/2025 (consulta RSE)
+- TC-Tórax 30/06/25:
+- TC coluna exterior
+Internamento UCIC H Viseu por 11/07/2025 a 18/07/2025 por Enfarte agudo do miocárdio - Angioplastia com DEB da lesão da DAd, com sucesso, sem lesão residual e fluxo final TIMI 3
+- 18/07/2025 DT Pneumo - Será convocado após a alta hospitalar para consulta (ULSC) para avaliação de condições clínicas para inicio de QT+IT+Zometa (consulta a 23/07/2025).
+- 23/07/2025 Consulta OM:
+- PET/CT 25/07/2025: metastização hepática e óssea de alto grau metabólico, referindo-se, ainda, lesão nodular no lobo
+médio também sugestiva de lesão de alto grau metabólico em atividade (também metastática?). Densificação nodular de contornos irregulares e com esboço de caudas pleurais na língula, apenas com captação discreta de FDG-F18, contudo, com algumas características imagiológicas de suspeição, a confrontar com estudos imagiológicos prévios/controlar (primitivo tratado? outra lesão?).
+DT de 25/07/2025: Apresentado a radioncologia para irradiação de lesão cervical. Será avaliado para nicio
+de terapeutica oncologica sistemica a 30/07/2025. Pedida autorização IT à CFT.
+- Proposto: Carboplatina AUV 5, pemetrexed 200mg/m2 de 3/3 semanas + Pembrolizumab 200mg 3/3
+semanas 4 ciclos, com manutenção subsequente de pembrolizumab e pemetrexed nas mesmas doses.
+RT antiálgica de dose total de 20Gy/5F/1S dirigidos a D2 com margem.até 8/09/2025
+
+Antecedentes pessoais patológicos:
+- sindrome coronária crónica
+- EAM com supra de ST, inferior, em 2013, submetido a ICP da PL e Cddistal.
+- Adenocarcinoma pulmão,
+-DPOC por enfisema.
+- FRCV (Tabagismo, HTA, Dis lipidemia)
+- EAM a 11/07/2025 - submetido a angioplastia
+Cirúrgicos: cirurgia coluna há 30 anos EUA aos 35 anos traumatico, herniorrafia inguinal
+MH:
+- Amlodipina 5mg 1 cp de manhã,
+Processado por computador - SClínico
+Pag. 1/2
+</DIARIES>
