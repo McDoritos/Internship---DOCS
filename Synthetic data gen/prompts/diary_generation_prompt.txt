@@ -4,7 +4,7 @@ IMPORTANT:
 - Learn only the formatting, tone, abbreviations, and structural style.
 
 CLINICAL CONSISTENCY RULES:
-- Ensure strict internal consistency with the patient profile (diagnosis, stage, molecular profile, treatment lines, ECOG, comorbidities).
+- Ensure internal clinical consistency with the patient profile (diagnosis, stage, molecular profile, treatment lines, ECOG, comorbidities).
 - Maintain chronological coherence between diagnosis date, treatments, imaging, and follow-up.
 - Toxicities must match the type of therapy administered.
 - Imaging findings must align with the known disease stage.
@@ -30,6 +30,12 @@ STRUCTURAL STYLE REQUIREMENT (MANDATORY):
 - Do NOT enforce a fixed checklist order.
 - Do NOT force rigid SOAP structure unless naturally present in the example set.
 
+STYLE RULES FOR THIS DIARY:
+- Do not use any Markdown formatting.
+- Do not use bold, italics, headings, lists, code blocks, or symbols such as *, _, #, ` or ---.
+- Write only plain text sentences and paragraphs.
+- The diary must look like natural free text, with no formatting cues.
+
 DOCUMENTAL MIXING REQUIREMENT:
 - Allow insertion of internal clinical workflow notes (e.g., discussed in tumor board, autorização solicitada à CFT, referenciado a RT, articulado com Pneumologia, etc.).
 - Allow partially transcribed imaging excerpts (not necessarily full formal reports).
@@ -37,12 +43,30 @@ DOCUMENTAL MIXING REQUIREMENT:
 - Prior examinations (MCDTs prévios) may appear in mixed order if clinically coherent.
 
 CONTROLLED IMPERFECTION REQUIREMENT:
-- Mild formatting inconsistencies are acceptable.
-- Occasional capitalization inconsistencies may occur.
-- Not all sections need symmetrical structure.
-- Some imaging reports may appear partially transcribed.
-- Minor repetition of clinically relevant information is acceptable.
-- Avoid perfectly clean academic formatting.
+To simulate authentic hospital exports, the diary MUST include structural irregularities.
+The following imperfections are REQUIRED in every diary:
+1) At least 2 formatting inconsistencies, such as:
+   - Uneven spacing
+   - Irregular line breaks
+   - Slightly misaligned blocks
+   - Mixed bullet styles or missing bullet symbols
+2) At least 1 capitalization inconsistency, such as:
+   - Random full uppercase word
+   - Mixed lower/upper case in section labels
+   - Inconsistent use of accents or abbreviations
+3) At least 1 structural asymmetry, such as:
+   - A section without a clear header
+   - A header that appears without content symmetry
+   - A clinical block appearing without label
+4) At least 1 minor repetition of clinically relevant information (e.g., restating stage, ECOG, treatment line later in the note).
+5) At least 1 partially transcribed imaging or diagnostic excerpt (not fully formatted as a clean radiology report).
+6) Some common spelling mistakes.
+
+Imperfect punctuation may occasionally occur.
+Dates may appear in slightly different formats within the same note.
+Some lists may abruptly switch formatting style.
+
+The document MUST NOT appear perfectly formatted, academically structured, or stylistically symmetrical.
 
 DOCUMENT FLOW VARIABILITY RULE:
 - The diary does NOT need to follow a clean logical progression.
@@ -50,12 +74,6 @@ DOCUMENT FLOW VARIABILITY RULE:
 - Treatment plans may appear before full imaging detail.
 - Prior decisions may be re-mentioned later in the note.
 - Blocks such as "Plano", "Resumo", or "Avaliação" may be omitted or merged into surrounding text.
-
-STRUCTURAL ASYMMETRY REQUIREMENT:
-- Avoid consistently structured labeled sections.
-- Some diaries may contain dense uninterrupted clinical blocks.
-- Some notes may lack explicit headers for sub-sections.
-- Avoid perfectly formatted bullet symmetry.
 
 REALISTIC DOCUMENT NOISE:
 - May include references such as:
@@ -82,23 +100,23 @@ AUTHENTICITY CONSTRAINT:
 All clinically relevant information from the patient profile must be represented in the diary.
 The order and visual distribution may vary naturally.
 
-The clinical reasoning flow must reflect:
-- Evolution of disease
-- Current complaints
-- Clinical assessment
-- Management decision
-- Ongoing monitoring plan
+Clinical reasoning should be implicit within the documentation.
+Decisions may appear without explicit justification.
+Not all reasoning steps need to be fully verbalized.
 
-CONTENT DEPTH REQUIREMENT:
-- The diary must cover:
-    - Patient identification
-    - Diagnosis and disease characteristics
-    - Clinical history and comorbidities
-    - Functional assessment
-    - Treatment line identification
-    - Treatment plan and rationale
-    - Follow-up strategy
-    - Safety monitoring and adverse events (if applicable)
+CONTENT INTEGRITY REQUIREMENT:
+
+All core clinical elements typically present in oncology follow-up documentation 
+must be represented within the diary.
+
+These include:
+patient identification, diagnosis and staging context, comorbidities, functional status, 
+treatment line, management decision, follow-up plan and safety monitoring when applicable.
+
+These elements must be present, but may appear implicitly, fragmented, 
+or dispersed throughout the document.
+
+They must not be presented as a structured checklist.
 
 - When clinically applicable, include:
     - At least one quantified laboratory value (numeric result + unit).
@@ -106,21 +124,59 @@ CONTENT DEPTH REQUIREMENT:
     - Explicit treatment line identification (e.g., 1ª linha, manutenção).
     - Molecular/biomarker data when relevant.
 
-LENGTH MODE INTERPRETATION:
-The required length of the clinical diary will be provided.
-- short → brief, telegraphic, minimal elaboration. Limited contextual history. Focused visit.
-- medium → balanced clinical documentation with moderate longitudinal reference.
-- long → complex longitudinal oncology documentation.
-    The diary should simulate accumulation of clinical history across time.
-    It may include:
-        - Multiple prior imaging dates
-        - Treatment modifications
-        - Dose adjustments
-        - Intercurrent hospitalizations
-        - Multi-specialty interaction
-        - Repeated ECOG references
-        - Administrative and workflow layering
-    The document should feel dense and organically accumulated.
+These elements do not need explicit sectioning or structured ordering.
+They may appear dispersed within the clinical flow.
+
+CLINICAL DOCUMENT REALISM ADJUSTMENT:
+- Avoid explanatory transitions such as:
+  "Given that", "Considering that", "In view of", "Therefore", "Thus".
+- Avoid explicit causal linking between events unless clinically critical.
+- Do not over-explain standard oncology decisions.
+- It is acceptable for therapeutic decisions to appear abrupt.
+- Not every abnormality needs commentary.
+- Some clinical elements may be briefly mentioned without elaboration.
+- The note should reflect how clinicians actually write under time pressure.
+
+LENGTH MODE INTERPRETATION (CONTENT DENSITY DEFINITION):
+The required length defines clinical density and documentary layering, 
+not merely text size.
+- short → Focused but clinically complete oncology note.
+    Must still include:
+        - Diagnosis and stage
+        - At least one imaging reference
+        - At least one quantified laboratory value
+        - Explicit treatment line identification
+        - ECOG-PS
+        - Clear management decision
+    The note is concise but medically substantial.
+    No superficial summaries.
+- medium → Structured oncology follow-up with meaningful longitudinal reference.
+    Must include:
+        - At least two diagnostic or imaging references (different dates or modalities)
+        - Reference to laboratory evaluation when clinically relevant.
+          This may appear as:
+            - Brief mention (e.g., "analises sem alterações relevantes")
+            - Parameter reference without full panel
+            - Marker reference (e.g., CA 15-3, PSA, LDH)
+            - Mention of pending or requested laboratory tests
+          Full structured laboratory panels are not required.
+        - Explicit treatment line
+        - Toxicity documentation if applicable
+        - Evidence of disease evolution (response, stability or progression)
+        - At least one internal workflow or administrative note
+    Should reflect ongoing management rather than a single visit snapshot.
+- long → High-density longitudinal oncology documentation.
+    Must include:
+        - Three or more imaging references across time
+        - Reference to laboratory monitoring across time (may be qualitative, e.g., "mantém estabilidade analítica", "ligeira anemia", "analises pendentes").
+        - Treatment modifications or dose adjustments
+        - Explicit chronology of disease course
+        - Multi-specialty interaction (if clinically coherent)
+        - At least one intercurrent event (hospitalization, toxicity, delay, complication)
+        - Repeated ECOG reference or functional evolution
+        - Administrative/workflow layering
+    The diary should simulate accumulated clinical history across multiple visits.
+    It must feel dense, layered, and organically constructed.
 
 Below you have the length for the clinical diary:
 <LENGTH>
