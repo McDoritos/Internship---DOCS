@@ -1,0 +1,78 @@
+{
+  "demographics": {
+    "age_or_birthdate": "58 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 10 UMA",
+    "alcohol_use": "Social"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Pele, dorso",
+    "histology": "Melanoma cutâneo de disseminação superficial",
+    "grade": "Alto grau",
+    "diagnosis_date": "2025-02-18",
+    "stage": {
+      "tnm": "cT3bN2M1c",
+      "overall_stage": "IV irressecável"
+    },
+    "metastatic_sites": ["Pulmão", "Fígado", "Gânglios linfáticos à distância"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "N/A",
+    "PD-L1": "Positivo 15%",
+    "NGS": "BRAF wild type, NRAS wild type, mutação ativadora KIT exon 11",
+    "genetic_testing": "Aberração acionável identificada (KIT mutado)"
+  },
+  "medical_history": {
+    "past_medical": ["Dislipidemia"],
+    "past_surgical": ["Exérese de lesão cutânea dorsal 2025"],
+    "family_history": ["Nega história familiar de melanoma"],
+    "home_medications": ["Atorvastatina 20 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-09-10",
+        "findings": "Múltiplas lesões pulmonares bilaterais e lesões hepáticas compatíveis com metastização. Progressão dimensional >20% segundo RECIST 1.1."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Metástase hepática",
+        "date": "2025-03-05",
+        "histology": "Melanoma metastático",
+        "immunohistochemistry": "S100+, HMB45+, Melan-A+, BRAF V600 negativo"
+      }
+    ]
+  },
+  "symptoms": ["Fadiga", "Perda ponderal 5 kg", "Tosse seca ocasional"],
+  "weight": "78 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Nivolumab + Ipilimumab",
+      "intent": "Paliativo",
+      "start_date": "2025-03-20",
+      "end_date": "2025-08-30",
+      "dose_modifications": "Atraso ciclo 2 por hepatotoxicidade G2 resolvida",
+      "toxicity_events": "Hepatotoxicidade G2",
+      "best_response": "Doença progressiva após 6 meses"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-09-15",
+    "reason_for_visit": "Avaliação para inclusão em ensaio clínico após progressão",
+    "planned_next_steps": "Referenciação para NGS Molecular Testing Platform e terapêutica alvo dirigida (KIT)",
+    "next_appointment": "2025-10-01"
+  },
+  "administrative": {
+    "physician": "Dr(a). Miguel Santos",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica, Tumores Cutâneos"
+  }
+}

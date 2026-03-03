@@ -1,0 +1,72 @@
+{
+  "demographics": {
+    "age_or_birthdate": "81 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 50 UMA",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Pulmão direito",
+    "histology": "Adenocarcinoma",
+    "grade": "Pouco diferenciado",
+    "diagnosis_date": "2025-02-15",
+    "stage": {
+      "tnm": "cT2N2M1b",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "TC3 (≥50%) determinado por SP142",
+    "NGS": "EGFR negativo, ALK negativo",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": [
+      "DPOC GOLD II estável",
+      "Doença coronária crónica estável sem eventos nos últimos 12 meses"
+    ],
+    "past_surgical": ["Herniorrafia inguinal"],
+    "family_history": ["Nega"],
+    "home_medications": ["Broncodilatadores", "AAS 100 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-02-10",
+        "findings": "Massa pulmonar direita 4 cm e lesão hepática 2.5 cm mensurável segundo RECIST v1.1."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pulmão direito",
+        "date": "2025-02-15",
+        "histology": "Adenocarcinoma pouco diferenciado",
+        "immunohistochemistry": "TTF1+, PD-L1 TC3 por SP142"
+      }
+    ]
+  },
+  "symptoms": ["Astenia G1", "Dispneia aos esforços moderados"],
+  "weight": "60 kg",
+  "treatments": [],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-04-15",
+    "reason_for_visit": "Avaliação inicial para tratamento sistémico",
+    "planned_next_steps": "Proposta para inclusão em ensaio clínico",
+    "next_appointment": "A definir"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica",
+    "life_expectancy": "≥3 meses",
+    "adequate_organ_function": true
+  }
+}

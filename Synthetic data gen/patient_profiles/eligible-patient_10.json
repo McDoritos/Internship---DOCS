@@ -1,0 +1,80 @@
+{
+  "demographics": {
+    "age_or_birthdate": "64 anos",
+    "sex": "Masculino",
+    "smoking_status": "Fumador ativo 50 UMA",
+    "alcohol_use": "Elevado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Pulmão direito",
+    "histology": "Carcinoma de pequenas células",
+    "grade": "Alto grau",
+    "diagnosis_date": "2025-02-01",
+    "stage": {
+      "tnm": "T4N3M1c",
+      "overall_stage": "Extenso (IV)"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "N/A",
+    "PD-L1": "Não aplicável",
+    "NGS": "Não realizado",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["DPOC estável", "HTA controlada"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Pai fumador com neoplasia pulmonar"],
+    "home_medications": ["Broncodilatador inalatório", "Ramipril 5 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-01-28",
+        "findings": "Massa hilar direita 5.2 cm e múltiplas lesões hepáticas até 3.1 cm, mensuráveis segundo RECIST 1.1."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pulmão direito",
+        "date": "2025-02-01",
+        "histology": "Carcinoma de pequenas células",
+        "immunohistochemistry": "Synaptophysin+, Chromogranin+, Ki67 80%"
+      }
+    ],
+    "laboratory": {
+      "ANC": "2.3 x10^9/L",
+      "platelets": "185 x10^9/L",
+      "hemoglobin": "11.2 g/dL",
+      "creatinine": "Normal (≤1.5 ULN)",
+      "creatinine_clearance": "78 ml/min",
+      "AST": "2 x ULN",
+      "ALT": "2.5 x ULN",
+      "total_bilirubin": "1.1 x ULN",
+      "HIV": "Negativo",
+      "HBV": "Negativo",
+      "HCV": "Negativo"
+    }
+  },
+  "symptoms": ["Dispneia ligeira aos esforços", "Tosse produtiva"],
+  "weight": "67 kg",
+  "treatments": [],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-02-05",
+    "reason_for_visit": "Avaliação inicial para início de quimioterapia baseada em platina",
+    "planned_next_steps": "Proposta de inclusão em ensaio clínico antes de iniciar tratamento sistémico",
+    "next_appointment": "A definir"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Pulmonar"
+  }
+}

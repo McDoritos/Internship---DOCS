@@ -1,0 +1,82 @@
+{
+  "demographics": {
+    "age_or_birthdate": "72 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ativo 60 UMA",
+    "alcohol_use": "Elevado"
+  },
+  "performance_status": {
+    "ecog_ps": 2
+  },
+  "diagnosis": {
+    "primary_site": "Pulmão esquerdo",
+    "histology": "Carcinoma escamoso",
+    "grade": "G2",
+    "diagnosis_date": "2025-03-01",
+    "stage": {
+      "tnm": "cT4N3M1c",
+      "overall_stage": "IVC"
+    },
+    "metastatic_sites": ["Osso", "Cérebro (tratada e estável)"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "TPS 80%",
+    "NGS": "Sem mutações acionáveis",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["DPOC estável", "HTA controlada"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Irmão com neoplasia pulmonar"],
+    "home_medications": ["Broncodilatadores inalados"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Crânio",
+        "date": "2025-04-10",
+        "findings": "Metástase cerebral previamente irradiada, atualmente estável, sem edema significativo."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pulmão esquerdo",
+        "date": "2025-03-01",
+        "histology": "Carcinoma escamoso",
+        "immunohistochemistry": "p40+, CK5/6+, PD-L1 TPS 80%"
+      }
+    ],
+    "laboratory": {
+      "ANC": "2200/mm3",
+      "platelets": "210000/mm3",
+      "AST": "Normal",
+      "ALT": "Normal",
+      "creatinine_clearance": "72 mL/min"
+    }
+  },
+  "symptoms": ["Hemoptises ligeiras", "Dor torácica controlada"],
+  "weight": "68 kg",
+  "treatments": [],
+  "radiotherapy": [
+    {
+      "site": "Cérebro",
+      "dose": "20 Gy",
+      "fractions": "5",
+      "start_date": "2025-03-10",
+      "end_date": "2025-03-16"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-04-15",
+    "reason_for_visit": "Avaliação para decisão terapêutica inicial",
+    "planned_next_steps": "Doente considerado não candidato ideal a quimioterapia com dupleto de platina por comorbilidades e preferência pessoal",
+    "next_appointment": "A definir"
+  },
+  "administrative": {
+    "physician": "Dr(a). Miguel Santos",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Pulmonar"
+  }
+}

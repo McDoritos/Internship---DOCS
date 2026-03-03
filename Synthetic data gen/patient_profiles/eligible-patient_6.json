@@ -1,0 +1,82 @@
+{
+  "demographics": {
+    "age_or_birthdate": "52 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Social ocasional"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Mama esquerda",
+    "histology": "Carcinoma invasor NST",
+    "grade": "G3",
+    "diagnosis_date": "2024-11-18",
+    "stage": {
+      "tnm": "cT2N1M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "ER negativo, PR negativo",
+    "HER2": "Positivo (3+)",
+    "PD-L1": "Negativo"
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "FDG-PET",
+        "date": "2025-08-10",
+        "findings": "Duas lesões hepáticas alvo: segmento VIII 2.1 cm (SUVmax 12.4) e segmento IV 1.8 cm (SUVmax 10.1), ambas metabolicamente ativas e elegíveis como target lesions."
+      }
+    ],
+    "cardiac_assessment": {
+      "exam": "Ecocardiograma",
+      "date": "2025-08-05",
+      "LVEF": "58%",
+      "history_of_LVEF_below_40": false
+    },
+    "laboratory": {
+      "ANC": "1.8 x10^9/L",
+      "platelets": "210 x10^9/L",
+      "haemoglobin": "11.2 g/dL",
+      "creatinine": "Normal",
+      "AST": "1.2 x ULN",
+      "ALT": "1.1 x ULN",
+      "bilirubin": "Normal"
+    }
+  },
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Docetaxel + Trastuzumab + Pertuzumab (THP)",
+      "intent": "Paliativo",
+      "start_date": "2024-12-05",
+      "end_date": "2025-04-10"
+    },
+    {
+      "line_number": 2,
+      "regimen": "Trastuzumab Deruxtecan (T-DXd)",
+      "intent": "Paliativo",
+      "start_date": "2025-04-20",
+      "end_date": "2025-08-01",
+      "response": "Progressão radiológica documentada em PET-CT"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {},
+  "exclusion_check": {
+    "brain_metastasis_only": false,
+    "interstitial_lung_disease_history": false,
+    "hepatitis_B_C": false,
+    "HIV": false,
+    "pregnancy_status": "Negativo",
+    "contraindication_TDM1": false
+  },
+  "administrative": {
+    "informed_consent_signed": true,
+    "willing_for_biopsy": true
+  }
+}

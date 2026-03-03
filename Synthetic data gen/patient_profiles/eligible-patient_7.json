@@ -1,0 +1,88 @@
+{
+  "demographics": {
+    "age_or_birthdate": "66 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 20 UMA",
+    "alcohol_use": "Moderado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Cólon sigmoide",
+    "histology": "Adenocarcinoma moderadamente diferenciado",
+    "grade": "G2",
+    "diagnosis_date": "2025-01-12",
+    "stage": {
+      "tnm": "cT3N2M1a",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Negativo",
+    "NGS": "KRAS mutado (G12D)",
+    "genetic_testing": "MMR proficiente (MSS)"
+  },
+  "medical_history": {
+    "past_medical": ["HTA", "Diabetes tipo 2 bem controlada (HbA1c 6.8%)"],
+    "past_surgical": ["Colecistectomia"],
+    "family_history": ["Irmão com carcinoma colorectal"],
+    "home_medications": ["Metformina 850 mg bid", "Ramipril 5 mg id"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-08-15",
+        "findings": "Progressão das lesões hepáticas previamente descritas, com aumento dimensional superior a 20% segundo RECIST 1.1."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Cólon sigmoide",
+        "date": "2025-01-12",
+        "histology": "Adenocarcinoma invasor",
+        "immunohistochemistry": "CK20+, CDX2+, MMR intacto"
+      }
+    ]
+  },
+  "symptoms": ["Alteração do trânsito intestinal", "Rectorragias ocasionais", "Perda ponderal 4 kg"],
+  "weight": "76 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "FOLFOX + Bevacizumab",
+      "intent": "Paliativo",
+      "start_date": "2025-01-25",
+      "end_date": "2025-07-30",
+      "dose_modifications": "Redução oxaliplatina após neuropatia G2",
+      "toxicity_events": "Neuropatia periférica G2, mucosite G1",
+      "best_response": "Resposta parcial inicial seguida de progressão"
+    },
+    {
+      "line_number": 2,
+      "regimen": "FOLFIRI",
+      "intent": "Paliativo",
+      "start_date": "2025-08-25",
+      "end_date": "2025-12-10",
+      "dose_modifications": "Sem alterações relevantes",
+      "toxicity_events": "Diarreia G2",
+      "best_response": "Doença progressiva"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-12-20",
+    "reason_for_visit": "Avaliação para ensaio clínico após progressão em segunda linha",
+    "planned_next_steps": "Referenciação para ensaio clínico com everolimus",
+    "next_appointment": "2026-01-05"
+  },
+  "administrative": {
+    "physician": "Dr(a). Ana Ribeiro",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Digestiva"
+  }
+}
