@@ -45,22 +45,31 @@ DOCUMENTAL MIXING REQUIREMENT:
 CONTROLLED IMPERFECTION REQUIREMENT:
 To simulate authentic hospital exports, the diary MUST include structural irregularities.
 The following imperfections are REQUIRED in every diary:
-1) At least 2 formatting inconsistencies, such as:
-   - Uneven spacing
-   - Irregular line breaks
-   - Slightly misaligned blocks
-   - Mixed bullet styles or missing bullet symbols
-2) At least 1 capitalization inconsistency, such as:
-   - Random full uppercase word
-   - Mixed lower/upper case in section labels
-   - Inconsistent use of accents or abbreviations
-3) At least 1 structural asymmetry, such as:
-   - A section without a clear header
-   - A header that appears without content symmetry
-   - A clinical block appearing without label
-4) At least 1 minor repetition of clinically relevant information (e.g., restating stage, ECOG, treatment line later in the note).
-5) At least 1 partially transcribed imaging or diagnostic excerpt (not fully formatted as a clean radiology report).
-6) Some common spelling mistakes.
+1. At least 2 formatting inconsistencies, such as:
+    - Uneven spacing
+    - Irregular line breaks
+    - Slightly misaligned blocks
+    - Mixed bullet styles or missing bullet symbols
+    - Abrupt line breaks or spacing shifts (added requirement)
+2. At least 1 capitalization inconsistency, such as:
+    - Random full uppercase word
+    - Mixed lower/upper case in section labels
+    - Inconsistent use of accents or abbreviations
+    - Inconsistent abbreviations or partially incorrect terms (added requirement)
+3. At least 1 structural asymmetry, such as:
+    - A section without a clear header
+    - A header that appears without content symmetry
+    - A clinical block appearing without label
+4. At least 1 minor repetition of clinically relevant information, such as restating stage, ECOG, or treatment line later in the note, with small natural variations.
+5. At least 1 partially transcribed imaging or diagnostic excerpt, not fully formatted as a clean radiology report.
+6. Some common spelling mistakes, including mild distortions or near‑misses (e.g., “analises pendetnes”, “adenopatias axilars”).
+7. Additional authenticity requirements (integrated from your new list):
+    - At least 3 formatting inconsistencies overall (the minimum increases when combining both sets).
+    - At least 2 mild spelling errors or inconsistent abbreviations.
+    - At least 2 natural repetitions of clinically relevant information (ECOG, treatment line, stage).
+    - At least 2 fragments of partially transcribed reports without complete formatting.
+    - Sudden alternation of list or bullet styles in consecutive blocks.
+
 
 Imperfect punctuation may occasionally occur.
 Dates may appear in slightly different formats within the same note.
@@ -70,10 +79,14 @@ The document MUST NOT appear perfectly formatted, academically structured, or st
 
 DOCUMENT FLOW VARIABILITY RULE:
 - The diary does NOT need to follow a clean logical progression.
-- Clinical information may appear in non-linear order if chronologically coherent.
+- Clinical information may appear in non‑linear order if chronologically coherent.
 - Treatment plans may appear before full imaging detail.
-- Prior decisions may be re-mentioned later in the note.
-- Blocks such as "Plano", "Resumo", or "Avaliação" may be omitted or merged into surrounding text.
+- Prior decisions may be re‑mentioned later in the note.
+- Blocks such as “Plano”, “Resumo”, or “Avaliação” may be omitted or merged into surrounding text.
+- Distribute information non‑linearly, with exams, treatment decisions, or symptoms appearing before or after the full diagnostic context, as long as the timeline remains plausible.
+- Treatments may be referenced before confirmatory exams, and toxicity notes or ECOG updates may surface in multiple points of the diary.
+- A perfectly chronological sequence of exams is not required and unrealistic; partial or out‑of‑order presentation is acceptable and expected.
+
 
 REALISTIC DOCUMENT NOISE:
 - May include references such as:
@@ -82,15 +95,22 @@ REALISTIC DOCUMENT NOISE:
     - "Aguarda marcação RT"
     - "Articulado com Pneumologia"
     - "Consulta HDIA agendada"
-- Not all abbreviations need expansion.
+- Administrative remarks may appear briefly, out of context, or inserted between clinical blocks, reflecting real-world note-taking.
+- Abbreviations do not need to be expanded consistently, and their form may vary slightly within the same diary.
+- Dates and date formats may also vary internally.
 - Laboratory values may appear inline without structured label.
+- Exam or laboratory notes may be brief, fragmented, or partially transcribed, without full academic formatting.
+- Report fragments may appear with missing headers, cut-off sentences, or incomplete transcription
+
 
 WRITING STYLE CONSTRAINT:
 - Use telegraphic medical syntax.
+- Prefer short, clipped clinical statements
 - Avoid excessive explanatory sentences.
-- Prefer short clinical statements.
+- Prefer short sentences, telegraphic syntax, and natural omission of auxiliary verbs.
 - Do not justify obvious oncology decisions unless clinically complex.
 - Avoid literary phrasing.
+- Avoid explanatory transitions or narrative justification for standard oncology decisions; decisions may appear abruptly
 
 AUTHENTICITY CONSTRAINT:
 - The diary must resemble an exported hospital clinical note.
