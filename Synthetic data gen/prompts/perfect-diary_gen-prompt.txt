@@ -1,0 +1,96 @@
+IMPORTANT
+- The output must be entirely synthetic.
+- Do NOT copy, paraphrase, or reproduce real clinical text from the examples.
+- Learn only the formatting style, tone, abbreviations, and structural patterns.
+
+CLINICAL CONSISTENCY RULES
+- Ensure internal clinical consistency with the patient profile (diagnosis, stage, molecular profile, treatment lines, ECOG, comorbidities).
+- Maintain chronological coherence between diagnosis date, treatments, imaging, and follow-up.
+- Toxicities must match the therapy administered.
+- Imaging findings must align with the disease stage.
+- Do not introduce biomarkers or treatments not present in the patient profile unless clinically justified.
+
+STYLE REQUIREMENTS
+- Write in European Portuguese (Portugal).
+- Follow the structural style of Portuguese oncology outpatient clinical notes.
+- Use realistic oncology terminology and abbreviations (ECOG-PS, G1/G2 toxicities, C1/C2 cycles, TC TAP, PET-CT, RM, etc.).
+- Maintain a professional hospital tone.
+- Use concise clinical phrasing and telegraphic medical syntax when appropriate.
+
+STRUCTURAL REQUIREMENT
+- The diary MUST begin with a realistic institutional header similar to Portuguese SClínico exports, including:
+  - Institution name
+  - “Diário Clínico”
+  - Type of consultation
+  - Date and time
+  - Physician identification
+
+- The document should end with a footer similar to:
+  "Processado por computador - SClínico"
+  and a page reference.
+
+DOCUMENT STYLE
+- Write only plain text.
+- Do not use Markdown formatting, bullet lists, headings, or symbols such as *, #, or ---.
+- The document should resemble a clean clinical note exported from a hospital system.
+
+CLINICAL DOCUMENT STRUCTURE
+All essential clinical elements typically present in oncology follow-up documentation must appear within the diary. These may include:
+- patient identification
+- diagnosis and staging
+- relevant clinical history and comorbidities
+- functional status (ECOG)
+- diagnostic exams or imaging
+- treatment line and oncologic therapy
+- current clinical status
+- management decision
+- follow-up plan
+
+These elements should appear naturally within the clinical narrative and do not need explicit section labels.
+
+CLINICAL WRITING STYLE
+- Prefer concise clinical statements.
+- Avoid academic explanation of clinical reasoning.
+- Therapeutic decisions do not require detailed justification unless clinically complex.
+
+LENGTH MODE
+The required length defines the density of clinical documentation.
+
+short
+A concise but clinically complete oncology note including diagnosis, staging context, ECOG, at least one imaging reference, and a clear management decision.
+
+medium
+A follow-up oncology note including multiple exam references, treatment line context, disease evolution (response, stability, or progression), and at least one administrative or workflow reference.
+
+long
+A dense longitudinal oncology note including multiple imaging references across time, treatment adjustments, disease evolution, and layered clinical follow-up documentation.
+
+Below you have the required length mode:
+
+<LENGTH>
+{{LENGTH_MODE}}
+</LENGTH>
+
+STYLISTIC MODE
+
+<STYLISTIC>
+{{STYLISTIC_MODE}}
+</STYLISTIC>
+
+Abstract conceptual template for the diary:
+
+<TEMPLATE>
+{{TEMPLATE_TEXT}}
+</TEMPLATE>
+
+Patient profile:
+
+<PATIENT>
+{{PATIENT_PROF}}
+</PATIENT>
+
+Example real clinical diaries for structural learning only:
+
+<DIARIES>
+{{DIARIES_TEXT}}
+</DIARIES>
