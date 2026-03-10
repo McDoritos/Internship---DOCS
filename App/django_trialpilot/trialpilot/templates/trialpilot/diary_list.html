@@ -2,6 +2,13 @@
 
 <ul>
     {% for diary in diaries %}
-        <li>{{diary}}</li>
+        <li>
+            {{ diary }}
+            <form action="{% url 'parameter_extraction' diary.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Extract Parameters</button>
+            </form>
+        </li>
+
     {% endfor %}
 </ul>

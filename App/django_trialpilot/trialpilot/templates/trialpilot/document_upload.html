@@ -1,0 +1,13 @@
+<h1>Upload Document</h1>
+
+<form action="{% url 'document_upload' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <label for="file">File: </label>
+    <input id="file" type="file" name="file">
+
+    <label for="type">Type: </label>
+    <input id="type" type="checkbox" name="type">
+
+    <input type="submit" value="Upload">
+</form>
