@@ -4,6 +4,7 @@ from django.db import models
 class Document(models.Model):
     title = models.CharField(max_length = 255)
     type = models.BooleanField(default=False)
+    extracted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     

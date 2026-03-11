@@ -1,14 +1,21 @@
-<h1>Clinical Diary List</h1>
+<h1 class="mb-4">Clinical Diary List</h1>
 
-<ul>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} mb-3">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<ul class="list-group">
     {% for diary in diaries %}
-        <li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
             {{ diary }}
-            <form action="{% url 'parameter_extraction' diary.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Extract Parameters</button>
-            </form>
-        </li>
 
+            <a href="{% url 'parameter_extraction' diary.id %}" class="btn btn-primary btn-sm">
+                Extract Parameters
+            </a>
+        </li>
     {% endfor %}
 </ul>
