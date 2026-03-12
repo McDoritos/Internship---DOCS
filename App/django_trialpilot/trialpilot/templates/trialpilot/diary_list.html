@@ -1,21 +1,27 @@
-<h1 class="mb-4">Clinical Diary List</h1>
+{% extends "trialpilot/base.html" %}
 
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} mb-3">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
+{% block title %}Clinical Diary List{% endblock %}
 
-<ul class="list-group">
-    {% for diary in diaries %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{ diary }}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-3">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
-            <a href="{% url 'parameter_extraction' diary.id %}" class="btn btn-primary btn-sm">
-                Extract Parameters
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+    <h1 class="mb-4">Clinical Diary List</h1>
+
+    <ul class="list-group">
+        {% for diary in diaries %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ diary }}
+
+                <a href="{% url 'parameter_extraction' diary.id %}" class="btn btn-primary btn-sm">
+                    Extract Parameters
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

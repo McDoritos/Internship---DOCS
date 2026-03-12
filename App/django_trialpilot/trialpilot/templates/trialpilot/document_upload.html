@@ -1,13 +1,19 @@
-<h1>Upload Document</h1>
+{% extends "trialpilot/base.html" %}
 
-<form action="{% url 'document_upload' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    
-    <label for="file">File: </label>
-    <input id="file" type="file" name="file">
+{% block title %}Document Upload{% endblock %}
 
-    <label for="type">Type: </label>
-    <input id="type" type="checkbox" name="type">
+{% block content %}
+    <h1>Upload Document</h1>
 
-    <input type="submit" value="Upload">
-</form>
+    <form action="{% url 'document_upload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <label for="file">File: </label>
+        <input id="file" type="file" name="file">
+
+        <label for="type">Type: </label>
+        <input id="type" type="checkbox" name="type">
+
+        <input type="submit" value="Upload">
+    </form>
+{% endblock %}
