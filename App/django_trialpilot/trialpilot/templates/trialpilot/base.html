@@ -2,26 +2,66 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}My Site{% endblock %}</title>
 
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
+
 <body>
 
-    <header>
-        <h1>My Website</h1>
-        {% block header %}{% endblock %}
-    </header>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+            <!-- Sidebar -->
+            <nav class="col-md-2 sidebar vh-100 p-3 sidebar-border d-flex flex-column">
+
+                <header>
+                    <h1>TrialPilot</h1>
+                    {% block header %}{% endblock %}
+                </header>
+
+                <div class="sidebar-divider"></div>
+
+                <ul class="nav flex-column my-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link"><b>CLINICAL TRIALS</b></a>
+                    </li>
+
+                    <div class="sidebar-divider"></div>
+
+                    <li class="nav-item">
+                        <a class="nav-link"><b>CLINICAL DIARIES</b></a>
+                    </li>
+
+                    <div class="sidebar-divider"></div>
+
+                    <li class="nav-item">
+                        <a class="nav-link"><b>PATIENTS</b></a>
+                    </li>
+
+                </ul>
+
+                {% block sidebar %}{% endblock %}
+
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-10 p-4">
+                {% block content %}{% endblock %}
+            </main>
+
+        </div>
+    </div>
 
     <footer>
         {% block footer %}{% endblock %}
     </footer>
 
 </body>
+
 </html>
