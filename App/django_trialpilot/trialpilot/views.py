@@ -77,7 +77,15 @@ def document_save(document, file, new_filename, version_id):
 # Create your views here.
 def diary_list(request):
     diaries = Document.objects.filter(type=False)
-    return render(request, 'trialpilot/diary_list.html', {'diaries': diaries})
+
+    diary_data = []
+    for diary in diaries:
+        original_name, ext = diary.title.rsplit('.', 1)
+        diary_data.append((diary, ext.lower()))
+
+    return render(request, 'trialpilot/diary_list.html', {
+        'diary_data': diary_data
+    })
 
 def document_upload(request):
     if request.method == 'POST':
@@ -152,7 +160,7 @@ def parameter_extraction(request, diary_id):
             document.extracted = True
             document.save()
 
-            messages.success(request, "Parâmetros extraídos e validados com sucesso.")
+            messages.success(request, "Parameters extracted and validated with success.")
             return redirect('diary_list')
 
 

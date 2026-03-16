@@ -19,3 +19,20 @@ html, body {
     background-color: #dee2e6;
     margin: 15px 10px;
 }
+
+.rounded-ui {
+    border-radius: 1rem !important;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.diary-card {
+    border-radius: 15px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    padding: 20px;
+}
+
+.diary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}

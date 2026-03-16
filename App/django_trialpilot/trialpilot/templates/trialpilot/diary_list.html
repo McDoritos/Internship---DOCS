@@ -3,25 +3,104 @@
 {% block title %}Clinical Diary List{% endblock %}
 
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} mb-3">
-                {{ message }}
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} mb-3">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- Top Bar -->
+<div class="d-flex flex-column mb-4">
+
+    <!-- Page Title -->
+    <h3 class="mb-3">Clinical Diary List</h3>
+
+    <!-- Buttons + Search -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <!-- Left side (search) -->
+        <form method="GET">
+            <div class="position-relative" style="width:260px">
+                <i class="bi bi-search position-absolute"
+                    style="left:10px; top:50%; transform:translateY(-50%); color:#888;"></i>
+
+                <input type="text" name="search" class="form-control form-control-sm rounded-ui"
+                    style="padding-left: 32px;" placeholder="Search clinical diary...">
             </div>
-        {% endfor %}
-    {% endif %}
+        </form>
 
-    <h1 class="mb-4">Clinical Diary List</h1>
+        <!-- Right side (buttons) -->
+        <div class="d-flex gap-2">
 
-    <ul class="list-group">
-        {% for diary in diaries %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ diary }}
+            <button class="btn btn-outline-secondary btn-sm rounded-ui" style="margin-right: 0.5rem;">
+                <i class="bi bi-funnel" style="margin-right: 0.2rem;"></i>
+                Filter
+            </button>
 
-                <a href="{% url 'parameter_extraction' diary.id %}" class="btn btn-primary btn-sm">
-                    Extract Parameters
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+
+            <a href="{% url 'document_upload' %}" class="btn btn-outline-secondary btn-sm rounded-ui">
+                <i class="bi bi-upload" style="margin-right: 0.2rem;"></i>
+                Import
+            </a>
+
+
+        </div>
+
+    </div>
+
+    <div class="sidebar-divider mb-4"></div>
+
+</div>
+
+<div class="row g-3">
+    {% for diary, extension in diary_data %}
+    <div class="col-6 col-md-4 col-lg-3">
+        <div class="text-decoration-none diary-card-trigger" data-diary-id="{{ diary.id }}"
+            data-diary-title="{{ diary.title }}" data-diary-extracted="{{ diary.extracted }}">
+
+            <div class="card text-center shadow-sm diary-card">
+
+                <div class="card-body">
+                    {% if extension == "pdf" %}
+                    <i class="bi bi-file-earmark-pdf" style="font-size: 4rem; color:#d9534f;"></i>
+                    {% else %}
+                    <i class="bi bi-file-earmark-text" style="font-size: 4rem; color:#0275d8;"></i>
+                    {% endif %}
+
+                    <p class="mt-2 text-dark">{{ diary.title }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="diaryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Clinical Diary</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="diaryModalBody">
+                <!-- Texto preenchido dinamicamente -->
+            </div>
+
+            <div class="modal-footer" id="diaryModalFooter">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a id="confirmDiaryAction" class="btn btn-primary">Continue</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 {% endblock %}
