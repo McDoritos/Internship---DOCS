@@ -12,6 +12,8 @@
 {% endfor %}
 {% endif %}
 
+<div id="alertContainer"></div>
+
 <!-- Top Bar -->
 <div class="d-flex flex-column mb-4">
 
@@ -41,10 +43,11 @@
             </button>
 
 
-            <a href="{% url 'document_upload' %}" class="btn btn-outline-secondary btn-sm rounded-ui">
-                <i class="bi bi-upload" style="margin-right: 0.2rem;"></i>
+            <button class="btn btn-outline-secondary btn-sm rounded-ui" data-bs-toggle="modal"
+                data-bs-target="#uploadModal">
+                <i class="bi bi-upload"></i>
                 Import
-            </a>
+            </button>
 
 
         </div>
@@ -57,11 +60,11 @@
 
 <div class="row g-3">
     {% for diary, extension in diary_data %}
-    <div class="col-6 col-md-4 col-lg-3">
+    <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="text-decoration-none diary-card-trigger" data-diary-id="{{ diary.id }}"
             data-diary-title="{{ diary.title }}" data-diary-extracted="{{ diary.extracted }}">
 
-            <div class="card text-center shadow-sm diary-card">
+            <div class="card text-center shadow-sm diary-card h-100">
 
                 <div class="card-body">
                     {% if extension == "pdf" %}
@@ -98,6 +101,51 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <a id="confirmDiaryAction" class="btn btn-primary">Continue</a>
             </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uploadModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content p-3 rounded-ui">
+
+            <h5 class="text-center mb-3">Clinical Trial Upload</h5>
+
+            <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'document_upload' %}">
+                {% csrf_token %}
+
+                <!-- Drop Zone -->
+                <div id="dropZone"
+                    class="border border-2 border-dashed rounded-ui text-center mb-3 d-flex flex-column justify-content-center"
+                    style="cursor:pointer; background:#f8f9fa; height:200px;">
+
+                    <i class="bi bi-file-earmark-arrow-up" style="font-size:2rem;"></i>
+                    <p class="mt-2 mb-0">
+                        Drag & drop or <span class="text-primary">browse</span>
+                    </p>
+
+                    <input type="file" name="file" id="fileInput" style="display:none;">
+                </div>
+
+                <!-- File preview -->
+                <div id="filePreview" class="mb-3"></div>
+
+                <div id="progressContainer" class="mb-3" style="display:none;">
+                    <div class="progress">
+                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated"
+                            role="progressbar" style="width: 0%">
+                        </div>
+                    </div>
+                    <small id="progressText">Uploading... 0%</small>
+                </div>
+
+                <input type="hidden" name="type" value="false">
+
+                <button type="submit" class="btn btn-primary w-100 rounded-ui">
+                    Upload
+                </button>
+            </form>
 
         </div>
     </div>

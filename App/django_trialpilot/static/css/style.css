@@ -26,6 +26,10 @@ html, body {
     padding-right: 15px;
 }
 
+.border-dashed {
+    border-style: dashed !important;
+}
+
 .diary-card {
     border-radius: 15px;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -35,4 +39,20 @@ html, body {
 .diary-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.diary-card {
+    border-radius: 15px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    padding: 20px;
+    height: 250px !important; /* força altura fixa */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

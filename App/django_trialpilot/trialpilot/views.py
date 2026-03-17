@@ -108,7 +108,8 @@ def document_upload(request):
             
             document_save(document, file, new_filename, version_id='RAW')
             
-            return redirect('document_upload_success') 
+            messages.success(request, "Clinical diary uploaded successfully.")
+            return redirect('diary_list') 
 
     else:
         form = UploadDocumentForm()
