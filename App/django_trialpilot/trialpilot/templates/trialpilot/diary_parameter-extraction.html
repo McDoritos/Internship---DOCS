@@ -3,27 +3,48 @@
 {% block title %}Diary Parameter Extraction{% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Diary Parameter Extraction</h1>
+<div class="d-flex flex-column mb-4 ml-3 mr-3">
+    <h3 class="mb-3">Diary Parameter Extraction</h3>
 
-    <div class="mb-4">
-        <h3>Diary contents:</h3>
-        <p class="border p-3 bg-light">{{ diary }}</p>
+    <p>Parameter extraction for the clinical diary - {{ diary.title }}</p>
+
+    <div class="sidebar-divider mb-4"></div>
+</div>
+
+<div class="row g-4 ml-2 mr-2">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-md-6 d-flex flex-column">
+        <h4>Diary contents:</h4>
+
+        <div class="border p-3 bg-light rounded-ui flex-grow-1 mt-3" style="max-height: 70vh; overflow-y: auto;">
+            {{ diary_content }}
+        </div>
     </div>
 
-    <h3>Extracted Parameters:</h3>
+    <!-- RIGHT COLUMN -->
+    <div class="col-md-6 d-flex flex-column">
+        <h4>Extracted Parameters:</h4>
 
-    <form method="POST" class="mt-3">
-        {% csrf_token %}
 
-        <ul class="list-group mb-3">
-            {% for key, value in extracted_params.items %}
-                <li class="list-group-item">
-                    <label class="form-label"><strong>{{ key }}:</strong></label>
-                    <input type="text" name="{{ key }}" value="{{ value }}" class="form-control">
-                </li>
-            {% endfor %}
-        </ul>
+        <form method="POST" class="mt-3">
+            <div class="flex-grow-1" style="max-height: 70vh; overflow-y: auto;">
+                {% csrf_token %}
 
-        <button type="submit" class="btn btn-success">Confirm and Save</button>
-    </form>
+                <ul class="list-group mb-3">
+                    {% for key, value in extracted_params.items %}
+                    <li class="list-group-item">
+                        <label class="form-label"><strong>{{ key }}:</strong></label>
+                        <input type="text" name="{{ key }}" value="{{ value }}" class="form-control">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button type="submit" class="btn btn-success w-50 mt-3 d-block mx-auto">Confirm and Save</button>
+        </form>
+
+    </div>
+
+</div>
+
 {% endblock %}

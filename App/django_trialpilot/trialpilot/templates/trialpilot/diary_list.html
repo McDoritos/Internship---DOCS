@@ -68,9 +68,9 @@
 
                 <div class="card-body">
                     {% if extension == "pdf" %}
-                    <i class="bi bi-file-earmark-pdf" style="font-size: 4rem; color:#d9534f;"></i>
+                    <i class="bi bi-filetype-pdf" style="font-size: 4rem; color:#d9534f;"></i>
                     {% else %}
-                    <i class="bi bi-file-earmark-text" style="font-size: 4rem; color:#0275d8;"></i>
+                    <i class="bi bi-filetype-txt" style="font-size: 4rem; color:#0275d8;"></i>
                     {% endif %}
 
                     <p class="mt-2 text-dark">{{ diary.title }}</p>
@@ -127,6 +127,8 @@
 
                     <input type="file" name="file" id="fileInput" style="display:none;">
                 </div>
+
+                <div id="uploadError" class="alert alert-danger d-none"></div>
 
                 <!-- File preview -->
                 <div id="filePreview" class="mb-3"></div>

@@ -7,7 +7,19 @@ html, body {
 }
 
 .sidebar {
-    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px; /* define largura fixa */
+    height: 100vh;
+    overflow-y: auto;
+    background: white; /* opcional */
+    z-index: 1000;
+}
+
+.main-content {
+    margin-left: 240px; /* igual à largura da sidebar */
+    padding: 20px;
 }
 
 .sidebar-border {
@@ -17,7 +29,8 @@ html, body {
 .sidebar-divider {
     height: 1px;
     background-color: #dee2e6;
-    margin: 15px 10px;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 .rounded-ui {

@@ -19,6 +19,32 @@ SYS_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" /
 CLIENT = Groq(api_key=GROQ_KEY)
 MODEL = "openai/gpt-oss-120b"
 TEMP = 0.7
+
+dummy_params = {
+    "age_or_birthdate": 45,
+    "ecog_ps": 0,
+    "diagnosis_date": "2020-01-01",
+    "molecular_status": "ER 90%, PR 40%, HER2 0 (negative)",
+    "stage": "pT2N2M0 (Stage IIIA)",
+    "treatments": {
+        "1_treatment": {
+            "start_date": "2025-01-15",
+            "end_date": "2025-01-15"
+        },
+        "2_treatment": {
+            "start_date": "2025-02-01",
+            "end_date": "2025-06-15"
+        }
+    },
+    "control": (
+        "Post‑treatment PET‑CT (2025-06-20) showed no residual uptake in the operated breast, "
+        "reduced axillary adenopathy, and no distant metastases. "
+        "Comorbidity: hypertension treated with Ramipril 5 mg. "
+        "Ongoing follow‑up includes breast MRI scheduled for 2026-01-10 "
+        "and PET‑CT on 2026-04-10."
+    )
+}
+
 # Auxiliary functions
 
 
@@ -130,7 +156,9 @@ def parameter_extraction(request, diary_id):
         if request.method == 'GET':
             print(f"Received document ID: {diary_id}")
             
-            extracted_params = parameter_extraction_pipeline(document, document_content)
+            #extracted_params = parameter_extraction_pipeline(document, document_content)
+            
+            extracted_params = dummy_params
             
             file_params = ContentFile(json.dumps(extracted_params))
             
@@ -141,7 +169,7 @@ def parameter_extraction(request, diary_id):
             
             document_save(document, file_params, new_filename, 'EXTRACTED')
             
-            return render(request, 'trialpilot/diary_parameter-extraction.html', {"diary": document_content, "extracted_params": extracted_params})
+            return render(request, 'trialpilot/diary_parameter-extraction.html', {"diary": document, "diary_content": document_content, "extracted_params": extracted_params})
 
             
         elif request.method == 'POST':

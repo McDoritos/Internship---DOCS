@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const progressBar = document.getElementById("progressBar");
     const progressText = document.getElementById("progressText");
 
+    const uploadModal = document.getElementById("uploadModal");
+
     if (!dropZone) return;
 
     dropZone.addEventListener("click", () => fileInput.click());
@@ -67,28 +69,70 @@ document.addEventListener("DOMContentLoaded", function () {
         showPreview(files[0]);
     });
 
+    uploadModal.addEventListener("hidden.bs.modal", () => {
+        fileInput.value = "";
+
+        preview.innerHTML = "";
+
+        const errorBox = document.getElementById("uploadError");
+        errorBox.classList.add("d-none");
+        errorBox.innerText = "";
+
+        progressContainer.style.display = "none";
+        progressBar.style.width = "0%";
+        progressText.innerText = "Uploading... 0%";
+
+        dropZone.classList.remove("bg-light");
+    });
+
     fileInput.addEventListener("change", () => {
         showPreview(fileInput.files[0]);
     });
 
     function showPreview(file) {
+        const allowed = ["pdf", "txt"];
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        const errorBox = document.getElementById("uploadError");
+
+        if (!allowed.includes(ext)) {
+            errorBox.classList.remove("d-none");
+            errorBox.innerText = "Only PDF and TXT files are allowed.";
+
+            preview.innerHTML = "";
+            progressContainer.style.display = "none";
+            fileInput.value = "";
+
+            return;
+        }
+
+        errorBox.classList.add("d-none");
+        errorBox.innerText = "";
+
+        let icon = "bi-file-earmark-text";
+        if (ext === "pdf") icon = "bi-filetype-pdf";
+        if (ext === "txt") icon = "bi-filetype-txt";
+
         preview.innerHTML = `
         <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-file-earmark-text"></i>
+            <i class="bi ${icon}" style="font-size:1.5rem;"></i>
             <span>${file.name}</span>
         </div>
     `;
 
-        // 🔥 Mostrar barra imediatamente
         progressContainer.style.display = "block";
-
-        // Reset
         progressBar.style.width = "0%";
         progressText.innerText = "Ready to upload";
     }
 
     form.addEventListener("submit", function (e) {
+
         e.preventDefault();
+
+        if (!fileInput.files.length) {
+            alert("Please select a valid PDF or TXT file.");
+            return;
+        }
 
         const formData = new FormData(form);
 
