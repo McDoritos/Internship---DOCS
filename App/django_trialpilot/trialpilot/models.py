@@ -20,14 +20,14 @@ class Version(models.Model):
         return f"{self.document.title} - {self.version_name}"
     
 class Patient_profile(models.Model):
-    document = models.ForeignKey(Version, on_delete=models.CASCADE, related_name="patient_profiles")
-    age = models.IntegerField()
-    ecog_ps = models.IntegerField()
-    diagnosis = models.CharField(max_length=255)
-    diagnosis_date = models.DateField()
-    molecular_status = models.CharField(max_length=255)
-    stage = models.CharField(max_length=50)
-    control = models.CharField(max_length=255)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name="patient_profiles")
+    age = models.IntegerField(null=True, blank=True)
+    ecog_ps = models.IntegerField(null=True, blank=True)
+    diagnosis = models.CharField(max_length=255, null=True, blank=True)
+    diagnosis_date = models.DateField(null=True, blank=True)
+    molecular_status = models.CharField(max_length=255, null=True, blank=True)
+    stage = models.CharField(max_length=50, null=True, blank=True)
+    control = models.CharField(max_length=255, null=True, blank=True)
     
     def __str__(self):
         return f"Patient {self.id} - {self.diagnosis}"    

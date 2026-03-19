@@ -6,6 +6,20 @@ html, body {
     height: 100%;
 }
 
+.nav-link {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    background-color: #f1f3f5;
+    transform: translateX(5px);
+    color: #000;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -33,6 +47,7 @@ html, body {
     margin-top: 15px;
 }
 
+/* diaries list */
 .rounded-ui {
     border-radius: 1rem !important;
     padding-left: 15px;
@@ -68,4 +83,70 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+/* Patient list */
+.patient-card {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.patient-card:hover {
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.patient-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: auto auto; 
+    gap: 6px 20px;
+    font-size: 0.9rem;
+}
+
+
+.patient-grid div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.patient-grid strong {
+    color: #666;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+/* Container com ID + conteúdo */
+.patient-layout {
+    display: grid;
+    grid-template-columns: 80px 1fr; /* ID + conteúdo */
+    align-items: center;
+    gap: 10px;
+}
+
+/* ID centrado */
+.patient-id {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 600;
+    color: #495057;
+
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+
+    border-radius: 12px;
+    height: 100%;
+    min-height: 60px;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.patient-card:hover .patient-id {
+    background: #eef1f4;
 }

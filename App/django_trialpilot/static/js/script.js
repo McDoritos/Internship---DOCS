@@ -186,3 +186,84 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const patientModal = new bootstrap.Modal(document.getElementById("patientModal"));
+    const patientBody = document.getElementById("patientModalBody");
+    
+
+    document.querySelectorAll(".patient-card-trigger").forEach(card => {
+        card.addEventListener("click", function () {
+
+            const id = this.dataset.id;
+            const age = this.dataset.age;
+            const ecog = this.dataset.ecog;
+            const diagnosis = this.dataset.diagnosis;
+            const date = this.dataset.date;
+            const molecular = this.dataset.molecular;
+            const stage = this.dataset.stage;
+            const control = this.dataset.control;
+
+            const treatments = JSON.parse(this.dataset.treatments || "[]");
+
+            let treatmentsHTML = "";
+
+            if (treatments.length === 0) {
+                treatmentsHTML = "<p class='text-muted'>No treatments available</p>";
+            } else {
+                treatmentsHTML = `
+                    <ul class="list-group">
+                        ${treatments.map(t => `
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${t.name}</strong><br>
+                                    <small>${t.start} → ${t.end || "Ongoing"}</small>
+                                </div>
+                            </li>
+                        `).join("")}
+                    </ul>
+                `;
+            }
+
+            patientBody.innerHTML = `
+                <div class="container-fluid">
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <h5>Patient #${id}</h5>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-6"><strong>Age:</strong> ${age}</div>
+                        <div class="col-md-6"><strong>ECOG:</strong> ${ecog}</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-6"><strong>Diagnosis:</strong> ${diagnosis}</div>
+                        <div class="col-md-6"><strong>Date:</strong> ${date}</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-6"><strong>Molecular:</strong> ${molecular}</div>
+                        <div class="col-md-6"><strong>Stage:</strong> ${stage}</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-12"><strong>Control:</strong> ${control}</div>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-2">Treatments</h6>
+                    ${treatmentsHTML}
+
+                </div>
+            `;
+
+            patientModal.show();
+        });
+    });
+
+});

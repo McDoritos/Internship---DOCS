@@ -1,3 +1,4 @@
+import ast
 import datetime
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
@@ -23,19 +24,22 @@ TEMP = 0.7
 dummy_params = {
     "age_or_birthdate": 45,
     "ecog_ps": 0,
+    "diagnosis": "Invasive ductal carcinoma of the breast",
     "diagnosis_date": "2020-01-01",
     "molecular_status": "ER 90%, PR 40%, HER2 0 (negative)",
     "stage": "pT2N2M0 (Stage IIIA)",
-    "treatments": {
-        "1_treatment": {
+    "treatments": [
+        {
+            "name": "Adjuvant radiotherapy",
             "start_date": "2025-01-15",
             "end_date": "2025-01-15"
         },
-        "2_treatment": {
+        {
+            "name": "Carboplatin + Paclitaxel",
             "start_date": "2025-02-01",
             "end_date": "2025-06-15"
         }
-    },
+    ],
     "control": (
         "Post‑treatment PET‑CT (2025-06-20) showed no residual uptake in the operated breast, "
         "reduced axillary adenopathy, and no distant metastases. "
@@ -47,6 +51,8 @@ dummy_params = {
 
 # Auxiliary functions
 
+def clean_value(value):
+    return None if value in ["None", "", "null", None] else value
 
 def parameter_extraction_pipeline(document, document_content):
     with open(SYS_PROMPT_FILE,"r", encoding="utf-8") as sys_parameter_extraction_prompt_file, \
@@ -111,6 +117,17 @@ def diary_list(request):
 
     return render(request, 'trialpilot/diary_list.html', {
         'diary_data': diary_data
+    })
+    
+def patient_list(request):
+    patients = Patient_profile.objects.all()
+    patient_data = []
+    for patient in patients:
+        treatments = Treatment.objects.filter(patient=patient)
+        patient_data.append((patient, treatments))
+
+    return render(request, 'trialpilot/patient_list.html', {
+        'patient_data': patient_data
     })
 
 def document_upload(request):
@@ -177,6 +194,41 @@ def parameter_extraction(request, diary_id):
             corrected_params.pop("csrfmiddlewaretoken", None)
             
             json_string = json.dumps(corrected_params)
+            
+            patient = Patient_profile.objects.create(
+                document=document,
+                age=clean_value(corrected_params.get("age_or_birthdate")),
+                ecog_ps=clean_value(corrected_params.get("ecog_ps")),
+                diagnosis=clean_value(corrected_params.get("diagnosis")),
+                diagnosis_date=clean_value(corrected_params.get("diagnosis_date")),
+                molecular_status=clean_value(corrected_params.get("molecular_status")),
+                stage=clean_value(corrected_params.get("stage")),
+                control=clean_value(corrected_params.get("control")),
+            )
+            
+            treatments_raw = corrected_params.get("treatments")
+            print("Raw treatments data:", treatments_raw)
+
+           
+            try:
+                treatments = ast.literal_eval(treatments_raw)
+            except:
+                treatments = []
+
+            print("Parsed treatments data:", treatments)
+
+            for treatment in treatments:
+                print(f"Processing treatment: {treatment}")
+
+                Treatment.objects.create(
+                    patient=patient,
+                    treatment_name=treatment.get("name"),
+                    start_date=clean_value(treatment.get("start_date")),
+                    end_date=clean_value(treatment.get("end_date")),
+                )
+
+
+
             file_params = ContentFile(json_string)
 
             timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
@@ -189,7 +241,7 @@ def parameter_extraction(request, diary_id):
             document.extracted = True
             document.save()
 
-            messages.success(request, "Parameters extracted and validated with success.")
+            messages.success(request, "Parameters extracted and validated with success. And a new patient profile has been created.")
             return redirect('diary_list')
 
 

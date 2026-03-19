@@ -1,0 +1,109 @@
+{% extends "trialpilot/base.html" %}
+
+{% block title %}Clinical Diary List{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} mb-3">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- Top Bar -->
+<div class="d-flex flex-column mb-4">
+
+    <!-- Page Title -->
+    <h3 class="mb-3">Patients List</h3>
+
+    <!-- Buttons + Search -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <!-- Left side (search) -->
+        <form method="GET">
+            <div class="position-relative" style="width:260px">
+                <i class="bi bi-search position-absolute"
+                    style="left:10px; top:50%; transform:translateY(-50%); color:#888;"></i>
+
+                <input type="text" name="search" class="form-control form-control-sm rounded-ui"
+                    style="padding-left: 32px;" placeholder="Search patient...">
+            </div>
+        </form>
+
+        <!-- Right side (buttons) -->
+        <div class="d-flex gap-2">
+
+            <button class="btn btn-outline-secondary btn-sm rounded-ui" style="margin-right: 0.5rem;">
+                <i class="bi bi-funnel" style="margin-right: 0.2rem;"></i>
+                Filter
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="sidebar-divider mb-4"></div>
+
+</div>
+
+<div class="patient-list">
+
+    {% for patient, treatments in patient_data %}
+    <div class="patient-card patient-card-trigger" data-id="{{ patient.id }}" data-age="{{ patient.age }}"
+        data-ecog="{{ patient.ecog_ps }}" data-diagnosis="{{ patient.diagnosis }}"
+        data-date="{{ patient.diagnosis_date }}" data-molecular="{{ patient.molecular_status }}"
+        data-stage="{{ patient.stage }}" data-control="{{ patient.control }}" data-treatments='[
+        {% for t in treatments %}
+            {
+                "name": "{{ t.treatment_name|escapejs }}",
+                "start": "{{ t.start_date }}",
+                "end": "{{ t.end_date|default:"Ongoing" }}"
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+     ]'>
+
+        <div class="patient-layout">
+
+            <div class="patient-id">
+                #{{ patient.id }}
+            </div>
+
+            <div class="patient-grid">
+                <div><strong>Age:</strong> {{ patient.age }}</div>
+                <div><strong>Diagnosis:</strong> {{ patient.diagnosis }}</div>
+                <div><strong>Molecular:</strong> {{ patient.molecular_status }}</div>
+
+                <div><strong>ECOG:</strong> {{ patient.ecog_ps }}</div>
+                <div><strong>Date:</strong> {{ patient.diagnosis_date }}</div>
+                <div><strong>Stage:</strong> {{ patient.stage }}</div>
+            </div>
+
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+<div class="modal fade" id="patientModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-ui">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Patient Details</h5>
+            </div>
+
+            <div class="modal-body" id="patientModalBody">
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
