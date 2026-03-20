@@ -69,6 +69,16 @@ html, body {
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
+.hover-card {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.hover-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
 .diary-card {
     border-radius: 15px;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -84,6 +94,8 @@ html, body {
     flex-direction: column;
     justify-content: center;
 }
+
+
 
 /* Patient list */
 .patient-card {

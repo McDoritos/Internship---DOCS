@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
+from httpx import request
 from .models import Document, Version, Patient_profile, Treatment
 from .forms import UploadDocumentForm
 from groq import Groq
@@ -12,6 +13,8 @@ import os
 from django.conf import settings
 from pathlib import Path
 import json
+from django.db.models import Avg, Count
+
 
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
@@ -244,5 +247,29 @@ def parameter_extraction(request, diary_id):
             messages.success(request, "Parameters extracted and validated with success. And a new patient profile has been created.")
             return redirect('diary_list')
 
+def index(request):
+    n_diaries = Document.objects.filter(type=False).count()
+    n_patients = Patient_profile.objects.count()
+    n_trials = Document.objects.filter(type=True).count()
+    n_versions = Version.objects.count()
+    avg_versions = Version.objects.count() / Document.objects.count() if Document.objects.count() > 0 else 0
+    
+    avg_age = Patient_profile.objects.aggregate(Avg('age'))['age__avg']
 
-        
+    
+    top_diagnoses = (
+        Patient_profile.objects.values('diagnosis')
+        .annotate(count=Count('id'))
+        .order_by('-count')[:3]
+    )
+
+    
+    return render(request, 'trialpilot/index.html', {
+        'n_diaries': n_diaries,
+        'n_patients': n_patients,
+        'n_trials': n_trials,
+        'n_versions': n_versions,
+        'avg_versions': avg_versions,
+        'avg_age': avg_age,
+        'top_diagnoses': top_diagnoses,
+    })

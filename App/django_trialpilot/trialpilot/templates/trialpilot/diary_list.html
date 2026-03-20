@@ -15,7 +15,7 @@
 <div id="alertContainer"></div>
 
 <!-- Top Bar -->
-<div class="d-flex flex-column mb-4">
+<div class="d-flex flex-column mb-4 ml-3 mr-3">
 
     <!-- Page Title -->
     <h3 class="mb-3">Clinical Diary List</h3>
@@ -58,7 +58,7 @@
 
 </div>
 
-<div class="row g-3">
+<div class="row g-3 ml-3 mr-3">
     {% for diary, extension in diary_data %}
     <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="text-decoration-none diary-card-trigger" data-diary-id="{{ diary.id }}"
@@ -73,7 +73,9 @@
                     <i class="bi bi-filetype-txt" style="font-size: 4rem; color:#0275d8;"></i>
                     {% endif %}
 
-                    <p class="mt-2 text-dark">{{ diary.title }}</p>
+                    <p class="mt-2 text-dark diary-title" title="{{ diary.title }}">
+                        {{ diary.title }}
+                    </p>
                 </div>
 
             </div>

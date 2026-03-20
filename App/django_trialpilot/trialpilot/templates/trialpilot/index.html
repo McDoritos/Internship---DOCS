@@ -1,0 +1,156 @@
+{% extends "trialpilot/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="d-flex flex-column mb-4 ml-3 mr-3">
+    <div>
+        <h3>Home</h3>
+        <p class="text-muted">Overview of clinical data and system usage</p>
+    </div>
+
+    <div class="sidebar-divider mb-4"></div>
+</div>
+
+<div class="container mt-4">
+
+    <!-- Metrics Cards -->
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center rounded-ui hover-card">
+                <div class="card-body">
+                    <h5 class="card-title">📝 Diaries</h5>
+                    <h2>{{ n_diaries }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center rounded-ui hover-card">
+                <div class="card-body">
+                    <h5 class="card-title">👤 Patients</h5>
+                    <h2>{{ n_patients }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center rounded-ui hover-card">
+                <div class="card-body">
+                    <h5 class="card-title">🧪 Trials</h5>
+                    <h2>{{ n_trials }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center rounded-ui hover-card">
+                <div class="card-body">
+                    <h5 class="card-title">🔄 Versions</h5>
+                    <h2>{{ n_versions }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Secondary Metrics -->
+    <div class="row g-4 mt-3">
+
+        <div class="col-md-6">
+            <div class="card shadow-sm text-center rounded-ui hover-card">
+                <div class="card-body">
+                    <h5 class="card-title">📈 Versions per Document</h5>
+                    <h3>{{ avg_versions|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm text-center rounded-ui hover-card">
+                <div class="card-body">
+                    <h5 class="card-title">🎂 Average Age</h5>
+                    <h3>{{ avg_age|floatformat:1 }}</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Top Diagnoses -->
+    <div class="card shadow-sm mt-4 rounded-ui hover-card">
+        <div class="card-body">
+            <h5 class="card-title">🧬 Top Diagnoses</h5>
+            <ul class="list-group list-group-flush">
+                {% for diag in top_diagnoses %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ diag.diagnosis }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Project Description -->
+    <div class="card shadow-sm mt-4 rounded-ui hover-card">
+        <div class="card-body">
+            <h5 class="card-title">📖 About the Application</h5>
+
+            <p>
+                This platform is designed to support oncology clinicians by transforming
+                unstructured clinical data into structured information and enabling
+                efficient clinical trial matching and outcome analysis.
+            </p>
+
+            <hr>
+
+            <h6>📂 Clinical Diaries</h6>
+            <p>
+                Upload and manage unstructured clinical diaries. These documents serve as
+                the input for the extraction pipeline, where relevant patient information
+                is identified and processed.
+            </p>
+
+            <h6>👤 Patient Profiles</h6>
+            <p>
+                View structured patient data extracted from clinical diaries, including
+                demographics, diagnosis, staging, and treatment history. These profiles
+                are validated and stored for further analysis.
+            </p>
+
+            <h6>🧪 Clinical Trials</h6>
+            <p>
+                Import and manage clinical trial documents. The system extracts inclusion
+                and exclusion criteria and converts them into logical rules that can be
+                validated by clinicians.
+            </p>
+
+            <h6>✅ Eligibility Results</h6>
+            <p>
+                Automatically match patients with clinical trials using deterministic
+                evaluation. The system provides a list of eligible patients along with
+                detailed justifications for inclusion or exclusion.
+            </p>
+
+            <h6>📊 Analysis Dashboard</h6>
+            <p>
+                Analyze patient outcomes using survival metrics such as Overall Survival (OS)
+                and Progression-Free Survival (PFS), including Kaplan–Meier visualizations
+                and statistical summaries.
+            </p>
+
+            <hr>
+
+            <p class="mb-0">
+                By integrating Large Language Models with clinician validation and
+                deterministic logic, the system reduces manual workload, improves
+                transparency, and supports data-driven decision-making in oncology.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
