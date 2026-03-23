@@ -4,27 +4,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmBtn = document.getElementById("confirmDiaryAction");
 
     document.querySelectorAll(".diary-card-trigger").forEach(card => {
-        card.addEventListener("click", function () {
+        card.addEventListener("click", function (e) {
+
+            if (e.target.classList.contains("diary-checkbox")) {
+                return;
+            }
+
             const diaryId = this.dataset.diaryId;
             const diaryTitle = this.dataset.diaryTitle;
             const extracted = this.dataset.diaryExtracted === "True";
 
             if (extracted) {
                 modalBody.innerHTML = `
-                    <p>The diary <strong>${diaryTitle}</strong> has already been processed.</p>
-                    <p>It cannot be processed again.</p>
-                `;
-
-                // Hide the Continue button
+            <p>The diary <strong>${diaryTitle}</strong> has already been processed.</p>
+            <p>It cannot be processed again.</p>
+        `;
                 confirmBtn.style.display = "none";
 
             } else {
                 modalBody.innerHTML = `
-                    <p>The diary <strong>${diaryTitle}</strong> has not been processed yet.</p>
-                    <p>It will now be sent to the parameter extraction pipeline.</p>
-                `;
-
-                // Show the Continue button
+            <p>The diary <strong>${diaryTitle}</strong> has not been processed yet.</p>
+            <p>It will now be sent to the parameter extraction pipeline.</p>
+        `;
                 confirmBtn.style.display = "inline-block";
                 confirmBtn.href = `/diaries/${diaryId}/extract`;
             }
@@ -191,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const patientModal = new bootstrap.Modal(document.getElementById("patientModal"));
     const patientBody = document.getElementById("patientModalBody");
-    
+
 
     document.querySelectorAll(".patient-card-trigger").forEach(card => {
         card.addEventListener("click", function () {
@@ -266,4 +267,51 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+});
+
+function getCSRFToken() {
+    return document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='))
+        ?.split('=')[1];
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const deleteBtn = document.getElementById("deleteBtn");
+
+    if (deleteBtn) {
+        deleteBtn.addEventListener("click", function () {
+
+            const selected = [];
+
+            document.querySelectorAll(".diary-checkbox:checked").forEach(cb => {
+                selected.push(cb.value);
+            });
+
+            if (selected.length === 0) {
+                alert("Select at least one diary.");
+                return;
+            }
+
+            if (!confirm("Are you sure you want to delete selected diaries?")) {
+                return;
+            }
+
+            const url = this.dataset.url;
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify({ diaries: selected })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    location.reload();
+                });
+        });
+    }
 });

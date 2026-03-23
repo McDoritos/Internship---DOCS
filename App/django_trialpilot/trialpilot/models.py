@@ -15,6 +15,7 @@ class Version(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name = "versions")
     version_name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+    file_path = models.FileField(upload_to='documents/', default=None)
     
     def __str__(self):
         return f"{self.document.title} - {self.version_name}"

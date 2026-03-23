@@ -19,6 +19,7 @@
 
     <!-- Page Title -->
     <h3 class="mb-3">Clinical Diary List</h3>
+    <p class="text-muted">Click on a diary to submit it for extraction</p>
 
     <!-- Buttons + Search -->
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -37,8 +38,14 @@
         <!-- Right side (buttons) -->
         <div class="d-flex gap-2">
 
+            <button id="deleteBtn" data-url="{% url 'diary_remove' %}" class="btn btn-outline-danger btn-sm rounded-ui"
+                style="margin-right: 0.5rem;">
+                <i class="bi bi-trash"></i>
+                Delete
+            </button>
+
             <button class="btn btn-outline-secondary btn-sm rounded-ui" style="margin-right: 0.5rem;">
-                <i class="bi bi-funnel" style="margin-right: 0.2rem;"></i>
+                <i class="bi bi-funnel"></i>
                 Filter
             </button>
 
@@ -64,7 +71,10 @@
         <div class="text-decoration-none diary-card-trigger" data-diary-id="{{ diary.id }}"
             data-diary-title="{{ diary.title }}" data-diary-extracted="{{ diary.extracted }}">
 
-            <div class="card text-center shadow-sm diary-card h-100">
+            <div class="card text-center shadow-sm diary-card h-100 position-relative">
+
+                <input type="checkbox" class="form-check-input position-absolute top-0 start-0 m-2 diary-checkbox"
+                    value="{{ diary.id }}">
 
                 <div class="card-body">
                     {% if extension == "pdf" %}

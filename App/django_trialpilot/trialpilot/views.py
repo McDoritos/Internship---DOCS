@@ -14,8 +14,8 @@ from django.conf import settings
 from pathlib import Path
 import json
 from django.db.models import Avg, Count
-
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "parameter-extraction_prompt.txt"
@@ -97,14 +97,15 @@ def parameter_extraction_pipeline(document, document_content):
     return parsed
 
 def document_save(document, file, new_filename, version_id):
-    Version.objects.create(
-        document=document,
-        version_name=f"{version_id}_{new_filename}"
-    )
-    
     saved_path = default_storage.save(
         f"documents/{new_filename}",
         file
+    )
+    
+    Version.objects.create(
+        document=document,
+        version_name=f"{version_id}_{new_filename}",
+        file_path=saved_path
     )
     
     print("Saving to:", default_storage.path(f"documents/{new_filename}"))
@@ -121,6 +122,46 @@ def diary_list(request):
     return render(request, 'trialpilot/diary_list.html', {
         'diary_data': diary_data
     })
+
+@csrf_exempt
+def diary_remove(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        diary_ids = data.get("diaries", [])
+
+        for diary_id in diary_ids:
+            document = get_object_or_404(Document, id=diary_id)
+
+            # Remover versões
+            versions = Version.objects.filter(document=document)
+            for version in versions:
+                version_path = os.path.join(
+                    settings.MEDIA_ROOT,
+                    'documents',
+                    version.file_path.name
+                )
+
+                if os.path.exists(version_path):
+                    os.remove(version_path)
+
+                version.delete()
+
+            # Remover ficheiro principal
+            file_path = os.path.join(
+                settings.MEDIA_ROOT,
+                'documents',
+                document.title
+            )
+
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
+            document.delete()
+
+        messages.success(request, 'Selected diaries have been deeleted successfully.')
+        
+        return JsonResponse({"status": "success"})
+
     
 def patient_list(request):
     patients = Patient_profile.objects.all()
@@ -142,7 +183,7 @@ def document_upload(request):
             file = form.cleaned_data['file']
             doc_type = form.cleaned_data['type']
 
-            timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
+            timestamp = timezone.now().strftime("%Y%m%d-%H%M%S")
 
             original_name, ext = file.name.rsplit('.', 1)
             new_filename = f"{original_name}_{timestamp}.{ext}"
@@ -185,7 +226,8 @@ def parameter_extraction(request, diary_id):
             timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
 
             original_name, ext = document.title.rsplit('.', 1)
-            new_filename = f"{original_name}_{timestamp}.{ext}"
+            name, old_timestamp = original_name.rsplit('_',1)
+            new_filename = f"{name}_{timestamp}.{ext}"
             
             document_save(document, file_params, new_filename, 'EXTRACTED')
             
@@ -237,7 +279,8 @@ def parameter_extraction(request, diary_id):
             timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
 
             original_name, ext = document.title.rsplit('.', 1)
-            new_filename = f"{original_name}_{timestamp}.{ext}"
+            name, old_timestamp = original_name.rsplit('_',1)
+            new_filename = f"{name}_{timestamp}.{ext}"
             
             document_save(document, file_params, new_filename, 'VALIDATED')
             
