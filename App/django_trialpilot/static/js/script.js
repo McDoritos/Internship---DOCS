@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll(".diary-card-trigger").forEach(card => {
         card.addEventListener("click", function (e) {
+            
 
             if (e.target.classList.contains("diary-checkbox")) {
                 return;
@@ -13,6 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const diaryId = this.dataset.diaryId;
             const diaryTitle = this.dataset.diaryTitle;
             const extracted = this.dataset.diaryExtracted === "True";
+            const detailsBtn = document.getElementById("diaryDetailsBtn");
+
+
+            detailsBtn.href = `/diaries/${diaryId}/`;
 
             if (extracted) {
                 modalBody.innerHTML = `
@@ -67,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const files = e.dataTransfer.files;
         fileInput.files = files;
 
-        showPreview(files[0]);
+        showPreview(files);
     });
 
     uploadModal.addEventListener("hidden.bs.modal", () => {
@@ -87,43 +92,50 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     fileInput.addEventListener("change", () => {
-        showPreview(fileInput.files[0]);
+        showPreview(fileInput.files);
     });
 
-    function showPreview(file) {
+    function showPreview(files) {
         const allowed = ["pdf", "txt"];
-        const ext = file.name.split('.').pop().toLowerCase();
-
         const errorBox = document.getElementById("uploadError");
 
-        if (!allowed.includes(ext)) {
+        preview.innerHTML = "";
+
+        let hasError = false;
+
+        Array.from(files).forEach(file => {
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            if (!allowed.includes(ext)) {
+                hasError = true;
+                return;
+            }
+
+            let icon = "bi-file-earmark-text";
+            if (ext === "pdf") icon = "bi-filetype-pdf";
+            if (ext === "txt") icon = "bi-filetype-txt";
+
+            preview.innerHTML += `
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi ${icon}" style="font-size:1.2rem;"></i>
+                <span class="text-truncate" style="max-width: 220px;">${file.name}</span>
+            </div>
+        `;
+        });
+
+        if (hasError) {
             errorBox.classList.remove("d-none");
             errorBox.innerText = "Only PDF and TXT files are allowed.";
-
+            fileInput.value = "";
             preview.innerHTML = "";
             progressContainer.style.display = "none";
-            fileInput.value = "";
-
             return;
         }
 
         errorBox.classList.add("d-none");
-        errorBox.innerText = "";
-
-        let icon = "bi-file-earmark-text";
-        if (ext === "pdf") icon = "bi-filetype-pdf";
-        if (ext === "txt") icon = "bi-filetype-txt";
-
-        preview.innerHTML = `
-        <div class="d-flex align-items-center gap-2">
-            <i class="bi ${icon}" style="font-size:1.5rem;"></i>
-            <span>${file.name}</span>
-        </div>
-    `;
-
         progressContainer.style.display = "block";
         progressBar.style.width = "0%";
-        progressText.innerText = "Ready to upload";
+        progressText.innerText = `Ready to upload (${files.length} files)`;
     }
 
     form.addEventListener("submit", function (e) {
@@ -140,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", form.action, true);
 
-        // CSRF
         xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
 
 
@@ -170,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.send(formData);
     });
 
-    // CSRF helper (Django)
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== "") {
@@ -278,40 +288,63 @@ function getCSRFToken() {
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    const checkboxes = document.querySelectorAll(".diary-checkbox");
     const deleteBtn = document.getElementById("deleteBtn");
 
-    if (deleteBtn) {
-        deleteBtn.addEventListener("click", function () {
-
-            const selected = [];
-
-            document.querySelectorAll(".diary-checkbox:checked").forEach(cb => {
-                selected.push(cb.value);
-            });
-
-            if (selected.length === 0) {
-                alert("Select at least one diary.");
-                return;
-            }
-
-            if (!confirm("Are you sure you want to delete selected diaries?")) {
-                return;
-            }
-
-            const url = this.dataset.url;
-
-            fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": getCSRFToken()
-                },
-                body: JSON.stringify({ diaries: selected })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    location.reload();
-                });
-        });
+    function updateDeleteButton() {
+        const anyChecked = document.querySelectorAll(".diary-checkbox:checked").length > 0;
+        deleteBtn.disabled = !anyChecked;
     }
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener("change", updateDeleteButton);
+    });
+
+    const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
+    const deleteModalBody = document.getElementById("deleteModalBody");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+
+    let selectedDiaries = [];
+
+    deleteBtn.addEventListener("click", function () {
+
+        selectedDiaries = [];
+
+        document.querySelectorAll(".diary-checkbox:checked").forEach(cb => {
+            selectedDiaries.push(cb.value);
+        });
+
+        deleteModalBody.innerHTML = `
+    <p>You are about to delete:</p>
+    <ul>
+        ${selectedDiaries.map(id => {
+            const el = document.querySelector(`[value="${id}"]`)
+                .closest(".diary-card-trigger");
+            return `<li>${el.dataset.diaryTitle}</li>`;
+        }).join("")}
+    </ul>
+    <p class="text-danger">This action cannot be undone.</p>
+`;
+
+        deleteModal.show();
+    });
+
+    confirmDeleteBtn.addEventListener("click", function () {
+
+        const url = deleteBtn.dataset.url;
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCSRFToken()
+            },
+            body: JSON.stringify({ diaries: selectedDiaries })
+        })
+            .then(res => res.json())
+            .then(data => {
+                deleteModal.hide();
+                location.reload();
+            });
+    });
 });

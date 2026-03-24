@@ -24,10 +24,10 @@ html, body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 240px; /* define largura fixa */
+    width: 240px;
     height: 100vh;
     overflow-y: auto;
-    background: white; /* opcional */
+    background: white;
     z-index: 1000;
 }
 
@@ -83,7 +83,7 @@ html, body {
     border-radius: 15px;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     padding: 20px;
-    height: 250px !important; /* força altura fixa */
+    height: 250px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,6 +95,10 @@ html, body {
     justify-content: center;
 }
 
+.diary-extracted {
+    background-color: #e9f7ef;   /* verde clarinho */
+}
+
 .diary-checkbox {
     position: absolute !important;
     top: 10px;
@@ -104,6 +108,20 @@ html, body {
     transform: scale(1.5);
 }
 
+.diary-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.deleteModalBody{
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
 
 /* Patient list */
 .patient-card {
@@ -140,15 +158,13 @@ html, body {
     margin-right: 5px;
 }
 
-/* Container com ID + conteúdo */
 .patient-layout {
     display: grid;
-    grid-template-columns: 80px 1fr; /* ID + conteúdo */
+    grid-template-columns: 80px 1fr;
     align-items: center;
     gap: 10px;
 }
 
-/* ID centrado */
 .patient-id {
     display: flex;
     align-items: center;

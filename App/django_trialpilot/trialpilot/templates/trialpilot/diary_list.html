@@ -39,7 +39,7 @@
         <div class="d-flex gap-2">
 
             <button id="deleteBtn" data-url="{% url 'diary_remove' %}" class="btn btn-outline-danger btn-sm rounded-ui"
-                style="margin-right: 0.5rem;">
+                style="margin-right: 0.5rem;" disabled>
                 <i class="bi bi-trash"></i>
                 Delete
             </button>
@@ -71,7 +71,8 @@
         <div class="text-decoration-none diary-card-trigger" data-diary-id="{{ diary.id }}"
             data-diary-title="{{ diary.title }}" data-diary-extracted="{{ diary.extracted }}">
 
-            <div class="card text-center shadow-sm diary-card h-100 position-relative">
+            <div
+                class="card text-center shadow-sm diary-card h-100 position-relative {% if diary.extracted %} diary-extracted {% endif %}">
 
                 <input type="checkbox" class="form-check-input position-absolute top-0 start-0 m-2 diary-checkbox"
                     value="{{ diary.id }}">
@@ -94,8 +95,6 @@
     {% endfor %}
 </div>
 
-
-<!-- Modal -->
 <div class="modal fade" id="diaryModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -105,12 +104,27 @@
             </div>
 
             <div class="modal-body" id="diaryModalBody">
-                <!-- Texto preenchido dinamicamente -->
+
             </div>
 
             <div class="modal-footer" id="diaryModalFooter">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a id="confirmDiaryAction" class="btn btn-primary">Continue</a>
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <!-- Left side -->
+                        <div class="col d-flex justify-content-start">
+                            <a id="diaryDetailsBtn" class="btn btn-outline-primary">Details</a>
+                        </div>
+
+                        <!-- Right side -->
+                        <div class="col d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal" style="margin-right: 0.5rem;">Cancel</button>
+                            <a id="confirmDiaryAction" class="btn btn-outline-primary">Continue</a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -136,13 +150,13 @@
                         Drag & drop or <span class="text-primary">browse</span>
                     </p>
 
-                    <input type="file" name="file" id="fileInput" style="display:none;">
+                    <input type="file" name="file" id="fileInput" style="display:none;" multiple>
                 </div>
 
                 <div id="uploadError" class="alert alert-danger d-none"></div>
 
                 <!-- File preview -->
-                <div id="filePreview" class="mb-3"></div>
+                <div id="filePreview" class="mb-3" style="max-height: 150px; overflow-y: auto;"></div>
 
                 <div id="progressContainer" class="mb-3" style="display:none;">
                     <div class="progress">
@@ -159,6 +173,26 @@
                     Upload
                 </button>
             </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3 rounded-ui">
+
+            <h5 class="mb-3">Delete Diaries</h5>
+
+            <div id="deleteModalBody" class="deleteModalBody">
+                <!-- conteúdo dinâmico -->
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-3">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                    style="margin-right: 0.5rem;">Cancel</button>
+                <button id="confirmDeleteBtn" class="btn btn-outline-danger">Delete</button>
+            </div>
 
         </div>
     </div>

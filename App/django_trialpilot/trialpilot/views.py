@@ -1,5 +1,6 @@
 import ast
 import datetime
+import uuid
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.files.storage import default_storage
@@ -16,6 +17,7 @@ import json
 from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import uuid
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "parameter-extraction_prompt.txt"
@@ -122,6 +124,32 @@ def diary_list(request):
     return render(request, 'trialpilot/diary_list.html', {
         'diary_data': diary_data
     })
+    
+def diary_details(request, diary_id):
+    try:
+        document = Document.objects.get(id=diary_id)
+        document_content = default_storage.open(
+            f"documents/{document.title}"
+        ).read().decode("utf-8")
+    except Document.DoesNotExist:
+        return render(request, 'trialpilot/diary_details.html', {
+            'error': 'Document not found.'
+        })
+
+    versions = Version.objects.filter(document=document)
+
+    patient = Patient_profile.objects.filter(document=document).first()
+
+    treatments = Treatment.objects.filter(patient=patient) if patient else []
+
+    return render(request, 'trialpilot/diary_details.html', {
+        "diary": document,
+        "diary_contents": document_content,
+        "versions": versions,
+        "patient": patient,
+        "treatments": treatments
+    })
+    
 
 @csrf_exempt
 def diary_remove(request):
@@ -132,24 +160,23 @@ def diary_remove(request):
         for diary_id in diary_ids:
             document = get_object_or_404(Document, id=diary_id)
 
-            # Remover versões
             versions = Version.objects.filter(document=document)
             for version in versions:
                 version_path = os.path.join(
                     settings.MEDIA_ROOT,
-                    'documents',
                     version.file_path.name
                 )
 
+                print(f"Path of the version of the document {version_path}")
+                
                 if os.path.exists(version_path):
+                    print("Version removed")
                     os.remove(version_path)
 
                 version.delete()
 
-            # Remover ficheiro principal
             file_path = os.path.join(
                 settings.MEDIA_ROOT,
-                'documents',
                 document.title
             )
 
@@ -177,33 +204,34 @@ def patient_list(request):
 def document_upload(request):
     if request.method == 'POST':
         form = UploadDocumentForm(request.POST, request.FILES)
-        print("Form errors:", form.errors)
 
         if form.is_valid():
-            file = form.cleaned_data['file']
+            files = request.FILES.getlist('file')
+
             doc_type = form.cleaned_data['type']
 
-            timestamp = timezone.now().strftime("%Y%m%d-%H%M%S")
+            for file in files:
+                timestamp = timezone.now().strftime("%Y%m%d-%H%M%S")
 
-            original_name, ext = file.name.rsplit('.', 1)
-            new_filename = f"{original_name}_{timestamp}.{ext}"
+                original_name, ext = file.name.rsplit('.', 1)
+                unique_id = uuid.uuid4().hex
+                new_filename = f"{original_name}_{unique_id}.{ext}"
 
-            document = Document.objects.create(
-                title=new_filename,
-                type=doc_type
-            )
-            
-            document_save(document, file, new_filename, version_id='RAW')
-            
-            messages.success(request, "Clinical diary uploaded successfully.")
-            return redirect('diary_list') 
+                document = Document.objects.create(
+                    title=new_filename,
+                    type=doc_type
+                )
+
+                document_save(document, file, new_filename, version_id='RAW')
+
+            messages.success(request, f"{len(files)} clinical diaries uploaded successfully.")
+            return redirect('diary_list')
 
     else:
         form = UploadDocumentForm()
 
     return render(request, "trialpilot/document_upload.html", {'form': form})
 
-# MISSING: Save the result of the LLM creating a new file and a new version on the database
 def parameter_extraction(request, diary_id):
     try:
         document = Document.objects.get(id=diary_id)
@@ -226,8 +254,9 @@ def parameter_extraction(request, diary_id):
             timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
 
             original_name, ext = document.title.rsplit('.', 1)
-            name, old_timestamp = original_name.rsplit('_',1)
-            new_filename = f"{name}_{timestamp}.{ext}"
+            name, old_id = original_name.rsplit('_',1)
+            unique_id = uuid.uuid4().hex
+            new_filename = f"{name}_{unique_id}.{ext}"
             
             document_save(document, file_params, new_filename, 'EXTRACTED')
             
@@ -279,8 +308,9 @@ def parameter_extraction(request, diary_id):
             timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
 
             original_name, ext = document.title.rsplit('.', 1)
-            name, old_timestamp = original_name.rsplit('_',1)
-            new_filename = f"{name}_{timestamp}.{ext}"
+            name, old_id = original_name.rsplit('_',1)
+            unique_id = uuid.uuid4().hex
+            new_filename = f"{name}_{unique_id}.{ext}"
             
             document_save(document, file_params, new_filename, 'VALIDATED')
             
