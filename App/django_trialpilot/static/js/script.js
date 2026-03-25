@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll(".diary-card-trigger").forEach(card => {
         card.addEventListener("click", function (e) {
-            
+
 
             if (e.target.classList.contains("diary-checkbox")) {
                 return;
@@ -205,7 +205,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     document.querySelectorAll(".patient-card-trigger").forEach(card => {
-        card.addEventListener("click", function () {
+        card.addEventListener("click", function (e) {
+
+            if (e.target.closest(".patient-actions")) {
+                return;
+            }
 
             const id = this.dataset.id;
             const age = this.dataset.age;
@@ -224,54 +228,52 @@ document.addEventListener("DOMContentLoaded", function () {
                 treatmentsHTML = "<p class='text-muted'>No treatments available</p>";
             } else {
                 treatmentsHTML = `
-                    <ul class="list-group">
-                        ${treatments.map(t => `
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>${t.name}</strong><br>
-                                    <small>${t.start} → ${t.end || "Ongoing"}</small>
-                                </div>
-                            </li>
-                        `).join("")}
-                    </ul>
-                `;
+                <ul class="list-group">
+                    ${treatments.map(t => `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${t.name}</strong><br>
+                                <small>${t.start} → ${t.end || "Ongoing"}</small>
+                            </div>
+                        </li>
+                    `).join("")}
+                </ul>
+            `;
             }
 
             patientBody.innerHTML = `
-                <div class="container-fluid">
-
-                    <div class="row mb-3">
-                        <div class="col">
-                            <h5>Patient #${id}</h5>
-                        </div>
+            <div class="container-fluid">
+                <div class="row mb-3">
+                    <div class="col">
+                        <h5>Patient #${id}</h5>
                     </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6"><strong>Age:</strong> ${age}</div>
-                        <div class="col-md-6"><strong>ECOG:</strong> ${ecog}</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6"><strong>Diagnosis:</strong> ${diagnosis}</div>
-                        <div class="col-md-6"><strong>Date:</strong> ${date}</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6"><strong>Molecular:</strong> ${molecular}</div>
-                        <div class="col-md-6"><strong>Stage:</strong> ${stage}</div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12"><strong>Control:</strong> ${control}</div>
-                    </div>
-
-                    <hr>
-
-                    <h6 class="mb-2">Treatments</h6>
-                    ${treatmentsHTML}
-
                 </div>
-            `;
+
+                <div class="row mb-2">
+                    <div class="col-md-6"><strong>Age:</strong> ${age}</div>
+                    <div class="col-md-6"><strong>ECOG:</strong> ${ecog}</div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-6"><strong>Diagnosis:</strong> ${diagnosis}</div>
+                    <div class="col-md-6"><strong>Date:</strong> ${date}</div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-6"><strong>Molecular:</strong> ${molecular}</div>
+                    <div class="col-md-6"><strong>Stage:</strong> ${stage}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12"><strong>Control:</strong> ${control}</div>
+                </div>
+
+                <hr>
+
+                <h6 class="mb-2">Treatments</h6>
+                ${treatmentsHTML}
+            </div>
+        `;
 
             patientModal.show();
         });
@@ -347,4 +349,46 @@ document.addEventListener("DOMContentLoaded", function () {
                 location.reload();
             });
     });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const resetModal = new bootstrap.Modal(document.getElementById("resetModal"));
+    const resetModalBody = document.getElementById("resetModalBody");
+    const confirmResetBtn = document.getElementById("confirmResetBtn");
+
+    let selectedPatientId = null;
+
+    document.querySelectorAll(".reset-btn").forEach(btn => {
+        btn.addEventListener("click", function (e) {
+
+            e.stopPropagation();
+
+            selectedPatientId = this.dataset.patientId
+
+            resetModalBody.innerHTML = `
+    <p>You are about to reset extraction for <strong>Patient #${selectedPatientId}</strong>.</p>
+    <p>This will remove all generated data and versions.</p>
+    <p class="text-danger">This action cannot be undone.</p>
+`;
+
+            resetModal.show();
+        });
+    });
+
+    confirmResetBtn.addEventListener("click", function () {
+
+        fetch(`/patients/${selectedPatientId}/reset`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCSRFToken()
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                resetModal.hide();
+                location.reload();
+            });
+    });
+
 });

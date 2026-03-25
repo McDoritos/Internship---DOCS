@@ -129,6 +129,13 @@ html, body {
     border-bottom: 1px solid #eee;
     transition: all 0.15s ease;
     cursor: pointer;
+
+}
+
+.patient-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .patient-card:hover {
@@ -160,7 +167,7 @@ html, body {
 
 .patient-layout {
     display: grid;
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: 80px 1fr auto;
     align-items: center;
     gap: 10px;
 }

@@ -18,6 +18,7 @@ from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import uuid
+from django.db import transaction
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "parameter-extraction_prompt.txt"
@@ -200,6 +201,37 @@ def patient_list(request):
     return render(request, 'trialpilot/patient_list.html', {
         'patient_data': patient_data
     })
+
+@transaction.atomic
+def patient_reset(request, patient_id):
+    if request.method == 'POST':
+        patient = Patient_profile.objects.get(id=patient_id)
+        document = patient.document
+
+        patient.delete()
+        
+        if not document.patient_profiles.exists():
+            document.extracted = False
+
+            versions = Version.objects.filter(document=document)
+
+            for version in versions:
+                if 'RAW' not in version.version_name:
+                    path = os.path.join(settings.MEDIA_ROOT, version.file_path.name)
+
+                    if os.path.exists(path):
+                        os.remove(path)
+
+                    version.delete()
+                else:
+                    continue
+
+            document.save() 
+        
+        messages.success(request, f"All patient's information and diary data reseted successfully")
+        
+        return JsonResponse({"status": "ok"})
+    
 
 def document_upload(request):
     if request.method == 'POST':
