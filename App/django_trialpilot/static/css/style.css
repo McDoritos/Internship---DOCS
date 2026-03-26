@@ -96,7 +96,7 @@ html, body {
 }
 
 .diary-extracted {
-    background-color: #e9f7ef;   /* verde clarinho */
+    background-color: #e9f7ef;
 }
 
 .diary-checkbox {
@@ -121,6 +121,16 @@ html, body {
     max-height: 300px;
     overflow-y: auto;
     padding-right: 5px;
+}
+
+.filter-dropdown {
+    color: #6c757d;
+}
+
+.filter-dropdown label,
+.filter-dropdown select,
+.filter-dropdown option {
+    color: #6c757d;
 }
 
 /* Patient list */

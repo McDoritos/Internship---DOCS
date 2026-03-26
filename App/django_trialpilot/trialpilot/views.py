@@ -19,6 +19,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import uuid
 from django.db import transaction
+from django.db.models import Q
+from pypdf import PdfReader
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "parameter-extraction_prompt.txt"
@@ -99,6 +101,29 @@ def parameter_extraction_pipeline(document, document_content):
     
     return parsed
 
+
+def extract_document_text(document):
+    file_path = f"documents/{document.title}"
+    ext = os.path.splitext(document.title)[1].lower()
+
+    with default_storage.open(file_path, "rb") as f:
+        if ext == ".txt":
+            return f.read().decode("utf-8", errors="ignore")
+
+        elif ext == ".pdf":
+            reader = PdfReader(f)
+            text = ""
+
+            for page in reader.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    text += page_text + "\n"
+
+            return text.strip()
+
+        else:
+            raise ValueError(f"Unsupported file type: {ext}")
+
 def document_save(document, file, new_filename, version_id):
     saved_path = default_storage.save(
         f"documents/{new_filename}",
@@ -115,23 +140,46 @@ def document_save(document, file, new_filename, version_id):
 
 # Create your views here.
 def diary_list(request):
+    search = request.GET.get("search", "").strip()
+    status = request.GET.get("status", "").strip()
+    file_type = request.GET.get("file_type", "").strip().lower()
+    
     diaries = Document.objects.filter(type=False)
 
+    if search:
+        diaries = diaries.filter(title__icontains=search)
+        
+    if status == "extracted":
+        diaries = diaries.filter(extracted=True)
+    elif status == "not_extracted":
+        diaries = diaries.filter(extracted=False)
+
+    
     diary_data = []
     for diary in diaries:
-        original_name, ext = diary.title.rsplit('.', 1)
-        diary_data.append((diary, ext.lower()))
+        if "." in diary.title:
+            original_name, ext = diary.title.rsplit('.', 1)
+            ext = ext.lower()
+        else:
+            ext = ""
+
+        # Filter by file type
+        if file_type and ext != file_type:
+            continue
+
+        diary_data.append((diary, ext))
 
     return render(request, 'trialpilot/diary_list.html', {
-        'diary_data': diary_data
+        'diary_data': diary_data,
+        'search': search,
+        'status': status,
+        'file_type': file_type,
     })
     
 def diary_details(request, diary_id):
     try:
         document = Document.objects.get(id=diary_id)
-        document_content = default_storage.open(
-            f"documents/{document.title}"
-        ).read().decode("utf-8")
+        document_content = extract_document_text(document)
     except Document.DoesNotExist:
         return render(request, 'trialpilot/diary_details.html', {
             'error': 'Document not found.'
@@ -192,14 +240,36 @@ def diary_remove(request):
 
     
 def patient_list(request):
+    search = request.GET.get("search", "").strip()
+    stage = request.GET.get("stage", "").strip()
+    molecular_status = request.GET.get("molecular_status", "").strip()
+    
     patients = Patient_profile.objects.all()
+    
+    if search:
+        patients = patients.filter(
+            Q(diagnosis__icontains=search) |
+            Q(molecular_status__icontains=search) |
+            Q(stage__icontains=search) |
+            Q(control__icontains=search)
+        )
+    
+    if stage:
+        patients = patients.filter(stage__icontains=stage)
+
+    if molecular_status:
+        patients = patients.filter(molecular_status__icontains=molecular_status)
+    
     patient_data = []
     for patient in patients:
         treatments = Treatment.objects.filter(patient=patient)
         patient_data.append((patient, treatments))
 
     return render(request, 'trialpilot/patient_list.html', {
-        'patient_data': patient_data
+        'patient_data': patient_data,
+        'search': search,
+        'stage': stage,
+        'molecular_status': molecular_status,
     })
 
 @transaction.atomic
@@ -267,7 +337,12 @@ def document_upload(request):
 def parameter_extraction(request, diary_id):
     try:
         document = Document.objects.get(id=diary_id)
-        document_content = default_storage.open(f"documents/{document.title}").read().decode("utf-8")
+        document_content = extract_document_text(document)
+        
+        if not document_content.strip():
+            return render(request, 'trialpilot/diary_parameter-extraction.html', {
+                'error': 'Could not extract readable text from this document.'
+            })
     except Document.DoesNotExist:
         return render(request, 'trialpilot/diary_parameter-extraction.html', {'error': 'Document not found.'})
     
@@ -277,18 +352,18 @@ def parameter_extraction(request, diary_id):
         if request.method == 'GET':
             print(f"Received document ID: {diary_id}")
             
-            #extracted_params = parameter_extraction_pipeline(document, document_content)
+            extracted_params = parameter_extraction_pipeline(document, document_content)
             
-            extracted_params = dummy_params
+            #extracted_params = dummy_params
             
             file_params = ContentFile(json.dumps(extracted_params))
             
             timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
 
             original_name, ext = document.title.rsplit('.', 1)
-            name, old_id = original_name.rsplit('_',1)
+            name, old_id = original_name.rsplit('_', 1)
             unique_id = uuid.uuid4().hex
-            new_filename = f"{name}_{unique_id}.{ext}"
+            new_filename = f"{name}_{unique_id}.json"
             
             document_save(document, file_params, new_filename, 'EXTRACTED')
             
@@ -333,16 +408,14 @@ def parameter_extraction(request, diary_id):
                     end_date=clean_value(treatment.get("end_date")),
                 )
 
-
-
             file_params = ContentFile(json_string)
 
             timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
 
             original_name, ext = document.title.rsplit('.', 1)
-            name, old_id = original_name.rsplit('_',1)
+            name, old_id = original_name.rsplit('_', 1)
             unique_id = uuid.uuid4().hex
-            new_filename = f"{name}_{unique_id}.{ext}"
+            new_filename = f"{name}_{unique_id}.json"
             
             document_save(document, file_params, new_filename, 'VALIDATED')
             

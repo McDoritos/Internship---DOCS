@@ -36,7 +36,7 @@ class Patient_profile(models.Model):
 class Treatment(models.Model):
     patient = models.ForeignKey(Patient_profile, on_delete=models.CASCADE, related_name="treatments")
     treatment_name = models.CharField(max_length=255)
-    start_date = models.DateField()
+    start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     
     def __str__(self):

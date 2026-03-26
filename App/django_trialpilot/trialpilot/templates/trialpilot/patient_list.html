@@ -33,13 +33,57 @@
         </form>
 
         <!-- Right side (buttons) -->
-        <div class="d-flex gap-2">
-
-            <button class="btn btn-outline-secondary btn-sm rounded-ui" style="margin-right: 0.5rem;">
-                <i class="bi bi-funnel" style="margin-right: 0.2rem;"></i>
+        <div class="dropdown" style="margin-right: 0.5rem;">
+            <button class="btn btn-outline-secondary btn-sm rounded-ui dropdown-toggle" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-funnel"></i>
                 Filter
             </button>
 
+            <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm rounded-ui filter-dropdown"
+                style="min-width: 260px;">
+                <form method="GET" class="d-flex flex-column gap-3">
+
+                    <input type="hidden" name="search" value="{{ search }}">
+
+                    <!-- Stage -->
+                    <div>
+                        <label class="form-label fw-semibold mb-2 text-muted">Stage</label>
+                        <select name="stage" class="form-select form-select-sm rounded-ui">
+                            <option class="text-muted" value="">All</option>
+                            <option class="text-muted" value="I" {% if stage == "I" %}selected{% endif %}>I</option>
+                            <option class="text-muted" value="II" {% if stage == "II" %}selected{% endif %}>II</option>
+                            <option class="text-muted" value="III" {% if stage == "III" %}selected{% endif %}>III</option>
+                            <option class="text-muted" value="IV" {% if stage == "IV" %}selected{% endif %}>IV</option>
+                        </select>
+                    </div>
+
+                    <!-- Molecular Status -->
+                    <div>
+                        <label class="form-label fw-semibold mb-2 mt-2 text-muted">Molecular Status</label>
+                        <select name="molecular_status" class="form-select form-select-sm rounded-ui">
+                            <option class="text-muted" value="">All</option>
+                            <option class="text-muted" value="EGFR" {% if molecular_status == "EGFR" %}selected{% endif %}>EGFR</option>
+                            <option class="text-muted" value="ALK" {% if molecular_status == "ALK" %}selected{% endif %}>
+                                ALK</option>
+                            <option class="text-muted" value="KRAS" {% if molecular_status == "KRAS" %}selected{% endif %}>KRAS</option>
+                            <option class="text-muted" value="PD-L1" {% if molecular_status == "PD-L1" %}selected{% endif %}>PD-L1</option>
+                            <option class="text-muted" value="Wild type" {% if molecular_status == "Wild type" %}selected{% endif %}>Wild type</option>
+                            <option class="text-muted" value="Unknown" {% if molecular_status == "Unknown" %}selected{% endif %}>Unknown</option>
+                        </select>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="{% url 'patient_list' %}" class="btn btn-sm btn-outline-secondary rounded-ui">
+                            Clear
+                        </a>
+                        <button type="submit" class="btn btn-sm btn-outline-primary rounded-ui">
+                            Apply
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
 
     </div>
