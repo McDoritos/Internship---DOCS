@@ -21,6 +21,9 @@ import uuid
 from django.db import transaction
 from django.db.models import Q
 from pypdf import PdfReader
+from pdf2image import convert_from_bytes
+import pytesseract
+
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "parameter-extraction_prompt.txt"
@@ -118,6 +121,16 @@ def extract_document_text(document):
                 page_text = page.extract_text()
                 if page_text:
                     text += page_text + "\n"
+                    
+            if len(text.strip()) < 20:
+                print("Extracted text is too short, trying OCR...")
+                f.seek(0)
+                data = f.read()
+                images = convert_from_bytes(data)
+                text = ""
+
+                for img in images:
+                    text += pytesseract.image_to_string(img) + "\n"
 
             return text.strip()
 
@@ -139,6 +152,42 @@ def document_save(document, file, new_filename, version_id):
     print("Saving to:", default_storage.path(f"documents/{new_filename}"))
 
 # Create your views here.
+def trial_list(request):
+    search = request.GET.get("search", "").strip()
+    status = request.GET.get("status", "").strip()
+    file_type = request.GET.get("file_type", "").strip().lower()
+    
+    trials = Document.objects.filter(type=True)
+    
+    if search:
+        trials = trials.filter(title__icontains=search)
+        
+    if status == "extracted":
+        trials = trials.filter(extracted=True)
+    elif status == "not_extracted":
+        trials = trials.filter(extracted=False)
+    
+    trial_data = []
+    for trial in trials:
+        if "." in trial.title:
+            original_name, ext = trial.title.rsplit('.', 1)
+            ext = ext.lower()
+        else:
+            ext = ""
+
+        # Filter by file type
+        if file_type and ext != file_type:
+            continue
+
+        trial_data.append((trial, ext))
+
+    return render(request, 'trialpilot/trial_list.html', {
+        'trial_data': trial_data,
+        'search': search,
+        'status': status,
+        'file_type': file_type,
+    })
+    
 def diary_list(request):
     search = request.GET.get("search", "").strip()
     status = request.GET.get("status", "").strip()
@@ -334,6 +383,7 @@ def document_upload(request):
 
     return render(request, "trialpilot/document_upload.html", {'form': form})
 
+#CARE WITH LOCKED PDF's
 def parameter_extraction(request, diary_id):
     try:
         document = Document.objects.get(id=diary_id)

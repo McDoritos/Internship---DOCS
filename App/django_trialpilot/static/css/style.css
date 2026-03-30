@@ -58,13 +58,13 @@ html, body {
     border-style: dashed !important;
 }
 
-.diary-card {
+.doc-card {
     border-radius: 15px;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     padding: 20px;
 }
 
-.diary-card:hover {
+.doc-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
@@ -79,7 +79,7 @@ html, body {
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-.diary-card {
+.doc-card {
     border-radius: 15px;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     padding: 20px;
@@ -95,11 +95,11 @@ html, body {
     justify-content: center;
 }
 
-.diary-extracted {
+.doc-extracted {
     background-color: #e9f7ef;
 }
 
-.diary-checkbox {
+.doc-checkbox {
     position: absolute !important;
     top: 10px;
     left: 10px;
@@ -108,7 +108,7 @@ html, body {
     transform: scale(1.5);
 }
 
-.diary-title {
+.doc-title {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;

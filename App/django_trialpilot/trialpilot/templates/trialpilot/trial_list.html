@@ -1,6 +1,6 @@
 {% extends "trialpilot/base.html" %}
 
-{% block title %}Clinical Diary List{% endblock %}
+{% block title %}Clinical Trial List{% endblock %}
 
 {% block content %}
 
@@ -18,8 +18,8 @@
 <div class="d-flex flex-column mb-4 ml-3 mr-3">
 
     <!-- Page Title -->
-    <h3 class="mb-3">Clinical Diary List</h3>
-    <p class="text-muted">Click on a diary to submit it for extraction</p>
+    <h3 class="mb-3">Clinical Trial List</h3>
+    <p class="text-muted">Click on a trial to submit it for criteria conversion</p>
 
     <!-- Buttons + Search -->
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -81,7 +81,7 @@
 
                         <!-- Actions -->
                         <div class="d-flex justify-content-between">
-                            <a href="{% url 'diary_list' %}" class="btn btn-sm btn-outline-secondary rounded-ui">
+                            <a href="{% url 'trial_list' %}" class="btn btn-sm btn-outline-secondary rounded-ui">
                                 Clear
                             </a>
                             <button type="submit" class="btn btn-sm btn-outline-primary rounded-ui">
@@ -109,16 +109,16 @@
 </div>
 
 <div class="row g-3 ml-3 mr-3">
-    {% for diary, extension in diary_data %}
+    {% for trial, extension in trial_data %}
     <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="text-decoration-none diary-card-trigger" data-diary-id="{{ diary.id }}"
-            data-diary-title="{{ diary.title }}" data-diary-extracted="{{ diary.extracted }}">
+        <div class="text-decoration-none trial-card-trigger" data-trial-id="{{ trial.id }}"
+            data-trial-title="{{ trial.title }}" data-trial-extracted="{{ trial.extracted }}">
 
             <div
-                class="card text-center shadow-sm doc-card h-100 position-relative {% if diary.extracted %} doc-extracted {% endif %}">
+                class="card text-center shadow-sm doc-card h-100 position-relative {% if trial.extracted %} doc-extracted {% endif %}">
 
                 <input type="checkbox" class="form-check-input position-absolute top-0 start-0 m-2 doc-checkbox"
-                    value="{{ diary.id }}">
+                    value="{{ trial.id }}">
 
                 <div class="card-body">
                     {% if extension == "pdf" %}
@@ -127,8 +127,8 @@
                     <i class="bi bi-filetype-txt" style="font-size: 4rem; color:#0275d8;"></i>
                     {% endif %}
 
-                    <p class="mt-2 text-dark doc-title" title="{{ diary.title }}">
-                        {{ diary.title }}
+                    <p class="mt-2 text-dark doc-title" title="{{ trial.title }}">
+                        {{ trial.title }}
                     </p>
                 </div>
 
@@ -136,109 +136,6 @@
         </div>
     </div>
     {% endfor %}
-</div>
-
-<div class="modal fade" id="diaryModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Clinical Diary</h5>
-            </div>
-
-            <div class="modal-body" id="diaryModalBody">
-
-            </div>
-
-            <div class="modal-footer" id="diaryModalFooter">
-                <div class="container-fluid">
-                    <div class="row">
-
-                        <!-- Left side -->
-                        <div class="col d-flex justify-content-start">
-                            <a id="diaryDetailsBtn" class="btn btn-outline-primary rounded-ui">Details</a>
-                        </div>
-
-                        <!-- Right side -->
-                        <div class="col d-flex justify-content-end gap-2">
-                            <button type="button" class="btn btn-outline-secondary rounded-ui" data-bs-dismiss="modal"
-                                style="margin-right: 0.5rem;">Cancel</button>
-                            <a id="confirmDiaryAction" class="btn btn-outline-primary rounded-ui">Continue</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="uploadModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content p-3 rounded-ui">
-
-            <h5 class="text-center mb-3">Clinical Trial Upload</h5>
-
-            <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'document_upload' %}">
-                {% csrf_token %}
-
-                <!-- Drop Zone -->
-                <div id="dropZone"
-                    class="border border-2 border-dashed rounded-ui text-center mb-3 d-flex flex-column justify-content-center"
-                    style="cursor:pointer; background:#f8f9fa; height:200px;">
-
-                    <i class="bi bi-file-earmark-arrow-up" style="font-size:2rem;"></i>
-                    <p class="mt-2 mb-0">
-                        Drag & drop or <span class="text-primary">browse</span>
-                    </p>
-
-                    <input type="file" name="file" id="fileInput" style="display:none;" multiple>
-                </div>
-
-                <div id="uploadError" class="alert alert-danger d-none"></div>
-
-                <!-- File preview -->
-                <div id="filePreview" class="mb-3" style="max-height: 150px; overflow-y: auto;"></div>
-
-                <div id="progressContainer" class="mb-3" style="display:none;">
-                    <div class="progress">
-                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated"
-                            role="progressbar" style="width: 0%">
-                        </div>
-                    </div>
-                    <small id="progressText">Uploading... 0%</small>
-                </div>
-
-                <input type="hidden" name="type" value="false">
-
-                <button type="submit" class="btn btn-primary w-100 rounded-ui">
-                    Upload
-                </button>
-            </form>
-
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="deleteModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3 rounded-ui">
-
-            <h5 class="mb-3">Delete Diaries</h5>
-
-            <div id="deleteModalBody" class="deleteModalBody">
-
-            </div>
-
-            <div class="d-flex justify-content-end gap-2 mt-3">
-                <button class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                    style="margin-right: 0.5rem;">Cancel</button>
-                <button id="confirmDeleteBtn" class="btn btn-outline-danger">Delete</button>
-            </div>
-
-        </div>
-    </div>
 </div>
 
 {% endblock %}
