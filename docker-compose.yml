@@ -9,9 +9,10 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DJANGO_THESES_KEY: dev-secret
-      DJANGO_THESES_DEBUG: "1"
+      DJANGO_THESES_KEY: ${DJANGO_THESES_KEY}
+      DJANGO_THESES_DEBUG: "True"
       DJANGO_ALLOWED_HOSTS: "127.0.0.1,localhost"
+      GROQ_API_KEY: ${GROQ_API_KEY}
       TESSERACT_CMD: "tesseract"
       POPPLER_PATH: ""
     volumes:

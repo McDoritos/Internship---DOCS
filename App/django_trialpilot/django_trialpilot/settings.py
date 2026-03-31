@@ -26,10 +26,18 @@ SECRET_KEY = os.environ.get("DJANGO_THESES_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DJANGO_THESES_DEBUG", default=0))
 
-ALLOWED_HOSTS = os.environ.get(
-    "DJANGO_ALLOWED_HOSTS",
-    "127.0.0.1,localhost"
-).split(",")
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get(
+        "DJANGO_ALLOWED_HOSTS",
+        "127.0.0.1,localhost"
+    ).split(",")
+    if host.strip()
+]
+
+print("DEBUG =", DEBUG)
+print("DJANGO_ALLOWED_HOSTS RAW =", os.environ.get("DJANGO_ALLOWED_HOSTS"))
+print("ALLOWED_HOSTS PARSED =", ALLOWED_HOSTS)
 
 
 # Application definition
