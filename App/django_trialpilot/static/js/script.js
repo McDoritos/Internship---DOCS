@@ -42,144 +42,178 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.getElementById("uploadForm");
-    const dropZone = document.getElementById("dropZone");
-    const fileInput = document.getElementById("fileInput");
-    const preview = document.getElementById("filePreview");
-
-    const progressContainer = document.getElementById("progressContainer");
-    const progressBar = document.getElementById("progressBar");
-    const progressText = document.getElementById("progressText");
-
-    const uploadModal = document.getElementById("uploadModal");
-
-    if (!dropZone) return;
-
-    dropZone.addEventListener("click", () => fileInput.click());
-
-    dropZone.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropZone.classList.add("bg-light");
+    initUploadModal({
+        formId: "uploadForm",
+        modalId: "uploadModal",
+        dropZoneId: "dropZone",
+        fileInputId: "fileInput",
+        previewId: "filePreview",
+        errorId: "uploadError",
+        progressContainerId: "progressContainer",
+        progressBarId: "progressBar",
+        progressTextId: "progressText"
     });
 
-    dropZone.addEventListener("dragleave", () => {
-        dropZone.classList.remove("bg-light");
+    initUploadModal({
+        formId: "trialUploadForm",
+        modalId: "trialUploadModal",
+        dropZoneId: "trialDropZone",
+        fileInputId: "trialFileInput",
+        previewId: "trialFilePreview",
+        errorId: "trialUploadError",
+        progressContainerId: "trialProgressContainer",
+        progressBarId: "trialProgressBar",
+        progressTextId: "trialProgressText"
     });
 
-    dropZone.addEventListener("drop", (e) => {
-        e.preventDefault();
+    function initUploadModal({
+        formId,
+        modalId,
+        dropZoneId,
+        fileInputId,
+        previewId,
+        errorId,
+        progressContainerId,
+        progressBarId,
+        progressTextId
+    }) {
+        const form = document.getElementById(formId);
+        const dropZone = document.getElementById(dropZoneId);
+        const fileInput = document.getElementById(fileInputId);
+        const preview = document.getElementById(previewId);
 
-        const files = e.dataTransfer.files;
-        fileInput.files = files;
+        const progressContainer = document.getElementById(progressContainerId);
+        const progressBar = document.getElementById(progressBarId);
+        const progressText = document.getElementById(progressTextId);
 
-        showPreview(files);
-    });
+        const uploadModal = document.getElementById(modalId);
+        const errorBox = document.getElementById(errorId);
 
-    uploadModal.addEventListener("hidden.bs.modal", () => {
-        fileInput.value = "";
+        if (!dropZone || !form || !fileInput || !preview || !progressContainer || !progressBar || !progressText || !errorBox) return;
 
-        preview.innerHTML = "";
+        dropZone.addEventListener("click", () => fileInput.click());
 
-        const errorBox = document.getElementById("uploadError");
-        errorBox.classList.add("d-none");
-        errorBox.innerText = "";
+        dropZone.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropZone.classList.add("bg-light");
+        });
 
-        progressContainer.style.display = "none";
-        progressBar.style.width = "0%";
-        progressText.innerText = "Uploading... 0%";
+        dropZone.addEventListener("dragleave", () => {
+            dropZone.classList.remove("bg-light");
+        });
 
-        dropZone.classList.remove("bg-light");
-    });
+        dropZone.addEventListener("drop", (e) => {
+            e.preventDefault();
 
-    fileInput.addEventListener("change", () => {
-        showPreview(fileInput.files);
-    });
+            const files = e.dataTransfer.files;
+            fileInput.files = files;
 
-    function showPreview(files) {
-        const allowed = ["pdf", "txt"];
-        const errorBox = document.getElementById("uploadError");
+            showPreview(files);
+        });
 
-        preview.innerHTML = "";
+        if (uploadModal) {
+            uploadModal.addEventListener("hidden.bs.modal", () => {
+                fileInput.value = "";
+                preview.innerHTML = "";
 
-        let hasError = false;
+                errorBox.classList.add("d-none");
+                errorBox.innerText = "";
 
-        Array.from(files).forEach(file => {
-            const ext = file.name.split('.').pop().toLowerCase();
+                progressContainer.style.display = "none";
+                progressBar.style.width = "0%";
+                progressText.innerText = "Uploading... 0%";
 
-            if (!allowed.includes(ext)) {
-                hasError = true;
+                dropZone.classList.remove("bg-light");
+            });
+        }
+
+        fileInput.addEventListener("change", () => {
+            showPreview(fileInput.files);
+        });
+
+        function showPreview(files) {
+            const allowed = ["pdf", "txt"];
+
+            preview.innerHTML = "";
+
+            let hasError = false;
+
+            Array.from(files).forEach(file => {
+                const ext = file.name.split('.').pop().toLowerCase();
+
+                if (!allowed.includes(ext)) {
+                    hasError = true;
+                    return;
+                }
+
+                let icon = "bi-file-earmark-text";
+                if (ext === "pdf") icon = "bi-filetype-pdf";
+                if (ext === "txt") icon = "bi-filetype-txt";
+
+                preview.innerHTML += `
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <i class="bi ${icon}" style="font-size:1.2rem;"></i>
+                    <span class="text-truncate" style="max-width: 220px;">${file.name}</span>
+                </div>
+            `;
+            });
+
+            if (hasError) {
+                errorBox.classList.remove("d-none");
+                errorBox.innerText = "Only PDF and TXT files are allowed.";
+                fileInput.value = "";
+                preview.innerHTML = "";
+                progressContainer.style.display = "none";
                 return;
             }
 
-            let icon = "bi-file-earmark-text";
-            if (ext === "pdf") icon = "bi-filetype-pdf";
-            if (ext === "txt") icon = "bi-filetype-txt";
-
-            preview.innerHTML += `
-            <div class="d-flex align-items-center gap-2 mb-1">
-                <i class="bi ${icon}" style="font-size:1.2rem;"></i>
-                <span class="text-truncate" style="max-width: 220px;">${file.name}</span>
-            </div>
-        `;
-        });
-
-        if (hasError) {
-            errorBox.classList.remove("d-none");
-            errorBox.innerText = "Only PDF and TXT files are allowed.";
-            fileInput.value = "";
-            preview.innerHTML = "";
-            progressContainer.style.display = "none";
-            return;
+            errorBox.classList.add("d-none");
+            progressContainer.style.display = "block";
+            progressBar.style.width = "0%";
+            progressText.innerText = `Ready to upload (${files.length} files)`;
         }
 
-        errorBox.classList.add("d-none");
-        progressContainer.style.display = "block";
-        progressBar.style.width = "0%";
-        progressText.innerText = `Ready to upload (${files.length} files)`;
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            if (!fileInput.files.length) {
+                alert("Please select a valid PDF or TXT file.");
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", form.action, true);
+
+            xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+
+            xhr.upload.addEventListener("progress", function (e) {
+                if (e.lengthComputable) {
+                    const percent = Math.round((e.loaded / e.total) * 100);
+
+                    progressBar.style.width = percent + "%";
+                    progressText.innerText = `Uploading... ${percent}%`;
+
+                    progressBar.classList.add("progress-bar-animated");
+                }
+            });
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    progressBar.style.width = "100%";
+                    progressBar.classList.remove("progress-bar-animated");
+                    progressText.innerText = "Upload complete ✅";
+
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    progressText.innerText = "Upload failed ❌";
+                }
+            };
+
+            xhr.send(formData);
+        });
     }
-
-    form.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        if (!fileInput.files.length) {
-            alert("Please select a valid PDF or TXT file.");
-            return;
-        }
-
-        const formData = new FormData(form);
-
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", form.action, true);
-
-        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
-
-
-        xhr.upload.addEventListener("progress", function (e) {
-            if (e.lengthComputable) {
-                const percent = Math.round((e.loaded / e.total) * 100);
-
-                progressBar.style.width = percent + "%";
-                progressText.innerText = `Uploading... ${percent}%`;
-
-                progressBar.classList.add("progress-bar-animated");
-            }
-        });
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                progressBar.style.width = "100%";
-                progressBar.classList.remove("progress-bar-animated");
-                progressText.innerText = "Upload complete ✅";
-
-                setTimeout(() => location.reload(), 1000);
-            } else {
-                progressText.innerText = "Upload failed ❌";
-            }
-        };
-
-        xhr.send(formData);
-    });
 
     function getCookie(name) {
         let cookieValue = null;

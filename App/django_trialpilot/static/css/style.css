@@ -203,3 +203,52 @@ html, body {
 .patient-card:hover .patient-id {
     background: #eef1f4;
 }
+
+/* Clinical trial list */
+
+.trial-card {
+    border-radius: 18px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    min-height: 230px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    overflow: hidden;
+}
+
+.trial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
+}
+
+.trial-converted {
+    background: linear-gradient(180deg, #f8fffb 0%, #eefaf2 100%);
+    border: 1px solid #d8efe0;
+}
+
+.trial-icon {
+    font-size: 3rem;
+}
+
+.trial-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+
+    overflow: hidden;
+    word-break: break-word;
+    line-height: 1.35;
+}
+
+.doc-checkbox {
+    z-index: 10;
+    transform: scale(1.35);
+}
+
+.trial-mini-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}

@@ -51,7 +51,8 @@
                     Filter
                 </button>
 
-                <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm rounded-ui filter-dropdown" style="min-width: 260px;">
+                <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm rounded-ui filter-dropdown"
+                    style="min-width: 260px;">
                     <form method="GET" class="d-flex flex-column gap-3">
 
                         <!-- Keep search value -->
@@ -62,9 +63,11 @@
                             <label class="form-label fw-semibold mb-2 text-muted">Extraction Status</label>
                             <select name="status" class="form-select form-select-sm rounded-ui">
                                 <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="extracted" {% if status == "extracted" %}selected{% endif %}>Extracted
+                                <option class="text-muted" value="extracted" {% if status == "extracted" %}selected{%
+                                    endif %}>Extracted
                                 </option>
-                                <option class="text-muted" value="not_extracted" {% if status == "not_extracted" %}selected{% endif %}>Not
+                                <option class="text-muted" value="not_extracted" {% if status == "not_extracted"
+                                    %}selected{% endif %}>Not
                                     Extracted</option>
                             </select>
                         </div>
@@ -74,8 +77,10 @@
                             <label class="form-label fw-semibold mb-2 mt-2 text-muted">File Type</label>
                             <select name="file_type" class="form-select form-select-sm rounded-ui">
                                 <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="pdf" {% if file_type == "pdf" %}selected{% endif %}>PDF</option>
-                                <option class="text-muted" value="txt" {% if file_type == "txt" %}selected{% endif %}>TXT</option>
+                                <option class="text-muted" value="pdf" {% if file_type == "pdf" %}selected{% endif %}>PDF
+                                </option>
+                                <option class="text-muted" value="txt" {% if file_type == "txt" %}selected{% endif %}>TXT
+                                </option>
                             </select>
                         </div>
 
@@ -110,32 +115,103 @@
 
 <div class="row g-3 ml-3 mr-3">
     {% for trial, extension in trial_data %}
-    <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="text-decoration-none trial-card-trigger" data-trial-id="{{ trial.id }}"
-            data-trial-title="{{ trial.title }}" data-trial-extracted="{{ trial.extracted }}">
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
+        <div class="trial-card-trigger" data-trial-id="{{ trial.id }}" data-trial-title="{{ trial.title }}"
+            data-trial-extracted="{{ trial.extracted }}">
 
             <div
-                class="card text-center shadow-sm doc-card h-100 position-relative {% if trial.extracted %} doc-extracted {% endif %}">
+                class="card shadow-sm trial-card h-100 position-relative {% if trial.extracted %}trial-converted{% endif %}">
 
-                <input type="checkbox" class="form-check-input position-absolute top-0 start-0 m-2 doc-checkbox"
+                <input type="checkbox" class="form-check-input position-absolute top-0 start-0 m-3 doc-checkbox"
                     value="{{ trial.id }}">
 
-                <div class="card-body">
-                    {% if extension == "pdf" %}
-                    <i class="bi bi-filetype-pdf" style="font-size: 4rem; color:#d9534f;"></i>
-                    {% else %}
-                    <i class="bi bi-filetype-txt" style="font-size: 4rem; color:#0275d8;"></i>
-                    {% endif %}
+                <div class="card-body d-flex flex-column">
 
-                    <p class="mt-2 text-dark doc-title" title="{{ trial.title }}">
+                    <div class="d-flex justify-content-between align-items-start mb-3 mt-2">
+                        <div></div>
+
+                        <div class="d-flex flex-column align-items-end gap-2">
+                            {% if extension == "pdf" %}
+                            <i class="bi bi-filetype-pdf trial-mini-icon text-danger"></i>
+                            {% else %}
+                            <i class="bi bi-filetype-txt trial-mini-icon text-primary"></i>
+                            {% endif %}
+
+                            {% if trial.extracted %}
+                            <span class="badge rounded-pill bg-success-subtle text-success border mt-2">
+                                Converted
+                            </span>
+                            {% else %}
+                            <span class="badge rounded-pill bg-warning-subtle text-warning border mt-2">
+                                Pending
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <h6 class="trial-title mb-2" title="{{ trial.title }}">
                         {{ trial.title }}
-                    </p>
-                </div>
+                    </h6>
 
+                    <p class="text-muted small mb-0 mt-auto">
+                        Ready for criteria conversion
+                    </p>
+
+                </div>
             </div>
         </div>
     </div>
     {% endfor %}
+</div>
+
+
+<!-- Upload Clinical Trial Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content p-3 rounded-ui">
+
+            <h5 class="text-center mb-3">Clinical Trial Upload</h5>
+
+            <form id="trialUploadForm" method="post" enctype="multipart/form-data" action="{% url 'document_upload' %}">
+                {% csrf_token %}
+
+                <!-- Drop Zone -->
+                <div id="trialDropZone"
+                    class="border border-2 border-dashed rounded-ui text-center mb-3 d-flex flex-column justify-content-center"
+                    style="cursor:pointer; background:#f8f9fa; height:200px;">
+
+                    <i class="bi bi-file-earmark-arrow-up" style="font-size:2rem;"></i>
+                    <p class="mt-2 mb-0">
+                        Drag & drop or <span class="text-primary">browse</span>
+                    </p>
+
+                    <input type="file" name="file" id="trialFileInput" style="display:none;" multiple>
+                </div>
+
+                <div id="trialUploadError" class="alert alert-danger d-none"></div>
+
+                <!-- File preview -->
+                <div id="trialFilePreview" class="mb-3" style="max-height: 150px; overflow-y: auto;"></div>
+
+                <!-- Progress -->
+                <div id="trialProgressContainer" class="mb-3" style="display:none;">
+                    <div class="progress">
+                        <div id="trialProgressBar" class="progress-bar progress-bar-striped progress-bar-animated"
+                            role="progressbar" style="width: 0%">
+                        </div>
+                    </div>
+                    <small id="trialProgressText">Uploading... 0%</small>
+                </div>
+
+                <input type="hidden" name="type" value="true">
+
+                <button type="submit" class="btn btn-primary w-100 rounded-ui">
+                    Upload
+                </button>
+            </form>
+
+        </div>
+    </div>
 </div>
 
 {% endblock %}

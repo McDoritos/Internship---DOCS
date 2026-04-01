@@ -35,9 +35,6 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
-print("DEBUG =", DEBUG)
-print("DJANGO_ALLOWED_HOSTS RAW =", os.environ.get("DJANGO_ALLOWED_HOSTS"))
-print("ALLOWED_HOSTS PARSED =", ALLOWED_HOSTS)
 
 
 # Application definition
