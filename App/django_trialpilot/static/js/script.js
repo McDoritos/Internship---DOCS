@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dataPrefix: "diary",
         detailsBaseUrl: "/diaries/",
         actionBaseUrl: "/diaries/",
+        actionPath: "extract",
         processedText: "processed",
         actionText: "parameter extraction pipeline"
     });
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dataPrefix: "trial",
         detailsBaseUrl: "/trials/",
         actionBaseUrl: "/trials/",
+        actionPath: "convert",
         processedText: "converted",
         actionText: "criteria conversion pipeline"
     });
@@ -35,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dataPrefix,
         detailsBaseUrl,
         actionBaseUrl,
+        actionPath,
         processedText,
         actionText
     }) {
@@ -72,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p>It will now be sent to the ${actionText}.</p>
                     `;
                     confirmBtn.style.display = "inline-block";
-                    confirmBtn.href = `${actionBaseUrl}${itemId}/extract`;
+                    confirmBtn.href = `${actionBaseUrl}${itemId}/${actionPath}`;
                 }
 
                 modal.show();

@@ -26,8 +26,17 @@ import pytesseract
 
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
-PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "parameter-extraction_prompt.txt"
-SYS_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "sys_parameter-extraction_prompt.txt"
+
+# Prompt Files
+PARAMETER_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "parameter-extraction_prompt.txt"
+SYS_PARAMETER_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "parameter-extraction" / "sys_parameter-extraction_prompt.txt"
+
+CRITERIA_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-extraction" / "criteria-extraction_prompt.txt"
+SYS_CRITERIA_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-extraction" / "sys_criteria-extraction_prompt.txt"
+
+CRITERIA_CONVERSION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-conversion" / "criteria-conversion_prompt.txt"
+SYS_CRITERIA_CONVERSION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-conversion" / "sys_criteria-conversion_prompt.txt"
+
 CLIENT = Groq(api_key=GROQ_KEY)
 MODEL = "openai/gpt-oss-120b"
 TEMP = 0.7
@@ -65,44 +74,100 @@ dummy_params = {
 def clean_value(value):
     return None if value in ["None", "", "null", None] else value
 
-def parameter_extraction_pipeline(document, document_content):
-    with open(SYS_PROMPT_FILE,"r", encoding="utf-8") as sys_parameter_extraction_prompt_file, \
-         open(PROMPT_FILE, "r", encoding="utf-8") as perfect_gen_prompt_file:
-             
-        base_parameter_extraction_prompt = perfect_gen_prompt_file.read()
-        base_sys_parameter_extraction_prompt = sys_parameter_extraction_prompt_file.read()
-        
-    print(f"processing file: {document.title}")
-    
-    sys_parameter_extraction_prompt = base_sys_parameter_extraction_prompt
-        
-    parameter_extraction_prompt = base_parameter_extraction_prompt.replace("{{DIARY_TEXT}}",document_content)
-    
+import json
+
+def load_prompt_files(system_prompt_path, user_prompt_path):
+    with open(system_prompt_path, "r", encoding="utf-8") as sys_file, \
+         open(user_prompt_path, "r", encoding="utf-8") as user_file:
+        return sys_file.read(), user_file.read()
+
+
+def build_prompt(template, replacements):
+    """
+    replacements: dict -> {"{{PLACEHOLDER}}": "value"}
+    """
+    for placeholder, value in replacements.items():
+        template = template.replace(placeholder, value)
+    return template
+
+
+def call_llm(system_prompt, user_prompt):
     completion = CLIENT.chat.completions.create(
-            model=MODEL, # llama-3.3-70b-versatile, openai/gpt-oss-120b the prompt isn-t optimized for gpt-oss-120b
-            messages=[
-                {
-                    "role": "system",
-                    "content": sys_parameter_extraction_prompt
-                },
-                {
-                    "role": "user",
-                    "content": parameter_extraction_prompt
-                }
-            ],
-            temperature=TEMP
-        )
-    result = completion.choices[0].message.content
+        model=MODEL,
+        messages=[
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user",
+                "content": user_prompt
+            }
+        ],
+        temperature=TEMP
+    )
+    return completion.choices[0].message.content
+
+
+def run_json_prompt_pipeline(
+    *,
+    system_prompt_path,
+    user_prompt_path,
+    replacements,
+    log_label=None,
+    max_retries=3
+):
+
+    if log_label:
+        print(f"Processing: {log_label}")
+
+    system_prompt, user_prompt_template = load_prompt_files(
+        system_prompt_path,
+        user_prompt_path
+    )
+
+    user_prompt = build_prompt(user_prompt_template, replacements)
+
+    for attempt in range(1, max_retries + 1):
+        result = call_llm(system_prompt, user_prompt)
+
+        try:
+            return json.loads(result)
+        except ValueError as e:
+            print(f"[Attempt {attempt}/{max_retries}] Error parsing JSON: {e}")
+            print("Raw model output:", result)
+
+    raise ValueError(f"Failed to get valid JSON after {max_retries} attempts.")
+
+def parameter_extraction_pipeline(document, document_content):
+    return run_json_prompt_pipeline(
+        system_prompt_path=SYS_PARAMETER_EXTRACTION_PROMPT_FILE,
+        user_prompt_path=PARAMETER_EXTRACTION_PROMPT_FILE,
+        replacements={
+            "{{DIARY_TEXT}}": document_content
+        },
+        log_label=document.title
+    )
     
-    try:
-        parsed = json.loads(result)
-    except ValueError as e:
-        print(f"Error parsing the result as JSON: {e}")
-        
-        # Retrying the process until there is a valid JSON output
-        return parameter_extraction_pipeline(document, document_content)
-    
-    return parsed
+def criteria_extraction_step(document, document_content):
+    return run_json_prompt_pipeline(
+        system_prompt_path=SYS_CRITERIA_EXTRACTION_PROMPT_FILE,
+        user_prompt_path=CRITERIA_EXTRACTION_PROMPT_FILE,
+        replacements={
+            "{{TRIAL_TEXT}}": document_content
+        },
+        log_label=document.title
+    )
+
+def criteria_conversion_step(criteria_extracted):
+    return run_json_prompt_pipeline(
+        system_prompt_path=SYS_CRITERIA_CONVERSION_PROMPT_FILE,
+        user_prompt_path=CRITERIA_CONVERSION_PROMPT_FILE,
+        replacements={
+            "{{CRITERIA_TEXT}}": json.dumps(criteria_extracted, ensure_ascii=False)
+        },
+        log_label="criteria conversion"
+    )
 
 
 def extract_document_text(document):
@@ -450,7 +515,6 @@ def document_upload(request):
 
     return render(request, "trialpilot/document_upload.html", {'form': form})
 
-#CARE WITH LOCKED PDF's
 def parameter_extraction(request, diary_id):
     try:
         document = Document.objects.get(id=diary_id)
@@ -465,17 +529,16 @@ def parameter_extraction(request, diary_id):
     
     if document.extracted:
         return render(request, 'trialpilot/diary_parameter-extraction.html', {'error': 'Parameters have already been extracted and validated for this document.'})
+    elif document.type != Document.DocumentType.CLINICAL_DIARY:
+        return render(request, 'trialpilot/diary_parameter-extraction.html', {'error': 'This pipeline only accepts Clinical Diary documents.'})
     else:
         if request.method == 'GET':
-            print(f"Received document ID: {diary_id}")
             
             extracted_params = parameter_extraction_pipeline(document, document_content)
             
             #extracted_params = dummy_params
             
             file_params = ContentFile(json.dumps(extracted_params))
-            
-            timestamp = timezone.now().strftime("%Y%m%d_%H%M%S")
 
             original_name, ext = document.title.rsplit('.', 1)
             name, old_id = original_name.rsplit('_', 1)
@@ -541,6 +604,51 @@ def parameter_extraction(request, diary_id):
 
             messages.success(request, "Parameters extracted and validated with success. And a new patient profile has been created.")
             return redirect('diary_list')
+
+def criteria_conversion(request, trial_id):
+    try:
+        document = Document.objects.get(id=trial_id)
+    except Document.DoesNotExist:
+        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+            'error': 'Document not found.'
+        })
+
+    if document.type != Document.DocumentType.CLINICAL_TRIAL:
+        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+            'error': 'This pipeline only accepts Clinical Trial documents.'
+        })
+
+    document_content = extract_document_text(document)
+
+    if not document_content.strip():
+        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+            'error': 'Could not extract readable text from this document.'
+        })
+    else:
+        if request.method == 'GET':
+            criteria_extracted = criteria_extraction_step(document, document_content)
+            
+            criteria_converted = criteria_conversion_step(criteria_extracted)
+            
+            parsed_criteria = ContentFile(json.dumps(criteria_converted))
+            
+            original_name, ext = document.title.rsplit('.', 1)
+            name, old_id = original_name.rsplit('_', 1)
+            unique_id = uuid.uuid4().hex
+            new_filename = f"{name}_{unique_id}.json"
+            
+            document_save(document, parsed_criteria, new_filename, 'CONVERTED')
+            
+            return render(request, 'trialpilot/trial_criteria-conversion.html', {"trial": document, "trial_content": document_content, "converted_criteria": criteria_converted})
+        
+        elif request.method == 'POST':
+            corrected_criteria = request.POST.dict()
+            corrected_criteria.pop("csrfmiddlewaretoken", None)
+            
+            json_string = json.dumps(corrected_criteria)
+            
+            
+
 
 def index(request):
     n_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY).count()
