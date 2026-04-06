@@ -157,7 +157,7 @@ def trial_list(request):
     status = request.GET.get("status", "").strip()
     file_type = request.GET.get("file_type", "").strip().lower()
     
-    trials = Document.objects.filter(type=True)
+    trials = Document.objects.filter(type=Document.DocumentType.CLINICAL_TRIAL)
     
     if search:
         trials = trials.filter(title__icontains=search)
@@ -193,7 +193,7 @@ def diary_list(request):
     status = request.GET.get("status", "").strip()
     file_type = request.GET.get("file_type", "").strip().lower()
     
-    diaries = Document.objects.filter(type=False)
+    diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY)
 
     if search:
         diaries = diaries.filter(title__icontains=search)
@@ -226,8 +226,16 @@ def diary_list(request):
     })
     
 def diary_details(request, diary_id):
+    
     try:
         document = Document.objects.get(id=diary_id)
+        
+        if document.type != Document.DocumentType.CLINICAL_DIARY:
+            return render(request, 'trialpilot/diary_details.html', {
+                'error': 'Document is not a clinical diary.'
+            })
+
+            
         document_content = extract_document_text(document)
     except Document.DoesNotExist:
         return render(request, 'trialpilot/diary_details.html', {
@@ -247,6 +255,21 @@ def diary_details(request, diary_id):
         "patient": patient,
         "treatments": treatments
     })
+    
+def trial_details(request, trial_id):
+    try:
+        document = Document.objects.get(id=trial_id)
+        if document.type != Document.DocumentType.CLINICAL_TRIAL:
+            return render(request, 'trialpilot/trial_details.html', {
+            'error': 'Document is not a clinical trial.'
+        })
+        document_content = extract_document_text(document)
+    except Document.DoesNotExist:
+        return render(request, 'trialpilot/trial_details.html', {
+            'error': 'Document not found.'
+        })
+   
+    versions = Version.objects.filter(document=document)
     
 
 @csrf_exempt
@@ -283,7 +306,45 @@ def diary_remove(request):
 
             document.delete()
 
-        messages.success(request, 'Selected diaries have been deeleted successfully.')
+        messages.success(request, 'Selected diaries have been deleted successfully.')
+        
+        return JsonResponse({"status": "success"})
+    
+@csrf_exempt
+def trial_remove(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        trial_ids = data.get("trials", [])
+
+        for trial_id in trial_ids:
+            document = get_object_or_404(Document, id=trial_id)
+
+            versions = Version.objects.filter(document=document)
+            for version in versions:
+                version_path = os.path.join(
+                    settings.MEDIA_ROOT,
+                    version.file_path.name
+                )
+
+                print(f"Path of the version of the document {version_path}")
+                
+                if os.path.exists(version_path):
+                    print("Version removed")
+                    os.remove(version_path)
+
+                version.delete()
+
+            file_path = os.path.join(
+                settings.MEDIA_ROOT,
+                document.title
+            )
+
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
+            document.delete()
+
+        messages.success(request, 'Selected trials have been deleted successfully.')
         
         return JsonResponse({"status": "success"})
 
@@ -359,7 +420,11 @@ def document_upload(request):
         if form.is_valid():
             files = request.FILES.getlist('file')
 
-            doc_type = form.cleaned_data['type']
+            doc_type = (
+                Document.DocumentType.CLINICAL_TRIAL 
+                if form.cleaned_data['type'] 
+                else Document.DocumentType.CLINICAL_DIARY
+            )
 
             for file in files:
                 timestamp = timezone.now().strftime("%Y%m%d-%H%M%S")
@@ -367,6 +432,8 @@ def document_upload(request):
                 original_name, ext = file.name.rsplit('.', 1)
                 unique_id = uuid.uuid4().hex
                 new_filename = f"{original_name}_{unique_id}.{ext}"
+                
+                
 
                 document = Document.objects.create(
                     title=new_filename,
@@ -476,22 +543,22 @@ def parameter_extraction(request, diary_id):
             return redirect('diary_list')
 
 def index(request):
-    n_diaries = Document.objects.filter(type=False).count()
+    n_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY).count()
+    n_trials = Document.objects.filter(type=Document.DocumentType.CLINICAL_TRIAL).count()
     n_patients = Patient_profile.objects.count()
-    n_trials = Document.objects.filter(type=True).count()
     n_versions = Version.objects.count()
-    avg_versions = Version.objects.count() / Document.objects.count() if Document.objects.count() > 0 else 0
-    
+
+    total_docs = Document.objects.count()
+    avg_versions = n_versions / total_docs if total_docs > 0 else 0
+
     avg_age = Patient_profile.objects.aggregate(Avg('age'))['age__avg']
 
-    
     top_diagnoses = (
         Patient_profile.objects.values('diagnosis')
         .annotate(count=Count('id'))
         .order_by('-count')[:3]
     )
 
-    
     return render(request, 'trialpilot/index.html', {
         'n_diaries': n_diaries,
         'n_patients': n_patients,

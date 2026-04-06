@@ -31,14 +31,14 @@
                     style="left:10px; top:50%; transform:translateY(-50%); color:#888;"></i>
 
                 <input type="text" name="search" value="{{ search }}" class="form-control form-control-sm rounded-ui"
-                    style="padding-left: 32px;" placeholder="Search clinical diary...">
+                    style="padding-left: 32px;" placeholder="Search clinical trials...">
             </div>
         </form>
 
         <!-- Right side (buttons) -->
         <div class="d-flex gap-2">
 
-            <button id="deleteBtn" data-url="{% url 'diary_remove' %}" class="btn btn-outline-danger btn-sm rounded-ui"
+            <button id="deleteBtn" data-url="{% url 'trial_remove' %}" class="btn btn-outline-danger btn-sm rounded-ui"
                 style="margin-right: 0.5rem;" disabled>
                 <i class="bi bi-trash"></i>
                 Delete
@@ -209,6 +209,62 @@
                     Upload
                 </button>
             </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="trialModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Clinical Trial</h5>
+            </div>
+
+            <div class="modal-body" id="trialModalBody">
+
+            </div>
+
+            <div class="modal-footer" id="trialModalFooter">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <!-- Left side -->
+                        <div class="col d-flex justify-content-start">
+                            <a id="trialDetailsBtn" class="btn btn-outline-primary rounded-ui">Details</a>
+                        </div>
+
+                        <!-- Right side -->
+                        <div class="col d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-outline-secondary rounded-ui" data-bs-dismiss="modal"
+                                style="margin-right: 0.5rem;">Cancel</button>
+                            <a id="confirmTrialAction" class="btn btn-outline-primary rounded-ui">Continue</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3 rounded-ui">
+
+            <h5 class="mb-3">Delete Trials</h5>
+
+            <div id="deleteModalBody" class="deleteModalBody">
+
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-3">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                    style="margin-right: 0.5rem;">Cancel</button>
+                <button id="confirmDeleteBtn" class="btn btn-outline-danger">Delete</button>
+            </div>
 
         </div>
     </div>

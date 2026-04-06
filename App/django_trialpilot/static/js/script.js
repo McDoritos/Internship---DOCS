@@ -1,43 +1,109 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const modal = new bootstrap.Modal(document.getElementById("diaryModal"));
-    const modalBody = document.getElementById("diaryModalBody");
-    const confirmBtn = document.getElementById("confirmDiaryAction");
 
-    document.querySelectorAll(".diary-card-trigger").forEach(card => {
-        card.addEventListener("click", function (e) {
+    initCardModal({
+        cardSelector: ".diary-card-trigger",
+        modalId: "diaryModal",
+        modalBodyId: "diaryModalBody",
+        confirmBtnId: "confirmDiaryAction",
+        detailsBtnId: "diaryDetailsBtn",
+        dataPrefix: "diary",
+        detailsBaseUrl: "/diaries/",
+        actionBaseUrl: "/diaries/",
+        processedText: "processed",
+        actionText: "parameter extraction pipeline"
+    });
 
+    initCardModal({
+        cardSelector: ".trial-card-trigger",
+        modalId: "trialModal",
+        modalBodyId: "trialModalBody",
+        confirmBtnId: "confirmTrialAction",
+        detailsBtnId: "trialDetailsBtn",
+        dataPrefix: "trial",
+        detailsBaseUrl: "/trials/",
+        actionBaseUrl: "/trials/",
+        processedText: "converted",
+        actionText: "criteria conversion pipeline"
+    });
 
-            if (e.target.classList.contains("diary-checkbox")) {
-                return;
+    function initCardModal({
+        cardSelector,
+        modalId,
+        modalBodyId,
+        confirmBtnId,
+        detailsBtnId,
+        dataPrefix,
+        detailsBaseUrl,
+        actionBaseUrl,
+        processedText,
+        actionText
+    }) {
+        const modalElement = document.getElementById(modalId);
+        const modalBody = document.getElementById(modalBodyId);
+        const confirmBtn = document.getElementById(confirmBtnId);
+        const detailsBtn = document.getElementById(detailsBtnId);
+
+        if (!modalElement || !modalBody || !confirmBtn || !detailsBtn) return;
+
+        const modal = new bootstrap.Modal(modalElement);
+
+        document.querySelectorAll(cardSelector).forEach(card => {
+            card.addEventListener("click", function (e) {
+
+                if (e.target.closest(".doc-checkbox, button, a, label, input")) {
+                    return;
+                }
+
+                const itemId = this.dataset[`${dataPrefix}Id`];
+                const itemTitle = this.dataset[`${dataPrefix}Title`];
+                const extracted = this.dataset[`${dataPrefix}Extracted`]?.toLowerCase() === "true";
+
+                detailsBtn.href = `${detailsBaseUrl}${itemId}/`;
+
+                if (extracted) {
+                    modalBody.innerHTML = `
+                        <p>The ${dataPrefix} <strong>${itemTitle}</strong> has already been ${processedText}.</p>
+                        <p>It cannot be processed again.</p>
+                    `;
+                    confirmBtn.style.display = "none";
+                } else {
+                    modalBody.innerHTML = `
+                        <p>The ${dataPrefix} <strong>${itemTitle}</strong> has not been processed yet.</p>
+                        <p>It will now be sent to the ${actionText}.</p>
+                    `;
+                    confirmBtn.style.display = "inline-block";
+                    confirmBtn.href = `${actionBaseUrl}${itemId}/extract`;
+                }
+
+                modal.show();
+            });
+        });
+    }
+
+    const deleteBtn = document.getElementById("deleteBtn");
+    const checkboxes = document.querySelectorAll(".doc-checkbox");
+
+    function updateDeleteButtonState() {
+        const checkedBoxes = document.querySelectorAll(".doc-checkbox:checked");
+        if (deleteBtn) {
+            deleteBtn.disabled = checkedBoxes.length === 0;
+        }
+    }
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+            const card = this.closest(".doc-card");
+
+            if (card) {
+                card.classList.toggle("selected-card", this.checked);
             }
 
-            const diaryId = this.dataset.diaryId;
-            const diaryTitle = this.dataset.diaryTitle;
-            const extracted = this.dataset.diaryExtracted === "True";
-            const detailsBtn = document.getElementById("diaryDetailsBtn");
-
-
-            detailsBtn.href = `/diaries/${diaryId}/`;
-
-            if (extracted) {
-                modalBody.innerHTML = `
-            <p>The diary <strong>${diaryTitle}</strong> has already been processed.</p>
-            <p>It cannot be processed again.</p>
-        `;
-                confirmBtn.style.display = "none";
-
-            } else {
-                modalBody.innerHTML = `
-            <p>The diary <strong>${diaryTitle}</strong> has not been processed yet.</p>
-            <p>It will now be sent to the parameter extraction pipeline.</p>
-        `;
-                confirmBtn.style.display = "inline-block";
-                confirmBtn.href = `/diaries/${diaryId}/extract`;
-            }
-
-            modal.show();
+            updateDeleteButtonState();
         });
     });
+
+    updateDeleteButtonState();
+
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -324,67 +390,117 @@ function getCSRFToken() {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const checkboxes = document.querySelectorAll(".diary-checkbox");
-    const deleteBtn = document.getElementById("deleteBtn");
-
-    function updateDeleteButton() {
-        const anyChecked = document.querySelectorAll(".diary-checkbox:checked").length > 0;
-        deleteBtn.disabled = !anyChecked;
-    }
-
-    checkboxes.forEach(cb => {
-        cb.addEventListener("change", updateDeleteButton);
+    initBulkDelete({
+        checkboxSelector: ".doc-checkbox",
+        deleteBtnId: "deleteBtn",
+        deleteModalId: "deleteModal",
+        deleteModalBodyId: "deleteModalBody",
+        confirmDeleteBtnId: "confirmDeleteBtn",
+        cardSelector: ".diary-card-trigger",
+        datasetTitleKey: "diaryTitle",
+        payloadKey: "diaries",
+        itemLabel: "diaries"
     });
 
-    const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
-    const deleteModalBody = document.getElementById("deleteModalBody");
-    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+    initBulkDelete({
+        checkboxSelector: ".doc-checkbox",
+        deleteBtnId: "deleteBtn",
+        deleteModalId: "deleteModal",
+        deleteModalBodyId: "deleteModalBody",
+        confirmDeleteBtnId: "confirmDeleteBtn",
+        cardSelector: ".trial-card-trigger",
+        datasetTitleKey: "trialTitle",
+        payloadKey: "trials",
+        itemLabel: "trials"
+    });
 
-    let selectedDiaries = [];
+    function initBulkDelete({
+        checkboxSelector,
+        deleteBtnId,
+        deleteModalId,
+        deleteModalBodyId,
+        confirmDeleteBtnId,
+        cardSelector,
+        datasetTitleKey,
+        payloadKey,
+        itemLabel
+    }) {
+        const deleteBtn = document.getElementById(deleteBtnId);
+        const deleteModalElement = document.getElementById(deleteModalId);
+        const deleteModalBody = document.getElementById(deleteModalBodyId);
+        const confirmDeleteBtn = document.getElementById(confirmDeleteBtnId);
 
-    deleteBtn.addEventListener("click", function () {
+        if (!deleteBtn || !deleteModalElement || !deleteModalBody || !confirmDeleteBtn) return;
 
-        selectedDiaries = [];
+        const matchingCards = document.querySelectorAll(cardSelector);
+        if (!matchingCards.length) return;
 
-        document.querySelectorAll(".diary-checkbox:checked").forEach(cb => {
-            selectedDiaries.push(cb.value);
+        const deleteModal = new bootstrap.Modal(deleteModalElement);
+        let selectedItems = [];
+
+        function getMatchingCheckboxes() {
+            return Array.from(document.querySelectorAll(checkboxSelector)).filter(cb =>
+                cb.closest(cardSelector)
+            );
+        }
+
+        function updateDeleteButton() {
+            const anyChecked = getMatchingCheckboxes().some(cb => cb.checked);
+            deleteBtn.disabled = !anyChecked;
+        }
+
+        getMatchingCheckboxes().forEach(cb => {
+            cb.addEventListener("change", updateDeleteButton);
         });
 
-        deleteModalBody.innerHTML = `
-    <p>You are about to delete:</p>
-    <ul>
-        ${selectedDiaries.map(id => {
-            const el = document.querySelector(`[value="${id}"]`)
-                .closest(".diary-card-trigger");
-            return `<li>${el.dataset.diaryTitle}</li>`;
-        }).join("")}
-    </ul>
-    <p class="text-danger">This action cannot be undone.</p>
-`;
+        deleteBtn.addEventListener("click", function () {
+            selectedItems = [];
 
-        deleteModal.show();
-    });
+            getMatchingCheckboxes()
+                .filter(cb => cb.checked)
+                .forEach(cb => selectedItems.push(cb.value));
 
-    confirmDeleteBtn.addEventListener("click", function () {
+            deleteModalBody.innerHTML = `
+                <p>You are about to delete:</p>
+                <ul>
+                    ${selectedItems.map(id => {
+                        const checkbox = document.querySelector(`${checkboxSelector}[value="${id}"]`);
+                        const card = checkbox?.closest(cardSelector);
+                        const title = card?.dataset?.[datasetTitleKey] || `Item ${id}`;
+                        return `<li>${title}</li>`;
+                    }).join("")}
+                </ul>
+                <p class="text-danger">This action cannot be undone.</p>
+            `;
 
-        const url = deleteBtn.dataset.url;
+            deleteModal.show();
+        });
 
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": getCSRFToken()
-            },
-            body: JSON.stringify({ diaries: selectedDiaries })
-        })
-            .then(res => res.json())
-            .then(data => {
-                deleteModal.hide();
-                location.reload();
-            });
-    });
+        confirmDeleteBtn.addEventListener("click", function () {
+            const url = deleteBtn.dataset.url;
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify({ [payloadKey]: selectedItems })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    deleteModal.hide();
+                    location.reload();
+                })
+                .catch(err => {
+                    console.error(`Error deleting ${itemLabel}:`, err);
+                });
+        });
+
+        updateDeleteButton();
+    }
+
 });
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const resetModal = new bootstrap.Modal(document.getElementById("resetModal"));

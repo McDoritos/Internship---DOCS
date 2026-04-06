@@ -2,11 +2,15 @@ from django.db import models
 
 # Create your models here.
 class Document(models.Model):
-    title = models.CharField(max_length = 255)
-    type = models.BooleanField(default=False)
+    class DocumentType(models.TextChoices):
+        CLINICAL_DIARY = "diary", "Clinical Diary"
+        CLINICAL_TRIAL = "trial", "Clinical Trial"
+
+    title = models.CharField(max_length=255)
+    type = models.CharField(max_length=20, choices=DocumentType.choices)
     extracted = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return f"{self.title} - {self.type}"
@@ -30,6 +34,7 @@ class Patient_profile(models.Model):
     stage = models.CharField(max_length=50, null=True, blank=True)
     control = models.CharField(max_length=255, null=True, blank=True)
     
+    
     def __str__(self):
         return f"Patient {self.id} - {self.diagnosis}"    
 
@@ -41,3 +46,60 @@ class Treatment(models.Model):
     
     def __str__(self):
         return f"{self.patient} - {self.treatment_name}"
+    
+class Trial_criteria(models.Model):
+    class CriterionType(models.TextChoices):
+        INCLUSION = "inclusion", "Inclusion"
+        EXCLUSION = "exclusion", "Exclusion"
+
+    document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name="trial_criteria")
+    type = models.CharField(max_length=20, choices=CriterionType.choices)
+    criterion = models.TextField()
+    
+    logical_rule = models.JSONField(null=True, blank=True)
+    validated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.document.title} - {self.type} Criterion: {self.criterion}"
+    
+class Patient_trial_match(models.Model):
+    class Decision(models.TextChoices):
+        ELIGIBLE = "eligible", "Eligible"
+        INELIGIBLE = "ineligible", "Ineligible"
+        INCONCLUSIVE = "inconclusive", "Inconclusive"
+
+    patient = models.ForeignKey(Patient_profile, on_delete=models.CASCADE, related_name="trial_matches")
+    trial = models.ForeignKey(Document, on_delete=models.CASCADE, related_name="patient_matches")
+
+    decision = models.CharField(max_length=20, choices=Decision.choices)
+    deterministic_result = models.BooleanField(default=False)
+
+    llm_justification = models.TextField(null=True, blank=True)
+    summary = models.TextField(null=True, blank=True)
+
+    matched_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("patient", "trial")
+
+    def __str__(self):
+        return f"{self.patient} ↔ {self.trial} ({self.decision})"
+
+class Criterion_evaluation(models.Model):
+    match = models.ForeignKey(Patient_trial_match, on_delete=models.CASCADE, related_name="criterion_evaluations")
+    criterion = models.ForeignKey(Trial_criteria, on_delete=models.CASCADE, related_name="evaluations")
+
+    passed = models.BooleanField()
+    patient_value = models.CharField(max_length=255, null=True, blank=True)
+    evaluation_details = models.JSONField(null=True, blank=True)
+
+    deterministic_justification = models.TextField(null=True, blank=True)
+
+    evaluated_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("match", "criterion")
+
+    def __str__(self):
+        return f"{self.match} - Criterion {self.criterion.id} ({'PASS' if self.passed else 'FAIL'})"
+    
