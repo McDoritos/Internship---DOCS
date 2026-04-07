@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dataPrefix: "trial",
         detailsBaseUrl: "/trials/",
         actionBaseUrl: "/trials/",
-        actionPath: "convert",
+        actionPath: "criteria-extract",
         processedText: "converted",
         actionText: "criteria conversion pipeline"
     });
@@ -545,3 +545,178 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+
+/* Trial Criteria Extraction */
+document.addEventListener("DOMContentLoaded", function () {
+
+    function updateNumbers(containerId, countId) {
+        const container = document.getElementById(containerId);
+        const count = document.getElementById(countId);
+        const items = container.querySelectorAll(".criterion-item");
+
+        items.forEach((item, index) => {
+            const number = item.querySelector(".criterion-number");
+            if (number) number.textContent = index + 1;
+        });
+
+        count.textContent = items.length;
+    }
+
+    function removeEmptyState(container) {
+        const empty = container.querySelector(".empty-mini");
+        if (empty) empty.remove();
+    }
+
+    function ensureEmptyState(containerId, message) {
+        const container = document.getElementById(containerId);
+        const items = container.querySelectorAll(".criterion-item");
+
+        if (items.length === 0 && !container.querySelector(".empty-mini")) {
+            const empty = document.createElement("div");
+            empty.className = "empty-mini text-muted";
+            empty.textContent = message;
+            container.appendChild(empty);
+        }
+    }
+
+    document.querySelectorAll(".add-field").forEach(button => {
+        button.addEventListener("click", function () {
+            const container = document.getElementById(this.dataset.target);
+            const fieldName = this.dataset.name;
+            const placeholder = this.dataset.placeholder || "Write criterion...";
+
+            removeEmptyState(container);
+
+            const wrapper = document.createElement("div");
+            wrapper.className = "criterion-item";
+
+            const itemCount = container.querySelectorAll(".criterion-item").length + 1;
+
+            wrapper.innerHTML = `
+                <div class="criterion-number">${itemCount}</div>
+                <input type="text" name="${fieldName}" class="form-control criterion-input" placeholder="${placeholder}">
+                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove criterion">
+                    <i class="bi bi-trash"></i>
+                </button>
+            `;
+
+            container.appendChild(wrapper);
+            wrapper.querySelector("input").focus();
+
+            if (container.id === "inclusion-container") {
+                updateNumbers("inclusion-container", "inclusion-count");
+            } else if (container.id === "exclusion-container") {
+                updateNumbers("exclusion-container", "exclusion-count");
+            }
+        });
+    });
+
+    document.addEventListener("click", function (e) {
+        const removeBtn = e.target.closest(".remove-field");
+        if (!removeBtn) return;
+
+        const item = removeBtn.closest(".criterion-item");
+        const container = item.parentElement;
+        item.remove();
+
+        if (container.id === "inclusion-container") {
+            updateNumbers("inclusion-container", "inclusion-count");
+            ensureEmptyState("inclusion-container", "No inclusion criteria extracted.");
+        } else if (container.id === "exclusion-container") {
+            updateNumbers("exclusion-container", "exclusion-count");
+            ensureEmptyState("exclusion-container", "No exclusion criteria extracted.");
+        }
+    });
+
+    updateNumbers("inclusion-container", "inclusion-count");
+    updateNumbers("exclusion-container", "exclusion-count");
+});
+
+/* Diary Parameter Extraction */
+document.addEventListener("DOMContentLoaded", function () {
+    const treatmentContainer = document.getElementById("treatment-container");
+    const treatmentCount = document.getElementById("treatment-count");
+
+    function updateTreatmentNumbers() {
+        const treatments = treatmentContainer.querySelectorAll(".treatment-card");
+        treatments.forEach((card, index) => {
+            const number = card.querySelector(".treatment-number");
+            if (number) number.textContent = index + 1;
+        });
+        treatmentCount.textContent = treatments.length;
+    }
+
+    function ensureTreatmentEmptyState() {
+        const treatments = treatmentContainer.querySelectorAll(".treatment-card");
+        const emptyState = document.getElementById("treatment-empty");
+
+        if (treatments.length === 0 && !emptyState) {
+            const empty = document.createElement("div");
+            empty.className = "empty-mini text-muted";
+            empty.id = "treatment-empty";
+            empty.textContent = "No treatments extracted.";
+            treatmentContainer.appendChild(empty);
+        }
+    }
+
+    function removeTreatmentEmptyState() {
+        const empty = document.getElementById("treatment-empty");
+        if (empty) empty.remove();
+    }
+
+    document.getElementById("add-treatment").addEventListener("click", function () {
+        removeTreatmentEmptyState();
+
+        const currentCount = treatmentContainer.querySelectorAll(".treatment-card").length + 1;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "treatment-card";
+
+        wrapper.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="treatment-title">
+                    <i class="bi bi-activity me-2"></i>
+                    Treatment <span class="treatment-number">${currentCount}</span>
+                </div>
+                <button type="button" class="btn btn-icon btn-remove remove-treatment" title="Remove treatment">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label class="form-label field-label">Treatment Name</label>
+                    <input type="text" name="treatment_name[]" class="form-control clinical-input" placeholder="Enter treatment name...">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label field-label">Start Date</label>
+                    <input type="text" name="treatment_start_date[]" class="form-control clinical-input" placeholder="e.g. 2023-05-01">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label field-label">End Date</label>
+                    <input type="text" name="treatment_end_date[]" class="form-control clinical-input" placeholder="e.g. 2023-10-15">
+                </div>
+            </div>
+        `;
+
+        treatmentContainer.appendChild(wrapper);
+        wrapper.querySelector("input").focus();
+        updateTreatmentNumbers();
+    });
+
+    document.addEventListener("click", function (e) {
+        const removeBtn = e.target.closest(".remove-treatment");
+        if (!removeBtn) return;
+
+        const card = removeBtn.closest(".treatment-card");
+        card.remove();
+
+        updateTreatmentNumbers();
+        ensureTreatmentEmptyState();
+    });
+
+    updateTreatmentNumbers();
+}); 

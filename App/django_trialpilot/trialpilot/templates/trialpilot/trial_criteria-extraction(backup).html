@@ -1,0 +1,107 @@
+{% extends "trialpilot/base.html" %}
+
+{% block title %}Clinical Trial Criteria Extraction{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column mb-4 ml-3 mr-3">
+    <h3 class="mb-3">Clinical Trial Criteria Extraction</h3>
+
+    <p>Criteria extraction for the clinical trial - {{ trial.title }}</p>
+
+    <div class="sidebar-divider mb-4"></div>
+</div>
+
+<div class="row g-4 ml-3 mr-3">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-md-6 d-flex flex-column">
+        <h4>Clinical Trial Contents:</h4>
+
+        <div class="border p-3 bg-light rounded-ui flex-grow-1 mt-3" style="max-height: 70vh; overflow-y: auto;">
+            {{ trial_content }}
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-md-6 d-flex flex-column">
+        <h4>Extracted Criteria:</h4>
+
+        <form method="POST" class="mt-3">
+            {% csrf_token %}
+
+            <div class="flex-grow-1" style="max-height: 70vh; overflow-y: auto;">
+
+                <!-- Inclusion -->
+                <div class="card mb-4 shadow-sm rounded-ui">
+                    <strong class="mt-2">Inclusion Criteria</strong>
+
+                    <div class="card-body" id="inclusion-container">
+                        {% for criterion in extracted_criteria.inclusion_criteria %}
+                        <div class="mb-3 d-flex gap-2">
+                            <input type="text" name="inclusion[]" value="{{ criterion }}" class="form-control">
+                            <button type="button" class="btn btn-outline-danger remove-field"><i class="bi bi-trash"></i></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-outline-success add-field" data-target="inclusion-container" data-name="inclusion[]">
+                            + Add Inclusion Criterion
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Exclusion -->
+                <div class="card mb-4 shadow-sm rounded-ui">
+                    <strong class="mt-2">Exclusion Criteria</strong>
+
+                    <div class="card-body" id="exclusion-container">
+                        {% for criterion in extracted_criteria.exclusion_criteria %}
+                        <div class="mb-3 d-flex gap-2">
+                            <input type="text" name="exclusion[]" value="{{ criterion }}" class="form-control">
+                            <button type="button" class="btn btn-outline-danger remove-field"><i class="bi bi-trash"></i></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-outline-danger add-field" data-target="exclusion-container" data-name="exclusion[]">
+                            + Add Exclusion Criterion
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-outline-success w-50 mt-3 d-block mx-auto">
+                Confirm and Continue
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".add-field").forEach(button => {
+        button.addEventListener("click", function () {
+            const container = document.getElementById(this.dataset.target);
+            const fieldName = this.dataset.name;
+
+            const wrapper = document.createElement("div");
+            wrapper.className = "mb-3 d-flex gap-2";
+
+            wrapper.innerHTML = `
+                <input type="text" name="${fieldName}" class="form-control" placeholder="Write criterion...">
+                <button type="button" class="btn btn-outline-danger remove-field">X</button>
+            `;
+
+            container.appendChild(wrapper);
+        });
+    });
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("remove-field")) {
+            e.target.parentElement.remove();
+        }
+    });
+});
+</script>
+{% endblock %}

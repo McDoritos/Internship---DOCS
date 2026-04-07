@@ -1,6 +1,6 @@
 from django.urls import path
 from django.shortcuts import render
-from .views import diary_list, parameter_extraction, document_upload, patient_list, index, diary_remove, diary_details, patient_reset, trial_list, trial_details, trial_remove, criteria_conversion
+from .views import diary_list, parameter_extraction, document_upload, patient_list, index, diary_remove, diary_details, patient_reset, trial_list, trial_details, trial_remove, criteria_extraction
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -18,7 +18,7 @@ urlpatterns = [
     path('diaries/<int:diary_id>/', diary_details, name="diary_details"),
     
     path('trials/', trial_list, name='trial_list'),
-    path('diaries/<int:diary_id>/convert/', criteria_conversion, name='criteria_conversion'),
+    path('trials/<int:trial_id>/criteria-extract/', criteria_extraction, name='criteria_extraction'),
     path('trials/delete/', trial_remove, name='trial_remove'),
     path('trials/<int:trial_id>/', trial_details, name="trial_details"),
     

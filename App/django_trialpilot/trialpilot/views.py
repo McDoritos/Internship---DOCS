@@ -41,7 +41,7 @@ CLIENT = Groq(api_key=GROQ_KEY)
 MODEL = "openai/gpt-oss-120b"
 TEMP = 0.7
 
-dummy_params = {
+dummy_params_extraction = {
     "age_or_birthdate": 45,
     "ecog_ps": 0,
     "diagnosis": "Invasive ductal carcinoma of the breast",
@@ -68,6 +68,37 @@ dummy_params = {
         "and PET‑CT on 2026-04-10."
     )
 }
+
+dummy_criteria_extraction = {
+    "inclusion_criteria": 
+        [
+            "Age ≥ 18 years.", 
+            "Histologically or cytologically confirmed metastatic NSCLC (Stage IV).", 
+            "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.", 
+            "ECOG Performance Status 0–1.", 
+            "At least one measurable lesion per RECIST 1.1.", 
+            "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L.", 
+            "Platelets ≥ 100 x 10^9/L.", 
+            "Hemoglobin ≥ 9 g/dL.", 
+            "AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).", 
+            "ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).", 
+            "Total bilirubin ≤ 1.5 x ULN.", 
+            "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).", 
+            "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.", 
+            "Signed informed consent prior to any study-specific procedure."
+        ], 
+    "exclusion_criteria": 
+        [
+            "Known EGFR, ALK, or ROS1 genomic alterations with available approved targeted therapy.", 
+            "Untreated or symptomatic brain metastases.", 
+            "Active autoimmune disease requiring systemic immunosuppressive therapy.", 
+            "Interstitial lung disease or active non-infectious pneumonitis.", 
+            "Active infection requiring systemic therapy.", 
+            "Prior exposure to LUMITAX.", 
+            "Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ)."
+        ]
+}
+
 
 # Auxiliary functions
 
@@ -534,9 +565,9 @@ def parameter_extraction(request, diary_id):
     else:
         if request.method == 'GET':
             
-            extracted_params = parameter_extraction_pipeline(document, document_content)
+            #extracted_params = parameter_extraction_pipeline(document, document_content)
             
-            #extracted_params = dummy_params
+            extracted_params = dummy_params_extraction
             
             file_params = ContentFile(json.dumps(extracted_params))
 
@@ -567,26 +598,18 @@ def parameter_extraction(request, diary_id):
                 control=clean_value(corrected_params.get("control")),
             )
             
-            treatments_raw = corrected_params.get("treatments")
-            print("Raw treatments data:", treatments_raw)
+            treatment_names = request.POST.getlist("treatment_name[]")
+            treatment_start_dates = request.POST.getlist("treatment_start_date[]")
+            treatment_end_dates = request.POST.getlist("treatment_end_date[]")
 
-           
-            try:
-                treatments = ast.literal_eval(treatments_raw)
-            except:
-                treatments = []
-
-            print("Parsed treatments data:", treatments)
-
-            for treatment in treatments:
-                print(f"Processing treatment: {treatment}")
-
-                Treatment.objects.create(
-                    patient=patient,
-                    treatment_name=treatment.get("name"),
-                    start_date=clean_value(treatment.get("start_date")),
-                    end_date=clean_value(treatment.get("end_date")),
-                )
+            for i in range(len(treatment_names)):
+                if treatment_names[i].strip():
+                    Treatment.objects.create(
+                        patient=patient,
+                        treatment_name=clean_value(treatment_names[i]),
+                        start_date=clean_value(treatment_start_dates[i]) if i < len(treatment_start_dates) else None,
+                        end_date=clean_value(treatment_end_dates[i]) if i < len(treatment_end_dates) else None,
+                    )
 
             file_params = ContentFile(json_string)
 
@@ -605,41 +628,41 @@ def parameter_extraction(request, diary_id):
             messages.success(request, "Parameters extracted and validated with success. And a new patient profile has been created.")
             return redirect('diary_list')
 
-def criteria_conversion(request, trial_id):
+def criteria_extraction(request, trial_id):
     try:
         document = Document.objects.get(id=trial_id)
     except Document.DoesNotExist:
-        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+        return render(request, 'trialpilot/trial_criteria-extraction.html', {
             'error': 'Document not found.'
         })
 
     if document.type != Document.DocumentType.CLINICAL_TRIAL:
-        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+        return render(request, 'trialpilot/trial_criteria-extraction.html', {
             'error': 'This pipeline only accepts Clinical Trial documents.'
         })
 
     document_content = extract_document_text(document)
 
     if not document_content.strip():
-        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+        return render(request, 'trialpilot/trial_criteria-extraction.html', {
             'error': 'Could not extract readable text from this document.'
         })
     else:
         if request.method == 'GET':
-            criteria_extracted = criteria_extraction_step(document, document_content)
+            #criteria_extracted = criteria_extraction_step(document, document_content)
             
-            criteria_converted = criteria_conversion_step(criteria_extracted)
+            criteria_extracted = dummy_criteria_extraction 
             
-            parsed_criteria = ContentFile(json.dumps(criteria_converted))
+            parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
             original_name, ext = document.title.rsplit('.', 1)
             name, old_id = original_name.rsplit('_', 1)
             unique_id = uuid.uuid4().hex
             new_filename = f"{name}_{unique_id}.json"
             
-            document_save(document, parsed_criteria, new_filename, 'CONVERTED')
+            document_save(document, parsed_criteria, new_filename, 'EXTRACTED')
             
-            return render(request, 'trialpilot/trial_criteria-conversion.html', {"trial": document, "trial_content": document_content, "converted_criteria": criteria_converted})
+            return render(request, 'trialpilot/trial_criteria-extraction.html', {"trial": document, "trial_content": document_content, "extracted_criteria": criteria_extracted})
         
         elif request.method == 'POST':
             corrected_criteria = request.POST.dict()

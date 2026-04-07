@@ -1,0 +1,170 @@
+{% extends "trialpilot/base.html" %}
+
+{% block title %}Clinical Trial Criteria Extraction{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="mb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <div>
+                <h2 class="fw-bold mb-1">Clinical Trial Criteria Extraction</h2>
+                <p class="text-muted mb-0">
+                    Review and validate the extracted eligibility criteria before continuing to logical conversion.
+                </p>
+            </div>
+
+            <div class="trial-badge px-3 py-2 rounded-pill">
+                <i class="bi bi-file-earmark-medical me-2"></i>
+                {{ trial.title }}
+            </div>
+        </div>
+        <hr class="mt-4">
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="row g-4">
+
+            <!-- LEFT COLUMN -->
+            <div class="col-lg-6">
+                <div class="glass-card h-100">
+                    <div class="card-header-custom">
+                        <div>
+                            <h5 class="mb-1 fw-semibold">
+                                <i class="bi bi-file-text me-2 text-primary"></i>
+                                Clinical Trial Content
+                            </h5>
+                            <small class="text-muted">Original extracted document text</small>
+                        </div>
+                    </div>
+
+                    <div class="document-preview">
+                        {% if trial_content %}
+                            <pre class="trial-text">{{ trial_content }}</pre>
+                        {% else %}
+                            <div class="empty-state">
+                                <i class="bi bi-file-earmark-x fs-1 text-muted"></i>
+                                <p class="mt-3 text-muted mb-0">No readable content was extracted from this document.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="col-lg-6">
+                <div class="glass-card h-100 d-flex flex-column">
+                    <div class="card-header-custom">
+                        <div>
+                            <h5 class="mb-1 fw-semibold">
+                                <i class="bi bi-clipboard-check me-2 text-success"></i>
+                                Extracted Criteria
+                            </h5>
+                            <small class="text-muted">Edit, remove, or add criteria before validating</small>
+                        </div>
+                    </div>
+
+                    <div class="criteria-scroll flex-grow-1">
+
+                        <!-- Inclusion -->
+                        <div class="criteria-section mb-4">
+                            <div class="criteria-section-header inclusion-header">
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-plus-circle-fill me-2"></i>
+                                        <span class="fw-semibold">Inclusion Criteria</span>
+                                    </div>
+                                    <span class="criteria-count" id="inclusion-count">
+                                        {{ extracted_criteria.inclusion_criteria|length }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="criteria-body" id="inclusion-container">
+                                {% for criterion in extracted_criteria.inclusion_criteria %}
+                                <div class="criterion-item">
+                                    <div class="criterion-number">{{ forloop.counter }}</div>
+                                    <input type="text" name="inclusion[]" value="{{ criterion }}" class="form-control criterion-input">
+                                    <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove criterion">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                                {% empty %}
+                                <div class="empty-mini text-muted" id="inclusion-empty">
+                                    No inclusion criteria extracted.
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <button type="button"
+                                    class="btn btn-soft-success mt-3 add-field"
+                                    data-target="inclusion-container"
+                                    data-name="inclusion[]"
+                                    data-placeholder="Write inclusion criterion...">
+                                <i class="bi bi-plus-lg me-1"></i> Add Inclusion Criterion
+                            </button>
+                        </div>
+
+                        <!-- Exclusion -->
+                        <div class="criteria-section">
+                            <div class="criteria-section-header exclusion-header">
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-dash-circle-fill me-2"></i>
+                                        <span class="fw-semibold">Exclusion Criteria</span>
+                                    </div>
+                                    <span class="criteria-count" id="exclusion-count">
+                                        {{ extracted_criteria.exclusion_criteria|length }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="criteria-body" id="exclusion-container">
+                                {% for criterion in extracted_criteria.exclusion_criteria %}
+                                <div class="criterion-item">
+                                    <div class="criterion-number">{{ forloop.counter }}</div>
+                                    <input type="text" name="exclusion[]" value="{{ criterion }}" class="form-control criterion-input">
+                                    <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove criterion">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                                {% empty %}
+                                <div class="empty-mini text-muted" id="exclusion-empty">
+                                    No exclusion criteria extracted.
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <button type="button"
+                                    class="btn btn-soft-danger mt-3 add-field"
+                                    data-target="exclusion-container"
+                                    data-name="exclusion[]"
+                                    data-placeholder="Write exclusion criterion...">
+                                <i class="bi bi-plus-lg me-1"></i> Add Exclusion Criterion
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ACTION FOOTER -->
+                    <div class="sticky-footer-actions mt-4">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                            <small class="text-muted">
+                                Confirm the extracted criteria before proceeding to the logic conversion stage.
+                            </small>
+
+                            <button type="submit" class="btn btn-success px-4 py-2 rounded-pill shadow-sm">
+                                <i class="bi bi-arrow-right-circle me-2"></i>
+                                Confirm and Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+{% endblock %}
