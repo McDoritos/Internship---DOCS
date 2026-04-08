@@ -1,0 +1,190 @@
+{% extends "trialpilot/base.html" %}
+
+{% block title %}Clinical Trial Criteria Logical Conversion{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="mb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <div>
+                <h2 class="fw-bold mb-1">Clinical Trial Criteria Logical Conversion</h2>
+                <p class="text-muted mb-0">
+                    Review and validate the structured logical representation of each eligibility criterion.
+                </p>
+            </div>
+
+            <div class="trial-badge px-3 py-2 rounded-pill">
+                <i class="bi bi-diagram-3 me-2"></i>
+                {{ trial.title }}
+            </div>
+        </div>
+        <hr class="mt-4">
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="row g-4">
+
+            <!-- LEFT COLUMN -->
+            <div class="col-lg-5">
+                <div class="glass-card h-100">
+                    <div class="card-header-custom">
+                        <div>
+                            <h5 class="mb-1 fw-semibold">
+                                <i class="bi bi-clipboard2-pulse me-2 text-primary"></i>
+                                Validated Clinical Criteria
+                            </h5>
+                            <small class="text-muted">Human-readable eligibility criteria approved in the previous step</small>
+                        </div>
+                    </div>
+
+                    <div class="criteria-preview-scroll">
+
+                        <!-- Inclusion -->
+                        <div class="criteria-section mb-4">
+                            <div class="criteria-section-header inclusion-header">
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-plus-circle-fill me-2"></i>
+                                        <span class="fw-semibold">Inclusion Criteria</span>
+                                    </div>
+                                    <span class="criteria-count">
+                                        {{ logic_criteria|dictsort:"criterion.id"|length }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="criteria-body">
+                                {% for logic in logic_criteria %}
+                                    {% if logic.criterion.type == "inclusion" %}
+                                        <div class="preview-criterion-card">
+                                            <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                            <div class="preview-criterion-text">
+                                                {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="empty-mini text-muted">
+                                        No inclusion criteria available.
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Exclusion -->
+                        <div class="criteria-section">
+                            <div class="criteria-section-header exclusion-header">
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-dash-circle-fill me-2"></i>
+                                        <span class="fw-semibold">Exclusion Criteria</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="criteria-body">
+                                {% for logic in logic_criteria %}
+                                    {% if logic.criterion.type == "exclusion" %}
+                                        <div class="preview-criterion-card">
+                                            <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                            <div class="preview-criterion-text">
+                                                {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="empty-mini text-muted">
+                                        No exclusion criteria available.
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="col-lg-7">
+                <div class="glass-card h-100 d-flex flex-column">
+                    <div class="card-header-custom">
+                        <div>
+                            <h5 class="mb-1 fw-semibold">
+                                <i class="bi bi-cpu me-2 text-success"></i>
+                                Generated Logical Representation
+                            </h5>
+                            <small class="text-muted">Review and correct the model-generated structured logic</small>
+                        </div>
+                    </div>
+
+                    <div class="logic-scroll flex-grow-1">
+
+                        {% for logic in logic_criteria %}
+                        <div class="logic-card mb-4">
+                            <div class="logic-card-header {% if logic.criterion.type == 'inclusion' %}logic-inclusion{% else %}logic-exclusion{% endif %}">
+                                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                                    <div>
+                                        <span class="logic-pill {% if logic.criterion.type == 'inclusion' %}pill-success{% else %}pill-danger{% endif %}">
+                                            {{ logic.criterion.type|title }}
+                                        </span>
+                                        <h6 class="fw-semibold mt-2 mb-1">
+                                            Criterion #{{ forloop.counter }}
+                                        </h6>
+                                        <p class="mb-0 text-muted small">
+                                            {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="logic-card-body">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold mb-2">
+                                        <i class="bi bi-braces me-1"></i>
+                                        Validated Logic JSON
+                                    </label>
+                                    <textarea
+                                        class="form-control logic-json-input"
+                                        name="logic_{{ logic.id }}"
+                                        rows="10"
+                                        spellcheck="false"
+                                    >{{ logic.pretty_logic }}</textarea>
+                                    <div class="form-text">
+                                        You may edit this structured logic before confirming.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="empty-state">
+                            <i class="bi bi-diagram-3 fs-1 text-muted"></i>
+                            <p class="mt-3 text-muted mb-0">No logical criteria were generated yet.</p>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- ACTION FOOTER -->
+                    <div class="sticky-footer-actions mt-4">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                            <small class="text-muted">
+                                Confirm the logical representation before proceeding to the patient matching stage.
+                            </small>
+
+                            <button type="submit" class="btn btn-success px-4 py-2 rounded-pill shadow-sm">
+                                <i class="bi bi-arrow-right-circle me-2"></i>
+                                Validate and Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+{% endblock %}

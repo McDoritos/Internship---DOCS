@@ -720,3 +720,183 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateTreatmentNumbers();
 }); 
+
+/* Trial Criteria Conversion */
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    const jsonInputs = document.querySelectorAll(".logic-json-input");
+
+    function createFeedbackElement(input) {
+        let feedback = input.parentElement.querySelector(".json-feedback");
+
+        if (!feedback) {
+            feedback = document.createElement("div");
+            feedback.className = "json-feedback mt-2 small";
+            input.parentElement.appendChild(feedback);
+        }
+
+        return feedback;
+    }
+
+    function markValid(input, message = "Valid JSON structure.") {
+        const feedback = createFeedbackElement(input);
+
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
+
+        feedback.classList.remove("text-danger");
+        feedback.classList.add("text-success");
+        feedback.innerHTML = `<i class="bi bi-check-circle me-1"></i>${message}`;
+    }
+
+    function markInvalid(input, message = "Invalid JSON.") {
+        const feedback = createFeedbackElement(input);
+
+        input.classList.remove("is-valid");
+        input.classList.add("is-invalid");
+
+        feedback.classList.remove("text-success");
+        feedback.classList.add("text-danger");
+        feedback.innerHTML = `<i class="bi bi-exclamation-triangle me-1"></i>${message}`;
+    }
+
+    function formatJSON(input) {
+        const value = input.value.trim();
+
+        if (!value) {
+            markInvalid(input, "This field cannot be empty.");
+            return false;
+        }
+
+        try {
+            const parsed = JSON.parse(value);
+            input.value = JSON.stringify(parsed, null, 2);
+            markValid(input);
+            return true;
+        } catch (error) {
+            markInvalid(input, error.message);
+            return false;
+        }
+    }
+
+    function validateJSON(input) {
+        const value = input.value.trim();
+
+        if (!value) {
+            markInvalid(input, "This field cannot be empty.");
+            return false;
+        }
+
+        try {
+            JSON.parse(value);
+            markValid(input);
+            return true;
+        } catch (error) {
+            markInvalid(input, error.message);
+            return false;
+        }
+    }
+
+    function validateAllJSON() {
+        let allValid = true;
+
+        jsonInputs.forEach(input => {
+            const isValid = validateJSON(input);
+            if (!isValid) allValid = false;
+        });
+
+        return allValid;
+    }
+
+    jsonInputs.forEach(input => {
+        validateJSON(input);
+
+        input.addEventListener("blur", function () {
+            validateJSON(input);
+        });
+
+        input.addEventListener("input", function () {
+            input.classList.remove("is-valid", "is-invalid");
+
+            const feedback = input.parentElement.querySelector(".json-feedback");
+            if (feedback) {
+                feedback.innerHTML = "";
+            }
+        });
+
+        input.addEventListener("keydown", function (e) {
+            // TAB support inside textarea
+            if (e.key === "Tab") {
+                e.preventDefault();
+
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+
+                this.value = this.value.substring(0, start) + "  " + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + 2;
+            }
+
+            // Ctrl/Cmd + Shift + F => format JSON
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "f") {
+                e.preventDefault();
+                formatJSON(this);
+            }
+        });
+    });
+
+    form.addEventListener("submit", function (e) {
+        const allValid = validateAllJSON();
+
+        if (!allValid) {
+            e.preventDefault();
+
+            const firstInvalid = document.querySelector(".logic-json-input.is-invalid");
+            if (firstInvalid) {
+                firstInvalid.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+                firstInvalid.focus();
+            }
+
+            showToast("Please fix invalid JSON fields before continuing.", "danger");
+        } else {
+            jsonInputs.forEach(input => formatJSON(input));
+        }
+    });
+
+    function showToast(message, type = "success") {
+        let toastContainer = document.getElementById("toast-container");
+
+        if (!toastContainer) {
+            toastContainer = document.createElement("div");
+            toastContainer.id = "toast-container";
+            toastContainer.className = "toast-container position-fixed top-0 end-0 p-3";
+            toastContainer.style.zIndex = "1080";
+            document.body.appendChild(toastContainer);
+        }
+
+        const toast = document.createElement("div");
+        toast.className = `toast align-items-center text-bg-${type} border-0 show mb-2`;
+        toast.setAttribute("role", "alert");
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" aria-label="Close"></button>
+            </div>
+        `;
+
+        toastContainer.appendChild(toast);
+
+        toast.querySelector(".btn-close").addEventListener("click", () => {
+            toast.remove();
+        });
+
+        setTimeout(() => {
+            toast.remove();
+        }, 4000);
+    }
+});

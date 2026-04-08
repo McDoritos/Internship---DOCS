@@ -54,13 +54,36 @@ class Trial_criteria(models.Model):
 
     document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name="trial_criteria")
     type = models.CharField(max_length=20, choices=CriterionType.choices)
-    criterion = models.TextField()
     
-    logical_rule = models.JSONField(null=True, blank=True)
+    raw_criterion = models.TextField()
+    validated_criterion = models.TextField(blank=True, null=True)
+    
     validated = models.BooleanField(default=False)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.document.title} - {self.type} Criterion: {self.criterion}"
+        return f"{self.document.title} - {self.type} Criterion: {self.validated_criterion}"
+    
+class Logic_criteria(models.Model):
+    criterion = models.OneToOneField(
+        Trial_criteria,
+        on_delete=models.CASCADE,
+        related_name="logic"
+    )
+
+    raw_logic = models.JSONField(blank=True, null=True)
+    validated_logic = models.JSONField(blank=True, null=True)
+
+    validated = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Logic for Criterion {self.criterion.id} - Validated: {self.validated}"
+    
     
 class Patient_trial_match(models.Model):
     class Decision(models.TextChoices):

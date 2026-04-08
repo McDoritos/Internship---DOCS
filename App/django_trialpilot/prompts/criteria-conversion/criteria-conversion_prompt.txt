@@ -1,29 +1,36 @@
 General Rules
-- Convert only information explicitly stated in the criterion.
+- Convert only information explicitly stated in each criterion.
 - Do not infer, assume, normalize, or guess missing information.
-- If a criterion cannot be expressed deterministically using the allowed fields and operators, set `"logic": null`.
+- Always produce a structured `"logic"` object for every criterion.
+- Never return `"logic": null`.
+- If a criterion cannot be fully expressed using the allowed fields and operators, create the best possible partial or fallback structured representation while preserving the original meaning as faithfully as possible.
 - Output only valid JSON matching the schema below.
-- Do not include explanations, comments, or natural language.
+- Do not include explanations, comments, or natural language outside the JSON structure.
 
 Allowed Database Fields (FIELD)
-You may only use the following fields:
+You should prioritize using the following fields whenever possible:
 - `age`
 - `sex`
 - `diagnosis`
 - `stage`
 - `ecog_ps`
 - `molecular_status`
-- `treatment`
 - `diagnosis_date`
+- `treatment`
+- `treatment_name`
 - `treatment_start_date`
 - `treatment_end_date`
 - `progression_date`
 - `death_date`
 - `control`
 
-If the criterion references a concept not present in this list, set `"logic": null`.
+If a criterion references a concept not present in this list:
+- Do not discard it.
+- Do not return null.
+- Represent it using a fallback structured object while preserving the original text.
 
 Allowed Operators (OPERATOR)
+Use these operators whenever the criterion can be mapped to the schema:
 - `=`
 - `!=`
 - `>`
@@ -35,27 +42,64 @@ Allowed Operators (OPERATOR)
 - `AND`
 - `OR`
 
-No other operators are permitted.
+If a criterion cannot be represented using these operators alone, preserve it using a fallback structured representation instead of null.
 
 Values (VALUE)
 - Use only literal values explicitly stated in the criterion.
-- Do not add units, ranges, or clinical interpretations.
+- Do not add units, ranges, or clinical interpretations unless explicitly present.
 - Dates must be represented as raw values if explicitly present.
-- If a value is implicit or vague, the logic must be set to `null`.
+- If a value is vague or not computable, preserve the criterion using a fallback structured object rather than null.
 
 Logic Construction Rules
-- If a criterion contains multiple conditions, combine them using explicit Boolean operators (`AND`, `OR`).
-- Boolean precedence must be explicit using parentheses.
-- The logic expression must be fully evaluable against structured patient data.
-- If any part of the criterion is non-computable, ambiguous, or subjective, set `"logic": null`.
+- If a criterion contains multiple conditions, combine them using explicit Boolean operators (`AND`, `OR`) whenever possible.
+- Boolean precedence must be explicit through nested structure.
+- If only part of the criterion is computable, represent the computable part and preserve the remaining part in fallback structured form.
+- If the criterion is entirely outside the schema, preserve it in fallback structured form.
+- Never omit a criterion.
+- Never return `"logic": null`.
 
-Output Schema
-```JSON
+Fallback Representation Rules
+When a criterion cannot be fully mapped to the allowed schema, use one of the following fallback structures:
+
+For partially or fully unmapped criteria:
+```json
 {
-  "criterion": {
-    "type": "inclusion" | "exclusion",
-    "logic": string | null
-  }
+  "unmapped": true,
+  "source_text": "original criterion text"
+}
+```
+
+For mixed computable + non-computable criteria:
+```json
+{
+  "operator": "AND" | "OR",
+  "conditions": [
+    { computable structured condition },
+    {
+      "unmapped": true,
+      "source_text": "unmapped part of the criterion"
+    }
+  ]
+}
+```
+
+Output Schema:
+```json
+{
+  "inclusion_criteria": [
+    {
+      "id": integer,
+      "text": string,
+      "logic": object
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": integer,
+      "text": string,
+      "logic": object
+    }
+  ]
 }
 ```
 

@@ -7,7 +7,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
 from httpx import request
-from .models import Document, Version, Patient_profile, Treatment
+from .models import Document, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria
 from .forms import UploadDocumentForm
 from groq import Groq
 import os
@@ -99,6 +99,98 @@ dummy_criteria_extraction = {
         ]
 }
 
+dummy_criteria_conversion = {
+    "inclusion_criteria": [
+        {
+            "id": 1,
+            "text": "Age ≥ 18 years.",
+            "logic": {"field": "age", "operator": ">=", "value": 18}
+        },
+        {
+            "id": 2,
+            "text": "Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+            "logic": {
+                "operator": "AND",
+                "conditions": [
+                    {"field": "diagnosis", "operator": "=", "value": "NSCLC"},
+                    {"field": "stage", "operator": "=", "value": "IV"}
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+            "logic": {
+                "unmapped": True,
+                "source_text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy."
+            }
+        },
+        {
+            "id": 4,
+            "text": "ECOG Performance Status 0–1.",
+            "logic": {"field": "ecog_ps", "operator": "<=", "value": 1}
+        },
+        {
+            "id": 5,
+            "text": "At least one measurable lesion per RECIST 1.1.",
+            "logic": {
+                "unmapped": True,
+                "source_text": "At least one measurable lesion per RECIST 1.1."
+            }
+        },
+        {
+            "id": 6,
+            "text": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+            "logic": {
+                "unmapped": True,
+                "source_text": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)."
+            }
+        }
+    ],
+
+    "exclusion_criteria": [
+        {
+            "id": 101,
+            "text": "Known EGFR, ALK, or ROS1 genomic alterations with available approved targeted therapy.",
+            "logic": {
+                "operator": "OR",
+                "conditions": [
+                    {"field": "egfr_status", "operator": "=", "value": "positive"},
+                    {"field": "alk_status", "operator": "=", "value": "positive"},
+                    {"field": "ros1_status", "operator": "=", "value": "positive"}
+                ]
+            }
+        },
+        {
+            "id": 102,
+            "text": "Untreated or symptomatic brain metastases.",
+            "logic": {
+                "field": "brain_metastases",
+                "operator": "=",
+                "value": "active"
+            }
+        },
+        {
+            "id": 103,
+            "text": "Active autoimmune disease requiring systemic immunosuppressive therapy.",
+            "logic": {
+                "unmapped": True,
+                "source_text": "Active autoimmune disease requiring systemic immunosuppressive therapy."
+            }
+        },
+        {
+            "id": 104,
+            "text": "Prior exposure to LUMITAX.",
+            "logic": {
+                "field": "prior_lumitax_exposure",
+                "operator": "=",
+                "value": True
+            }
+        }
+    ]
+}
+
+
 
 # Auxiliary functions
 
@@ -135,10 +227,37 @@ def call_llm(system_prompt, user_prompt):
                 "content": user_prompt
             }
         ],
-        temperature=TEMP
+        temperature=0,
+        response_format={"type": "json_object"}
     )
     return completion.choices[0].message.content
 
+import json
+import re
+
+def extract_json_from_response(raw_text):
+    if not raw_text:
+        raise ValueError("Empty model response.")
+
+    cleaned = raw_text.strip()
+
+    cleaned = re.sub(r"^```json\s*", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"^```\s*", "", cleaned)
+    cleaned = re.sub(r"\s*```$", "", cleaned)
+
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+    
+    start = cleaned.find("{")
+    end = cleaned.rfind("}")
+
+    if start != -1 and end != -1 and end > start:
+        candidate = cleaned[start:end + 1]
+        return json.loads(candidate)
+
+    raise ValueError("No valid JSON object found in model response.")
 
 def run_json_prompt_pipeline(
     *,
@@ -163,7 +282,7 @@ def run_json_prompt_pipeline(
         result = call_llm(system_prompt, user_prompt)
 
         try:
-            return json.loads(result)
+            return extract_json_from_response(result)
         except ValueError as e:
             print(f"[Attempt {attempt}/{max_retries}] Error parsing JSON: {e}")
             print("Raw model output:", result)
@@ -662,16 +781,237 @@ def criteria_extraction(request, trial_id):
             
             document_save(document, parsed_criteria, new_filename, 'EXTRACTED')
             
+            with transaction.atomic():
+
+                inclusion_list = criteria_extracted.get("inclusion_criteria", [])
+                exclusion_list = criteria_extracted.get("exclusion_criteria", [])
+
+                for criterion_text in inclusion_list:
+                    Trial_criteria.objects.create(
+                        document=document,
+                        type=Trial_criteria.CriterionType.INCLUSION,
+                        raw_criterion=criterion_text,
+                        validated_criterion=criterion_text,
+                        validated=False
+                    )
+
+                for criterion_text in exclusion_list:
+                    Trial_criteria.objects.create(
+                        document=document,
+                        type=Trial_criteria.CriterionType.EXCLUSION,
+                        raw_criterion=criterion_text,
+                        validated_criterion=criterion_text,
+                        validated=False
+                    )
+
+            inclusion_criteria = Trial_criteria.objects.filter(
+                document=document,
+                type=Trial_criteria.CriterionType.INCLUSION
+            )
+
+            exclusion_criteria = Trial_criteria.objects.filter(
+                document=document,
+                type=Trial_criteria.CriterionType.EXCLUSION
+            )
+            
             return render(request, 'trialpilot/trial_criteria-extraction.html', {"trial": document, "trial_content": document_content, "extracted_criteria": criteria_extracted})
         
         elif request.method == 'POST':
-            corrected_criteria = request.POST.dict()
-            corrected_criteria.pop("csrfmiddlewaretoken", None)
-            
-            json_string = json.dumps(corrected_criteria)
-            
-            
+            with transaction.atomic():
+                for key, value in request.POST.items():
+                    if key.startswith("criterion_"):
+                        criterion_id = key.split("_")[1]
 
+                        try:
+                            criterion = Trial_criteria.objects.get(
+                                id=criterion_id,
+                                document=document
+                            )
+
+                            criterion.validated_criterion = value.strip()
+                            criterion.validated = True
+                            criterion.save()
+
+                        except Trial_criteria.DoesNotExist:
+                            continue
+                        
+                inclusion_criteria = Trial_criteria.objects.filter(
+                    document=document,
+                    type=Trial_criteria.CriterionType.INCLUSION
+                )
+
+                exclusion_criteria = Trial_criteria.objects.filter(
+                    document=document,
+                    type=Trial_criteria.CriterionType.EXCLUSION
+                )
+
+                validated_payload = {
+                    "document_id": document.id,
+                    "document_title": document.title,
+                    "validated_at": timezone.now().isoformat(),
+                    "inclusion_criteria": [
+                        {
+                            "id": criterion.id,
+                            "raw_criterion": criterion.raw_criterion,
+                            "validated_criterion": criterion.validated_criterion
+                        }
+                        for criterion in inclusion_criteria
+                    ],
+                    "exclusion_criteria": [
+                        {
+                            "id": criterion.id,
+                            "raw_criterion": criterion.raw_criterion,
+                            "validated_criterion": criterion.validated_criterion
+                        }
+                        for criterion in exclusion_criteria
+                    ]
+                }
+
+                file_params = ContentFile(
+                    json.dumps(validated_payload, ensure_ascii=False, indent=2).encode("utf-8")
+                )
+
+                original_name, ext = document.title.rsplit('.', 1)
+                name, old_id = original_name.rsplit('_', 1)
+                unique_id = uuid.uuid4().hex
+                new_filename = f"{name}_{unique_id}.json"
+
+                document_save(document, file_params, new_filename, 'VALIDATED')
+
+            return redirect('criteria_conversion', trial_id=document.id)
+        
+# SCHEMA DO OUTPUT DA LLM E OQUE É ESPERADO NAO É COMPATIVEL
+def criteria_conversion(request, trial_id):
+    try:
+        document = Document.objects.get(id=trial_id)
+    except Document.DoesNotExist:
+        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+            'error': 'Document not found.'
+        })
+
+    if document.type != Document.DocumentType.CLINICAL_TRIAL:
+        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+            'error': 'This pipeline only accepts Clinical Trial documents.'
+        })
+
+    validated_criteria = Trial_criteria.objects.filter(document=document).order_by("type", "id")
+
+    if not validated_criteria.exists():
+        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+            'error': 'No validated criteria found for this trial.'
+        })
+    
+    if request.method == 'GET':
+        criteria_payload = {
+            "document_id": document.id,
+            "document_title": document.title,
+            "inclusion_criteria": [
+                {
+                    "id": criterion.id,
+                    "text": criterion.validated_criterion or criterion.raw_criterion
+                }
+                for criterion in validated_criteria
+                if criterion.type == Trial_criteria.CriterionType.INCLUSION
+            ],
+            "exclusion_criteria": [
+                {
+                    "id": criterion.id,
+                    "text": criterion.validated_criterion or criterion.raw_criterion
+                }
+                for criterion in validated_criteria
+                if criterion.type == Trial_criteria.CriterionType.EXCLUSION
+            ]
+        }
+        
+        #converted_logic = criteria_conversion_step(criteria_payload)
+        
+        print(converted_logic)
+        converted_logic = dummy_criteria_conversion
+        
+        parsed_logic = ContentFile(
+            json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
+        )
+
+        original_name, ext = document.title.rsplit('.', 1)
+        name, old_id = original_name.rsplit('_', 1)
+        unique_id = uuid.uuid4().hex
+        new_filename = f"{name}_{unique_id}.json"
+
+        document_save(document, parsed_logic, new_filename, 'CONVERTED')
+        
+        with transaction.atomic():
+            Logic_criteria.objects.filter(criterion__document=document).delete()
+
+            for item in converted_logic.get("inclusion_criteria", []):
+                criterion_id = item.get("criterion_id")
+
+                try:
+                    criterion = Trial_criteria.objects.get(
+                        id=criterion_id,
+                        document=document,
+                        type=Trial_criteria.CriterionType.INCLUSION
+                    )
+
+                    Logic_criteria.objects.create(
+                        criterion=criterion,
+                        raw_field_name=item.get("field_name", ""),
+                        raw_operator=item.get("operator", ""),
+                        raw_logic_json=item.get("logic_json", {}),
+                        validated_field_name=item.get("field_name", ""),
+                        validated_operator=item.get("operator", ""),
+                        validated_logic_json=item.get("logic_json", {}),
+                        validated=False
+                    )
+
+                except Trial_criteria.DoesNotExist:
+                    continue
+
+            for item in converted_logic.get("exclusion_criteria", []):
+                criterion_id = item.get("criterion_id")
+
+                try:
+                    criterion = Trial_criteria.objects.get(
+                        id=criterion_id,
+                        document=document,
+                        type=Trial_criteria.CriterionType.EXCLUSION
+                    )
+
+                    Logic_criteria.objects.create(
+                        criterion=criterion,
+                        raw_field_name=item.get("field_name", ""),
+                        raw_operator=item.get("operator", ""),
+                        raw_logic_json=item.get("logic_json", {}),
+                        validated_field_name=item.get("field_name", ""),
+                        validated_operator=item.get("operator", ""),
+                        validated_logic_json=item.get("logic_json", {}),
+                        validated=False
+                    )
+
+                except Trial_criteria.DoesNotExist:
+                    continue
+
+        logic_criteria = Logic_criteria.objects.filter(
+            criterion__document=document
+        ).select_related("criterion")
+        
+        for logic in logic_criteria:
+            logic.pretty_logic = json.dumps(
+                logic.validated_logic if logic.validated_logic else logic.raw_logic,
+                ensure_ascii=False,
+                indent=2
+            )
+
+        return render(request, 'trialpilot/trial_criteria-conversion.html', {
+            "trial": document,
+            "logic_criteria": logic_criteria
+        })
+        
+    elif request.method == 'POST':
+        with transaction.atomic():
+            for key, value in request.POST.items():
+                if key.startswith("field_name_"):
+                    logic_id = key.split("_")[-1]
+        
 
 def index(request):
     n_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY).count()
