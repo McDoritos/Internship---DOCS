@@ -6,6 +6,10 @@ General Rules
 - If a criterion cannot be fully expressed using the allowed fields and operators, create the best possible partial or fallback structured representation while preserving the original meaning as faithfully as possible.
 - Output only valid JSON matching the schema below.
 - Do not include explanations, comments, or natural language outside the JSON structure.
+- You MUST preserve the original criterion `id` exactly as received.
+- You MUST NOT invent, renumber, or change any IDs.
+- For each input criterion, return exactly one output criterion with the same `id`.
+- Keep the same inclusion/exclusion grouping.
 
 Allowed Database Fields (FIELD)
 You should prioritize using the following fields whenever possible:

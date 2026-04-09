@@ -1,0 +1,211 @@
+{
+  "inclusion_criteria": [
+    {
+      "id": 379,
+      "text": "Woman with age ≥ 18 years.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "sex",
+            "operator": "=",
+            "value": "female"
+          },
+          {
+            "field": "age",
+            "operator": ">=",
+            "value": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": 380,
+      "text": "Patient who completed surgery for his breast cancer and for which definitive histo-pathological analysis of surgical specimen is available.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Patient who completed surgery for his breast cancer and for which definitive histo-pathological analysis of surgical specimen is available."
+      }
+    },
+    {
+      "id": 381,
+      "text": "Invasive breast carcinoma pN0 or pN(i+) with histological tumor size ≤ 10 mm (pT1a/b subgroup).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "invasive breast carcinoma"
+          },
+          {
+            "field": "stage",
+            "operator": "IN",
+            "value": [
+              "pN0",
+              "pN(i+)"
+            ]
+          },
+          {
+            "unmapped": true,
+            "source_text": "histological tumor size ≤ 10 mm (pT1a/b subgroup)"
+          }
+        ]
+      }
+    },
+    {
+      "id": 382,
+      "text": "Invasive breast carcinoma with histological tumor size > 10 mm and ≤ 30 mm (pT1c T2 ≤ 30 mm control group).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "invasive breast carcinoma"
+          },
+          {
+            "unmapped": true,
+            "source_text": "histological tumor size > 10 mm and ≤ 30 mm (pT1c T2 ≤ 30 mm control group)"
+          }
+        ]
+      }
+    },
+    {
+      "id": 383,
+      "text": "Patient with HER2-negative breast carcinoma: immuno-histochemistry (IHC) score = 0, 1+ or 2+ and in situ hybridization (FISH, CISH, or SISH) negative (local laboratory testing).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2-negative"
+          },
+          {
+            "unmapped": true,
+            "source_text": "immuno-histochemistry (IHC) score = 0, 1+ or 2+ and in situ hybridization (FISH, CISH, or SISH) negative (local laboratory testing)"
+          }
+        ]
+      }
+    },
+    {
+      "id": 384,
+      "text": "Patient with ER and PR negative invasive carcinoma (< 1% stained cells by immuno-histochemistry assay) (local laboratory testing).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "ER/PR-negative"
+          },
+          {
+            "unmapped": true,
+            "source_text": "< 1% stained cells by immuno-histochemistry assay (local laboratory testing)"
+          }
+        ]
+      }
+    },
+    {
+      "id": 385,
+      "text": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup."
+      }
+    },
+    {
+      "id": 386,
+      "text": "In case of multifocality, all lesions must be ER, PR and HER2-negative.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "In case of multifocality, all lesions must be ER, PR and HER2-negative."
+      }
+    },
+    {
+      "id": 387,
+      "text": "In case of breast conserving surgery, clear margins are required.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "In case of breast conserving surgery, clear margins are required."
+      }
+    },
+    {
+      "id": 388,
+      "text": "Patient affiliated to a Social Health Insurance in France.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Patient affiliated to a Social Health Insurance in France."
+      }
+    },
+    {
+      "id": 389,
+      "text": "Patient information and written informed consent form signed prior to any study specific procedures.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Patient information and written informed consent form signed prior to any study specific procedures."
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 390,
+      "text": "Patients with any previous malignancy of the breast or other site, with the exception of adequately treated basal or squamous cell carcinoma, non-melanomatous skin cancer totally resected.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Patients with any previous malignancy of the breast or other site, with the exception of adequately treated basal or squamous cell carcinoma, non-melanomatous skin cancer totally resected."
+      }
+    },
+    {
+      "id": 391,
+      "text": "Non-invasive breast carcinoma (i.e. ductal carcinoma in situ exclusively).",
+      "logic": {
+        "field": "diagnosis",
+        "operator": "=",
+        "value": "ductal carcinoma in situ"
+      }
+    },
+    {
+      "id": 392,
+      "text": "Inoperable breast invasive carcinoma.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Inoperable breast invasive carcinoma."
+      }
+    },
+    {
+      "id": 393,
+      "text": "Synchronous bilateral breast cancer.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Synchronous bilateral breast cancer."
+      }
+    },
+    {
+      "id": 394,
+      "text": "Patients who received neo-adjuvant treatment (radiotherapy or chemotherapy or other before surgery).",
+      "logic": {
+        "field": "treatment_name",
+        "operator": "=",
+        "value": "neo-adjuvant"
+      }
+    },
+    {
+      "id": 395,
+      "text": "Pregnant women.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Pregnant women."
+      }
+    },
+    {
+      "id": 396,
+      "text": "Breast-feeding women.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Breast-feeding women."
+      }
+    }
+  ]
+}

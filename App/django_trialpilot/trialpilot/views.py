@@ -194,6 +194,34 @@ dummy_criteria_conversion = {
 
 # Auxiliary functions
 
+def build_dummy_conversion(criteria_payload):
+    converted = {
+        "inclusion_criteria": [],
+        "exclusion_criteria": []
+    }
+
+    for item in criteria_payload.get("inclusion_criteria", []):
+        converted["inclusion_criteria"].append({
+            "id": item["id"],
+            "text": item["text"],
+            "logic": {
+                "unmapped": True,
+                "source_text": item["text"]
+            }
+        })
+
+    for item in criteria_payload.get("exclusion_criteria", []):
+        converted["exclusion_criteria"].append({
+            "id": item["id"],
+            "text": item["text"],
+            "logic": {
+                "unmapped": True,
+                "source_text": item["text"]
+            }
+        })
+
+    return converted
+
 def clean_value(value):
     return None if value in ["None", "", "null", None] else value
 
@@ -768,9 +796,9 @@ def criteria_extraction(request, trial_id):
         })
     else:
         if request.method == 'GET':
-            #criteria_extracted = criteria_extraction_step(document, document_content)
+            criteria_extracted = criteria_extraction_step(document, document_content)
             
-            criteria_extracted = dummy_criteria_extraction 
+            #criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -923,10 +951,8 @@ def criteria_conversion(request, trial_id):
             ]
         }
         
-        #converted_logic = criteria_conversion_step(criteria_payload)
-        
-        print(converted_logic)
-        converted_logic = dummy_criteria_conversion
+        converted_logic = criteria_conversion_step(criteria_payload)
+        #converted_logic = build_dummy_conversion(criteria_payload)
         
         parsed_logic = ContentFile(
             json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
@@ -940,10 +966,11 @@ def criteria_conversion(request, trial_id):
         document_save(document, parsed_logic, new_filename, 'CONVERTED')
         
         with transaction.atomic():
-            Logic_criteria.objects.filter(criterion__document=document).delete()
 
+            # Inclusion Criteria
             for item in converted_logic.get("inclusion_criteria", []):
-                criterion_id = item.get("criterion_id")
+                criterion_id = item.get("id")
+                logic_json = item.get("logic", {})
 
                 try:
                     criterion = Trial_criteria.objects.get(
@@ -954,20 +981,19 @@ def criteria_conversion(request, trial_id):
 
                     Logic_criteria.objects.create(
                         criterion=criterion,
-                        raw_field_name=item.get("field_name", ""),
-                        raw_operator=item.get("operator", ""),
-                        raw_logic_json=item.get("logic_json", {}),
-                        validated_field_name=item.get("field_name", ""),
-                        validated_operator=item.get("operator", ""),
-                        validated_logic_json=item.get("logic_json", {}),
+                        raw_logic=logic_json,
+                        validated_logic=logic_json,
                         validated=False
                     )
 
                 except Trial_criteria.DoesNotExist:
+                    print(f"Criterion with ID {criterion_id} not found for inclusion criteria.")
                     continue
 
+            # Exclusion Criteria
             for item in converted_logic.get("exclusion_criteria", []):
-                criterion_id = item.get("criterion_id")
+                criterion_id = item.get("id")
+                logic_json = item.get("logic", {})
 
                 try:
                     criterion = Trial_criteria.objects.get(
@@ -978,21 +1004,18 @@ def criteria_conversion(request, trial_id):
 
                     Logic_criteria.objects.create(
                         criterion=criterion,
-                        raw_field_name=item.get("field_name", ""),
-                        raw_operator=item.get("operator", ""),
-                        raw_logic_json=item.get("logic_json", {}),
-                        validated_field_name=item.get("field_name", ""),
-                        validated_operator=item.get("operator", ""),
-                        validated_logic_json=item.get("logic_json", {}),
+                        raw_logic=logic_json,
+                        validated_logic=logic_json,
                         validated=False
                     )
 
                 except Trial_criteria.DoesNotExist:
+                    print(f"Criterion with ID {criterion_id} not found for inclusion criteria.")
                     continue
 
         logic_criteria = Logic_criteria.objects.filter(
             criterion__document=document
-        ).select_related("criterion")
+        ).select_related("criterion").order_by("criterion__type", "criterion__id")
         
         for logic in logic_criteria:
             logic.pretty_logic = json.dumps(
@@ -1009,8 +1032,74 @@ def criteria_conversion(request, trial_id):
     elif request.method == 'POST':
         with transaction.atomic():
             for key, value in request.POST.items():
-                if key.startswith("field_name_"):
-                    logic_id = key.split("_")[-1]
+                if key.startswith("logic_"):
+                    logic_id = key.split("_")[1]
+
+                    try:
+                        logic_obj = Logic_criteria.objects.get(
+                            id=logic_id,
+                            criterion__document=document
+                        )
+
+                        parsed_logic = json.loads(value.strip())
+
+                        logic_obj.validated_logic = parsed_logic
+                        logic_obj.validated = True
+                        logic_obj.save()
+
+                    except Logic_criteria.DoesNotExist:
+                        continue
+                    except json.JSONDecodeError:
+                        continue
+
+            inclusion_logic = Logic_criteria.objects.filter(
+                criterion__document=document,
+                criterion__type=Trial_criteria.CriterionType.INCLUSION
+            ).select_related("criterion").order_by("criterion__id")
+
+            exclusion_logic = Logic_criteria.objects.filter(
+                criterion__document=document,
+                criterion__type=Trial_criteria.CriterionType.EXCLUSION
+            ).select_related("criterion").order_by("criterion__id")
+
+            validated_payload = {
+                "document_id": document.id,
+                "document_title": document.title,
+                "validated_at": timezone.now().isoformat(),
+                "inclusion_criteria": [
+                    {
+                        "id": logic.criterion.id,
+                        "text": logic.criterion.validated_criterion or logic.criterion.raw_criterion,
+                        "logic": logic.validated_logic if logic.validated_logic else logic.raw_logic
+                    }
+                    for logic in inclusion_logic
+                ],
+                "exclusion_criteria": [
+                    {
+                        "id": logic.criterion.id,
+                        "text": logic.criterion.validated_criterion or logic.criterion.raw_criterion,
+                        "logic": logic.validated_logic if logic.validated_logic else logic.raw_logic
+                    }
+                    for logic in exclusion_logic
+                ]
+            }
+
+            file_params = ContentFile(
+                json.dumps(validated_payload, ensure_ascii=False, indent=2).encode("utf-8")
+            )
+
+            original_name, ext = document.title.rsplit('.', 1)
+            name, old_id = original_name.rsplit('_', 1)
+            unique_id = uuid.uuid4().hex
+            new_filename = f"{name}_{unique_id}.json"
+            
+            document.extracted = True
+            document.save()
+
+            document_save(document, file_params, new_filename, 'VALIDATED')
+
+            messages.success(request, "Criteria extracted, converted and validated with success. For more details, check the clinical trial's detail page.")
+            return redirect('trial_list')
         
 
 def index(request):
