@@ -467,11 +467,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p>You are about to delete:</p>
                 <ul>
                     ${selectedItems.map(id => {
-                        const checkbox = document.querySelector(`${checkboxSelector}[value="${id}"]`);
-                        const card = checkbox?.closest(cardSelector);
-                        const title = card?.dataset?.[datasetTitleKey] || `Item ${id}`;
-                        return `<li>${title}</li>`;
-                    }).join("")}
+                const checkbox = document.querySelector(`${checkboxSelector}[value="${id}"]`);
+                const card = checkbox?.closest(cardSelector);
+                const title = card?.dataset?.[datasetTitleKey] || `Item ${id}`;
+                return `<li>${title}</li>`;
+            }).join("")}
                 </ul>
                 <p class="text-danger">This action cannot be undone.</p>
             `;
@@ -719,13 +719,33 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     updateTreatmentNumbers();
-}); 
+});
 
 /* Trial Criteria Conversion */
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
     const jsonInputs = document.querySelectorAll(".logic-json-input");
+
+    document.querySelectorAll(".logic-builder").forEach(builder => {
+        const select = builder.querySelector(".logic-field");
+        const input = builder.querySelector(".logic-field-custom");
+
+        if (!select || !input) return;
+
+        function toggleCustomField() {
+            if (select.value === "__custom__") {
+                input.style.display = "block";
+            } else {
+                input.style.display = "none";
+                input.value = "";
+            }
+        }
+
+        toggleCustomField();
+
+        select.addEventListener("change", toggleCustomField);
+    });
 
     function createFeedbackElement(input) {
         let feedback = input.parentElement.querySelector(".json-feedback");
@@ -899,4 +919,6 @@ document.addEventListener("DOMContentLoaded", function () {
             toast.remove();
         }, 4000);
     }
+
 });
+

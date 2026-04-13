@@ -147,12 +147,67 @@
                                         <i class="bi bi-braces me-1"></i>
                                         Validated Logic JSON
                                     </label>
-                                    <textarea
-                                        class="form-control logic-json-input"
-                                        name="logic_{{ logic.id }}"
-                                        rows="10"
-                                        spellcheck="false"
-                                    >{{ logic.pretty_logic }}</textarea>
+                                    <div class="logic-builder">
+
+                                        <div class="row g-2 align-items-center">
+
+                                            <!-- FIELD -->
+                                            <div class="col-md-3">
+                                                <label class="form-label small text-muted">Field</label>
+                                                <select class="form-select logic-field" name="field_{{ logic.id }}">
+                                                    <option value="">-- Select field --</option>
+                                                    <option value="age" {% if logic.field == "age" %}selected{% endif %}>Age</option>
+                                                    <option value="ecog_ps" {% if logic.field == "ecog_ps" %}selected{% endif %}>ECOG</option>
+                                                    <option value="diagnosis" {% if logic.field == "diagnosis" %}selected{% endif %}>Diagnosis</option>
+                                                    <option value="stage" {% if logic.field == "stage" %}selected{% endif %}>Stage</option>
+                                                    <option value="molecular_status" {% if logic.field == "molecular_status" %}selected{% endif %}>Molecular Status</option>
+                                                    <option value="sex" {% if logic.field == "sex" %}selected{% endif %}>Sex</option>
+                                                    <option value="diagnosis_date" {% if logic.field == "diagnosis_date" %}selected{% endif %}>Diagnosis Date</option>
+                                                    <option value="treatment" {% if logic.field == "treatment" %}selected{% endif %}>Treatment</option>
+                                                    <option value="treatment_name" {% if logic.field == "treatment_name" %}selected{% endif %}>Treatment Name</option>
+                                                    <option value="treatment_start_date" {% if logic.field == "treatment_start_date" %}selected{% endif %}>Treatment Start Date</option>
+                                                    <option value="treatment_end_date" {% if logic.field == "treatment_end_date" %}selected{% endif %}>Treatment End Date</option>
+                                                    <option value="progression_date" {% if logic.field == "progression_date" %}selected{% endif %}>Progression Date</option>
+                                                    <option value="control" {% if logic.field == "control" %}selected{% endif %}>Control</option>
+                                                    <option value="__custom__">Other...</option>
+                                                </select>
+
+                                                <input type="text"
+                                                    class="form-control mt-2 logic-field-custom"
+                                                    name="field_custom_{{ logic.id }}"
+                                                    id="field_custom_{{ logic.id }}"
+                                                    placeholder="Enter custom field"
+                                                    style="display: none;">
+
+                                            </div>
+
+                                            <!-- OPERATOR -->
+                                            <div class="col-md-3">
+                                                <label class="form-label small text-muted">Condition</label>
+                                                <select class="form-select logic-operator" name="operator_{{ logic.id }}">
+                                                    <option value="">-- Select condition --</option>
+                                                    <option value=">" {% if logic.operator == ">" %}selected{% endif %}>Greater than</option>
+                                                    <option value="<" {% if logic.operator == "<" %}selected{% endif %}>Less than</option>
+                                                    <option value="=" {% if logic.operator == "=" %}selected{% endif %}>Equals</option>
+                                                    <option value=">=" {% if logic.operator == ">=" %}selected{% endif %}>Greater or equal</option>
+                                                    <option value="<=" {% if logic.operator == "<=" %}selected{% endif %}>Less or equal</option>
+                                                    <option value="contains" {% if logic.operator == "contains" %}selected{% endif %}>Contains</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- VALUE -->
+                                            <div class="col-md-6">
+                                                <label class="form-label small text-muted">Value</label>
+                                                <input type="text"
+                                                    class="form-control logic-value"
+                                                    name="value_{{ logic.id }}"
+                                                    value="{{ logic.value }}"
+                                                    placeholder="Enter value">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
                                     <div class="form-text">
                                         You may edit this structured logic before confirming.
                                     </div>

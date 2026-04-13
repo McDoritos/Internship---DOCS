@@ -796,9 +796,9 @@ def criteria_extraction(request, trial_id):
         })
     else:
         if request.method == 'GET':
-            criteria_extracted = criteria_extraction_step(document, document_content)
+            #criteria_extracted = criteria_extraction_step(document, document_content)
             
-            #criteria_extracted = dummy_criteria_extraction 
+            criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -908,7 +908,6 @@ def criteria_extraction(request, trial_id):
 
             return redirect('criteria_conversion', trial_id=document.id)
         
-# SCHEMA DO OUTPUT DA LLM E OQUE É ESPERADO NAO É COMPATIVEL
 def criteria_conversion(request, trial_id):
     try:
         document = Document.objects.get(id=trial_id)
@@ -951,8 +950,8 @@ def criteria_conversion(request, trial_id):
             ]
         }
         
-        converted_logic = criteria_conversion_step(criteria_payload)
-        #converted_logic = build_dummy_conversion(criteria_payload)
+        #converted_logic = criteria_conversion_step(criteria_payload)
+        converted_logic = build_dummy_conversion(criteria_payload)
         
         parsed_logic = ContentFile(
             json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
@@ -1018,11 +1017,11 @@ def criteria_conversion(request, trial_id):
         ).select_related("criterion").order_by("criterion__type", "criterion__id")
         
         for logic in logic_criteria:
-            logic.pretty_logic = json.dumps(
-                logic.validated_logic if logic.validated_logic else logic.raw_logic,
-                ensure_ascii=False,
-                indent=2
-            )
+            data = logic.validated_logic or logic.raw_logic or {}
+
+            logic.field = data.get("field", "")
+            logic.operator = data.get("operator", "")
+            logic.value = data.get("value", "")
 
         return render(request, 'trialpilot/trial_criteria-conversion.html', {
             "trial": document,
@@ -1041,9 +1040,16 @@ def criteria_conversion(request, trial_id):
                             criterion__document=document
                         )
 
-                        parsed_logic = json.loads(value.strip())
+                        field = request.POST.get(f"field_{logic_id}")
+                        operator = request.POST.get(f"operator_{logic_id}")
+                        value = request.POST.get(f"value_{logic_id}")
 
-                        logic_obj.validated_logic = parsed_logic
+                        logic_obj.validated_logic = {
+                            "field": field,
+                            "operator": operator,
+                            "value": value
+                        }
+
                         logic_obj.validated = True
                         logic_obj.save()
 

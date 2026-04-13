@@ -869,3 +869,23 @@ body {
 .json-feedback {
     min-height: 20px;
 }
+
+.logic-builder {
+    background: #fbfcfd;
+    border: 1px solid #edf0f2;
+    border-radius: 16px;
+    padding: 1rem;
+}
+
+.logic-builder .form-select,
+.logic-builder .form-control {
+    border-radius: 12px;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+    width: 100%;
+    min-width: 0;
+}
+
+.logic-builder .row > div {
+    min-width: 0;
+}
