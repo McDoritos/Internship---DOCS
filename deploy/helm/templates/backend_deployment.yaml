@@ -1,4 +1,3 @@
-{{- if .Values.backend.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -8,7 +7,7 @@ metadata:
     app.kubernetes.io/name: {{ .Release.Name }}
     app.kubernetes.io/type: backend
 spec:
-  replicas: {{ .Values.backend.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ .Release.Name }}
@@ -23,7 +22,7 @@ spec:
         - name: {{ .Values.pullsecretname }}
       containers:
         - name: backend
-          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.containerPort }}
@@ -41,7 +40,7 @@ spec:
               value: "{{ .Values.env.TESSERACT_CMD }}"
 
             - name: POPPLER_PATH
-              value: "{{ .Values.env.POPPLER_PATH }}"              value: "{{ .Values.backend.env.djangoCsrfTrustedOrigins }}"
+              value: "{{ .Values.env.POPPLER_PATH }}" 
 
             - name: DJANGO_THESES_KEY
               valueFrom:
@@ -64,4 +63,3 @@ spec:
             limits:
               cpu: "{{ .Values.resources.limits.cpu }}"
               memory: "{{ .Values.resources.limits.memory }}"
-{{- end }}
