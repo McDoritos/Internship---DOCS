@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: {{ .Release.Name }}
     app.kubernetes.io/type: backend
 spec:
-  type: {{ .Values.backend.service.type }}
+  type: {{ .Values.service.type }}
   selector:
     app.kubernetes.io/name: {{ .Release.Name }}
     app.kubernetes.io/type: backend
