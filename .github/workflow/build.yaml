@@ -23,7 +23,7 @@ jobs:
     env:
       REGISTRY: git.ulscoimbra.min-saude.pt
       REG_NAME: ${{ github.repository_owner }} # public ou  ${{ github.repository_owner }}
-      IMAGE_NAME: teste
+      IMAGE_NAME: trialpilot
       #HELM_CHART_DIR: deploy/helm
       #K8S_NAMESPACE: teses-26
       VALUES_FILE: deploy/helm/values.yaml
@@ -59,23 +59,12 @@ jobs:
       - name: Build and push Backend Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./backend
+          context: .
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}-backend:v${{ inputs.version }}
-            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}-backend:latest
-
-
-      - name: Build and push Frontend Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./frontend
-          platforms: linux/amd64
-          push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}-frontend:v${{ inputs.version }}
-            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}-frontend:latest
+            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}:v${{ inputs.version }}
+            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}:latest
 
 
       - name: Install yq
