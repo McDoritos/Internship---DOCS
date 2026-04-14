@@ -1,7 +1,5 @@
 namespace: teses-26
 pullsecretname: regcred
-
-
 replicaCount: 1
 image:
   repository: git.ulscoimbra.min-saude.pt/teses26/trialpilot
@@ -25,3 +23,9 @@ resources:
   limits:
     cpu: "500m"
     memory: "512Mi"
+backend:
+  image:
+    tag: v0.0.1
+frontend:
+  image:
+    tag: v0.0.1
