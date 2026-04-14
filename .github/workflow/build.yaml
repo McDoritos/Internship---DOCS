@@ -1,0 +1,109 @@
+name: CI-CD Pipeline
+
+on:
+  #push:
+  #  branches:
+  #    - main
+  #  paths-ignore:
+  #    - 'deploy/helm/**'
+  #    #- '**/values.yaml'
+  #    - '.gitea/**'
+
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        required: true
+        description: "Version"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    env:
+      REGISTRY: git.ulscoimbra.min-saude.pt
+      REG_NAME: ${{ github.repository_owner }} # public ou  ${{ github.repository_owner }}
+      IMAGE_NAME: teste
+      #HELM_CHART_DIR: deploy/helm
+      #K8S_NAMESPACE: teses-26
+      VALUES_FILE: deploy/helm/values.yaml
+    
+    steps:
+      - name: Validate inputs
+        run: |
+          if ! echo "${{ inputs.version }}" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Error: Invalid version format"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.READ_WRITE_PACKAGES }}" ]; then
+            echo "Error: Missing READ_WRITE_PACKAGES token"
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Login to the Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.READ_WRITE_PACKAGES }}
+
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+
+      - name: Build and push Backend Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}-backend:v${{ inputs.version }}
+            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}-backend:latest
+
+
+      - name: Build and push Frontend Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}-frontend:v${{ inputs.version }}
+            ${{ env.REGISTRY }}/${{ env.REG_NAME }}/${{ env.IMAGE_NAME }}-frontend:latest
+
+
+      - name: Install yq
+        shell: bash
+        run: |
+          # Set your platform variables (adjust as needed)
+          VERSION=v4.2.0
+          PLATFORM=linux_amd64
+
+          # Download compressed binary
+          wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_${PLATFORM}.tar.gz -O - |\
+            tar xz && sudo mv yq_${PLATFORM} /usr/local/bin/yq
+
+      - name: Update Helm chart with new image tags
+        run: |
+          # Atualiza o values.yaml com a nova tag
+          yq eval -i '
+            .backend.image.tag = "v${{ inputs.version }}" |
+            .frontend.image.tag = "v${{ inputs.version }}"
+          ' $VALUES_FILE
+
+          # Verifica as alterações
+          cat $VALUES_FILE
+
+      - name: Commit and push Helm chart changes
+        run: |
+          git config --local user.name "Gitea Actions"
+          git config --local user.email "actions@gitea.ulscoimbra.min-saude.pt"
+          git add $VALUES_FILE
+          git commit -m "CI: Update image tag to v${{ inputs.version }}"
+          git push

@@ -1,0 +1,89 @@
+namespace: teses-26
+pullsecretname: regcred
+backend:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: git.ulscoimbra.min-saude.pt/teses26/teste-backend
+    tag: v1.0.2
+    pullPolicy: IfNotPresent
+  containerPort: 8000
+  service:
+    type: NodePort
+    port: 8000
+    targetPort: 8000
+    nodePort: 31400
+  env:
+    djangoDebug: "False"
+    djangoAllowedHosts: "172.19.2.222,localhost,teste-backend.teses-26.svc.cluster.local,127.0.0.1"
+    frontendUrl: "http://172.19.2.222:31401"
+    djangoCsrfTrustedOrigins: "http://172.19.2.222:31401"
+    sessionCookieSecure: "False"
+    csrfCookieSecure: "False"
+    postgresHost: "pg-testes-pooler.teses-26.svc.cluster.local"
+    postgresPort: "5432"
+  secretName: teste-secret
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  probes:
+    enabled: false
+    startup:
+      path: /api/health/
+      initialDelaySeconds: 0
+      periodSeconds: 5
+      timeoutSeconds: 5
+      failureThreshold: 30
+    readiness:
+      path: /api/health/
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+    liveness:
+      path: /api/health/
+      initialDelaySeconds: 0
+      periodSeconds: 20
+      timeoutSeconds: 5
+      failureThreshold: 3
+frontend:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: git.ulscoimbra.min-saude.pt/teses26/teste-frontend
+    tag: v1.0.0
+    pullPolicy: IfNotPresent
+  containerPort: 80
+  service:
+    type: NodePort
+    port: 80
+    targetPort: 80
+    nodePort: 31401
+  env:
+    backendHost: "teses-django-app-backend.teses-26.svc.cluster.local"
+    backendPort: "8000"
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "250m"
+      memory: "128Mi"
+  probes:
+    enabled: true
+    readiness:
+      path: /
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 3
+      failureThreshold: 3
+    liveness:
+      path: /
+      initialDelaySeconds: 15
+      periodSeconds: 20
+      timeoutSeconds: 3
+      failureThreshold: 3

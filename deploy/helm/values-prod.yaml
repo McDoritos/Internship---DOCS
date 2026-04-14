@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image:
+  repository: git.ulscoimbra.min-saude.pt/public/imagem-teste
+  tag: "latest" #"prod"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+namespace: hello-flask-prod
+
+containerPort: 8080

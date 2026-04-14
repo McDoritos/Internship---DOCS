@@ -1,0 +1,141 @@
+{{- if .Values.backend.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-backend
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/type: backend
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name }}
+      app.kubernetes.io/type: backend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}
+        app.kubernetes.io/type: backend
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.pullsecretname }}
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.backend.containerPort }}
+              name: http
+          
+          env:
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backend.secretName }}
+                  key: DJANGO_SECRET_KEY
+
+            - name: DJANGO_DEBUG
+              value: "{{ .Values.backend.env.djangoDebug }}"
+
+            - name: DJANGO_ALLOWED_HOSTS
+              value: "{{ .Values.backend.env.djangoAllowedHosts }}"
+
+            - name: FRONTEND_URL
+              value: "{{ .Values.backend.env.frontendUrl }}"
+
+            - name: DJANGO_CSRF_TRUSTED_ORIGINS
+              value: "{{ .Values.backend.env.djangoCsrfTrustedOrigins }}"
+
+            - name: SESSION_COOKIE_SECURE
+              value: "{{ .Values.backend.env.sessionCookieSecure }}"
+
+            - name: CSRF_COOKIE_SECURE
+              value: "{{ .Values.backend.env.csrfCookieSecure }}"
+
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backend.secretName }}
+                  key: OIDC_CLIENT_ID
+
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backend.secretName }}
+                  key: OIDC_CLIENT_SECRET
+
+            - name: OIDC_SERVER_METADATA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backend.secretName }}
+                  key: OIDC_SERVER_METADATA_URL
+
+            - name: OIDC_END_SESSION_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backend.secretName }}
+                  key: OIDC_END_SESSION_ENDPOINT
+
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backend.secretName }}
+                  key: POSTGRES_DB
+
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backend.secretName }}
+                  key: POSTGRES_USER
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backend.secretName }}
+                  key: POSTGRES_PASSWORD
+
+            - name: POSTGRES_HOST
+              value: "{{ .Values.backend.env.postgresHost }}"
+
+            - name: POSTGRES_PORT
+              value: "{{ .Values.backend.env.postgresPort }}"
+
+{{- if .Values.backend.probes.enabled }}
+          startupProbe:
+            httpGet:
+              path: {{ .Values.backend.probes.startup.path }}
+              port: 8000
+            initialDelaySeconds: {{ .Values.backend.probes.startup.initialDelaySeconds }}
+            periodSeconds: {{ .Values.backend.probes.startup.periodSeconds }}
+            timeoutSeconds: {{ .Values.backend.probes.startup.timeoutSeconds }}
+            failureThreshold: {{ .Values.backend.probes.startup.failureThreshold }}
+
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.backend.probes.readiness.path }}
+              port: 8000
+            initialDelaySeconds: {{ .Values.backend.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.backend.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.backend.probes.readiness.timeoutSeconds }}
+            failureThreshold: {{ .Values.backend.probes.readiness.failureThreshold }}
+
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.backend.probes.liveness.path }}
+              port: 8000
+            initialDelaySeconds: {{ .Values.backend.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.backend.probes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.backend.probes.liveness.timeoutSeconds }}
+            failureThreshold: {{ .Values.backend.probes.liveness.failureThreshold }}
+{{- end }}
+
+          resources:
+            requests:
+              cpu: "{{ .Values.backend.resources.requests.cpu }}"
+              memory: "{{ .Values.backend.resources.requests.memory }}"
+            limits:
+              cpu: "{{ .Values.backend.resources.limits.cpu }}"
+              memory: "{{ .Values.backend.resources.limits.memory }}"
+{{- end }}
