@@ -60,6 +60,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          dockerfile: Dockerfile.django
           platforms: linux/amd64
           push: true
           tags: |
