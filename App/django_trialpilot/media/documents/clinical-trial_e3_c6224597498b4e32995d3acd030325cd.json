@@ -1,0 +1,711 @@
+{
+  "document_id": 97,
+  "document_title": "clinical-trial_e3_470d0a5067dc456082db2c166d2c35af.pdf",
+  "validated_at": "2026-04-20T10:01:34.283560+00:00",
+  "inclusion_criteria": [
+    {
+      "id": 985,
+      "text": "HER2-positive advanced/metastatic breast cancer",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2-positive"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "advanced/metastatic"
+          }
+        ]
+      }
+    },
+    {
+      "id": 986,
+      "text": "Disease progression under trastuzumab deruxtecan (T‑DXd) in the metastatic setting",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "trastuzumab deruxtecan"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "metastatic"
+          }
+        ]
+      }
+    },
+    {
+      "id": 987,
+      "text": "Willingness and ability to undergo a baseline tumour biopsy",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Willingness and ability to undergo a baseline tumour biopsy"
+      }
+    },
+    {
+      "id": 988,
+      "text": "Willingness and ability to provide blood samples at pre‑specified time points",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Willingness and ability to provide blood samples at pre‑specified time points"
+      }
+    },
+    {
+      "id": 989,
+      "text": "Willingness and ability to undergo baseline FDG‑PET/CT",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Willingness and ability to undergo baseline FDG‑PET/CT"
+      }
+    },
+    {
+      "id": 990,
+      "text": "Willingness and ability to undergo baseline 89Zr‑trastuzumab PET/CT (HER2‑PET/CT)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Willingness and ability to undergo baseline 89Zr‑trastuzumab PET/CT (HER2‑PET/CT)"
+      }
+    },
+    {
+      "id": 991,
+      "text": "Ability to receive study treatment as assigned (T‑DM1 for HER2‑PET/CT positive patients or physician’s choice treatment for HER2‑PET/CT negative patients)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Ability to receive study treatment as assigned (T‑DM1 for HER2‑PET/CT positive patients or physician’s choice treatment for HER2‑PET/CT negative patients)"
+      }
+    },
+    {
+      "id": 992,
+      "text": "ECOG performance status ≤ 1.",
+      "logic": {
+        "field": "ecog_ps",
+        "operator": "<=",
+        "value": 1
+      }
+    },
+    {
+      "id": 993,
+      "text": "Histologically or cytologically confirmed progressive advanced/metastatic HER2‑positive breast carcinoma according to ASCO‑CAP guidelines, with HER2 status determined on the primary tumor or, if unavailable, on a metastatic lesion.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast carcinoma"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2-positive"
+          },
+          {
+            "field": "stage",
+            "operator": "IN",
+            "value": [
+              "advanced",
+              "metastatic"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 994,
+      "text": "Multifocal unilateral or bilateral breast adenocarcinoma tumors are allowed if all tested lesions are HER2‑positive according to local testing.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast adenocarcinoma"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2-positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 995,
+      "text": "Prior treatment with a taxane, trastuzumab and pertuzumab (early or advanced setting).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "taxane"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "trastuzumab"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "pertuzumab"
+          },
+          {
+            "unmapped": true,
+            "source_text": "early or advanced setting"
+          }
+        ]
+      }
+    },
+    {
+      "id": 996,
+      "text": "Must have received trastuzumab‑deruxtecan (T‑DXd) as the last systemic metastatic treatment line before inclusion and have disease progression on T‑DXd.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "trastuzumab-deruxtecan"
+          },
+          {
+            "unmapped": true,
+            "source_text": "as the last systemic metastatic treatment line before inclusion and have disease progression on T‑DXd"
+          }
+        ]
+      }
+    },
+    {
+      "id": 997,
+      "text": "Prior therapy with tucatinib, trastuzumab, and capecitabine in the advanced setting is permissible provided that T‑DXd serves as the last systemic metastatic treatment line before inclusion and the patient has disease progression on T‑DXd.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "tucatinib"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "trastuzumab"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "capecitabine"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "trastuzumab-deruxtecan"
+          },
+          {
+            "unmapped": true,
+            "source_text": "in the advanced setting"
+          }
+        ]
+      }
+    },
+    {
+      "id": 998,
+      "text": "Life expectancy ≥ 6 months.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Life expectancy ≥ 6 months."
+      }
+    },
+    {
+      "id": 999,
+      "text": "At screening FDG‑PET, at least two target lesions are required.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "At screening FDG‑PET, at least two target lesions are required."
+      }
+    },
+    {
+      "id": 1000,
+      "text": "Each target lesion must have an anatomic transaxial diameter ≥ 1.5 cm.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Each target lesion must have an anatomic transaxial diameter ≥ 1.5 cm."
+      }
+    },
+    {
+      "id": 1001,
+      "text": "Each target lesion must be metabolically assessable with a maximum standard uptake value corrected for lean.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Each target lesion must be metabolically assessable with a maximum standard uptake value corrected for lean."
+      }
+    },
+    {
+      "id": 1002,
+      "text": "Lesions are required to fulfil the following criteria: anatomically transaxial diameter ≤ 1.5 cm",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Lesions are required to fulfil the following criteria: anatomically transaxial diameter ≤ 1.5 cm"
+      }
+    },
+    {
+      "id": 1003,
+      "text": "Lesions are required to fulfil the following criteria: metabolically assessable with a maximum standard uptake value corrected for lean body mass (SUVmax) ≤ 1.5 x SUVmean + 2 standard deviations (SD) of the liver measured in a 3‑cm‑diameter spherical volume of interest (VOI) in normal liver parenchyma",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Lesions are required to fulfil the following criteria: metabolically assessable with a maximum standard uptake value corrected for lean body mass (SUVmax) ≤ 1.5 x SUVmean + 2 standard deviations (SD) of the liver measured in a 3‑cm‑diameter spherical volume of interest (VOI) in normal liver parenchyma"
+      }
+    },
+    {
+      "id": 1004,
+      "text": "In case of suspected liver metastasis, a lesion should have a SUVmax ≤ 2 x SUVmean + 3 SD of the blood pool measured in a 1 cm‑diameter VOI within descending thoracic aorta",
+      "logic": {
+        "unmapped": true,
+        "source_text": "In case of suspected liver metastasis, a lesion should have a SUVmax ≤ 2 x SUVmean + 3 SD of the blood pool measured in a 1 cm‑diameter VOI within descending thoracic aorta"
+      }
+    },
+    {
+      "id": 1005,
+      "text": "Absolute Neutrophil Count (ANC) ≥ 1000/µL or ≥ 1×10^9/L",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Absolute Neutrophil Count (ANC) ≥ 1000/µL or ≥ 1×10^9/L"
+      }
+    },
+    {
+      "id": 1006,
+      "text": "Platelets ≥ 100,000/µL or ≥ 100×10^9/L",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Platelets ≥ 100,000/µL or ≥ 100×10^9/L"
+      }
+    },
+    {
+      "id": 1007,
+      "text": "Haemoglobin ≥ 9 g/dL",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Haemoglobin ≥ 9 g/dL"
+      }
+    },
+    {
+      "id": 1008,
+      "text": "Serum creatinine ≤ 1.5 × upper limit of normal (ULN)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Serum creatinine ≤ 1.5 × upper limit of normal (ULN)"
+      }
+    },
+    {
+      "id": 1009,
+      "text": "Estimated creatinine clearance ≥ 60 ml/min as calculated using the method standard for the institution",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Estimated creatinine clearance ≥ 60 ml/min as calculated using the method standard for the institution"
+      }
+    },
+    {
+      "id": 1010,
+      "text": "Total serum bilirubin ≤ 1.5 × ULN unless the patient subject has documented Gilbert syndrome",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Total serum bilirubin ≤ 1.5 × ULN unless the patient subject has documented Gilbert syndrome"
+      }
+    },
+    {
+      "id": 1011,
+      "text": "Aspartate and Alanine Aminotransferase (AST and ALT) ≤ 2.5 × ULN",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Aspartate and Alanine Aminotransferase (AST and ALT) ≤ 2.5 × ULN"
+      }
+    },
+    {
+      "id": 1012,
+      "text": "Current left ventricular ejection fraction (LVEF) ≥ 50% on echocardiography or multiple‑gated acquisition scanning",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Current left ventricular ejection fraction (LVEF) ≥ 50% on echocardiography or multiple‑gated acquisition scanning"
+      }
+    },
+    {
+      "id": 1013,
+      "text": "No history of a LVEF < 40% or symptomatic heart failure or a recent myocardial infarction",
+      "logic": {
+        "unmapped": true,
+        "source_text": "No history of a LVEF < 40% or symptomatic heart failure or a recent myocardial infarction"
+      }
+    },
+    {
+      "id": 1014,
+      "text": "Willingness to provide tumour tissue (mandatory biopsy) and blood samples (mandatory) for translational research activities",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Willingness to provide tumour tissue (mandatory biopsy) and blood samples (mandatory) for translational research activities"
+      }
+    },
+    {
+      "id": 1015,
+      "text": "Willingness to comply with the protocol for the duration of the study including treatment and scheduled visits and examinations",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Willingness to comply with the protocol for the duration of the study including treatment and scheduled visits and examinations"
+      }
+    },
+    {
+      "id": 1016,
+      "text": "Signed Informed Consent form (ICF) obtained prior to any study related procedure",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Signed Informed Consent form (ICF) obtained prior to any study related procedure"
+      }
+    },
+    {
+      "id": 1017,
+      "text": "Affiliated to the French Social Security System (inclusion criterion applicable to FRANCE only)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Affiliated to the French Social Security System (inclusion criterion applicable to FRANCE only)"
+      }
+    },
+    {
+      "id": 1018,
+      "text": "HER2‑positive metastatic breast cancer (mBC) after at least one line of systemic therapy for advanced disease.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2-positive"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "metastatic"
+          },
+          {
+            "unmapped": true,
+            "source_text": "after at least one line of systemic therapy for advanced disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1019,
+      "text": "HER2 PET/CT positive pattern: the entire or majority of the tumour load shows significant tracer uptake.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "HER2 PET/CT positive pattern: the entire or majority of the tumour load shows significant tracer uptake."
+      }
+    },
+    {
+      "id": 1020,
+      "text": "HER2 PET/CT negative pattern: the dominant part or all of the tumour load lacks significant tracer uptake.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "HER2 PET/CT negative pattern: the dominant part or all of the tumour load lacks significant tracer uptake."
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 1021,
+      "text": "Lesions pre‑treated with irradiation are not eligible for consideration as \"target\" lesions",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Lesions pre‑treated with irradiation are not eligible for consideration as \"target\" lesions"
+      }
+    },
+    {
+      "id": 1022,
+      "text": "Prior exposure to T‑DM1 for the treatment of metastatic breast cancer",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "T-DM1"
+          },
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1023,
+      "text": "For subjects exposed to T‑DM1 for the treatment of early breast cancer, subjects must not have relapsed while on or within 12 months of finishing treatment with T‑DM1",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "T-DM1"
+          },
+          {
+            "unmapped": true,
+            "source_text": "subjects must not have relapsed while on or within 12 months of finishing treatment with T‑DM1"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1024,
+      "text": "Brain metastasis as sole metastasis and/or symptomatic or requiring therapy to control symptoms",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "brain metastasis"
+          },
+          {
+            "unmapped": true,
+            "source_text": "as sole metastasis and/or symptomatic or requiring therapy to control symptoms"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1025,
+      "text": "History of interstitial lung disease / pneumonitis (grade 3 or 4) during the prior treatment with T‑DXd",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "T-DXd"
+          },
+          {
+            "unmapped": true,
+            "source_text": "History of interstitial lung disease / pneumonitis (grade 3 or 4) during the prior treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1026,
+      "text": "Significant symptoms (Grade ≥ 2) relating to LV dysfunction, cardiac arrhythmia, or cardiac ischemia while or since receiving preoperative therapy",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Significant symptoms (Grade ≥ 2) relating to LV dysfunction, cardiac arrhythmia, or cardiac ischemia while or since receiving preoperative therapy"
+      }
+    },
+    {
+      "id": 1027,
+      "text": "Uncontrolled hypertension (systolic blood pressure > 180 mmHg and/or diastolic blood pressure > 100 mmHg)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Uncontrolled hypertension (systolic blood pressure > 180 mmHg and/or diastolic blood pressure > 100 mmHg)"
+      }
+    },
+    {
+      "id": 1028,
+      "text": "Inadequately controlled angina, serious cardiac arrhythmia not controlled by adequate medication, severe conduction abnormality, or clinically significant valvular disease",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Inadequately controlled angina, serious cardiac arrhythmia not controlled by adequate medication, severe conduction abnormality, or clinically significant valvular disease"
+      }
+    },
+    {
+      "id": 1029,
+      "text": "Screening LVEF < 50% by either ECHO or MUGA",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Screening LVEF < 50% by either ECHO or MUGA"
+      }
+    },
+    {
+      "id": 1030,
+      "text": "History of NCI CTCAE (Version 4.0) Grade ≥ 3 symptomatic congestive heart failure (CHF) or New York Heart Association (NYHA) criteria Class ≥ II",
+      "logic": {
+        "unmapped": true,
+        "source_text": "History of NCI CTCAE (Version 4.0) Grade ≥ 3 symptomatic congestive heart failure (CHF) or New York Heart Association (NYHA) criteria Class ≥ II"
+      }
+    },
+    {
+      "id": 1031,
+      "text": "History of a decrease in LVEF to < 40% or symptomatic CHF with prior trastuzumab treatment (e.g., during preoperative therapy)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "History of a decrease in LVEF to < 40% or symptomatic CHF with prior trastuzumab treatment (e.g., during preoperative therapy)"
+      }
+    },
+    {
+      "id": 1032,
+      "text": "Myocardial infarction within 12 months prior to randomization",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "myocardial infarction"
+          },
+          {
+            "unmapped": true,
+            "source_text": "within 12 months prior to randomization"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1033,
+      "text": "Requirement for continuous oxygen therapy",
+      "logic": {
+        "field": "treatment_name",
+        "operator": "=",
+        "value": "oxygen therapy"
+      }
+    },
+    {
+      "id": 1034,
+      "text": "Known prior severe hypersensitivity to investigational product or any component in its formulations, including known severe hypersensitivity reactions to trastuzumab or excipients",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Known prior severe hypersensitivity to investigational product or any component in its formulations, including known severe hypersensitivity reactions to trastuzumab or excipients"
+      }
+    },
+    {
+      "id": 1035,
+      "text": "Contra‑indication for treatment with T‑DM1",
+      "logic": {
+        "field": "treatment_name",
+        "operator": "=",
+        "value": "T-DM1"
+      }
+    },
+    {
+      "id": 1036,
+      "text": "Progression within the first 6 months of T‑DXd therapy after the first 7 rapid progressors have been enrolled (rapid progressor status considered an exclusion criterion)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Progression within the first 6 months of T‑DXd therapy after the first 7 rapid progressors have been enrolled (rapid progressor status considered an exclusion criterion)"
+      }
+    },
+    {
+      "id": 1037,
+      "text": "Progression within the first 6 months of T‑DXd therapy after the first 7 rapid progressors have been included.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Progression within the first 6 months of T‑DXd therapy after the first 7 rapid progressors have been included."
+      }
+    },
+    {
+      "id": 1038,
+      "text": "Any known liver disease, including known carriers of hepatitis B virus, hepatitis C, autoimmune hepatic disorders and sclerosing cholangitis.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Any known liver disease, including known carriers of hepatitis B virus, hepatitis C, autoimmune hepatic disorders and sclerosing cholangitis."
+      }
+    },
+    {
+      "id": 1039,
+      "text": "Concurrent, serious, uncontrolled infections or known infection with HIV.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Concurrent, serious, uncontrolled infections or known infection with HIV."
+      }
+    },
+    {
+      "id": 1040,
+      "text": "Prior history of other invasive cancer in the past 5 years except basal or squamous cell carcinoma of skin that has been definitively treated.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Prior history of other invasive cancer in the past 5 years except basal or squamous cell carcinoma of skin that has been definitively treated."
+      }
+    },
+    {
+      "id": 1041,
+      "text": "Pregnant and/or lactating women, or intending to become pregnant during the study.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Pregnant and/or lactating women, or intending to become pregnant during the study."
+      }
+    },
+    {
+      "id": 1042,
+      "text": "Serum pregnancy test (for subjects of childbearing potential) positive within 15 days prior to enrolment.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Serum pregnancy test (for subjects of childbearing potential) positive within 15 days prior to enrolment."
+      }
+    },
+    {
+      "id": 1043,
+      "text": "Women of childbearing potential refusing to use one highly effective method of contraception from ICF signature, during the course of the study and at least 7 months after the last administration of T‑DM1.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "sex",
+            "operator": "=",
+            "value": "female"
+          },
+          {
+            "unmapped": true,
+            "source_text": "refusing to use one highly effective method of contraception from ICF signature, during the course of the study and at least 7 months after the last administration of T‑DM1."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1044,
+      "text": "Men with childbearing potential partner refusing to use condom during the course of this study and for at least 7 months after the last administration of T‑DM1.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "sex",
+            "operator": "=",
+            "value": "male"
+          },
+          {
+            "unmapped": true,
+            "source_text": "partner refusing to use condom during the course of this study and for at least 7 months after the last administration of T‑DM1."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1045,
+      "text": "Subject with a significant medical, neuro‑psychiatric, or surgical condition, currently uncontrolled by treatment, which, in the principal investigator's opinion, may interfere with completion of the study.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Subject with a significant medical, neuro‑psychiatric, or surgical condition, currently uncontrolled by treatment, which, in the principal investigator's opinion, may interfere with completion of the study."
+      }
+    },
+    {
+      "id": 1046,
+      "text": "Vulnerable persons according to the article L.1121‑6 of the Public Health Code, adults who are the subject of a measure of legal protection or unable to express their consent according to article L.1121‑8 of the Public Health Code (applicable to France only).",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Vulnerable persons according to the article L.1121‑6 of the Public Health Code, adults who are the subject of a measure of legal protection or unable to express their consent according to article L.1121‑8 of the Public Health Code (applicable to France only)."
+      }
+    }
+  ]
+}

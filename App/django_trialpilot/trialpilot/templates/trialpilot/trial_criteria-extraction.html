@@ -78,16 +78,16 @@
                                         <span class="fw-semibold">Inclusion Criteria</span>
                                     </div>
                                     <span class="criteria-count" id="inclusion-count">
-                                        {{ extracted_criteria.inclusion_criteria|length }}
+                                        {{ inclusion_criteria |length }}
                                     </span>
                                 </div>
                             </div>
 
                             <div class="criteria-body" id="inclusion-container">
-                                {% for criterion in extracted_criteria.inclusion_criteria %}
+                                {% for criterion in inclusion_criteria  %}
                                 <div class="criterion-item">
                                     <div class="criterion-number">{{ forloop.counter }}</div>
-                                    <input type="text" name="inclusion[]" value="{{ criterion }}" class="form-control criterion-input">
+                                    <input type="text" name="criterion_{{ criterion.id }}" value="{{ criterion.raw_criterion }}" class="form-control criterion-input">
                                     <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove criterion">
                                         <i class="bi bi-trash"></i>
                                     </button>
@@ -117,16 +117,16 @@
                                         <span class="fw-semibold">Exclusion Criteria</span>
                                     </div>
                                     <span class="criteria-count" id="exclusion-count">
-                                        {{ extracted_criteria.exclusion_criteria|length }}
+                                        {{ exclusion_criteria |length }}
                                     </span>
                                 </div>
                             </div>
 
                             <div class="criteria-body" id="exclusion-container">
-                                {% for criterion in extracted_criteria.exclusion_criteria %}
+                                {% for criterion in exclusion_criteria %}
                                 <div class="criterion-item">
                                     <div class="criterion-number">{{ forloop.counter }}</div>
-                                    <input type="text" name="exclusion[]" value="{{ criterion }}" class="form-control criterion-input">
+                                    <input type="text" name="criterion_{{ criterion.id }}" value="{{ criterion.raw_criterion }}" class="form-control criterion-input">
                                     <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove criterion">
                                         <i class="bi bi-trash"></i>
                                     </button>

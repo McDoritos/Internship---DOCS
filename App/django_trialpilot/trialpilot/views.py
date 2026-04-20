@@ -23,7 +23,8 @@ from django.db.models import Q
 from pypdf import PdfReader
 from pdf2image import convert_from_bytes
 import pytesseract
-
+import json
+import re
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 
@@ -194,6 +195,25 @@ dummy_criteria_conversion = {
 
 # Auxiliary functions
 
+def split_text_into_chunks(text, max_chars=4000, overlap=200):
+    paragraphs = text.split("\n")
+    
+    chunks = []
+    current_chunk = ""
+
+    for para in paragraphs:
+        if len(current_chunk) + len(para) < max_chars:
+            current_chunk += para + "\n"
+        else:
+            chunks.append(current_chunk.strip())
+            
+            current_chunk = current_chunk[-overlap:] + "\n" + para + "\n"
+
+    if current_chunk:
+        chunks.append(current_chunk.strip())
+
+    return chunks
+
 def build_dummy_conversion(criteria_payload):
     converted = {
         "inclusion_criteria": [],
@@ -255,13 +275,9 @@ def call_llm(system_prompt, user_prompt):
                 "content": user_prompt
             }
         ],
-        temperature=0,
-        response_format={"type": "json_object"}
+        temperature=0
     )
     return completion.choices[0].message.content
-
-import json
-import re
 
 def extract_json_from_response(raw_text):
     if not raw_text:
@@ -287,15 +303,73 @@ def extract_json_from_response(raw_text):
 
     raise ValueError("No valid JSON object found in model response.")
 
+def deduplicate(criteria_list):
+    seen = set()
+    result = []
+
+    for c in criteria_list:
+        normalized = c.strip().lower()
+        if normalized not in seen:
+            seen.add(normalized)
+            result.append(c.strip())
+
+    return result
+
 def run_json_prompt_pipeline(
     *,
     system_prompt_path,
     user_prompt_path,
     replacements,
     log_label=None,
-    max_retries=3
+    max_retries=3,
+    enable_chunking=False,
+    chunk_key=None,
+    max_chars=4000,
+    overlap=200
 ):
 
+    if not enable_chunking:
+        return _run_single_prompt(
+            system_prompt_path,
+            user_prompt_path,
+            replacements,
+            log_label,
+            max_retries
+        )
+
+    text = replacements.get(chunk_key)
+    if not text:
+        raise ValueError("Chunking enabled but chunk_key not found in replacements")
+
+    chunks = split_text_into_chunks(text, max_chars=max_chars, overlap=overlap)
+
+    all_results = []
+
+    for i, chunk in enumerate(chunks):
+        print(f"{log_label} - Chunk {i+1}/{len(chunks)}")
+
+        chunk_replacements = replacements.copy()
+        chunk_replacements[chunk_key] = chunk
+
+        result = _run_single_prompt(
+            system_prompt_path,
+            user_prompt_path,
+            chunk_replacements,
+            log_label=f"{log_label} (chunk {i+1})",
+            max_retries=max_retries
+        )
+
+        all_results.append(result)
+
+    return merge_results(all_results)
+
+def _run_single_prompt(
+    system_prompt_path,
+    user_prompt_path,
+    replacements,
+    log_label,
+    max_retries
+):
     if log_label:
         print(f"Processing: {log_label}")
 
@@ -315,7 +389,30 @@ def run_json_prompt_pipeline(
             print(f"[Attempt {attempt}/{max_retries}] Error parsing JSON: {e}")
             print("Raw model output:", result)
 
-    raise ValueError(f"Failed to get valid JSON after {max_retries} attempts.")
+    raise ValueError(f"Failed after {max_retries} attempts.")
+
+def merge_results(results):
+    merged = {}
+
+    for result in results:
+        for key, value in result.items():
+            if key not in merged:
+                merged[key] = []
+
+            if isinstance(value, list):
+                merged[key].extend(value)
+            else:
+                merged[key] = value 
+
+    for key in merged:
+        if isinstance(merged[key], list):
+            merged[key] = deduplicate(merged[key])
+
+    return merged
+
+def chunk_criteria_list(criteria_list, batch_size=5):
+    for i in range(0, len(criteria_list), batch_size):
+        yield criteria_list[i:i + batch_size]
 
 def parameter_extraction_pipeline(document, document_content):
     return run_json_prompt_pipeline(
@@ -334,18 +431,58 @@ def criteria_extraction_step(document, document_content):
         replacements={
             "{{TRIAL_TEXT}}": document_content
         },
-        log_label=document.title
+        log_label=document.title,
+        enable_chunking=True,
+        chunk_key="{{TRIAL_TEXT}}"
     )
 
-def criteria_conversion_step(criteria_extracted):
-    return run_json_prompt_pipeline(
-        system_prompt_path=SYS_CRITERIA_CONVERSION_PROMPT_FILE,
-        user_prompt_path=CRITERIA_CONVERSION_PROMPT_FILE,
-        replacements={
-            "{{CRITERIA_TEXT}}": json.dumps(criteria_extracted, ensure_ascii=False)
-        },
-        log_label="criteria conversion"
-    )
+def criteria_conversion_step(criteria_extracted, batch_size=5):
+
+    all_inclusion = []
+    all_exclusion = []
+
+    for batch in chunk_criteria_list(criteria_extracted["inclusion_criteria"], batch_size):
+        partial_payload = {
+            "document_id": criteria_extracted["document_id"],
+            "document_title": criteria_extracted["document_title"],
+            "inclusion_criteria": batch,
+            "exclusion_criteria": []
+        }
+
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_CRITERIA_CONVERSION_PROMPT_FILE,
+            user_prompt_path=CRITERIA_CONVERSION_PROMPT_FILE,
+            replacements={
+                "{{CRITERIA_TEXT}}": json.dumps(partial_payload, ensure_ascii=False)
+            },
+            log_label="conversion (inclusion batch)"
+        )
+
+        all_inclusion.extend(result.get("inclusion_criteria", []))
+        
+    for batch in chunk_criteria_list(criteria_extracted["exclusion_criteria"], batch_size):
+        partial_payload = {
+            "document_id": criteria_extracted["document_id"],
+            "document_title": criteria_extracted["document_title"],
+            "inclusion_criteria": [],
+            "exclusion_criteria": batch
+        }
+
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_CRITERIA_CONVERSION_PROMPT_FILE,
+            user_prompt_path=CRITERIA_CONVERSION_PROMPT_FILE,
+            replacements={
+                "{{CRITERIA_TEXT}}": json.dumps(partial_payload, ensure_ascii=False)
+            },
+            log_label="conversion (exclusion batch)"
+        )
+
+        all_exclusion.extend(result.get("exclusion_criteria", []))
+
+    return {
+        "inclusion_criteria": all_inclusion,
+        "exclusion_criteria": all_exclusion
+    }
 
 
 def extract_document_text(document):
@@ -842,7 +979,12 @@ def criteria_extraction(request, trial_id):
                 type=Trial_criteria.CriterionType.EXCLUSION
             )
             
-            return render(request, 'trialpilot/trial_criteria-extraction.html', {"trial": document, "trial_content": document_content, "extracted_criteria": criteria_extracted})
+            return render(request, 'trialpilot/trial_criteria-extraction.html',  {
+                "trial": document,
+                "trial_content": document_content,
+                "inclusion_criteria": inclusion_criteria,
+                "exclusion_criteria": exclusion_criteria
+            })
         
         elif request.method == 'POST':
             with transaction.atomic():

@@ -1,0 +1,112 @@
+{
+  "inclusion_criteria": [
+    {
+      "id": 798,
+      "text": "HER2-positive advanced or metastatic breast cancer",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          },
+          {
+            "field": "stage",
+            "operator": "IN",
+            "value": [
+              "advanced",
+              "metastatic"
+            ]
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2-positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 799,
+      "text": "Documented disease progression while receiving trastuzumab deruxtecan (T-DXd) in the metastatic setting",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "T-DXd"
+          },
+          {
+            "unmapped": true,
+            "source_text": "Documented disease progression while receiving T-DXd in metastatic setting"
+          }
+        ]
+      }
+    },
+    {
+      "id": 800,
+      "text": "Ability to undergo baseline tumor biopsy",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Ability to undergo baseline tumor biopsy"
+      }
+    },
+    {
+      "id": 801,
+      "text": "Ability to provide blood samples at pre-specified time points",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Ability to provide blood samples at pre-specified time points"
+      }
+    },
+    {
+      "id": 802,
+      "text": "Ability to undergo baseline FDG-PET/CT and 89Zr-trastuzumab PET/CT (HER2-PET/CT)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Ability to undergo baseline FDG-PET/CT and 89Zr-trastuzumab PET/CT (HER2-PET/CT)"
+      }
+    },
+    {
+      "id": 803,
+      "text": "Willingness to receive study treatment as assigned (T-DM1 if HER2-PET/CT positive or physician's choice if HER2-PET/CT negative)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Willingness to receive study treatment as assigned (T-DM1 if HER2-PET/CT positive or physician's choice if HER2-PET/CT negative)"
+      }
+    },
+    {
+      "id": 804,
+      "text": "Ability to comply with scheduled FDG-PET/CT assessments (before cycle 2 and cycle 4 of T-DM1, and every 3 months for responders)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Ability to comply with scheduled FDG-PET/CT assessments (before cycle 2 and cycle 4 of T-DM1, and every 3 months for responders)"
+      }
+    },
+    {
+      "id": 805,
+      "text": "ECOG performance status ≤ 1",
+      "logic": {
+        "field": "ecog_ps",
+        "operator": "<=",
+        "value": 1
+      }
+    },
+    {
+      "id": 806,
+      "text": "Histologically or cytologically confirmed progressive advanced/metastatic HER2-positive breast carcinoma as per the updated American Society of Clinical Oncology (ASCO) – College of American Pathologists (CAP) guidelines according to local testing; HER2 status may be determined in the primary breast cancer tumour or, when not available, in a metastatic lesion",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          }
+        ]
+      }
+    }
+  ]
+}
