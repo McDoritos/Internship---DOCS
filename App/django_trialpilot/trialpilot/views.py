@@ -25,6 +25,7 @@ from pdf2image import convert_from_bytes
 import pytesseract
 import json
 import re
+from difflib import SequenceMatcher
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 
@@ -193,25 +194,6 @@ dummy_criteria_conversion = {
 
 # Auxiliary functions
 
-def split_text_into_chunks(text, max_chars=4000, overlap=200):
-    paragraphs = text.split("\n")
-    
-    chunks = []
-    current_chunk = ""
-
-    for para in paragraphs:
-        if len(current_chunk) + len(para) < max_chars:
-            current_chunk += para + "\n"
-        else:
-            chunks.append(current_chunk.strip())
-            
-            current_chunk = current_chunk[-overlap:] + "\n" + para + "\n"
-
-    if current_chunk:
-        chunks.append(current_chunk.strip())
-
-    return chunks
-
 def build_dummy_conversion(criteria_payload):
     converted = {
         "inclusion_criteria": [],
@@ -301,15 +283,74 @@ def extract_json_from_response(raw_text):
 
     raise ValueError("No valid JSON object found in model response.")
 
+def split_text_into_chunks(text, max_chars=4000, overlap=50):
+    paragraphs = text.split("\n")
+    
+    chunks = []
+    current_chunk = ""
+
+    for para in paragraphs:
+        if len(current_chunk) + len(para) < max_chars:
+            current_chunk += para + "\n"
+        else:
+            chunks.append(current_chunk.strip())
+            
+            current_chunk = current_chunk[-overlap:] + "\n" + para + "\n"
+
+    if current_chunk:
+        chunks.append(current_chunk.strip())
+
+    return chunks
+
+def split_by_sections_trial(text):
+    inclusion_match = re.search(
+        r'Inclusion Criteria(.*?)(Exclusion Criteria|$)',
+        text,
+        re.DOTALL | re.IGNORECASE
+    )
+
+    exclusion_match = re.search(
+        r'Exclusion Criteria(.*)',
+        text,
+        re.DOTALL | re.IGNORECASE
+    )
+
+    inclusion = inclusion_match.group(1).strip() if inclusion_match else ""
+    exclusion = exclusion_match.group(1).strip() if exclusion_match else ""
+
+    return inclusion, exclusion
+    
+
+def normalize(text):
+    text = text.lower().strip()
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'within \d+ .*', '', text)
+    text = re.sub(r'[^\w\s]', '', text)  # remove pontuação
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+def is_similar(a, b, threshold=0.92):
+    return SequenceMatcher(None, a, b).ratio() > threshold
+
 def deduplicate(criteria_list):
-    seen = set()
     result = []
 
     for c in criteria_list:
-        normalized = c.strip().lower()
-        if normalized not in seen:
-            seen.add(normalized)
-            result.append(c.strip())
+        if isinstance(c, dict):
+            raw_text = c.get("text", "")
+        else:
+            raw_text = c
+
+        text = normalize(raw_text)
+
+        if not any(
+            is_similar(
+                text,
+                normalize(r.get("text") if isinstance(r, dict) else r)
+            )
+            for r in result
+        ):
+            result.append(c)
 
     return result
 
@@ -422,17 +463,55 @@ def parameter_extraction_pipeline(document, document_content):
         log_label=document.title
     )
     
-def criteria_extraction_step(document, document_content):
-    return run_json_prompt_pipeline(
-        system_prompt_path=SYS_CRITERIA_EXTRACTION_PROMPT_FILE,
-        user_prompt_path=CRITERIA_EXTRACTION_PROMPT_FILE,
-        replacements={
-            "{{TRIAL_TEXT}}": document_content
-        },
-        log_label=document.title,
-        enable_chunking=True,
-        chunk_key="{{TRIAL_TEXT}}"
-    )
+def criteria_extraction_step(trial, trial_content):
+
+    inclusion_text, exclusion_text = split_by_sections_trial(trial_content)
+    if not inclusion_text and not exclusion_text:
+        raise ValueError("Could not detect Inclusion/Exclusion sections")
+
+    all_inclusion = []
+    all_exclusion = []
+
+    inclusion_chunks = split_text_into_chunks(inclusion_text, max_chars=2000, overlap=100)
+
+    for i, chunk in enumerate(inclusion_chunks):
+        print(f"{trial.title} - Inclusion Chunk {i+1}/{len(inclusion_chunks)}")
+
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_CRITERIA_EXTRACTION_PROMPT_FILE,
+            user_prompt_path=CRITERIA_EXTRACTION_PROMPT_FILE,
+            replacements={
+                "{{TRIAL_TEXT}}": chunk,
+                "{{CRITERIA_TYPE}}": "inclusion"
+            },
+            log_label=f"{trial.title} (inclusion chunk {i+1})"
+        )
+
+        all_inclusion.extend(result.get("inclusion_criteria", []))
+
+    exclusion_chunks = split_text_into_chunks(exclusion_text, max_chars=2000, overlap=100)
+
+    for i, chunk in enumerate(exclusion_chunks):
+        print(f"{trial.title} - Exclusion Chunk {i+1}/{len(exclusion_chunks)}")
+
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_CRITERIA_EXTRACTION_PROMPT_FILE,
+            user_prompt_path=CRITERIA_EXTRACTION_PROMPT_FILE,
+            replacements={
+                "{{TRIAL_TEXT}}": chunk,
+                "{{CRITERIA_TYPE}}": "exclusion"
+            },
+            log_label=f"{trial.title} (exclusion chunk {i+1})"
+        )
+        
+        all_exclusion.extend(result.get("exclusion_criteria", []))
+
+    return {
+        "document_id": trial.id,
+        "document_title": trial.title,
+        "inclusion_criteria": deduplicate(all_inclusion),
+        "exclusion_criteria": deduplicate(all_exclusion)
+    }
 
 def criteria_conversion_step(criteria_extracted, batch_size=5):
 
@@ -478,8 +557,8 @@ def criteria_conversion_step(criteria_extracted, batch_size=5):
         all_exclusion.extend(result.get("exclusion_criteria", []))
 
     return {
-        "inclusion_criteria": all_inclusion,
-        "exclusion_criteria": all_exclusion
+        "inclusion_criteria": deduplicate(all_inclusion),
+        "exclusion_criteria": deduplicate(all_exclusion)
     }
 
 

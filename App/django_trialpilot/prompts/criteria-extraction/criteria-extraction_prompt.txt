@@ -1,31 +1,26 @@
 Extraction Requirements:
-- Parse the natural language text of the clinical trial.
-- Identify all eligibility criteria.
-- Use the "Inclusion Criteria" and "Exclusion Criteria" sections when they are explicitly present.
-- If these sections are not present, classify each criterion into Inclusion or Exclusion based on its meaning and intent.
-- Preserve the original meaning of each criterion without rewriting or interpreting it.
-- Separate criteria into individual items. If a criterion contains multiple independent conditions, split them into separate entries.
-- Do not remove details or add missing information.
-- Output only the extracted criteria in the required structure.
+
+- The text provided contains ONLY {{CRITERIA_TYPE}} criteria from a clinical trial.
+- Extract all {{CRITERIA_TYPE}} criteria present in the text.
+- DO NOT extract or infer any other type of criteria.
+- Each criterion must be kept exactly as written (no rewriting or interpretation).
+- If a criterion contains multiple independent conditions, split them into separate entries.
+- Ignore any text that is not a clear eligibility criterion.
+- Do not add missing information or infer new criteria.
+- Avoid duplicates.
 
 Output Format:
 
 ```JSON
 {
-  "inclusion_criteria": [
+  "{{CRITERIA_TYPE}}_criteria": [
     "<criterion 1>",
-    "<criterion 2>",
-    ...
-  ],
-  "exclusion_criteria": [
-    "<criterion 1>",
-    "<criterion 2>",
-    ...
+    "<criterion 2>"
   ]
 }
 ```
 
-Clinical trial to process:
+Clinical trial text:
 <TRIAL>
 {{TRIAL_TEXT}}
 </TRIAL>
