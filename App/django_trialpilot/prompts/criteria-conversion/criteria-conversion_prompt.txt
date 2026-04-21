@@ -1,9 +1,17 @@
 General Rules
 - Convert only information explicitly stated in each criterion.
-- Do not infer, assume, normalize, or guess missing information.
+- You may perform controlled semantic mapping when the exact concept is not present in the schema.
+- Prefer the closest matching field from the allowed list based on meaning.
+- Prefer using the allowed fields whenever possible.
+- If no suitable field exists, you MUST generate a general semantically meaningful field name that best represents the concept.
+- The generated field name must be concise, snake_case, and based only on the criterion text.
+- Do NOT fallback to "unmapped" if a meaningful structured representation can be created.
+- Do not leave information unstructured if a reasonable mapping exists.
 - Always produce a structured `"logic"` object for every criterion.
 - Never return `"logic": null`.
-- If a criterion cannot be fully expressed using the allowed fields and operators, create the best possible partial or fallback structured representation while preserving the original meaning as faithfully as possible.
+- If a criterion cannot be expressed using the allowed fields:
+  - You MUST create a structured condition using a semantically meaningful custom field.
+  - You MUST NOT fallback to "unmapped" if any structured interpretation is possible.
 - Output only valid JSON matching the schema below.
 - Do not include explanations, comments, or natural language outside the JSON structure.
 - You MUST preserve the original criterion `id` exactly as received.
@@ -29,9 +37,8 @@ You should prioritize using the following fields whenever possible:
 - `control`
 
 If a criterion references a concept not present in this list:
-- Do not discard it.
-- Do not return null.
-- Represent it using a fallback structured object while preserving the original text.
+- You MUST still produce a structured condition using a best-effort semantic field name.
+- Only use fallback "unmapped" if the criterion is completely impossible to structure.
 
 Allowed Operators (OPERATOR)
 Use these operators whenever the criterion can be mapped to the schema:
@@ -58,20 +65,16 @@ Logic Construction Rules
 - If a criterion contains multiple conditions, combine them using explicit Boolean operators (`AND`, `OR`) whenever possible.
 - Boolean precedence must be explicit through nested structure.
 - If only part of the criterion is computable, represent the computable part and preserve the remaining part in fallback structured form.
-- If the criterion is entirely outside the schema, preserve it in fallback structured form.
+- If the criterion is outside the schema:
+  - You MUST still create a structured condition using a semantically meaningful field.
+  - Only use fallback "unmapped" if the criterion cannot be logically decomposed at all.
 - Never omit a criterion.
 - Never return `"logic": null`.
 
-Fallback Representation Rules
-When a criterion cannot be fully mapped to the allowed schema, use one of the following fallback structures:
-
-For partially or fully unmapped criteria:
-```json
-{
-  "unmapped": true,
-  "source_text": "original criterion text"
-}
-```
+Field Naming Rules:
+- Use snake_case
+- Avoid generic names like "condition", "value", "status"
+- Prefer domain-specific names (e.g., "steroid_use", "comorbidity", "prior_therapy")
 
 For mixed computable + non-computable criteria:
 ```json
@@ -104,6 +107,103 @@ Output Schema:
       "logic": object
     }
   ]
+}
+```
+
+Examples:
+```JSON
+Input:
+{
+  "id": 1,
+  "text": "Patients must be ≥ 18 years old."
+}
+
+Output:
+{
+  "id": 1,
+  "text": "Patients must be ≥ 18 years old.",
+  "logic": {
+    "field": "age",
+    "operator": ">=",
+    "value": "18"
+  }
+}
+```
+
+```JSON
+Input:
+{
+  "id": 2,
+  "text": "Only female patients are eligible."
+}
+
+Output:
+{
+  "id": 2,
+  "text": "Only female patients are eligible.",
+  "logic": {
+    "field": "sex",
+    "operator": "=",
+    "value": "female"
+  }
+}
+```
+
+```JSON
+Input:
+{
+  "id": 3,
+  "text": "Patients must have ECOG ≤ 1 and confirmed diagnosis of NSCLC."
+}
+
+Output:
+{
+  "id": 3,
+  "text": "Patients must have ECOG ≤ 1 and confirmed diagnosis of NSCLC.",
+  "logic": {
+    "operator": "AND",
+    "conditions": [
+      {
+        "field": "ecog_ps",
+        "operator": "<=",
+        "value": "1"
+      },
+      {
+        "field": "diagnosis",
+        "operator": "=",
+        "value": "NSCLC"
+      }
+    ]
+  }
+}
+```
+
+```JSON
+Input:
+{
+  "id": 9,
+  "text": "Patients must not have active infection or uncontrolled cardiovascular disease."
+}
+
+Output:
+{
+  "id": 9,
+  "text": "Patients must not have active infection or uncontrolled cardiovascular disease.",
+  "logic": {
+    "operator": "AND",
+    "conditions": [
+      {
+        "field": "infection_status",
+        "operator": "!=",
+        "value": "active"
+      },
+      {
+        "field": "cardiovascular_disease_status",
+        "operator": "!=",
+        "value": "uncontrolled"
+      }
+    ]
+  }
 }
 ```
 

@@ -191,8 +191,6 @@ dummy_criteria_conversion = {
     ]
 }
 
-
-
 # Auxiliary functions
 
 def split_text_into_chunks(text, max_chars=4000, overlap=200):
@@ -324,7 +322,7 @@ def run_json_prompt_pipeline(
     max_retries=3,
     enable_chunking=False,
     chunk_key=None,
-    max_chars=4000,
+    max_chars=2000,
     overlap=200
 ):
 
@@ -933,9 +931,9 @@ def criteria_extraction(request, trial_id):
         })
     else:
         if request.method == 'GET':
-            #criteria_extracted = criteria_extraction_step(document, document_content)
+            criteria_extracted = criteria_extraction_step(document, document_content)
             
-            criteria_extracted = dummy_criteria_extraction 
+            #criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -1071,6 +1069,14 @@ def criteria_conversion(request, trial_id):
         })
     
     if request.method == 'GET':
+        
+        KNOWN_FIELDS = {
+            "age", "ecog_ps", "diagnosis", "stage", "molecular_status",
+            "sex", "diagnosis_date", "treatment", "treatment_name",
+            "treatment_start_date", "treatment_end_date",
+            "progression_date", "control"
+        }
+        
         criteria_payload = {
             "document_id": document.id,
             "document_title": document.title,
@@ -1092,8 +1098,8 @@ def criteria_conversion(request, trial_id):
             ]
         }
         
-        #converted_logic = criteria_conversion_step(criteria_payload)
-        converted_logic = build_dummy_conversion(criteria_payload)
+        converted_logic = criteria_conversion_step(criteria_payload)
+        #converted_logic = build_dummy_conversion(criteria_payload)
         
         parsed_logic = ContentFile(
             json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
@@ -1161,7 +1167,15 @@ def criteria_conversion(request, trial_id):
         for logic in logic_criteria:
             data = logic.validated_logic or logic.raw_logic or {}
 
-            logic.field = data.get("field", "")
+            field = data.get("field", "")
+
+            if field not in KNOWN_FIELDS:
+                logic.field = "__custom__"
+                logic.custom_field = field
+            else:
+                logic.field = field
+                logic.custom_field = ""
+                
             logic.operator = data.get("operator", "")
             logic.value = data.get("value", "")
 
@@ -1183,6 +1197,11 @@ def criteria_conversion(request, trial_id):
                         )
 
                         field = request.POST.get(f"field_{logic_id}")
+                        custom_field = request.POST.get(f"field_custom_{logic_id}")
+
+                        if field == "__custom__":
+                            field = custom_field
+                            
                         operator = request.POST.get(f"operator_{logic_id}")
                         value = request.POST.get(f"value_{logic_id}")
 

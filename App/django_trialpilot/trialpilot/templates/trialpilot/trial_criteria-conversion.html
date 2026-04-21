@@ -169,15 +169,16 @@
                                                     <option value="treatment_end_date" {% if logic.field == "treatment_end_date" %}selected{% endif %}>Treatment End Date</option>
                                                     <option value="progression_date" {% if logic.field == "progression_date" %}selected{% endif %}>Progression Date</option>
                                                     <option value="control" {% if logic.field == "control" %}selected{% endif %}>Control</option>
-                                                    <option value="__custom__">Other...</option>
+                                                    <option value="__custom__" {% if logic.field == "__custom__" %}selected{% endif %}>Other...</option>
                                                 </select>
 
                                                 <input type="text"
                                                     class="form-control mt-2 logic-field-custom"
                                                     name="field_custom_{{ logic.id }}"
                                                     id="field_custom_{{ logic.id }}"
+                                                    value="{{ logic.custom_field }}"
                                                     placeholder="Enter custom field"
-                                                    style="display: none;">
+                                                    style="{% if logic.field == '__custom__' %}display: block;{% else %}display: none;{% endif %}">
 
                                             </div>
 

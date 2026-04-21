@@ -1,0 +1,852 @@
+{
+  "inclusion_criteria": [
+    {
+      "id": 1239,
+      "text": "Histologically confirmed metastatic or unresectable (not amenable to curative therapy) breast cancer",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "field": "stage",
+                "operator": "=",
+                "value": "metastatic"
+              },
+              {
+                "field": "stage",
+                "operator": "=",
+                "value": "unresectable"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 1240,
+      "text": "HER2 negative breast cancer with the identified PIK3CA mutation",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2 negative"
+          },
+          {
+            "unmapped": true,
+            "source_text": "identified PIK3CA mutation"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1241,
+      "text": "Received at least one line of endocrine therapy",
+      "logic": {
+        "field": "treatment_name",
+        "operator": "=",
+        "value": "endocrine therapy"
+      }
+    },
+    {
+      "id": 1242,
+      "text": "Written informed consent and HIPAA authorization for release of personal health information (HIPAA authorization may be included in the informed consent or obtained separately).",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Written informed consent and HIPAA authorization for release of personal health information (HIPAA authorization may be included in the informed consent or obtained separately)."
+      }
+    },
+    {
+      "id": 1243,
+      "text": "Age ≥ 18 years at the time of consent.",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": 18
+      }
+    },
+    {
+      "id": 1244,
+      "text": "ECOG Performance Status of 0-2 within 28 days prior to registration.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "ecog_ps",
+            "operator": ">=",
+            "value": 0
+          },
+          {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": 2
+          },
+          {
+            "unmapped": true,
+            "source_text": "within 28 days prior to registration"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1245,
+      "text": "Male patients.",
+      "logic": {
+        "field": "sex",
+        "operator": "=",
+        "value": "Male"
+      }
+    },
+    {
+      "id": 1246,
+      "text": "Female patients who are postmenopausal, defined as any of the following:",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "sex",
+            "operator": "=",
+            "value": "Female"
+          },
+          {
+            "unmapped": true,
+            "source_text": "postmenopausal"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1247,
+      "text": "Age ≥ 55 years and one year or more of amenorrhea.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "age",
+            "operator": ">=",
+            "value": 55
+          },
+          {
+            "unmapped": true,
+            "source_text": "one year or more of amenorrhea"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1248,
+      "text": "Age < 55 years and one year or more of amenorrhea with estradiol < 20 pg/ml.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "age",
+            "operator": "<",
+            "value": 55
+          },
+          {
+            "unmapped": true,
+            "source_text": "one year or more of amenorrhea with estradiol < 20 pg/ml"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1249,
+      "text": "Age < 55 years with prior hysterectomy but intact ovaries and estradiol < 20 pg/ml.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "age": {
+              "<": 55
+            }
+          },
+          {
+            "unmapped": true,
+            "source_text": "prior hysterectomy but intact ovaries and estradiol < 20 pg/ml."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1250,
+      "text": "Prior bilateral oophorectomy.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Prior bilateral oophorectomy."
+      }
+    },
+    {
+      "id": 1251,
+      "text": "Premenopausal patients (age ≥ 18 years) who can be rendered postmenopausal.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "age": {
+              ">=": 18
+            }
+          },
+          {
+            "unmapped": true,
+            "source_text": "Premenopausal patients who can be rendered postmenopausal."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1252,
+      "text": "Rendering of premenopausal patients to postmenopausal status by ongoing treatment with a luteinizing hormone‑releasing hormone (LHRH) agonist that started at least 4 weeks prior to randomization, with estradiol < 20 pg/ml, and the LHRH agonist must be administered within 7 days of the scheduled administration date throughout the trial.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "treatment_name": {
+              "=": "LHRH agonist"
+            }
+          },
+          {
+            "unmapped": true,
+            "source_text": "Rendering of premenopausal patients to postmenopausal status by ongoing treatment with a luteinizing hormone‑releasing hormone (LHRH) agonist that started at least 4 weeks prior to randomization, with estradiol < 20 pg/ml, and the LHRH agonist must be administered within 7 days of the scheduled administration date throughout the trial."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1253,
+      "text": "LHRH agonist must have been administered for at least 4 weeks prior to randomization",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "treatment_name": {
+              "=": "LHRH agonist"
+            }
+          },
+          {
+            "unmapped": true,
+            "source_text": "must have been administered for at least 4 weeks prior to randomization"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1254,
+      "text": "Estradiol level must be < 20 pg/ml",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Estradiol level must be < 20 pg/ml"
+      }
+    },
+    {
+      "id": 1255,
+      "text": "LHRH agonist must be administered within 7 days of the scheduled administration date during the length of the clinical trial",
+      "logic": {
+        "unmapped": true,
+        "source_text": "LHRH agonist must be administered within 7 days of the scheduled administration date during the length of the clinical trial"
+      }
+    },
+    {
+      "id": 1256,
+      "text": "Confirmed hormone receptor positivity with ER ≥ 1% and/or PR ≥ 1%",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Confirmed hormone receptor positivity with ER ≥ 1% and/or PR ≥ 1%"
+      }
+    },
+    {
+      "id": 1257,
+      "text": "Receptor testing may be obtained from a metastatic site, but can be from the primary breast or axilla biopsy if it is the most recent biopsy",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Receptor testing may be obtained from a metastatic site, but can be from the primary breast or axilla biopsy if it is the most recent biopsy"
+      }
+    },
+    {
+      "id": 1258,
+      "text": "Confirmed HER2‑negative breast cancer as defined by current ASCO‑CAP criteria (IHC 0 or 1+ OR negative by in situ hybridization with HER2/CEP17 ratio < 2 and HER2 copy number < 6)",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Confirmed HER2‑negative breast cancer as defined by current ASCO‑CAP criteria (IHC 0 or 1+ OR negative by in situ hybridization with HER2/CEP17 ratio < 2 and HER2 copy number < 6)"
+      }
+    },
+    {
+      "id": 1259,
+      "text": "PIK3CA mutation identified via local testing from tumor tissue or blood",
+      "logic": {
+        "field": "molecular_status",
+        "operator": "=",
+        "value": "PIK3CA mutation"
+      }
+    },
+    {
+      "id": 1260,
+      "text": "At least one measurable lesion as per RECIST 1.1 criteria present within 28 days prior to registration",
+      "logic": {
+        "unmapped": true,
+        "source_text": "At least one measurable lesion as per RECIST 1.1 criteria present within 28 days prior to registration"
+      }
+    },
+    {
+      "id": 1261,
+      "text": "If no measurable disease is present, at least one predominantly lytic bone lesion must be present within 28 days prior to registration",
+      "logic": {
+        "unmapped": true,
+        "source_text": "If no measurable disease is present, at least one predominantly lytic bone lesion must be present within 28 days prior to registration"
+      }
+    },
+    {
+      "id": 1262,
+      "text": "Patients with no measurable disease and only one predominantly lytic bone lesion that has been previously irradiated are eligible if there is documented evidence of disease progression of the bone lesion after irradiation",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Patients with no measurable disease and only one predominantly lytic bone lesion that has been previously irradiated are eligible if there is documented evidence of disease progression of the bone lesion after irradiation"
+      }
+    },
+    {
+      "id": 1263,
+      "text": "Has received at least one line of therapy with an endocrine therapy or endocrine therapy combination with other agents in the metastatic setting",
+      "logic": {
+        "field": "treatment_name",
+        "operator": "IN",
+        "value": [
+          "endocrine therapy"
+        ]
+      }
+    },
+    {
+      "id": 1264,
+      "text": "Must have received endocrine therapy (aromatase inhibitor or fulvestrant as single agent or in combination with other agents) as the last line of therapy with progressive disease, as determined by the treating physician",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Must have received endocrine therapy (aromatase inhibitor or fulvestrant as single agent or in combination with other agents) as the last line of therapy with progressive disease, as determined by the treating physician"
+      }
+    },
+    {
+      "id": 1265,
+      "text": "No more than two prior lines of endocrine therapy or endocrine therapy",
+      "logic": {
+        "unmapped": true,
+        "source_text": "No more than two prior lines of endocrine therapy or endocrine therapy"
+      }
+    },
+    {
+      "id": 1266,
+      "text": "No more than two prior lines of endocrine therapy or endocrine therapy combinations in the metastatic setting. Transition from one nonsteroidal aromatase inhibitor to a second nonsteroidal aromatase inhibitor due to tolerance will only count as one line of endocrine therapy. Combination therapy will be considered one line even if one of the agents is discontinued and the other continued.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "No more than two prior lines of endocrine therapy or endocrine therapy combinations in the metastatic setting. Transition from one nonsteroidal aromatase inhibitor to a second nonsteroidal aromatase inhibitor due to tolerance will only count as one line of endocrine therapy. Combination therapy will be considered one line even if one of the agents is discontinued and the other continued."
+      }
+    },
+    {
+      "id": 1267,
+      "text": "Patient must have received treatment with a CDK4/6 inhibitor for breast cancer in the metastatic setting. CDK4/6 inhibitor discontinuation due to intolerance or reasons other than progression is allowed.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "treatment_name": {
+              "operator": "=",
+              "value": "CDK4/6 inhibitor"
+            }
+          },
+          {
+            "unmapped": true,
+            "source_text": "CDK4/6 inhibitor discontinuation due to intolerance or reasons other than progression is allowed."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1268,
+      "text": "Demonstrate adequate organ function as defined in the protocol; all screening labs to be obtained within 28 days prior to registration.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Demonstrate adequate organ function as defined in the protocol; all screening labs to be obtained within 28 days prior to registration."
+      }
+    },
+    {
+      "id": 1269,
+      "text": "Men who are not surgically or medically sterile must agree to use an acceptable method of contraception.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Men who are not surgically or medically sterile must agree to use an acceptable method of contraception."
+      }
+    },
+    {
+      "id": 1270,
+      "text": "Acceptable forms of contraception for men include castration, vasectomy, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Acceptable forms of contraception for men include castration, vasectomy, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository."
+      }
+    },
+    {
+      "id": 1271,
+      "text": "Male patients with female sexual partners who are pregnant, possibly pregnant, or who could become pregnant during the study must agree to use condoms at least one month after the last dose of study drug.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Male patients with female sexual partners who are pregnant, possibly pregnant, or who could become pregnant during the study must agree to use condoms at least one month after the last dose of study drug."
+      }
+    },
+    {
+      "id": 1272,
+      "text": "Total abstinence for the same study period is an acceptable alternative for men.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Total abstinence for the same study period is an acceptable alternative for men."
+      }
+    },
+    {
+      "id": 1273,
+      "text": "Premenopausal females must agree to use an acceptable method of contraception or to abstain from sexual intercourse for the duration of their participation in the study and for 3 months after discontinuation of therapy.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Premenopausal females must agree to use an acceptable method of contraception or to abstain from sexual intercourse for the duration of their participation in the study and for 3 months after discontinuation of therapy."
+      }
+    },
+    {
+      "id": 1274,
+      "text": "Acceptable forms of contraception for premenopausal females include total abstinence, surgery intended to prevent pregnancy (hysterectomy, bilateral oophorectomy or bilateral tubal ligation), non‑hormonal IUD, or condom/occlusive cap with spermicidal foam/gel/film/cream/suppository.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "sex",
+            "operator": "=",
+            "value": "female"
+          },
+          {
+            "unmapped": true,
+            "source_text": "Acceptable forms of contraception for premenopausal females include total abstinence, surgery intended to prevent pregnancy (hysterectomy, bilateral oophorectomy or bilateral tubal ligation), non‑hormonal IUD, or condom/occlusive cap with spermicidal foam/gel/film/cream/suppository."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1275,
+      "text": "Use of effective contraception: bilateral tubal ligation, non-hormonal IUD, or condom/occlusive cap with spermicidal foam/gel/film/cream/suppository.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Use of effective contraception: bilateral tubal ligation, non-hormonal IUD, or condom/occlusive cap with spermicidal foam/gel/film/cream/suppository."
+      }
+    },
+    {
+      "id": 1276,
+      "text": "Ability of the subject to understand and comply with study procedures for the entire length of the study, as determined by the enrolling physician or protocol designee.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Ability of the subject to understand and comply with study procedures for the entire length of the study, as determined by the enrolling physician or protocol designee."
+      }
+    },
+    {
+      "id": 1277,
+      "text": "HIV‑infected patients on effective antiretroviral therapy with undetectable viral load within 6 months of registration.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "HIV infection"
+          },
+          {
+            "unmapped": true,
+            "source_text": "on effective antiretroviral therapy with undetectable viral load within 6 months of registration."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1278,
+      "text": "Hormone receptor positive metastatic breast cancer",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "metastatic"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "hormone receptor positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1279,
+      "text": "HER2 negative status",
+      "logic": {
+        "field": "molecular_status",
+        "operator": "=",
+        "value": "HER2 negative"
+      }
+    },
+    {
+      "id": 1280,
+      "text": "PIK3CA mutant tumor",
+      "logic": {
+        "field": "molecular_status",
+        "operator": "=",
+        "value": "PIK3CA mutant"
+      }
+    },
+    {
+      "id": 1281,
+      "text": "Metastatic disease",
+      "logic": {
+        "field": "stage",
+        "operator": "=",
+        "value": "metastatic"
+      }
+    },
+    {
+      "id": 1282,
+      "text": "Documented disease progression following prior therapy",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Documented disease progression following prior therapy"
+      }
+    },
+    {
+      "id": 1283,
+      "text": "HER2 negative metastatic breast cancer",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2 negative"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "metastatic"
+          },
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1284,
+      "text": "PIK3CA mutant metastatic breast cancer",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast cancer"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "PIK3CA mutant"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "metastatic"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1285,
+      "text": "Patients who have experienced disease progression",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Patients who have experienced disease progression"
+      }
+    },
+    {
+      "id": 1286,
+      "text": "Patients receiving alpelisib with continued endocrine therapy (aromatase inhibitor or fulvestrant)",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "alpelisib"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": [
+              "aromatase inhibitor",
+              "fulvestrant"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 1287,
+      "text": "Prior chemotherapy for metastatic or advanced disease.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "chemotherapy"
+          },
+          {
+            "unmapped": true,
+            "source_text": "metastatic or advanced disease"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1288,
+      "text": "Active infection requiring systemic therapy.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Active infection requiring systemic therapy."
+      }
+    },
+    {
+      "id": 1289,
+      "text": "Prior or concurrent malignancy whose natural history or treatment has the potential to interfere with the safety or efficacy assessment of the investigational regimen.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Prior or concurrent malignancy whose natural history or treatment has the potential to interfere with the safety or efficacy assessment of the investigational regimen."
+      }
+    },
+    {
+      "id": 1290,
+      "text": "Uncontrolled, active CNS metastases causing clinical symptoms.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Uncontrolled, active CNS metastases causing clinical symptoms."
+      }
+    },
+    {
+      "id": 1291,
+      "text": "Metastases that require therapeutic intervention, including leptomeningeal disease.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Metastases that require therapeutic intervention, including leptomeningeal disease."
+      }
+    },
+    {
+      "id": 1292,
+      "text": "Treatment with any investigational drug within 14 days prior to registration.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Treatment with any investigational drug within 14 days prior to registration."
+      }
+    },
+    {
+      "id": 1293,
+      "text": "Radiotherapy to index lesion ≤ 4 weeks prior to randomization.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Radiotherapy to index lesion ≤ 4 weeks prior to randomization."
+      }
+    },
+    {
+      "id": 1294,
+      "text": "Limited field radiation to index lesion for palliation ≤ 2 weeks prior to randomization.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Limited field radiation to index lesion for palliation ≤ 2 weeks prior to randomization."
+      }
+    },
+    {
+      "id": 1295,
+      "text": "Established diagnosis of diabetes mellitus type I.",
+      "logic": {
+        "field": "diagnosis",
+        "operator": "=",
+        "value": "diabetes mellitus type I"
+      }
+    },
+    {
+      "id": 1296,
+      "text": "Persistent poorly controlled diabetes mellitus with an uninterrupted hemoglobin A1c > 8.0% for 1 year or greater despite standard care.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "diabetes mellitus"
+          },
+          {
+            "unmapped": true,
+            "source_text": "Persistent poorly controlled diabetes mellitus with an uninterrupted hemoglobin A1c > 8.0% for 1 year or greater despite standard care."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1297,
+      "text": "For patients with newly diagnosed diabetes mellitus without 1 year of hemoglobin A1c values, available hemoglobin A1c values cannot all be > 8.0%.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "For patients with newly diagnosed diabetes mellitus without 1 year of hemoglobin A1c values, available hemoglobin A1c values cannot all be > 8.0%."
+      }
+    },
+    {
+      "id": 1298,
+      "text": "Symptomatic visceral disease.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Symptomatic visceral disease."
+      }
+    },
+    {
+      "id": 1299,
+      "text": "Any disease burden that makes the patient ineligible for endocrine therapy per the investigator's best judgment.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Any disease burden that makes the patient ineligible for endocrine therapy per the investigator's best judgment."
+      }
+    },
+    {
+      "id": 1300,
+      "text": "Ease or any disease burden that makes the patient ineligible for endocrine therapy per the investigator's best judgment.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Ease or any disease burden that makes the patient ineligible for endocrine therapy per the investigator's best judgment."
+      }
+    },
+    {
+      "id": 1301,
+      "text": "Impairment of gastrointestinal function or disease that may significantly alter the absorption of the study drugs (as determined by the enrolling physician or protocol designee).",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Impairment of gastrointestinal function or disease that may significantly alter the absorption of the study drugs (as determined by the enrolling physician or protocol designee)."
+      }
+    },
+    {
+      "id": 1302,
+      "text": "Currently documented clinically active pneumonitis.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Currently documented clinically active pneumonitis."
+      }
+    },
+    {
+      "id": 1303,
+      "text": "History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction within 6 months prior to the start of study treatment.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction within 6 months prior to the start of study treatment."
+      }
+    },
+    {
+      "id": 1304,
+      "text": "History of documented congestive heart failure (New York Heart Association functional classification III‑IV) within 6 months prior to the start of study treatment.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "History of documented congestive heart failure (New York Heart Association functional classification III‑IV) within 6 months prior to the start of study treatment."
+      }
+    },
+    {
+      "id": 1305,
+      "text": "History of any cardiac arrhythmias (e.g., ventricular tachycardia), complete left bundle branch block, high‑grade AV block (e.g., bifascicular block, Mobitz type II, third‑degree AV block), supraventricular or nodal arrhythmias, or other conduction abnormality within 6 months prior to the start of study treatment.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "History of any cardiac arrhythmias (e.g., ventricular tachycardia), complete left bundle branch block, high‑grade AV block (e.g., bifascicular block, Mobitz type II, third‑degree AV block), supraventricular or nodal arrhythmias, or other conduction abnormality within 6 months prior to the start of study treatment."
+      }
+    },
+    {
+      "id": 1306,
+      "text": "Systolic blood pressure >180 mmHg and/or diastolic blood pressure ≥100 mmHg at screening.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Systolic blood pressure >180 mmHg and/or diastolic blood pressure ≥100 mmHg at screening."
+      }
+    },
+    {
+      "id": 1307,
+      "text": "History of acute pancreatitis within 1 year of screening.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "acute pancreatitis"
+          },
+          {
+            "unmapped": true,
+            "source_text": "within 1 year of screening."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1308,
+      "text": "Past medical history of chronic pancreatitis.",
+      "logic": {
+        "field": "diagnosis",
+        "operator": "=",
+        "value": "chronic pancreatitis"
+      }
+    },
+    {
+      "id": 1309,
+      "text": "Prior treatment with PI3K, mTOR or AKT inhibitor in the metastatic setting.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": [
+              "PI3K inhibitor",
+              "mTOR inhibitor",
+              "AKT inhibitor"
+            ]
+          },
+          {
+            "unmapped": true,
+            "source_text": "in the metastatic setting."
+          }
+        ]
+      }
+    },
+    {
+      "id": 1310,
+      "text": "History of chronic steroid use (defined as daily steroid use >14 days) and requirement for continued chronic steroid use.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "History of chronic steroid use (defined as daily steroid use >14 days) and requirement for continued chronic steroid use."
+      }
+    }
+  ]
+}
