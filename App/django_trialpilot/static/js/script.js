@@ -922,3 +922,82 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".add-condition").forEach(btn => {
+        btn.addEventListener("click", function () {
+
+            const logicId = this.dataset.logicId;
+            const container = document.getElementById(`conditions_${logicId}`);
+            const index = container.children.length + 1;
+
+            const newRow = document.createElement("div");
+            newRow.classList.add("row", "g-2", "align-items-center", "condition-row", "mb-2");
+
+            newRow.innerHTML = `
+                <div class="col-md-3">
+                    <label class="form-label small text-muted">Field</label>
+                    <select class="form-select logic-field" name="field_${logicId}_${index}">
+                        <option value="">-- Select field --</option>
+                        <option value="age" {% if logic.field == "age" %}selected{% endif %}>Age</option>
+                        <option value="ecog_ps" {% if logic.field == "ecog_ps" %}selected{% endif %}>ECOG</option>
+                        <option value="diagnosis" {% if logic.field == "diagnosis" %}selected{% endif %}>Diagnosis</option>
+                        <option value="stage" {% if logic.field == "stage" %}selected{% endif %}>Stage</option>
+                        <option value="molecular_status" {% if logic.field == "molecular_status" %}selected{% endif %}>Molecular Status</option>
+                        <option value="sex" {% if logic.field == "sex" %}selected{% endif %}>Sex</option>
+                        <option value="diagnosis_date" {% if logic.field == "diagnosis_date" %}selected{% endif %}>Diagnosis Date</option>
+                        <option value="treatment" {% if logic.field == "treatment" %}selected{% endif %}>Treatment</option>
+                        <option value="treatment_name" {% if logic.field == "treatment_name" %}selected{% endif %}>Treatment Name</option>
+                        <option value="treatment_start_date" {% if logic.field == "treatment_start_date" %}selected{% endif %}>Treatment Start Date</option>
+                        <option value="treatment_end_date" {% if logic.field == "treatment_end_date" %}selected{% endif %}>Treatment End Date</option>
+                        <option value="progression_date" {% if logic.field == "progression_date" %}selected{% endif %}>Progression Date</option>
+                        <option value="control" {% if logic.field == "control" %}selected{% endif %}>Control</option>
+                        <option value="__custom__" {% if logic.field == "__custom__" %}selected{% endif %}>Other...</option>
+                    </select>
+
+                    <input type="text"
+                        class="form-control mt-2 logic-field-custom"
+                        name="field_custom_{{ logic.id }}"
+                        id="field_custom_{{ logic.id }}"
+                        value="{{ logic.custom_field }}"
+                        placeholder="Enter custom field"
+                        style="{% if logic.field == '__custom__' %}display: block;{% else %}display: none;{% endif %}">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label small text-muted">Condition</label>
+                    <select class="form-select logic-operator" name="operator_${logicId}_${index}">
+                        <option value="">-- Select condition --</option>
+                        <option value=">" {% if logic.operator == ">" %}selected{% endif %}>Greater than</option>
+                        <option value="<" {% if logic.operator == "<" %}selected{% endif %}>Less than</option>
+                        <option value="=" {% if logic.operator == "=" %}selected{% endif %}>Equals</option>
+                        <option value=">=" {% if logic.operator == ">=" %}selected{% endif %}>Greater or equal</option>
+                        <option value="<=" {% if logic.operator == "<=" %}selected{% endif %}>Less or equal</option>
+                        <option value="contains" {% if logic.operator == "contains" %}selected{% endif %}>Contains</option>
+                    </select>
+                </div>
+
+                <div class="col-md-5">
+                    <label class="form-label small text-muted">Value</label>
+                    <input type="text" 
+                        class="form-control logic-value" 
+                        name="value_${logicId}_${index}" 
+                        placeholder="Enter value">
+                </div>
+
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-condition">✕</button>
+                </div>
+            `;
+
+            container.appendChild(newRow);
+        });
+    });
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("remove-condition")) {
+            e.target.closest(".condition-row").remove();
+        }
+    });
+
+});

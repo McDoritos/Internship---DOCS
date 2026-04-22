@@ -149,98 +149,65 @@
                                     </label>
                                     <div class="logic-builder">
 
-                                        <div class="mb-3">
-                                            <label class="form-label small text-muted">Match Type</label>
-                                            <select class="form-select"
-                                                    name="group_operator_{{ logic.id }}">
-                                                <option value="AND" {% if logic.group_operator == "AND" %}selected{% endif %}>
-                                                    All conditions must be met (AND)
-                                                </option>
-                                                <option value="OR" {% if logic.group_operator == "OR" %}selected{% endif %}>
-                                                    Any condition can be met (OR)
-                                                </option>
-                                            </select>
-                                        </div>
+                                        <div class="row g-2 align-items-center">
 
-                                        <div class="conditions-container" id="conditions_{{ logic.id }}">
+                                            <!-- FIELD -->
+                                            <div class="col-md-3">
+                                                <label class="form-label small text-muted">Field</label>
+                                                <select class="form-select logic-field" name="field_{{ logic.id }}">
+                                                    <option value="">-- Select field --</option>
+                                                    <option value="age" {% if logic.field == "age" %}selected{% endif %}>Age</option>
+                                                    <option value="ecog_ps" {% if logic.field == "ecog_ps" %}selected{% endif %}>ECOG</option>
+                                                    <option value="diagnosis" {% if logic.field == "diagnosis" %}selected{% endif %}>Diagnosis</option>
+                                                    <option value="stage" {% if logic.field == "stage" %}selected{% endif %}>Stage</option>
+                                                    <option value="molecular_status" {% if logic.field == "molecular_status" %}selected{% endif %}>Molecular Status</option>
+                                                    <option value="sex" {% if logic.field == "sex" %}selected{% endif %}>Sex</option>
+                                                    <option value="diagnosis_date" {% if logic.field == "diagnosis_date" %}selected{% endif %}>Diagnosis Date</option>
+                                                    <option value="treatment" {% if logic.field == "treatment" %}selected{% endif %}>Treatment</option>
+                                                    <option value="treatment_name" {% if logic.field == "treatment_name" %}selected{% endif %}>Treatment Name</option>
+                                                    <option value="treatment_start_date" {% if logic.field == "treatment_start_date" %}selected{% endif %}>Treatment Start Date</option>
+                                                    <option value="treatment_end_date" {% if logic.field == "treatment_end_date" %}selected{% endif %}>Treatment End Date</option>
+                                                    <option value="progression_date" {% if logic.field == "progression_date" %}selected{% endif %}>Progression Date</option>
+                                                    <option value="control" {% if logic.field == "control" %}selected{% endif %}>Control</option>
+                                                    <option value="__custom__" {% if logic.field == "__custom__" %}selected{% endif %}>Other...</option>
+                                                </select>
 
-                                            {% for condition in logic.conditions %}
-                                            <div class="row g-2 align-items-center condition-row mb-2">
+                                                <input type="text"
+                                                    class="form-control mt-2 logic-field-custom"
+                                                    name="field_custom_{{ logic.id }}"
+                                                    id="field_custom_{{ logic.id }}"
+                                                    value="{{ logic.custom_field }}"
+                                                    placeholder="Enter custom field"
+                                                    style="{% if logic.field == '__custom__' %}display: block;{% else %}display: none;{% endif %}">
 
-                                                <!-- FIELD -->
-                                                <div class="col-md-3">
-                                                    <label class="form-label small text-muted">Field</label>
-                                                    <select class="form-select logic-field" name="field_{{ logic.id }}_{{ forloop.counter }}">
-                                                        <option value="">-- Select field --</option>
-                                                        <option value="age" {% if logic.field == "age" %}selected{% endif %}>Age</option>
-                                                        <option value="ecog_ps" {% if logic.field == "ecog_ps" %}selected{% endif %}>ECOG</option>
-                                                        <option value="diagnosis" {% if logic.field == "diagnosis" %}selected{% endif %}>Diagnosis</option>
-                                                        <option value="stage" {% if logic.field == "stage" %}selected{% endif %}>Stage</option>
-                                                        <option value="molecular_status" {% if logic.field == "molecular_status" %}selected{% endif %}>Molecular Status</option>
-                                                        <option value="sex" {% if logic.field == "sex" %}selected{% endif %}>Sex</option>
-                                                        <option value="diagnosis_date" {% if logic.field == "diagnosis_date" %}selected{% endif %}>Diagnosis Date</option>
-                                                        <option value="treatment" {% if logic.field == "treatment" %}selected{% endif %}>Treatment</option>
-                                                        <option value="treatment_name" {% if logic.field == "treatment_name" %}selected{% endif %}>Treatment Name</option>
-                                                        <option value="treatment_start_date" {% if logic.field == "treatment_start_date" %}selected{% endif %}>Treatment Start Date</option>
-                                                        <option value="treatment_end_date" {% if logic.field == "treatment_end_date" %}selected{% endif %}>Treatment End Date</option>
-                                                        <option value="progression_date" {% if logic.field == "progression_date" %}selected{% endif %}>Progression Date</option>
-                                                        <option value="control" {% if logic.field == "control" %}selected{% endif %}>Control</option>
-                                                        <option value="__custom__" {% if logic.field == "__custom__" %}selected{% endif %}>Other...</option>
-                                                    </select>
-
-                                                    <input type="text"
-                                                        class="form-control mt-2 logic-field-custom"
-                                                        name="field_custom_{{ logic.id }}"
-                                                        id="field_custom_{{ logic.id }}"
-                                                        value="{{ logic.custom_field }}"
-                                                        placeholder="Enter custom field"
-                                                        style="{% if logic.field == '__custom__' %}display: block;{% else %}display: none;{% endif %}">
-
-                                                </div>
-
-                                                <!-- OPERATOR -->
-                                                <div class="col-md-3">
-                                                    <label class="form-label small text-muted">Condition</label>
-                                                    <select class="form-select logic-operator" name="operator_{{ logic.id }}_{{ forloop.counter }}">
-                                                        <option value="">-- Select condition --</option>
-                                                        <option value=">" {% if logic.operator == ">" %}selected{% endif %}>Greater than</option>
-                                                        <option value="<" {% if logic.operator == "<" %}selected{% endif %}>Less than</option>
-                                                        <option value="=" {% if logic.operator == "=" %}selected{% endif %}>Equals</option>
-                                                        <option value=">=" {% if logic.operator == ">=" %}selected{% endif %}>Greater or equal</option>
-                                                        <option value="<=" {% if logic.operator == "<=" %}selected{% endif %}>Less or equal</option>
-                                                        <option value="contains" {% if logic.operator == "contains" %}selected{% endif %}>Contains</option>
-                                                    </select>
-                                                </div>
-
-                                                <!-- VALUE -->
-                                                <div class="col-md-6">
-                                                    <label class="form-label small text-muted">Value</label>
-                                                    <input type="text"
-                                                        class="form-control logic-value"
-                                                        name="value_{{ logic.id }}_{{ forloop.counter }}"
-                                                        value="{{ condition.value }}"
-                                                        placeholder="Enter value">
-                                                </div>
-                                                <input type="hidden" name="logic_{{ logic.id }}" value="1">
-
-                                                 <!-- REMOVE -->
-                                                <div class="col-md-1">
-                                                    <button type="button"
-                                                            class="btn btn-outline-danger btn-sm remove-condition">
-                                                        ✕
-                                                    </button>
-                                                </div>
-                                            
                                             </div>
-                                            {% endfor %}
+
+                                            <!-- OPERATOR -->
+                                            <div class="col-md-3">
+                                                <label class="form-label small text-muted">Condition</label>
+                                                <select class="form-select logic-operator" name="operator_{{ logic.id }}">
+                                                    <option value="">-- Select condition --</option>
+                                                    <option value=">" {% if logic.operator == ">" %}selected{% endif %}>Greater than</option>
+                                                    <option value="<" {% if logic.operator == "<" %}selected{% endif %}>Less than</option>
+                                                    <option value="=" {% if logic.operator == "=" %}selected{% endif %}>Equals</option>
+                                                    <option value=">=" {% if logic.operator == ">=" %}selected{% endif %}>Greater or equal</option>
+                                                    <option value="<=" {% if logic.operator == "<=" %}selected{% endif %}>Less or equal</option>
+                                                    <option value="contains" {% if logic.operator == "contains" %}selected{% endif %}>Contains</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- VALUE -->
+                                            <div class="col-md-6">
+                                                <label class="form-label small text-muted">Value</label>
+                                                <input type="text"
+                                                    class="form-control logic-value"
+                                                    name="value_{{ logic.id }}"
+                                                    value="{{ logic.value }}"
+                                                    placeholder="Enter value">
+                                            </div>
+                                            <input type="hidden" name="logic_{{ logic.id }}" value="1">
 
                                         </div>
-
-                                        <button type="button"
-                                                class="btn btn-outline-primary btn-sm add-condition"
-                                                data-logic-id="{{ logic.id }}">
-                                            + Add condition
-                                        </button>
 
                                     </div>
                                     <div class="form-text">

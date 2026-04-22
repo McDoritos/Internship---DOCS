@@ -101,7 +101,7 @@ dummy_criteria_extraction = {
         ]
 }
 
-dummy_criteria_conversion = {
+dummy_criteria_conversion_flat = {
     "inclusion_criteria": [
         {
             "id": 1,
@@ -110,7 +110,7 @@ dummy_criteria_conversion = {
         },
         {
             "id": 2,
-            "text": "Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+            "text": "Histologically confirmed NSCLC AND Stage IV.",
             "logic": {
                 "operator": "AND",
                 "conditions": [
@@ -121,31 +121,26 @@ dummy_criteria_conversion = {
         },
         {
             "id": 3,
-            "text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+            "text": "ECOG Performance Status 0–1 OR Karnofsky ≥ 80.",
             "logic": {
-                "unmapped": True,
-                "source_text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy."
+                "operator": "OR",
+                "conditions": [
+                    {"field": "ecog_ps", "operator": "<=", "value": 1},
+                    {"field": "karnofsky_score", "operator": ">=", "value": 80}
+                ]
             }
         },
         {
             "id": 4,
-            "text": "ECOG Performance Status 0–1.",
-            "logic": {"field": "ecog_ps", "operator": "<=", "value": 1}
+            "text": "Hemoglobin ≥ 9 g/dL.",
+            "logic": {"field": "hemoglobin", "operator": ">=", "value": 9}
         },
         {
             "id": 5,
-            "text": "At least one measurable lesion per RECIST 1.1.",
+            "text": "Creatinine clearance ≥ 40 mL/min.",
             "logic": {
                 "unmapped": True,
-                "source_text": "At least one measurable lesion per RECIST 1.1."
-            }
-        },
-        {
-            "id": 6,
-            "text": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
-            "logic": {
-                "unmapped": True,
-                "source_text": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)."
+                "source_text": "Creatinine clearance ≥ 40 mL/min."
             }
         }
     ],
@@ -153,7 +148,7 @@ dummy_criteria_conversion = {
     "exclusion_criteria": [
         {
             "id": 101,
-            "text": "Known EGFR, ALK, or ROS1 genomic alterations with available approved targeted therapy.",
+            "text": "EGFR, ALK, or ROS1 mutation present.",
             "logic": {
                 "operator": "OR",
                 "conditions": [
@@ -165,19 +160,19 @@ dummy_criteria_conversion = {
         },
         {
             "id": 102,
-            "text": "Untreated or symptomatic brain metastases.",
+            "text": "Active infection.",
             "logic": {
-                "field": "brain_metastases",
+                "field": "infection_status",
                 "operator": "=",
                 "value": "active"
             }
         },
         {
             "id": 103,
-            "text": "Active autoimmune disease requiring systemic immunosuppressive therapy.",
+            "text": "Autoimmune disease requiring treatment.",
             "logic": {
                 "unmapped": True,
-                "source_text": "Active autoimmune disease requiring systemic immunosuppressive therapy."
+                "source_text": "Autoimmune disease requiring treatment."
             }
         },
         {
@@ -1010,9 +1005,9 @@ def criteria_extraction(request, trial_id):
         })
     else:
         if request.method == 'GET':
-            criteria_extracted = criteria_extraction_step(document, document_content)
+            #criteria_extracted = criteria_extraction_step(document, document_content)
             
-            #criteria_extracted = dummy_criteria_extraction 
+            criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -1177,8 +1172,8 @@ def criteria_conversion(request, trial_id):
             ]
         }
         
-        converted_logic = criteria_conversion_step(criteria_payload)
-        #converted_logic = build_dummy_conversion(criteria_payload)
+        #converted_logic = criteria_conversion_step(criteria_payload)
+        converted_logic = build_dummy_conversion(criteria_payload)
         
         parsed_logic = ContentFile(
             json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
@@ -1246,17 +1241,21 @@ def criteria_conversion(request, trial_id):
         for logic in logic_criteria:
             data = logic.validated_logic or logic.raw_logic or {}
 
-            field = data.get("field", "")
-
-            if field not in KNOWN_FIELDS:
-                logic.field = "__custom__"
-                logic.custom_field = field
+            if "conditions" in data:
+                logic.is_complex = True
             else:
-                logic.field = field
-                logic.custom_field = ""
-                
-            logic.operator = data.get("operator", "")
-            logic.value = data.get("value", "")
+                logic.is_complex = False
+                field = data.get("field", "")
+
+                if field not in KNOWN_FIELDS:
+                    logic.field = "__custom__"
+                    logic.custom_field = field
+                else:
+                    logic.field = field
+                    logic.custom_field = ""
+
+                logic.operator = data.get("operator", "")
+                logic.value = data.get("value", "")
 
         return render(request, 'trialpilot/trial_criteria-conversion.html', {
             "trial": document,
@@ -1284,11 +1283,14 @@ def criteria_conversion(request, trial_id):
                         operator = request.POST.get(f"operator_{logic_id}")
                         value = request.POST.get(f"value_{logic_id}")
 
-                        logic_obj.validated_logic = {
-                            "field": field,
-                            "operator": operator,
-                            "value": value
-                        }
+                        if "conditions" in logic_obj.raw_logic:
+                            logic_obj.validated_logic = logic_obj.raw_logic
+                        else:
+                            logic_obj.validated_logic = {
+                                "field": field,
+                                "operator": operator,
+                                "value": value
+                            }
 
                         logic_obj.validated = True
                         logic_obj.save()
