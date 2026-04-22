@@ -924,20 +924,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ADD CONDITION
-    document.querySelectorAll(".add-condition").forEach(btn => {
-        btn.addEventListener("click", function () {
-
-            const logicId = this.dataset.logicId;
-            const container = document.getElementById(`conditions_${logicId}`);
-
-            const template = document.getElementById("condition-template");
-            const clone = template.content.cloneNode(true);
-
-            container.appendChild(clone);
-        });
-    });
-
     // REMOVE CONDITION
     document.addEventListener("click", function (e) {
         if (e.target.classList.contains("remove-condition")) {
@@ -958,6 +944,45 @@ document.addEventListener("DOMContentLoaded", function () {
                 customInput.style.display = "none";
                 customInput.value = "";
             }
+        }
+    });
+
+    document.addEventListener("click", function (e) {
+
+        // ADD CONDITION
+        if (e.target.classList.contains("add-condition")) {
+
+            const container = e.target.closest(".nested-group")
+                ? e.target.closest(".nested-group").querySelector(".conditions-container")
+                : document.getElementById(`conditions_${e.target.dataset.logicId}`);
+
+            const template = document.getElementById("condition-template");
+            const clone = template.content.cloneNode(true);
+
+            container.appendChild(clone);
+        }
+
+        // ADD GROUP
+        if (e.target.classList.contains("add-group")) {
+
+            const container = e.target.closest(".nested-group")
+                ? e.target.closest(".nested-group").querySelector(".conditions-container")
+                : document.getElementById(`conditions_${e.target.dataset.logicId}`);
+
+            const template = document.getElementById("group-template");
+            const clone = template.content.cloneNode(true);
+
+            container.appendChild(clone);
+        }
+
+        // REMOVE CONDITION
+        if (e.target.classList.contains("remove-condition")) {
+            e.target.closest(".condition-row").remove();
+        }
+
+        // REMOVE GROUP
+        if (e.target.classList.contains("remove-group")) {
+            e.target.closest(".nested-group").remove();
         }
     });
 

@@ -43,6 +43,13 @@ CLIENT = Groq(api_key=GROQ_KEY)
 MODEL = "openai/gpt-oss-120b"
 TEMP = 0.7
 
+KNOWN_FIELDS = {
+            "age", "ecog_ps", "diagnosis", "stage", "molecular_status",
+            "sex", "diagnosis_date", "treatment", "treatment_name",
+            "treatment_start_date", "treatment_end_date",
+            "progression_date", "control"
+        }
+
 dummy_params_extraction = {
     "age_or_birthdate": 45,
     "ecog_ps": 0,
@@ -188,6 +195,31 @@ dummy_criteria_conversion_flat = {
 }
 
 # Auxiliary functions
+
+def process_condition(condition):
+    if "conditions" in condition:
+        return {
+            "type": "group",
+            "operator": condition.get("operator", "AND"),
+            "conditions": [process_condition(c) for c in condition.get("conditions", [])]
+        }
+
+    field = condition.get("field", "")
+
+    if field not in KNOWN_FIELDS:
+        field_type = "__custom__"
+        custom_field = field
+    else:
+        field_type = field
+        custom_field = ""
+
+    return {
+        "type": "condition",
+        "field_type": field_type,
+        "custom_field": custom_field,
+        "operator": condition.get("operator", ""),
+        "value": condition.get("value", "")
+    }
 
 def build_dummy_conversion(criteria_payload):
     converted = {
@@ -1144,13 +1176,6 @@ def criteria_conversion(request, trial_id):
     
     if request.method == 'GET':
         
-        KNOWN_FIELDS = {
-            "age", "ecog_ps", "diagnosis", "stage", "molecular_status",
-            "sex", "diagnosis_date", "treatment", "treatment_name",
-            "treatment_start_date", "treatment_end_date",
-            "progression_date", "control"
-        }
-        
         criteria_payload = {
             "document_id": document.id,
             "document_title": document.title,
@@ -1262,19 +1287,7 @@ def criteria_conversion(request, trial_id):
                     "value": ""
                 }]
 
-            # tratar cada condição
-            for condition in logic.conditions:
-                field = condition.get("field", "")
-
-                if field not in KNOWN_FIELDS:
-                    condition["field_type"] = "__custom__"
-                    condition["custom_field"] = field
-                else:
-                    condition["field_type"] = field
-                    condition["custom_field"] = ""
-
-                condition["operator"] = condition.get("operator", "")
-                condition["value"] = condition.get("value", "")
+            logic.conditions = [process_condition(c) for c in logic.conditions]
 
         return render(request, 'trialpilot/trial_criteria-conversion.html', {
             "trial": document,

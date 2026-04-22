@@ -164,72 +164,7 @@
 
                                         <div class="conditions-container" id="conditions_{{ logic.id }}">
 
-                                            {% for condition in logic.conditions %}
-                                            <div class="row g-2 align-items-center condition-row mb-2">
-
-                                                <!-- FIELD -->
-                                                <div class="col-md-3">
-                                                    <select class="form-select logic-field" name="field_{{ logic.id }}_{{ forloop.counter }}">
-                                                        <option value="">-- Select field --</option>
-                                                        <option value="age" {% if condition.field_type == "age" %}selected{% endif %}>Age</option>
-                                                        <option value="ecog_ps" {% if condition.field_type == "ecog_ps" %}selected{% endif %}>ECOG</option>
-                                                        <option value="diagnosis" {% if condition.field_type == "diagnosis" %}selected{% endif %}>Diagnosis</option>
-                                                        <option value="stage" {% if condition.field_type == "stage" %}selected{% endif %}>Stage</option>
-                                                        <option value="molecular_status" {% if condition.field_type == "molecular_status" %}selected{% endif %}>Molecular Status</option>
-                                                        <option value="sex" {% if condition.field_type == "sex" %}selected{% endif %}>Sex</option>
-                                                        <option value="diagnosis_date" {% if condition.field_type == "diagnosis_date" %}selected{% endif %}>Diagnosis Date</option>
-                                                        <option value="treatment" {% if condition.field_type == "treatment" %}selected{% endif %}>Treatment</option>
-                                                        <option value="treatment_name" {% if condition.field_type == "treatment_name" %}selected{% endif %}>Treatment Name</option>
-                                                        <option value="treatment_start_date" {% if condition.field_type == "treatment_start_date" %}selected{% endif %}>Treatment Start Date</option>
-                                                        <option value="treatment_end_date" {% if condition.field_type == "treatment_end_date" %}selected{% endif %}>Treatment End Date</option>
-                                                        <option value="progression_date" {% if condition.field_type == "progression_date" %}selected{% endif %}>Progression Date</option>
-                                                        <option value="control" {% if condition.field_type == "control" %}selected{% endif %}>Control</option>
-                                                        <option value="__custom__" {% if condition.field_type == "__custom__" %}selected{% endif %}>Other...</option>
-                                                    </select>
-
-                                                    <input type="text"
-                                                        class="form-control mt-2 logic-field-custom"
-                                                        name="field_custom_{{ logic.id }}_{{ forloop.counter }}"
-                                                        id="field_custom_{{ logic.id }}"
-                                                        value="{{ condition.custom_field }}"
-                                                        placeholder="Enter custom field"
-                                                        style="{% if condition.field_type == '__custom__' %}display: block;{% else %}display: none;{% endif %}">
-
-                                                </div>
-
-                                                <!-- OPERATOR -->
-                                                <div class="col-md-3">
-                                                    <select class="form-select logic-operator" name="operator_{{ logic.id }}_{{ forloop.counter }}">
-                                                        <option value="">-- Select condition --</option>
-                                                        <option value=">" {% if condition.operator == ">" %}selected{% endif %}>Greater than</option>
-                                                        <option value="<" {% if condition.operator == "<" %}selected{% endif %}>Less than</option>
-                                                        <option value="=" {% if condition.operator == "=" %}selected{% endif %}>Equals</option>
-                                                        <option value=">=" {% if condition.operator == ">=" %}selected{% endif %}>Greater or equal</option>
-                                                        <option value="<=" {% if condition.operator == "<=" %}selected{% endif %}>Less or equal</option>
-                                                        <option value="contains" {% if condition.operator == "contains" %}selected{% endif %}>Contains</option>
-                                                    </select>
-                                                </div>
-
-                                                <!-- VALUE -->
-                                                <div class="col-md-5">
-                                                    <input type="text"
-                                                        class="form-control logic-value"
-                                                        name="value_{{ logic.id }}_{{ forloop.counter }}"
-                                                        value="{{ condition.value }}"
-                                                        placeholder="Enter value">
-                                                </div>
-                                                <input type="hidden" name="logic_{{ logic.id }}" value="1">
-
-                                                 <!-- REMOVE -->
-                                                <div class="col-md-1">
-                                                    <button type="button"
-                                                            class="btn btn-outline-danger btn-sm remove-condition">
-                                                        ✕
-                                                    </button>
-                                                </div>
-                                            
-                                            </div>
-                                            {% endfor %}
+                                            {% include "trialpilot/partials/condition_recursive.html" with conditions=logic.conditions logic_id=logic.id %}
 
                                         </div>
 
@@ -237,6 +172,12 @@
                                                 class="btn btn-outline-primary btn-sm add-condition rounded-ui mt-2"
                                                 data-logic-id="{{ logic.id }}">
                                             + Add condition
+                                        </button>
+                                        
+                                        <button type="button"
+                                                class="btn btn-outline-secondary btn-sm add-group rounded-ui mt-2"
+                                                data-logic-id="{{ logic.id }}">
+                                            + Add group
                                         </button>
 
                                     </div>
@@ -328,6 +269,33 @@
                 <button type="button" class="btn btn-outline-danger btn-sm remove-condition">✕</button>
             </div>
         </div>
+    </div>
+</template>
+
+<template id="group-template">
+    <div class="nested-group border rounded p-3 mb-3">
+
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <select class="form-select form-select-sm w-auto group-operator">
+                <option value="AND">AND</option>
+                <option value="OR">OR</option>
+            </select>
+
+            <button type="button" class="btn btn-sm btn-outline-danger remove-group">✕</button>
+        </div>
+
+        <div class="conditions-container"></div>
+
+        <div class="mt-2">
+            <button type="button" class="btn btn-sm btn-outline-primary add-condition">
+                + Condition
+            </button>
+
+            <button type="button" class="btn btn-sm btn-outline-secondary add-group">
+                + Group
+            </button>
+        </div>
+
     </div>
 </template>
 
