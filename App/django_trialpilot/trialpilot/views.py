@@ -1241,21 +1241,40 @@ def criteria_conversion(request, trial_id):
         for logic in logic_criteria:
             data = logic.validated_logic or logic.raw_logic or {}
 
+            logic.group_operator = "AND"
+            logic.conditions = []
+
+            # CASO 1: lógica com AND/OR
             if "conditions" in data:
-                logic.is_complex = True
+                logic.group_operator = data.get("operator", "AND")
+                logic.conditions = data.get("conditions", [])
+
+            # CASO 2: lógica simples
+            elif "field" in data:
+                logic.group_operator = "AND"
+                logic.conditions = [data]
+
+            # CASO 3: vazio/unmapped
             else:
-                logic.is_complex = False
-                field = data.get("field", "")
+                logic.conditions = [{
+                    "field": "",
+                    "operator": "",
+                    "value": ""
+                }]
+
+            # tratar cada condição
+            for condition in logic.conditions:
+                field = condition.get("field", "")
 
                 if field not in KNOWN_FIELDS:
-                    logic.field = "__custom__"
-                    logic.custom_field = field
+                    condition["field_type"] = "__custom__"
+                    condition["custom_field"] = field
                 else:
-                    logic.field = field
-                    logic.custom_field = ""
+                    condition["field_type"] = field
+                    condition["custom_field"] = ""
 
-                logic.operator = data.get("operator", "")
-                logic.value = data.get("value", "")
+                condition["operator"] = condition.get("operator", "")
+                condition["value"] = condition.get("value", "")
 
         return render(request, 'trialpilot/trial_criteria-conversion.html', {
             "trial": document,
@@ -1264,7 +1283,7 @@ def criteria_conversion(request, trial_id):
         
     elif request.method == 'POST':
         with transaction.atomic():
-            for key, value in request.POST.items():
+            for key in request.POST:
                 if key.startswith("logic_"):
                     logic_id = key.split("_")[1]
 
@@ -1274,24 +1293,42 @@ def criteria_conversion(request, trial_id):
                             criterion__document=document
                         )
 
-                        field = request.POST.get(f"field_{logic_id}")
-                        custom_field = request.POST.get(f"field_custom_{logic_id}")
+                        group_operator = request.POST.get(f"group_operator_{logic_id}", "AND")
 
-                        if field == "__custom__":
-                            field = custom_field
-                            
-                        operator = request.POST.get(f"operator_{logic_id}")
-                        value = request.POST.get(f"value_{logic_id}")
+                        conditions = []
+                        i = 1
 
-                        if "conditions" in logic_obj.raw_logic:
-                            logic_obj.validated_logic = logic_obj.raw_logic
+                        while True:
+                            field = request.POST.get(f"field_{logic_id}_{i}")
+                            operator = request.POST.get(f"operator_{logic_id}_{i}")
+                            value = request.POST.get(f"value_{logic_id}_{i}")
+                            custom_field = request.POST.get(f"field_custom_{logic_id}_{i}")
+
+                            if field is None:
+                                break
+
+                            if field == "__custom__":
+                                field = custom_field
+
+                            if field or operator or value:
+                                conditions.append({
+                                    "field": field,
+                                    "operator": operator,
+                                    "value": value
+                                })
+
+                            i += 1
+
+                        # 🔥 decidir formato final automaticamente
+                        if len(conditions) == 1:
+                            final_logic = conditions[0]
                         else:
-                            logic_obj.validated_logic = {
-                                "field": field,
-                                "operator": operator,
-                                "value": value
+                            final_logic = {
+                                "operator": group_operator,
+                                "conditions": conditions
                             }
 
+                        logic_obj.validated_logic = final_logic
                         logic_obj.validated = True
                         logic_obj.save()
 
