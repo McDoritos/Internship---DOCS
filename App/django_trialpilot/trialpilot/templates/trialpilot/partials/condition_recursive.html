@@ -1,10 +1,13 @@
 {% for condition in conditions %}
 
-    {% if condition.conditions %}
+    {% if condition.is_group %}
         <div class="nested-group border rounded p-3 mb-3">
 
             <div class="mb-2">
-                <strong>{{ condition.operator|default:"AND" }}</strong>
+                <select class="form-select form-select-sm group-operator">
+                    <option value="AND" {% if condition.operator == "AND" %}selected{% endif %}>AND</option>
+                    <option value="OR" {% if condition.operator == "OR" %}selected{% endif %}>OR</option>
+                </select>
             </div>
 
             {% include "trialpilot/partials/condition_recursive.html" with conditions=condition.conditions logic_id=logic_id %}

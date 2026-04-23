@@ -197,16 +197,18 @@ dummy_criteria_conversion_flat = {
 # Auxiliary functions
 
 def process_condition(condition):
+    # Nested (GROUP)
     if "conditions" in condition:
         return {
-            "type": "group",
-            "operator": condition.get("operator", "AND"),
-            "conditions": [process_condition(c) for c in condition.get("conditions", [])]
+            "is_group": True,
+            "conditions": [process_condition(c) for c in condition.get("conditions", [])],
+            "operator": condition.get("operator", "AND")
         }
 
+    # Simple (LEAF)
     field = condition.get("field", "")
 
-    if field not in KNOWN_FIELDS:
+    if field not in KNOWN_FIELDS and field != "":
         field_type = "__custom__"
         custom_field = field
     else:
@@ -214,7 +216,7 @@ def process_condition(condition):
         custom_field = ""
 
     return {
-        "type": "condition",
+        "is_group": False,
         "field_type": field_type,
         "custom_field": custom_field,
         "operator": condition.get("operator", ""),
@@ -227,24 +229,28 @@ def build_dummy_conversion(criteria_payload):
         "exclusion_criteria": []
     }
 
-    for item in criteria_payload.get("inclusion_criteria", []):
+    # --- Inclusion ---
+    dummy_inclusion = dummy_criteria_conversion_flat["inclusion_criteria"]
+
+    for i, item in enumerate(criteria_payload.get("inclusion_criteria", [])):
+        dummy_logic = dummy_inclusion[i % len(dummy_inclusion)]["logic"]
+
         converted["inclusion_criteria"].append({
-            "id": item["id"],
+            "id": item["id"],  
             "text": item["text"],
-            "logic": {
-                "unmapped": True,
-                "source_text": item["text"]
-            }
+            "logic": dummy_logic
         })
 
-    for item in criteria_payload.get("exclusion_criteria", []):
+    # --- Exclusion ---
+    dummy_exclusion = dummy_criteria_conversion_flat["exclusion_criteria"]
+
+    for i, item in enumerate(criteria_payload.get("exclusion_criteria", [])):
+        dummy_logic = dummy_exclusion[i % len(dummy_exclusion)]["logic"]
+
         converted["exclusion_criteria"].append({
-            "id": item["id"],
+            "id": item["id"],  
             "text": item["text"],
-            "logic": {
-                "unmapped": True,
-                "source_text": item["text"]
-            }
+            "logic": dummy_logic
         })
 
     return converted
@@ -742,18 +748,29 @@ def diary_details(request, diary_id):
     
 def trial_details(request, trial_id):
     try:
-        document = Document.objects.get(id=trial_id)
-        if document.type != Document.DocumentType.CLINICAL_TRIAL:
+        trial = Document.objects.get(id=trial_id)
+        if trial.type != Document.DocumentType.CLINICAL_TRIAL:
             return render(request, 'trialpilot/trial_details.html', {
             'error': 'Document is not a clinical trial.'
         })
-        document_content = extract_document_text(document)
+        trial_content = extract_document_text(trial)
     except Document.DoesNotExist:
         return render(request, 'trialpilot/trial_details.html', {
             'error': 'Document not found.'
         })
+        
+    criteria = Trial_criteria.objects.filter(
+        document=trial
+    ).select_related("logic").order_by("type", "id")
    
-    versions = Version.objects.filter(document=document)
+    versions = Version.objects.filter(document=trial)
+    
+    return render(request, "trialpilot/trial_details.html", {
+        "trial": trial,
+        "trial_contents": trial_content,
+        "versions": versions,
+        "criteria": criteria
+    })
     
 
 @csrf_exempt
@@ -1256,7 +1273,7 @@ def criteria_conversion(request, trial_id):
                     )
 
                 except Trial_criteria.DoesNotExist:
-                    print(f"Criterion with ID {criterion_id} not found for inclusion criteria.")
+                    print(f"Criterion with ID {criterion_id} not found for exclusion criteria.")
                     continue
 
         logic_criteria = Logic_criteria.objects.filter(
@@ -1269,17 +1286,14 @@ def criteria_conversion(request, trial_id):
             logic.group_operator = "AND"
             logic.conditions = []
 
-            # CASO 1: lógica com AND/OR
             if "conditions" in data:
                 logic.group_operator = data.get("operator", "AND")
                 logic.conditions = data.get("conditions", [])
 
-            # CASO 2: lógica simples
             elif "field" in data:
                 logic.group_operator = "AND"
                 logic.conditions = [data]
 
-            # CASO 3: vazio/unmapped
             else:
                 logic.conditions = [{
                     "field": "",
@@ -1288,7 +1302,14 @@ def criteria_conversion(request, trial_id):
                 }]
 
             logic.conditions = [process_condition(c) for c in logic.conditions]
-
+            
+        for logic in logic_criteria:
+            print(f"Logic for criterion {logic.criterion.id} - {logic.criterion.validated_criterion or logic.criterion.raw_criterion}:")
+            print(f"Group Operator: {logic.group_operator}")
+            print("Conditions:")
+            for condition in logic.conditions:
+                print(json.dumps(condition, indent=2))
+        
         return render(request, 'trialpilot/trial_criteria-conversion.html', {
             "trial": document,
             "logic_criteria": logic_criteria
@@ -1332,7 +1353,6 @@ def criteria_conversion(request, trial_id):
 
                             i += 1
 
-                        # 🔥 decidir formato final automaticamente
                         if len(conditions) == 1:
                             final_logic = conditions[0]
                         else:

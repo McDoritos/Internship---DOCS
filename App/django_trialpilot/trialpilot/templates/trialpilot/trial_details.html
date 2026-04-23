@@ -1,0 +1,143 @@
+{% extends "trialpilot/base.html" %}
+
+{% block title %}Clinical Trial Details{% endblock %}
+
+{% block content %}
+
+<div class="d-flex flex-column mb-4 ml-3 mr-3">
+
+    <h3 class="mb-3">Clinical Trial Details</h3>
+    <p class="text-muted">Detailed view for trial {{ trial.title }}</p>
+
+    <div class="sidebar-divider mb-4"></div>
+
+</div>
+
+<div class="container mt-4">
+
+    <!-- TRIAL INFO -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">{{ trial.title }}</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Created:</strong> {{ trial.created_at }}</p>
+            <p><strong>Updated:</strong> {{ trial.updated_at }}</p>
+            <p><strong>Extracted:</strong>
+                {% if trial.extracted %}
+                <span class="badge text-light bg-success">Yes</span>
+                {% else %}
+                <span class="badge text-light bg-secondary">No</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <!-- DOCUMENT CONTENT -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">Trial Document Content</h5>
+        </div>
+        <div class="card-body trial-content-scroll">
+            {{ trial_contents }}
+        </div>
+    </div>
+
+    <!-- VERSIONS -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">Document Versions</h5>
+        </div>
+        <div class="card-body">
+
+            {% if versions %}
+            <ul class="list-group">
+                {% for v in versions %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ v.version_name }}</strong><br>
+                        <small>Created: {{ v.created_at }}</small>
+                    </div>
+
+                    <a href="{{ v.file_path.url }}" class="btn btn-outline-primary btn-sm" download>
+                        Download
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-muted">No versions available.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="w-100"></div>
+
+    <!-- CRITERIA + LOGIC -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">Eligibility Criteria & Logic</h5>
+        </div>
+        <div class="card-body criteria-scroll">
+
+            <!-- Inclusion -->
+            <h6 class="text-success mb-3">
+                <i class="bi bi-plus-circle-fill me-1"></i> Inclusion Criteria
+            </h6>
+
+            {% for c in criteria %}
+                {% if c.type == "inclusion" %}
+                <div class="border rounded p-3 mb-3">
+
+                    <div class="mb-2">
+                        <strong>#{{ forloop.counter }}</strong> — 
+                        {{ c.validated_criterion|default:c.raw_criterion }}
+                    </div>
+
+                    <!-- LOGIC -->
+                    <div class="bg-light rounded p-2">
+                        <small class="text-muted">Logic</small>
+                        <pre class="mb-0">{{ c.logic.validated_logic|default:c.logic.raw_logic|default:"No logic available" }}</pre>
+                    </div>
+
+                </div>
+                {% endif %}
+            {% empty %}
+                <p class="text-muted">No inclusion criteria.</p>
+            {% endfor %}
+
+            <hr>
+
+            <!-- Exclusion -->
+            <h6 class="text-danger mb-3">
+                <i class="bi bi-dash-circle-fill me-1"></i> Exclusion Criteria
+            </h6>
+
+            {% for c in criteria %}
+                {% if c.type == "exclusion" %}
+                <div class="border rounded p-3 mb-3">
+
+                    <div class="mb-2">
+                        <strong>#{{ forloop.counter }}</strong> — 
+                        {{ c.validated_criterion|default:c.raw_criterion }}
+                    </div>
+
+                    <!-- LOGIC -->
+                    <div class="bg-light rounded p-2">
+                        <small class="text-muted">Logic</small>
+                        <pre class="mb-0">{{ c.logic.validated_logic|default:c.logic.raw_logic|default:"No logic available" }}</pre>
+                    </div>
+
+                </div>
+                {% endif %}
+            {% empty %}
+                <p class="text-muted">No exclusion criteria.</p>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

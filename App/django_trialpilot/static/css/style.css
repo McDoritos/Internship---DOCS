@@ -889,3 +889,36 @@ body {
 .logic-builder .row > div {
     min-width: 0;
 }
+
+/* Trial Details */
+.trial-content-scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    padding-right: 8px;
+}
+
+.criteria-scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-top: 12px;
+    padding-right: 8px;
+}
+
+.trial-content-scroll::-webkit-scrollbar,
+.criteria-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.trial-content-scroll::-webkit-scrollbar-thumb,
+.criteria-scroll::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.card {
+    display: block !important;
+}
+.container {
+    display: block;
+}
