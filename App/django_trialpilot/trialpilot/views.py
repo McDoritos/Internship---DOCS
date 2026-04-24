@@ -7,7 +7,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
 from httpx import request
-from .models import Document, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria
+from .models import Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria
 from .forms import UploadDocumentForm
 from groq import Groq
 import os
@@ -1421,6 +1421,52 @@ def criteria_conversion(request, trial_id):
         
 
 def index(request):
+    # DIARIES
+    n_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY).count()
+    n_diaries_extracted = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY, extracted=True).count()
+    n_diaries_pending = n_diaries - n_diaries_extracted
+    diary_completion = (n_diaries_extracted / n_diaries * 100) if n_diaries > 0 else 0
+    last_five_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY, extracted=False).order_by("-created_at")[:5]
+    
+    # PATIENTS
+    n_patients = Patient_profile.objects.count()
+    avg_age = Patient_profile.objects.aggregate(Avg('age'))['age__avg']
+    top_diagnoses = (
+        Patient_profile.objects.values('diagnosis')
+        .annotate(count=Count('id'))
+        .order_by('-count')[:3]
+    )
+    active_treatments = Treatment.objects.filter(end_date__isnull=True).count()
+    last_five_patients = Patient_profile.objects.order_by('-created_at')[:5]
+    
+    # TRIALS
+    n_trials = Document.objects.filter(type=Document.DocumentType.CLINICAL_TRIAL).count()
+    n_trials_extracted = Document.objects.filter(type=Document.DocumentType.CLINICAL_TRIAL, extracted=True).count()
+    n_trials_pending = n_trials - n_trials_extracted
+    trial_completion = (n_trials_extracted / n_trials * 100) if n_trials > 0 else 0
+    n_matches = Patient_trial_match.objects.count()
+    last_trial = Document.objects.filter(type=Document.DocumentType.CLINICAL_TRIAL, extracted=False).order_by("-created_at").first()
+    
+    return render(request, 'trialpilot/index.html', {
+        'n_diaries': n_diaries,
+        'n_diaries_extracted': n_diaries_extracted,
+        'n_diaries_pending': n_diaries_pending,
+        'diary_completion': diary_completion,
+        'last_five_diaries': last_five_diaries,
+        'n_patients': n_patients,
+        'avg_age': avg_age,
+        'top_diagnoses': top_diagnoses,
+        'active_treatments': active_treatments,
+        'last_five_patients': last_five_patients,
+        'n_trials': n_trials,
+        'n_trials_extracted': n_trials_extracted,
+        'n_trials_pending': n_trials_pending,
+        'trial_completion': trial_completion,
+        'n_matches': n_matches,
+        'last_trial': last_trial
+    })
+
+def about_app(request):
     n_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY).count()
     n_trials = Document.objects.filter(type=Document.DocumentType.CLINICAL_TRIAL).count()
     n_patients = Patient_profile.objects.count()
@@ -1437,7 +1483,7 @@ def index(request):
         .order_by('-count')[:3]
     )
 
-    return render(request, 'trialpilot/index.html', {
+    return render(request, 'trialpilot/about_app.html', {
         'n_diaries': n_diaries,
         'n_patients': n_patients,
         'n_trials': n_trials,

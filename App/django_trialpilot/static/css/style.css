@@ -922,3 +922,16 @@ body {
 .container {
     display: block;
 }
+
+/* Index */
+.truncate-text {
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-body ul {
+    max-height: 300px;
+    overflow-y: auto;
+}

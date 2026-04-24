@@ -33,6 +33,7 @@ class Patient_profile(models.Model):
     molecular_status = models.CharField(max_length=255, null=True, blank=True)
     stage = models.CharField(max_length=50, null=True, blank=True)
     control = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     
     
     def __str__(self):

@@ -18,139 +18,244 @@
     <!-- Metrics Cards -->
     <div class="row g-4">
 
-        <div class="col-md-3">
-            <div class="card shadow-sm text-center rounded-ui hover-card">
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-ui hover-card h-100">
                 <div class="card-body">
+
                     <h5 class="card-title">📝 Diaries</h5>
-                    <h2>{{ n_diaries }}</h2>
+
+                    <div class="mb-2">
+                        <strong>Total:</strong> {{ n_diaries }}
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Extracted:</strong> {{ n_diaries_extracted }}
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Pending:</strong> {{ n_diaries_pending }}
+                    </div>
+
+                    <div class="mt-3">
+                        <small class="text-muted">Pipeline Completion</small>
+                        <div class="progress mt-1" style="height:6px;">
+                            <div class="progress-bar" style="width: {{ diary_completion }}%">
+                            </div>
+                        </div>
+                        <small class="text-muted">{{ diary_completion|floatformat:0 }}%</small>
+                    </div>
+
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card shadow-sm text-center rounded-ui hover-card">
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-ui hover-card h-100">
                 <div class="card-body">
+
                     <h5 class="card-title">👤 Patients</h5>
-                    <h2>{{ n_patients }}</h2>
+
+                    <div class="mb-2">
+                        <strong>Total:</strong> {{ n_patients }}
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Average Age:</strong> {{ avg_age|floatformat:1 }}
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Active Treatments:</strong> {{ active_treatments }}
+                    </div>
+
+                    <hr>
+
+                    <small class="text-muted">Top Diagnoses</small>
+
+                    {% for diag in top_diagnoses %}
+                    <div class="d-flex justify-content-between small">
+                        <span>{{ diag.diagnosis }}</span>
+                        <span>{{ diag.count }}</span>
+                    </div>
+                    {% endfor %}
+
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card shadow-sm text-center rounded-ui hover-card">
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-ui hover-card h-100">
                 <div class="card-body">
+
                     <h5 class="card-title">🧪 Trials</h5>
-                    <h2>{{ n_trials }}</h2>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="card shadow-sm text-center rounded-ui hover-card">
-                <div class="card-body">
-                    <h5 class="card-title">🔄 Versions</h5>
-                    <h2>{{ n_versions }}</h2>
-                </div>
-            </div>
-        </div>
+                    <div class="mb-2">
+                        <strong>Total:</strong> {{ n_trials }}
+                    </div>
 
-    </div>
+                    <div class="mb-2">
+                        <strong>Extracted:</strong> {{ n_trials_extracted }}
+                    </div>
 
-    <!-- Secondary Metrics -->
-    <div class="row g-4 mt-3">
+                    <div class="mb-2">
+                        <strong>Pending:</strong> {{ n_trials_pending }}
+                    </div>
 
-        <div class="col-md-6">
-            <div class="card shadow-sm text-center rounded-ui hover-card">
-                <div class="card-body">
-                    <h5 class="card-title">📈 Versions per Document</h5>
-                    <h3>{{ avg_versions|floatformat:2 }}</h3>
-                </div>
-            </div>
-        </div>
+                    <div class="mb-2">
+                        <strong>Matches:</strong> {{ n_matches }}
+                    </div>
 
-        <div class="col-md-6">
-            <div class="card shadow-sm text-center rounded-ui hover-card">
-                <div class="card-body">
-                    <h5 class="card-title">🎂 Average Age</h5>
-                    <h3>{{ avg_age|floatformat:1 }}</h3>
+                    <div class="mt-3">
+                        <small class="text-muted">Extraction Completion</small>
+                        <div class="progress mt-1" style="height:6px;">
+                            <div class="progress-bar bg-success" style="width: {{ trial_completion }}%">
+                            </div>
+                        </div>
+                        <small class="text-muted">{{ trial_completion|floatformat:0 }}%</small>
+                    </div>
+
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Top Diagnoses -->
+    <!-- Latest Trial -->
     <div class="card shadow-sm mt-4 rounded-ui hover-card">
-        <div class="card-body">
-            <h5 class="card-title">🧬 Top Diagnoses</h5>
-            <ul class="list-group list-group-flush">
-                {% for diag in top_diagnoses %}
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>{{ diag.diagnosis }}</span>
-                </li>
-                {% endfor %}
-            </ul>
+        <div class="card-body d-flex justify-content-between align-items-center">
+
+            <div>
+                <h5 class="card-title">🧪 Latest Clinical Trial</h5>
+
+                {% if last_trial %}
+                <p class="mb-1 truncate-text" title="{{ last_trial.title }}">{{ last_trial.title }}</p>
+                <small class="text-muted">{{ last_trial.created_at|date:"Y-m-d" }}</small>
+                {% else %}
+                <p class="text-muted mb-0">No trials available.</p>
+                {% endif %}
+            </div>
+
+            {% if last_trial %}
+            <div class="d-flex">
+                <a href="{% url 'trial_details' last_trial.id %}"
+                    class="btn btn-outline-secondary btn-sm mr-2 rounded-ui">
+                    View
+                </a>
+
+                <a href="{% url 'criteria_extraction' last_trial.id %}" class="btn btn-primary btn-sm rounded-ui">
+                    Extract
+                </a>
+            </div>
+            {% endif %}
+
         </div>
     </div>
 
-    <!-- Project Description -->
-    <div class="card shadow-sm mt-4 rounded-ui hover-card">
-        <div class="card-body">
-            <h5 class="card-title">📖 About the Application</h5>
+    <!-- Lists -->
+    <div class="row mt-4 align-items-stretch">
 
-            <p>
-                This platform is designed to support oncology clinicians by transforming
-                unstructured clinical data into structured information and enabling
-                efficient clinical trial matching and outcome analysis.
-            </p>
+        <!-- Diaries -->
+        <div class="col-md-6 d-flex">
+            <div class="card shadow-sm rounded-ui hover-card w-100">
+                <div class="card-body">
+                    <h5 class="card-title">📝 Recent Diaries</h5>
 
-            <hr>
+                    <ul class="list-group list-group-flush">
+                        {% for d in last_five_diaries %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
 
-            <h6>📂 Clinical Diaries</h6>
-            <p>
-                Upload and manage unstructured clinical diaries. These documents serve as
-                the input for the extraction pipeline, where relevant patient information
-                is identified and processed.
-            </p>
+                            <div>
+                                <div class="truncate-text" title="{{ d.title }}">{{ d.title }}</div>
+                                <small class="text-muted">{{ d.created_at|date:"Y-m-d" }}</small>
+                            </div>
 
-            <h6>👤 Patient Profiles</h6>
-            <p>
-                View structured patient data extracted from clinical diaries, including
-                demographics, diagnosis, staging, and treatment history. These profiles
-                are validated and stored for further analysis.
-            </p>
+                            <div class="d-flex">
+                                <a href="{% url 'diary_details' d.id %}"
+                                    class="btn btn-outline-secondary btn-sm  mr-2 rounded-ui">
+                                    View
+                                </a>
 
-            <h6>🧪 Clinical Trials</h6>
-            <p>
-                Import and manage clinical trial documents. The system extracts inclusion
-                and exclusion criteria and converts them into logical rules that can be
-                validated by clinicians.
-            </p>
+                                <a href="{% url 'parameter_extraction' d.id %}"
+                                    class="btn btn-primary btn-sm rounded-ui">
+                                    Extract
+                                </a>
+                            </div>
 
-            <h6>✅ Eligibility Results</h6>
-            <p>
-                Automatically match patients with clinical trials using deterministic
-                evaluation. The system provides a list of eligible patients along with
-                detailed justifications for inclusion or exclusion.
-            </p>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">No diaries available.</li>
+                        {% endfor %}
+                    </ul>
 
-            <h6>📊 Analysis Dashboard</h6>
-            <p>
-                Analyze patient outcomes using survival metrics such as Overall Survival (OS)
-                and Progression-Free Survival (PFS), including Kaplan–Meier visualizations
-                and statistical summaries.
-            </p>
-
-            <hr>
-
-            <p class="mb-0">
-                By integrating Large Language Models with clinician validation and
-                deterministic logic, the system reduces manual workload, improves
-                transparency, and supports data-driven decision-making in oncology.
-            </p>
+                </div>
+            </div>
         </div>
+
+        <!-- Patients -->
+        <div class="col-md-6 d-flex">
+            <div class="card shadow-sm rounded-ui hover-card w-100">
+                <div class="card-body">
+                    <h5 class="card-title">👤 Recent Patients</h5>
+
+                    <ul class="list-group list-group-flush">
+                        {% for p in last_five_patients %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center 
+                            patient-card-trigger" data-id="{{ p.id }}" data-age="{{ p.age }}"
+                            data-ecog="{{ p.ecog_ps }}" data-diagnosis="{{ p.diagnosis }}"
+                            data-date="{{ p.diagnosis_date }}" data-molecular="{{ p.molecular_status }}"
+                            data-stage="{{ p.stage }}" data-control="{{ p.control }}" data-treatments='[
+                                {% for t in p.treatment_set.all %}
+                                {
+                                    "name": "{{ t.treatment_name|escapejs }}",
+                                    "start": "{{ t.start_date }}",
+                                    "end": "{{ t.end_date|default:"Ongoing" }}"
+                                }{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            ]'>
+
+                            <div>
+                                <div>Patient {{ p.id }}</div>
+                                <small class="text-muted">{{ p.diagnosis }}</small>
+                            </div>
+
+                            <div>
+                                <button class="btn btn-outline-primary btn-sm view-patient-btn rounded-ui">
+                                    View
+                                </button>
+                            </div>
+
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">No patients available.</li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="patientModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-ui">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Patient Details</h5>
+            </div>
+
+            <div class="modal-body" id="patientModalBody"></div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary rounded-ui" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 {% endblock %}

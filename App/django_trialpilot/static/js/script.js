@@ -306,6 +306,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const patientModal = new bootstrap.Modal(document.getElementById("patientModal"));
     const patientBody = document.getElementById("patientModalBody");
 
+    document.querySelectorAll(".view-patient-btn").forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+
+            const card = this.closest(".patient-card-trigger");
+            card.click();
+        });
+    });
 
     document.querySelectorAll(".patient-card-trigger").forEach(card => {
         card.addEventListener("click", function (e) {
