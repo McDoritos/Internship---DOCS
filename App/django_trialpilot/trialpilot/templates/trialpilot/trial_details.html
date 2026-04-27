@@ -72,10 +72,8 @@
         </div>
     </div>
 
-    <div class="w-100"></div>
-
     <!-- CRITERIA + LOGIC -->
-    <div class="card mb-4 shadow-sm">
+    <div class="card mb-4 shadow-sm criteria-card">
         <div class="card-header">
             <h5 class="mb-0">Eligibility Criteria & Logic</h5>
         </div>
@@ -86,8 +84,7 @@
                 <i class="bi bi-plus-circle-fill me-1"></i> Inclusion Criteria
             </h6>
 
-            {% for c in criteria %}
-                {% if c.type == "inclusion" %}
+            {% for c in inclusion_criteria %}
                 <div class="border rounded p-3 mb-3">
 
                     <div class="mb-2">
@@ -98,11 +95,12 @@
                     <!-- LOGIC -->
                     <div class="bg-light rounded p-2">
                         <small class="text-muted">Logic</small>
-                        <pre class="mb-0">{{ c.logic.validated_logic|default:c.logic.raw_logic|default:"No logic available" }}</pre>
+                        <p class="mb-0">
+                            {{ c.formatted_logic|default:"No logic available" }}
+                        </p>
                     </div>
 
                 </div>
-                {% endif %}
             {% empty %}
                 <p class="text-muted">No inclusion criteria.</p>
             {% endfor %}
@@ -114,8 +112,7 @@
                 <i class="bi bi-dash-circle-fill me-1"></i> Exclusion Criteria
             </h6>
 
-            {% for c in criteria %}
-                {% if c.type == "exclusion" %}
+            {% for c in exclusion_criteria %}
                 <div class="border rounded p-3 mb-3">
 
                     <div class="mb-2">
@@ -126,14 +123,60 @@
                     <!-- LOGIC -->
                     <div class="bg-light rounded p-2">
                         <small class="text-muted">Logic</small>
-                        <pre class="mb-0">{{ c.logic.validated_logic|default:c.logic.raw_logic|default:"No logic available" }}</pre>
+                        <p class="mb-0">
+                            {{ c.formatted_logic|default:"No logic available" }}
+                        </p>
                     </div>
 
                 </div>
-                {% endif %}
             {% empty %}
                 <p class="text-muted">No exclusion criteria.</p>
             {% endfor %}
+
+        </div>
+    </div>
+
+    <!-- MATCHED PATIENTS -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">Matched Patients</h5>
+        </div>
+        <div class="card-body">
+
+            {% if matches %}
+            <ul class="list-group">
+                {% for m in matches %}
+                <li class="list-group-item">
+
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <strong>Patient {{ m.patient.id }}</strong><br>
+                            <small>{{ m.patient.diagnosis }} | Age: {{ m.patient.age }}</small>
+                        </div>
+
+                        <div>
+                            {% if m.decision == "eligible" %}
+                                <span class="badge bg-success">Eligible</span>
+                            {% elif m.decision == "ineligible" %}
+                                <span class="badge bg-danger">Ineligible</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Inconclusive</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if m.summary %}
+                    <div class="mt-2">
+                        <small class="text-muted">{{ m.summary }}</small>
+                    </div>
+                    {% endif %}
+
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p class="text-muted">No patients matched yet.</p>
+            {% endif %}
 
         </div>
     </div>

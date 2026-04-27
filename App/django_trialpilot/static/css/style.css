@@ -891,18 +891,23 @@ body {
 }
 
 /* Trial Details */
+.criteria-card {
+    max-height: 600px;
+}
+
 .trial-content-scroll {
-    max-height: 60vh;
+    max-height: 400px;
     overflow-y: auto;
     white-space: pre-wrap;
-    padding-right: 8px;
 }
 
 .criteria-scroll {
-    max-height: 60vh;
+    max-height: 650px;
     overflow-y: auto;
-    padding-top: 12px;
-    padding-right: 8px;
+}
+
+.card-body {
+    display: block;
 }
 
 .trial-content-scroll::-webkit-scrollbar,
@@ -914,13 +919,6 @@ body {
 .criteria-scroll::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 10px;
-}
-
-.card {
-    display: block !important;
-}
-.container {
-    display: block;
 }
 
 /* Index */

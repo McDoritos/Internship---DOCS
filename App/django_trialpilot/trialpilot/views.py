@@ -26,6 +26,7 @@ import pytesseract
 import json
 import re
 from difflib import SequenceMatcher
+from django.core.exceptions import ObjectDoesNotExist
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 
@@ -195,6 +196,25 @@ dummy_criteria_conversion_flat = {
 }
 
 # Auxiliary functions
+
+def format_logic(logic_json):
+    if not logic_json:
+        return "No structured logic available"
+
+    try:
+        if "field" in logic_json:
+            return f"{logic_json['field']} {logic_json.get('operator', '')} {logic_json.get('value', '')}"
+
+        if isinstance(logic_json, dict):
+            return " AND ".join([f"{k}: {v}" for k, v in logic_json.items()])
+
+        if isinstance(logic_json, list):
+            return " AND ".join([format_logic(x) for x in logic_json])
+
+    except Exception:
+        return str(logic_json)
+
+    return str(logic_json)
 
 def process_condition(condition):
     # Nested (GROUP)
@@ -762,14 +782,32 @@ def trial_details(request, trial_id):
     criteria = Trial_criteria.objects.filter(
         document=trial
     ).select_related("logic").order_by("type", "id")
+    
+    inclusion_criteria = criteria.filter(type="inclusion")
+    exclusion_criteria = criteria.filter(type="exclusion")
+    
+    for c in criteria:
+        try:
+            logic_obj = c.logic
+            logic_data = logic_obj.validated_logic or logic_obj.raw_logic
+            c.formatted_logic = format_logic(logic_data)
+            print("LOGIC:", c.logic.raw_logic)
+        except ObjectDoesNotExist:
+            c.formatted_logic = "No logic available"           
    
     versions = Version.objects.filter(document=trial)
+    
+    matches = Patient_trial_match.objects.filter(
+        trial=trial
+    ).select_related("patient")
     
     return render(request, "trialpilot/trial_details.html", {
         "trial": trial,
         "trial_contents": trial_content,
         "versions": versions,
-        "criteria": criteria
+        "inclusion_criteria": inclusion_criteria,
+        "exclusion_criteria": exclusion_criteria,
+        "matches": matches
     })
     
 
@@ -1052,6 +1090,8 @@ def criteria_extraction(request, trial_id):
         return render(request, 'trialpilot/trial_criteria-extraction.html', {
             'error': 'Could not extract readable text from this document.'
         })
+    elif document.extracted:
+        return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
     else:
         if request.method == 'GET':
             #criteria_extracted = criteria_extraction_step(document, document_content)
@@ -1185,239 +1225,246 @@ def criteria_conversion(request, trial_id):
         })
 
     validated_criteria = Trial_criteria.objects.filter(document=document).order_by("type", "id")
+    
 
     if not validated_criteria.exists():
         return render(request, 'trialpilot/trial_criteria-conversion.html', {
             'error': 'No validated criteria found for this trial.'
         })
-    
-    if request.method == 'GET':
-        
-        criteria_payload = {
-            "document_id": document.id,
-            "document_title": document.title,
-            "inclusion_criteria": [
-                {
-                    "id": criterion.id,
-                    "text": criterion.validated_criterion or criterion.raw_criterion
-                }
-                for criterion in validated_criteria
-                if criterion.type == Trial_criteria.CriterionType.INCLUSION
-            ],
-            "exclusion_criteria": [
-                {
-                    "id": criterion.id,
-                    "text": criterion.validated_criterion or criterion.raw_criterion
-                }
-                for criterion in validated_criteria
-                if criterion.type == Trial_criteria.CriterionType.EXCLUSION
-            ]
-        }
-        
-        #converted_logic = criteria_conversion_step(criteria_payload)
-        converted_logic = build_dummy_conversion(criteria_payload)
-        
-        parsed_logic = ContentFile(
-            json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
-        )
-
-        original_name, ext = document.title.rsplit('.', 1)
-        name, old_id = original_name.rsplit('_', 1)
-        unique_id = uuid.uuid4().hex
-        new_filename = f"{name}_{unique_id}.json"
-
-        document_save(document, parsed_logic, new_filename, 'CONVERTED')
-        
-        with transaction.atomic():
-
-            # Inclusion Criteria
-            for item in converted_logic.get("inclusion_criteria", []):
-                criterion_id = item.get("id")
-                logic_json = item.get("logic", {})
-
-                try:
-                    criterion = Trial_criteria.objects.get(
-                        id=criterion_id,
-                        document=document,
-                        type=Trial_criteria.CriterionType.INCLUSION
-                    )
-
-                    Logic_criteria.objects.create(
-                        criterion=criterion,
-                        raw_logic=logic_json,
-                        validated_logic=logic_json,
-                        validated=False
-                    )
-
-                except Trial_criteria.DoesNotExist:
-                    print(f"Criterion with ID {criterion_id} not found for inclusion criteria.")
-                    continue
-
-            # Exclusion Criteria
-            for item in converted_logic.get("exclusion_criteria", []):
-                criterion_id = item.get("id")
-                logic_json = item.get("logic", {})
-
-                try:
-                    criterion = Trial_criteria.objects.get(
-                        id=criterion_id,
-                        document=document,
-                        type=Trial_criteria.CriterionType.EXCLUSION
-                    )
-
-                    Logic_criteria.objects.create(
-                        criterion=criterion,
-                        raw_logic=logic_json,
-                        validated_logic=logic_json,
-                        validated=False
-                    )
-
-                except Trial_criteria.DoesNotExist:
-                    print(f"Criterion with ID {criterion_id} not found for exclusion criteria.")
-                    continue
-
-        logic_criteria = Logic_criteria.objects.filter(
-            criterion__document=document
-        ).select_related("criterion").order_by("criterion__type", "criterion__id")
-        
-        for logic in logic_criteria:
-            data = logic.validated_logic or logic.raw_logic or {}
-
-            logic.group_operator = "AND"
-            logic.conditions = []
-
-            if "conditions" in data:
-                logic.group_operator = data.get("operator", "AND")
-                logic.conditions = data.get("conditions", [])
-
-            elif "field" in data:
-                logic.group_operator = "AND"
-                logic.conditions = [data]
-
-            else:
-                logic.conditions = [{
-                    "field": "",
-                    "operator": "",
-                    "value": ""
-                }]
-
-            logic.conditions = [process_condition(c) for c in logic.conditions]
-            
-        for logic in logic_criteria:
-            print(f"Logic for criterion {logic.criterion.id} - {logic.criterion.validated_criterion or logic.criterion.raw_criterion}:")
-            print(f"Group Operator: {logic.group_operator}")
-            print("Conditions:")
-            for condition in logic.conditions:
-                print(json.dumps(condition, indent=2))
-        
-        return render(request, 'trialpilot/trial_criteria-conversion.html', {
-            "trial": document,
-            "logic_criteria": logic_criteria
+    if validated_criteria :
+        return render(request, 'trialpilot/trial_criteria-extraction.html', {
+            'error': 'Could not extract readable text from this document.'
         })
-        
-    elif request.method == 'POST':
-        with transaction.atomic():
-            for key in request.POST:
-                if key.startswith("logic_"):
-                    logic_id = key.split("_")[1]
-
-                    try:
-                        logic_obj = Logic_criteria.objects.get(
-                            id=logic_id,
-                            criterion__document=document
-                        )
-
-                        group_operator = request.POST.get(f"group_operator_{logic_id}", "AND")
-
-                        conditions = []
-                        i = 1
-
-                        while True:
-                            field = request.POST.get(f"field_{logic_id}_{i}")
-                            operator = request.POST.get(f"operator_{logic_id}_{i}")
-                            value = request.POST.get(f"value_{logic_id}_{i}")
-                            custom_field = request.POST.get(f"field_custom_{logic_id}_{i}")
-
-                            if field is None:
-                                break
-
-                            if field == "__custom__":
-                                field = custom_field
-
-                            if field or operator or value:
-                                conditions.append({
-                                    "field": field,
-                                    "operator": operator,
-                                    "value": value
-                                })
-
-                            i += 1
-
-                        if len(conditions) == 1:
-                            final_logic = conditions[0]
-                        else:
-                            final_logic = {
-                                "operator": group_operator,
-                                "conditions": conditions
-                            }
-
-                        logic_obj.validated_logic = final_logic
-                        logic_obj.validated = True
-                        logic_obj.save()
-
-                    except Logic_criteria.DoesNotExist:
-                        continue
-                    except json.JSONDecodeError:
-                        continue
-
-            inclusion_logic = Logic_criteria.objects.filter(
-                criterion__document=document,
-                criterion__type=Trial_criteria.CriterionType.INCLUSION
-            ).select_related("criterion").order_by("criterion__id")
-
-            exclusion_logic = Logic_criteria.objects.filter(
-                criterion__document=document,
-                criterion__type=Trial_criteria.CriterionType.EXCLUSION
-            ).select_related("criterion").order_by("criterion__id")
-
-            validated_payload = {
+    elif document.extracted:
+        return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
+    else:
+        if request.method == 'GET':
+            
+            criteria_payload = {
                 "document_id": document.id,
                 "document_title": document.title,
-                "validated_at": timezone.now().isoformat(),
                 "inclusion_criteria": [
                     {
-                        "id": logic.criterion.id,
-                        "text": logic.criterion.validated_criterion or logic.criterion.raw_criterion,
-                        "logic": logic.validated_logic if logic.validated_logic else logic.raw_logic
+                        "id": criterion.id,
+                        "text": criterion.validated_criterion or criterion.raw_criterion
                     }
-                    for logic in inclusion_logic
+                    for criterion in validated_criteria
+                    if criterion.type == Trial_criteria.CriterionType.INCLUSION
                 ],
                 "exclusion_criteria": [
                     {
-                        "id": logic.criterion.id,
-                        "text": logic.criterion.validated_criterion or logic.criterion.raw_criterion,
-                        "logic": logic.validated_logic if logic.validated_logic else logic.raw_logic
+                        "id": criterion.id,
+                        "text": criterion.validated_criterion or criterion.raw_criterion
                     }
-                    for logic in exclusion_logic
+                    for criterion in validated_criteria
+                    if criterion.type == Trial_criteria.CriterionType.EXCLUSION
                 ]
             }
-
-            file_params = ContentFile(
-                json.dumps(validated_payload, ensure_ascii=False, indent=2).encode("utf-8")
+            
+            #converted_logic = criteria_conversion_step(criteria_payload)
+            converted_logic = build_dummy_conversion(criteria_payload)
+            
+            parsed_logic = ContentFile(
+                json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
             )
 
             original_name, ext = document.title.rsplit('.', 1)
             name, old_id = original_name.rsplit('_', 1)
             unique_id = uuid.uuid4().hex
             new_filename = f"{name}_{unique_id}.json"
+
+            document_save(document, parsed_logic, new_filename, 'CONVERTED')
             
-            document.extracted = True
-            document.save()
+            with transaction.atomic():
 
-            document_save(document, file_params, new_filename, 'VALIDATED')
+                # Inclusion Criteria
+                for item in converted_logic.get("inclusion_criteria", []):
+                    criterion_id = item.get("id")
+                    logic_json = item.get("logic", {})
 
-            messages.success(request, "Criteria extracted, converted and validated with success. For more details, check the clinical trial's detail page.")
-            return redirect('trial_list')
+                    try:
+                        criterion = Trial_criteria.objects.get(
+                            id=criterion_id,
+                            document=document,
+                            type=Trial_criteria.CriterionType.INCLUSION
+                        )
+
+                        Logic_criteria.objects.create(
+                            criterion=criterion,
+                            raw_logic=logic_json,
+                            validated_logic=logic_json,
+                            validated=False
+                        )
+
+                    except Trial_criteria.DoesNotExist:
+                        print(f"Criterion with ID {criterion_id} not found for inclusion criteria.")
+                        continue
+
+                # Exclusion Criteria
+                for item in converted_logic.get("exclusion_criteria", []):
+                    criterion_id = item.get("id")
+                    logic_json = item.get("logic", {})
+
+                    try:
+                        criterion = Trial_criteria.objects.get(
+                            id=criterion_id,
+                            document=document,
+                            type=Trial_criteria.CriterionType.EXCLUSION
+                        )
+
+                        Logic_criteria.objects.create(
+                            criterion=criterion,
+                            raw_logic=logic_json,
+                            validated_logic=logic_json,
+                            validated=False
+                        )
+
+                    except Trial_criteria.DoesNotExist:
+                        print(f"Criterion with ID {criterion_id} not found for exclusion criteria.")
+                        continue
+
+            logic_criteria = Logic_criteria.objects.filter(
+                criterion__document=document
+            ).select_related("criterion").order_by("criterion__type", "criterion__id")
+            
+            for logic in logic_criteria:
+                data = logic.validated_logic or logic.raw_logic or {}
+
+                logic.group_operator = "AND"
+                logic.conditions = []
+
+                if "conditions" in data:
+                    logic.group_operator = data.get("operator", "AND")
+                    logic.conditions = data.get("conditions", [])
+
+                elif "field" in data:
+                    logic.group_operator = "AND"
+                    logic.conditions = [data]
+
+                else:
+                    logic.conditions = [{
+                        "field": "",
+                        "operator": "",
+                        "value": ""
+                    }]
+
+                logic.conditions = [process_condition(c) for c in logic.conditions]
+                
+            for logic in logic_criteria:
+                print(f"Logic for criterion {logic.criterion.id} - {logic.criterion.validated_criterion or logic.criterion.raw_criterion}:")
+                print(f"Group Operator: {logic.group_operator}")
+                print("Conditions:")
+                for condition in logic.conditions:
+                    print(json.dumps(condition, indent=2))
+            
+            return render(request, 'trialpilot/trial_criteria-conversion.html', {
+                "trial": document,
+                "logic_criteria": logic_criteria
+            })
+            
+        elif request.method == 'POST':
+            with transaction.atomic():
+                for key in request.POST:
+                    if key.startswith("logic_"):
+                        logic_id = key.split("_")[1]
+
+                        try:
+                            logic_obj = Logic_criteria.objects.get(
+                                id=logic_id,
+                                criterion__document=document
+                            )
+
+                            group_operator = request.POST.get(f"group_operator_{logic_id}", "AND")
+
+                            conditions = []
+                            i = 1
+
+                            while True:
+                                field = request.POST.get(f"field_{logic_id}_{i}")
+                                operator = request.POST.get(f"operator_{logic_id}_{i}")
+                                value = request.POST.get(f"value_{logic_id}_{i}")
+                                custom_field = request.POST.get(f"field_custom_{logic_id}_{i}")
+
+                                if field is None:
+                                    break
+
+                                if field == "__custom__":
+                                    field = custom_field
+
+                                if field or operator or value:
+                                    conditions.append({
+                                        "field": field,
+                                        "operator": operator,
+                                        "value": value
+                                    })
+
+                                i += 1
+
+                            if len(conditions) == 1:
+                                final_logic = conditions[0]
+                            else:
+                                final_logic = {
+                                    "operator": group_operator,
+                                    "conditions": conditions
+                                }
+
+                            logic_obj.validated_logic = final_logic
+                            logic_obj.validated = True
+                            logic_obj.save()
+
+                        except Logic_criteria.DoesNotExist:
+                            continue
+                        except json.JSONDecodeError:
+                            continue
+
+                inclusion_logic = Logic_criteria.objects.filter(
+                    criterion__document=document,
+                    criterion__type=Trial_criteria.CriterionType.INCLUSION
+                ).select_related("criterion").order_by("criterion__id")
+
+                exclusion_logic = Logic_criteria.objects.filter(
+                    criterion__document=document,
+                    criterion__type=Trial_criteria.CriterionType.EXCLUSION
+                ).select_related("criterion").order_by("criterion__id")
+
+                validated_payload = {
+                    "document_id": document.id,
+                    "document_title": document.title,
+                    "validated_at": timezone.now().isoformat(),
+                    "inclusion_criteria": [
+                        {
+                            "id": logic.criterion.id,
+                            "text": logic.criterion.validated_criterion or logic.criterion.raw_criterion,
+                            "logic": logic.validated_logic if logic.validated_logic else logic.raw_logic
+                        }
+                        for logic in inclusion_logic
+                    ],
+                    "exclusion_criteria": [
+                        {
+                            "id": logic.criterion.id,
+                            "text": logic.criterion.validated_criterion or logic.criterion.raw_criterion,
+                            "logic": logic.validated_logic if logic.validated_logic else logic.raw_logic
+                        }
+                        for logic in exclusion_logic
+                    ]
+                }
+
+                file_params = ContentFile(
+                    json.dumps(validated_payload, ensure_ascii=False, indent=2).encode("utf-8")
+                )
+
+                original_name, ext = document.title.rsplit('.', 1)
+                name, old_id = original_name.rsplit('_', 1)
+                unique_id = uuid.uuid4().hex
+                new_filename = f"{name}_{unique_id}.json"
+                
+                document.extracted = True
+                document.save()
+
+                document_save(document, file_params, new_filename, 'VALIDATED')
+
+                messages.success(request, "Criteria extracted, converted and validated with success. For more details, check the clinical trial's detail page.")
+                return redirect('trial_list')
         
 
 def index(request):
@@ -1466,7 +1513,10 @@ def index(request):
         'last_trial': last_trial
     })
 
-def about_app(request):
+from django.db.models import Avg, Count, Q
+
+def dev_tools(request):
+    # BASIC
     n_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY).count()
     n_trials = Document.objects.filter(type=Document.DocumentType.CLINICAL_TRIAL).count()
     n_patients = Patient_profile.objects.count()
@@ -1475,20 +1525,46 @@ def about_app(request):
     total_docs = Document.objects.count()
     avg_versions = n_versions / total_docs if total_docs > 0 else 0
 
-    avg_age = Patient_profile.objects.aggregate(Avg('age'))['age__avg']
+    # EXTRACTION HEALTH
+    extracted_docs = Document.objects.filter(extracted=True).count()
+    extraction_rate = (extracted_docs / total_docs * 100) if total_docs > 0 else 0
 
-    top_diagnoses = (
-        Patient_profile.objects.values('diagnosis')
-        .annotate(count=Count('id'))
-        .order_by('-count')[:3]
-    )
+    docs_no_versions = Document.objects.annotate(v_count=Count('versions')).filter(v_count=0).count()
 
-    return render(request, 'trialpilot/about_app.html', {
+    # CRITERIA
+    total_criteria = Trial_criteria.objects.count()
+    validated_criteria = Trial_criteria.objects.filter(validated=True).count()
+
+    logic_total = Logic_criteria.objects.count()
+    logic_validated = Logic_criteria.objects.filter(validated=True).count()
+
+    # MATCHING
+    total_matches = Patient_trial_match.objects.count()
+
+    eligible = Patient_trial_match.objects.filter(decision="eligible").count()
+    ineligible = Patient_trial_match.objects.filter(decision="ineligible").count()
+    inconclusive = Patient_trial_match.objects.filter(decision="inconclusive").count()
+
+    deterministic = Patient_trial_match.objects.filter(deterministic_result=True).count()
+
+    return render(request, 'trialpilot/dev_tools.html', {
         'n_diaries': n_diaries,
         'n_patients': n_patients,
         'n_trials': n_trials,
         'n_versions': n_versions,
         'avg_versions': avg_versions,
-        'avg_age': avg_age,
-        'top_diagnoses': top_diagnoses,
+
+        'extraction_rate': extraction_rate,
+        'docs_no_versions': docs_no_versions,
+
+        'total_criteria': total_criteria,
+        'validated_criteria': validated_criteria,
+        'logic_total': logic_total,
+        'logic_validated': logic_validated,
+
+        'total_matches': total_matches,
+        'eligible': eligible,
+        'ineligible': ineligible,
+        'inconclusive': inconclusive,
+        'deterministic': deterministic,
     })
