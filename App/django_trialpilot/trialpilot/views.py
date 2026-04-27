@@ -1094,9 +1094,9 @@ def criteria_extraction(request, trial_id):
         return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
     else:
         if request.method == 'GET':
-            #criteria_extracted = criteria_extraction_step(document, document_content)
+            criteria_extracted = criteria_extraction_step(document, document_content)
             
-            criteria_extracted = dummy_criteria_extraction 
+            #criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -1227,15 +1227,8 @@ def criteria_conversion(request, trial_id):
     validated_criteria = Trial_criteria.objects.filter(document=document).order_by("type", "id")
     
 
-    if not validated_criteria.exists():
-        return render(request, 'trialpilot/trial_criteria-conversion.html', {
-            'error': 'No validated criteria found for this trial.'
-        })
-    if validated_criteria :
-        return render(request, 'trialpilot/trial_criteria-extraction.html', {
-            'error': 'Could not extract readable text from this document.'
-        })
-    elif document.extracted:
+    if document.extracted:
+        print("ERROR : Document already extracted, skipping criteria extraction step.")
         return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
     else:
         if request.method == 'GET':
@@ -1261,8 +1254,8 @@ def criteria_conversion(request, trial_id):
                 ]
             }
             
-            #converted_logic = criteria_conversion_step(criteria_payload)
-            converted_logic = build_dummy_conversion(criteria_payload)
+            converted_logic = criteria_conversion_step(criteria_payload)
+            #converted_logic = build_dummy_conversion(criteria_payload)
             
             parsed_logic = ContentFile(
                 json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")

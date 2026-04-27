@@ -19,7 +19,12 @@ General Rules
 - For each input criterion, return exactly one output criterion with the same `id`.
 - Keep the same inclusion/exclusion grouping.
 
-Allowed Database Fields (FIELD)
+Specific Rules
+- If a criterion contains multiple values, such as: Diagnosis NOT_IN ['non-melanoma skin cancer', 'carcinoma in situ'], split it into separate criteria, each repeating the same field and operator:
+
+  Diagnosis NOT_IN non-melanoma skin cancer
+  Diagnosis NOT_IN carcinoma in situ
+
 You should prioritize using the following fields whenever possible:
 - `age`
 - `sex`
@@ -49,8 +54,10 @@ Use these operators whenever the criterion can be mapped to the schema:
 - `<`
 - `<=`
 - `IN`
-- `NOT IN`
+- `NOT_IN`
 - `AND`
+- `CONTAINS`
+- `NOT_CONTAINS`
 - `OR`
 
 If a criterion cannot be represented using these operators alone, preserve it using a fallback structured representation instead of null.
