@@ -51,6 +51,27 @@ KNOWN_FIELDS = {
             "progression_date", "control"
         }
 
+FIELD_RESOLVER = {
+    # Diretos
+    "age": lambda p: p.age,
+    "ecog_ps": lambda p: p.ecog_ps,
+    "diagnosis": lambda p: p.diagnosis,
+    "stage": lambda p: p.stage,
+    "molecular_status": lambda p: p.molecular_status,
+    "diagnosis_date": lambda p: p.diagnosis_date,
+    "control": lambda p: p.control,
+
+    # Relações (IMPORTANTES)
+    "treatment_name": lambda p: [t.treatment_name for t in p.treatments.all()],
+    "treatment_start_date": lambda p: [t.start_date for t in p.treatments.all()],
+    "treatment_end_date": lambda p: [t.end_date for t in p.treatments.all()],
+
+    # Campos ainda não suportados (futuro)
+    "sex": lambda p: None,
+    "progression_date": lambda p: None,
+    "death_date": lambda p: None,
+}
+
 dummy_params_extraction = {
     "age_or_birthdate": 45,
     "ecog_ps": 0,
@@ -645,7 +666,6 @@ def patient_matching_step(patient, trial_criteria):
         elif c.type == "exclusion":
             exclusion_results.append(result)
 
-    # 🎯 regras clássicas de trials
     is_eligible = all(inclusion_results) and not any(exclusion_results)
 
     return {
@@ -655,49 +675,94 @@ def patient_matching_step(patient, trial_criteria):
         "exclusion_triggered": sum(exclusion_results)
     }
 
+def get_patient_value(patient, field):
+    resolver = FIELD_RESOLVER.get(field)
+
+    if not resolver:
+        print(f"[UNKNOWN FIELD] {field}")
+        return None
+
+    try:
+        return resolver(patient)
+    except Exception as e:
+        print(f"[RESOLVER ERROR] {field}: {e}")
+        return None
+
+def safe_float(val):
+    try:
+        return float(val)
+    except:
+        return None
+
 
 def evaluate_condition(patient, logic):
     if not logic:
         return True
 
+    # Simple
     if "field" in logic:
         field = logic["field"]
-        operator = logic["operator"]
+        operator = logic["operator"].upper()
         value = logic["value"]
 
-        patient_value = getattr(patient, field, None)
+        if field not in KNOWN_FIELDS:
+            print(f"[SCHEMA MISS] Field '{field}' not in schema → forcing False")
+            return False
 
+        patient_value = get_patient_value(patient, field)
+
+        if patient_value is None:
+            return False
+
+        # Normalize lists as strings
         if isinstance(value, str) and "," in value:
             value = [v.strip() for v in value.split(",")]
-            
+
         if operator in ["=", "=="]:
             return str(patient_value).lower() == str(value).lower()
 
+        if operator == "!=":
+            return str(patient_value).lower() != str(value).lower()
+
         if operator == ">=":
-            return float(patient_value) >= float(value)
+            return safe_float(patient_value) >= safe_float(value)
 
         if operator == "<=":
-            return float(patient_value) <= float(value)
+            return safe_float(patient_value) <= safe_float(value)
 
         if operator == ">":
-            return float(patient_value) > float(value)
+            return safe_float(patient_value) > safe_float(value)
 
         if operator == "<":
-            return float(patient_value) < float(value)
+            return safe_float(patient_value) < safe_float(value)
 
-        if operator.lower() == "in":
+        if operator == "IN":
+            if isinstance(patient_value, list):
+                return any(str(v) in [str(x) for x in value] for v in patient_value)
             return str(patient_value) in [str(v) for v in value]
 
-        if operator.lower() == "not_in":
+        if operator == "NOT_IN":
+            if isinstance(patient_value, list):
+                return all(str(v) not in [str(x) for x in value] for v in patient_value)
             return str(patient_value) not in [str(v) for v in value]
 
-        if operator.lower() == "contains":
+        if operator == "CONTAINS":
+            if isinstance(patient_value, list):
+                return any(str(value).lower() in str(v).lower() for v in patient_value)
             return str(value).lower() in str(patient_value).lower()
 
+        if operator == "NOT_CONTAINS":
+            if isinstance(patient_value, list):
+                return all(str(value).lower() not in str(v).lower() for v in patient_value)
+            return str(value).lower() not in str(patient_value).lower()
+
+        # Fallback
+        print(f"[UNKNOWN OPERATOR] {operator}")
         return False
 
+    # Nested
     if "conditions" in logic:
-        operator = logic.get("operator", "AND")
+        operator = logic.get("operator", "AND").upper()
 
         results = [evaluate_condition(patient, c) for c in logic["conditions"]]
 
@@ -706,6 +771,9 @@ def evaluate_condition(patient, logic):
 
         if operator == "OR":
             return any(results)
+
+        print(f"[UNKNOWN LOGIC OPERATOR] {operator}")
+        return False
 
     return False
 
@@ -1584,12 +1652,19 @@ def match_patients(request, trial_id):
                     'patient': patient,
                     'result': match_result
                 })
+                
+                print(f"Patient {patient.id} - {patient.diagnosis}: Match Result: {match_result}")
+            
+            eligible_count = sum(1 for m in matches if m["result"]["eligible"])
+            ineligible_count = len(matches) - eligible_count
         
-        return render(request, 'trialpilot/patient_matching.html', {
-            "trial": document,
-            "patients": patients,
-            "matches": matches
-        })
+            return render(request, 'trialpilot/patient_matching.html', {
+                "trial": document,
+                "patients": patients,
+                "matches": matches,
+                "eligible_count": eligible_count,
+                "ineligible_count": ineligible_count
+            })
     
 
 def index(request):

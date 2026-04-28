@@ -4,22 +4,138 @@
 
 {% block content %}
 
-    <!-- HEADER -->
-    <div class="mb-4">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-            <div>
-                <h2 class="fw-bold mb-1">Clinical Trial Patient Matching</h2>
-                <p class="text-muted mb-0">
-                    Review and validate the matched patients before saving this information.
-                </p>
-            </div>
+<!-- HEADER -->
+<div class="mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+            <h2 class="fw-bold mb-1">Clinical Trial Patient Matching</h2>
+            <p class="text-muted mb-0">
+                Review and validate the matched patients before saving this information.
+            </p>
+        </div>
 
-            <div class="trial-badge px-3 py-2 rounded-pill">
-                <i class="bi bi-journal-medical me-2"></i>
-                {{ trial.title }}
+        <div class="trial-badge px-3 py-2 rounded-pill bg-light shadow-sm">
+            <i class="bi bi-journal-medical me-2"></i>
+            {{ trial.title }}
+        </div>
+    </div>
+    <hr class="mt-4">
+</div>
+
+<!-- SUMMARY -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5 class="text-muted">Total Patients</h5>
+                <h2>{{ matches|length }}</h2>
             </div>
         </div>
-        <hr class="mt-4">
     </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5 class="text-success">Eligible</h5>
+                <h2>
+                    {{ eligible_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5 class="text-danger">Ineligible</h5>
+                <h2>
+                    {{ ineligible_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PATIENT LIST -->
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h5 class="mb-0">Patient Results</h5>
+    </div>
+
+    <div class="card-body">
+
+        {% if matches %}
+
+            {% for m in matches %}
+            <div class="border rounded p-3 mb-3 {% if m.result.eligible %}border-success{% else %}border-danger{% endif %}">
+
+                <!-- TOP ROW -->
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <strong>Patient {{ m.patient.id }}</strong><br>
+                        <small class="text-muted">
+                            {{ m.patient.diagnosis }} | Age: {{ m.patient.age }}
+                        </small>
+                    </div>
+
+                    <!-- STATUS BADGE -->
+                    <div>
+                        {% if m.result.eligible %}
+                            <span class="badge bg-success px-3 py-2">
+                                <i class="bi bi-check-circle me-1"></i> Eligible
+                            </span>
+                        {% else %}
+                            <span class="badge bg-danger px-3 py-2">
+                                <i class="bi bi-x-circle me-1"></i> Ineligible
+                            </span>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <!-- METRICS -->
+                <div class="row mt-3 text-center">
+
+                    <div class="col-md-4">
+                        <div class="bg-light rounded p-2">
+                            <small class="text-muted d-block">Inclusion</small>
+                            <strong>
+                                {{ m.result.inclusion_passed }} / {{ m.result.inclusion_total }}
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="bg-light rounded p-2">
+                            <small class="text-muted d-block">Exclusions Triggered</small>
+                            <strong>{{ m.result.exclusion_triggered }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="bg-light rounded p-2">
+                            <small class="text-muted d-block">Score</small>
+                            <strong>
+                                {% if m.result.inclusion_total > 0 %}
+                                    {{ m.result.inclusion_passed|floatformat:0 }}/{{ m.result.inclusion_total }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </strong>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+        {% else %}
+            <p class="text-muted">No matching results available.</p>
+        {% endif %}
+
+    </div>
+</div>
 
 {% endblock %}
