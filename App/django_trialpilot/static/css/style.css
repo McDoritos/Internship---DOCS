@@ -921,6 +921,13 @@ body {
     border-radius: 10px;
 }
 
+.disabled-link{
+    pointer-events: none;  
+    opacity: 0.5;          
+    cursor: not-allowed;   
+    text-decoration: none;
+}
+
 /* Index */
 .truncate-text {
     max-width: 220px;

@@ -4,14 +4,24 @@
 
 {% block content %}
 
-<div class="d-flex flex-column mb-4 ml-3 mr-3">
+<div class="d-flex justify-content-between align-items-center mb-4 ml-3 mr-3">
 
-    <h3 class="mb-3">Clinical Trial Details</h3>
-    <p class="text-muted">Detailed view for trial {{ trial.title }}</p>
+    <div>
+        <h3 class="mb-1">Clinical Trial Details</h3>
+        <p class="text-muted mb-0">Detailed view for trial {{ trial.title }}</p>
+    </div>
 
-    <div class="sidebar-divider mb-4"></div>
+    <a href="{% url 'match_patients' trial.pk %}"
+        class="btn btn-outline-success px-4 py-2 rounded-pill shadow-sm rounded-ui
+        {% if not trial.extracted %} disabled-link {% endif %}">
+        <i class="bi bi-card-checklist me-1"></i>
+        Match Patients
+    </a>
+
 
 </div>
+
+<div class="sidebar-divider mb-4"></div>
 
 <div class="container mt-4">
 
@@ -59,7 +69,7 @@
                         <small>Created: {{ v.created_at }}</small>
                     </div>
 
-                    <a href="{{ v.file_path.url }}" class="btn btn-outline-primary btn-sm" download>
+                    <a href="{{ v.file_path.url }}" class="btn btn-outline-primary btn-sm rounded-ui" download>
                         Download
                     </a>
                 </li>
@@ -85,24 +95,24 @@
             </h6>
 
             {% for c in inclusion_criteria %}
-                <div class="border rounded p-3 mb-3">
+            <div class="border rounded p-3 mb-3">
 
-                    <div class="mb-2">
-                        <strong>#{{ forloop.counter }}</strong> — 
-                        {{ c.validated_criterion|default:c.raw_criterion }}
-                    </div>
-
-                    <!-- LOGIC -->
-                    <div class="bg-light rounded p-2">
-                        <small class="text-muted">Logic</small>
-                        <p class="mb-0">
-                            {{ c.formatted_logic|default:"No logic available" }}
-                        </p>
-                    </div>
-
+                <div class="mb-2">
+                    <strong>#{{ forloop.counter }}</strong> —
+                    {{ c.validated_criterion|default:c.raw_criterion }}
                 </div>
+
+                <!-- LOGIC -->
+                <div class="bg-light rounded p-2">
+                    <small class="text-muted">Logic</small>
+                    <p class="mb-0">
+                        {{ c.formatted_logic|default:"No logic available" }}
+                    </p>
+                </div>
+
+            </div>
             {% empty %}
-                <p class="text-muted">No inclusion criteria.</p>
+            <p class="text-muted">No inclusion criteria.</p>
             {% endfor %}
 
             <hr>
@@ -113,24 +123,24 @@
             </h6>
 
             {% for c in exclusion_criteria %}
-                <div class="border rounded p-3 mb-3">
+            <div class="border rounded p-3 mb-3">
 
-                    <div class="mb-2">
-                        <strong>#{{ forloop.counter }}</strong> — 
-                        {{ c.validated_criterion|default:c.raw_criterion }}
-                    </div>
-
-                    <!-- LOGIC -->
-                    <div class="bg-light rounded p-2">
-                        <small class="text-muted">Logic</small>
-                        <p class="mb-0">
-                            {{ c.formatted_logic|default:"No logic available" }}
-                        </p>
-                    </div>
-
+                <div class="mb-2">
+                    <strong>#{{ forloop.counter }}</strong> —
+                    {{ c.validated_criterion|default:c.raw_criterion }}
                 </div>
+
+                <!-- LOGIC -->
+                <div class="bg-light rounded p-2">
+                    <small class="text-muted">Logic</small>
+                    <p class="mb-0">
+                        {{ c.formatted_logic|default:"No logic available" }}
+                    </p>
+                </div>
+
+            </div>
             {% empty %}
-                <p class="text-muted">No exclusion criteria.</p>
+            <p class="text-muted">No exclusion criteria.</p>
             {% endfor %}
 
         </div>
@@ -156,11 +166,11 @@
 
                         <div>
                             {% if m.decision == "eligible" %}
-                                <span class="badge bg-success">Eligible</span>
+                            <span class="badge bg-success">Eligible</span>
                             {% elif m.decision == "ineligible" %}
-                                <span class="badge bg-danger">Ineligible</span>
+                            <span class="badge bg-danger">Ineligible</span>
                             {% else %}
-                                <span class="badge bg-warning text-dark">Inconclusive</span>
+                            <span class="badge bg-warning text-dark">Inconclusive</span>
                             {% endif %}
                         </div>
                     </div>
@@ -175,7 +185,7 @@
                 {% endfor %}
             </ul>
             {% else %}
-                <p class="text-muted">No patients matched yet.</p>
+            <p class="text-muted">No patients matched yet.</p>
             {% endif %}
 
         </div>

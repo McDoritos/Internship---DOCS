@@ -391,7 +391,7 @@ def normalize(text):
     text = text.lower().strip()
     text = re.sub(r'\s+', ' ', text)
     text = re.sub(r'within \d+ .*', '', text)
-    text = re.sub(r'[^\w\s]', '', text)  # remove pontuação
+    text = re.sub(r'[^\w\s]', '', text)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
@@ -626,7 +626,88 @@ def criteria_conversion_step(criteria_extracted, batch_size=5):
         "inclusion_criteria": deduplicate(all_inclusion),
         "exclusion_criteria": deduplicate(all_exclusion)
     }
+    
+def patient_matching_step(patient, trial_criteria):
+    inclusion_results = []
+    exclusion_results = []
 
+    for c in trial_criteria:
+        logic = c.logic.validated_logic
+
+        if not logic:
+            continue
+
+        result = evaluate_condition(patient, logic)
+
+        if c.type == "inclusion":
+            inclusion_results.append(result)
+
+        elif c.type == "exclusion":
+            exclusion_results.append(result)
+
+    # 🎯 regras clássicas de trials
+    is_eligible = all(inclusion_results) and not any(exclusion_results)
+
+    return {
+        "eligible": is_eligible,
+        "inclusion_passed": sum(inclusion_results),
+        "inclusion_total": len(inclusion_results),
+        "exclusion_triggered": sum(exclusion_results)
+    }
+
+
+def evaluate_condition(patient, logic):
+    if not logic:
+        return True
+
+    if "field" in logic:
+        field = logic["field"]
+        operator = logic["operator"]
+        value = logic["value"]
+
+        patient_value = getattr(patient, field, None)
+
+        if isinstance(value, str) and "," in value:
+            value = [v.strip() for v in value.split(",")]
+            
+        if operator in ["=", "=="]:
+            return str(patient_value).lower() == str(value).lower()
+
+        if operator == ">=":
+            return float(patient_value) >= float(value)
+
+        if operator == "<=":
+            return float(patient_value) <= float(value)
+
+        if operator == ">":
+            return float(patient_value) > float(value)
+
+        if operator == "<":
+            return float(patient_value) < float(value)
+
+        if operator.lower() == "in":
+            return str(patient_value) in [str(v) for v in value]
+
+        if operator.lower() == "not_in":
+            return str(patient_value) not in [str(v) for v in value]
+
+        if operator.lower() == "contains":
+            return str(value).lower() in str(patient_value).lower()
+
+        return False
+
+    if "conditions" in logic:
+        operator = logic.get("operator", "AND")
+
+        results = [evaluate_condition(patient, c) for c in logic["conditions"]]
+
+        if operator == "AND":
+            return all(results)
+
+        if operator == "OR":
+            return any(results)
+
+    return False
 
 def extract_document_text(document):
     file_path = f"documents/{document.title}"
@@ -698,7 +779,6 @@ def trial_list(request):
         else:
             ext = ""
 
-        # Filter by file type
         if file_type and ext != file_type:
             continue
 
@@ -735,7 +815,6 @@ def diary_list(request):
         else:
             ext = ""
 
-        # Filter by file type
         if file_type and ext != file_type:
             continue
 
@@ -1474,6 +1553,44 @@ def criteria_conversion(request, trial_id):
                 messages.success(request, "Criteria extracted, converted and validated with success. For more details, check the clinical trial's detail page.")
                 return redirect('trial_list')
         
+def match_patients(request, trial_id):
+    try:
+        document = Document.objects.get(id=trial_id)
+    except Document.DoesNotExist:
+        return render(request, 'trialpilot/patient_matching.html',{
+            'error': 'Document not found.'
+        })
+        
+    if document.type != Document.DocumentType.CLINICAL_TRIAL:
+        return render(request, 'trialpilot/patient_matching.html', {
+            'error': 'This pipeline only accepts Clinical Trial Documents.'
+        })
+    elif not document.extracted:
+        return render(request, 'trialpilot/patient_matching.html', {
+            'error': 'Criteria must be extracted and validated before matching patients.'
+        })
+    else:
+        if request.method == 'GET':
+            trial_criteria = Trial_criteria.objects.filter(document=document).select_related("logic")
+            
+            patients = Patient_profile.objects.all()
+            
+            print(f"CRITERIA: {trial_criteria}\nPATIENTS: {patients}")
+            
+            matches = []
+            for patient in patients:
+                match_result = patient_matching_step(patient, trial_criteria)
+                matches.append({
+                    'patient': patient,
+                    'result': match_result
+                })
+        
+        return render(request, 'trialpilot/patient_matching.html', {
+            "trial": document,
+            "patients": patients,
+            "matches": matches
+        })
+    
 
 def index(request):
     # DIARIES
@@ -1520,8 +1637,6 @@ def index(request):
         'n_matches': n_matches,
         'last_trial': last_trial
     })
-
-from django.db.models import Avg, Count, Q
 
 def dev_tools(request):
     # BASIC
