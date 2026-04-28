@@ -197,24 +197,37 @@ dummy_criteria_conversion_flat = {
 
 # Auxiliary functions
 
-def format_logic(logic_json):
-    if not logic_json:
-        return "No structured logic available"
+def format_logic(logic):
+    if not logic:
+        return None
 
     try:
-        if "field" in logic_json:
-            return f"{logic_json['field']} {logic_json.get('operator', '')} {logic_json.get('value', '')}"
+        if "field" in logic:
+            field = logic.get("field", "")
+            op = logic.get("operator", "")
+            value = logic.get("value", "")
 
-        if isinstance(logic_json, dict):
-            return " AND ".join([f"{k}: {v}" for k, v in logic_json.items()])
+            return f"{field} {op} {value}"
 
-        if isinstance(logic_json, list):
-            return " AND ".join([format_logic(x) for x in logic_json])
+        if "conditions" in logic:
+            operator = logic.get("operator", "AND")
 
-    except Exception:
-        return str(logic_json)
+            parts = []
+            for condition in logic["conditions"]:
+                formatted = format_logic(condition)
+                if formatted:
+                    parts.append(formatted)
 
-    return str(logic_json)
+            if not parts:
+                return None
+
+            return f"({f' {operator} '.join(parts)})"
+
+        return str(logic)
+
+    except Exception as e:
+        print("FORMAT ERROR:", e)
+        return str(logic)
 
 def process_condition(condition):
     # Nested (GROUP)
@@ -783,15 +796,17 @@ def trial_details(request, trial_id):
         document=trial
     ).select_related("logic").order_by("type", "id")
     
-    inclusion_criteria = criteria.filter(type="inclusion")
-    exclusion_criteria = criteria.filter(type="exclusion")
+    inclusion_criteria = [c for c in criteria if c.type == "inclusion"]
+    exclusion_criteria = [c for c in criteria if c.type == "exclusion"]
     
     for c in criteria:
         try:
             logic_obj = c.logic
-            logic_data = logic_obj.validated_logic or logic_obj.raw_logic
+            logic_data = logic_obj.validated_logic
             c.formatted_logic = format_logic(logic_data)
-            print("LOGIC:", c.logic.raw_logic)
+            print("RAW LOGIC DATA:", logic_data)
+
+            print("FORMATTED:", c.formatted_logic)
         except ObjectDoesNotExist:
             c.formatted_logic = "No logic available"           
    
