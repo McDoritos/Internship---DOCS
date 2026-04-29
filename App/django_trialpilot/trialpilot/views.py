@@ -652,19 +652,32 @@ def patient_matching_step(patient, trial_criteria):
     inclusion_results = []
     exclusion_results = []
 
+    inclusion_details = []
+    exclusion_details = []
+
     for c in trial_criteria:
         logic = c.logic.validated_logic
-
         if not logic:
             continue
 
         result = evaluate_condition(patient, logic)
 
+        detail = {
+            "criterion": c.raw_criterion,
+            "logic": logic,
+            "result": result,
+            "patient_value": get_patient_value(patient, logic.get("field")),
+            "expected_value": logic.get("value"),
+            "operator": logic.get("operator")
+        }
+
         if c.type == "inclusion":
             inclusion_results.append(result)
+            inclusion_details.append(detail)
 
         elif c.type == "exclusion":
             exclusion_results.append(result)
+            exclusion_details.append(detail)
 
     is_eligible = all(inclusion_results) and not any(exclusion_results)
 
@@ -672,8 +685,24 @@ def patient_matching_step(patient, trial_criteria):
         "eligible": is_eligible,
         "inclusion_passed": sum(inclusion_results),
         "inclusion_total": len(inclusion_results),
-        "exclusion_triggered": sum(exclusion_results)
+        "exclusion_triggered": sum(exclusion_results),
+        "inclusion_details": inclusion_details,
+        "exclusion_details": exclusion_details
     }
+
+def parse_possible_list(value):
+    if isinstance(value, str):
+        value = value.strip()
+
+        if value.startswith("[") and value.endswith("]"):
+            try:
+                parsed = ast.literal_eval(value)
+                if isinstance(parsed, list):
+                    return parsed
+            except Exception:
+                pass
+
+    return value
 
 def get_patient_value(patient, field):
     resolver = FIELD_RESOLVER.get(field)
@@ -693,6 +722,13 @@ def safe_float(val):
         return float(val)
     except:
         return None
+    
+def normalize_value(val):
+    num = safe_float(val)
+    if num is not None:
+        return num
+    
+    return str(val).lower().strip()
 
 
 def evaluate_condition(patient, logic):
@@ -703,7 +739,7 @@ def evaluate_condition(patient, logic):
     if "field" in logic:
         field = logic["field"]
         operator = logic["operator"].upper()
-        value = logic["value"]
+        value = parse_possible_list(logic["value"])
 
         if field not in KNOWN_FIELDS:
             print(f"[SCHEMA MISS] Field '{field}' not in schema → forcing False")
@@ -737,24 +773,47 @@ def evaluate_condition(patient, logic):
             return safe_float(patient_value) < safe_float(value)
 
         if operator == "IN":
+            normalized_patient = normalize_value(patient_value)
+
+            if isinstance(value, list):
+                normalized_values = [normalize_value(v) for v in value]
+            else:
+                normalized_values = [normalize_value(value)]
+
             if isinstance(patient_value, list):
-                return any(str(v) in [str(x) for x in value] for v in patient_value)
-            return str(patient_value) in [str(v) for v in value]
+                return any(normalize_value(v) in normalized_values for v in patient_value)
+
+            return normalized_patient in normalized_values
 
         if operator == "NOT_IN":
+            normalized_patient = normalize_value(patient_value)
+
+            if isinstance(value, list):
+                normalized_values = [normalize_value(v) for v in value]
+            else:
+                normalized_values = [normalize_value(value)]
+
             if isinstance(patient_value, list):
-                return all(str(v) not in [str(x) for x in value] for v in patient_value)
-            return str(patient_value) not in [str(v) for v in value]
+                return all(normalize_value(v) not in normalized_values for v in patient_value)
+
+            return normalized_patient not in normalized_values
 
         if operator == "CONTAINS":
+            normalized_value = str(value).lower()
+
             if isinstance(patient_value, list):
-                return any(str(value).lower() in str(v).lower() for v in patient_value)
-            return str(value).lower() in str(patient_value).lower()
+                return any(normalized_value in str(v).lower() for v in patient_value)
+
+            return normalized_value in str(patient_value).lower()
+
 
         if operator == "NOT_CONTAINS":
+            normalized_value = str(value).lower()
+
             if isinstance(patient_value, list):
-                return all(str(value).lower() not in str(v).lower() for v in patient_value)
-            return str(value).lower() not in str(patient_value).lower()
+                return all(normalized_value not in str(v).lower() for v in patient_value)
+
+            return normalized_value not in str(patient_value).lower()
 
         # Fallback
         print(f"[UNKNOWN OPERATOR] {operator}")

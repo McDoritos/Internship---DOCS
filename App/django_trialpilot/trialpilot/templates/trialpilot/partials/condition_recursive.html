@@ -58,8 +58,8 @@
                     <option value="<=" {% if condition.operator == "<=" %}selected{% endif %}>Less or equal</option>
                     <option value="contains" {% if condition.operator == "CONTAINS" %}selected{% endif %}>Contains</option>
                     <option value="not_contains" {% if condition.operator == "NOT_CONTAINS" %}selected{% endif %}>Does not contain</option>
-                    <option value="not_in" {% if condition.operator == "NOT_IN" %}selected{% endif %}>Not in</option>
-                    <option value="in" {% if condition.operator == "IN" %}selected{% endif %}>In</option>                    
+                    <option value="in" {% if condition.operator == "IN" %}selected{% endif %}>In</option>      
+                    <option value="not_in" {% if condition.operator == "NOT_IN" %}selected{% endif %}>Not in</option>              
                 </select>
             </div>
 

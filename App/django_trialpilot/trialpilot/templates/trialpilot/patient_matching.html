@@ -62,77 +62,140 @@
         <h5 class="mb-0">Patient Results</h5>
     </div>
 
-    <div class="card-body">
+    <div class="card-body p-0">
 
         {% if matches %}
 
-            {% for m in matches %}
-            <div class="border rounded p-3 mb-3 {% if m.result.eligible %}border-success{% else %}border-danger{% endif %}">
+        {% for m in matches %}
+        <div class="border-bottom">
 
-                <!-- TOP ROW -->
-                <div class="d-flex justify-content-between align-items-center">
+            <!-- COMPACT ROW -->
+            <div class="d-flex px-3 py-2 bg-light border-bottom fw-semibold text-muted">
 
-                    <div>
-                        <strong>Patient {{ m.patient.id }}</strong><br>
-                        <small class="text-muted">
-                            {{ m.patient.diagnosis }} | Age: {{ m.patient.age }}
-                        </small>
-                    </div>
-
-                    <!-- STATUS BADGE -->
-                    <div>
-                        {% if m.result.eligible %}
-                            <span class="badge bg-success px-3 py-2">
-                                <i class="bi bi-check-circle me-1"></i> Eligible
-                            </span>
-                        {% else %}
-                            <span class="badge bg-danger px-3 py-2">
-                                <i class="bi bi-x-circle me-1"></i> Ineligible
-                            </span>
-                        {% endif %}
-                    </div>
-
+                <!-- COL 1: PATIENT -->
+                <div style="width: 30%;">
+                    <strong>Patient {{ m.patient.id }}</strong><br>
+                    <small class="text-muted">
+                        {{ m.patient.diagnosis }} • {{ m.patient.age }} years
+                    </small>
                 </div>
 
-                <!-- METRICS -->
-                <div class="row mt-3 text-center">
+                <!-- COL 2: INCLUSION -->
+                <div style="width: 20%;" class="text-center">
+                    <small class="text-muted d-block">Inclusion Criteria Passed</small>
+                    <strong>
+                        {{ m.result.inclusion_passed }}/{{ m.result.inclusion_total }}
+                    </strong>
+                </div>
 
-                    <div class="col-md-4">
-                        <div class="bg-light rounded p-2">
-                            <small class="text-muted d-block">Inclusion</small>
-                            <strong>
-                                {{ m.result.inclusion_passed }} / {{ m.result.inclusion_total }}
-                            </strong>
-                        </div>
+                <!-- COL 3: EXCLUSION -->
+                <div style="width: 20%;" class="text-center">
+                    <small class="text-muted d-block">Exclusion Criteria Triggered</small>
+                    <strong>{{ m.result.exclusion_triggered }}</strong>
+                </div>
+
+                <!-- COL 4: STATUS -->
+                <div style="width: 15%;" class="d-flex justify-content-center align-items-center">
+                    {% if m.result.eligible %}
+                    <span class="badge bg-success px-3 py-2 text-white rounded-ui">
+                        Eligible
+                    </span>
+                    {% else %}
+                    <span class="badge bg-danger px-3 py-2 text-white rounded-ui">
+                        Ineligible
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- COL 5: ACTION -->
+                <div style="width: 15%;" class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-sm btn-outline-primary rounded-ui" data-bs-toggle="collapse"
+                        data-bs-target="#details-{{ forloop.counter }}">
+                        View Details
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- EXPANDABLE DETAILS -->
+            <div class="collapse bg-light px-3 py-3" id="details-{{ forloop.counter }}">
+
+                <div class="mb-3 p-3 border rounded bg-white">
+                    <h6 class="mb-2">Patient Summary</h6>
+
+                    <div class="row small">
+                        <div class="col-md-4"><strong>Age:</strong> {{ m.patient.age }}</div>
+                        <div class="col-md-4"><strong>Diagnosis:</strong> {{ m.patient.diagnosis }}</div>
+                        <div class="col-md-4"><strong>Gender:</strong> {{ m.patient.gender }}</div>
                     </div>
+                </div>
 
-                    <div class="col-md-4">
-                        <div class="bg-light rounded p-2">
-                            <small class="text-muted d-block">Exclusions Triggered</small>
-                            <strong>{{ m.result.exclusion_triggered }}</strong>
-                        </div>
-                    </div>
+                <div class="row">
 
-                    <div class="col-md-4">
-                        <div class="bg-light rounded p-2">
-                            <small class="text-muted d-block">Score</small>
-                            <strong>
-                                {% if m.result.inclusion_total > 0 %}
-                                    {{ m.result.inclusion_passed|floatformat:0 }}/{{ m.result.inclusion_total }}
+                    <!-- INCLUSION -->
+                    <div class="col-md-6">
+                        <h6 class="text-success">Inclusion Criteria</h6>
+
+                        {% for c in m.result.inclusion_details %}
+                        <div class="small mb-2 p-2 border rounded">
+
+                            <div>
+                                {% if c.result %}
+                                <i class="bi bi-check-circle-fill text-success"></i>
                                 {% else %}
-                                    -
+                                <i class="bi bi-x-circle-fill text-danger"></i>
                                 {% endif %}
-                            </strong>
+                                <strong>{{ c.criterion }}</strong>
+                            </div>
+
+                            <!-- EVIDENCE -->
+                            <div class="text-muted small ms-4">
+                                Patient: <strong>{{ c.patient_value }}</strong>
+                                {{ c.operator }}
+                                Expected: <strong>{{ c.expected_value }}</strong>
+                            </div>
+
                         </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- EXCLUSION -->
+                    <div class="col-md-6">
+                        <h6 class="text-danger">Exclusion Criteria</h6>
+
+                        {% for c in m.result.exclusion_details %}
+                        <div class="small mb-2 p-2 border rounded">
+
+                            <div>
+                                {% if c.result %}
+                                <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                                <strong>Triggered:</strong> {{ c.criterion }}
+                                {% else %}
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                {{ c.criterion }}
+                                {% endif %}
+                            </div>
+
+                            <!-- EVIDENCE -->
+                            <div class="text-muted small ms-4">
+                                Patient: <strong>{{ c.patient_value }}</strong>
+                                {{ c.operator }}
+                                Rule: <strong>{{ c.expected_value }}</strong>
+                            </div>
+
+                        </div>
+                        {% endfor %}
                     </div>
 
                 </div>
 
             </div>
-            {% endfor %}
+
+        </div>
+        {% endfor %}
 
         {% else %}
-            <p class="text-muted">No matching results available.</p>
+        <p class="p-3 text-muted">No matching results available.</p>
         {% endif %}
 
     </div>
