@@ -150,9 +150,13 @@
 
                             <!-- EVIDENCE -->
                             <div class="text-muted small ms-4">
-                                Patient: <strong>{{ c.patient_value }}</strong>
-                                {{ c.operator }}
-                                Expected: <strong>{{ c.expected_value }}</strong>
+                                {% for e in c.evidences %}
+                                <div>
+                                    Patient: <strong>{{ e.patient_value }}</strong>
+                                    {{ e.operator }}
+                                    Expected: <strong>{{ e.expected_value }}</strong>
+                                </div>
+                                {% endfor %}
                             </div>
 
                         </div>
@@ -178,9 +182,13 @@
 
                             <!-- EVIDENCE -->
                             <div class="text-muted small ms-4">
-                                Patient: <strong>{{ c.patient_value }}</strong>
-                                {{ c.operator }}
-                                Rule: <strong>{{ c.expected_value }}</strong>
+                                {% for e in c.evidences %}
+                                    <div>
+                                        Patient: <strong>{{ e.patient_value }}</strong>
+                                        {{ e.operator }}
+                                        Expected: <strong>{{ e.expected_value }}</strong>
+                                    </div>
+                                {% endfor %}
                             </div>
 
                         </div>

@@ -1,0 +1,19 @@
+Instructions:
+- Determine if the patient satisfies the condition;
+- Be strict and medically accurate;
+- If uncertain, return false;
+- Justify your decision on the respective field;
+- Your output must contain the criterion, your match decision and a justification for why you chose said decision
+
+Return JSON in this format:
+{
+    "criterion": CRITERION,
+    "match": true/false,
+    "justification": JUSTIFICATION
+}
+
+Patient Clinical Diary:
+{{CLINICAL_DIARY}}
+
+Criterion to evaluate:
+{{CRITERION_TEXT}}

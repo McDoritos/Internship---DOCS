@@ -27,6 +27,7 @@ import json
 import re
 from difflib import SequenceMatcher
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.cache import cache
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 
@@ -39,6 +40,11 @@ SYS_CRITERIA_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "cri
 
 CRITERIA_CONVERSION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-conversion" / "criteria-conversion_prompt.txt"
 SYS_CRITERIA_CONVERSION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-conversion" / "sys_criteria-conversion_prompt.txt"
+
+MATCHING_PATIENTS_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "matching-patients" / "matching-patients_prompt.txt"
+SYS_MATCHING_PATIENTS_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "matching-patients" / "sys_matching-patients_prompt.txt"
+
+PATIENT_TEXT_CACHE = {}
 
 CLIENT = Groq(api_key=GROQ_KEY)
 MODEL = "openai/gpt-oss-120b"
@@ -648,6 +654,40 @@ def criteria_conversion_step(criteria_extracted, batch_size=5):
         "exclusion_criteria": deduplicate(all_exclusion)
     }
     
+def matching_llm(patient, logic):
+    
+    clinical_diary_content = get_patient_text(patient)
+    
+    try:
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_MATCHING_PATIENTS_PROMPT_FILE,
+            user_prompt_path=MATCHING_PATIENTS_PROMPT_FILE,
+            replacements={
+                "{{CLINICAL_DIARY}}": clinical_diary_content,
+                "{{CRITERION_TEXT}}": json.dumps(logic)
+            },
+            log_label=f"LLM Matching - Patient {patient.id}"
+        )
+
+        return result.get("match", False)
+
+    except Exception as e:
+        print(f"[LLM ERROR] {e}")
+        return False
+    
+def get_patient_text(patient):
+    cache_key = f"patient_text:{patient.id}"
+
+    text = cache.get(cache_key)
+    if text:
+        return text
+
+    text = extract_document_text(patient.document)
+
+    cache.set(cache_key, text, timeout=3600)
+
+    return text 
+    
 def patient_matching_step(patient, trial_criteria):
     inclusion_results = []
     exclusion_results = []
@@ -662,13 +702,13 @@ def patient_matching_step(patient, trial_criteria):
 
         result = evaluate_condition(patient, logic)
 
+        evidences = extract_evidence(patient, logic)
+
         detail = {
             "criterion": c.raw_criterion,
             "logic": logic,
             "result": result,
-            "patient_value": get_patient_value(patient, logic.get("field")),
-            "expected_value": logic.get("value"),
-            "operator": logic.get("operator")
+            "evidences": evidences
         }
 
         if c.type == "inclusion":
@@ -689,6 +729,30 @@ def patient_matching_step(patient, trial_criteria):
         "inclusion_details": inclusion_details,
         "exclusion_details": exclusion_details
     }
+    
+def extract_evidence(patient, logic):
+    evidences = []
+
+    if not logic:
+        return evidences
+
+    if "field" in logic:
+        patient_value = get_patient_value(patient, logic["field"])
+
+        evidences.append({
+            "patient_value": patient_value,
+            "expected_value": logic.get("value"),
+            "operator": logic.get("operator", "").upper()
+        })
+        return evidences
+
+    if logic.get("operator") == "AND" and "conditions" in logic:
+        for condition in logic["conditions"]:
+            evidences.extend(extract_evidence(patient, condition))
+
+        return evidences
+
+    return evidences
 
 def parse_possible_list(value):
     if isinstance(value, str):
@@ -742,8 +806,9 @@ def evaluate_condition(patient, logic):
         value = parse_possible_list(logic["value"])
 
         if field not in KNOWN_FIELDS:
-            print(f"[SCHEMA MISS] Field '{field}' not in schema → forcing False")
-            return False
+            print(f"[LLM FALLBACK] Field '{field}' not in schema")
+
+            return matching_llm(patient, logic)
 
         patient_value = get_patient_value(patient, field)
 
@@ -1229,9 +1294,9 @@ def parameter_extraction(request, diary_id):
     else:
         if request.method == 'GET':
             
-            #extracted_params = parameter_extraction_pipeline(document, document_content)
+            extracted_params = parameter_extraction_pipeline(document, document_content)
             
-            extracted_params = dummy_params_extraction
+            #extracted_params = dummy_params_extraction
             
             file_params = ContentFile(json.dumps(extracted_params))
 
@@ -1315,9 +1380,9 @@ def criteria_extraction(request, trial_id):
         return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
     else:
         if request.method == 'GET':
-            criteria_extracted = criteria_extraction_step(document, document_content)
+            #criteria_extracted = criteria_extraction_step(document, document_content)
             
-            #criteria_extracted = dummy_criteria_extraction 
+            criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -1475,8 +1540,8 @@ def criteria_conversion(request, trial_id):
                 ]
             }
             
-            converted_logic = criteria_conversion_step(criteria_payload)
-            #converted_logic = build_dummy_conversion(criteria_payload)
+            #converted_logic = criteria_conversion_step(criteria_payload)
+            converted_logic = build_dummy_conversion(criteria_payload)
             
             parsed_logic = ContentFile(
                 json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
