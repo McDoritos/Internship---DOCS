@@ -47,4 +47,14 @@ Clinical diary to process:
 {{DIARY_TEXT}}
 </DIARY>
 
+You are given a normalization table of diagnoses.
+
+Use it to map extracted diagnoses to standardized forms when possible.
+If no mapping exists, keep the original.
+
+Normalization table:
+<NORMALIZATION>
+{{DIAGNOSIS_NORMALIZATION}}
+</NORMALIZATION>
+
 Return only the JSON object.

@@ -28,6 +28,7 @@ import re
 from difflib import SequenceMatcher
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
+import pandas as pd
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 
@@ -255,6 +256,46 @@ def format_logic(logic):
     except Exception as e:
         print("FORMAT ERROR:", e)
         return str(logic)
+
+def load_diagnosis_normalization_excel(path):
+    xls = pd.ExcelFile(path)
+
+    sheets_data = {}
+
+    for sheet_name in xls.sheet_names:
+        df = xls.parse(sheet_name)
+
+        df = df.dropna(how="all")
+
+        sheets_data[sheet_name] = df.fillna("").to_dict(orient="records")
+
+    return sheets_data
+
+def format_normalization_context(sheets_data):
+    parts = []
+
+    for group, records in sheets_data.items():
+        parts.append(f"### {group}")
+
+        for r in records:
+            row_str = " | ".join(f"{k}: {v}" for k, v in r.items() if v)
+            parts.append(f"- {row_str}")
+
+    return "\n".join(parts)
+
+def get_normalization_context():
+    cache_key = "diagnosis_normalization_context"
+
+    context = cache.get(cache_key)
+    if context:
+        return context
+
+    sheets = load_diagnosis_normalization_excel("path/to/file.xlsx")
+    context = format_normalization_context(sheets)
+
+    cache.set(cache_key, context, timeout=86400)
+
+    return context
 
 def process_condition(condition):
     # Nested (GROUP)
@@ -547,11 +588,14 @@ def chunk_criteria_list(criteria_list, batch_size=5):
         yield criteria_list[i:i + batch_size]
 
 def parameter_extraction_pipeline(document, document_content):
+    normalization_context = get_normalization_context()
+
     return run_json_prompt_pipeline(
         system_prompt_path=SYS_PARAMETER_EXTRACTION_PROMPT_FILE,
         user_prompt_path=PARAMETER_EXTRACTION_PROMPT_FILE,
         replacements={
-            "{{DIARY_TEXT}}": document_content
+            "{{DIARY_TEXT}}": document_content,
+            "{{DIAGNOSIS_NORMALIZATION}}": normalization_context
         },
         log_label=document.title
     )
