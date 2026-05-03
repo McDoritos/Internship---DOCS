@@ -228,6 +228,104 @@ dummy_criteria_conversion_flat = {
 
 # Auxiliary functions
 
+def load_analysis_json(analysis_content):
+    try:
+        return json.loads(analysis_content)
+    except Exception as e:
+        print(f"[WARNING] Failed to parse analysis JSON: {e}")
+        return None
+    
+def extract_lab_parameters(analysis_json):
+    if not analysis_json:
+        return {}
+
+    try:
+        h = analysis_json["hematology"]
+        e = analysis_json["eritrocitos"]
+        p = analysis_json["plaquetas"]
+        b = analysis_json["bioquimica"]
+
+        return {
+            "leucocitos": h["leucocitos"]["value"],
+            "neutrofilos": h["neutrofilos"]["value"],
+            "neutrofilos_percent": h["neutrofilos"]["percentage"],
+            "linfocitos": h["linfocitos"]["value"],
+            "linfocitos_percent": h["linfocitos"]["percentage"],
+            "monocitos": h["monocitos"]["value"],
+            "monocitos_percent": h["monocitos"]["percentage"],
+            "eosinofilos": h["eosinofilos"]["value"],
+            "eosinofilos_percent": h["eosinofilos"]["percentage"],
+            "basofilos": h["basofilos"]["value"],
+            "basofilos_percent": h["basofilos"]["percentage"],
+
+            "eritrocitos": e["eritrocitos"]["value"],
+            "hemoglobina": e["hemoglobina"]["value"],
+            "hematocrito": e["hematocrito"]["value"],
+            "vc_medio": e["Volume_Corpuscular_Medio"]["value"],
+            "hcm": e["Hemoglobina_Corpuscular_Media"]["value"],
+            "chcm": e["C.Hemoglobina_Corpuscular_Media"]["value"],
+            "rdw": e["Coeficiente_Variação_Eritrócitos"]["value"],
+            
+            "plaquetas": p["plaquetas"]["value"],
+            "vpm": p["volume_plaquetar_medio"]["value"],
+            "plaquetocrito": p["plaquetocrito"]["value"],
+            "pdw": p["Coeficiente_Variação_Plaquetas"]["value"],
+
+            "glicose": b["glicose"]["value"],
+            "azoto_ureico": b["azoto_ureico"]["value"],
+            "creatinina": b["creatinina"]["value"],
+            "sodio": b["sodio"]["value"],
+            "potassio": b["potassio"]["value"],
+            "proteinas_totais": b["proteinas_totais"]["value"],
+            "albumina": b["albumina"]["value"],
+            "calcio": b["calcio"]["value"],
+            "osmolalidade": b["osmolalidade"]["value"],
+            "ldh": b["ldh"]["value"],
+            "ast": b["ast"]["value"],
+            "alt": b["alt"]["value"],
+            "fosfatase_alcalina": b["fosfatase_alcalina"]["value"],
+            "gama_gt": b["gama_gt"]["value"],
+            "bilirrubina_total": b["bilirrubina_total"]["value"],
+            "creatina_cinase": b["Creatina_cinase"]["value"],
+        }
+
+    except KeyError as e:
+        print(f"[WARNING] Missing expected lab field: {e}")
+        return {}
+
+
+def extract_patient_id_from_title(title):
+    """
+    Expected format:
+    inconsistancy-diary_patient_{patientid}_{unique_identifier}.txt/pdf
+    """
+    pattern = r"inconsistancy-diary_patient_(\d+)_"
+    match = re.search(pattern, title)
+
+    if match:
+        return match.group(1)
+    
+    print(f"[WARNING] Could not extract patient_id from title: {title}")
+    return None
+
+def get_analysis_for_patient(patient_id):
+    if not patient_id:
+        return None
+
+    expected_filename = f"analysis_patient_{patient_id}.txt"
+
+    for file in ANALYSIS_FILES:
+        if file.name == expected_filename:
+            try:
+                with open(file, "r", encoding="utf-8") as f:
+                    return f.read()
+            except Exception as e:
+                print(f"[WARNING] Error reading analysis file {file.name}: {e}")
+                return None
+
+    print(f"[WARNING] No analysis file found for patient_id={patient_id}")
+    return None
+
 def format_logic(logic):
     if not logic:
         return None
@@ -1341,9 +1439,17 @@ def parameter_extraction(request, diary_id):
     else:
         if request.method == 'GET':
             
-            extracted_params = parameter_extraction_pipeline(document, document_content)
+            patient_id = extract_patient_id_from_title(document.title)
+            analysis_content = get_analysis_for_patient(patient_id)
             
-            #extracted_params = dummy_params_extraction
+            analysis_json = load_analysis_json(analysis_content)
+            lab_params = extract_lab_parameters(analysis_json)
+            
+            #extracted_params = parameter_extraction_pipeline(document, document_content)
+            
+            extracted_params = dummy_params_extraction
+            
+            extracted_params["lab"] = lab_params
             
             file_params = ContentFile(json.dumps(extracted_params))
 
