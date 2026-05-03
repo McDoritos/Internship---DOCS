@@ -2,19 +2,33 @@ Rules:
 - Maintain realistic medical consistency with the patient profile.
 - Respect plausible biological ranges (values may be normal or abnormal).
 - Use medically plausible correlations (e.g., chemotherapy → low leukocytes).
+- If chemotherapy is recent, reflect mild to moderate cytopenias with possible recovery patterns.
 - Do NOT copy values from the example.
 - Use the same units and structure as defined in the schema.
 - Ensure all values are coherent.
+
+Reference handling:
 - Reference ranges MUST be copied exactly from the example.
 - Do NOT modify, reinterpret, or generate new reference ranges.
+
+Mathematical consistency:
+- Neutrophils, lymphocytes, monocytes, eosinophils, and basophils percentages MUST sum to approximately 100% (±2%).
+- Absolute leukocyte subsets must be consistent with total leukocyte count.
+- Neutrophils value must not exceed total leukocytes.
 
 STRICT OUTPUT RULES:
 - Output ONLY valid JSON
 - Do NOT include explanations or text outside JSON
 - ALL fields must be present
 - Use null if necessary
+- Do NOT truncate the output
+- Ensure the JSON is complete and properly closed (all brackets and braces)
 
-Use this JSON structure exactly:
+FORMAT REQUIREMENTS:
+- Use consistent indentation
+- Each field must be on its own line
+- Do NOT change formatting midway
+- The entire JSON must follow the SAME formatting style as the schema presented to you
 
 Clinical realism guidelines:
 - Oncology patients may show:
@@ -24,52 +38,14 @@ Clinical realism guidelines:
 - Liver enzymes (AST, ALT) may increase depending on metastases or drugs
 - Kidney function (creatinine) may vary depending on treatment toxicity
 
+Consistency priority:
+1. Patient profile (highest priority)
+2. Clinical diary
+3. Example (structure and reference ranges only)
 
-Output must follow this exact JSON schema
+Output must follow this exact JSON schema:
 ```JSON
-{
-  "hematology": {
-    "leucocitos": { "value": float, "unit": "x10^9/L", "reference": "string" },
-    "neutrofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
-    "linfocitos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
-    "monocitos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
-    "eosinofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
-    "basofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" }
-  },
-  "eritrocitos": {
-    "eritrocitos": { "value": float, "unit": "x10^12/L", "reference": "string" },
-    "hemoglobina": { "value": float, "unit": "g/dL", "reference": "string" },
-    "hematocrito": { "value": float, "unit": "%", "reference": "string" },
-    "Volume_Corpuscular_Medio": { "value": float, "unit": "fL", "reference": "string" },
-    "Hemoglobina_Corpuscular_Media": { "value": float, "unit": "pg", "reference": "string" },
-    "C.Hemoglobina_Corpuscular_Media": { "value": float, "unit": "g/dL", "reference": "string" },
-    "Coeficiente_Variação_Eritrócitos": { "value": float, "unit": "%", "reference": "string" }
-  },
-  "plaquetas": {
-    "plaquetas": { "value": float, "unit": "x10^9/L", "reference": "string" },
-    "volume_plaquetar_medio": { "value": float, "unit": "fL", "reference": "string" },
-    "plaquetocrito": { "value": float, "unit": "%", "reference": "string" },
-    "Coeficiente_Variação_Plaquetas": { "value" : float, "unit": "%", "reference": "string"}
-  },
-  "bioquimica": {
-    "glicose": { "value": float, "unit": "mg/dL", "reference": "string" },
-    "azoto_ureico": { "value": float, "unit": "mg/dL", "reference": "string" },
-    "creatinina": { "value": float, "unit": "mg/dL", "reference": "string" },
-    "sodio": { "value": float, "unit": "mmol/L", "reference": "string" },
-    "potassio": { "value": float, "unit": "mmol/L", "reference": "string" },
-    "proteinas_totais": { "value": float, "unit": "g/dL", "reference": "string" },
-    "albumina": { "value": float, "unit": "g/dL", "reference": "string" },
-    "calcio": { "value": float, "unit": "mg/dL", "reference": "string" },
-    "osmolalidade": { "value": float, "unit": "mOsm/Kg", "reference": "string" },
-    "ldh": { "value": float, "unit": "U/L", "reference": "string" },
-    "ast": { "value": float, "unit": "U/L", "reference": "string" },
-    "alt": { "value": float, "unit": "U/L", "reference": "string" },
-    "fosfatase_alcalina": { "value": float, "unit": "U/L", "reference": "string" },
-    "gama_gt": { "value": float, "unit": "U/L", "reference": "string" },
-    "bilirrubina_total": { "value": float, "unit": "mg/dL", "reference": "string" },
-    "Creatina_cinase": { "value": float, "unit": "U/L", "reference": "string" }
-  }
-}
+{{LAB_SCHEMA}}
 ```
 
 Ensure values are coherent across the report.
@@ -83,9 +59,6 @@ LABORATORY REPORT EXAMPLE:
 <ANALYSIS>
 {{ANALYSIS_REP}}
 </ANALYSIS>
-
-Use the clinical diary as supporting context, but prioritize consistency with the patient profile.
-Do not infer information that is not explicitly present.
 
 CLINICAL DIARY:
 <DIARY>

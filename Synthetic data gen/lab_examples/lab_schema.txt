@@ -1,0 +1,43 @@
+{
+  "hematology": {
+    "leucocitos": { "value": float, "unit": "x10^9/L", "reference": "string" },
+    "neutrofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "linfocitos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "monocitos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "eosinofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "basofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" }
+  },
+  "eritrocitos": {
+    "eritrocitos": { "value": float, "unit": "x10^12/L", "reference": "string" },
+    "hemoglobina": { "value": float, "unit": "g/dL", "reference": "string" },
+    "hematocrito": { "value": float, "unit": "%", "reference": "string" },
+    "Volume_Corpuscular_Medio": { "value": float, "unit": "fL", "reference": "string" },
+    "Hemoglobina_Corpuscular_Media": { "value": float, "unit": "pg", "reference": "string" },
+    "C.Hemoglobina_Corpuscular_Media": { "value": float, "unit": "g/dL", "reference": "string" },
+    "Coeficiente_Variação_Eritrócitos": { "value": float, "unit": "%", "reference": "string" }
+  },
+  "plaquetas": {
+    "plaquetas": { "value": float, "unit": "x10^9/L", "reference": "string" },
+    "volume_plaquetar_medio": { "value": float, "unit": "fL", "reference": "string" },
+    "plaquetocrito": { "value": float, "unit": "%", "reference": "string" },
+    "Coeficiente_Variação_Plaquetas": { "value" : float, "unit": "%", "reference": "string"}
+  },
+  "bioquimica": {
+    "glicose": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "azoto_ureico": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "creatinina": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "sodio": { "value": float, "unit": "mmol/L", "reference": "string" },
+    "potassio": { "value": float, "unit": "mmol/L", "reference": "string" },
+    "proteinas_totais": { "value": float, "unit": "g/dL", "reference": "string" },
+    "albumina": { "value": float, "unit": "g/dL", "reference": "string" },
+    "calcio": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "osmolalidade": { "value": float, "unit": "mOsm/Kg", "reference": "string" },
+    "ldh": { "value": float, "unit": "U/L", "reference": "string" },
+    "ast": { "value": float, "unit": "U/L", "reference": "string" },
+    "alt": { "value": float, "unit": "U/L", "reference": "string" },
+    "fosfatase_alcalina": { "value": float, "unit": "U/L", "reference": "string" },
+    "gama_gt": { "value": float, "unit": "U/L", "reference": "string" },
+    "bilirrubina_total": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "Creatina_cinase": { "value": float, "unit": "U/L", "reference": "string" }
+  }
+}

@@ -45,6 +45,9 @@ SYS_CRITERIA_CONVERSION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "cri
 MATCHING_PATIENTS_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "matching-patients" / "matching-patients_prompt.txt"
 SYS_MATCHING_PATIENTS_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "matching-patients" / "sys_matching-patients_prompt.txt"
 
+ANALYSIS_DIR = Path(settings.BASE_DIR) / "analysis"
+ANALYSIS_FILES = list(ANALYSIS_DIR.glob("analysis_patient_*.txt"))
+
 PATIENT_TEXT_CACHE = {}
 
 CLIENT = Groq(api_key=GROQ_KEY)

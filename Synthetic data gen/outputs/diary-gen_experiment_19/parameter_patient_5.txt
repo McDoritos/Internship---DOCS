@@ -564,70 +564,222 @@ Decisão: Manter abordagem de suporte sintomático. Optimizar broncodilatadores,
 Processado por computador - SClínico
 Pag. 1/1
 </CLEAN_DIARY>
-
 Analysis Report System Prompt:
+```json
 {
   "hematology": {
-    "leucocitos": { "value": 7.8, "unit": "x10^9/L", "reference": "3.90–10.2" },
-    "neutrofilos": { "value": 5.6, "unit": "x10^9/L", "percentage": 71.8, "reference": "1.50–7.70" },
-    "linfocitos": { "value": 1.2, "unit": "x10^9/L", "percentage": 15.4, "reference": "1.10–4.50" },
-    "monocitos": { "value": 0.4, "unit": "x10^9/L", "percentage": 5.1, "reference": "0.10–0.90" },
-    "eosinofilos": { "value": 0.1, "unit": "x10^9/L", "percentage": 1.3, "reference": "0.02–0.50" },
-    "basofilos": { "value": 0.02, "unit": "x10^9/L", "percentage": 0.3, "reference": "0.00–0.20" }
+    "leucocitos": { 
+      "value": 3.5, 
+      "unit": "x10^9/L", 
+      "reference": "3.90–10.2" 
+    },
+    "neutrofilos": { 
+      "value": 1.7, 
+      "unit": "x10^9/L", 
+      "percentage": 48.6, 
+      "reference": "1.50–7.70" 
+    },
+    "linfocitos": { 
+      "value": 1.4, 
+      "unit": "x10^9/L", 
+      "percentage": 40.0, 
+      "reference": "1.10–4.50" 
+    },
+    "monocitos": { 
+      "value": 0.2, 
+      "unit": "x10^9/L", 
+      "percentage": 5.7, 
+      "reference": "0.10–0.90" 
+    },
+    "eosinofilos": { 
+      "value": 0.1, 
+      "unit": "x10^9/L", 
+      "percentage": 2.9, 
+      "reference": "0.02–0.50" 
+    },
+    "basofilos": { 
+      "value": 0.1, 
+      "unit": "x10^9/L", 
+      "percentage": 2.8, 
+      "reference": "0.00–0.20" 
+    }
   },
   "eritrocitos": {
-    "eritrocitos": { "value": 4.0, "unit": "x10^12/L", "reference": "3.9–5.2" },
-    "hemoglobina": { "value": 12.2, "unit": "g/dL", "reference": "12.0–15.6" },
-    "hematocrito": { "value": 36.0, "unit": "%", "reference": "35.5–45.5" },
-    "Volume_Corpuscular_Medio": { "value": 90.0, "unit": "fL", "reference": "80–99" },
-    "Hemoglobina_Corpuscular_Media": { "value": 30.5, "unit": "pg", "reference": "27–33.5" },
-    "C.Hemoglobina_Corpuscular_Media": { "value": 34.0, "unit": "g/dL", "reference": "31–37" },
-    "Coeficiente_Variação_Eritrócitos": { "value": 14.0, "unit": "%", "reference": "11.5–15.0" }
+    "eritrocitos": { 
+      "value": 4.1, 
+      "unit": "x10^12/L", 
+      "reference": "3.9–5.2" 
+    },
+    "hemoglobina": { 
+      "value": 12.5, 
+      "unit": "g/dL", 
+      "reference": "12.0–15.6" 
+    },
+    "hematocrito": { 
+      "value": 38.5, 
+      "unit": "%", 
+      "reference": "35.5–45.5" 
+    },
+    "Volume_Corpuscular_Medio": { 
+      "value": 93.9, 
+      "unit": "fL", 
+      "reference": "80–99" 
+    },
+    "Hemoglobina_Corpuscular_Media": { 
+      "value": 30.4, 
+      "unit": "pg", 
+      "reference": "27–33.5" 
+    },
+    "C.Hemoglobina_Corpuscular_Media": { 
+      "value": 35.1, 
+      "unit": "g/dL", 
+      "reference": "31–37" 
+    },
+    "Coeficiente_Variação_Eritrócitos": { 
+      "value": 13.2, 
+      "unit": "%", 
+      "reference": "11.5–15.0" 
+    }
   },
   "plaquetas": {
-    "plaquetas": { "value": 130.0, "unit": "x10^9/L", "reference": "150–400" },
-    "volume_plaquetar_medio": { "value": 9.5, "unit": "fL", "reference": "8.5–12.0" },
-    "plaquetocrito": { "value": 0.12, "unit": "%", "reference": "0.20–0.45" },
-    "Coeficiente_Variação_Plaquetas": { "value": 13.0, "unit": "%", "reference": "11.5–15.0" }
+    "plaquetas": { 
+      "value": 180, 
+      "unit": "x10^9/L", 
+      "reference": "150–400" 
+    },
+    "volume_plaquetar_medio": { 
+      "value": 10.2, 
+      "unit": "fL", 
+      "reference": "8.5–12.0" 
+    },
+    "plaquetocrito": { 
+      "value": 0.23, 
+      "unit": "%", 
+      "reference": "0.20–0.45" 
+    },
+    "Coeficiente_Variação_Plaquetas": { 
+      "value": 11.5, 
+      "unit": "%", 
+      "reference": "9.0-17.0" 
+    }
   },
   "bioquimica": {
-    "glicose": { "value": 88.0, "unit": "mg/dL", "reference": "60–109" },
-    "azoto_ureico": { "value": 18.0, "unit": "mg/dL", "reference": "7.9–20.9" },
-    "creatinina": { "value": 1.1, "unit": "mg/dL", "reference": "0.55–1.02" },
-    "sodio": { "value": 138.0, "unit": "mmol/L", "reference": "136–146" },
-    "potassio": { "value": 4.2, "unit": "mmol/L", "reference": "3.5–5.1" },
-    "proteinas_totais": { "value": 6.4, "unit": "g/dL", "reference": "6.6–8.3" },
-    "albumina": { "value": 3.4, "unit": "g/dL", "reference": "3.5–5.2" },
-    "calcio": { "value": 9.0, "unit": "mg/dL", "reference": "8.8–10.6" },
-    "osmolalidade": { "value": 285.0, "unit": "mOsm/Kg", "reference": "260–302" },
-    "ldh": { "value": 260.0, "unit": "U/L", "reference": "<247" },
-    "ast": { "value": 25.0, "unit": "U/L", "reference": "<31" },
-    "alt": { "value": 20.0, "unit": "U/L", "reference": "<34" },
-    "fosfatase_alcalina": { "value": 100.0, "unit": "U/L", "reference": "30–120" },
-    "gama_gt": { "value": 20.0, "unit": "U/L", "reference": "<38" },
-    "bilirrubina_total": { "value": 0.9, "unit": "mg/dL", "reference": "0.2–1.2" },
-    "Creatina_cinase": { "value": 120.0, "unit": "U/L", "reference": "<145" }
+    "glicose": { 
+      "value": 92, 
+      "unit": "mg/dL", 
+      "reference": "60–109" 
+    },
+    "azoto_ureico": { 
+      "value": 19.2, 
+      "unit": "mg/dL", 
+      "reference": "7.9–20.9" 
+    },
+    "creatinina": { 
+      "value": 0.9, 
+      "unit": "mg/dL", 
+      "reference": "0.55–1.02" 
+    },
+    "sodio": { 
+      "value": 140, 
+      "unit": "mmol/L", 
+      "reference": "136–146" 
+    },
+    "potassio": { 
+      "value": 4.2, 
+      "unit": "mmol/L", 
+      "reference": "3.5–5.1" 
+    },
+    "proteinas_totais": { 
+      "value": 6.5, 
+      "unit": "g/dL", 
+      "reference": "6.6–8.3" 
+    },
+    "albumina": { 
+      "value": 4.1, 
+      "unit": "g/dL", 
+      "reference": "3.5–5.2" 
+    },
+    "calcio": { 
+      "value": 9.6, 
+      "unit": "mg/dL", 
+      "reference": "8.8–10.6" 
+    },
+    "osmolalidade": { 
+      "value": 281, 
+      "unit": "mOsm/Kg", 
+      "reference": "260–302" 
+    },
+    "ldh": { 
+      "value": 210, 
+      "unit": "U/L", 
+      "reference": "<247" 
+    },
+    "ast": { 
+      "value": 20, 
+      "unit": "U/L", 
+      "reference": "<31" 
+    },
+    "alt": { 
+      "value": 12, 
+      "unit": "U/L", 
+      "reference": "<34" 
+    },
+    "fosfatase_alcalina": { 
+      "value": 85, 
+      "unit": "U/L", 
+      "reference": "30–120" 
+    },
+    "gama_gt": { 
+      "value": 15, 
+      "unit": "U/L", 
+      "reference": "<38" 
+    },
+    "bilirrubina_total": { 
+      "value": 0.8, 
+      "unit": "mg/dL", 
+      "reference": "0.2–1.2" 
+    },
+    "Creatina_cinase": { 
+      "value": 110, 
+      "unit": "U/L", 
+      "reference": "<145" 
+    }
   }
 }
+```
 
 Analysis Report Generation Prompt:
 Rules:
 - Maintain realistic medical consistency with the patient profile.
 - Respect plausible biological ranges (values may be normal or abnormal).
 - Use medically plausible correlations (e.g., chemotherapy → low leukocytes).
+- If chemotherapy is recent, reflect mild to moderate cytopenias with possible recovery patterns.
 - Do NOT copy values from the example.
 - Use the same units and structure as defined in the schema.
 - Ensure all values are coherent.
+
+Reference handling:
 - Reference ranges MUST be copied exactly from the example.
 - Do NOT modify, reinterpret, or generate new reference ranges.
+
+Mathematical consistency:
+- Neutrophils, lymphocytes, monocytes, eosinophils, and basophils percentages MUST sum to approximately 100% (±2%).
+- Absolute leukocyte subsets must be consistent with total leukocyte count.
+- Neutrophils value must not exceed total leukocytes.
 
 STRICT OUTPUT RULES:
 - Output ONLY valid JSON
 - Do NOT include explanations or text outside JSON
 - ALL fields must be present
 - Use null if necessary
+- Do NOT truncate the output
+- Ensure the JSON is complete and properly closed (all brackets and braces)
 
-Use this JSON structure exactly:
+FORMAT REQUIREMENTS:
+- Use consistent indentation
+- Each field must be on its own line
+- Do NOT change formatting midway
+- The entire JSON must follow the SAME formatting style as the schema presented to you
 
 Clinical realism guidelines:
 - Oncology patients may show:
@@ -637,8 +789,12 @@ Clinical realism guidelines:
 - Liver enzymes (AST, ALT) may increase depending on metastases or drugs
 - Kidney function (creatinine) may vary depending on treatment toxicity
 
+Consistency priority:
+1. Patient profile (highest priority)
+2. Clinical diary
+3. Example (structure and reference ranges only)
 
-Output must follow this exact JSON schema
+Output must follow this exact JSON schema:
 ```JSON
 {
   "hematology": {
@@ -706,14 +862,15 @@ Basófilos: 0.04 x10^9/L (1.8%) (referência: 0.00–0.20)
 Eritrócitos: 4.19 x10^12/L (referência: 3.9–5.2)
 Hemoglobina: 14.1 g/dL (referência: 12.0–15.6)
 Hematócrito: 39.1% (referência: 35.5–45.5)
-VCM: 93.3 fL (referência: 80–99)
-HCM: 33.7 pg (referência: 27–33.5)
-CHCM: 36.1 g/dL (referência: 31–37)
-RDW: 14.7% (referência: 11.5–15.0)
+Volume Corpuscular Medio: 93.3 fL (referência: 80–99)
+Hemoglobina Corpuscular Media: 33.7 pg (referência: 27–33.5)
+C. Hemoglobina Corpuscular Media: 36.1 g/dL (referência: 31–37)
+Coeficiente Variação Eritrócitos: 14.7% (referência: 11.5–15.0)
 
 Plaquetas: 148 x10^9/L (referência: 150–400)
 Volume plaquetar médio: 9.9 fL (referência: 8.5–12.0)
 Plaquetócrito: 0.15% (referência: 0.20–0.45)
+Coeficiente Variação Plaquetas: 10.7% (referência: 9.0-17.0)
 
 ---
 
@@ -740,11 +897,8 @@ Fosfatase alcalina: 82 U/L (referência: 30–120)
 Gama GT: 13 U/L (referência: <38)
 
 Bilirrubina total: 0.7 mg/dL (referência: 0.2–1.2)
-CK: 100 U/L (referência: <145)
+Creatina cinase: 100 U/L (referência: <145)
 </ANALYSIS>
-
-Use the clinical diary as supporting context, but prioritize consistency with the patient profile.
-Do not infer information that is not explicitly present.
 
 CLINICAL DIARY:
 <DIARY>
