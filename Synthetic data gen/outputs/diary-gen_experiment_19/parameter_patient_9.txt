@@ -571,3 +571,333 @@ Foi emitida receita para letrozol, palbociclib e alendronato, e foi solicitado a
 Processado por computador - SClínico
 Pag. 1/1
 </CLEAN_DIARY>
+
+Analysis Report System Prompt:
+{
+  "hematology": {
+    "leucocitos": {
+      "value": 2.5,
+      "unit": "x10^9/L",
+      "reference": "3.90–10.2"
+    },
+    "neutrofilos": {
+      "value": 1.0,
+      "unit": "x10^9/L",
+      "percentage": 48.0,
+      "reference": "1.50–7.70"
+    },
+    "linfocitos": {
+      "value": 0.8,
+      "unit": "x10^9/L",
+      "percentage": 40.5,
+      "reference": "1.10–4.50"
+    },
+    "monocitos": {
+      "value": 0.1,
+      "unit": "x10^9/L",
+      "percentage": 8.2,
+      "reference": "0.10–0.90"
+    },
+    "eosinofilos": {
+      "value": 0.03,
+      "unit": "x10^9/L",
+      "percentage": 1.4,
+      "reference": "0.02–0.50"
+    },
+    "basofilos": {
+      "value": 0.02,
+      "unit": "x10^9/L",
+      "percentage": 1.8,
+      "reference": "0.00–0.20"
+    }
+  },
+  "eritrocitos": {
+    "eritrocitos": {
+      "value": 4.8,
+      "unit": "x10^12/L",
+      "reference": "3.9–5.2"
+    },
+    "hemoglobina": {
+      "value": 13.5,
+      "unit": "g/dL",
+      "reference": "12.0–15.6"
+    },
+    "hematocrito": {
+      "value": 40.0,
+      "unit": "%",
+      "reference": "35.5–45.5"
+    },
+    "Volume_Corpuscular_Medio": {
+      "value": 92.0,
+      "unit": "fL",
+      "reference": "80–99"
+    },
+    "Hemoglobina_Corpuscular_Media": {
+      "value": 33.0,
+      "unit": "pg",
+      "reference": "27–33.5"
+    },
+    "C.Hemoglobina_Corpuscular_Media": {
+      "value": 34.0,
+      "unit": "g/dL",
+      "reference": "31–37"
+    },
+    "Coeficiente_Variação_Eritrócitos": {
+      "value": 14.7,
+      "unit": "%",
+      "reference": "11.5–15.0"
+    }
+  },
+  "plaquetas": {
+    "plaquetas": {
+      "value": 180.0,
+      "unit": "x10^9/L",
+      "reference": "150–400"
+    },
+    "volume_plaquetar_medio": {
+      "value": 9.9,
+      "unit": "fL",
+      "reference": "8.5–12.0"
+    },
+    "plaquetocrito": {
+      "value": 0.25,
+      "unit": "%",
+      "reference": "0.20–0.45"
+    }
+  },
+  "bioquimica": {
+    "glicose": {
+      "value": 85,
+      "unit": "mg/dL",
+      "reference": "60-109"
+    },
+    "azoto_ureico": {
+      "value": 18.5,
+      "unit": "mg/dL",
+      "reference": "7.9-20.9"
+    },
+    "creatinina": {
+      "value": 0.9,
+      "unit": "mg/dL",
+      "reference": "0.55-1.02"
+    },
+    "sodio": {
+      "value": 140,
+      "unit": "mmol/L",
+      "reference": "136-146"
+    },
+    "potassio": {
+      "value": 4.2,
+      "unit": "mmol/L",
+      "reference": "3.5-5"
+    },
+    "proteinas_totais": {
+      "value": 7.0,
+      "unit": "g/dL",
+      "reference": "6.6-8.3"
+    },
+    "albumina": {
+      "value": 4.2,
+      "unit": "g/dL",
+      "reference": "3.5-5"
+    },
+    "calcio": {
+      "value": 9.4,
+      "unit": "mg/dL",
+      "reference": "8-8"
+    },
+    "osmolalidade": {
+      "value": 280,
+      "unit": "mOsm/Kg",
+      "reference": "260-302"
+    },
+    "ldh": {
+      "value": 220,
+      "unit": "U/L",
+      "reference": "247"
+    },
+    "ast": {
+      "value": 18,
+      "unit": "U/L",
+      "reference": "31"
+    },
+    "alt": {
+      "value": 34,
+      "unit": "U/L",
+      "reference": "34"
+    }
+  }
+}
+
+Analysis Report Generation Prompt:
+Rules:
+- Maintain realistic medical consistency with the patient profile.
+- Respect plausible biological ranges (values may be normal or abnormal).
+- Use medically plausible correlations (e.g., chemotherapy → low leukocytes).
+- Do NOT copy values from the example.
+- Use the same units and structure as defined in the schema.
+- Ensure all values are coherent.
+- Reference ranges MUST be copied exactly from the example.
+- Do NOT modify, reinterpret, or generate new reference ranges.
+
+STRICT OUTPUT RULES:
+- Output ONLY valid JSON
+- Do NOT include explanations or text outside JSON
+- ALL fields must be present
+- Use null if necessary
+
+Use this JSON structure exactly:
+
+Clinical realism guidelines:
+- Oncology patients may show:
+  - Leukopenia or neutropenia (especially after chemotherapy)
+  - Anemia (low hemoglobin)
+  - Thrombocytopenia (low platelets)
+- Liver enzymes (AST, ALT) may increase depending on metastases or drugs
+- Kidney function (creatinine) may vary depending on treatment toxicity
+
+
+Output must follow this exact JSON schema
+```JSON
+{
+  "hematology": {
+    "leucocitos": { "value": float, "unit": "x10^9/L", "reference": "string" },
+    "neutrofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "linfocitos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "monocitos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "eosinofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "basofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" }
+  },
+  "eritrocitos": {
+    "eritrocitos": { "value": float, "unit": "x10^12/L", "reference": "string" },
+    "hemoglobina": { "value": float, "unit": "g/dL", "reference": "string" },
+    "hematocrito": { "value": float, "unit": "%", "reference": "string" },
+    "Volume_Corpuscular_Medio": { "value": float, "unit": "fL", "reference": "string" },
+    "Hemoglobina_Corpuscular_Media": { "value": float, "unit": "pg", "reference": "string" },
+    "C.Hemoglobina_Corpuscular_Media": { "value": float, "unit": "g/dL", "reference": "string" },
+    "Coeficiente_Variação_Eritrócitos": { "value": float, "unit": "%", "reference": "string" }
+  },
+  "plaquetas": {
+    "plaquetas": { "value": float, "unit": "x10^9/L", "reference": "string" },
+    "volume_plaquetar_medio": { "value": float, "unit": "fL", "reference": "string" },
+    "plaquetocrito": { "value": float, "unit": "%", "reference": "string" },
+    "Coeficiente_Variação_Plaquetas": { "value" : float, "unit": "%", "reference": "string"}
+  },
+  "bioquimica": {
+    "glicose": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "azoto_ureico": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "creatinina": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "sodio": { "value": float, "unit": "mmol/L", "reference": "string" },
+    "potassio": { "value": float, "unit": "mmol/L", "reference": "string" },
+    "proteinas_totais": { "value": float, "unit": "g/dL", "reference": "string" },
+    "albumina": { "value": float, "unit": "g/dL", "reference": "string" },
+    "calcio": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "osmolalidade": { "value": float, "unit": "mOsm/Kg", "reference": "string" },
+    "ldh": { "value": float, "unit": "U/L", "reference": "string" },
+    "ast": { "value": float, "unit": "U/L", "reference": "string" },
+    "alt": { "value": float, "unit": "U/L", "reference": "string" },
+    "fosfatase_alcalina": { "value": float, "unit": "U/L", "reference": "string" },
+    "gama_gt": { "value": float, "unit": "U/L", "reference": "string" },
+    "bilirrubina_total": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "Creatina_cinase": { "value": float, "unit": "U/L", "reference": "string" }
+  }
+}
+```
+
+Ensure values are coherent across the report.
+
+PATIENT PROFILE:
+<PATIENT>
+{"demographics": {"age_or_birthdate": "71 anos", "sex": "Feminino", "smoking_status": "Nunca fumou", "alcohol_use": "Negado"}, "performance_status": {"ecog_ps": 1}, "diagnosis": {"primary_site": "Mama direita", "histology": "Carcinoma invasor NST", "grade": "G2", "diagnosis_date": "2023-09-10", "stage": {"tnm": "cT1N1M1", "overall_stage": "IV"}, "metastatic_sites": ["Osso"]}, "molecular_profile": {"hormone_receptors": "ER 100%, PR 60%", "HER2": "Negativo", "PD-L1": "Negativo", "NGS": "PIK3CA mutado", "genetic_testing": "Negativo"}, "medical_history": {"past_medical": ["Osteoporose", "HTA"], "past_surgical": ["Histerectomia"], "family_history": ["Nega"], "home_medications": ["Alendronato semanal", "Amlodipina 5 mg"]}, "diagnostic_workup": {"imaging": [{"type": "PET-CT", "date": "2023-09-05", "findings": "Capta\u00e7\u00e3o \u00f3ssea m\u00faltipla vertebral e p\u00e9lvica."}], "biopsies": [{"site": "Les\u00e3o \u00f3ssea il\u00edaca", "date": "2023-09-08", "histology": "Met\u00e1stase de carcinoma mam\u00e1rio", "immunohistochemistry": "ER+, PR+, HER2-"}]}, "symptoms": ["Dor lombar mec\u00e2nica"], "weight": "72 kg", "treatments": [{"line_number": 1, "regimen": "Letrozol + Palbociclib", "intent": "Paliativo", "start_date": "2023-09-20", "end_date": "Em curso", "dose_modifications": "Redu\u00e7\u00e3o palbociclib para 100 mg por neutropenia G3", "toxicity_events": "Neutropenia G3"}], "radiotherapy": [{"site": "Coluna lombar", "dose": "20 Gy", "fractions": "5", "start_date": "2023-10-01", "end_date": "2023-10-07"}], "follow_up": {"control_date": "2025-05-15", "reason_for_visit": "Consulta de rotina", "planned_next_steps": "Manter hormonoterapia + CDK4/6", "next_appointment": "2025-08-15"}, "administrative": {"physician": "Dr(a). Carla Mendes", "clinic_location": "ULS Coimbra", "service": "Oncologia M\u00e9dica Mama"}}
+</PATIENT>
+
+LABORATORY REPORT EXAMPLE:
+<ANALYSIS>
+Hemograma com leucograma
+
+Leucócitos: 2.2 x10^9/L (referência: 3.90–10.2)
+Neutrófilos: 1.06 x10^9/L (48.1%) (referência: 1.50–7.70)
+Linfócitos: 0.89 x10^9/L (40.5%) (referência: 1.10–4.50)
+Monócitos: 0.18 x10^9/L (8.2%) (referência: 0.10–0.90)
+Eosinófilos: 0.03 x10^9/L (1.4%) (referência: 0.02–0.50)
+Basófilos: 0.04 x10^9/L (1.8%) (referência: 0.00–0.20)
+
+Eritrócitos: 4.19 x10^12/L (referência: 3.9–5.2)
+Hemoglobina: 14.1 g/dL (referência: 12.0–15.6)
+Hematócrito: 39.1% (referência: 35.5–45.5)
+VCM: 93.3 fL (referência: 80–99)
+HCM: 33.7 pg (referência: 27–33.5)
+CHCM: 36.1 g/dL (referência: 31–37)
+RDW: 14.7% (referência: 11.5–15.0)
+
+Plaquetas: 148 x10^9/L (referência: 150–400)
+Volume plaquetar médio: 9.9 fL (referência: 8.5–12.0)
+Plaquetócrito: 0.15% (referência: 0.20–0.45)
+
+---
+
+Bioquímica - Sangue
+
+Glicose: 95 mg/dL (referência: 60–109)
+Azoto ureico: 17.8 mg/dL (referência: 7.9–20.9)
+Creatinina: 0.78 mg/dL (referência: 0.55–1.02)
+
+Sódio: 139 mmol/L (referência: 136–146)
+Potássio: 4.4 mmol/L (referência: 3.5–5.1)
+
+Proteínas totais: 6.2 g/dL (referência: 6.6–8.3)
+Albumina: 4.3 g/dL (referência: 3.5–5.2)
+
+Cálcio: 9.4 mg/dL (referência: 8.8–10.6)
+Osmolalidade: 279 mOsm/Kg (referência: 260–302)
+
+LDH: 219 U/L (referência: <247)
+AST (GOT): 17 U/L (referência: <31)
+ALT (GPT): 9 U/L (referência: <34)
+
+Fosfatase alcalina: 82 U/L (referência: 30–120)
+Gama GT: 13 U/L (referência: <38)
+
+Bilirrubina total: 0.7 mg/dL (referência: 0.2–1.2)
+CK: 100 U/L (referência: <145)
+</ANALYSIS>
+
+Use the clinical diary as supporting context, but prioritize consistency with the patient profile.
+Do not infer information that is not explicitly present.
+
+CLINICAL DIARY:
+<DIARY>
+UNIDADE LOCAL DE SAÚDE COIMBRA
+Diário Clínico
+Consulta Externa
+15-05-2025 09:45
+Dr(a). Carla Mendes (ULS COIMBRA – ONCOLOGIA MÉDICA MAMA)
+
+71 anos, sexo feminino
+Consulta de rotina – 15/05/2025
+
+A doente foi diagnosticada em 10‑09‑2023 com carcinoma invasor NST da mama direita, G2, cT1N1M1 (estádio IV) com metastização óssea múltipla vertebral e pélvica confirmada por PET‑CT de 05‑09‑2023 (captação óssea difusa) e biópsia óssea ilíaca de 08‑09‑2023 (metástase de carcinoma mamário, ER +, PR +, HER2‑). O perfil molecular revelou receptores hormonais positivos (ER 100 %, PR 60 %), HER2 negativo, PD‑L1 negativo e mutação PIK3CA. Antecedentes pessoais incluem osteoporose e hipertensão arterial, submetida a histerectomia em 2015. Medicação de base: alendronato 70 mg semanal e amlodipina 5 mg diária.
+
+Iniciou terapia de primeira linha em 20‑09‑2023 com letrozol 2,5 mg diário associado a palbociclib 125 mg d 1‑21/28. No ciclo C2 apresentou neutropenia grau 3 (neutrófilos 0,9 10⁹/L) levando à redução de palbociclib para 100 mg nas doses subsequentes, manutenção da dose de letrozol. O evento foi registrado em 15‑10‑2023 e a neutropenia reverteu ao normal (neutrófilos 1,8 10⁹/L) antes do início do C3, sem necessidade de suspensão adicional.
+
+Devido à dor lombar mecânica e à presença de lesão óssea em L2, foi indicada radioterapia paliativa de 20 Gy em 5 frações, realizada entre 01‑10‑2023 e 07‑10‑2023, com boa tolerância e alívio sintomático parcial. Não foram observados efeitos tardios relevantes nas avaliações clínicas subsequentes.
+
+Em 10‑03‑2024 realizou PET‑CT de controlo que mostrou estabilidade da captação óssea (lesões vertebrais e pélvicas com SUV médio 3,5, sem novo foco) e ausência de doença visceral. CA 15‑3 permaneceu estável em 28 U/mL (valor de referência <30 U/mL). O hemograma mostrou hemoglobina 12,8 g/dL, leucócitos 6,2 10⁹/L, neutrófilos 2,1 10⁹/L, plaquetas 250 10⁹/L. Função hepática e renal dentro dos limites.
+
+Em 20‑09‑2024 foi efetuado cintilografia óssea (99mTc‑MDP) que confirmou a estabilidade das lesões ósseas, sem aumento de captação. Não foram identificadas novas áreas de osteoblasticidade. O paciente relatou dor residual de intensidade 2/10, controlada com paracetamol 1 g PRN.
+
+Em 28‑04‑2025 realizou RM da coluna lombar para avaliação pós‑radioterapia. O estudo mostrou alterações de sinal compatíveis com fibrose pós‑irradiada em L2‑L3, sem evidência de progressão óssea ou compressão medular. O exame de sangue pré‑RM indicou creatinina 0,9 mg/dL, GFR 78 mL/min/1,73 m², eletrólitos normais. A pressão arterial estava 130/80 mmHg, peso 72 kg, ECOG‑PS 1.
+
+Durante o período de acompanhamento a doente manteve aderência ao tratamento oral, com letrozol 2,5 mg diário e palbociclib 100 mg nos ciclos 1‑21/28. Não foram registradas novas toxicidades de grau ≥ 2, apenas episódios esporádicos de ondas de calor (G1) e artralgia leve (G1) manejados com ibuprofeno 400 mg TID quando necessário. A densidade mineral óssea foi monitorizada em DEXA de 12‑2024, mostrando T‑score ‑2,4 na coluna lombar; o alendronato semanal foi mantido e foi iniciado suplementação de cálcio 500 mg + vitamina D 800 UI diária.
+
+A avaliação clínica atual confirma ausência de sinais de progressão sistémica, sem linfonodos palpáveis, sem alterações cutâneas ou sistémicas. O exame físico revela boa mobilidade, sem déficits neurológicos. O plano terapêutico continua com manutenção da hormonoterapia combinada com CDK4/6, sem necessidade de mudança de dose adicional. Foi reforçada a importância da monitorização mensal de hemograma e trimestral de CA 15‑3, bem como a realização de PET‑CT de seguimento em 12‑meses (previsto para 15‑05‑2026) ou antes se surgirem sintomas sugestivos.
+
+Foi emitida receita para letrozol, palbociclib e alendronato, e foi solicitado agendamento para consulta de acompanhamento em 15‑08‑2025. Também foi encaminhada a doente ao serviço de fisioterapia para reforço muscular lombar, a pedido da própria paciente, e foi reforçada a necessidade de evitar quedas devido à osteoporose.
+
+Processado por computador - SClínico
+Pag. 1/1
+
+
+</DIARY>
+
+

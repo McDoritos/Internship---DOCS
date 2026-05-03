@@ -5,6 +5,8 @@ Rules:
 - Do NOT copy values from the example.
 - Use the same units and structure as defined in the schema.
 - Ensure all values are coherent.
+- Reference ranges MUST be copied exactly from the example.
+- Do NOT modify, reinterpret, or generate new reference ranges.
 
 STRICT OUTPUT RULES:
 - Output ONLY valid JSON
@@ -47,7 +49,7 @@ Output must follow this exact JSON schema
     "plaquetas": { "value": float, "unit": "x10^9/L", "reference": "string" },
     "volume_plaquetar_medio": { "value": float, "unit": "fL", "reference": "string" },
     "plaquetocrito": { "value": float, "unit": "%", "reference": "string" },
-    "Coeficiente_Varação_Plaquetas": { "value" : float, "unit": "%", "reference": "string"}
+    "Coeficiente_Variação_Plaquetas": { "value" : float, "unit": "%", "reference": "string"}
   },
   "bioquimica": {
     "glicose": { "value": float, "unit": "mg/dL", "reference": "string" },
@@ -81,3 +83,11 @@ LABORATORY REPORT EXAMPLE:
 <ANALYSIS>
 {{ANALYSIS_REP}}
 </ANALYSIS>
+
+Use the clinical diary as supporting context, but prioritize consistency with the patient profile.
+Do not infer information that is not explicitly present.
+
+CLINICAL DIARY:
+<DIARY>
+{{CLINICAL_DIARY}}
+</DIARY>
