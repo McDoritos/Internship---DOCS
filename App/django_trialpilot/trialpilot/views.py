@@ -287,6 +287,12 @@ def load_analysis_json(analysis_content):
         print(f"[WARNING] Failed to parse analysis JSON: {e}")
         return None
     
+def get_any(d, *keys, default=None):
+    for k in keys:
+        if k in d:
+            return d[k]
+    return default
+    
 def extract_lab_parameters(analysis_json):
     if not analysis_json:
         return {}
@@ -315,7 +321,7 @@ def extract_lab_parameters(analysis_json):
             "hematocrito": e["hematocrito"]["value"],
             "vc_medio": e["Volume_Corpuscular_Medio"]["value"],
             "hcm": e["Hemoglobina_Corpuscular_Media"]["value"],
-            "chcm": e["C.Hemoglobina_Corpuscular_Media"]["value"],
+            "chcm": get_any(e, "C.Hemoglobina_Corpuscular_Media", "C_Hemoglobina_Corpuscular_Media")["value"],
             "rdw": e["Coeficiente_Variação_Eritrócitos"]["value"],
             
             "plaquetas": p["plaquetas"]["value"],
@@ -352,14 +358,6 @@ def parse_lab_value(value):
     
     match = re.search(r"[-+]?\d*\.?\d+", value)
     return float(match.group()) if match else None
-
-
-def parse_percentage(value):
-    if not value or "%" not in value:
-        return None
-    
-    match = re.search(r"\((.*?)%\)", value)
-    return float(match.group(1)) if match else None
 
 def extract_patient_id_from_title(title):
     """
@@ -1569,19 +1567,17 @@ def parameter_extraction(request, diary_id):
                     leucocitos=parse_lab_value(lab_fields.get("lab_leucocitos")),
                     
                     neutrofilos=parse_lab_value(lab_fields.get("lab_neutrofilos")),
-                    neutrofilos_percent=parse_percentage(lab_fields.get("lab_neutrofilos")),
-
                     linfocitos=parse_lab_value(lab_fields.get("lab_linfocitos")),
-                    linfocitos_percent=parse_percentage(lab_fields.get("lab_linfocitos")),
-
                     monocitos=parse_lab_value(lab_fields.get("lab_monocitos")),
-                    monocitos_percent=parse_percentage(lab_fields.get("lab_monocitos")),
-
                     eosinofilos=parse_lab_value(lab_fields.get("lab_eosinofilos")),
-                    eosinofilos_percent=parse_percentage(lab_fields.get("lab_eosinofilos")),
-
                     basofilos=parse_lab_value(lab_fields.get("lab_basofilos")),
-                    basofilos_percent=parse_percentage(lab_fields.get("lab_basofilos")),
+                    
+                    neutrofilos_percent=parse_lab_value(lab_fields.get("lab_neutrofilos_percent")),
+                    linfocitos_percent=parse_lab_value(lab_fields.get("lab_linfocitos_percent")),
+                    monocitos_percent=parse_lab_value(lab_fields.get("lab_monocitos_percent")),
+                    eosinofilos_percent=parse_lab_value(lab_fields.get("lab_eosinofilos_percent")),
+                    basofilos_percent=parse_lab_value(lab_fields.get("lab_basofilos_percent")),
+
 
                     eritrocitos=parse_lab_value(lab_fields.get("lab_eritrocitos")),
                     hemoglobina=parse_lab_value(lab_fields.get("lab_hemoglobina")),

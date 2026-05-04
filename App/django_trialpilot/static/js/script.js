@@ -368,71 +368,98 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const val = (v) => v ?? "-";
 
-                analysisHTML = `
-    <div class="mt-3">
-
-        <!-- HEMATOLOGY -->
-        <div class="mb-3">
-            <h6 class="text-primary">Hematology</h6>
-            <div class="row g-2">
-                <div class="col-md-6"><strong>Leucocytes:</strong> ${val(analysis.leucocitos)}</div>
-                <div class="col-md-6"><strong>Neutrophils:</strong> ${val(analysis.neutrofilos)} (${val(analysis.neutrofilos_percent)}%)</div>
-                <div class="col-md-6"><strong>Lymphocytes:</strong> ${val(analysis.linfocitos)} (${val(analysis.linfocitos_percent)}%)</div>
-                <div class="col-md-6"><strong>Monocytes:</strong> ${val(analysis.monocitos)} (${val(analysis.monocitos_percent)}%)</div>
-                <div class="col-md-6"><strong>Eosinophils:</strong> ${val(analysis.eosinofilos)} (${val(analysis.eosinofilos_percent)}%)</div>
-                <div class="col-md-6"><strong>Basophils:</strong> ${val(analysis.basofilos)} (${val(analysis.basofilos_percent)}%)</div>
+                const valueBox = (label, value, extra = "") => `
+    <div class="col-md-6 col-lg-4">
+        <div class="rounded p-2 h-100 bg-white border">
+            <div class="text-muted small">${label}</div>
+            <div class="fw-semibold">
+                ${value} ${extra}
             </div>
         </div>
-
-        <!-- ERYTHROCYTES -->
-        <div class="mb-3">
-            <h6 class="text-danger">Erythrocytes</h6>
-            <div class="row g-2">
-                <div class="col-md-6"><strong>Red Blood Cells (RBC):</strong> ${val(analysis.eritrocitos)}</div>
-                <div class="col-md-6"><strong>Hemoglobin:</strong> ${val(analysis.hemoglobina)}</div>
-                <div class="col-md-6"><strong>Hematocrit:</strong> ${val(analysis.hematocrito)}</div>
-                <div class="col-md-6"><strong>MCV:</strong> ${val(analysis.vc_medio)}</div>
-                <div class="col-md-6"><strong>MCH:</strong> ${val(analysis.hcm)}</div>
-                <div class="col-md-6"><strong>MCHC:</strong> ${val(analysis.chcm)}</div>
-                <div class="col-md-6"><strong>RDW:</strong> ${val(analysis.rdw)}</div>
-            </div>
-        </div>
-
-        <!-- PLATELETS -->
-        <div class="mb-3">
-            <h6 class="text-warning">Platelets</h6>
-            <div class="row g-2">
-                <div class="col-md-6"><strong>Platelets:</strong> ${val(analysis.plaquetas)}</div>
-                <div class="col-md-6"><strong>MPV:</strong> ${val(analysis.vpm)}</div>
-                <div class="col-md-6"><strong>PCT (Plateletcrit):</strong> ${val(analysis.plaquetocrito)}</div>
-                <div class="col-md-6"><strong>PDW:</strong> ${val(analysis.pdw)}</div>
-            </div>
-        </div>
-
-        <!-- BIOCHEMISTRY -->
-        <div class="mb-3">
-            <h6 class="text-success">Biochemistry</h6>
-            <div class="row g-2">
-                <div class="col-md-6"><strong>Glucose:</strong> ${val(analysis.glicose)}</div>
-                <div class="col-md-6"><strong>BUN (Urea Nitrogen):</strong> ${val(analysis.azoto_ureico)}</div>
-                <div class="col-md-6"><strong>Creatinine:</strong> ${val(analysis.creatinina)}</div>
-                <div class="col-md-6"><strong>Sodium:</strong> ${val(analysis.sodio)}</div>
-                <div class="col-md-6"><strong>Potassium:</strong> ${val(analysis.potassio)}</div>
-                <div class="col-md-6"><strong>Total Proteins:</strong> ${val(analysis.proteinas_totais)}</div>
-                <div class="col-md-6"><strong>Albumin:</strong> ${val(analysis.albumina)}</div>
-                <div class="col-md-6"><strong>Calcium:</strong> ${val(analysis.calcio)}</div>
-                <div class="col-md-6"><strong>Osmolality:</strong> ${val(analysis.osmolalidade)}</div>
-                <div class="col-md-6"><strong>LDH:</strong> ${val(analysis.ldh)}</div>
-                <div class="col-md-6"><strong>AST:</strong> ${val(analysis.ast)}</div>
-                <div class="col-md-6"><strong>ALT:</strong> ${val(analysis.alt)}</div>
-                <div class="col-md-6"><strong>Alkaline Phosphatase:</strong> ${val(analysis.fosfatase_alcalina)}</div>
-                <div class="col-md-6"><strong>GGT:</strong> ${val(analysis.gama_gt)}</div>
-                <div class="col-md-6"><strong>Total Bilirubin:</strong> ${val(analysis.bilirrubina_total)}</div>
-                <div class="col-md-6"><strong>Creatine Kinase (CK):</strong> ${val(analysis.creatina_cinase)}</div>
-            </div>
-        </div>
-
     </div>
+`;
+
+                analysisHTML = `
+<div class="mt-3">
+
+    <!-- HEMATOLOGY -->
+    <div class="card mb-3 shadow-sm border-0">
+        <div class="card-header bg-primary-subtle text-primary py-2">
+            <strong>Hematology</strong>
+        </div>
+        <div class="card-body bg-light-subtle">
+            <div class="row g-2">
+                ${valueBox("Leucocytes", val(analysis.leucocitos))}
+                ${valueBox("Neutrophils", val(analysis.neutrofilos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.neutrofilos_percent)}%</span>`)}
+                ${valueBox("Lymphocytes", val(analysis.linfocitos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.linfocitos_percent)}%</span>`)}
+                ${valueBox("Monocytes", val(analysis.monocitos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.monocitos_percent)}%</span>`)}
+                ${valueBox("Eosinophils", val(analysis.eosinofilos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.eosinofilos_percent)}%</span>`)}
+                ${valueBox("Basophils", val(analysis.basofilos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.basofilos_percent)}%</span>`)}
+            </div>
+        </div>
+    </div>
+
+    <!-- ERYTHROCYTES -->
+    <div class="card mb-3 shadow-sm border-0">
+        <div class="card-header bg-danger-subtle text-danger py-2">
+            <strong>Erythrocytes</strong>
+        </div>
+        <div class="card-body bg-light-subtle">
+            <div class="row g-2">
+                ${valueBox("RBC", val(analysis.eritrocitos))}
+                ${valueBox("Hemoglobin", val(analysis.hemoglobina))}
+                ${valueBox("Hematocrit", val(analysis.hematocrito))}
+                ${valueBox("MCV", val(analysis.vc_medio))}
+                ${valueBox("MCH", val(analysis.hcm))}
+                ${valueBox("MCHC", val(analysis.chcm))}
+                ${valueBox("RDW", val(analysis.rdw))}
+            </div>
+        </div>
+    </div>
+
+    <!-- PLATELETS -->
+    <div class="card mb-3 shadow-sm border-0">
+        <div class="card-header bg-warning-subtle text-warning py-2">
+            <strong>Platelets</strong>
+        </div>
+        <div class="card-body bg-light-subtle">
+            <div class="row g-2">
+                ${valueBox("Platelets", val(analysis.plaquetas))}
+                ${valueBox("MPV", val(analysis.vpm))}
+                ${valueBox("PCT", val(analysis.plaquetocrito))}
+                ${valueBox("PDW", val(analysis.pdw))}
+            </div>
+        </div>
+    </div>
+
+    <!-- BIOCHEMISTRY -->
+    <div class="card mb-3 shadow-sm border-0">
+        <div class="card-header bg-success-subtle text-success py-2">
+            <strong>Biochemistry</strong>
+        </div>
+        <div class="card-body bg-light-subtle">
+            <div class="row g-2">
+                ${valueBox("Glucose", val(analysis.glicose))}
+                ${valueBox("BUN", val(analysis.azoto_ureico))}
+                ${valueBox("Creatinine", val(analysis.creatinina))}
+                ${valueBox("Sodium", val(analysis.sodio))}
+                ${valueBox("Potassium", val(analysis.potassio))}
+                ${valueBox("Total Proteins", val(analysis.proteinas_totais))}
+                ${valueBox("Albumin", val(analysis.albumina))}
+                ${valueBox("Calcium", val(analysis.calcio))}
+                ${valueBox("Osmolality", val(analysis.osmolalidade))}
+                ${valueBox("LDH", val(analysis.ldh))}
+                ${valueBox("AST", val(analysis.ast))}
+                ${valueBox("ALT", val(analysis.alt))}
+                ${valueBox("ALP", val(analysis.fosfatase_alcalina))}
+                ${valueBox("GGT", val(analysis.gama_gt))}
+                ${valueBox("Bilirubin", val(analysis.bilirrubina_total))}
+                ${valueBox("CK", val(analysis.creatina_cinase))}
+            </div>
+        </div>
+    </div>
+
+</div>
 `;
 
             }

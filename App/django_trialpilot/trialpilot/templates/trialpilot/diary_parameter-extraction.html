@@ -192,6 +192,7 @@
 
                         {% if extracted_params.lab %}
                         <div class="criteria-section mb-4">
+
                             <div class="criteria-section-header extra-header">
                                 <div class="d-flex align-items-center">
                                     <i class="bi bi-clipboard2-data-fill me-2"></i>
@@ -200,8 +201,9 @@
                             </div>
 
                             <!-- HEMATOLOGY -->
-                            <div class="mb-3">
-                                <label class="field-label text-primary">Hematology</label>
+                            <div class="mb-4 p-3 rounded bg-light-subtle border">
+                                <div class="field-label text-primary mb-2">Hematology</div>
+
                                 <div class="row g-3">
 
                                     <div class="col-md-6">
@@ -209,110 +211,169 @@
                                         <input type="text" name="lab_leucocitos" value="{{ extracted_params.lab.leucocitos }}" class="form-control clinical-input">
                                     </div>
 
+                                    <!-- GROUPED PAIRS -->
                                     <div class="col-md-6">
                                         <label class="form-label field-label">Neutrophils</label>
-                                        <input type="text" name="lab_neutrofilos" value="{{ extracted_params.lab.neutrofilos }} ({{ extracted_params.lab.neutrofilos_percent }}%)" class="form-control clinical-input">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <input type="text"
+                                                name="lab_neutrofilos"
+                                                value="{{ extracted_params.lab.neutrofilos }}"
+                                                class="form-control clinical-input"
+                                                style="max-width: 150px; flex-grow: 0;">
+
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    name="lab_neutrofilos_percent"
+                                                    value="{{ extracted_params.lab.neutrofilos_percent }}"
+                                                    class="form-control clinical-input text-end">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label field-label">Lymphocytes</label>
-                                        <input type="text" name="lab_linfocitos" value="{{ extracted_params.lab.linfocitos }} ({{ extracted_params.lab.linfocitos_percent }}%)" class="form-control clinical-input">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <input type="text"
+                                                name="lab_linfocitos"
+                                                value="{{ extracted_params.lab.linfocitos }}"
+                                                class="form-control clinical-input"
+                                                style="max-width: 150px; flex-grow: 0;">
+
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    name="lab_linfocitos_percent"
+                                                    value="{{ extracted_params.lab.linfocitos_percent }}"
+                                                    class="form-control clinical-input text-end">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label field-label">Monocytes</label>
-                                        <input type="text" name="lab_monocitos" value="{{ extracted_params.lab.monocitos }} ({{ extracted_params.lab.monocitos_percent }}%)" class="form-control clinical-input">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <input type="text"
+                                                name="lab_monocitos"
+                                                value="{{ extracted_params.lab.monocitos }}"
+                                                class="form-control clinical-input"
+                                                style="max-width: 150px; flex-grow: 0;">
+
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    name="lab_monocitos_percent"
+                                                    value="{{ extracted_params.lab.monocitos_percent }}"
+                                                    class="form-control clinical-input text-end">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label field-label">Eosinophils</label>
-                                        <input type="text" name="lab_eosinofilos" value="{{ extracted_params.lab.eosinofilos }} ({{ extracted_params.lab.eosinofilos_percent }}%)" class="form-control clinical-input">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <input type="text"
+                                                name="lab_eosinofilos"
+                                                value="{{ extracted_params.lab.eosinofilos }}"
+                                                class="form-control clinical-input"
+                                                style="max-width: 150px; flex-grow: 0;">
+                                                
+
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    name="lab_eosinofilos_percent"
+                                                    value="{{ extracted_params.lab.eosinofilos_percent }}"
+                                                    class="form-control clinical-input text-end">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label field-label">Basophils</label>
-                                        <input type="text" name="lab_basofilos" value="{{ extracted_params.lab.basofilos }} ({{ extracted_params.lab.basofilos_percent }}%)" class="form-control clinical-input">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <input type="text"
+                                                name="lab_basofilos"
+                                                value="{{ extracted_params.lab.basofilos }}"
+                                                class="form-control clinical-input"
+                                                style="max-width: 150px; flex-grow: 0;">
+
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    name="lab_basofilos_percent"
+                                                    value="{{ extracted_params.lab.basofilos_percent }}"
+                                                    class="form-control clinical-input text-end">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
 
                             <!-- ERYTHROCYTES -->
-                            <div class="mb-3">
-                                <label class="field-label text-danger">Erythrocytes</label>
-                                <div class="row g-3">
+                            <div class="mb-4 p-3 rounded bg-light-subtle border">
+                                <div class="field-label text-danger mb-2">Erythrocytes</div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">Erythrocytes</label>
+                                <div class="row g-3">
+                                    <div class="col-md-6"><label class="form-label field-label">Erythrocytes</label>
                                         <input type="text" name="lab_eritrocitos" value="{{ extracted_params.lab.eritrocitos }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">Hemoglobin</label>
+                                    <div class="col-md-6"><label class="form-label field-label">Hemoglobin</label>
                                         <input type="text" name="lab_hemoglobina" value="{{ extracted_params.lab.hemoglobina }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">Hematocrit</label>
+                                    <div class="col-md-6"><label class="form-label field-label">Hematocrit</label>
                                         <input type="text" name="lab_hematocrito" value="{{ extracted_params.lab.hematocrito }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">MCV</label>
+                                    <div class="col-md-6"><label class="form-label field-label">MCV</label>
                                         <input type="text" name="lab_vc_medio" value="{{ extracted_params.lab.vc_medio }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">MCH</label>
+                                    <div class="col-md-6"><label class="form-label field-label">MCH</label>
                                         <input type="text" name="lab_hcm" value="{{ extracted_params.lab.hcm }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">MCHC</label>
+                                    <div class="col-md-6"><label class="form-label field-label">MCHC</label>
                                         <input type="text" name="lab_chcm" value="{{ extracted_params.lab.chcm }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">RDW</label>
+                                    <div class="col-md-6"><label class="form-label field-label">RDW</label>
                                         <input type="text" name="lab_rdw" value="{{ extracted_params.lab.rdw }}" class="form-control clinical-input">
                                     </div>
-
                                 </div>
                             </div>
 
                             <!-- PLATELETS -->
-                            <div class="mb-3">
-                                <label class="field-label text-warning">Platelets</label>
-                                <div class="row g-3">
+                            <div class="mb-4 p-3 rounded bg-light-subtle border">
+                                <div class="field-label text-warning mb-2">Platelets</div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">Platelets</label>
+                                <div class="row g-3">
+                                    <div class="col-md-6"><label class="form-label field-label">Platelets</label>
                                         <input type="text" name="lab_plaquetas" value="{{ extracted_params.lab.plaquetas }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">MPV</label>
+                                    <div class="col-md-6"><label class="form-label field-label">MPV</label>
                                         <input type="text" name="lab_vpm" value="{{ extracted_params.lab.vpm }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">Plateletcrit</label>
+                                    <div class="col-md-6"><label class="form-label field-label">Plateletcrit</label>
                                         <input type="text" name="lab_plaquetocrito" value="{{ extracted_params.lab.plaquetocrito }}" class="form-control clinical-input">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label field-label">PDW</label>
+                                    <div class="col-md-6"><label class="form-label field-label">PDW</label>
                                         <input type="text" name="lab_pdw" value="{{ extracted_params.lab.pdw }}" class="form-control clinical-input">
                                     </div>
-
                                 </div>
                             </div>
 
                             <!-- BIOCHEMISTRY -->
-                            <div>
-                                <label class="field-label text-success">Biochemistry</label>
-                                <div class="row g-3">
+                            <div class="p-3 rounded bg-light-subtle border">
+                                <div class="field-label text-success mb-2">Biochemistry</div>
 
+                                <div class="row g-3">
                                     <div class="col-md-6"><label class="form-label field-label">Glucose</label>
                                         <input type="text" name="lab_glicose" value="{{ extracted_params.lab.glicose }}" class="form-control clinical-input">
                                     </div>
