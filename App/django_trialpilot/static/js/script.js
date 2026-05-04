@@ -332,6 +332,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const control = this.dataset.control;
 
             const treatments = JSON.parse(this.dataset.treatments || "[]");
+            let analysis = {};
+
+            try {
+                analysis = JSON.parse(this.dataset.analysis || "{}");
+            } catch (e) {
+                console.warn("Invalid analysis JSON:", this.dataset.analysis);
+                analysis = {};
+            }
 
             let treatmentsHTML = "";
 
@@ -350,6 +358,83 @@ document.addEventListener("DOMContentLoaded", function () {
                     `).join("")}
                 </ul>
             `;
+            }
+
+            let analysisHTML = "";
+
+            if (!analysis || Object.keys(analysis).length === 0) {
+                analysisHTML = "<p class='text-muted'>No laboratory analysis available</p>";
+            } else {
+
+                const val = (v) => v ?? "-";
+
+                analysisHTML = `
+    <div class="mt-3">
+
+        <!-- HEMATOLOGY -->
+        <div class="mb-3">
+            <h6 class="text-primary">Hematology</h6>
+            <div class="row g-2">
+                <div class="col-md-6"><strong>Leucocytes:</strong> ${val(analysis.leucocitos)}</div>
+                <div class="col-md-6"><strong>Neutrophils:</strong> ${val(analysis.neutrofilos)} (${val(analysis.neutrofilos_percent)}%)</div>
+                <div class="col-md-6"><strong>Lymphocytes:</strong> ${val(analysis.linfocitos)} (${val(analysis.linfocitos_percent)}%)</div>
+                <div class="col-md-6"><strong>Monocytes:</strong> ${val(analysis.monocitos)} (${val(analysis.monocitos_percent)}%)</div>
+                <div class="col-md-6"><strong>Eosinophils:</strong> ${val(analysis.eosinofilos)} (${val(analysis.eosinofilos_percent)}%)</div>
+                <div class="col-md-6"><strong>Basophils:</strong> ${val(analysis.basofilos)} (${val(analysis.basofilos_percent)}%)</div>
+            </div>
+        </div>
+
+        <!-- ERYTHROCYTES -->
+        <div class="mb-3">
+            <h6 class="text-danger">Erythrocytes</h6>
+            <div class="row g-2">
+                <div class="col-md-6"><strong>Red Blood Cells (RBC):</strong> ${val(analysis.eritrocitos)}</div>
+                <div class="col-md-6"><strong>Hemoglobin:</strong> ${val(analysis.hemoglobina)}</div>
+                <div class="col-md-6"><strong>Hematocrit:</strong> ${val(analysis.hematocrito)}</div>
+                <div class="col-md-6"><strong>MCV:</strong> ${val(analysis.vc_medio)}</div>
+                <div class="col-md-6"><strong>MCH:</strong> ${val(analysis.hcm)}</div>
+                <div class="col-md-6"><strong>MCHC:</strong> ${val(analysis.chcm)}</div>
+                <div class="col-md-6"><strong>RDW:</strong> ${val(analysis.rdw)}</div>
+            </div>
+        </div>
+
+        <!-- PLATELETS -->
+        <div class="mb-3">
+            <h6 class="text-warning">Platelets</h6>
+            <div class="row g-2">
+                <div class="col-md-6"><strong>Platelets:</strong> ${val(analysis.plaquetas)}</div>
+                <div class="col-md-6"><strong>MPV:</strong> ${val(analysis.vpm)}</div>
+                <div class="col-md-6"><strong>PCT (Plateletcrit):</strong> ${val(analysis.plaquetocrito)}</div>
+                <div class="col-md-6"><strong>PDW:</strong> ${val(analysis.pdw)}</div>
+            </div>
+        </div>
+
+        <!-- BIOCHEMISTRY -->
+        <div class="mb-3">
+            <h6 class="text-success">Biochemistry</h6>
+            <div class="row g-2">
+                <div class="col-md-6"><strong>Glucose:</strong> ${val(analysis.glicose)}</div>
+                <div class="col-md-6"><strong>BUN (Urea Nitrogen):</strong> ${val(analysis.azoto_ureico)}</div>
+                <div class="col-md-6"><strong>Creatinine:</strong> ${val(analysis.creatinina)}</div>
+                <div class="col-md-6"><strong>Sodium:</strong> ${val(analysis.sodio)}</div>
+                <div class="col-md-6"><strong>Potassium:</strong> ${val(analysis.potassio)}</div>
+                <div class="col-md-6"><strong>Total Proteins:</strong> ${val(analysis.proteinas_totais)}</div>
+                <div class="col-md-6"><strong>Albumin:</strong> ${val(analysis.albumina)}</div>
+                <div class="col-md-6"><strong>Calcium:</strong> ${val(analysis.calcio)}</div>
+                <div class="col-md-6"><strong>Osmolality:</strong> ${val(analysis.osmolalidade)}</div>
+                <div class="col-md-6"><strong>LDH:</strong> ${val(analysis.ldh)}</div>
+                <div class="col-md-6"><strong>AST:</strong> ${val(analysis.ast)}</div>
+                <div class="col-md-6"><strong>ALT:</strong> ${val(analysis.alt)}</div>
+                <div class="col-md-6"><strong>Alkaline Phosphatase:</strong> ${val(analysis.fosfatase_alcalina)}</div>
+                <div class="col-md-6"><strong>GGT:</strong> ${val(analysis.gama_gt)}</div>
+                <div class="col-md-6"><strong>Total Bilirubin:</strong> ${val(analysis.bilirrubina_total)}</div>
+                <div class="col-md-6"><strong>Creatine Kinase (CK):</strong> ${val(analysis.creatina_cinase)}</div>
+            </div>
+        </div>
+
+    </div>
+`;
+
             }
 
             patientBody.innerHTML = `
@@ -383,6 +468,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <h6 class="mb-2">Treatments</h6>
                 ${treatmentsHTML}
+
+                <hr>
+
+                <h6 class="mb-2">Laboratory Analysis</h6>
+                ${analysisHTML}
             </div>
         `;
 

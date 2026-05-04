@@ -7,7 +7,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
 from httpx import request
-from .models import Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria
+from .models import Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria, Analysis
 from .forms import UploadDocumentForm
 from groq import Groq
 import os
@@ -47,6 +47,9 @@ SYS_MATCHING_PATIENTS_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "match
 
 ANALYSIS_DIR = Path(settings.BASE_DIR) / "analysis"
 ANALYSIS_FILES = list(ANALYSIS_DIR.glob("analysis_patient_*.txt"))
+
+NORMALIZATION_DIR = Path(settings.BASE_DIR) / "normalization_sheet"
+NORMALIZATION_FILES = list(NORMALIZATION_DIR.glob("normalization-sheet*.csv"))
 
 PATIENT_TEXT_CACHE = {}
 
@@ -228,6 +231,55 @@ dummy_criteria_conversion_flat = {
 
 # Auxiliary functions
 
+def serialize_analysis(analysis):
+    if not analysis:
+        return {}
+
+    return {
+        "leucocitos": analysis.leucocitos,
+        "neutrofilos": analysis.neutrofilos,
+        "neutrofilos_percent": analysis.neutrofilos_percent,
+        "linfocitos": analysis.linfocitos,
+        "linfocitos_percent": analysis.linfocitos_percent,
+        "monocitos": analysis.monocitos,
+        "monocitos_percent": analysis.monocitos_percent,
+        "eosinofilos": analysis.eosinofilos,
+        "eosinofilos_percent": analysis.eosinofilos_percent,
+        "basofilos": analysis.basofilos,
+        "basofilos_percent": analysis.basofilos_percent,
+
+        "eritrocitos": analysis.eritrocitos,
+        "hemoglobina": analysis.hemoglobina,
+        "hematocrito": analysis.hematocrito,
+        "vc_medio": analysis.vc_medio,
+        "hcm": analysis.hcm,
+        "chcm": analysis.chcm,
+        "rdw": analysis.rdw,
+
+        "plaquetas": analysis.plaquetas,
+        "vpm": analysis.vpm,
+        "plaquetocrito": analysis.plaquetocrito,
+        "pdw": analysis.pdw,
+
+        "glicose": analysis.glicose,
+        "azoto_ureico": analysis.azoto_ureico,
+        "creatinina": analysis.creatinina,
+        "sodio": analysis.sodio,
+        "potassio": analysis.potassio,
+        "proteinas_totais": analysis.proteinas_totais,
+        "albumina": analysis.albumina,
+        "calcio": analysis.calcio,
+        "osmolalidade": analysis.osmolalidade,
+        "ldh": analysis.ldh,
+        "ast": analysis.ast,
+        "alt": analysis.alt,
+        "fosfatase_alcalina": analysis.fosfatase_alcalina,
+        "gama_gt": analysis.gama_gt,
+        "bilirrubina_total": analysis.bilirrubina_total,
+        "creatina_cinase": analysis.creatina_cinase,
+    }
+
+
 def load_analysis_json(analysis_content):
     try:
         return json.loads(analysis_content)
@@ -294,6 +346,21 @@ def extract_lab_parameters(analysis_json):
         return {}
 
 
+def parse_lab_value(value):
+    if not value:
+        return None
+    
+    match = re.search(r"[-+]?\d*\.?\d+", value)
+    return float(match.group()) if match else None
+
+
+def parse_percentage(value):
+    if not value or "%" not in value:
+        return None
+    
+    match = re.search(r"\((.*?)%\)", value)
+    return float(match.group(1)) if match else None
+
 def extract_patient_id_from_title(title):
     """
     Expected format:
@@ -358,19 +425,24 @@ def format_logic(logic):
         print("FORMAT ERROR:", e)
         return str(logic)
 
-def load_diagnosis_normalization_excel(path):
-    xls = pd.ExcelFile(path)
+def load_diagnosis_normalization(paths):
+    sheets = {}
 
-    sheets_data = {}
-
-    for sheet_name in xls.sheet_names:
-        df = xls.parse(sheet_name)
-
+    for path in paths:
+        df = pd.read_csv(path, header=None)
         df = df.dropna(how="all")
 
-        sheets_data[sheet_name] = df.fillna("").to_dict(orient="records")
+        lines = df[0].tolist()
 
-    return sheets_data
+        if len(lines) < 2:
+            continue
+
+        group_name = lines[1].strip()
+        terms = [line.strip() for line in lines[2:] if line.strip()]
+
+        sheets[group_name] = [{"term": t} for t in terms]
+
+    return sheets
 
 def format_normalization_context(sheets_data):
     parts = []
@@ -379,10 +451,12 @@ def format_normalization_context(sheets_data):
         parts.append(f"### {group}")
 
         for r in records:
-            row_str = " | ".join(f"{k}: {v}" for k, v in r.items() if v)
-            parts.append(f"- {row_str}")
+            parts.append(f"- {r['term']}")
+
+        parts.append("")
 
     return "\n".join(parts)
+
 
 def get_normalization_context():
     cache_key = "diagnosis_normalization_context"
@@ -391,7 +465,7 @@ def get_normalization_context():
     if context:
         return context
 
-    sheets = load_diagnosis_normalization_excel("path/to/file.xlsx")
+    sheets = load_diagnosis_normalization(NORMALIZATION_FILES)
     context = format_normalization_context(sheets)
 
     cache.set(cache_key, context, timeout=86400)
@@ -1343,6 +1417,10 @@ def patient_list(request):
     patient_data = []
     for patient in patients:
         treatments = Treatment.objects.filter(patient=patient)
+        analysis_obj = Analysis.objects.filter(patient=patient).first()
+
+        patient.json_analysis = json.dumps(serialize_analysis(analysis_obj))
+
         patient_data.append((patient, treatments))
 
     return render(request, 'trialpilot/patient_list.html', {
@@ -1445,9 +1523,9 @@ def parameter_extraction(request, diary_id):
             analysis_json = load_analysis_json(analysis_content)
             lab_params = extract_lab_parameters(analysis_json)
             
-            #extracted_params = parameter_extraction_pipeline(document, document_content)
+            extracted_params = parameter_extraction_pipeline(document, document_content)
             
-            extracted_params = dummy_params_extraction
+            #extracted_params = dummy_params_extraction
             
             extracted_params["lab"] = lab_params
             
@@ -1479,6 +1557,62 @@ def parameter_extraction(request, diary_id):
                 stage=clean_value(corrected_params.get("stage")),
                 control=clean_value(corrected_params.get("control")),
             )
+            
+            lab_prefix = "lab_"
+
+            lab_fields = {k: v for k, v in corrected_params.items() if k.startswith(lab_prefix)}
+
+            if lab_fields:
+                Analysis.objects.create(
+                    patient=patient,
+
+                    leucocitos=parse_lab_value(lab_fields.get("lab_leucocitos")),
+                    
+                    neutrofilos=parse_lab_value(lab_fields.get("lab_neutrofilos")),
+                    neutrofilos_percent=parse_percentage(lab_fields.get("lab_neutrofilos")),
+
+                    linfocitos=parse_lab_value(lab_fields.get("lab_linfocitos")),
+                    linfocitos_percent=parse_percentage(lab_fields.get("lab_linfocitos")),
+
+                    monocitos=parse_lab_value(lab_fields.get("lab_monocitos")),
+                    monocitos_percent=parse_percentage(lab_fields.get("lab_monocitos")),
+
+                    eosinofilos=parse_lab_value(lab_fields.get("lab_eosinofilos")),
+                    eosinofilos_percent=parse_percentage(lab_fields.get("lab_eosinofilos")),
+
+                    basofilos=parse_lab_value(lab_fields.get("lab_basofilos")),
+                    basofilos_percent=parse_percentage(lab_fields.get("lab_basofilos")),
+
+                    eritrocitos=parse_lab_value(lab_fields.get("lab_eritrocitos")),
+                    hemoglobina=parse_lab_value(lab_fields.get("lab_hemoglobina")),
+                    hematocrito=parse_lab_value(lab_fields.get("lab_hematocrito")),
+                    vc_medio=parse_lab_value(lab_fields.get("lab_vc_medio")),
+                    hcm=parse_lab_value(lab_fields.get("lab_hcm")),
+                    chcm=parse_lab_value(lab_fields.get("lab_chcm")),
+                    rdw=parse_lab_value(lab_fields.get("lab_rdw")),
+
+                    plaquetas=parse_lab_value(lab_fields.get("lab_plaquetas")),
+                    vpm=parse_lab_value(lab_fields.get("lab_vpm")),
+                    plaquetocrito=parse_lab_value(lab_fields.get("lab_plaquetocrito")),
+                    pdw=parse_lab_value(lab_fields.get("lab_pdw")),
+
+                    glicose=parse_lab_value(lab_fields.get("lab_glicose")),
+                    azoto_ureico=parse_lab_value(lab_fields.get("lab_azoto_ureico")),
+                    creatinina=parse_lab_value(lab_fields.get("lab_creatinina")),
+                    sodio=parse_lab_value(lab_fields.get("lab_sodio")),
+                    potassio=parse_lab_value(lab_fields.get("lab_potassio")),
+                    proteinas_totais=parse_lab_value(lab_fields.get("lab_proteinas_totais")),
+                    albumina=parse_lab_value(lab_fields.get("lab_albumina")),
+                    calcio=parse_lab_value(lab_fields.get("lab_calcio")),
+                    osmolalidade=parse_lab_value(lab_fields.get("lab_osmolalidade")),
+                    ldh=parse_lab_value(lab_fields.get("lab_ldh")),
+                    ast=parse_lab_value(lab_fields.get("lab_ast")),
+                    alt=parse_lab_value(lab_fields.get("lab_alt")),
+                    fosfatase_alcalina=parse_lab_value(lab_fields.get("lab_fosfatase_alcalina")),
+                    gama_gt=parse_lab_value(lab_fields.get("lab_gama_gt")),
+                    bilirrubina_total=parse_lab_value(lab_fields.get("lab_bilirrubina_total")),
+                    creatina_cinase=parse_lab_value(lab_fields.get("lab_creatina_cinase")),
+                )
             
             treatment_names = request.POST.getlist("treatment_name[]")
             treatment_start_dates = request.POST.getlist("treatment_start_date[]")

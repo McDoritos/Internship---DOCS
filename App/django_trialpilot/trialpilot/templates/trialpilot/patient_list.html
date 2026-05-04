@@ -106,7 +106,7 @@
                 "end": "{{ t.end_date|default:"Ongoing" }}"
             }{% if not forloop.last %},{% endif %}
         {% endfor %}
-     ]'>
+     ]' data-analysis='{{ patient.json_analysis|safe }}'>
 
         <div class="patient-layout">
 
