@@ -329,6 +329,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const date = this.dataset.date;
             const molecular = this.dataset.molecular;
             const stage = this.dataset.stage;
+            const pathology_group = this.dataset.pathology_group;
             const control = this.dataset.control;
 
             const treatments = JSON.parse(this.dataset.treatments || "[]");
@@ -465,43 +466,109 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             patientBody.innerHTML = `
-            <div class="container-fluid">
-                <div class="row mb-3">
-                    <div class="col">
-                        <h5>Patient #${id}</h5>
-                    </div>
-                </div>
+<div class="container-fluid">
 
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Age:</strong> ${age}</div>
-                    <div class="col-md-6"><strong>ECOG:</strong> ${ecog}</div>
-                </div>
+    <!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Patient #${id}</h5>
+</div>
 
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Diagnosis:</strong> ${diagnosis}</div>
-                    <div class="col-md-6"><strong>Date:</strong> ${date}</div>
-                </div>
+<!-- PATIENT OVERVIEW -->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light-subtle py-2">
+        <strong>Patient Overview</strong>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
 
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Molecular:</strong> ${molecular}</div>
-                    <div class="col-md-6"><strong>Stage:</strong> ${stage}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-12"><strong>Control:</strong> ${control}</div>
-                </div>
-
-                <hr>
-
-                <h6 class="mb-2">Treatments</h6>
-                ${treatmentsHTML}
-
-                <hr>
-
-                <h6 class="mb-2">Laboratory Analysis</h6>
-                ${analysisHTML}
+            <!-- LINE 1 -->
+            <div class="col-md-4">
+                <div class="text-muted small">Age</div>
+                <div class="fw-semibold fs-5">${age || "-"}</div>
             </div>
-        `;
+
+            <div class="col-md-4">
+                <div class="text-muted small">Diagnosis Date</div>
+                <div class="fw-semibold fs-5">${date || "-"}</div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="text-muted small">ECOG</div>
+                <span class="badge bg-primary-subtle text-primary fs-5" style="padding: 0 !important;">
+                    ${ecog || "-"}
+                </span>
+            </div>
+
+            <!-- LINE 2 -->
+            <div class="col-md-4">
+                <div class="text-muted small">Stage</div>
+                <span class="badge bg-warning-subtle text-warning fs-5" style="padding: 0 !important;">
+                    ${stage || "-"}
+                </span>
+            </div>
+
+            <div class="col-md-4">
+                <div class="text-muted small">Pathology Group</div>
+                <span class="badge bg-info-subtle text-info fs-5" style="padding: 0 !important;">
+                    ${pathology_group || "-"}
+                </span>
+            </div>
+
+            <!-- EMPTY COLUMN FOR ALIGNMENT -->
+            <div class="col-md-4"></div>
+
+            <!-- LINE 3 -->
+            <div class="col-12">
+                <div class="text-muted small">Diagnosis</div>
+                <div class="fw-semibold">${diagnosis || "-"}</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- CLINICAL DETAILS -->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light-subtle py-2">
+        <strong>Clinical Details</strong>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+
+            <!-- Molecular -->
+            <div class="col-md-6">
+                <div class="text-muted small">Molecular Status</div>
+                <div class="fw-semibold">${molecular || "-"}</div>
+            </div>
+
+            <!-- Control (full width) -->
+            <div class="col-12 mt-2">
+                <div class="text-muted small mb-1">Clinical Control / Follow-up</div>
+                <div class="fw-semibold">${control || "-"}</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    <!-- TREATMENTS -->
+    <div class="mb-3">
+        <h6 class="mb-2">Treatments</h6>
+        ${treatmentsHTML}
+    </div>
+
+    <!-- LABORATORY ANALYSIS -->
+    <div class="mt-4">
+        <h6 class="mb-2">Laboratory Analysis</h6>
+        ${analysisHTML}
+    </div>
+
+</div>
+`;
+
 
             patientModal.show();
         });

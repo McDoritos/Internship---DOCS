@@ -106,25 +106,52 @@
                             </div>
 
                             <div class="row g-3">
-                                <div class="col-md-12">
+
+                                <div class="col-12">
                                     <label class="form-label field-label">Diagnosis</label>
-                                    <input type="text" name="diagnosis" value="{{ extracted_params.diagnosis|default_if_none:'' }}" class="form-control clinical-input">
+                                    <input type="text" name="diagnosis"
+                                        value="{{ extracted_params.diagnosis|default_if_none:'' }}"
+                                        class="form-control clinical-input">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label field-label">Diagnosis Date</label>
-                                    <input type="text" name="diagnosis_date" value="{{ extracted_params.diagnosis_date|default_if_none:'' }}" class="form-control clinical-input">
+                                    <input type="text" name="diagnosis_date"
+                                        value="{{ extracted_params.diagnosis_date|default_if_none:'' }}"
+                                        class="form-control clinical-input">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label field-label">Stage</label>
-                                    <input type="text" name="stage" value="{{ extracted_params.stage|default_if_none:'' }}" class="form-control clinical-input">
+                                    <input type="text" name="stage"
+                                        value="{{ extracted_params.stage|default_if_none:'' }}"
+                                        class="form-control clinical-input">
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label class="form-label field-label">Molecular Status</label>
-                                    <input type="text" name="molecular_status" value="{{ extracted_params.molecular_status|default_if_none:'' }}" class="form-control clinical-input">
+                                    <input type="text" name="molecular_status"
+                                        value="{{ extracted_params.molecular_status|default_if_none:'' }}"
+                                        class="form-control clinical-input">
                                 </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label field-label">Pathology Group</label>
+                                    <select name="pathology_group" class="form-select clinical-input pathology-select">
+                                        <option value="">Select group</option>
+                                        <option value="cabeca_pescoco" {% if extracted_params.pathology_group == "cabeca_pescoco" %}selected{% endif %}>Cabeça e Pescoço</option>
+                                        <option value="dermatologia" {% if extracted_params.pathology_group == "dermatologia" %}selected{% endif %}>Dermatologia</option>
+                                        <option value="digestivo" {% if extracted_params.pathology_group == "digestivo" %}selected{% endif %}>Digestivo</option>
+                                        <option value="ginecologia" {% if extracted_params.pathology_group == "ginecologia" %}selected{% endif %}>Ginecologia</option>
+                                        <option value="mama" {% if extracted_params.pathology_group == "mama" %}selected{% endif %}>Mama</option>
+                                        <option value="oncologia_pediatrica" {% if extracted_params.pathology_group == "oncologia_pediatrica" %}selected{% endif %}>Oncologia Pediátrica</option>
+                                        <option value="pele" {% if extracted_params.pathology_group == "pele" %}selected{% endif %}>Pele</option>
+                                        <option value="pneumologia" {% if extracted_params.pathology_group == "pneumologia" %}selected{% endif %}>Pneumologia</option>
+                                        <option value="snc" title="Tumores do Sistema Nervoso Central" {% if extracted_params.pathology_group == "snc" %}selected{% endif %}>SNC</option>
+                                        <option value="tne" title="Tumores Neuroendócrinos" {% if extracted_params.pathology_group == "tne" %}selected{% endif %}>TNE</option>
+                                    </select>
+                                </div>
+
                             </div>
                         </div>
 
@@ -446,7 +473,7 @@
 
                         <!-- Other Dynamic Fields -->
                         {% for key, value in extracted_params.items %}
-                            {% if key != "age_or_birthdate" and key != "ecog_ps" and key != "diagnosis" and key != "diagnosis_date" and key != "molecular_status" and key != "stage" and key != "control" and key != "treatments" and key != "lab" %}
+                            {% if key != "age_or_birthdate" and key != "ecog_ps" and key != "diagnosis" and key != "diagnosis_date" and key != "molecular_status" and key != "stage" and key != "control" and key != "treatments" and key != "lab" and key != "pathology_group" %}
                             <div class="criteria-section mb-4">
                                 <div class="criteria-section-header extra-header">
                                     <div class="d-flex align-items-center">

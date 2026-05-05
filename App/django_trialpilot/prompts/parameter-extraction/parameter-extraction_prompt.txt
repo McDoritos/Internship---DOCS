@@ -11,12 +11,24 @@ Schema (all fields must appear in the output, null if missing):
 - diagnosis_date: The date when the diagnosis was formally established (YYYY-MM-DD).
 - molecular_status: Relevant molecular or biomarker information (e.g., PD‑L1, EGFR, ALK, ROS1), including mutations or expression levels.
 - stage: Cancer staging information (e.g., TNM stage or overall stage such as IIIA, IVB).
+- pathology_group: Determine the pathology group that best matches the patient’s diagnosis. You must classify the diagnosis into one of the following predefined groups:
+	- cabeca_pescoco
+	- dermatologia
+	- digestivo
+	- ginecologia
+	- mama
+	- oncologia_pediatrica
+	- pele
+	- pneumologia
+	- snc (tumores do sistema nervoso central)
+	- tne (tumores neuroendócrinos)
+  If the diagnosis cannot be reasonably assigned to any of these groups, return null.
 - treatments: A list of treatments the patient received.  
   Each treatment object must include:
     - name: The name of the treatment (e.g., Pembrolizumab, Radiotherapy, Carboplatin + Paclitaxel)
     - start_date: When the treatment began (YYYY-MM-DD)
     - end_date: When the treatment ended (YYYY-MM-DD or null if ongoing)
-- control: Information about disease control, metastases, comorbidities, or other clinical follow‑up details.
+- control: Information about disease control, metastases, comorbidities, or other clinical follow‑up details;
 
 ```JSON
 {
@@ -26,6 +38,7 @@ Schema (all fields must appear in the output, null if missing):
 	"diagnosis_date": ...,
 	"molecular_status": ...,
 	"stage": ...,
+	"pathology_group": ...,
 	"treatments": [
 		{
 			"name": "...",
@@ -49,7 +62,12 @@ Clinical diary to process:
 
 You are given a normalization table of diagnoses.
 
-Use it to map extracted diagnoses to standardized forms when possible.
+Use it to map extracted diagnoses to standardized forms, you must normalize it using the provided normalization table.
+Molecular data, may help refine the normalized diagnosis only when the normalization table includes molecularly-defined categories.
+- Never infer molecular status;
+- Never assign a molecular subtype, unless the diary explicitly provides the necessary markers;
+- If the diary provides molecular markers but the normalization table does NOT contain a matching molecular subtype, keep the diagnosis generic.
+
 If no mapping exists, keep the original.
 
 Normalization table:

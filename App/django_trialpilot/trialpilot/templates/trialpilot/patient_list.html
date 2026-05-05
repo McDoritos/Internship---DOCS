@@ -98,7 +98,7 @@
     <div class="patient-card patient-card-trigger" data-id="{{ patient.id }}" data-age="{{ patient.age }}"
         data-ecog="{{ patient.ecog_ps }}" data-diagnosis="{{ patient.diagnosis }}"
         data-date="{{ patient.diagnosis_date }}" data-molecular="{{ patient.molecular_status }}"
-        data-stage="{{ patient.stage }}" data-control="{{ patient.control }}" data-treatments='[
+        data-stage="{{ patient.stage }}" data-pathology_group="{{ patient.get_pathology_group_display }}" data-control="{{ patient.control }}" data-treatments='[
         {% for t in treatments %}
             {
                 "name": "{{ t.treatment_name|escapejs }}",
@@ -120,7 +120,7 @@
                 <div><strong>Molecular:</strong> {{ patient.molecular_status }}</div>
 
                 <div><strong>ECOG:</strong> {{ patient.ecog_ps }}</div>
-                <div><strong>Date:</strong> {{ patient.diagnosis_date }}</div>
+                <div><strong>Pathology:</strong> {{ patient.get_pathology_group_display }}</div>
                 <div><strong>Stage:</strong> {{ patient.stage }}</div>
             </div>
 

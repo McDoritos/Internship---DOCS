@@ -25,6 +25,18 @@ class Version(models.Model):
         return f"{self.document.title} - {self.version_name}"
     
 class Patient_profile(models.Model):
+    class pathologyGroupType(models.TextChoices):
+        CABECAPESCOCO = "cabeca_pescoco", "Cabeça e Pescoço"
+        DERMATOLOGIA = "dermatologia", "Dermatologia"
+        DIGESTIVO = "digestivo", "Digestivo"
+        GINECOLOGIA = "ginecologia", "Ginecologia"
+        MAMA = "mama", "Mama"
+        ONCOLOGIA_PEDIATRICA = "oncologia_pediatrica", "Oncologia Pediátrica"
+        PELE = "pele", "Pele"
+        PNEUMOLOGIA = "pneumologia", "Pneumologia"
+        SNC = "snc", "Tumores do Sistema Nervoso Central"
+        TNE = "tne", "Tumores Neuroendócrinos"
+
     document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name="patient_profiles")
     age = models.IntegerField(null=True, blank=True)
     ecog_ps = models.IntegerField(null=True, blank=True)
@@ -34,6 +46,7 @@ class Patient_profile(models.Model):
     stage = models.CharField(max_length=50, null=True, blank=True)
     control = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    pathology_group = models.CharField(max_length=255, null=True, blank=True, choices=pathologyGroupType.choices)
     
     
     def __str__(self):

@@ -60,7 +60,7 @@ TEMP = 0.7
 KNOWN_FIELDS = {
             "age", "ecog_ps", "diagnosis", "stage", "molecular_status",
             "sex", "diagnosis_date", "treatment", "treatment_name",
-            "treatment_start_date", "treatment_end_date",
+            "treatment_start_date", "treatment_end_date", "pathology_group",
             "progression_date", "control"
         }
 
@@ -1553,6 +1553,7 @@ def parameter_extraction(request, diary_id):
                 diagnosis_date=clean_value(corrected_params.get("diagnosis_date")),
                 molecular_status=clean_value(corrected_params.get("molecular_status")),
                 stage=clean_value(corrected_params.get("stage")),
+                pathology_group=clean_value(corrected_params.get("pathology_group")),
                 control=clean_value(corrected_params.get("control")),
             )
             
