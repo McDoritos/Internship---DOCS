@@ -15,6 +15,45 @@ class Document(models.Model):
     def __str__(self):
         return f"{self.title} - {self.type}"
     
+class ClinicalTrial(models.Model):
+    class PathologyGroupType(models.TextChoices):
+        CABECAPESCOCO = "cabeca_pescoco", "Cabeça e Pescoço"
+        DERMATOLOGIA = "dermatologia", "Dermatologia"
+        DIGESTIVO = "digestivo", "Digestivo"
+        GINECOLOGIA = "ginecologia", "Ginecologia"
+        MAMA = "mama", "Mama"
+        ONCOLOGIA_PEDIATRICA = "oncologia_pediatrica", "Oncologia Pediátrica"
+        PELE = "pele", "Pele"
+        PNEUMOLOGIA = "pneumologia", "Pneumologia"
+        SNC = "snc", "Tumores do Sistema Nervoso Central"
+        TNE = "tne", "Tumores Neuroendócrinos"
+
+    class TrialStatus(models.TextChoices):
+        RECRUITING = "recruiting", "Recruiting"
+        CLOSED = "closed", "Closed"
+        NOT_YET = "not_yet", "Not Yet Recruiting"
+        COMPLETED = "completed", "Completed"
+
+    document = models.OneToOneField(
+        Document,
+        on_delete=models.CASCADE,
+        related_name="clinical_trial"
+    )
+
+    study_name = models.CharField(max_length=255)
+    pathology_group = models.CharField(
+        max_length=50,
+        choices=PathologyGroupType.choices
+    )
+    end_date = models.DateField(null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=TrialStatus.choices
+    )
+
+    def __str__(self):
+        return self.study_name
+    
 class Version(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name = "versions")
     version_name = models.CharField(max_length=255)

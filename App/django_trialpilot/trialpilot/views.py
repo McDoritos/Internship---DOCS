@@ -7,7 +7,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
 from httpx import request
-from .models import Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria, Analysis
+from .models import Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria, Analysis, ClinicalTrial
 from .forms import UploadDocumentForm
 from groq import Groq
 import os
@@ -1478,13 +1478,20 @@ def document_upload(request):
                 original_name, ext = file.name.rsplit('.', 1)
                 unique_id = uuid.uuid4().hex
                 new_filename = f"{original_name}_{unique_id}.{ext}"
-                
-                
 
                 document = Document.objects.create(
                     title=new_filename,
                     type=doc_type
                 )
+                
+                if doc_type == Document.DocumentType.CLINICAL_TRIAL:
+                    ClinicalTrial.objects.create(
+                        document=document,
+                        study_name=form.cleaned_data.get("study_name"),
+                        pathology_group=form.cleaned_data.get("pathology_group"),
+                        end_date=form.cleaned_data.get("end_date"),
+                        status=form.cleaned_data.get("status"),
+                    )
 
                 document_save(document, file, new_filename, version_id='RAW')
 
