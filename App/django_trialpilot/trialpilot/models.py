@@ -45,6 +45,7 @@ class ClinicalTrial(models.Model):
         max_length=50,
         choices=PathologyGroupType.choices
     )
+    start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     status = models.CharField(
         max_length=20,

@@ -184,6 +184,9 @@
                     <p class="mt-2 mb-0">
                         Drag & drop or <span class="text-primary">browse</span>
                     </p>
+                    <p class="text-muted mt-2 mb-0">
+                        Only support one file at a time. Accepted formats: <b>PDF, TXT</b>
+                    </p>
 
                     <input type="file" name="file" id="trialFileInput" style="display:none;" multiple>
                 </div>
@@ -268,6 +271,48 @@
 
         </div>
     </div>
+</div>
+
+<div class="modal-body">
+
+    <form id="trialMetadataForm">
+
+        <div class="mb-2">
+            <label class="form-label">Study Name</label>
+            <input type="text" class="form-control" name="study_name">
+        </div>
+
+        <div class="mb-2">
+            <label class="form-label">Pathology</label>
+            <select class="form-select" name="pathology_group">
+                {% for val, label in form.pathology_group.field.choices %}
+                <option value="{{ val }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Start</label>
+                <input type="date" class="form-control" name="start_date">
+            </div>
+            <div class="col">
+                <label>End</label>
+                <input type="date" class="form-control" name="end_date">
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <label>Status</label>
+            <select class="form-select" name="status">
+                {% for val, label in form.status.field.choices %}
+                <option value="{{ val }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+    </form>
+
 </div>
 
 {% endblock %}

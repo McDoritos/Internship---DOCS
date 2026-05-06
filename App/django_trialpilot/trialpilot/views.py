@@ -8,7 +8,7 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from httpx import request
 from .models import Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria, Analysis, ClinicalTrial
-from .forms import UploadDocumentForm
+from .forms import UploadDocumentForm, UploadTrialForm
 from groq import Groq
 import os
 from django.conf import settings
@@ -1502,6 +1502,11 @@ def document_upload(request):
         form = UploadDocumentForm()
 
     return render(request, "trialpilot/document_upload.html", {'form': form})
+
+def clinical_trial_upload(request):
+    if request.method == 'POST':
+        form = UploadTrialForm(request.POST, request.FILES)
+        
 
 def parameter_extraction(request, diary_id):
     try:

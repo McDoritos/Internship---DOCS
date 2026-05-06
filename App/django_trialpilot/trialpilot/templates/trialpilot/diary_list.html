@@ -51,7 +51,8 @@
                     Filter
                 </button>
 
-                <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm rounded-ui filter-dropdown" style="min-width: 260px;">
+                <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm rounded-ui filter-dropdown"
+                    style="min-width: 260px;">
                     <form method="GET" class="d-flex flex-column gap-3">
 
                         <!-- Keep search value -->
@@ -62,9 +63,11 @@
                             <label class="form-label fw-semibold mb-2 text-muted">Extraction Status</label>
                             <select name="status" class="form-select form-select-sm rounded-ui">
                                 <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="extracted" {% if status == "extracted" %}selected{% endif %}>Extracted
+                                <option class="text-muted" value="extracted" {% if status == "extracted" %}selected{%
+                                    endif %}>Extracted
                                 </option>
-                                <option class="text-muted" value="not_extracted" {% if status == "not_extracted" %}selected{% endif %}>Not
+                                <option class="text-muted" value="not_extracted" {% if status == "not_extracted"
+                                    %}selected{% endif %}>Not
                                     Extracted</option>
                             </select>
                         </div>
@@ -74,8 +77,10 @@
                             <label class="form-label fw-semibold mb-2 mt-2 text-muted">File Type</label>
                             <select name="file_type" class="form-select form-select-sm rounded-ui">
                                 <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="pdf" {% if file_type == "pdf" %}selected{% endif %}>PDF</option>
-                                <option class="text-muted" value="txt" {% if file_type == "txt" %}selected{% endif %}>TXT</option>
+                                <option class="text-muted" value="pdf" {% if file_type == "pdf" %}selected{% endif %}>PDF
+                                </option>
+                                <option class="text-muted" value="txt" {% if file_type == "txt" %}selected{% endif %}>TXT
+                                </option>
                             </select>
                         </div>
 
@@ -108,34 +113,67 @@
 
 </div>
 
-<div class="row g-3 ml-3 mr-3">
+<div class="diary-list ml-3 mr-3">
+
     {% for diary, extension in diary_data %}
-    <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="text-decoration-none diary-card-trigger" data-diary-id="{{ diary.id }}"
-            data-diary-title="{{ diary.title }}" data-diary-extracted="{{ diary.extracted }}">
+    <div class="diary-card diary-card-trigger"
+        data-diary-id="{{ diary.id }}"
+        data-diary-title="{{ diary.title }}"
+        data-diary-extracted="{{ diary.extracted }}">
 
-            <div
-                class="card text-center shadow-sm doc-card h-100 position-relative {% if diary.extracted %} doc-extracted {% endif %}">
+        <div class="diary-layout">
 
-                <input type="checkbox" class="form-check-input position-absolute top-0 start-0 m-2 doc-checkbox"
+            <div class="container-diary-checkbox">
+                <input type="checkbox"
+                    class="form-check-input diary-checkbox"
                     value="{{ diary.id }}">
+            </div>
 
-                <div class="card-body">
-                    {% if extension == "pdf" %}
-                    <i class="bi bi-filetype-pdf" style="font-size: 4rem; color:#d9534f;"></i>
+            <!-- ICON -->
+            <div class="diary-id">
+                {% if extension == "pdf" %}
+                <i class="bi bi-filetype-pdf text-danger"></i>
+                {% else %}
+                <i class="bi bi-filetype-txt text-primary"></i>
+                {% endif %}
+            </div>
+
+            <!-- CONTENT -->
+            <div class="diary-grid">
+
+                <div>
+                    <strong>Title:</strong> {{ diary.title }}
+                </div>
+
+                <div>
+                    <strong>Status:</strong>
+                    {% if diary.extracted %}
+                    Extracted
                     {% else %}
-                    <i class="bi bi-filetype-txt" style="font-size: 4rem; color:#0275d8;"></i>
+                    Not extracted
                     {% endif %}
+                </div>
 
-                    <p class="mt-2 text-dark doc-title" title="{{ diary.title }}">
-                        {{ diary.title }}
-                    </p>
+                <div>
+                    <strong>Created:</strong> {{ diary.created_at|date:"d M Y" }}
+                </div>
+
+                <div>
+                    <strong>Type:</strong> {{ extension|upper }}
                 </div>
 
             </div>
+
+            <!-- RIGHT -->
+            <div class="diary-actions">
+                <i class="bi bi-chevron-right text-muted"></i>
+            </div>
+
         </div>
+
     </div>
     {% endfor %}
+
 </div>
 
 <div class="modal fade" id="diaryModal" tabindex="-1" aria-hidden="true">
