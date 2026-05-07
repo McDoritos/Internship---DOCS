@@ -347,6 +347,21 @@ body {
     line-height: 1;
 }
 
+#trialMetadataModal .form-control,
+#trialMetadataModal .form-select {
+    border-color: #e9ecef;
+}
+
+#trialMetadataModal .form-control:focus,
+#trialMetadataModal .form-select:focus {
+    box-shadow: 0 0 0 0.15rem rgba(13,110,253,.15);
+    border-color: #86b7fe;
+}
+
+#trialMetadataModal .bg-light {
+    border: 1px solid #e9ecef;
+}
+
 /*Trial criteria extraction*/
 .glass-card {
     background: #ffffff;

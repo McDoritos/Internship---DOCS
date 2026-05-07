@@ -125,14 +125,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     initUploadModal({
         formId: "trialUploadForm",
-        modalId: "trialUploadModal",
+        modalId: "uploadModal",
         dropZoneId: "trialDropZone",
         fileInputId: "trialFileInput",
         previewId: "trialFilePreview",
         errorId: "trialUploadError",
         progressContainerId: "trialProgressContainer",
         progressBarId: "trialProgressBar",
-        progressTextId: "trialProgressText"
+        progressTextId: "trialProgressText",
+        singleFile: true,
+        requireMetadata: true
     });
 
     function initUploadModal({
@@ -144,7 +146,9 @@ document.addEventListener("DOMContentLoaded", function () {
         errorId,
         progressContainerId,
         progressBarId,
-        progressTextId
+        progressTextId,
+        singleFile = false,
+        requireMetadata = false
     }) {
         const form = document.getElementById(formId);
         const dropZone = document.getElementById(dropZoneId);
@@ -157,6 +161,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const uploadModal = document.getElementById(modalId);
         const errorBox = document.getElementById(errorId);
+
+        let trialTempFile = null;
 
         if (!dropZone || !form || !fileInput || !preview || !progressContainer || !progressBar || !progressText || !errorBox) return;
 
@@ -174,10 +180,37 @@ document.addEventListener("DOMContentLoaded", function () {
         dropZone.addEventListener("drop", (e) => {
             e.preventDefault();
 
-            const files = e.dataTransfer.files;
-            fileInput.files = files;
+            let files = e.dataTransfer.files;
 
-            showPreview(files);
+            if (singleFile && files.length > 1) {
+                files = [files[0]];
+            }
+
+            const dt = new DataTransfer();
+            Array.from(files).forEach(f => dt.items.add(f));
+            fileInput.files = dt.files;
+
+            if (singleFile && requireMetadata && fileInput.files.length > 0) {
+
+                trialTempFile = fileInput.files[0];
+
+                const uploadModalInstance = bootstrap.Modal.getInstance(uploadModal);
+                if (uploadModalInstance) {
+                    uploadModalInstance.hide();
+                }
+
+                const metadataModal = new bootstrap.Modal(document.getElementById("trialMetadataModal"));
+                metadataModal.show();
+
+                const nameBox = document.getElementById("selectedFileName");
+                if (nameBox) {
+                    nameBox.innerText = trialTempFile.name;
+                }
+
+                return;
+            }
+
+            showPreview(fileInput.files);
         });
 
         if (uploadModal) {
@@ -197,6 +230,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         fileInput.addEventListener("change", () => {
+
+            if (singleFile && requireMetadata && fileInput.files.length > 0) {
+
+                trialTempFile = fileInput.files[0];
+
+                const uploadModalInstance = bootstrap.Modal.getInstance(uploadModal);
+                if (uploadModalInstance) {
+                    uploadModalInstance.hide();
+                }
+
+                const metadataModal = new bootstrap.Modal(document.getElementById("trialMetadataModal"));
+                metadataModal.show();
+
+                const nameBox = document.getElementById("selectedFileName");
+                if (nameBox) {
+                    nameBox.innerText = trialTempFile.name;
+                }
+
+                return;
+            }
+
             showPreview(fileInput.files);
         });
 
@@ -207,7 +261,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let hasError = false;
 
-            Array.from(files).forEach(file => {
+            let fileArray = Array.from(files);
+
+            if (singleFile) {
+                fileArray = fileArray.slice(0, 1);
+            }
+
+            fileArray.forEach(file => {
                 const ext = file.name.split('.').pop().toLowerCase();
 
                 if (!allowed.includes(ext)) {
@@ -220,11 +280,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (ext === "txt") icon = "bi-filetype-txt";
 
                 preview.innerHTML += `
-                <div class="d-flex align-items-center gap-2 mb-1">
-                    <i class="bi ${icon}" style="font-size:1.2rem;"></i>
-                    <span class="text-truncate" style="max-width: 220px;">${file.name}</span>
-                </div>
-            `;
+        <div class="d-flex align-items-center gap-2 mb-1">
+            <i class="bi ${icon}" style="font-size:1.2rem;"></i>
+            <span class="text-truncate" style="max-width: 220px;">${file.name}</span>
+        </div>
+        `;
             });
 
             if (hasError) {
@@ -238,8 +298,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             errorBox.classList.add("d-none");
             progressContainer.style.display = "block";
-            progressBar.style.width = "0%";
-            progressText.innerText = `Ready to upload (${files.length} files)`;
+
+            if (singleFile) {
+                progressText.innerText = `Ready to upload 1 file`;
+            } else {
+                progressText.innerText = `Ready to upload (${files.length} files)`;
+            }
         }
 
         form.addEventListener("submit", function (e) {
@@ -248,6 +312,19 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!fileInput.files.length) {
                 alert("Please select a valid PDF or TXT file.");
                 return;
+            }
+
+            if (requireMetadata) {
+                const studyName = form.querySelector("[name='study_name']");
+                const pathology = form.querySelector("[name='pathology_group']");
+                const startDate = form.querySelector("[name='start_date']");
+                const endDate = form.querySelector("[name='end_date']");
+                const status = form.querySelector("[name='status']");
+
+                if (!studyName.value || !pathology.value || !startDate.value || !status.value) {
+                    alert("Please fill all required trial fields.");
+                    return;
+                }
             }
 
             const formData = new FormData(form);
@@ -277,6 +354,43 @@ document.addEventListener("DOMContentLoaded", function () {
                     setTimeout(() => location.reload(), 1000);
                 } else {
                     progressText.innerText = "Upload failed ❌";
+                }
+            };
+
+            xhr.send(formData);
+        });
+
+        document.getElementById("trialMetadataForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            if (!trialTempFile) {
+                alert("No file selected.");
+                return;
+            }
+
+            const formData = new FormData();
+
+            formData.append("file", trialTempFile);
+            formData.append("type", "true");
+
+            const form = e.target;
+
+            formData.append("study_name", form.study_name.value);
+            formData.append("pathology_group", form.pathology_group.value);
+            formData.append("start_date", form.start_date.value);
+            formData.append("end_date", form.end_date.value);
+            formData.append("status", form.status.value);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", document.getElementById("trialUploadForm").action, true);
+
+            xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    location.reload();
+                } else {
+                    alert("Upload failed");
                 }
             };
 
@@ -586,7 +700,7 @@ function getCSRFToken() {
 document.addEventListener("DOMContentLoaded", function () {
 
     initBulkDelete({
-        checkboxSelector: ".doc-checkbox",
+        checkboxSelector: ".doc-checkbox, .diary-checkbox",
         deleteBtnId: "deleteBtn",
         deleteModalId: "deleteModal",
         deleteModalBodyId: "deleteModalBody",
@@ -634,8 +748,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let selectedItems = [];
 
         function getMatchingCheckboxes() {
-            return Array.from(document.querySelectorAll(checkboxSelector)).filter(cb =>
-                cb.closest(cardSelector)
+
+            const selectors = checkboxSelector
+                .split(",")
+                .map(s => s.trim());
+
+            return selectors.flatMap(selector =>
+                Array.from(document.querySelectorAll(selector))
+                    .filter(cb => cb.closest(cardSelector))
             );
         }
 
@@ -696,6 +816,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const resetModal = new bootstrap.Modal(document.getElementById("resetModal"));

@@ -1473,7 +1473,6 @@ def document_upload(request):
             )
 
             for file in files:
-                timestamp = timezone.now().strftime("%Y%m%d-%H%M%S")
 
                 original_name, ext = file.name.rsplit('.', 1)
                 unique_id = uuid.uuid4().hex
@@ -1483,15 +1482,6 @@ def document_upload(request):
                     title=new_filename,
                     type=doc_type
                 )
-                
-                if doc_type == Document.DocumentType.CLINICAL_TRIAL:
-                    ClinicalTrial.objects.create(
-                        document=document,
-                        study_name=form.cleaned_data.get("study_name"),
-                        pathology_group=form.cleaned_data.get("pathology_group"),
-                        end_date=form.cleaned_data.get("end_date"),
-                        status=form.cleaned_data.get("status"),
-                    )
 
                 document_save(document, file, new_filename, version_id='RAW')
 
@@ -1506,6 +1496,51 @@ def document_upload(request):
 def clinical_trial_upload(request):
     if request.method == 'POST':
         form = UploadTrialForm(request.POST, request.FILES)
+        
+        if not form.is_valid():
+            return JsonResponse({
+                "success": False,
+                "errors": form.errors
+            }, status=400)
+
+        try:
+
+            doc_type = (
+                Document.DocumentType.CLINICAL_TRIAL 
+                if form.cleaned_data['type'] 
+                else Document.DocumentType.CLINICAL_DIARY
+            )
+            
+            uploaded_file = form.cleaned_data["file"]
+            
+            original_name, ext = uploaded_file.name.rsplit('.', 1)
+            unique_id = uuid.uuid4().hex
+            new_filename = f"{original_name}_{unique_id}.{ext}"
+
+            # Create document
+            document = Document.objects.create(
+                title=new_filename,
+                type=doc_type
+            )
+
+            ClinicalTrial.objects.create(
+                document=document,
+                study_name=form.cleaned_data["study_name"],
+                pathology_group=form.cleaned_data["pathology_group"],
+                start_date=form.cleaned_data.get("start_date"),
+                end_date=form.cleaned_data.get("end_date"),
+                status=form.cleaned_data["status"]
+            )
+            
+            document_save(document, uploaded_file, new_filename, version_id='RAW')
+
+            messages.success(request, f"Clinical trial uploaded successfully.")
+            return redirect('trial_list')
+
+        except Exception as e:
+
+            messages.error(request, f"Error uploading clinical trial: {str(e)}")
+            return redirect('trial_list')
         
 
 def parameter_extraction(request, diary_id):
