@@ -147,10 +147,15 @@
 
                 <div>
                     <strong>Status:</strong>
+
                     {% if diary.extracted %}
-                    Extracted
+                    <span class="badge rounded-pill bg-success-subtle text-success border">
+                        Extracted
+                    </span>
                     {% else %}
-                    Not extracted
+                    <span class="badge rounded-pill bg-warning-subtle text-warning border">
+                        Not extracted
+                    </span>
                     {% endif %}
                 </div>
 

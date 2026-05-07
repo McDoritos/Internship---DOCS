@@ -712,7 +712,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     initBulkDelete({
-        checkboxSelector: ".doc-checkbox",
+        checkboxSelector: ".doc-checkbox, .trial-checkbox",
         deleteBtnId: "deleteBtn",
         deleteModalId: "deleteModal",
         deleteModalBodyId: "deleteModalBody",
