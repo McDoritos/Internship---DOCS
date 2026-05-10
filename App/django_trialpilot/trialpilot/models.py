@@ -104,48 +104,10 @@ class Treatment(models.Model):
 class Analysis(models.Model):
     patient = models.ForeignKey(Patient_profile, on_delete=models.CASCADE, related_name="analysis")
 
-    leucocitos = models.FloatField(null=True, blank=True)
-    neutrofilos = models.FloatField(null=True, blank=True)
-    neutrofilos_percent = models.FloatField(null=True, blank=True)
-    linfocitos = models.FloatField(null=True, blank=True)
-    linfocitos_percent = models.FloatField(null=True, blank=True)
-    monocitos = models.FloatField(null=True, blank=True)
-    monocitos_percent = models.FloatField(null=True, blank=True)
-    eosinofilos = models.FloatField(null=True, blank=True)
-    eosinofilos_percent = models.FloatField(null=True, blank=True)
-    basofilos = models.FloatField(null=True, blank=True)
-    basofilos_percent = models.FloatField(null=True, blank=True)
-
-    eritrocitos = models.FloatField(null=True, blank=True)
-    hemoglobina = models.FloatField(null=True, blank=True)
-    hematocrito = models.FloatField(null=True, blank=True)
-    vc_medio = models.FloatField(null=True, blank=True)
-    hcm = models.FloatField(null=True, blank=True)
-    chcm = models.FloatField(null=True, blank=True)
-    rdw = models.FloatField(null=True, blank=True)
-
-    plaquetas = models.FloatField(null=True, blank=True)
-    vpm = models.FloatField(null=True, blank=True)
-    plaquetocrito = models.FloatField(null=True, blank=True)
-    pdw = models.FloatField(null=True, blank=True)
-
-    glicose = models.FloatField(null=True, blank=True)
-    azoto_ureico = models.FloatField(null=True, blank=True)
-    creatinina = models.FloatField(null=True, blank=True)
-    sodio = models.FloatField(null=True, blank=True)
-    potassio = models.FloatField(null=True, blank=True)
-    proteinas_totais = models.FloatField(null=True, blank=True)
-    albumina = models.FloatField(null=True, blank=True)
-    calcio = models.FloatField(null=True, blank=True)
-    osmolalidade = models.FloatField(null=True, blank=True)
-    ldh = models.FloatField(null=True, blank=True)
-    ast = models.FloatField(null=True, blank=True)
-    alt = models.FloatField(null=True, blank=True)
-    fosfatase_alcalina = models.FloatField(null=True, blank=True)
-    gama_gt = models.FloatField(null=True, blank=True)
-    bilirrubina_total = models.FloatField(null=True, blank=True)
-    creatina_cinase = models.FloatField(null=True, blank=True)
-
+    name = models.CharField(max_length=255)
+    value = models.FloatField(null=True, blank=True)
+    unit = models.CharField(max_length=50, null=True, blank=True)
+    
     def __str__(self):
         return f"Analysis for patient {self.patient.id}"
     

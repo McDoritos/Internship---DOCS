@@ -41,6 +41,46 @@ You should prioritize using the following fields whenever possible:
 - `death_date`
 - `control`
 
+Besides this fields there can also be analysis values, for that whenever possible use the following fields:
+- `leucocitos`
+- `neutrofilos`
+- `neutrofilos_percent`
+- `linfocitos`
+- `linfocitos_percent`
+- `monocitos`
+- `monocitos_percent`
+- `eosinofilos`
+- `eosinofilos_percent`
+- `basofilos`
+- `basofilos_percent`
+- `eritrocitos`
+- `hemoglobina`
+- `hematocrito`
+- `vc_medio`
+- `hcm`
+- `chcm`
+- `rdw`
+- `plaquetas`
+- `vpm`
+- `plaquetocrito`
+- `pdw`
+- `glicose`
+- `azoto_ureico`
+- `creatinina`
+- `sodio`
+- `potassio`
+- `proteinas_totais`
+- `albumina`
+- `calcio`
+- `osmolalidade`
+- `ldh`
+- `ast`
+- `alt`
+- `fosfatase_alcalina`
+- `gama_gt`
+- `bilirrubina_total`
+- `creatina_cinase`
+
 If a criterion references a concept not present in this list:
 - You MUST still produce a structured condition using a best-effort semantic field name.
 - Only use fallback "unmapped" if the criterion is completely impossible to structure.

@@ -481,7 +481,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 analysisHTML = "<p class='text-muted'>No laboratory analysis available</p>";
             } else {
 
-                const val = (v) => v ?? "-";
+                const val = (v) => {
+                    if (!v) return "-";
+                    if (typeof v === "object") return v.value ?? "-";
+                    return v;
+                };
+
+                
+                const display = (obj) => {
+                    if (!obj) return "-";
+                    if (typeof obj === "object") {
+                        const v = obj.value ?? "-";
+                        const u = obj.unit ? ` ${obj.unit}` : "";
+                        return `${v}${u}`;
+                    }
+                    return obj;
+                };
+
 
                 const valueBox = (label, value, extra = "") => `
     <div class="col-md-6 col-lg-4">
@@ -504,12 +520,17 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="card-body bg-light-subtle">
             <div class="row g-2">
-                ${valueBox("Leucocytes", val(analysis.leucocitos))}
-                ${valueBox("Neutrophils", val(analysis.neutrofilos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.neutrofilos_percent)}%</span>`)}
-                ${valueBox("Lymphocytes", val(analysis.linfocitos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.linfocitos_percent)}%</span>`)}
-                ${valueBox("Monocytes", val(analysis.monocitos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.monocitos_percent)}%</span>`)}
-                ${valueBox("Eosinophils", val(analysis.eosinofilos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.eosinofilos_percent)}%</span>`)}
-                ${valueBox("Basophils", val(analysis.basofilos), `<span class="badge bg-secondary-subtle text-secondary">${val(analysis.basofilos_percent)}%</span>`)}
+                ${valueBox("Leucocytes", display(analysis.leucocitos))}
+${valueBox("Neutrophils", display(analysis.neutrofilos),
+           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.neutrofilos_percent)}</span>`)}
+${valueBox("Lymphocytes", display(analysis.linfocitos),
+           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.linfocitos_percent)}</span>`)}
+${valueBox("Monocytes", display(analysis.monocitos),
+           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.monocitos_percent)}</span>`)}
+${valueBox("Eosinophils", display(analysis.eosinofilos),
+           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.eosinofilos_percent)}</span>`)}
+${valueBox("Basophils", display(analysis.basofilos),
+           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.basofilos_percent)}</span>`)}
             </div>
         </div>
     </div>
@@ -521,13 +542,13 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="card-body bg-light-subtle">
             <div class="row g-2">
-                ${valueBox("RBC", val(analysis.eritrocitos))}
-                ${valueBox("Hemoglobin", val(analysis.hemoglobina))}
-                ${valueBox("Hematocrit", val(analysis.hematocrito))}
-                ${valueBox("MCV", val(analysis.vc_medio))}
-                ${valueBox("MCH", val(analysis.hcm))}
-                ${valueBox("MCHC", val(analysis.chcm))}
-                ${valueBox("RDW", val(analysis.rdw))}
+                ${valueBox("RBC", display(analysis.eritrocitos))}
+                ${valueBox("Hemoglobin", display(analysis.hemoglobina))}
+                ${valueBox("Hematocrit", display(analysis.hematocrito))}
+                ${valueBox("MCV", display(analysis.vc_medio))}
+                ${valueBox("MCH", display(analysis.hcm))}
+                ${valueBox("MCHC", display(analysis.chcm))}
+                ${valueBox("RDW", display(analysis.rdw))}
             </div>
         </div>
     </div>
@@ -539,10 +560,10 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="card-body bg-light-subtle">
             <div class="row g-2">
-                ${valueBox("Platelets", val(analysis.plaquetas))}
-                ${valueBox("MPV", val(analysis.vpm))}
-                ${valueBox("PCT", val(analysis.plaquetocrito))}
-                ${valueBox("PDW", val(analysis.pdw))}
+                ${valueBox("Platelets", display(analysis.plaquetas))}
+                ${valueBox("MPV", display(analysis.vpm))}
+                ${valueBox("PCT", display(analysis.plaquetocrito))}
+                ${valueBox("PDW", display(analysis.pdw))}
             </div>
         </div>
     </div>
@@ -554,22 +575,22 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="card-body bg-light-subtle">
             <div class="row g-2">
-                ${valueBox("Glucose", val(analysis.glicose))}
-                ${valueBox("BUN", val(analysis.azoto_ureico))}
-                ${valueBox("Creatinine", val(analysis.creatinina))}
-                ${valueBox("Sodium", val(analysis.sodio))}
-                ${valueBox("Potassium", val(analysis.potassio))}
-                ${valueBox("Total Proteins", val(analysis.proteinas_totais))}
-                ${valueBox("Albumin", val(analysis.albumina))}
-                ${valueBox("Calcium", val(analysis.calcio))}
-                ${valueBox("Osmolality", val(analysis.osmolalidade))}
-                ${valueBox("LDH", val(analysis.ldh))}
-                ${valueBox("AST", val(analysis.ast))}
-                ${valueBox("ALT", val(analysis.alt))}
-                ${valueBox("ALP", val(analysis.fosfatase_alcalina))}
-                ${valueBox("GGT", val(analysis.gama_gt))}
-                ${valueBox("Bilirubin", val(analysis.bilirrubina_total))}
-                ${valueBox("CK", val(analysis.creatina_cinase))}
+                ${valueBox("Glucose", display(analysis.glicose))}
+                ${valueBox("BUN", display(analysis.azoto_ureico))}
+                ${valueBox("Creatinine", display(analysis.creatinina))}
+                ${valueBox("Sodium", display(analysis.sodio))}
+                ${valueBox("Potassium", display(analysis.potassio))}
+                ${valueBox("Total Proteins", display(analysis.proteinas_totais))}
+                ${valueBox("Albumin", display(analysis.albumina))}
+                ${valueBox("Calcium", display(analysis.calcio))}
+                ${valueBox("Osmolality", display(analysis.osmolalidade))}
+                ${valueBox("LDH", display(analysis.ldh))}
+                ${valueBox("AST", display(analysis.ast))}
+                ${valueBox("ALT", display(analysis.alt))}
+                ${valueBox("ALP", display(analysis.fosfatase_alcalina))}
+                ${valueBox("GGT", display(analysis.gama_gt))}
+                ${valueBox("Bilirubin", display(analysis.bilirrubina_total))}
+                ${valueBox("CK", display(analysis.creatina_cinase))}
             </div>
         </div>
     </div>

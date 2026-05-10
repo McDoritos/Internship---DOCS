@@ -231,53 +231,21 @@ dummy_criteria_conversion_flat = {
 
 # Auxiliary functions
 
-def serialize_analysis(analysis):
-    if not analysis:
+def serialize_analysis(analysis_qs):
+
+    if not analysis_qs:
         return {}
 
-    return {
-        "leucocitos": analysis.leucocitos,
-        "neutrofilos": analysis.neutrofilos,
-        "neutrofilos_percent": analysis.neutrofilos_percent,
-        "linfocitos": analysis.linfocitos,
-        "linfocitos_percent": analysis.linfocitos_percent,
-        "monocitos": analysis.monocitos,
-        "monocitos_percent": analysis.monocitos_percent,
-        "eosinofilos": analysis.eosinofilos,
-        "eosinofilos_percent": analysis.eosinofilos_percent,
-        "basofilos": analysis.basofilos,
-        "basofilos_percent": analysis.basofilos_percent,
+    result = {}
 
-        "eritrocitos": analysis.eritrocitos,
-        "hemoglobina": analysis.hemoglobina,
-        "hematocrito": analysis.hematocrito,
-        "vc_medio": analysis.vc_medio,
-        "hcm": analysis.hcm,
-        "chcm": analysis.chcm,
-        "rdw": analysis.rdw,
+    for a in analysis_qs:
+        result[a.name] = {
+            "value": a.value,
+            "unit": a.unit
+        }
 
-        "plaquetas": analysis.plaquetas,
-        "vpm": analysis.vpm,
-        "plaquetocrito": analysis.plaquetocrito,
-        "pdw": analysis.pdw,
+    return result
 
-        "glicose": analysis.glicose,
-        "azoto_ureico": analysis.azoto_ureico,
-        "creatinina": analysis.creatinina,
-        "sodio": analysis.sodio,
-        "potassio": analysis.potassio,
-        "proteinas_totais": analysis.proteinas_totais,
-        "albumina": analysis.albumina,
-        "calcio": analysis.calcio,
-        "osmolalidade": analysis.osmolalidade,
-        "ldh": analysis.ldh,
-        "ast": analysis.ast,
-        "alt": analysis.alt,
-        "fosfatase_alcalina": analysis.fosfatase_alcalina,
-        "gama_gt": analysis.gama_gt,
-        "bilirrubina_total": analysis.bilirrubina_total,
-        "creatina_cinase": analysis.creatina_cinase,
-    }
 
 
 def load_analysis_json(analysis_content):
@@ -293,63 +261,110 @@ def get_any(d, *keys, default=None):
             return d[k]
     return default
     
+def normalize_percentage(value):
+    if value is None:
+        return None
+    if isinstance(value, dict):
+        return value
+    return {
+        "value": value,
+        "unit": "%"
+    }
+    
+
+def add_analysis(results, name, data):
+    if not data:
+        return
+    
+    print(f"[DEBUG] Adding analysis for {name}: {data}")
+
+    value = data.get("value")
+    unit = data.get("unit")
+
+    if value is not None:
+        results.append({
+            "name": name,
+            "value": value,
+            "unit": unit
+        })
+
 def extract_lab_parameters(analysis_json):
     if not analysis_json:
-        return {}
+        return []
+
+    results = []
 
     try:
-        h = analysis_json["hematology"]
-        e = analysis_json["eritrocitos"]
-        p = analysis_json["plaquetas"]
-        b = analysis_json["bioquimica"]
+        h = analysis_json.get("hematology", {})
+        e = analysis_json.get("eritrocitos", {})
+        p = analysis_json.get("plaquetas", {})
+        b = analysis_json.get("bioquimica", {})
 
-        return {
-            "leucocitos": h["leucocitos"]["value"],
-            "neutrofilos": h["neutrofilos"]["value"],
-            "neutrofilos_percent": h["neutrofilos"]["percentage"],
-            "linfocitos": h["linfocitos"]["value"],
-            "linfocitos_percent": h["linfocitos"]["percentage"],
-            "monocitos": h["monocitos"]["value"],
-            "monocitos_percent": h["monocitos"]["percentage"],
-            "eosinofilos": h["eosinofilos"]["value"],
-            "eosinofilos_percent": h["eosinofilos"]["percentage"],
-            "basofilos": h["basofilos"]["value"],
-            "basofilos_percent": h["basofilos"]["percentage"],
+        # Hematology
+        add_analysis(results, "leucocitos", h.get("leucocitos"))
+        add_analysis(results, "neutrofilos", h.get("neutrofilos"))
+        add_analysis(results, "linfocitos", h.get("linfocitos"))
+        add_analysis(results, "monocitos", h.get("monocitos"))
+        add_analysis(results, "eosinofilos", h.get("eosinofilos"))
+        add_analysis(results, "basofilos", h.get("basofilos"))
 
-            "eritrocitos": e["eritrocitos"]["value"],
-            "hemoglobina": e["hemoglobina"]["value"],
-            "hematocrito": e["hematocrito"]["value"],
-            "vc_medio": e["Volume_Corpuscular_Medio"]["value"],
-            "hcm": e["Hemoglobina_Corpuscular_Media"]["value"],
-            "chcm": get_any(e, "C.Hemoglobina_Corpuscular_Media", "C_Hemoglobina_Corpuscular_Media")["value"],
-            "rdw": e["Coeficiente_Variação_Eritrócitos"]["value"],
-            
-            "plaquetas": p["plaquetas"]["value"],
-            "vpm": p["volume_plaquetar_medio"]["value"],
-            "plaquetocrito": p["plaquetocrito"]["value"],
-            "pdw": p["Coeficiente_Variação_Plaquetas"]["value"],
+        # Percentages
+        percent = h.get("neutrofilos", {}).get("percentage")
+        add_analysis(results, "neutrofilos_percent",  normalize_percentage(percent))
+        percent = h.get("linfocitos", {}).get("percentage")
+        add_analysis(results, "linfocitos_percent", normalize_percentage(percent))
+        percent = h.get("monocitos", {}).get("percentage")
+        add_analysis(results, "monocitos_percent", normalize_percentage(percent))
+        percent = h.get("eosinofilos", {}).get("percentage")
+        add_analysis(results, "eosinofilos_percent", normalize_percentage(percent))
+        percent = h.get("basofilos", {}).get("percentage")
+        add_analysis(results, "basofilos_percent", normalize_percentage(percent))
 
-            "glicose": b["glicose"]["value"],
-            "azoto_ureico": b["azoto_ureico"]["value"],
-            "creatinina": b["creatinina"]["value"],
-            "sodio": b["sodio"]["value"],
-            "potassio": b["potassio"]["value"],
-            "proteinas_totais": b["proteinas_totais"]["value"],
-            "albumina": b["albumina"]["value"],
-            "calcio": b["calcio"]["value"],
-            "osmolalidade": b["osmolalidade"]["value"],
-            "ldh": b["ldh"]["value"],
-            "ast": b["ast"]["value"],
-            "alt": b["alt"]["value"],
-            "fosfatase_alcalina": b["fosfatase_alcalina"]["value"],
-            "gama_gt": b["gama_gt"]["value"],
-            "bilirrubina_total": b["bilirrubina_total"]["value"],
-            "creatina_cinase": b["Creatina_cinase"]["value"],
-        }
+        # Eritrocitos
+        add_analysis(results, "eritrocitos", e.get("eritrocitos"))
+        add_analysis(results, "hemoglobina", e.get("hemoglobina"))
+        add_analysis(results, "hematocrito", e.get("hematocrito"))
+        add_analysis(results, "vc_medio", e.get("Volume_Corpuscular_Medio"))
+        add_analysis(results, "hcm", e.get("Hemoglobina_Corpuscular_Media"))
 
-    except KeyError as e:
-        print(f"[WARNING] Missing expected lab field: {e}")
-        return {}
+        chcm = get_any(
+            e,
+            "C.Hemoglobina_Corpuscular_Media",
+            "C_Hemoglobina_Corpuscular_Media"
+        )
+        add_analysis(results, "chcm", chcm)
+
+        add_analysis(results, "rdw", e.get("Coeficiente_Variação_Eritrócitos"))
+
+        # Plaquetas
+        add_analysis(results, "plaquetas", p.get("plaquetas"))
+        add_analysis(results, "vpm", p.get("volume_plaquetar_medio"))
+        add_analysis(results, "plaquetocrito", p.get("plaquetocrito"))
+        add_analysis(results, "pdw", p.get("Coeficiente_Variação_Plaquetas"))
+
+        # Bioquimica
+        add_analysis(results, "glicose", b.get("glicose"))
+        add_analysis(results, "azoto_ureico", b.get("azoto_ureico"))
+        add_analysis(results, "creatinina", b.get("creatinina"))
+        add_analysis(results, "sodio", b.get("sodio"))
+        add_analysis(results, "potassio", b.get("potassio"))
+        add_analysis(results, "proteinas_totais", b.get("proteinas_totais"))
+        add_analysis(results, "albumina", b.get("albumina"))
+        add_analysis(results, "calcio", b.get("calcio"))
+        add_analysis(results, "osmolalidade", b.get("osmolalidade"))
+        add_analysis(results, "ldh", b.get("ldh"))
+        add_analysis(results, "ast", b.get("ast"))
+        add_analysis(results, "alt", b.get("alt"))
+        add_analysis(results, "fosfatase_alcalina", b.get("fosfatase_alcalina"))
+        add_analysis(results, "gama_gt", b.get("gama_gt"))
+        add_analysis(results, "bilirrubina_total", b.get("bilirrubina_total"))
+        add_analysis(results, "creatina_cinase", b.get("Creatina_cinase"))
+
+        return results
+
+    except Exception as e:
+        print(f"[WARNING] Failed to extract lab parameters: {e}")
+        return []
 
 
 def parse_lab_value(value):
@@ -1415,12 +1430,13 @@ def patient_list(request):
     patient_data = []
     for patient in patients:
         treatments = Treatment.objects.filter(patient=patient)
-        analysis_obj = Analysis.objects.filter(patient=patient).first()
-
-        patient.json_analysis = json.dumps(serialize_analysis(analysis_obj))
+        analysis_qs = Analysis.objects.filter(patient=patient)
+        
+        patient.json_analysis = json.dumps(serialize_analysis(analysis_qs))
 
         patient_data.append((patient, treatments))
-
+    for patient in patients:
+        print("[PATIENT ANALYSIS]", patient.json_analysis)
     return render(request, 'trialpilot/patient_list.html', {
         'patient_data': patient_data,
         'search': search,
@@ -1566,13 +1582,19 @@ def parameter_extraction(request, diary_id):
             analysis_content = get_analysis_for_patient(patient_id)
             
             analysis_json = load_analysis_json(analysis_content)
+            print("[ANALYSIS JSON]", analysis_json)
             lab_params = extract_lab_parameters(analysis_json)
+
+            lab_dict = {
+                item["name"]: item
+                for item in lab_params
+            }
             
             extracted_params = parameter_extraction_pipeline(document, document_content)
             
             #extracted_params = dummy_params_extraction
             
-            extracted_params["lab"] = lab_params
+            extracted_params["lab"] = lab_dict
             
             file_params = ContentFile(json.dumps(extracted_params))
 
@@ -1583,8 +1605,63 @@ def parameter_extraction(request, diary_id):
             
             document_save(document, file_params, new_filename, 'EXTRACTED')
             
-            return render(request, 'trialpilot/diary_parameter-extraction.html', {"diary": document, "diary_content": document_content, "extracted_params": extracted_params})
+            erythrocyte_fields = [
+                ('eritrocitos', 'Erythrocytes'),
+                ('hemoglobina', 'Hemoglobin'),
+                ('hematocrito', 'Hematocrit'),
+                ('vc_medio', 'MCV'),
+                ('hcm', 'MCH'),
+                ('chcm', 'MCHC'),
+                ('rdw', 'RDW'),
+            ]
+            
+            platelet_fields = [
+                ('plaquetas', 'Platelets'),
+                ('vpm', 'MPV'),
+                ('plaquetocrito', 'Plateletcrit'),
+                ('pdw', 'PDW'),
+            ]
 
+            biochemistry_fields = [
+                ('glicose', 'Glucose'),
+                ('azoto_ureico', 'Urea'),
+                ('creatinina', 'Creatinine'),
+                ('sodio', 'Sodium'),
+                ('potassio', 'Potassium'),
+                ('proteinas_totais', 'Total Proteins'),
+                ('albumina', 'Albumin'),
+                ('calcio', 'Calcium'),
+                ('osmolalidade', 'Osmolality'),
+                ('ldh', 'LDH'),
+                ('ast', 'AST'),
+                ('alt', 'ALT'),
+                ('fosfatase_alcalina', 'Alkaline Phosphatase'),
+                ('gama_gt', 'GGT'),
+                ('bilirrubina_total', 'Bilirubin'),
+                ('creatina_cinase', 'CK'),
+            ]
+            
+            hemathology_fields = [
+                ('neutrofilos', 'neutrofilos_percent', 'Neutrophils'),
+                ('linfocitos', 'linfocitos_percent', 'Lymphocytes'),
+                ('monocitos', 'monocitos_percent', 'Monocytes'),
+                ('eosinofilos', 'eosinofilos_percent', 'Eosinophils'),
+                ('basofilos', 'basofilos_percent', 'Basophils')
+            ]
+            
+            return render(
+                request,
+                'trialpilot/diary_parameter-extraction.html',
+                {
+                    "diary": document,
+                    "diary_content": document_content,
+                    "extracted_params": extracted_params,
+                    "erythrocyte_fields": erythrocyte_fields,
+                    "platelet_fields": platelet_fields,
+                    "biochemistry_fields": biochemistry_fields,
+                    "hemathology_fields": hemathology_fields
+                }
+            )
             
         elif request.method == 'POST':
             corrected_params = request.POST.dict()
@@ -1605,58 +1682,51 @@ def parameter_extraction(request, diary_id):
             )
             
             lab_prefix = "lab_"
-
             lab_fields = {k: v for k, v in corrected_params.items() if k.startswith(lab_prefix)}
 
             if lab_fields:
-                Analysis.objects.create(
-                    patient=patient,
 
-                    leucocitos=parse_lab_value(lab_fields.get("lab_leucocitos")),
-                    
-                    neutrofilos=parse_lab_value(lab_fields.get("lab_neutrofilos")),
-                    linfocitos=parse_lab_value(lab_fields.get("lab_linfocitos")),
-                    monocitos=parse_lab_value(lab_fields.get("lab_monocitos")),
-                    eosinofilos=parse_lab_value(lab_fields.get("lab_eosinofilos")),
-                    basofilos=parse_lab_value(lab_fields.get("lab_basofilos")),
-                    
-                    neutrofilos_percent=parse_lab_value(lab_fields.get("lab_neutrofilos_percent")),
-                    linfocitos_percent=parse_lab_value(lab_fields.get("lab_linfocitos_percent")),
-                    monocitos_percent=parse_lab_value(lab_fields.get("lab_monocitos_percent")),
-                    eosinofilos_percent=parse_lab_value(lab_fields.get("lab_eosinofilos_percent")),
-                    basofilos_percent=parse_lab_value(lab_fields.get("lab_basofilos_percent")),
+                analyses = []
 
+                grouped = {}
 
-                    eritrocitos=parse_lab_value(lab_fields.get("lab_eritrocitos")),
-                    hemoglobina=parse_lab_value(lab_fields.get("lab_hemoglobina")),
-                    hematocrito=parse_lab_value(lab_fields.get("lab_hematocrito")),
-                    vc_medio=parse_lab_value(lab_fields.get("lab_vc_medio")),
-                    hcm=parse_lab_value(lab_fields.get("lab_hcm")),
-                    chcm=parse_lab_value(lab_fields.get("lab_chcm")),
-                    rdw=parse_lab_value(lab_fields.get("lab_rdw")),
+                for key, value in lab_fields.items():
+                    clean = key[len(lab_prefix):]
 
-                    plaquetas=parse_lab_value(lab_fields.get("lab_plaquetas")),
-                    vpm=parse_lab_value(lab_fields.get("lab_vpm")),
-                    plaquetocrito=parse_lab_value(lab_fields.get("lab_plaquetocrito")),
-                    pdw=parse_lab_value(lab_fields.get("lab_pdw")),
+                    base = clean.replace("_percent", "").replace("_unit", "")
 
-                    glicose=parse_lab_value(lab_fields.get("lab_glicose")),
-                    azoto_ureico=parse_lab_value(lab_fields.get("lab_azoto_ureico")),
-                    creatinina=parse_lab_value(lab_fields.get("lab_creatinina")),
-                    sodio=parse_lab_value(lab_fields.get("lab_sodio")),
-                    potassio=parse_lab_value(lab_fields.get("lab_potassio")),
-                    proteinas_totais=parse_lab_value(lab_fields.get("lab_proteinas_totais")),
-                    albumina=parse_lab_value(lab_fields.get("lab_albumina")),
-                    calcio=parse_lab_value(lab_fields.get("lab_calcio")),
-                    osmolalidade=parse_lab_value(lab_fields.get("lab_osmolalidade")),
-                    ldh=parse_lab_value(lab_fields.get("lab_ldh")),
-                    ast=parse_lab_value(lab_fields.get("lab_ast")),
-                    alt=parse_lab_value(lab_fields.get("lab_alt")),
-                    fosfatase_alcalina=parse_lab_value(lab_fields.get("lab_fosfatase_alcalina")),
-                    gama_gt=parse_lab_value(lab_fields.get("lab_gama_gt")),
-                    bilirrubina_total=parse_lab_value(lab_fields.get("lab_bilirrubina_total")),
-                    creatina_cinase=parse_lab_value(lab_fields.get("lab_creatina_cinase")),
-                )
+                    if base not in grouped:
+                        grouped[base] = {}
+
+                    grouped[base][clean] = value
+
+                for base, fields in grouped.items():
+
+                    value = fields.get(base)
+                    unit = fields.get(base + "_unit")
+
+                    if value:
+                        analyses.append(
+                            Analysis(
+                                patient=patient,
+                                name=base,
+                                value=value,
+                                unit=unit
+                            )
+                        )
+
+                    percent = fields.get(base + "_percent")
+                    if percent:
+                        analyses.append(
+                            Analysis(
+                                patient=patient,
+                                name=base + "_percent",
+                                value=percent,
+                                unit="%"
+                            )
+                        )
+
+                Analysis.objects.bulk_create(analyses)
             
             treatment_names = request.POST.getlist("treatment_name[]")
             treatment_start_dates = request.POST.getlist("treatment_start_date[]")
@@ -2096,7 +2166,11 @@ def match_patients(request, trial_id):
         if request.method == 'GET':
             trial_criteria = Trial_criteria.objects.filter(document=document).select_related("logic")
             
-            patients = Patient_profile.objects.all()
+            trial_details = ClinicalTrial.objects.get(document=document)
+
+            patients = Patient_profile.objects.filter(
+                Q(pathology_group=trial_details.pathology_group)
+            )
             
             print(f"CRITERIA: {trial_criteria}\nPATIENTS: {patients}")
             
