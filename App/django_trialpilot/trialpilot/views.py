@@ -84,7 +84,6 @@ KNOWN_FIELDS = {
     "bilirrubina_total", "creatina_cinase",
 }
 
-
 FIELD_RESOLVER = {
     # Diretos
     "age": lambda p: p.age,
@@ -94,11 +93,58 @@ FIELD_RESOLVER = {
     "molecular_status": lambda p: p.molecular_status,
     "diagnosis_date": lambda p: p.diagnosis_date,
     "control": lambda p: p.control,
+    "pathology_group": lambda p: p.pathology_group,
 
-    # Relações (IMPORTANTES)
+    # Relações
     "treatment_name": lambda p: [t.treatment_name for t in p.treatments.all()],
     "treatment_start_date": lambda p: [t.start_date for t in p.treatments.all()],
     "treatment_end_date": lambda p: [t.end_date for t in p.treatments.all()],
+
+    # Hematology
+    "leucocitos": lambda p: get_latest_lab_value(p, "leucocitos"),
+    "neutrofilos": lambda p: get_latest_lab_value(p, "neutrofilos"),
+    "neutrofilos_percent": lambda p: get_latest_lab_value(p, "neutrofilos_percent"),
+    "linfocitos": lambda p: get_latest_lab_value(p, "linfocitos"),
+    "linfocitos_percent": lambda p: get_latest_lab_value(p, "linfocitos_percent"),
+    "monocitos": lambda p: get_latest_lab_value(p, "monocitos"),
+    "monocitos_percent": lambda p: get_latest_lab_value(p, "monocitos_percent"),
+    "eosinofilos": lambda p: get_latest_lab_value(p, "eosinofilos"),
+    "eosinofilos_percent": lambda p: get_latest_lab_value(p, "eosinofilos_percent"),
+    "basofilos": lambda p: get_latest_lab_value(p, "basofilos"),
+    "basofilos_percent": lambda p: get_latest_lab_value(p, "basofilos_percent"),
+
+    # Red Blood Cells
+    "eritrocitos": lambda p: get_latest_lab_value(p, "eritrocitos"),
+    "hemoglobina": lambda p: get_latest_lab_value(p, "hemoglobina"),
+    "hematocrito": lambda p: get_latest_lab_value(p, "hematocrito"),
+    "vc_medio": lambda p: get_latest_lab_value(p, "vc_medio"),
+    "hcm": lambda p: get_latest_lab_value(p, "hcm"),
+    "chcm": lambda p: get_latest_lab_value(p, "chcm"),
+    "rdw": lambda p: get_latest_lab_value(p, "rdw"),
+
+    # Platelets
+    "plaquetas": lambda p: get_latest_lab_value(p, "plaquetas"),
+    "vpm": lambda p: get_latest_lab_value(p, "vpm"),
+    "plaquetocrito": lambda p: get_latest_lab_value(p, "plaquetocrito"),
+    "pdw": lambda p: get_latest_lab_value(p, "pdw"),
+
+    # Biochemistry
+    "glicose": lambda p: get_latest_lab_value(p, "glicose"),
+    "azoto_ureico": lambda p: get_latest_lab_value(p, "azoto_ureico"),
+    "creatinina": lambda p: get_latest_lab_value(p, "creatinina"),
+    "sodio": lambda p: get_latest_lab_value(p, "sodio"),
+    "potassio": lambda p: get_latest_lab_value(p, "potassio"),
+    "proteinas_totais": lambda p: get_latest_lab_value(p, "proteinas_totais"),
+    "albumina": lambda p: get_latest_lab_value(p, "albumina"),
+    "calcio": lambda p: get_latest_lab_value(p, "calcio"),
+    "osmolalidade": lambda p: get_latest_lab_value(p, "osmolalidade"),
+    "ldh": lambda p: get_latest_lab_value(p, "ldh"),
+    "ast": lambda p: get_latest_lab_value(p, "ast"),
+    "alt": lambda p: get_latest_lab_value(p, "alt"),
+    "fosfatase_alcalina": lambda p: get_latest_lab_value(p, "fosfatase_alcalina"),
+    "gama_gt": lambda p: get_latest_lab_value(p, "gama_gt"),
+    "bilirrubina_total": lambda p: get_latest_lab_value(p, "bilirrubina_total"),
+    "creatina_cinase": lambda p: get_latest_lab_value(p, "creatina_cinase"),
 
     # Campos ainda não suportados (futuro)
     "sex": lambda p: None,
@@ -943,6 +989,7 @@ def get_patient_text(patient):
     return text 
     
 def patient_matching_step(patient, trial_criteria):
+    
     inclusion_results = []
     exclusion_results = []
 
@@ -990,19 +1037,39 @@ def extract_evidence(patient, logic):
     if not logic:
         return evidences
 
+    # Simple condition
     if "field" in logic:
-        patient_value = get_patient_value(patient, logic["field"])
+
+        patient_value = get_patient_value(
+            patient,
+            logic["field"]
+        )
+
+        patient_unit = None
+
+        # Laboratory value
+        if isinstance(patient_value, dict):
+            patient_unit = patient_value.get("unit")
+            patient_value = patient_value.get("value")
 
         evidences.append({
+            "field": logic.get("field"),
             "patient_value": patient_value,
+            "patient_unit": patient_unit,
             "expected_value": logic.get("value"),
+            "expected_unit": logic.get("unit"),
             "operator": logic.get("operator", "").upper()
         })
+
         return evidences
 
-    if logic.get("operator") == "AND" and "conditions" in logic:
+    # Nested conditions
+    if "conditions" in logic:
+
         for condition in logic["conditions"]:
-            evidences.extend(extract_evidence(patient, condition))
+            evidences.extend(
+                extract_evidence(patient, condition)
+            )
 
         return evidences
 
@@ -1023,6 +1090,7 @@ def parse_possible_list(value):
     return value
 
 def get_patient_value(patient, field):
+
     resolver = FIELD_RESOLVER.get(field)
 
     if not resolver:
@@ -1031,9 +1099,26 @@ def get_patient_value(patient, field):
 
     try:
         return resolver(patient)
+
     except Exception as e:
         print(f"[RESOLVER ERROR] {field}: {e}")
         return None
+
+def get_latest_lab_value(patient, analyte_name):
+
+    analysis = (
+        patient.analysis
+        .filter(name__iexact=analyte_name)
+        .first()
+    )
+
+    if not analysis:
+        return None
+
+    return {
+        "value": analysis.value,
+        "unit": analysis.unit,
+    }
 
 def safe_float(val):
     try:
@@ -1048,6 +1133,16 @@ def normalize_value(val):
     
     return str(val).lower().strip()
 
+def normalize_unit(unit):
+    if not unit:
+        return ""
+
+    return (
+        str(unit)
+        .lower()
+        .replace(" ", "")
+        .replace("_", "")
+    )
 
 def evaluate_condition(patient, logic):
     if not logic:
@@ -1065,6 +1160,29 @@ def evaluate_condition(patient, logic):
             return matching_llm(patient, logic)
 
         patient_value = get_patient_value(patient, field)
+        
+        patient_unit = None
+
+        if isinstance(patient_value, dict):
+            patient_unit = patient_value.get("unit")
+            patient_value = patient_value.get("value")
+            
+        expected_unit = logic.get("unit")
+
+        if expected_unit and patient_unit:
+
+            normalized_patient_unit = patient_unit.strip().lower()
+            normalized_expected_unit = expected_unit.strip().lower()
+
+            if normalized_patient_unit != normalized_expected_unit:
+                print(
+                    f"[UNIT MISMATCH] "
+                    f"Patient unit '{patient_unit}' != "
+                    f"Expected '{expected_unit}' "
+                    f"for field '{field}'"
+                )
+
+                return False
 
         if patient_value is None:
             return False
