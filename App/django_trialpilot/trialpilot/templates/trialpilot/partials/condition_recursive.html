@@ -20,22 +20,72 @@
             <!-- FIELD -->
             <div class="col-md-3">
                 <select class="form-select logic-field" name="field_{{ logic_id }}_{{ forloop.counter }}">
-                    <option value="">-- Select field --</option>
-                    <option value="age" {% if condition.field_type == "age" %}selected{% endif %}>Age</option>
-                    <option value="ecog_ps" {% if condition.field_type == "ecog_ps" %}selected{% endif %}>ECOG</option>
-                    <option value="diagnosis" {% if condition.field_type == "diagnosis" %}selected{% endif %}>Diagnosis</option>
-                    <option value="stage" {% if condition.field_type == "stage" %}selected{% endif %}>Stage</option>
-                    <option value="molecular_status" {% if condition.field_type == "molecular_status" %}selected{% endif %}>Molecular Status</option>
-                    <option value="sex" {% if condition.field_type == "sex" %}selected{% endif %}>Sex</option>
-                    <option value="diagnosis_date" {% if condition.field_type == "diagnosis_date" %}selected{% endif %}>Diagnosis Date</option>
-                    <option value="treatment" {% if condition.field_type == "treatment" %}selected{% endif %}>Treatment</option>
-                    <option value="treatment_name" {% if condition.field_type == "treatment_name" %}selected{% endif %}>Treatment Name</option>
-                    <option value="treatment_start_date" {% if condition.field_type == "treatment_start_date" %}selected{% endif %}>Treatment Start Date</option>
-                    <option value="treatment_end_date" {% if condition.field_type == "treatment_end_date" %}selected{% endif %}>Treatment End Date</option>
-                    <option value="progression_date" {% if condition.field_type == "progression_date" %}selected{% endif %}>Progression Date</option>
-                    <option value="control" {% if condition.field_type == "control" %}selected{% endif %}>Control</option>
-                    <option value="__custom__" {% if condition.field_type == "__custom__" %}selected{% endif %}>Other...</option>
-                </select>
+                <option value="">-- Select field --</option>
+
+                <!-- Patient fields -->
+                <option value="age" {% if condition.field_type == "age" %}selected{% endif %}>Age</option>
+                <option value="ecog_ps" {% if condition.field_type == "ecog_ps" %}selected{% endif %}>ECOG</option>
+                <option value="diagnosis" {% if condition.field_type == "diagnosis" %}selected{% endif %}>Diagnosis</option>
+                <option value="stage" {% if condition.field_type == "stage" %}selected{% endif %}>Stage</option>
+                <option value="molecular_status" {% if condition.field_type == "molecular_status" %}selected{% endif %}>Molecular Status</option>
+                <option value="sex" {% if condition.field_type == "sex" %}selected{% endif %}>Sex</option>
+                <option value="diagnosis_date" {% if condition.field_type == "diagnosis_date" %}selected{% endif %}>Diagnosis Date</option>
+                <option value="treatment" {% if condition.field_type == "treatment" %}selected{% endif %}>Treatment</option>
+                <option value="treatment_name" {% if condition.field_type == "treatment_name" %}selected{% endif %}>Treatment Name</option>
+                <option value="treatment_start_date" {% if condition.field_type == "treatment_start_date" %}selected{% endif %}>Treatment Start Date</option>
+                <option value="treatment_end_date" {% if condition.field_type == "treatment_end_date" %}selected{% endif %}>Treatment End Date</option>
+                <option value="progression_date" {% if condition.field_type == "progression_date" %}selected{% endif %}>Progression Date</option>
+                <option value="control" {% if condition.field_type == "control" %}selected{% endif %}>Control</option>
+
+                <!-- Hematology -->
+                <option value="leucocitos" data-lab-field="true" {% if condition.field_type == "leucocitos" %}selected{% endif %}>Leukocytes (WBC)</option>
+                <option value="neutrofilos" data-lab-field="true" {% if condition.field_type == "neutrofilos" %}selected{% endif %}>Neutrophils (ANC)</option>
+                <option value="neutrofilos_percent" data-lab-field="true" {% if condition.field_type == "neutrofilos_percent" %}selected{% endif %}>Neutrophils %</option>
+                <option value="linfocitos" data-lab-field="true" {% if condition.field_type == "linfocitos" %}selected{% endif %}>Lymphocytes (ALC)</option>
+                <option value="linfocitos_percent" data-lab-field="true" {% if condition.field_type == "linfocitos_percent" %}selected{% endif %}>Lymphocytes %</option>
+                <option value="monocitos" data-lab-field="true" {% if condition.field_type == "monocitos" %}selected{% endif %}>Monocytes</option>
+                <option value="monocitos_percent" data-lab-field="true" {% if condition.field_type == "monocitos_percent" %}selected{% endif %}>Monocytes %</option>
+                <option value="eosinofilos" data-lab-field="true" {% if condition.field_type == "eosinofilos" %}selected{% endif %}>Eosinophils</option>
+                <option value="eosinofilos_percent" data-lab-field="true" {% if condition.field_type == "eosinofilos_percent" %}selected{% endif %}>Eosinophils %</option>
+                <option value="basofilos" data-lab-field="true" {% if condition.field_type == "basofilos" %}selected{% endif %}>Basophils</option>
+                <option value="basofilos_percent" data-lab-field="true" {% if condition.field_type == "basofilos_percent" %}selected{% endif %}>Basophils %</option>
+
+                <!-- Red Blood Cells -->
+                <option value="eritrocitos" data-lab-field="true" {% if condition.field_type == "eritrocitos" %}selected{% endif %}>RBC</option>
+                <option value="hemoglobina" data-lab-field="true" {% if condition.field_type == "hemoglobina" %}selected{% endif %}>Hemoglobin</option>
+                <option value="hematocrito" data-lab-field="true" {% if condition.field_type == "hematocrito" %}selected{% endif %}>Hematocrit</option>
+                <option value="vc_medio" data-lab-field="true" {% if condition.field_type == "vc_medio" %}selected{% endif %}>MCV</option>
+                <option value="hcm" data-lab-field="true" {% if condition.field_type == "hcm" %}selected{% endif %}>MCH</option>
+                <option value="chcm" data-lab-field="true" {% if condition.field_type == "chcm" %}selected{% endif %}>MCHC</option>
+                <option value="rdw" data-lab-field="true" {% if condition.field_type == "rdw" %}selected{% endif %}>RDW</option>
+
+                <!-- Platelets -->
+                <option value="plaquetas" data-lab-field="true" {% if condition.field_type == "plaquetas" %}selected{% endif %}>Platelets</option>
+                <option value="vpm" data-lab-field="true" {% if condition.field_type == "vpm" %}selected{% endif %}>MPV</option>
+                <option value="plaquetocrito" data-lab-field="true" {% if condition.field_type == "plaquetocrito" %}selected{% endif %}>Plateletcrit</option>
+                <option value="pdw" data-lab-field="true" {% if condition.field_type == "pdw" %}selected{% endif %}>PDW</option>
+
+                <!-- Biochemistry -->
+                <option value="glicose" data-lab-field="true" {% if condition.field_type == "glicose" %}selected{% endif %}>Glucose</option>
+                <option value="azoto_ureico" data-lab-field="true" {% if condition.field_type == "azoto_ureico" %}selected{% endif %}>BUN / Urea</option>
+                <option value="creatinina" data-lab-field="true" {% if condition.field_type == "creatinina" %}selected{% endif %}>Creatinine</option>
+                <option value="sodio" data-lab-field="true" {% if condition.field_type == "sodio" %}selected{% endif %}>Sodium</option>
+                <option value="potassio" data-lab-field="true" {% if condition.field_type == "potassio" %}selected{% endif %}>Potassium</option>
+                <option value="proteinas_totais" data-lab-field="true" {% if condition.field_type == "proteinas_totais" %}selected{% endif %}>Total Protein</option>
+                <option value="albumina" data-lab-field="true" {% if condition.field_type == "albumina" %}selected{% endif %}>Albumin</option>
+                <option value="calcio" data-lab-field="true" {% if condition.field_type == "calcio" %}selected{% endif %}>Calcium</option>
+                <option value="osmolalidade" data-lab-field="true" {% if condition.field_type == "osmolalidade" %}selected{% endif %}>Osmolality</option>
+                <option value="ldh" data-lab-field="true" {% if condition.field_type == "ldh" %}selected{% endif %}>LDH</option>
+                <option value="ast" data-lab-field="true" {% if condition.field_type == "ast" %}selected{% endif %}>AST</option>
+                <option value="alt" data-lab-field="true" {% if condition.field_type == "alt" %}selected{% endif %}>ALT</option>
+                <option value="fosfatase_alcalina" data-lab-field="true" {% if condition.field_type == "fosfatase_alcalina" %}selected{% endif %}>Alkaline Phosphatase</option>
+                <option value="gama_gt" data-lab-field="true" {% if condition.field_type == "gama_gt" %}selected{% endif %}>GGT</option>
+                <option value="bilirrubina_total" data-lab-field="true" {% if condition.field_type == "bilirrubina_total" %}selected{% endif %}>Total Bilirubin</option>
+                <option value="creatina_cinase" data-lab-field="true" {% if condition.field_type == "creatina_cinase" %}selected{% endif %}>Creatine Kinase (CK)</option>
+
+                <option value="__custom__" {% if condition.field_type == "__custom__" %}selected{% endif %}>Other...</option>
+            </select>
+
 
                 <input type="text"
                     class="form-control mt-2 logic-field-custom"
@@ -64,12 +114,21 @@
             </div>
 
             <!-- VALUE -->
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <input type="text"
                     class="form-control logic-value"
                     name="value_{{ logic_id }}_{{ forloop.counter }}"
                     value="{{ condition.value }}"
                     placeholder="Enter value">
+            </div>
+
+            <!-- UNIT -->
+            <div class="col-md-2 unit-wrapper">
+                <input type="text"
+                    class="form-control logic-unit"
+                    name="unit_{{ logic_id }}_{{ forloop.counter }}"
+                    value="{{ condition.unit }}"
+                    placeholder="Unit">
             </div>
 
             <input type="hidden" name="logic_{{ logic_id }}" value="1">

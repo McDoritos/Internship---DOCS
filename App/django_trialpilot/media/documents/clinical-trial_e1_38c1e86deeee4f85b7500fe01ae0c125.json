@@ -1,0 +1,335 @@
+{
+  "inclusion_criteria": [
+    {
+      "id": 2709,
+      "text": "Age ≥ 18 years.",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": "18"
+      }
+    },
+    {
+      "id": 2710,
+      "text": "Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2711,
+      "text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "CONTAINS",
+            "value": "platinum-based chemotherapy"
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "field": "treatment_name",
+                "operator": "CONTAINS",
+                "value": "anti-PD-1"
+              },
+              {
+                "field": "treatment_name",
+                "operator": "CONTAINS",
+                "value": "anti-PD-L1"
+              }
+            ]
+          },
+          {
+            "field": "prior_therapy_progression",
+            "operator": "=",
+            "value": "yes"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2712,
+      "text": "ECOG Performance Status 0–1.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "ecog_ps",
+            "operator": ">=",
+            "value": "0"
+          },
+          {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2713,
+      "text": "At least one measurable lesion per RECIST 1.1.",
+      "logic": {
+        "field": "measurable_lesion",
+        "operator": "=",
+        "value": "yes"
+      }
+    },
+    {
+      "id": 2714,
+      "text": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+      "logic": {
+        "field": "neutrofilos",
+        "operator": ">=",
+        "value": "1.5",
+        "unit": "x 10^9/L"
+      }
+    },
+    {
+      "id": 2715,
+      "text": "Platelets ≥ 100 x 10^9/L",
+      "logic": {
+        "field": "plaquetas",
+        "operator": ">=",
+        "value": "100",
+        "unit": "x 10^9/L"
+      }
+    },
+    {
+      "id": 2716,
+      "text": "Hemoglobin ≥ 9 g/dL",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": "9",
+        "unit": "g/dL"
+      }
+    },
+    {
+      "id": 2717,
+      "text": "AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "ast",
+            "operator": "<=",
+            "value": "2.5",
+            "unit": "x ULN"
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "field": "liver_metastases",
+                "operator": "=",
+                "value": "true"
+              },
+              {
+                "field": "ast",
+                "operator": "<=",
+                "value": "5",
+                "unit": "x ULN"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 2718,
+      "text": "Total bilirubin ≤ 1.5 x ULN",
+      "logic": {
+        "field": "bilirrubina_total",
+        "operator": "<=",
+        "value": "1.5",
+        "unit": "x ULN"
+      }
+    },
+    {
+      "id": 2719,
+      "text": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+      "logic": {
+        "field": "creatinine_clearance",
+        "operator": ">=",
+        "value": "40",
+        "unit": "mL/min"
+      }
+    },
+    {
+      "id": 2720,
+      "text": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "sex",
+            "operator": "=",
+            "value": "female"
+          },
+          {
+            "field": "pregnancy_test_result",
+            "operator": "=",
+            "value": "negative"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2721,
+      "text": "Signed informed consent prior to any study-specific procedure.",
+      "logic": {
+        "field": "informed_consent_signed",
+        "operator": "=",
+        "value": "true"
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 2722,
+      "text": "Known EGFR, ALK, or ROS1 genomic alterations with available approved targeted therapy.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": [
+              "EGFR",
+              "ALK",
+              "ROS1"
+            ]
+          },
+          {
+            "field": "approved_targeted_therapy",
+            "operator": "=",
+            "value": "available"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2723,
+      "text": "Untreated brain metastases.",
+      "logic": {
+        "field": "brain_metastases_treatment",
+        "operator": "=",
+        "value": "untreated"
+      }
+    },
+    {
+      "id": 2724,
+      "text": "Symptomatic brain metastases.",
+      "logic": {
+        "field": "brain_metastases_symptom",
+        "operator": "=",
+        "value": "symptomatic"
+      }
+    },
+    {
+      "id": 2725,
+      "text": "Active autoimmune disease requiring systemic immunosuppressive therapy.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "autoimmune_disease_status",
+            "operator": "=",
+            "value": "active"
+          },
+          {
+            "field": "systemic_immunosuppressive_therapy",
+            "operator": "=",
+            "value": "required"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2726,
+      "text": "Interstitial lung disease.",
+      "logic": {
+        "field": "interstitial_lung_disease",
+        "operator": "=",
+        "value": "present"
+      }
+    },
+    {
+      "id": 2727,
+      "text": "Active non-infectious pneumonitis.",
+      "logic": {
+        "field": "pneumonitis_status",
+        "operator": "=",
+        "value": "active"
+      }
+    },
+    {
+      "id": 2728,
+      "text": "Active infection requiring systemic therapy.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "infection_status",
+            "operator": "=",
+            "value": "active"
+          },
+          {
+            "field": "infection_treatment",
+            "operator": "=",
+            "value": "systemic"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2729,
+      "text": "Prior exposure to LUMITAX.",
+      "logic": {
+        "field": "lumitax_exposure",
+        "operator": "=",
+        "value": "yes"
+      }
+    },
+    {
+      "id": 2730,
+      "text": "Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "active_invasive_malignancy",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "diagnosis",
+            "operator": "NOT_IN",
+            "value": "non-melanoma skin cancer"
+          },
+          {
+            "field": "diagnosis",
+            "operator": "NOT_IN",
+            "value": "carcinoma in situ"
+          }
+        ]
+      }
+    }
+  ]
+}

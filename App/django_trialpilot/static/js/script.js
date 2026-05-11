@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     return v;
                 };
 
-                
+
                 const display = (obj) => {
                     if (!obj) return "-";
                     if (typeof obj === "object") {
@@ -522,15 +522,15 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="row g-2">
                 ${valueBox("Leucocytes", display(analysis.leucocitos))}
 ${valueBox("Neutrophils", display(analysis.neutrofilos),
-           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.neutrofilos_percent)}</span>`)}
+                    `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.neutrofilos_percent)}</span>`)}
 ${valueBox("Lymphocytes", display(analysis.linfocitos),
-           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.linfocitos_percent)}</span>`)}
+                        `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.linfocitos_percent)}</span>`)}
 ${valueBox("Monocytes", display(analysis.monocitos),
-           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.monocitos_percent)}</span>`)}
+                            `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.monocitos_percent)}</span>`)}
 ${valueBox("Eosinophils", display(analysis.eosinofilos),
-           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.eosinofilos_percent)}</span>`)}
+                                `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.eosinofilos_percent)}</span>`)}
 ${valueBox("Basophils", display(analysis.basofilos),
-           `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.basofilos_percent)}</span>`)}
+                                    `<span class="badge bg-secondary-subtle text-secondary">${display(analysis.basofilos_percent)}</span>`)}
             </div>
         </div>
     </div>
@@ -1294,6 +1294,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const clone = template.content.cloneNode(true);
 
             container.appendChild(clone);
+
+            const newWrapper = container.lastElementChild;
+            const newRow = newWrapper.querySelector(".condition-row");
+
+            if (newRow) {
+                toggleUnitField(newRow);
+
+                const fieldSelect = newRow.querySelector(".logic-field");
+
+                if (fieldSelect) {
+                    fieldSelect.addEventListener("change", () => {
+                        toggleUnitField(newRow);
+                    });
+                }
+            }
         }
 
         // ADD GROUP
@@ -1317,6 +1332,41 @@ document.addEventListener("DOMContentLoaded", function () {
         // REMOVE GROUP
         if (e.target.classList.contains("remove-group")) {
             e.target.closest(".nested-group").remove();
+        }
+    });
+
+    function toggleUnitField(row) {
+
+        const fieldSelect = row.querySelector(".logic-field");
+        const unitWrapper = row.querySelector(".unit-wrapper");
+
+        if (!fieldSelect || !unitWrapper) return;
+
+        const selectedOption =
+            fieldSelect.options[fieldSelect.selectedIndex];
+
+        const isLabField =
+            selectedOption.dataset.labField === "true";
+
+        if (isLabField) {
+            unitWrapper.style.display = "block";
+        } else {
+            unitWrapper.style.display = "none";
+
+            const input = unitWrapper.querySelector("input");
+            if (input) input.value = "";
+        }
+    }
+
+    document.querySelectorAll(".condition-row").forEach(row => {
+        toggleUnitField(row);
+
+        const fieldSelect = row.querySelector(".logic-field");
+
+        if (fieldSelect) {
+            fieldSelect.addEventListener("change", () => {
+                toggleUnitField(row);
+            });
         }
     });
 

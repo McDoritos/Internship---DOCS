@@ -41,45 +41,88 @@ You should prioritize using the following fields whenever possible:
 - `death_date`
 - `control`
 
-Besides this fields there can also be analysis values, for that whenever possible use the following fields:
-- `leucocitos`
-- `neutrofilos`
-- `neutrofilos_percent`
-- `linfocitos`
-- `linfocitos_percent`
-- `monocitos`
-- `monocitos_percent`
-- `eosinofilos`
-- `eosinofilos_percent`
-- `basofilos`
-- `basofilos_percent`
-- `eritrocitos`
-- `hemoglobina`
-- `hematocrito`
-- `vc_medio`
-- `hcm`
-- `chcm`
-- `rdw`
-- `plaquetas`
-- `vpm`
-- `plaquetocrito`
-- `pdw`
-- `glicose`
-- `azoto_ureico`
-- `creatinina`
-- `sodio`
-- `potassio`
-- `proteinas_totais`
-- `albumina`
-- `calcio`
-- `osmolalidade`
-- `ldh`
-- `ast`
-- `alt`
-- `fosfatase_alcalina`
-- `gama_gt`
-- `bilirrubina_total`
-- `creatina_cinase`
+Laboratory Analysis Extraction Rules
+
+Laboratory values MUST follow the normalized schema fields listed below.
+
+Each laboratory parameter extracted from criteria should:
+- Use the normalized schema field whenever possible.
+- Preserve the exact numeric threshold/value from the criterion.
+- Preserve the comparison operator exactly.
+- Ignore reference ranges unless explicitly part of eligibility.
+- Preserve units if explicitly stated in the criterion.
+- Distinguish between absolute counts and percentages.
+
+When laboratory criteria are expressed using synonyms, abbreviations, or clinical aliases, map them to the normalized schema fields below.
+
+Laboratory Synonym Mapping
+
+Hematology:
+- "WBC", "White Blood Cells", "White blood cell count", "Leukocytes" → `leucocitos`
+- "ANC", "Absolute Neutrophil Count", "Neutrophil count" → `neutrofilos`
+- "Neutrophils %" → `neutrofilos_percent`
+- "ALC", "Absolute Lymphocyte Count", "Lymphocyte count" → `linfocitos`
+- "Lymphocytes %" → `linfocitos_percent`
+- "Monocyte count" → `monocitos`
+- "Monocytes %" → `monocitos_percent`
+- "Eosinophil count" → `eosinofilos`
+- "Eosinophils %" → `eosinofilos_percent`
+- "Basophil count" → `basofilos`
+- "Basophils %" → `basofilos_percent`
+
+Red Blood Cell Parameters:
+- "RBC", "Red Blood Cells" → `eritrocitos`
+- "Hemoglobin", "Hb", "Hgb" → `hemoglobina`
+- "Hematocrit", "HCT" → `hematocrito`
+- "MCV" → `vc_medio`
+- "MCH" → `hcm`
+- "MCHC" → `chcm`
+- "RDW" → `rdw`
+
+Platelets:
+- "Platelet count", "Platelets" → `plaquetas`
+- "MPV" → `vpm`
+- "Plateletcrit" → `plaquetocrito`
+- "PDW" → `pdw`
+
+Biochemistry:
+- "Glucose" → `glicose`
+- "BUN", "Blood Urea Nitrogen", "Urea" → `azoto_ureico`
+- "Creatinine" → `creatinina`
+- "Sodium", "Na" → `sodio`
+- "Potassium", "K" → `potassio`
+- "Total Protein" → `proteinas_totais`
+- "Albumin" → `albumina`
+- "Calcium" → `calcio`
+- "Osmolality" → `osmolalidade`
+- "LDH" → `ldh`
+- "AST", "SGOT" → `ast`
+- "ALT", "SGPT" → `alt`
+- "ALP", "Alkaline Phosphatase" → `fosfatase_alcalina`
+- "GGT", "Gamma GT" → `gama_gt`
+- "Total Bilirubin", "Bilirubin" → `bilirrubina_total`
+- "CK", "CPK", "Creatine Kinase" → `creatina_cinase`
+
+Laboratory Logic Rules
+
+For laboratory criteria:
+- Always use structured logic.
+- Never leave laboratory criteria unmapped if a semantic match exists.
+- Preserve the exact threshold.
+- Preserve the exact comparison operator.
+
+Example:
+
+Input:
+"Hemoglobin ≥ 9 g/dL"
+
+Output:
+{
+  "field": "hemoglobina",
+  "operator": ">=",
+  "value": "9",
+  "unit": "g/dL"
+}
 
 If a criterion references a concept not present in this list:
 - You MUST still produce a structured condition using a best-effort semantic field name.

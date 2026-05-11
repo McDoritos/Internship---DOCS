@@ -221,10 +221,12 @@
         <hr>
 
         <div class="row g-2 align-items-center condition-row mb-2">
-
+            <!-- FIELD -->
             <div class="col-md-3">
-                <select class="form-select logic-field">
+                <select class="form-select logic-field" name="field_{{ logic_id }}_{{ forloop.counter }}">
                     <option value="">-- Select field --</option>
+
+                    <!-- Patient fields -->
                     <option value="age">Age</option>
                     <option value="ecog_ps">ECOG</option>
                     <option value="diagnosis">Diagnosis</option>
@@ -238,6 +240,53 @@
                     <option value="treatment_end_date">Treatment End Date</option>
                     <option value="progression_date">Progression Date</option>
                     <option value="control">Control</option>
+
+                    <!-- Hematology -->
+                    <option value="leucocitos" data-lab-field="true">Leukocytes (WBC)</option>
+                    <option value="neutrofilos" data-lab-field="true">Neutrophils (ANC)</option>
+                    <option value="neutrofilos_percent" data-lab-field="true">Neutrophils %</option>
+                    <option value="linfocitos" data-lab-field="true">Lymphocytes (ALC)</option>
+                    <option value="linfocitos_percent" data-lab-field="true">Lymphocytes %</option>
+                    <option value="monocitos" data-lab-field="true">Monocytes</option>
+                    <option value="monocitos_percent" data-lab-field="true">Monocytes %</option>
+                    <option value="eosinofilos" data-lab-field="true">Eosinophils</option>
+                    <option value="eosinofilos_percent" data-lab-field="true">Eosinophils %</option>
+                    <option value="basofilos" data-lab-field="true">Basophils</option>
+                    <option value="basofilos_percent" data-lab-field="true">Basophils %</option>
+
+                    <!-- Red Blood Cells -->
+                    <option value="eritrocitos" data-lab-field="true">RBC</option>
+                    <option value="hemoglobina" data-lab-field="true">Hemoglobin</option>
+                    <option value="hematocrito" data-lab-field="true">Hematocrit</option>
+                    <option value="vc_medio" data-lab-field="true">MCV</option>
+                    <option value="hcm" data-lab-field="true">MCH</option>
+                    <option value="chcm" data-lab-field="true">MCHC</option>
+                    <option value="rdw" data-lab-field="true">RDW</option>
+
+                    <!-- Platelets -->
+                    <option value="plaquetas" data-lab-field="true">Platelets</option>
+                    <option value="vpm" data-lab-field="true">MPV</option>
+                    <option value="plaquetocrito" data-lab-field="true">Plateletcrit</option>
+                    <option value="pdw" data-lab-field="true">PDW</option>
+
+                    <!-- Biochemistry -->
+                    <option value="glicose" data-lab-field="true">Glucose</option>
+                    <option value="azoto_ureico" data-lab-field="true">BUN / Urea</option>
+                    <option value="creatinina" data-lab-field="true">Creatinine</option>
+                    <option value="sodio" data-lab-field="true">Sodium</option>
+                    <option value="potassio" data-lab-field="true">Potassium</option>
+                    <option value="proteinas_totais" data-lab-field="true">Total Protein</option>
+                    <option value="albumina" data-lab-field="true">Albumin</option>
+                    <option value="calcio" data-lab-field="true">Calcium</option>
+                    <option value="osmolalidade" data-lab-field="true">Osmolality</option>
+                    <option value="ldh" data-lab-field="true">LDH</option>
+                    <option value="ast" data-lab-field="true">AST</option>
+                    <option value="alt" data-lab-field="true">ALT</option>
+                    <option value="fosfatase_alcalina" data-lab-field="true">Alkaline Phosphatase</option>
+                    <option value="gama_gt" data-lab-field="true">GGT</option>
+                    <option value="bilirrubina_total" data-lab-field="true">Total Bilirubin</option>
+                    <option value="creatina_cinase" data-lab-field="true">Creatine Kinase (CK)</option>
+
                     <option value="__custom__">Other...</option>
                 </select>
 
@@ -259,10 +308,16 @@
                 </select>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <input type="text"
                     class="form-control logic-value"
                     placeholder="Enter value">
+            </div>
+
+            <div class="col-md-2 unit-wrapper" style="display:none;">
+                <input type="text"
+                    class="form-control logic-unit"
+                    placeholder="Unit">
             </div>
 
             <div class="col-md-1">

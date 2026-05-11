@@ -58,11 +58,32 @@ MODEL = "openai/gpt-oss-120b"
 TEMP = 0.7
 
 KNOWN_FIELDS = {
-            "age", "ecog_ps", "diagnosis", "stage", "molecular_status",
-            "sex", "diagnosis_date", "treatment", "treatment_name",
-            "treatment_start_date", "treatment_end_date", "pathology_group",
-            "progression_date", "control"
-        }
+    # Patient fields
+    "age", "ecog_ps", "diagnosis", "stage", "molecular_status",
+    "sex", "diagnosis_date", "treatment", "treatment_name",
+    "treatment_start_date", "treatment_end_date", "pathology_group",
+    "progression_date", "control",
+
+    # Hematology
+    "leucocitos", "neutrofilos", "neutrofilos_percent", "linfocitos",
+    "linfocitos_percent", "monocitos", "monocitos_percent",
+    "eosinofilos", "eosinofilos_percent", "basofilos",
+    "basofilos_percent",
+
+    # Red Blood Cells
+    "eritrocitos", "hemoglobina", "hematocrito", "vc_medio",
+    "hcm", "chcm", "rdw",
+
+    # Platelets
+    "plaquetas", "vpm", "plaquetocrito", "pdw",
+
+    # Biochemistry
+    "glicose", "azoto_ureico", "creatinina", "sodio", "potassio", 
+    "proteinas_totais", "albumina", "calcio", "osmolalidade", 
+    "ldh", "ast", "alt", "fosfatase_alcalina", "gama_gt", 
+    "bilirrubina_total", "creatina_cinase",
+}
+
 
 FIELD_RESOLVER = {
     # Diretos
@@ -175,7 +196,7 @@ dummy_criteria_conversion_flat = {
         {
             "id": 4,
             "text": "Hemoglobin ≥ 9 g/dL.",
-            "logic": {"field": "hemoglobin", "operator": ">=", "value": 9}
+            "logic": {"field": "hemoglobina", "operator": ">=", "value": 9}
         },
         {
             "id": 5,
@@ -486,7 +507,8 @@ def get_normalization_context():
     return context
 
 def process_condition(condition):
-    # Nested (GROUP)
+
+    # GROUP
     if "conditions" in condition:
         return {
             "is_group": True,
@@ -494,7 +516,6 @@ def process_condition(condition):
             "operator": condition.get("operator", "AND")
         }
 
-    # Simple (LEAF)
     field = condition.get("field", "")
 
     if field not in KNOWN_FIELDS and field != "":
@@ -509,7 +530,8 @@ def process_condition(condition):
         "field_type": field_type,
         "custom_field": custom_field,
         "operator": condition.get("operator", ""),
-        "value": condition.get("value", "")
+        "value": condition.get("value", ""),
+        "unit": condition.get("unit", "")
     }
 
 def build_dummy_conversion(criteria_payload):
@@ -1781,9 +1803,9 @@ def criteria_extraction(request, trial_id):
         return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
     else:
         if request.method == 'GET':
-            #criteria_extracted = criteria_extraction_step(document, document_content)
+            criteria_extracted = criteria_extraction_step(document, document_content)
             
-            criteria_extracted = dummy_criteria_extraction 
+            #criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -1941,8 +1963,8 @@ def criteria_conversion(request, trial_id):
                 ]
             }
             
-            #converted_logic = criteria_conversion_step(criteria_payload)
-            converted_logic = build_dummy_conversion(criteria_payload)
+            converted_logic = criteria_conversion_step(criteria_payload)
+            #converted_logic = build_dummy_conversion(criteria_payload)
             
             parsed_logic = ContentFile(
                 json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
@@ -2063,6 +2085,7 @@ def criteria_conversion(request, trial_id):
                                 field = request.POST.get(f"field_{logic_id}_{i}")
                                 operator = request.POST.get(f"operator_{logic_id}_{i}")
                                 value = request.POST.get(f"value_{logic_id}_{i}")
+                                unit = request.POST.get(f"unit_{logic_id}_{i}")
                                 custom_field = request.POST.get(f"field_custom_{logic_id}_{i}")
 
                                 if field is None:
@@ -2072,11 +2095,16 @@ def criteria_conversion(request, trial_id):
                                     field = custom_field
 
                                 if field or operator or value:
-                                    conditions.append({
+                                    condition_data = {
                                         "field": field,
                                         "operator": operator,
                                         "value": value
-                                    })
+                                    }
+
+                                    if unit:
+                                        condition_data["unit"] = unit
+
+                                    conditions.append(condition_data)
 
                                 i += 1
 
