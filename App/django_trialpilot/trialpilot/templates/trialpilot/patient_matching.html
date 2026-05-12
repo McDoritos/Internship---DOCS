@@ -150,13 +150,77 @@
 
                             <!-- EVIDENCE -->
                             <div class="text-muted small ms-4">
+
                                 {% for e in c.evidences %}
-                                <div>
-                                    Patient: <strong>{{ e.patient_value }}</strong>
-                                    {{ e.operator }}
-                                    Expected: <strong>{{ e.expected_value }}</strong>
+                                <div class="mb-1">
+
+                                    <div>
+                                        <strong>{{ e.field|title }}</strong>
+                                    </div>
+
+                                    <div>
+
+                                        {% if e.patient_value is not None %}
+
+                                            Patient: <strong>
+                                                {{ e.patient_value }}
+
+                                                {% if e.patient_unit %}
+                                                    {{ e.patient_unit }}
+                                                {% endif %}
+                                            </strong>
+
+                                        {% else %}
+
+                                            Patient: <span class="text-muted fst-italic">
+                                                Not available
+                                            </span>
+
+                                        {% endif %}
+
+                                        {{ e.operator }}
+
+                                        Expected: <strong>
+                                            {{ e.expected_value }}
+
+                                            {% if e.expected_unit %}
+                                                {{ e.expected_unit }}
+                                            {% endif %}
+                                        </strong>
+
+                                    </div>
+
                                 </div>
                                 {% endfor %}
+
+                            </div>
+
+                            <div class="mt-2 d-flex gap-2">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-success"
+                                    onclick="setCriterionOverride(
+                                        '{{ m.patient.id }}',
+                                        '{{ c.id }}',
+                                        'pass',
+                                        this
+                                    )">
+                                    Pass
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="setCriterionOverride(
+                                        '{{ m.patient.id }}',
+                                        '{{ c.id }}',
+                                        'fail',
+                                        this
+                                    )">
+                                    Fail
+                                </button>
+
                             </div>
 
                         </div>
@@ -182,13 +246,77 @@
 
                             <!-- EVIDENCE -->
                             <div class="text-muted small ms-4">
+
                                 {% for e in c.evidences %}
+                                <div class="mb-1">
+
                                     <div>
-                                        Patient: <strong>{{ e.patient_value }}</strong>
-                                        {{ e.operator }}
-                                        Expected: <strong>{{ e.expected_value }}</strong>
+                                        <strong>{{ e.field|title }}</strong>
                                     </div>
+
+                                    <div>
+
+                                        {% if e.patient_value is not None %}
+
+                                            Patient: <strong>
+                                                {{ e.patient_value }}
+
+                                                {% if e.patient_unit %}
+                                                    {{ e.patient_unit }}
+                                                {% endif %}
+                                            </strong>
+
+                                        {% else %}
+
+                                            Patient: <span class="text-muted fst-italic">
+                                                Not available
+                                            </span>
+
+                                        {% endif %}
+
+                                        {{ e.operator }}
+
+                                        Expected: <strong>
+                                            {{ e.expected_value }}
+
+                                            {% if e.expected_unit %}
+                                                {{ e.expected_unit }}
+                                            {% endif %}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
                                 {% endfor %}
+
+                            </div>
+
+                            <div class="mt-2 d-flex gap-2">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-success"
+                                    onclick="setCriterionOverride(
+                                        '{{ m.patient.id }}',
+                                        '{{ c.id }}',
+                                        'pass',
+                                        this
+                                    )">
+                                    Pass
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="setCriterionOverride(
+                                        '{{ m.patient.id }}',
+                                        '{{ c.id }}',
+                                        'fail',
+                                        this
+                                    )">
+                                    Fail
+                                </button>
+
                             </div>
 
                         </div>
@@ -207,6 +335,19 @@
         {% endif %}
 
     </div>
+
+    <form method="POST" action="{% url 'save_matching' trial.id %}">
+        {% csrf_token %}
+
+        <div id="manual-overrides-container"></div>
+
+        <div class="p-3 text-end border-top bg-white sticky-bottom">
+            <button type="submit" class="btn btn-primary px-4">
+                Save Manual Review
+            </button>
+        </div>
+    </form>
+
 </div>
 
 {% endblock %}

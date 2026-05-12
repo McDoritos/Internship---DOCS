@@ -173,10 +173,17 @@ class Patient_trial_match(models.Model):
         return f"{self.patient} ↔ {self.trial} ({self.decision})"
 
 class Criterion_evaluation(models.Model):
+    
+    class EvaluationChoices(models.TextChoices):
+        PASS = "pass", "Pass"
+        FAIL = "fail", "Fail"
+    
     match = models.ForeignKey(Patient_trial_match, on_delete=models.CASCADE, related_name="criterion_evaluations")
     criterion = models.ForeignKey(Trial_criteria, on_delete=models.CASCADE, related_name="evaluations")
 
-    passed = models.BooleanField()
+    automatic_result = models.CharField(max_length=10, choices=EvaluationChoices.choices)
+    manual_result = models.CharField(max_length=10, choices=EvaluationChoices.choices, null=True, blank=True)   
+    
     patient_value = models.CharField(max_length=255, null=True, blank=True)
     evaluation_details = models.JSONField(null=True, blank=True)
 
@@ -188,5 +195,4 @@ class Criterion_evaluation(models.Model):
         unique_together = ("match", "criterion")
 
     def __str__(self):
-        return f"{self.match} - Criterion {self.criterion.id} ({'PASS' if self.passed else 'FAIL'})"
-    
+        return f"{self.match} - Criterion {self.criterion.id} ({self.manual_result})"

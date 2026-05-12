@@ -7,7 +7,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
 from httpx import request
-from .models import Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria, Analysis, ClinicalTrial
+from .models import Criterion_evaluation, Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria, Analysis, ClinicalTrial
 from .forms import UploadDocumentForm, UploadTrialForm
 from groq import Groq
 import os
@@ -988,8 +988,16 @@ def get_patient_text(patient):
 
     return text 
     
-def patient_matching_step(patient, trial_criteria):
-    
+def patient_matching_step(patient, trial, trial_criteria):
+
+    match_obj, _ = Patient_trial_match.objects.get_or_create(
+        patient=patient,
+        trial=trial,
+        defaults={
+            "decision": Patient_trial_match.Decision.INCONCLUSIVE
+        }
+    )
+
     inclusion_results = []
     exclusion_results = []
 
@@ -997,30 +1005,63 @@ def patient_matching_step(patient, trial_criteria):
     exclusion_details = []
 
     for c in trial_criteria:
+
         logic = c.logic.validated_logic
+
         if not logic:
             continue
 
-        result = evaluate_condition(patient, logic)
+        auto_result = evaluate_condition(patient, logic)
+
+        manual_eval = Criterion_evaluation.objects.filter(
+            match=match_obj,
+            criterion=c
+        ).first()
+
+        final_result = auto_result
+        manual_override = False
+
+        if manual_eval and manual_eval.manual_result:
+            manual_override = True
+            final_result = (
+                manual_eval.manual_result ==
+                Criterion_evaluation.EvaluationChoices.PASS
+            )
 
         evidences = extract_evidence(patient, logic)
 
         detail = {
+            "id": c.id,
             "criterion": c.raw_criterion,
             "logic": logic,
-            "result": result,
+
+            "result": final_result,
+
+            "auto_result": auto_result,
+
+            "manual_override": manual_override,
+
+            "manual_result": (
+                manual_eval.manual_result
+                if manual_eval else None
+            ),
+
             "evidences": evidences
         }
 
         if c.type == "inclusion":
-            inclusion_results.append(result)
+            inclusion_results.append(final_result)
             inclusion_details.append(detail)
 
         elif c.type == "exclusion":
-            exclusion_results.append(result)
+            exclusion_results.append(final_result)
             exclusion_details.append(detail)
 
-    is_eligible = all(inclusion_results) and not any(exclusion_results)
+    is_eligible = (
+        all(inclusion_results)
+        and
+        not any(exclusion_results)
+    )
 
     return {
         "eligible": is_eligible,
@@ -1137,12 +1178,18 @@ def normalize_unit(unit):
     if not unit:
         return ""
 
-    return (
+    u = (
         str(unit)
         .lower()
         .replace(" ", "")
         .replace("_", "")
     )
+
+    if u.startswith("x"):
+        u = u[1:]
+
+    return u
+
 
 def evaluate_condition(patient, logic):
     if not logic:
@@ -1160,19 +1207,24 @@ def evaluate_condition(patient, logic):
             return matching_llm(patient, logic)
 
         patient_value = get_patient_value(patient, field)
-        
+            
         patient_unit = None
 
         if isinstance(patient_value, dict):
+            print("[DEBUG] Is laboratory value:", patient_value)
             patient_unit = patient_value.get("unit")
             patient_value = patient_value.get("value")
+            
+        print(f"[DEBUG] Patient value for '{field}': {patient_value}")
+        
+        print(f"[DEBUG] Evaluating: {patient_value} {operator} {value}")    
             
         expected_unit = logic.get("unit")
 
         if expected_unit and patient_unit:
 
-            normalized_patient_unit = patient_unit.strip().lower()
-            normalized_expected_unit = expected_unit.strip().lower()
+            normalized_patient_unit = normalize_unit(patient_unit)
+            normalized_expected_unit = normalize_unit(expected_unit)
 
             if normalized_patient_unit != normalized_expected_unit:
                 print(
@@ -2322,7 +2374,11 @@ def match_patients(request, trial_id):
             
             matches = []
             for patient in patients:
-                match_result = patient_matching_step(patient, trial_criteria)
+                match_result = patient_matching_step(
+                                    patient,
+                                    document,
+                                    trial_criteria
+                                )
                 matches.append({
                     'patient': patient,
                     'result': match_result
@@ -2340,8 +2396,48 @@ def match_patients(request, trial_id):
                 "eligible_count": eligible_count,
                 "ineligible_count": ineligible_count
             })
-    
+            
+def manual_matching(request, criterion_id, patient_id, trial_id):
 
+    try:
+        criterion = Trial_criteria.objects.get(id=criterion_id)
+
+        patient = Patient_profile.objects.get(id=patient_id)
+
+        trial = Document.objects.get(id=trial_id)
+
+    except (
+        Trial_criteria.DoesNotExist,
+        Patient_profile.DoesNotExist,
+        Document.DoesNotExist
+    ):
+        return redirect("match_patients", trial_id=trial_id)
+
+    if request.method == 'POST':
+
+        decision = request.POST.get("decision")
+
+        if decision not in ["pass", "fail"]:
+            return redirect("match_patients", trial_id=trial_id)
+
+        match_obj, _ = Patient_trial_match.objects.get_or_create(
+            patient=patient,
+            trial=trial,
+            defaults={
+                "decision": Patient_trial_match.Decision.INCONCLUSIVE
+            }
+        )
+
+        Criterion_evaluation.objects.update_or_create(
+            match=match_obj,
+            criterion=criterion,
+            defaults={
+                "manual_result": decision
+            }
+        )
+
+    return redirect("match_patients", trial_id=trial_id)
+        
 def index(request):
     # DIARIES
     n_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY).count()
