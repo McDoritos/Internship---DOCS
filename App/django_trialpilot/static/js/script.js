@@ -1371,3 +1371,74 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    window.setCriterionOverride = function (
+        patientId,
+        criterionId,
+        decision,
+        button
+    ) {
+
+        const criterionCard = button.closest(".border");
+
+        const icon = criterionCard.querySelector(
+            ".criterion-status-icon"
+        );
+
+        if (!icon) {
+            console.error("Icon not found");
+            return;
+        }
+
+        icon.classList.remove(
+            "bi-check-circle-fill",
+            "bi-x-circle-fill",
+            "bi-exclamation-circle-fill",
+            "text-success",
+            "text-danger"
+        );
+
+        if (decision === "pass") {
+
+            icon.classList.add(
+                "bi-check-circle-fill",
+                "text-success"
+            );
+
+        } else {
+
+            icon.classList.add(
+                "bi-x-circle-fill",
+                "text-danger"
+            );
+        }
+
+        const container = document.getElementById(
+            "manual-overrides-container"
+        );
+
+        const inputId = `override-${patientId}-${criterionId}`;
+
+        let existing = document.getElementById(inputId);
+
+        if (!existing) {
+
+            existing = document.createElement("input");
+
+            existing.type = "hidden";
+            existing.name = "overrides";
+            existing.id = inputId;
+
+            container.appendChild(existing);
+        }
+
+        existing.value = JSON.stringify({
+            patient_id: patientId,
+            criterion_id: criterionId,
+            decision: decision
+        });
+    };
+
+});

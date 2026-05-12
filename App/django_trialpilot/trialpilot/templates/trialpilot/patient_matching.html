@@ -139,12 +139,13 @@
                         {% for c in m.result.inclusion_details %}
                         <div class="small mb-2 p-2 border rounded">
 
-                            <div>
+                            <div class="criterion-header">
                                 {% if c.result %}
-                                <i class="bi bi-check-circle-fill text-success"></i>
+                                <i class="criterion-status-icon bi bi-check-circle-fill text-success"></i>
                                 {% else %}
-                                <i class="bi bi-x-circle-fill text-danger"></i>
+                                <i class="criterion-status-icon bi bi-x-circle-fill text-danger"></i>
                                 {% endif %}
+
                                 <strong>{{ c.criterion }}</strong>
                             </div>
 
@@ -236,10 +237,10 @@
 
                             <div>
                                 {% if c.result %}
-                                <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                                <i class="criterion-status-icon bi bi-exclamation-circle-fill text-danger"></i>
                                 <strong>Triggered:</strong> {{ c.criterion }}
                                 {% else %}
-                                <i class="bi bi-check-circle-fill text-success"></i>
+                                <i class="criterion-status-icon bi bi-check-circle-fill text-success"></i>
                                 {{ c.criterion }}
                                 {% endif %}
                             </div>
@@ -336,7 +337,7 @@
 
     </div>
 
-    <form method="POST" action="{% url 'save_matching' trial.id %}">
+    <form method="POST">
         {% csrf_token %}
 
         <div id="manual-overrides-container"></div>

@@ -1013,6 +1013,18 @@ def patient_matching_step(patient, trial, trial_criteria):
 
         auto_result = evaluate_condition(patient, logic)
 
+        Criterion_evaluation.objects.update_or_create(
+            match=match_obj,
+            criterion=c,
+            defaults={
+                "automatic_result": (
+                    Criterion_evaluation.EvaluationChoices.PASS
+                    if auto_result
+                    else Criterion_evaluation.EvaluationChoices.FAIL
+                )
+            }
+        )
+        
         manual_eval = Criterion_evaluation.objects.filter(
             match=match_obj,
             criterion=c
@@ -1204,7 +1216,7 @@ def evaluate_condition(patient, logic):
         if field not in KNOWN_FIELDS:
             print(f"[LLM FALLBACK] Field '{field}' not in schema")
 
-            return matching_llm(patient, logic)
+            #return matching_llm(patient, logic)
 
         patient_value = get_patient_value(patient, field)
             
@@ -2397,47 +2409,95 @@ def match_patients(request, trial_id):
                 "ineligible_count": ineligible_count
             })
             
-def manual_matching(request, criterion_id, patient_id, trial_id):
+        elif request.method == 'POST':
 
-    try:
-        criterion = Trial_criteria.objects.get(id=criterion_id)
+            overrides = request.POST.getlist("overrides")
 
-        patient = Patient_profile.objects.get(id=patient_id)
+            affected_matches = set()
+            overridden_criteria_ids = set()   # <-- NOVO
 
-        trial = Document.objects.get(id=trial_id)
+            for override_json in overrides:
 
-    except (
-        Trial_criteria.DoesNotExist,
-        Patient_profile.DoesNotExist,
-        Document.DoesNotExist
-    ):
-        return redirect("match_patients", trial_id=trial_id)
+                try:
+                    override = json.loads(override_json)
 
-    if request.method == 'POST':
+                    patient_id = int(override["patient_id"])
+                    criterion_id = int(override["criterion_id"])
+                    decision = override["decision"]
 
-        decision = request.POST.get("decision")
+                except Exception as e:
+                    print(f"[ERROR] Invalid override: {e}")
+                    continue
 
-        if decision not in ["pass", "fail"]:
-            return redirect("match_patients", trial_id=trial_id)
+                patient = Patient_profile.objects.get(id=patient_id)
+                criterion = Trial_criteria.objects.get(id=criterion_id)
 
-        match_obj, _ = Patient_trial_match.objects.get_or_create(
-            patient=patient,
-            trial=trial,
-            defaults={
-                "decision": Patient_trial_match.Decision.INCONCLUSIVE
-            }
-        )
+                match_obj = Patient_trial_match.objects.get(
+                    patient=patient,
+                    trial=document
+                )
 
-        Criterion_evaluation.objects.update_or_create(
-            match=match_obj,
-            criterion=criterion,
-            defaults={
-                "manual_result": decision
-            }
-        )
+                criterion_eval = Criterion_evaluation.objects.get(
+                    match=match_obj,
+                    criterion=criterion
+                )
 
-    return redirect("match_patients", trial_id=trial_id)
-        
+                criterion_eval.manual_result = decision
+                criterion_eval.save()
+
+                overridden_criteria_ids.add(criterion_eval.id)  # <-- NOVO
+                affected_matches.add(match_obj.id)
+
+            # -------------------------------------------------------
+            # 2) Para todos os critérios sem override → copiar automático
+            # -------------------------------------------------------
+            remaining_evals = Criterion_evaluation.objects.filter(
+                match__trial=document
+            ).exclude(id__in=overridden_criteria_ids)
+
+            for ev in remaining_evals:
+                ev.manual_result = ev.automatic_result
+                ev.save()
+
+            # -------------------------------------------------------
+            # 3) Recalcular decisões dos matches afetados
+            # -------------------------------------------------------
+            for match_id in affected_matches:
+
+                match_obj = Patient_trial_match.objects.get(id=match_id)
+
+                evaluations = (
+                    Criterion_evaluation.objects
+                    .filter(match=match_obj)
+                    .select_related("criterion")
+                )
+
+                inclusion_results = []
+                exclusion_results = []
+
+                for evaluation in evaluations:
+
+                    final_result = evaluation.manual_result  # <-- agora SEMPRE existe
+                    passed = final_result == Criterion_evaluation.EvaluationChoices.PASS
+
+                    if evaluation.criterion.type == "inclusion":
+                        inclusion_results.append(passed)
+                    else:
+                        exclusion_results.append(passed)
+
+                eligible = all(inclusion_results) and not any(exclusion_results)
+
+                match_obj.decision = (
+                    Patient_trial_match.Decision.ELIGIBLE
+                    if eligible
+                    else Patient_trial_match.Decision.INELIGIBLE
+                )
+
+                match_obj.save()
+
+            return redirect("trial_details", trial_id=trial_id)
+
+
 def index(request):
     # DIARIES
     n_diaries = Document.objects.filter(type=Document.DocumentType.CLINICAL_DIARY).count()

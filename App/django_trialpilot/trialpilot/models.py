@@ -183,9 +183,6 @@ class Criterion_evaluation(models.Model):
 
     automatic_result = models.CharField(max_length=10, choices=EvaluationChoices.choices)
     manual_result = models.CharField(max_length=10, choices=EvaluationChoices.choices, null=True, blank=True)   
-    
-    patient_value = models.CharField(max_length=255, null=True, blank=True)
-    evaluation_details = models.JSONField(null=True, blank=True)
 
     deterministic_justification = models.TextField(null=True, blank=True)
 
