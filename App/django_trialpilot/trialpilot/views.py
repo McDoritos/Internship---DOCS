@@ -2414,7 +2414,7 @@ def match_patients(request, trial_id):
             overrides = request.POST.getlist("overrides")
 
             affected_matches = set()
-            overridden_criteria_ids = set()   # <-- NOVO
+            overridden_criteria_ids = set() 
 
             for override_json in overrides:
 
@@ -2445,12 +2445,9 @@ def match_patients(request, trial_id):
                 criterion_eval.manual_result = decision
                 criterion_eval.save()
 
-                overridden_criteria_ids.add(criterion_eval.id)  # <-- NOVO
+                overridden_criteria_ids.add(criterion_eval.id) 
                 affected_matches.add(match_obj.id)
 
-            # -------------------------------------------------------
-            # 2) Para todos os critérios sem override → copiar automático
-            # -------------------------------------------------------
             remaining_evals = Criterion_evaluation.objects.filter(
                 match__trial=document
             ).exclude(id__in=overridden_criteria_ids)
@@ -2459,9 +2456,6 @@ def match_patients(request, trial_id):
                 ev.manual_result = ev.automatic_result
                 ev.save()
 
-            # -------------------------------------------------------
-            # 3) Recalcular decisões dos matches afetados
-            # -------------------------------------------------------
             for match_id in affected_matches:
 
                 match_obj = Patient_trial_match.objects.get(id=match_id)
@@ -2477,7 +2471,7 @@ def match_patients(request, trial_id):
 
                 for evaluation in evaluations:
 
-                    final_result = evaluation.manual_result  # <-- agora SEMPRE existe
+                    final_result = evaluation.manual_result
                     passed = final_result == Criterion_evaluation.EvaluationChoices.PASS
 
                     if evaluation.criterion.type == "inclusion":

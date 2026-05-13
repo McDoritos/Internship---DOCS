@@ -192,4 +192,4 @@ class Criterion_evaluation(models.Model):
         unique_together = ("match", "criterion")
 
     def __str__(self):
-        return f"{self.match} - Criterion {self.criterion.id} ({self.manual_result})"
+        return f"{self.match} - Criterion {self.criterion.id} - Criterion Type {self.criterion.type} ({self.manual_result})"

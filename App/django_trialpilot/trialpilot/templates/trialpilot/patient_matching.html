@@ -37,7 +37,7 @@
         <div class="card shadow-sm border-0">
             <div class="card-body text-center">
                 <h5 class="text-success">Eligible</h5>
-                <h2>
+                <h2 id="eligible-count">
                     {{ eligible_count }}
                 </h2>
             </div>
@@ -48,7 +48,7 @@
         <div class="card shadow-sm border-0">
             <div class="card-body text-center">
                 <h5 class="text-danger">Ineligible</h5>
-                <h2>
+                <h2 id="ineligible-count">
                     {{ ineligible_count }}
                 </h2>
             </div>
@@ -83,7 +83,11 @@
                 <!-- COL 2: INCLUSION -->
                 <div style="width: 20%;" class="text-center">
                     <small class="text-muted d-block">Inclusion Criteria Passed</small>
-                    <strong>
+                    <strong
+                        id="inclusion-count-{{ m.patient.id }}"
+                        data-total="{{ m.result.inclusion_total }}"
+                        data-current="{{ m.result.inclusion_passed }}"
+                    >
                         {{ m.result.inclusion_passed }}/{{ m.result.inclusion_total }}
                     </strong>
                 </div>
@@ -91,20 +95,26 @@
                 <!-- COL 3: EXCLUSION -->
                 <div style="width: 20%;" class="text-center">
                     <small class="text-muted d-block">Exclusion Criteria Triggered</small>
-                    <strong>{{ m.result.exclusion_triggered }}</strong>
+                    <strong
+                        id="exclusion-count-{{ m.patient.id }}"
+                        data-current="{{ m.result.exclusion_triggered }}"
+                    >
+                        {{ m.result.exclusion_triggered }}
+                    </strong>
                 </div>
 
                 <!-- COL 4: STATUS -->
                 <div style="width: 15%;" class="d-flex justify-content-center align-items-center">
-                    {% if m.result.eligible %}
-                    <span class="badge bg-success px-3 py-2 text-white rounded-ui">
+                    <span
+                        id="eligibility-badge-{{ m.patient.id }}"
+                        class="badge {% if m.result.eligible %}bg-success{% else %}bg-danger{% endif %} px-3 py-2 text-white rounded-ui"
+                    >
+                        {% if m.result.eligible %}
                         Eligible
-                    </span>
-                    {% else %}
-                    <span class="badge bg-danger px-3 py-2 text-white rounded-ui">
+                        {% else %}
                         Ineligible
+                        {% endif %}
                     </span>
-                    {% endif %}
                 </div>
 
                 <!-- COL 5: ACTION -->
@@ -137,9 +147,14 @@
                         <h6 class="text-success">Inclusion Criteria</h6>
 
                         {% for c in m.result.inclusion_details %}
-                        <div class="small mb-2 p-2 border rounded">
+                        <div
+                            class="small mb-2 p-2 border rounded criterion-card"
+                            data-type="inclusion"
+                            data-result="{{ c.result|yesno:'true,false' }}"
+                            data-text="{{ c.criterion }}"
+                        >
 
-                            <div class="criterion-header">
+                            <div class="criterion-header-content">
                                 {% if c.result %}
                                 <i class="criterion-status-icon bi bi-check-circle-fill text-success"></i>
                                 {% else %}
@@ -196,30 +211,36 @@
 
                             </div>
 
-                            <div class="mt-2 d-flex gap-2">
+                            <div class="criterion-actions mt-3">
 
                                 <button
                                     type="button"
-                                    class="btn btn-sm btn-outline-success"
+                                    class="decision-btn pass-btn"
                                     onclick="setCriterionOverride(
                                         '{{ m.patient.id }}',
                                         '{{ c.id }}',
                                         'pass',
                                         this
                                     )">
-                                    Pass
+
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Mark as Pass</span>
+
                                 </button>
 
                                 <button
                                     type="button"
-                                    class="btn btn-sm btn-outline-danger"
+                                    class="decision-btn fail-btn"
                                     onclick="setCriterionOverride(
                                         '{{ m.patient.id }}',
                                         '{{ c.id }}',
                                         'fail',
                                         this
                                     )">
-                                    Fail
+
+                                    <i class="bi bi-x-circle-fill"></i>
+                                    <span>Mark as Fail</span>
+
                                 </button>
 
                             </div>
@@ -233,9 +254,14 @@
                         <h6 class="text-danger">Exclusion Criteria</h6>
 
                         {% for c in m.result.exclusion_details %}
-                        <div class="small mb-2 p-2 border rounded">
+                        <div
+                            class="small mb-2 p-2 border rounded criterion-card"
+                            data-type="exclusion"
+                            data-result="{{ c.result|yesno:'true,false' }}"
+                            data-text="{{ c.criterion }}"
+                        >
 
-                            <div>
+                            <div class="criterion-header-content">
                                 {% if c.result %}
                                 <i class="criterion-status-icon bi bi-exclamation-circle-fill text-danger"></i>
                                 <strong>Triggered:</strong> {{ c.criterion }}
@@ -292,30 +318,36 @@
 
                             </div>
 
-                            <div class="mt-2 d-flex gap-2">
+                            <div class="criterion-actions mt-3">
 
                                 <button
                                     type="button"
-                                    class="btn btn-sm btn-outline-success"
+                                    class="decision-btn pass-btn"
                                     onclick="setCriterionOverride(
                                         '{{ m.patient.id }}',
                                         '{{ c.id }}',
                                         'pass',
                                         this
                                     )">
-                                    Pass
+
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Mark as Pass</span>
+
                                 </button>
 
                                 <button
                                     type="button"
-                                    class="btn btn-sm btn-outline-danger"
+                                    class="decision-btn fail-btn"
                                     onclick="setCriterionOverride(
                                         '{{ m.patient.id }}',
                                         '{{ c.id }}',
                                         'fail',
                                         this
                                     )">
-                                    Fail
+
+                                    <i class="bi bi-x-circle-fill"></i>
+                                    <span>Mark as Fail</span>
+
                                 </button>
 
                             </div>
@@ -342,9 +374,12 @@
 
         <div id="manual-overrides-container"></div>
 
-        <div class="p-3 text-end border-top bg-white sticky-bottom">
-            <button type="submit" class="btn btn-primary px-4">
-                Save Manual Review
+        <div class="save-bar p-3 border-top bg-white sticky-bottom">
+            <button type="submit" class="save-review-btn">
+
+                <i class="bi bi-save2-fill"></i>
+                <span>Save Manual Review</span>
+
             </button>
         </div>
     </form>

@@ -1372,73 +1372,112 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+/* PATIENT MATCHING */ 
 document.addEventListener("DOMContentLoaded", function () {
 
-    window.setCriterionOverride = function (
-        patientId,
-        criterionId,
-        decision,
-        button
-    ) {
+    window.setCriterionOverride = function (patientId, criterionId, decision, button) {
+        const criterionCard = button.closest(".criterion-card");
+        const criterionType = criterionCard.dataset.type;
+        const criterionText = criterionCard.dataset.text; 
+        
+        const previousResult = criterionCard.dataset.result === "true";
+        let newResult;
 
-        const criterionCard = button.closest(".border");
-
-        const icon = criterionCard.querySelector(
-            ".criterion-status-icon"
-        );
-
-        if (!icon) {
-            console.error("Icon not found");
-            return;
-        }
-
-        icon.classList.remove(
-            "bi-check-circle-fill",
-            "bi-x-circle-fill",
-            "bi-exclamation-circle-fill",
-            "text-success",
-            "text-danger"
-        );
-
-        if (decision === "pass") {
-
-            icon.classList.add(
-                "bi-check-circle-fill",
-                "text-success"
-            );
-
+        // DEFINIÇÃO LÓGICA (Visual e Contadores)
+        if (criterionType === "inclusion") {
+            console.log("INCLUSION triggered → decision:", decision);
+            newResult = (decision === "pass"); // Pass = true (Verde)
         } else {
-
-            icon.classList.add(
-                "bi-x-circle-fill",
-                "text-danger"
-            );
+            console.log("EXCLUSION triggered → decision:", decision);
+            // Na exclusão, clicar em 'pass' deve resultar em Verde (false/not triggered)
+            // Clicar em 'fail' deve resultar em Vermelho (true/triggered)
+            newResult = (decision === "fail"); 
         }
 
-        const container = document.getElementById(
-            "manual-overrides-container"
-        );
+        if (previousResult === newResult) return;
 
+        criterionCard.dataset.result = newResult;
+
+        // ATUALIZAÇÃO VISUAL
+        const headerDiv = criterionCard.querySelector(".criterion-header-content");
+        
+        if (criterionType === "inclusion") {
+            if (newResult) {
+                headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-check-circle-fill text-success"></i> <strong>${criterionText}</strong>`;
+            } else {
+                headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-x-circle-fill text-danger"></i> <strong>${criterionText}</strong>`;
+            }
+        } else {
+            if (newResult) {
+                headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-exclamation-circle-fill text-danger"></i> <strong>Triggered:</strong> ${criterionText}`;
+            } else {
+                headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-check-circle-fill text-success"></i> ${criterionText}`;
+            }
+        }
+
+        const actions = button.parentElement;
+        actions.querySelectorAll(".decision-btn").forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        // CONTADORES
+        const inclusionElement = document.getElementById(`inclusion-count-${patientId}`);
+        const exclusionElement = document.getElementById(`exclusion-count-${patientId}`);
+        let inclusionCurrent = parseInt(inclusionElement.dataset.current);
+        let exclusionCurrent = parseInt(exclusionElement.dataset.current);
+
+        if (criterionType === "inclusion") {
+            newResult ? inclusionCurrent++ : inclusionCurrent--;
+            inclusionElement.dataset.current = inclusionCurrent;
+            inclusionElement.innerText = `${inclusionCurrent}/${inclusionElement.dataset.total}`;
+        } else {
+            newResult ? exclusionCurrent++ : exclusionCurrent--;
+            exclusionCurrent = Math.max(0, exclusionCurrent);
+            exclusionElement.dataset.current = exclusionCurrent;
+            exclusionElement.innerText = exclusionCurrent;
+        }
+
+        // ELEGIBILIDADE
+        const inclusionTotal = parseInt(inclusionElement.dataset.total);
+        const isEligible = (inclusionCurrent === inclusionTotal) && (exclusionCurrent === 0);
+        const badge = document.getElementById(`eligibility-badge-${patientId}`);
+        const wasEligible = badge.innerText.trim() === "Eligible";
+
+        badge.className = `badge ${isEligible ? 'bg-success' : 'bg-danger'} px-3 py-2 text-white rounded-ui`;
+        badge.innerText = isEligible ? "Eligible" : "Ineligible";
+
+        // RESUMO GERAL
+        if (wasEligible !== isEligible) {
+            const eSummary = document.getElementById("eligible-count");
+            const iSummary = document.getElementById("ineligible-count");
+            let eCount = parseInt(eSummary.innerText);
+            let iCount = parseInt(iSummary.innerText);
+            isEligible ? (eCount++, iCount--) : (eCount--, iCount++);
+            eSummary.innerText = eCount;
+            iSummary.innerText = iCount;
+        }
+
+        // FORM POST - INVERSÃO DA DECISION PARA O SERVIDOR (APENAS EXCLUSÃO)
+        let decisionToSave = decision;
+        if (criterionType === "exclusion") {
+            // Se clicou em 'pass', envia 'fail' para o servidor
+            // Se clicou em 'fail', envia 'pass' para o servidor
+            decisionToSave = (decision === "pass") ? "fail" : "pass";
+        }
+
+        const container = document.getElementById("manual-overrides-container");
         const inputId = `override-${patientId}-${criterionId}`;
-
-        let existing = document.getElementById(inputId);
-
-        if (!existing) {
-
-            existing = document.createElement("input");
-
-            existing.type = "hidden";
-            existing.name = "overrides";
-            existing.id = inputId;
-
-            container.appendChild(existing);
+        let input = document.getElementById(inputId);
+        if (!input) {
+            input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "overrides";
+            input.id = inputId;
+            container.appendChild(input);
         }
-
-        existing.value = JSON.stringify({
-            patient_id: patientId,
-            criterion_id: criterionId,
-            decision: decision
+        input.value = JSON.stringify({ 
+            patient_id: patientId, 
+            criterion_id: criterionId, 
+            decision: decisionToSave // Aqui vai o valor invertido se for exclusão
         });
     };
-
 });
