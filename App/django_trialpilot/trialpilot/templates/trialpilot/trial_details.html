@@ -26,21 +26,134 @@
 <div class="container mt-4">
 
     <!-- TRIAL INFO -->
-    <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-            <h5 class="mb-0">{{ trial.title }}</h5>
+    <div class="card mb-4 shadow-sm trial-overview-card">
+
+        <div class="card-header"> 
+            <h5 class="mb-0">
+                {{ trial.title }}
+            </h5> 
         </div>
         <div class="card-body">
-            <p><strong>Created:</strong> {{ trial.created_at }}</p>
-            <p><strong>Updated:</strong> {{ trial.updated_at }}</p>
-            <p><strong>Extracted:</strong>
-                {% if trial.extracted %}
-                <span class="badge text-light bg-success">Yes</span>
-                {% else %}
-                <span class="badge text-light bg-secondary">No</span>
-                {% endif %}
-            </p>
+
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                <div>
+
+                    <div class="d-flex align-items-center gap-2 mb-2">
+
+                        <h5 class="mb-0 fw-bold">
+                            {{ clinical_trial.study_name }}
+                        </h5>
+
+                        {% if clinical_trial.status == "recruiting" %}
+                        <span class="badge bg-success-subtle text-success border">
+                            Recruiting
+                        </span>
+
+                        {% elif clinical_trial.status == "closed" %}
+                        <span class="badge bg-danger-subtle text-danger border">
+                            Closed
+                        </span>
+
+                        {% elif clinical_trial.status == "completed" %}
+                        <span class="badge bg-secondary-subtle text-secondary border">
+                            Completed
+                        </span>
+
+                        {% else %}
+                        <span class="badge bg-warning-subtle text-dark border">
+                            Not Yet Recruiting
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                    <p class="text-muted mb-0">
+                        {{ trial.title }}
+                    </p>
+
+                </div>
+
+                <div class="text-end">
+
+                    <small class="text-muted d-block">
+                        Last Updated
+                    </small>
+
+                    <strong>
+                        {{ trial.updated_at|date:"M d, Y" }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="row g-3">
+
+                <div class="col-md-3">
+                    <div class="trial-metadata-box">
+
+                        <small>Pathology Group</small>
+
+                        <div class="fw-semibold">
+                            {{ clinical_trial.get_pathology_group_display }}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="trial-metadata-box">
+
+                        <small>Start Date</small>
+
+                        <div class="fw-semibold">
+                            {{ clinical_trial.start_date|default:"Not defined" }}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="trial-metadata-box">
+
+                        <small>End Date</small>
+
+                        <div class="fw-semibold">
+                            {{ clinical_trial.end_date|default:"Not defined" }}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="trial-metadata-box">
+
+                        <small>Extraction Status</small>
+
+                        <div>
+
+                            {% if trial.extracted %}
+                            <span class="badge text-white bg-success">
+                                Extracted
+                            </span>
+                            {% else %}
+                            <span class="badge text-white bg-secondary">
+                                Pending
+                            </span>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
+
     </div>
 
     <!-- DOCUMENT CONTENT -->
@@ -148,47 +261,247 @@
 
     <!-- MATCHED PATIENTS -->
     <div class="card mb-4 shadow-sm">
+
         <div class="card-header">
-            <h5 class="mb-0">Matched Patients</h5>
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h5 class="mb-1 fw-bold">
+                        Matched Patients
+                    </h5>
+
+                    <small class="text-muted">
+                        Patients manually reviewed for this clinical trial
+                    </small>
+                </div>
+
+                <span class="badge bg-primary text-white rounded-pill px-3 py-2">
+                    {{ matches|length }} Matches
+                </span>
+
+            </div>
+
         </div>
+
         <div class="card-body">
 
             {% if matches %}
-            <ul class="list-group">
+
+            <div class="d-flex flex-column gap-3">
+
                 {% for m in matches %}
-                <li class="list-group-item">
+                <div class="match-patient-card p-3">
 
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                        <!-- LEFT -->
                         <div>
-                            <strong>Patient {{ m.patient.id }}</strong><br>
-                            <small>{{ m.patient.diagnosis }} | Age: {{ m.patient.age }}</small>
+
+                            <div class="d-flex align-items-center gap-2 mb-1">
+
+                                <h6 class="mb-0 fw-bold mr-2">
+                                    Patient {{ m.patient.id }}
+                                </h6>
+
+                                {% if m.decision == "eligible" %}
+                                <span class="badge text-white bg-success">
+                                    Eligible
+                                </span>
+
+                                {% elif m.decision == "ineligible" %}
+                                <span class="badge text-white bg-danger">
+                                    Ineligible
+                                </span>
+
+                                {% else %}
+                                <span class="badge  text-white bg-warning">
+                                    Inconclusive
+                                </span>
+                                {% endif %}
+
+                            </div>
+
+                            <div class="text-muted small">
+
+                                {{ m.patient.diagnosis }}
+                                •
+                                {{ m.patient.age }} years
+                                •
+                                {{ m.patient.gender }}
+
+                            </div>
+
                         </div>
 
-                        <div>
-                            {% if m.decision == "eligible" %}
-                            <span class="badge bg-success">Eligible</span>
-                            {% elif m.decision == "ineligible" %}
-                            <span class="badge bg-danger">Ineligible</span>
-                            {% else %}
-                            <span class="badge bg-warning text-dark">Inconclusive</span>
-                            {% endif %}
+                        <!-- RIGHT METRICS -->
+                        <div class="d-flex gap-4">
+
+                            <div class="match-metric">
+
+                                <div class="match-metric-value text-success">
+                                    {{ m.inclusion_passed }}/{{ m.inclusion_total }}
+                                </div>
+
+                                <div class="match-metric-label">
+                                    Inclusion
+                                </div>
+
+                            </div>
+
+                            <div class="match-metric">
+
+                                <div class="match-metric-value text-danger">
+                                    {{ m.exclusion_triggered }}
+                                </div>
+
+                                <div class="match-metric-label">
+                                    Exclusions
+                                </div>
+
+                            </div>
+
                         </div>
+
+                        <div class="mt-3 d-flex justify-content-end">
+
+                            <button
+                                class="btn btn-sm btn-outline-primary rounded-ui"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#match-details-{{ forloop.counter }}"
+                            >
+                                View Details
+                            </button>
+
+                        </div>
+
                     </div>
 
                     {% if m.summary %}
-                    <div class="mt-2">
-                        <small class="text-muted">{{ m.summary }}</small>
+                    <div class="match-summary-box mt-3">
+
+                        <small class="text-muted d-block mb-1">
+                            Review Summary
+                        </small>
+
+                        <div class="small">
+                            {{ m.summary }}
+                        </div>
+
                     </div>
                     {% endif %}
 
-                </li>
+                    <div
+                        class="collapse mt-3"
+                        id="match-details-{{ forloop.counter }}"
+                    >
+
+                        <div class="row g-3">
+
+                            <!-- INCLUSION -->
+                            <div class="col-md-6">
+
+                                <h6 class="text-success mb-3">
+                                    Inclusion Criteria
+                                </h6>
+
+                                {% for c in m.inclusion_details %}
+                                <div class="border rounded p-3 mb-2 bg-light">
+
+                                    <div class="d-flex align-items-start gap-2">
+
+                                        {% if c.result == "pass" %}
+                                        <i class="bi bi-check-circle-fill text-success mr-2"></i>
+                                        {% else %}
+                                        <i class="bi bi-x-circle-fill text-danger mr-2"></i>
+                                        {% endif %}
+
+                                        <div>
+
+                                            <div class="fw-semibold small">
+                                                {{ c.criterion }}
+                                            </div>
+
+                                            {% if c.justification %}
+                                            <div class="small text-muted mt-2">
+                                                {{ c.justification }}
+                                            </div>
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                {% endfor %}
+
+                            </div>
+
+                            <!-- EXCLUSION -->
+                            <div class="col-md-6">
+
+                                <h6 class="text-danger mb-3">
+                                    Exclusion Criteria
+                                </h6>
+
+                                {% for c in m.exclusion_details %}
+                                <div class="border rounded p-3 mb-2 bg-light">
+
+                                    <div class="d-flex align-items-start gap-2">
+
+                                        {% if c.result == "pass" %}
+                                        <i class="bi bi-exclamation-circle-fill text-danger mr-2"></i>
+                                        {% else %}
+                                        <i class="bi bi-check-circle-fill text-success mr-2"></i>
+                                        {% endif %}
+
+                                        <div>
+
+                                            <div class="fw-semibold small">
+                                                {{ c.criterion }}
+                                            </div>
+
+                                            {% if c.justification %}
+                                            <div class="small text-muted mt-2">
+                                                {{ c.justification }}
+                                            </div>
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
                 {% endfor %}
-            </ul>
+
+            </div>
+
             {% else %}
-            <p class="text-muted">No patients matched yet.</p>
+
+            <div class="text-center py-5">
+
+                <i class="bi bi-people text-muted"
+                    style="font-size: 2rem;"></i>
+
+                <p class="text-muted mt-3 mb-0">
+                    No patients matched yet.
+                </p>
+
+            </div>
+
             {% endif %}
 
         </div>
+
     </div>
 
 </div>

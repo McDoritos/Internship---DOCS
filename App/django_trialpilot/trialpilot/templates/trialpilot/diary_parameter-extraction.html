@@ -80,26 +80,71 @@
                                 </div>
                             </div>
 
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label field-label">Age / Birthdate</label>
-                                    <input type="text" name="age_or_birthdate"
+                            <div class="row g-3 align-items-end">
+
+                                <!-- AGE -->
+                                <div class="col-lg-4 col-md-6">
+                                    <label class="form-label field-label">
+                                        Age / Birthdate
+                                    </label>
+
+                                    <input type="text"
+                                        name="age_or_birthdate"
                                         value="{{ extracted_params.age_or_birthdate|default_if_none:'' }}"
                                         class="form-control clinical-input">
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label field-label">ECOG Performance Status</label>
-                                    <input type="text" name="ecog_ps"
+                                <!-- GENDER -->
+                                <div class="col-lg-4 col-md-6">
+                                    <label class="form-label field-label">
+                                        Gender
+                                    </label>
+
+                                    <select name="gender"
+                                        class="form-select clinical-input">
+                                        
+                                        <option value="">Select gender</option>
+
+                                        <option value="male"
+                                            {% if extracted_params.gender == "male" %}
+                                            selected
+                                            {% endif %}>
+                                            Male
+                                        </option>
+
+                                        <option value="female"
+                                            {% if extracted_params.gender == "female" %}
+                                            selected
+                                            {% endif %}>
+                                            Female
+                                        </option>
+
+                                    </select>
+                                </div>
+
+                                <!-- ECOG -->
+                                <div class="col-lg-4 col-md-12">
+                                    <label class="form-label field-label">
+                                        ECOG - PS
+                                    </label>
+
+                                    <input type="text"
+                                        name="ecog_ps"
                                         value="{{ extracted_params.ecog_ps|default_if_none:'' }}"
                                         class="form-control clinical-input">
                                 </div>
 
-                                <div class="col-md-12">
-                                    <label class="form-label field-label">Clinical Control / Follow-up</label>
-                                    <textarea name="control" class="form-control clinical-input clinical-textarea"
+                                <!-- CONTROL -->
+                                <div class="col-12 mt-2">
+                                    <label class="form-label field-label">
+                                        Clinical Control / Follow-up
+                                    </label>
+
+                                    <textarea name="control"
+                                        class="form-control clinical-input clinical-textarea"
                                         rows="5">{{ extracted_params.control|default_if_none:'' }}</textarea>
                                 </div>
+
                             </div>
                         </div>
 
@@ -404,7 +449,7 @@
 
                         <!-- Other Dynamic Fields -->
                         {% for key, value in extracted_params.items %}
-                        {% if key != "age_or_birthdate" and key != "ecog_ps" and key != "diagnosis" and key != "diagnosis_date" and key != "molecular_status" and key != "stage" and key != "control" and key != "treatments" and key != "lab" and key != "pathology_group" %}
+                        {% if key != "age_or_birthdate" and key != "ecog_ps" and key != "diagnosis" and key != "diagnosis_date" and key != "molecular_status" and key != "stage" and key != "control" and key != "treatments" and key != "lab" and key != "pathology_group" and key != "gender" %}
                         <div class="criteria-section mb-4">
                             <div class="criteria-section-header extra-header">
                                 <div class="d-flex align-items-center">

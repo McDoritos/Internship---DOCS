@@ -96,7 +96,7 @@
 
     {% for patient, treatments in patient_data %}
     <div class="patient-card patient-card-trigger" data-id="{{ patient.id }}" data-age="{{ patient.age }}"
-        data-ecog="{{ patient.ecog_ps }}" data-diagnosis="{{ patient.diagnosis }}"
+        data-gender="{{ patient.get_gender_display }}" data-ecog="{{ patient.ecog_ps }}" data-diagnosis="{{ patient.diagnosis }}"
         data-date="{{ patient.diagnosis_date }}" data-molecular="{{ patient.molecular_status }}"
         data-stage="{{ patient.stage }}" data-pathology_group="{{ patient.get_pathology_group_display }}" data-control="{{ patient.control }}" data-treatments='[
         {% for t in treatments %}

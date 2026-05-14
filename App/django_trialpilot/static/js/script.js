@@ -415,6 +415,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+/* Patient Details */
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const patientModal = new bootstrap.Modal(document.getElementById("patientModal"));
@@ -438,6 +440,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const id = this.dataset.id;
             const age = this.dataset.age;
+            const gender = this.dataset.gender;
             const ecog = this.dataset.ecog;
             const diagnosis = this.dataset.diagnosis;
             const date = this.dataset.date;
@@ -650,7 +653,10 @@ ${valueBox("Basophils", display(analysis.basofilos),
             </div>
 
             <!-- EMPTY COLUMN FOR ALIGNMENT -->
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="text-muted small">Gender</div>
+                <div class="fw-semibold fs-5">${gender || "-"}</div>
+            </div>
 
             <!-- LINE 3 -->
             <div class="col-12">
@@ -1383,14 +1389,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const previousResult = criterionCard.dataset.result === "true";
         let newResult;
 
-        // DEFINIÇÃO LÓGICA (Visual e Contadores)
         if (criterionType === "inclusion") {
             console.log("INCLUSION triggered → decision:", decision);
-            newResult = (decision === "pass"); // Pass = true (Verde)
+            newResult = (decision === "pass");
         } else {
             console.log("EXCLUSION triggered → decision:", decision);
-            // Na exclusão, clicar em 'pass' deve resultar em Verde (false/not triggered)
-            // Clicar em 'fail' deve resultar em Vermelho (true/triggered)
+
             newResult = (decision === "fail"); 
         }
 
@@ -1398,7 +1402,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         criterionCard.dataset.result = newResult;
 
-        // ATUALIZAÇÃO VISUAL
         const headerDiv = criterionCard.querySelector(".criterion-header-content");
         
         if (criterionType === "inclusion") {
@@ -1419,7 +1422,6 @@ document.addEventListener("DOMContentLoaded", function () {
         actions.querySelectorAll(".decision-btn").forEach(btn => btn.classList.remove("active"));
         button.classList.add("active");
 
-        // CONTADORES
         const inclusionElement = document.getElementById(`inclusion-count-${patientId}`);
         const exclusionElement = document.getElementById(`exclusion-count-${patientId}`);
         let inclusionCurrent = parseInt(inclusionElement.dataset.current);
@@ -1436,7 +1438,6 @@ document.addEventListener("DOMContentLoaded", function () {
             exclusionElement.innerText = exclusionCurrent;
         }
 
-        // ELEGIBILIDADE
         const inclusionTotal = parseInt(inclusionElement.dataset.total);
         const isEligible = (inclusionCurrent === inclusionTotal) && (exclusionCurrent === 0);
         const badge = document.getElementById(`eligibility-badge-${patientId}`);
@@ -1445,7 +1446,6 @@ document.addEventListener("DOMContentLoaded", function () {
         badge.className = `badge ${isEligible ? 'bg-success' : 'bg-danger'} px-3 py-2 text-white rounded-ui`;
         badge.innerText = isEligible ? "Eligible" : "Ineligible";
 
-        // RESUMO GERAL
         if (wasEligible !== isEligible) {
             const eSummary = document.getElementById("eligible-count");
             const iSummary = document.getElementById("ineligible-count");
@@ -1456,11 +1456,8 @@ document.addEventListener("DOMContentLoaded", function () {
             iSummary.innerText = iCount;
         }
 
-        // FORM POST - INVERSÃO DA DECISION PARA O SERVIDOR (APENAS EXCLUSÃO)
         let decisionToSave = decision;
         if (criterionType === "exclusion") {
-            // Se clicou em 'pass', envia 'fail' para o servidor
-            // Se clicou em 'fail', envia 'pass' para o servidor
             decisionToSave = (decision === "pass") ? "fail" : "pass";
         }
 
@@ -1477,7 +1474,7 @@ document.addEventListener("DOMContentLoaded", function () {
         input.value = JSON.stringify({ 
             patient_id: patientId, 
             criterion_id: criterionId, 
-            decision: decisionToSave // Aqui vai o valor invertido se for exclusão
+            decision: decisionToSave
         });
     };
 });

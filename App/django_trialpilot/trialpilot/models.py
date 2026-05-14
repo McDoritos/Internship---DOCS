@@ -65,6 +65,12 @@ class Version(models.Model):
         return f"{self.document.title} - {self.version_name}"
     
 class Patient_profile(models.Model):
+    
+    class GenderType(models.TextChoices):
+        MALE = "male", "Male"
+        FEMALE = "female", "Female"
+
+
     class pathologyGroupType(models.TextChoices):
         CABECAPESCOCO = "cabeca_pescoco", "Cabeça e Pescoço"
         DERMATOLOGIA = "dermatologia", "Dermatologia"
@@ -79,6 +85,7 @@ class Patient_profile(models.Model):
 
     document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name="patient_profiles")
     age = models.IntegerField(null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=GenderType.choices, null=True, blank=True)
     ecog_ps = models.IntegerField(null=True, blank=True)
     diagnosis = models.CharField(max_length=255, null=True, blank=True)
     diagnosis_date = models.DateField(null=True, blank=True)
@@ -147,7 +154,6 @@ class Logic_criteria(models.Model):
 
     def __str__(self):
         return f"Logic for Criterion {self.criterion.id} - Validated: {self.validated}"
-    
     
 class Patient_trial_match(models.Model):
     class Decision(models.TextChoices):

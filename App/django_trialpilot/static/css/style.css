@@ -870,6 +870,47 @@ body {
     width: 100% !important;
 }
 
+.gender-selector {
+    display: flex;
+    gap: 12px;
+}
+
+.gender-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 16px;
+
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 14px;
+
+    background: rgba(255,255,255,0.7);
+
+    cursor: pointer;
+
+    font-weight: 500;
+    color: #495057;
+
+    transition: all 0.2s ease;
+}
+
+.gender-card:hover {
+    border-color: #198754;
+    background: rgba(25,135,84,0.05);
+    transform: translateY(-1px);
+}
+
+.btn-check:checked + .gender-card {
+    background: rgba(25,135,84,0.12);
+    border-color: #198754;
+    color: #198754;
+
+    box-shadow:
+        0 0 0 3px rgba(25,135,84,0.08);
+}
+
 /* Trial Criteria Conversion */
 .glass-card {
     background: #ffffff;
@@ -1140,6 +1181,61 @@ body {
     cursor: not-allowed;   
     text-decoration: none;
 }
+
+.trial-overview-card {
+    border-radius: 10px;
+}
+
+.trial-metadata-box {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    padding: 12px;
+    height: 100%;
+}
+
+.trial-metadata-box small {
+    color: #6c757d;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.75rem;
+}
+
+.match-patient-card {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    background: white;
+    transition: background-color 0.15s ease;
+}
+
+.match-patient-card:hover {
+    background-color: #f8f9fa;
+}
+
+.match-summary-box {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #0d6efd;
+    padding: 12px;
+}
+
+.match-metric {
+    min-width: 90px;
+    text-align: center;
+}
+
+.match-metric-value {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.match-metric-label {
+    font-size: 0.75rem;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
 
 /* Index */
 .truncate-text {

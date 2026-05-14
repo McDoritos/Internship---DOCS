@@ -298,6 +298,20 @@ dummy_criteria_conversion_flat = {
 
 # Auxiliary functions
 
+def parse_gender(value):
+    if not value:
+        return None
+
+    value = value.strip().lower()
+
+    if value in ["male", "m", "masculino"]:
+        return True
+
+    if value in ["female", "f", "feminino"]:
+        return False
+
+    return None
+
 def serialize_analysis(analysis_qs):
 
     if not analysis_qs:
@@ -1216,7 +1230,7 @@ def evaluate_condition(patient, logic):
         if field not in KNOWN_FIELDS:
             print(f"[LLM FALLBACK] Field '{field}' not in schema")
 
-            #return matching_llm(patient, logic)
+            return matching_llm(patient, logic)
 
         patient_value = get_patient_value(patient, field)
             
@@ -1523,13 +1537,81 @@ def trial_details(request, trial_id):
         trial=trial
     ).select_related("patient")
     
+    for match in matches:
+
+        inclusion_total = 0
+        inclusion_passed = 0
+        exclusion_triggered = 0
+
+        inclusion_details = []
+        exclusion_details = []
+
+        evaluations = match.criterion_evaluations.select_related(
+            "criterion"
+        )
+
+        for evaluation in evaluations:
+
+            criterion = evaluation.criterion
+
+            result = (
+                evaluation.manual_result
+                if evaluation.manual_result is not None
+                else evaluation.automatic_result
+            )
+
+            detail = {
+                "criterion": (
+                    criterion.validated_criterion
+                    or criterion.raw_criterion
+                ),
+                "result": result,
+                "justification": (
+                    evaluation.deterministic_justification
+                ),
+                "manual_override": (
+                    evaluation.manual_result is not None
+                )
+            }
+
+            # INCLUSION
+            if criterion.type == "inclusion":
+
+                inclusion_total += 1
+
+                if result == Criterion_evaluation.EvaluationChoices.PASS:
+                    inclusion_passed += 1
+
+                inclusion_details.append(detail)
+
+            # EXCLUSION
+            elif criterion.type == "exclusion":
+
+                if result == Criterion_evaluation.EvaluationChoices.PASS:
+                    exclusion_triggered += 1
+
+                exclusion_details.append(detail)
+
+        match.inclusion_total = inclusion_total
+        match.inclusion_passed = inclusion_passed
+        match.exclusion_triggered = exclusion_triggered
+
+        match.inclusion_details = inclusion_details
+        match.exclusion_details = exclusion_details
+    
+    clinical_trial = ClinicalTrial.objects.get(
+        document=trial
+    )
+    
     return render(request, "trialpilot/trial_details.html", {
         "trial": trial,
         "trial_contents": trial_content,
         "versions": versions,
         "inclusion_criteria": inclusion_criteria,
         "exclusion_criteria": exclusion_criteria,
-        "matches": matches
+        "matches": matches,
+        "clinical_trial":clinical_trial
+        
     })
     
 
@@ -1876,6 +1958,7 @@ def parameter_extraction(request, diary_id):
             patient = Patient_profile.objects.create(
                 document=document,
                 age=clean_value(corrected_params.get("age_or_birthdate")),
+                gender=clean_value(corrected_params.get("gender")),
                 ecog_ps=clean_value(corrected_params.get("ecog_ps")),
                 diagnosis=clean_value(corrected_params.get("diagnosis")),
                 diagnosis_date=clean_value(corrected_params.get("diagnosis_date")),

@@ -6,6 +6,7 @@ Follow these rules:
   
 Schema (all fields must appear in the output, null if missing):
 - age_or_birthdate: Age of the patient or their date of birth, depending on what is available in the clinical note.
+- gender: gender of the patient, return this value specifically as either male or female.
 - ecog_ps: ECOG Performance Status score (0–5), describing how well the patient can perform daily activities.
 - diagnosis: The primary medical diagnosis, usually the type of cancer or major condition identified.
 - diagnosis_date: The date when the diagnosis was formally established (YYYY-MM-DD).
@@ -33,6 +34,7 @@ Schema (all fields must appear in the output, null if missing):
 ```JSON
 {
 	"age_or_birthdate": ...,
+	"gender": ...,
 	"ecog_ps": ...,
 	"diagnosis": ...,
 	"diagnosis_date": ...,
