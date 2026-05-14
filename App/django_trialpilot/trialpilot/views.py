@@ -1230,7 +1230,7 @@ def evaluate_condition(patient, logic):
         if field not in KNOWN_FIELDS:
             print(f"[LLM FALLBACK] Field '{field}' not in schema")
 
-            return matching_llm(patient, logic)
+            #return matching_llm(patient, logic)
 
         patient_value = get_patient_value(patient, field)
             
@@ -2068,9 +2068,9 @@ def criteria_extraction(request, trial_id):
         return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
     else:
         if request.method == 'GET':
-            criteria_extracted = criteria_extraction_step(document, document_content)
+            #criteria_extracted = criteria_extraction_step(document, document_content)
             
-            #criteria_extracted = dummy_criteria_extraction 
+            criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -2228,8 +2228,8 @@ def criteria_conversion(request, trial_id):
                 ]
             }
             
-            converted_logic = criteria_conversion_step(criteria_payload)
-            #converted_logic = build_dummy_conversion(criteria_payload)
+            #converted_logic = criteria_conversion_step(criteria_payload)
+            converted_logic = build_dummy_conversion(criteria_payload)
             
             parsed_logic = ContentFile(
                 json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
