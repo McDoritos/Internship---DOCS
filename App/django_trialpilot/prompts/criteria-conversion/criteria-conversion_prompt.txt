@@ -27,7 +27,7 @@ Specific Rules
 
 You should prioritize using the following fields whenever possible:
 - `age`
-- `sex`
+- `gender`, for this field use only the values, male or female
 - `diagnosis`
 - `stage`
 - `ecog_ps`
@@ -166,6 +166,29 @@ Field Naming Rules:
 - Avoid generic names like "condition", "value", "status"
 - Prefer domain-specific names (e.g., "steroid_use", "comorbidity", "prior_therapy")
 
+Exclusion Criteria Semantic Rule
+
+For exclusion criteria:
+- The generated logic MUST evaluate to TRUE when the exclusion condition is PRESENT.
+- Do NOT invert exclusion criteria into eligibility logic.
+- Example:
+  Criterion:
+  "Patients previously treated with pembrolizumab are excluded"
+
+  Correct:
+  {
+    "field": "treatment_name",
+    "operator": "IN",
+    "value": "pembrolizumab"
+  }
+
+  Incorrect:
+  {
+    "field": "treatment_name",
+    "operator": "NOT_IN",
+    "value": "pembrolizumab"
+  }
+
 For mixed computable + non-computable criteria:
 ```json
 {
@@ -232,7 +255,7 @@ Output:
   "id": 2,
   "text": "Only female patients are eligible.",
   "logic": {
-    "field": "sex",
+    "field": "gender",
     "operator": "=",
     "value": "female"
   }

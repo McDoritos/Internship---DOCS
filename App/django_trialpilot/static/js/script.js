@@ -109,6 +109,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+/* Upload of documents */
+
 document.addEventListener("DOMContentLoaded", function () {
 
     initUploadModal({

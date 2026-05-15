@@ -29,6 +29,10 @@ from difflib import SequenceMatcher
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
 import pandas as pd
+from datetime import datetime
+from django.utils.timezone import now
+from dateutil.relativedelta import relativedelta
+
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 
@@ -54,13 +58,13 @@ NORMALIZATION_FILES = list(NORMALIZATION_DIR.glob("normalization-sheet*.csv"))
 PATIENT_TEXT_CACHE = {}
 
 CLIENT = Groq(api_key=GROQ_KEY)
-MODEL = "openai/gpt-oss-120b"
+MODEL = "llama-3.3-70b-versatile" # llama-3.3-70b-versatile, openai/gpt-oss-120b
 TEMP = 0.7
 
 KNOWN_FIELDS = {
     # Patient fields
     "age", "ecog_ps", "diagnosis", "stage", "molecular_status",
-    "sex", "diagnosis_date", "treatment", "treatment_name",
+    "gender", "diagnosis_date", "treatment", "treatment_name",
     "treatment_start_date", "treatment_end_date", "pathology_group",
     "progression_date", "control",
 
@@ -84,9 +88,18 @@ KNOWN_FIELDS = {
     "bilirrubina_total", "creatina_cinase",
 }
 
+DATE_FIELDS = {
+    "diagnosis_date",
+    "treatment_start_date",
+    "treatment_end_date",
+    "progression_date",
+    "death_date"
+}
+
 FIELD_RESOLVER = {
     # Diretos
     "age": lambda p: p.age,
+    "gender": lambda p: p.gender,
     "ecog_ps": lambda p: p.ecog_ps,
     "diagnosis": lambda p: p.diagnosis,
     "stage": lambda p: p.stage,
@@ -1192,6 +1205,51 @@ def safe_float(val):
         return float(val)
     except:
         return None
+
+def parse_relative_date(value):
+
+    if not isinstance(value, str):
+        return None
+
+    value = value.lower().strip()
+
+    try:
+
+        if "years ago" in value:
+            n = int(value.split()[0])
+            return now().date() - relativedelta(years=n)
+
+        if "months ago" in value:
+            n = int(value.split()[0])
+            return now().date() - relativedelta(months=n)
+
+        if "weeks ago" in value:
+            n = int(value.split()[0])
+            return now().date() - relativedelta(weeks=n)
+
+    except:
+        return None
+
+    return None
+
+def parse_date(value):
+
+    if not value:
+        return None
+
+    formats = [
+        "%Y-%m-%d",
+        "%B %d, %Y",
+        "%b. %d, %Y"
+    ]
+
+    for fmt in formats:
+        try:
+            return datetime.strptime(str(value), fmt).date()
+        except:
+            pass
+
+    return None
     
 def normalize_value(val):
     num = safe_float(val)
@@ -1246,6 +1304,26 @@ def evaluate_condition(patient, logic):
         print(f"[DEBUG] Evaluating: {patient_value} {operator} {value}")    
             
         expected_unit = logic.get("unit")
+        
+        if field in DATE_FIELDS:
+
+            patient_date = parse_date(patient_value)
+
+            relative_date = parse_relative_date(value)
+
+            if patient_date and relative_date:
+
+                if operator == "<=":
+                    return patient_date <= relative_date
+
+                if operator == ">=":
+                    return patient_date >= relative_date
+
+                if operator == "<":
+                    return patient_date < relative_date
+
+                if operator == ">":
+                    return patient_date > relative_date
 
         if expected_unit and patient_unit:
 
@@ -1276,16 +1354,56 @@ def evaluate_condition(patient, logic):
             return str(patient_value).lower() != str(value).lower()
 
         if operator == ">=":
-            return safe_float(patient_value) >= safe_float(value)
+            left = safe_float(patient_value)
+            right = safe_float(value)
+
+            if left is None or right is None:
+                print(
+                    f"[INVALID NUMERIC COMPARISON] "
+                    f"{patient_value} >= {value}"
+                )
+                return False
+
+            return left >= right
 
         if operator == "<=":
-            return safe_float(patient_value) <= safe_float(value)
+            left = safe_float(patient_value)
+            right = safe_float(value)
+
+            if left is None or right is None:
+                print(
+                    f"[INVALID NUMERIC COMPARISON] "
+                    f"{patient_value} <= {value}"
+                )
+                return False
+
+            return left <= right
 
         if operator == ">":
-            return safe_float(patient_value) > safe_float(value)
+            left = safe_float(patient_value)
+            right = safe_float(value)
+
+            if left is None or right is None:
+                print(
+                    f"[INVALID NUMERIC COMPARISON] "
+                    f"{patient_value} > {value}"
+                )
+                return False
+
+            return left > right
 
         if operator == "<":
-            return safe_float(patient_value) < safe_float(value)
+            left = safe_float(patient_value)
+            right = safe_float(value)
+
+            if left is None or right is None:
+                print(
+                    f"[INVALID NUMERIC COMPARISON] "
+                    f"{patient_value} < {value}"
+                )
+                return False
+
+            return left < right
 
         if operator == "IN":
             normalized_patient = normalize_value(patient_value)
@@ -2068,9 +2186,9 @@ def criteria_extraction(request, trial_id):
         return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
     else:
         if request.method == 'GET':
-            #criteria_extracted = criteria_extraction_step(document, document_content)
+            criteria_extracted = criteria_extraction_step(document, document_content)
             
-            criteria_extracted = dummy_criteria_extraction 
+            #criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -2228,8 +2346,8 @@ def criteria_conversion(request, trial_id):
                 ]
             }
             
-            #converted_logic = criteria_conversion_step(criteria_payload)
-            converted_logic = build_dummy_conversion(criteria_payload)
+            converted_logic = criteria_conversion_step(criteria_payload)
+            #converted_logic = build_dummy_conversion(criteria_payload)
             
             parsed_logic = ContentFile(
                 json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
