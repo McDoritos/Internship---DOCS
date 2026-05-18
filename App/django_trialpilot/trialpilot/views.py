@@ -985,18 +985,28 @@ def matching_llm(patient, logic):
     
     clinical_diary_content = get_patient_text(patient)
     
+    analysis = Analysis.objects.filter(patient=patient)
+    
+    
     try:
         result = run_json_prompt_pipeline(
             system_prompt_path=SYS_MATCHING_PATIENTS_PROMPT_FILE,
             user_prompt_path=MATCHING_PATIENTS_PROMPT_FILE,
             replacements={
                 "{{CLINICAL_DIARY}}": clinical_diary_content,
-                "{{CRITERION_TEXT}}": json.dumps(logic)
+                "{{CRITERION_TEXT}}": json.dumps(logic),
+                "{{ANALYSIS_VALUES}}": json.dumps(serialize_analysis(analysis))
             },
             log_label=f"LLM Matching - Patient {patient.id}"
         )
 
-        return result.get("match", False)
+        return {
+            "match": result.get("match", False),
+            "justification": result.get(
+                "justification",
+                "No justification provided."
+            )
+        }
 
     except Exception as e:
         print(f"[LLM ERROR] {e}")
@@ -1038,7 +1048,11 @@ def patient_matching_step(patient, trial, trial_criteria):
         if not logic:
             continue
 
-        auto_result = evaluate_condition(patient, logic)
+        evaluation = evaluate_condition(patient, logic)
+
+        auto_result = evaluation["result"]
+        justification = evaluation["justification"]
+        evaluation_method = evaluation["method"]
 
         Criterion_evaluation.objects.update_or_create(
             match=match_obj,
@@ -1048,7 +1062,11 @@ def patient_matching_step(patient, trial, trial_criteria):
                     Criterion_evaluation.EvaluationChoices.PASS
                     if auto_result
                     else Criterion_evaluation.EvaluationChoices.FAIL
-                )
+                ),
+
+                "evaluation_method": evaluation_method,
+
+                "llm_justification": justification
             }
         )
         
@@ -1085,7 +1103,11 @@ def patient_matching_step(patient, trial, trial_criteria):
                 if manual_eval else None
             ),
 
-            "evidences": evidences
+            "evidences": evidences,
+
+            "evaluation_method": evaluation_method,
+
+            "llm_justification": justification
         }
 
         if c.type == "inclusion":
@@ -1277,7 +1299,11 @@ def normalize_unit(unit):
 
 def evaluate_condition(patient, logic):
     if not logic:
-        return True
+        return {
+            "result": True,
+            "justification": None,
+            "method": None
+        }
 
     # Simple
     if "field" in logic:
@@ -1288,7 +1314,13 @@ def evaluate_condition(patient, logic):
         if field not in KNOWN_FIELDS:
             print(f"[LLM FALLBACK] Field '{field}' not in schema")
 
-            #return matching_llm(patient, logic)
+            llm_result = matching_llm(patient, logic)
+
+            return {
+                "result": llm_result["match"],
+                "justification": llm_result["justification"],
+                "method": Criterion_evaluation.EvaluationMethod.LLM
+            }
 
         patient_value = get_patient_value(patient, field)
             
@@ -1314,16 +1346,36 @@ def evaluate_condition(patient, logic):
             if patient_date and relative_date:
 
                 if operator == "<=":
-                    return patient_date <= relative_date
+                    
+                    return {
+                        "result": patient_date <= relative_date,
+                        "justification": None,
+                        "method": Criterion_evaluation.EvaluationMethod.RULE
+                    }
 
                 if operator == ">=":
-                    return patient_date >= relative_date
+                    
+                    return {
+                        "result": patient_date >= relative_date,
+                        "justification": None,
+                        "method": Criterion_evaluation.EvaluationMethod.RULE
+                    }
 
                 if operator == "<":
-                    return patient_date < relative_date
+                    
+                    return {
+                        "result": patient_date < relative_date,
+                        "justification": None,
+                        "method": Criterion_evaluation.EvaluationMethod.RULE
+                    }
 
                 if operator == ">":
-                    return patient_date > relative_date
+                    
+                    return {
+                        "result": patient_date > relative_date,
+                        "justification": None,
+                        "method": Criterion_evaluation.EvaluationMethod.RULE
+                    }
 
         if expected_unit and patient_unit:
 
@@ -1338,20 +1390,36 @@ def evaluate_condition(patient, logic):
                     f"for field '{field}'"
                 )
 
-                return False
+                return {
+                    "result": False,
+                    "justification": None,
+                    "method": None
+                }
 
         if patient_value is None:
-            return False
+            return {
+                "result": False,
+                "justification": None,
+                "method": None
+            }
 
         # Normalize lists as strings
         if isinstance(value, str) and "," in value:
             value = [v.strip() for v in value.split(",")]
 
         if operator in ["=", "=="]:
-            return str(patient_value).lower() == str(value).lower()
+            return {
+                "result": str(patient_value).lower() == str(value).lower(),
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
         if operator == "!=":
-            return str(patient_value).lower() != str(value).lower()
+            return {
+                "result": str(patient_value).lower() != str(value).lower(),
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
         if operator == ">=":
             left = safe_float(patient_value)
@@ -1362,9 +1430,17 @@ def evaluate_condition(patient, logic):
                     f"[INVALID NUMERIC COMPARISON] "
                     f"{patient_value} >= {value}"
                 )
-                return False
-
-            return left >= right
+                return {
+                    "result": False,
+                    "justification": None,
+                    "method": None
+                }
+                
+            return {
+                "result": left >= right,
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
         if operator == "<=":
             left = safe_float(patient_value)
@@ -1375,9 +1451,16 @@ def evaluate_condition(patient, logic):
                     f"[INVALID NUMERIC COMPARISON] "
                     f"{patient_value} <= {value}"
                 )
-                return False
-
-            return left <= right
+                return {
+                    "result": False,
+                    "justification": None,
+                    "method": None
+                }
+            return {
+                "result": left <= right,
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
         if operator == ">":
             left = safe_float(patient_value)
@@ -1388,9 +1471,17 @@ def evaluate_condition(patient, logic):
                     f"[INVALID NUMERIC COMPARISON] "
                     f"{patient_value} > {value}"
                 )
-                return False
+                return {
+                    "result": False,
+                    "justification": None,
+                    "method": None
+                }
 
-            return left > right
+            return {
+                "result": left > right,
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
         if operator == "<":
             left = safe_float(patient_value)
@@ -1401,9 +1492,17 @@ def evaluate_condition(patient, logic):
                     f"[INVALID NUMERIC COMPARISON] "
                     f"{patient_value} < {value}"
                 )
-                return False
+                return {
+                    "result": False,
+                    "justification": None,
+                    "method": None
+                }
 
-            return left < right
+            return {
+                "result": left < right,
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
         if operator == "IN":
             normalized_patient = normalize_value(patient_value)
@@ -1414,9 +1513,16 @@ def evaluate_condition(patient, logic):
                 normalized_values = [normalize_value(value)]
 
             if isinstance(patient_value, list):
-                return any(normalize_value(v) in normalized_values for v in patient_value)
-
-            return normalized_patient in normalized_values
+                return {
+                    "result": any(normalize_value(v) in normalized_values for v in patient_value),
+                    "justification": None,
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
+                }
+            return {
+                "result": normalized_patient in normalized_values,
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
         if operator == "NOT_IN":
             normalized_patient = normalize_value(patient_value)
@@ -1427,30 +1533,55 @@ def evaluate_condition(patient, logic):
                 normalized_values = [normalize_value(value)]
 
             if isinstance(patient_value, list):
-                return all(normalize_value(v) not in normalized_values for v in patient_value)
-
-            return normalized_patient not in normalized_values
+                return {
+                    "result": all(normalize_value(v) not in normalized_values for v in patient_value),
+                    "justification": None,
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
+                }
+            return {
+                "result": normalized_patient not in normalized_values,
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
         if operator == "CONTAINS":
             normalized_value = str(value).lower()
 
             if isinstance(patient_value, list):
-                return any(normalized_value in str(v).lower() for v in patient_value)
-
-            return normalized_value in str(patient_value).lower()
+                return {
+                    "result": any(normalized_value in str(v).lower() for v in patient_value),
+                    "justification": None,
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
+                }
+            return {
+                "result": normalized_value in str(patient_value).lower(),
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            }
 
 
         if operator == "NOT_CONTAINS":
             normalized_value = str(value).lower()
 
             if isinstance(patient_value, list):
-                return all(normalized_value not in str(v).lower() for v in patient_value)
-
-            return normalized_value not in str(patient_value).lower()
+                return {
+                    "result": all(normalized_value not in str(v).lower() for v in patient_value),
+                    "justification": None,
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
+                } 
+            return {
+                "result": normalized_value not in str(patient_value).lower(),
+                "justification": None,
+                "method": Criterion_evaluation.EvaluationMethod.RULE
+            } 
 
         # Fallback
         print(f"[UNKNOWN OPERATOR] {operator}")
-        return False
+        return {
+            "result": False,
+            "justification": None,
+            "method": None
+        } 
 
     # Nested
     if "conditions" in logic:
@@ -1459,15 +1590,37 @@ def evaluate_condition(patient, logic):
         results = [evaluate_condition(patient, c) for c in logic["conditions"]]
 
         if operator == "AND":
-            return all(results)
+            final_result = all(r["result"] for r in results)
+        elif operator == "OR":
+            final_result = any(r["result"] for r in results)
+        else:
+            print(f"[UNKNOWN LOGIC OPERATOR] {operator}")
+            return {
+                "result": False,
+                "justification": None,
+                "method": None
+            }
 
-        if operator == "OR":
-            return any(results)
+        method = (
+            Criterion_evaluation.EvaluationMethod.LLM
+            if any(r["method"] == Criterion_evaluation.EvaluationMethod.LLM for r in results)
+            else Criterion_evaluation.EvaluationMethod.RULE
+        )
+        combined_justification = "\n".join(
+            r["justification"] for r in results if r["justification"]
+        ) or None
 
-        print(f"[UNKNOWN LOGIC OPERATOR] {operator}")
-        return False
+        return {
+            "result": final_result,
+            "justification": combined_justification,
+            "method": method
+        }
 
-    return False
+    return {
+        "result": False,
+        "justification": None,
+        "method": None
+    } 
 
 def extract_document_text(document):
     file_path = f"documents/{document.title}"
@@ -1685,7 +1838,7 @@ def trial_details(request, trial_id):
                 ),
                 "result": result,
                 "justification": (
-                    evaluation.deterministic_justification
+                    evaluation.llm_justification
                 ),
                 "manual_override": (
                     evaluation.manual_result is not None

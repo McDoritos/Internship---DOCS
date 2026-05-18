@@ -183,14 +183,19 @@ class Criterion_evaluation(models.Model):
     class EvaluationChoices(models.TextChoices):
         PASS = "pass", "Pass"
         FAIL = "fail", "Fail"
-    
+        
+    class EvaluationMethod(models.TextChoices):
+        LLM = "llm", "LLM"
+        RULE = "rule", "Rule"
+        
     match = models.ForeignKey(Patient_trial_match, on_delete=models.CASCADE, related_name="criterion_evaluations")
     criterion = models.ForeignKey(Trial_criteria, on_delete=models.CASCADE, related_name="evaluations")
 
     automatic_result = models.CharField(max_length=10, choices=EvaluationChoices.choices)
     manual_result = models.CharField(max_length=10, choices=EvaluationChoices.choices, null=True, blank=True)   
 
-    deterministic_justification = models.TextField(null=True, blank=True)
+    llm_justification = models.TextField(null=True, blank=True)
+    evaluation_method = models.CharField(max_length=15, null=True, blank=True, choices=EvaluationMethod.choices)
 
     evaluated_at = models.DateTimeField(auto_now_add=True)
 

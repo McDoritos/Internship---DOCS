@@ -1,19 +1,25 @@
 Instructions:
-- Determine if the patient satisfies the condition;
+- Determine if the patient satisfies the criterion;
 - Be strict and medically accurate;
-- If uncertain, return false;
-- Justify your decision on the respective field;
-- Your output must contain the criterion, your match decision and a justification for why you chose said decision
+- If the information is missing, ambiguous, or uncertain, return false;
+- Use only the information explicitly present in the clinical diary;
+- Generate a brief and objective medical justification for your decision;
+- The justification must reference the relevant clinical evidence or explain why the criterion could not be confirmed;
+- Keep the justification concise (maximum 1-2 sentences);
+- Do not hallucinate or infer information not present in the diary.
 
 Return JSON in this format:
 {
-    "criterion": CRITERION,
-    "match": true/false,
-    "justification": JUSTIFICATION
+"criterion": "CRITERION",
+"match": true/false,
+"justification": "SHORT_JUSTIFICATION"
 }
 
 Patient Clinical Diary:
 {{CLINICAL_DIARY}}
+
+Patient Laboratory Values:
+{{ANALYSIS_VALUES}}
 
 Criterion to evaluate:
 {{CRITERION_TEXT}}

@@ -211,6 +211,15 @@
 
                             </div>
 
+                            {% if c.llm_justification %}
+                            <div class="mt-2 p-2 border-start border-3 border-info bg-white small text-muted">
+                                <strong>LLM Justification:</strong>
+                                <div class="mt-1">
+                                    {{ c.llm_justification }}
+                                </div>
+                            </div>
+                            {% endif %}
+
                             <div class="criterion-actions mt-3">
 
                                 <button
@@ -317,6 +326,15 @@
                                 {% endfor %}
 
                             </div>
+
+                            {% if c.llm_justification %}
+                            <div class="mt-2 p-2 border-start border-3 border-info bg-white small text-muted">
+                                <strong>LLM Justification:</strong>
+                                <div class="mt-1">
+                                    {{ c.llm_justification }}
+                                </div>
+                            </div>
+                            {% endif %}
 
                             <div class="criterion-actions mt-3">
 
