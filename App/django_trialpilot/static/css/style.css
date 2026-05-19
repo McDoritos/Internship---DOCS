@@ -657,6 +657,33 @@ body {
 }
 
 /*Diary Parameter Extraction */
+
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-card {
+    background: white;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 420px;
+}
+
+.loading-spinner {
+    width: 4rem;
+    height: 4rem;
+}
+
 .glass-card {
     background: #ffffff;
     border: 1px solid #e9ecef;

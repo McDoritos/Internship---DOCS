@@ -33,6 +33,7 @@ from datetime import datetime
 from django.utils.timezone import now
 from dateutil.relativedelta import relativedelta
 import unicodedata
+from time import sleep
 
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
@@ -2232,9 +2233,9 @@ def parameter_extraction(request, diary_id):
             
             normalized_document_content = normalize_docs(document, document_content)
             
-            #extracted_params = parameter_extraction_pipeline(document, normalized_document_content)
+            extracted_params = parameter_extraction_pipeline(document, normalized_document_content)
             
-            extracted_params = dummy_params_extraction
+            #extracted_params = dummy_params_extraction
             
             extracted_params["lab"] = lab_dict
             
@@ -2429,7 +2430,11 @@ def criteria_extraction(request, trial_id):
             
             #criteria_extracted = criteria_extraction_step(document, normalized_document_content)
             
-            criteria_extracted = dummy_criteria_extraction 
+            criteria_extracted = dummy_criteria_extraction
+            dummy = True
+            
+            if dummy:
+                sleep(10)  
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -2589,6 +2594,10 @@ def criteria_conversion(request, trial_id):
             
             #converted_logic = criteria_conversion_step(criteria_payload)
             converted_logic = build_dummy_conversion(criteria_payload)
+            dummy = True
+            
+            if dummy:
+                sleep(10) 
             
             parsed_logic = ContentFile(
                 json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")

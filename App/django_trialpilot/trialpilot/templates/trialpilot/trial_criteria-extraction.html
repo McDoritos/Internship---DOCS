@@ -3,6 +3,30 @@
 {% block title %}Clinical Trial Criteria Extraction{% endblock %}
 
 {% block content %}
+
+<!-- LOADING OVERLAY -->
+<div id="llm-loading-overlay"
+     class="loading-overlay"
+     style="display:none;">
+
+    <div class="loading-card">
+
+        <div class="spinner-border text-success loading-spinner"
+             role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+
+        <h4 class="mt-4 fw-bold">
+            Converting Eligibility Criteria
+        </h4>
+
+        <p class="text-muted mb-0">
+            The AI is validating and converting clinical trial criteria.
+        </p>
+
+    </div>
+</div>
+
 <div class="container-fluid px-4 py-4">
 
     <!-- HEADER -->

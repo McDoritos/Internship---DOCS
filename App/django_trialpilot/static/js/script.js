@@ -109,6 +109,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+/* Loading overlay */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const overlay = document.getElementById("llm-loading-overlay");
+
+    // DIARY LIST
+
+    const continueBtnDiary = document.getElementById("confirmDiaryAction");
+
+    if (continueBtnDiary && overlay) {
+
+        continueBtnDiary.addEventListener("click", function () {
+
+            overlay.style.display = "flex";
+
+            document.body.classList.add("loading");
+
+        });
+
+    }
+
+    // TRIAL LIST
+
+    const continueBtnTrialExtraction = document.getElementById("confirmTrialAction");
+
+    if (continueBtnTrialExtraction && overlay) {
+
+        continueBtnTrialExtraction.addEventListener("click", function () {
+
+            overlay.style.display = "flex";
+
+            document.body.classList.add("loading");
+
+        });
+
+    }
+
+    // CRITERIA EXTRACTION FORM
+
+    const criteriaForm = document.querySelector("form");
+
+    if (criteriaForm && overlay) {
+
+        criteriaForm.addEventListener("submit", function () {
+
+            overlay.style.display = "flex";
+
+            document.body.classList.add("loading");
+
+        });
+
+    }
+
+});
+
+
 /* Upload of documents */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -1380,14 +1437,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-/* PATIENT MATCHING */ 
+/* PATIENT MATCHING */
 document.addEventListener("DOMContentLoaded", function () {
 
     window.setCriterionOverride = function (patientId, criterionId, decision, button) {
         const criterionCard = button.closest(".criterion-card");
         const criterionType = criterionCard.dataset.type;
-        const criterionText = criterionCard.dataset.text; 
-        
+        const criterionText = criterionCard.dataset.text;
+
         const previousResult = criterionCard.dataset.result === "true";
         let newResult;
 
@@ -1397,7 +1454,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             console.log("EXCLUSION triggered → decision:", decision);
 
-            newResult = (decision === "fail"); 
+            newResult = (decision === "fail");
         }
 
         if (previousResult === newResult) return;
@@ -1405,7 +1462,7 @@ document.addEventListener("DOMContentLoaded", function () {
         criterionCard.dataset.result = newResult;
 
         const headerDiv = criterionCard.querySelector(".criterion-header-content");
-        
+
         if (criterionType === "inclusion") {
             if (newResult) {
                 headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-check-circle-fill text-success"></i> <strong>${criterionText}</strong>`;
@@ -1473,9 +1530,9 @@ document.addEventListener("DOMContentLoaded", function () {
             input.id = inputId;
             container.appendChild(input);
         }
-        input.value = JSON.stringify({ 
-            patient_id: patientId, 
-            criterion_id: criterionId, 
+        input.value = JSON.stringify({
+            patient_id: patientId,
+            criterion_id: criterionId,
             decision: decisionToSave
         });
     };

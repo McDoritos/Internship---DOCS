@@ -4,6 +4,30 @@
 
 {% block content %}
 
+<!-- LOADING OVERLAY -->
+<div id="llm-loading-overlay"
+     class="loading-overlay"
+     style="display:none;">
+
+    <div class="loading-card">
+
+        <div class="spinner-border text-success loading-spinner"
+             role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+
+        <h4 class="mt-4 fw-bold">
+            Converting Eligibility Criteria
+        </h4>
+
+        <p id="loading-message"
+           class="text-muted mb-0">
+            The AI is validating and converting clinical trial criteria.
+        </p>
+
+    </div>
+</div>
+
 {% if messages %}
 {% for message in messages %}
 <div class="alert alert-{{ message.tags }} mb-3">
