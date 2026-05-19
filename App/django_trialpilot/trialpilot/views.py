@@ -32,6 +32,7 @@ import pandas as pd
 from datetime import datetime
 from django.utils.timezone import now
 from dateutil.relativedelta import relativedelta
+import unicodedata
 
 
 GROQ_KEY = os.getenv("GROQ_API_KEY")
@@ -310,6 +311,88 @@ dummy_criteria_conversion_flat = {
 }
 
 # Auxiliary functions
+
+def normalize_docs(document, document_content):
+    if document.type == Document.DocumentType.CLINICAL_DIARY:
+        
+        text = normalize_text(document_content)
+        
+        # Removing Header
+        lines = [l.strip() for l in text.split("\n") if l.strip()]
+        
+        cleaned = []
+        
+        skip_patterns = [
+            r"^UNIDADE LOCAL DE SAÚDE",
+            r"^Diário Clínico$",
+            r"^\d{2}-\d{2}-\d{4}",
+            r"^(?:Dr|Dra|Dr\(a\))\.?\s+.*",
+            r"^Processado por computador",
+            r"^Pag\.\s*\d+/\d+",
+        ]
+
+        for line in lines:
+
+            should_skip = any(
+                re.search(pattern, line, re.IGNORECASE)
+                for pattern in skip_patterns
+            )
+
+            if not should_skip:
+                cleaned.append(line)
+                
+        text = "\n".join(cleaned)
+        
+        print(f"[DEBUG] Normalized Diary: {text}")
+        
+        return text
+        
+    elif document.type == Document.DocumentType.CLINICAL_TRIAL:
+
+        text = normalize_text(document_content)
+
+        inclusion_match = re.search(
+            r"(Inclusion Criteria\s*:?\s*)(.*?)(?=Exclusion Criteria\s*:?)",
+            text,
+            re.IGNORECASE | re.DOTALL,
+        )
+
+        exclusion_match = re.search(
+            r"(Exclusion Criteria\s*:?\s*)(.*?)(?=\n(?:Study Plan|Study Design|Investigational Product|Control Product|Study Endpoints|Primary Endpoint|Secondary Endpoints|Safety Endpoints|Follow-Up|Statistical Analysis|References)\b|\Z)",
+            text,
+            re.IGNORECASE | re.DOTALL,
+        )
+
+        if inclusion_match and exclusion_match:
+
+            inclusion_text = inclusion_match.group(2).strip()
+            exclusion_text = exclusion_match.group(2).strip()
+
+            text = (
+                "Inclusion Criteria:\n"
+                f"{inclusion_text}\n\n"
+                "Exclusion Criteria:\n"
+                f"{exclusion_text}"
+            )
+
+        print(f"[DEBUG] Normalized Trial: {text}")
+
+        return text
+            
+    
+def normalize_text(text):
+    text = unicodedata.normalize("NFKC", text)
+    
+    text = re.sub(r"[‐-‒–—]", "-", text)
+
+    text = re.sub(r"[ \t]+", " ", text)
+
+    text = re.sub(r"\r\n?", "\n", text)
+
+    text = re.sub(r"\n{3,}", "\n\n", text)
+
+    return text.strip()
+
 
 def parse_gender(value):
     if not value:
@@ -2147,9 +2230,11 @@ def parameter_extraction(request, diary_id):
                 for item in lab_params
             }
             
-            extracted_params = parameter_extraction_pipeline(document, document_content)
+            normalized_document_content = normalize_docs(document, document_content)
             
-            #extracted_params = dummy_params_extraction
+            #extracted_params = parameter_extraction_pipeline(document, normalized_document_content)
+            
+            extracted_params = dummy_params_extraction
             
             extracted_params["lab"] = lab_dict
             
@@ -2339,9 +2424,12 @@ def criteria_extraction(request, trial_id):
         return render(request, 'trialpilot/trial_criteria-extraction.html', {'error': 'Criteria have already been extracted for this document.'})
     else:
         if request.method == 'GET':
-            criteria_extracted = criteria_extraction_step(document, document_content)
             
-            #criteria_extracted = dummy_criteria_extraction 
+            normalized_document_content = normalize_docs(document, document_content)
+            
+            #criteria_extracted = criteria_extraction_step(document, normalized_document_content)
+            
+            criteria_extracted = dummy_criteria_extraction 
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -2499,8 +2587,8 @@ def criteria_conversion(request, trial_id):
                 ]
             }
             
-            converted_logic = criteria_conversion_step(criteria_payload)
-            #converted_logic = build_dummy_conversion(criteria_payload)
+            #converted_logic = criteria_conversion_step(criteria_payload)
+            converted_logic = build_dummy_conversion(criteria_payload)
             
             parsed_logic = ContentFile(
                 json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
