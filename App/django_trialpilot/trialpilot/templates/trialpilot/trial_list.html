@@ -11,18 +11,22 @@
 
     <div class="loading-card">
 
-        <div class="spinner-border text-success loading-spinner"
-             role="status">
-            <span class="visually-hidden">Loading...</span>
+        <div class="loading-icon-wrapper">
+
+            <div class="spinner-border text-success loading-spinner"
+                 role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+
         </div>
 
-        <h4 class="mt-4 fw-bold">
+        <h4 class="loading-title">
             Converting Eligibility Criteria
         </h4>
 
-        <p id="loading-message"
-           class="text-muted mb-0">
-            The AI is validating and converting clinical trial criteria.
+        <p class="loading-subtitle">
+            The AI is validating and converting clinical trial criteria
+            <span class="loading-dots"></span>
         </p>
 
     </div>
@@ -76,7 +80,7 @@
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm rounded-ui filter-dropdown"
-                    style="min-width: 260px;">
+                    style="min-width: 300px;">
                     <form method="GET" class="d-flex flex-column gap-3">
 
                         <!-- Keep search value -->
@@ -84,32 +88,70 @@
 
                         <!-- Extraction Status -->
                         <div>
-                            <label class="form-label fw-semibold mb-2 text-muted">Extraction Status</label>
+                            <label class="form-label fw-semibold mb-1 text-muted small">
+                                <i class="bi bi-check2-circle me-1"></i>Extraction Status
+                            </label>
                             <select name="status" class="form-select form-select-sm rounded-ui">
-                                <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="extracted" {% if status == "extracted" %}selected{%
-                                    endif %}>Extracted
-                                </option>
-                                <option class="text-muted" value="not_extracted" {% if status == "not_extracted"
-                                    %}selected{% endif %}>Not
-                                    Extracted</option>
+                                <option value="">All</option>
+                                <option value="extracted" {% if status == "extracted" %}selected{% endif %}>Extracted</option>
+                                <option value="not_extracted" {% if status == "not_extracted" %}selected{% endif %}>Not Extracted</option>
+                            </select>
+                        </div>
+
+                        <!-- Trial Status -->
+                        <div>
+                            <label class="form-label fw-semibold mb-1 text-muted small">
+                                <i class="bi bi-activity me-1"></i>Trial Status
+                            </label>
+                            <select name="trial_status" class="form-select form-select-sm rounded-ui">
+                                <option value="">All</option>
+                                {% for value, label in trial_status_choices %}
+                                    <option value="{{ value }}" {% if trial_status == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Pathology Group -->
+                        <div>
+                            <label class="form-label fw-semibold mb-1 text-muted small">
+                                <i class="bi bi-heart-pulse me-1"></i>Pathology Group
+                            </label>
+                            <select name="pathology_group" class="form-select form-select-sm rounded-ui">
+                                <option value="">All</option>
+                                {% for value, label in pathology_choices %}
+                                    <option value="{{ value }}" {% if pathology_group == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
                         <!-- File Type -->
                         <div>
-                            <label class="form-label fw-semibold mb-2 mt-2 text-muted">File Type</label>
+                            <label class="form-label fw-semibold mb-1 text-muted small">
+                                <i class="bi bi-file-earmark me-1"></i>File Type
+                            </label>
                             <select name="file_type" class="form-select form-select-sm rounded-ui">
-                                <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="pdf" {% if file_type == "pdf" %}selected{% endif %}>PDF
-                                </option>
-                                <option class="text-muted" value="txt" {% if file_type == "txt" %}selected{% endif %}>TXT
-                                </option>
+                                <option value="">All</option>
+                                <option value="pdf" {% if file_type == "pdf" %}selected{% endif %}>PDF</option>
+                                <option value="txt" {% if file_type == "txt" %}selected{% endif %}>TXT</option>
                             </select>
                         </div>
 
+                        <!-- Date Range -->
+                        <div>
+                            <label class="form-label fw-semibold mb-1 text-muted small">
+                                <i class="bi bi-calendar-range me-1"></i>Start Date Range
+                            </label>
+                            <div class="d-flex gap-2 align-items-center">
+                                <input type="date" name="date_from" class="form-control form-control-sm rounded-ui"
+                                    value="{{ date_from }}" placeholder="From">
+                                <span class="text-muted small">–</span>
+                                <input type="date" name="date_to" class="form-control form-control-sm rounded-ui"
+                                    value="{{ date_to }}" placeholder="To">
+                            </div>
+                        </div>
+
                         <!-- Actions -->
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between pt-1 mt-2">
                             <a href="{% url 'trial_list' %}" class="btn btn-sm btn-outline-secondary rounded-ui">
                                 Clear
                             </a>

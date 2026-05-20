@@ -163,6 +163,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    // MATCH PATIENTS
+
+
+    const matchPatientsBtn = document.getElementById("matchPatientsBtn");
+
+    if (matchPatientsBtn && overlay) {
+
+        matchPatientsBtn.addEventListener("click", function () {
+
+            if (matchPatientsBtn.classList.contains("disabled-link")) {
+                return;
+            }
+
+            overlay.style.display = "flex";
+
+            document.body.classList.add("loading");
+
+        });
+
+    }
+
 });
 
 

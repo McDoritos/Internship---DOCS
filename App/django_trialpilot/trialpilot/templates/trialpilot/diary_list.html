@@ -8,19 +8,25 @@
 <div id="llm-loading-overlay"
      class="loading-overlay"
      style="display:none;">
+
     <div class="loading-card">
 
-        <div class="spinner-border text-primary loading-spinner" role="status">
-            <span class="visually-hidden">Loading...</span>
+        <div class="loading-icon-wrapper">
+
+            <div class="spinner-border text-primary loading-spinner"
+                 role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+
         </div>
 
-        <h4 class="mt-4 fw-bold">
+        <h4 class="loading-title">
             Extracting Clinical Parameters
         </h4>
 
-        <p class="text-muted mb-0">
-            The AI is analyzing the clinical diary.<br>
-            This process may take a few seconds.
+        <p class="loading-subtitle">
+            The AI is analyzing the clinical diary and extracting patient information
+            <span class="loading-dots"></span>
         </p>
 
     </div>
@@ -85,12 +91,8 @@
                             <label class="form-label fw-semibold mb-2 text-muted">Extraction Status</label>
                             <select name="status" class="form-select form-select-sm rounded-ui">
                                 <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="extracted" {% if status == "extracted" %}selected{%
-                                    endif %}>Extracted
-                                </option>
-                                <option class="text-muted" value="not_extracted" {% if status == "not_extracted"
-                                    %}selected{% endif %}>Not
-                                    Extracted</option>
+                                <option class="text-muted" value="extracted" {% if status == "extracted" %}selected{% endif %}>Extracted</option>
+                                <option class="text-muted" value="not_extracted" {% if status == "not_extracted" %}selected{% endif %}>Not Extracted</option>
                             </select>
                         </div>
 
@@ -138,7 +140,7 @@
 <div class="diary-list ml-3 mr-3">
 
     {% for diary, extension in diary_data %}
-    <div class="diary-card diary-card-trigger"
+    <div class="diary-card diary-row diary-card-trigger {% if diary.extracted %}extracted{% endif %}"
         data-diary-id="{{ diary.id }}"
         data-diary-title="{{ diary.title }}"
         data-diary-extracted="{{ diary.extracted }}">

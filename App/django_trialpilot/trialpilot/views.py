@@ -60,7 +60,7 @@ NORMALIZATION_FILES = list(NORMALIZATION_DIR.glob("normalization-sheet*.csv"))
 PATIENT_TEXT_CACHE = {}
 
 CLIENT = Groq(api_key=GROQ_KEY)
-MODEL = "llama-3.3-70b-versatile" # llama-3.3-70b-versatile, openai/gpt-oss-120b
+MODEL = "openai/gpt-oss-120b" # llama-3.3-70b-versatile, openai/gpt-oss-120b
 TEMP = 0.7
 
 KNOWN_FIELDS = {
@@ -1757,17 +1757,38 @@ def trial_list(request):
     search = request.GET.get("search", "").strip()
     status = request.GET.get("status", "").strip()
     file_type = request.GET.get("file_type", "").strip().lower()
-    
-    trials = Document.objects.filter(type=Document.DocumentType.CLINICAL_TRIAL)
-    
+    trial_status = request.GET.get("trial_status", "").strip()
+    pathology_group = request.GET.get("pathology_group", "").strip()
+    date_from = request.GET.get("date_from", "").strip()
+    date_to = request.GET.get("date_to", "").strip()
+
+    trials = Document.objects.filter(
+        type=Document.DocumentType.CLINICAL_TRIAL
+    ).select_related("clinical_trial")
+
     if search:
-        trials = trials.filter(title__icontains=search)
-        
+        trials = trials.filter(
+            Q(title__icontains=search) |
+            Q(clinical_trial__study_name__icontains=search)
+        )
+
     if status == "extracted":
         trials = trials.filter(extracted=True)
     elif status == "not_extracted":
         trials = trials.filter(extracted=False)
-    
+
+    if trial_status:
+        trials = trials.filter(clinical_trial__status=trial_status)
+
+    if pathology_group:
+        trials = trials.filter(clinical_trial__pathology_group=pathology_group)
+
+    if date_from:
+        trials = trials.filter(clinical_trial__end_date__gte=date_from)
+
+    if date_to:
+        trials = trials.filter(clinical_trial__start_date__lte=date_to)
+
     trial_data = []
     for trial in trials:
         if "." in trial.title:
@@ -1786,6 +1807,12 @@ def trial_list(request):
         'search': search,
         'status': status,
         'file_type': file_type,
+        'trial_status': trial_status,
+        'pathology_group': pathology_group,
+        'date_from': date_from,
+        'date_to': date_to,
+        'pathology_choices': ClinicalTrial.PathologyGroupType.choices,
+        'trial_status_choices': ClinicalTrial.TrialStatus.choices,
     })
     
 def diary_list(request):
