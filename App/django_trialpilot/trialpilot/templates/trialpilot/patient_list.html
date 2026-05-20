@@ -17,6 +17,7 @@
 
     <!-- Page Title -->
     <h3 class="mb-3">Patients List</h3>
+    <p class="text-muted">Click on a patient to see his details</p>
 
     <!-- Buttons + Search -->
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -33,55 +34,92 @@
         </form>
 
         <!-- Right side (buttons) -->
-        <div class="dropdown" style="margin-right: 0.5rem;">
-            <button class="btn btn-outline-secondary btn-sm rounded-ui dropdown-toggle" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown me-2">
+            <button class="btn btn-outline-secondary btn-sm rounded-ui dropdown-toggle d-flex align-items-center gap-2"
+                type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-funnel"></i>
-                Filter
+                Filters
             </button>
 
-            <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm rounded-ui filter-dropdown"
-                style="min-width: 260px;">
-                <form method="GET" class="d-flex flex-column gap-3">
+            <div class="dropdown-menu dropdown-menu-end p-0 shadow-lg rounded-4 filter-dropdown">
+                
+                <!-- Header -->
+                <div class="px-3 py-2 border-bottom bg-light rounded-top-4">
+                    <div class="fw-semibold text-secondary small">
+                        Filter patients
+                    </div>
+                </div>
+
+                <form method="GET" class="p-3 d-flex flex-column gap-3">
 
                     <input type="hidden" name="search" value="{{ search }}">
 
                     <!-- Stage -->
                     <div>
-                        <label class="form-label fw-semibold mb-2 text-muted">Stage</label>
+                        <label class="form-label small text-secondary mb-1">Stage</label>
                         <select name="stage" class="form-select form-select-sm rounded-ui">
-                            <option class="text-muted" value="">All</option>
-                            <option class="text-muted" value="I" {% if stage == "I" %}selected{% endif %}>I</option>
-                            <option class="text-muted" value="II" {% if stage == "II" %}selected{% endif %}>II</option>
-                            <option class="text-muted" value="III" {% if stage == "III" %}selected{% endif %}>III</option>
-                            <option class="text-muted" value="IV" {% if stage == "IV" %}selected{% endif %}>IV</option>
+                            <option value="">All stages</option>
+                            <option value="I" {% if stage == "I" %}selected{% endif %}>Stage I</option>
+                            <option value="II" {% if stage == "II" %}selected{% endif %}>Stage II</option>
+                            <option value="III" {% if stage == "III" %}selected{% endif %}>Stage III</option>
+                            <option value="IV" {% if stage == "IV" %}selected{% endif %}>Stage IV</option>
                         </select>
                     </div>
+
+                    <!-- Pathology Group -->
+                    <div>
+                        <label class="form-label small text-secondary mb-1">Pathology group</label>
+                        <select name="pathology_group" id="pathologyGroup"
+                            class="form-select form-select-sm rounded-ui">
+                            <option value="">All groups</option>
+                            <option value="cabeca_pescoco">Head & Neck</option>
+                            <option value="dermatologia">Dermatology</option>
+                            <option value="digestivo">Digestive</option>
+                            <option value="ginecologia">Gynecology</option>
+                            <option value="mama">Breast</option>
+                            <option value="oncologia_pediatrica">Pediatric Oncology</option>
+                            <option value="pele">Skin</option>
+                            <option value="pneumologia">Pulmonology</option>
+                            <option value="snc" title="Tumors of the Central Nervous System">CNS</option>
+                            <option value="tne" title="Neuroendocrine Tumors">NET</option>
+                        </select>
+                    </div>
+
+                    <!-- Diagnosis -->
+                    <div>
+                        <label class="form-label small text-secondary mb-1">Diagnosis</label>
+                        <select name="diagnosis" id="diagnosisSelect"
+                            data-selected="{{ diagnosis }}"
+                            class="form-select form-select-sm rounded-ui filter-diagnosis mb-2">
+                        </select>
+                    </div>
+
+                    {{ diagnosis_options|json_script:"diagnosis-data" }}
 
                     <!-- Molecular Status -->
                     <div>
-                        <label class="form-label fw-semibold mb-2 mt-2 text-muted">Molecular Status</label>
+                        <label class="form-label small text-secondary mb-1">Molecular status</label>
                         <select name="molecular_status" class="form-select form-select-sm rounded-ui">
-                            <option class="text-muted" value="">All</option>
-                            <option class="text-muted" value="EGFR" {% if molecular_status == "EGFR" %}selected{% endif %}>EGFR</option>
-                            <option class="text-muted" value="ALK" {% if molecular_status == "ALK" %}selected{% endif %}>
-                                ALK</option>
-                            <option class="text-muted" value="KRAS" {% if molecular_status == "KRAS" %}selected{% endif %}>KRAS</option>
-                            <option class="text-muted" value="PD-L1" {% if molecular_status == "PD-L1" %}selected{% endif %}>PD-L1</option>
-                            <option class="text-muted" value="Wild type" {% if molecular_status == "Wild type" %}selected{% endif %}>Wild type</option>
-                            <option class="text-muted" value="Unknown" {% if molecular_status == "Unknown" %}selected{% endif %}>Unknown</option>
+                            <option value="">All</option>
+                            <option value="EGFR" {% if molecular_status == "EGFR" %}selected{% endif %}>EGFR</option>
+                            <option value="ALK" {% if molecular_status == "ALK" %}selected{% endif %}>ALK</option>
+                            <option value="KRAS" {% if molecular_status == "KRAS" %}selected{% endif %}>KRAS</option>
+                            <option value="PD-L1" {% if molecular_status == "PD-L1" %}selected{% endif %}>PD-L1</option>
+                            <option value="Wild type" {% if molecular_status == "Wild type" %}selected{% endif %}>Wild type</option>
+                            <option value="Unknown" {% if molecular_status == "Unknown" %}selected{% endif %}>Unknown</option>
                         </select>
                     </div>
 
-                    <!-- Actions -->
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="{% url 'patient_list' %}" class="btn btn-sm btn-outline-secondary rounded-ui">
+                    <!-- Footer actions -->
+                    <div class="d-flex justify-content-between align-items-center pt-2">
+                        <a href="{% url 'patient_list' %}" class="btn btn-sm btn-light rounded-ui">
                             Clear
                         </a>
-                        <button type="submit" class="btn btn-sm btn-outline-primary rounded-ui">
-                            Apply
+                        <button type="submit" class="btn btn-sm btn-primary rounded-ui px-3">
+                            Apply filters
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>

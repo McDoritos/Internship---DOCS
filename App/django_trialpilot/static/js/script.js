@@ -1558,3 +1558,55 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 });
+
+/* Patient List Filters */
+document.addEventListener("DOMContentLoaded", function () {
+
+    const diagnosisOptions = JSON.parse(
+        document.getElementById("diagnosis-data").textContent
+    );
+
+    const pathologyGroup =
+        document.getElementById("pathologyGroup");
+
+    const diagnosisSelect =
+        document.getElementById("diagnosisSelect");
+
+    function populateDiagnoses() {
+
+        const selectedGroup = pathologyGroup.value;
+
+        diagnosisSelect.innerHTML =
+            '<option value="">All</option>';
+
+        if (diagnosisOptions[selectedGroup]) {
+
+            diagnosisOptions[selectedGroup].forEach(diagnosis => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = diagnosis;
+                option.textContent = diagnosis;
+
+                const selectedDiagnosis =
+                    diagnosisSelect.dataset.selected;
+
+                if (selectedDiagnosis === diagnosis) {
+                    option.selected = true;
+                }
+
+                diagnosisSelect.appendChild(option);
+            });
+        }
+    }
+
+    pathologyGroup.addEventListener(
+        "change",
+        populateDiagnoses
+    );
+
+    if (pathologyGroup.value) {
+        populateDiagnoses();
+    }
+});

@@ -72,51 +72,56 @@
                 Delete
             </button>
 
-            <div class="dropdown" style="margin-right: 0.5rem;">
-                <button class="btn btn-outline-secondary btn-sm rounded-ui dropdown-toggle" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-funnel"></i>
-                    Filter
+            <div class="dropdown me-2">
+                <button class="btn btn-outline-secondary btn-sm rounded-ui dropdown-toggle d-flex align-items-center gap-2 mr-2"
+                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-funnel mr-1"></i>
+                    Filters
                 </button>
 
-                <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm rounded-ui filter-dropdown"
-                    style="min-width: 260px;">
-                    <form method="GET" class="d-flex flex-column gap-3">
+                <div class="dropdown-menu dropdown-menu-end p-0 shadow-lg rounded-4 filter-dropdown">
 
-                        <!-- Keep search value -->
+                    <!-- Header -->
+                    <div class="px-3 py-2 border-bottom bg-light rounded-top-4">
+                        <div class="fw-semibold text-secondary small">
+                            Filter records
+                        </div>
+                    </div>
+
+                    <form method="GET" class="p-3 d-flex flex-column gap-3">
+
                         <input type="hidden" name="search" value="{{ search }}">
 
                         <!-- Extraction Status -->
                         <div>
-                            <label class="form-label fw-semibold mb-2 text-muted">Extraction Status</label>
+                            <label class="form-label small text-secondary mb-1">Extraction status</label>
                             <select name="status" class="form-select form-select-sm rounded-ui">
-                                <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="extracted" {% if status == "extracted" %}selected{% endif %}>Extracted</option>
-                                <option class="text-muted" value="not_extracted" {% if status == "not_extracted" %}selected{% endif %}>Not Extracted</option>
+                                <option value="">All</option>
+                                <option value="extracted" {% if status == "extracted" %}selected{% endif %}>Extracted</option>
+                                <option value="not_extracted" {% if status == "not_extracted" %}selected{% endif %}>Not extracted</option>
                             </select>
                         </div>
 
                         <!-- File Type -->
                         <div>
-                            <label class="form-label fw-semibold mb-2 mt-2 text-muted">File Type</label>
+                            <label class="form-label small text-secondary mb-1">File type</label>
                             <select name="file_type" class="form-select form-select-sm rounded-ui">
-                                <option class="text-muted" value="">All</option>
-                                <option class="text-muted" value="pdf" {% if file_type == "pdf" %}selected{% endif %}>PDF
-                                </option>
-                                <option class="text-muted" value="txt" {% if file_type == "txt" %}selected{% endif %}>TXT
-                                </option>
+                                <option value="">All</option>
+                                <option value="pdf" {% if file_type == "pdf" %}selected{% endif %}>PDF</option>
+                                <option value="txt" {% if file_type == "txt" %}selected{% endif %}>TXT</option>
                             </select>
                         </div>
 
                         <!-- Actions -->
-                        <div class="d-flex justify-content-between">
-                            <a href="{% url 'diary_list' %}" class="btn btn-sm btn-outline-secondary rounded-ui">
+                        <div class="d-flex justify-content-between align-items-center pt-2">
+                            <a href="{% url 'diary_list' %}" class="btn btn-sm btn-light rounded-ui">
                                 Clear
                             </a>
-                            <button type="submit" class="btn btn-sm btn-outline-primary rounded-ui">
+                            <button type="submit" class="btn btn-sm btn-primary rounded-ui px-3">
                                 Apply
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>

@@ -226,7 +226,27 @@ body {
 }
 
 .filter-dropdown {
-    color: #6c757d;
+    width: 400px;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.filter-dropdown .form-select {
+    border-radius: 10px;
+    border-color: rgba(0,0,0,0.12);
+}
+
+.filter-dropdown .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.15rem rgba(13,110,253,.15);
+}
+
+.filter-patients {
+    width: 320px;
+    max-width: 320px;
+}
+
+.filter-diagnosis {
+    width: 100%
 }
 
 .filter-dropdown label,
