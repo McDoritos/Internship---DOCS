@@ -1346,8 +1346,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // REMOVE CONDITION
     document.addEventListener("click", function (e) {
+
         if (e.target.classList.contains("remove-condition")) {
-            e.target.closest(".condition-row").remove();
+
+            const wrapper =
+                e.target.closest(".condition-wrapper");
+
+            if (wrapper) {
+                wrapper.remove();
+            } else {
+                e.target.closest(".condition-row").remove();
+            }
         }
     });
 
@@ -1410,10 +1419,6 @@ document.addEventListener("DOMContentLoaded", function () {
             container.appendChild(clone);
         }
 
-        // REMOVE CONDITION
-        if (e.target.classList.contains("remove-condition")) {
-            e.target.closest(".condition-row").remove();
-        }
 
         // REMOVE GROUP
         if (e.target.classList.contains("remove-group")) {
@@ -1579,6 +1584,16 @@ document.addEventListener("DOMContentLoaded", function () {
         diagnosisSelect.innerHTML =
             '<option value="">All</option>';
 
+        // No pathology group selected
+        if (!selectedGroup) {
+
+            diagnosisSelect.disabled = true;
+            return;
+        }
+
+        // Enable select
+        diagnosisSelect.disabled = false;
+
         if (diagnosisOptions[selectedGroup]) {
 
             diagnosisOptions[selectedGroup].forEach(diagnosis => {
@@ -1606,7 +1621,5 @@ document.addEventListener("DOMContentLoaded", function () {
         populateDiagnoses
     );
 
-    if (pathologyGroup.value) {
-        populateDiagnoses();
-    }
+    populateDiagnoses();
 });

@@ -1173,6 +1173,137 @@ body {
     min-width: 0;
 }
 
+/* CONDITION CARD */
+
+.condition-card {
+    background: #ffffff;
+    border: 1px solid #edf0f2;
+    border-radius: 16px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.condition-card:hover {
+    border-color: #d0d7de;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.condition-fields {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* BLOCK SIZING */
+
+.field-block {
+    flex: 2;
+    min-width: 220px;
+}
+
+.operator-block {
+    flex: 1;
+    min-width: 180px;
+}
+
+.value-block {
+    flex: 1.5;
+    min-width: 180px;
+}
+
+.unit-wrapper {
+    flex: 0.7;
+    min-width: 100px;
+}
+
+.remove-block {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 0.1rem;
+}
+
+/* LABELS */
+
+.condition-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 0.4rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* REMOVE BUTTON */
+
+.btn-remove-condition {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid #f1c2c7;
+    background: #fff5f5;
+    color: #dc3545;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-remove-condition:hover {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+/* NESTED GROUP */
+
+.nested-group {
+    background: #ffffff;
+    border: 1px dashed #ced4da !important;
+    border-radius: 18px !important;
+    padding: 1rem !important;
+    margin-top: 1rem;
+}
+
+.nested-group > .mb-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem !important;
+}
+
+/* BUTTONS */
+
+.add-condition,
+.add-group {
+    border-radius: 12px;
+    padding: 0.45rem 0.9rem;
+    font-weight: 500;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .condition-fields {
+        flex-direction: column;
+    }
+
+    .field-block,
+    .operator-block,
+    .value-block,
+    .unit-wrapper {
+        width: 100%;
+    }
+
+    .remove-block {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
 /* Trial Details */
 .criteria-card {
     max-height: 600px;
@@ -1263,6 +1394,28 @@ body {
     font-size: 0.75rem;
     color: #6c757d;
     margin-top: 2px;
+}
+
+.match-header {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+    align-items: start;
+}
+
+.match-header-left {
+    min-width: 0;
+}
+
+.match-header-metrics {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.match-header-action {
+    display: flex;
+    justify-content: flex-end;
 }
 
 

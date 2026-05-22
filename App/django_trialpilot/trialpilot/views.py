@@ -2757,7 +2757,7 @@ def criteria_extraction(request, trial_id):
             dummy = True
             
             if dummy:
-                sleep(10)  
+                sleep(5)  
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
@@ -2920,7 +2920,7 @@ def criteria_conversion(request, trial_id):
             dummy = True
             
             if dummy:
-                sleep(10) 
+                sleep(5) 
             
             parsed_logic = ContentFile(
                 json.dumps(converted_logic, ensure_ascii=False, indent=2).encode("utf-8")
