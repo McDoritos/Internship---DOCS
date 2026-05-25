@@ -1,0 +1,245 @@
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "age_or_birthdate": 47,
+  "gender": "female",
+  "ecog_ps": 0,
+  "diagnosis": "Carcinoma invasor NST, G3, triple-negative (ER-, PR-, HER2 0), PD-L1 CPS 15, cT2N1M0 (IIIA), pós-quimioterapia neoadjuvante",
+  "diagnosis_date": "2025-06-20",
+  "molecular_status": "triple-negative (ER-, PR-, HER2 0), PD-L1 CPS 15",
+  "stage": "cT2N1M0 (IIIA)",
+  "pathology_group": "mama",
+  "treatments": [
+    {
+      "name": "Paclitaxel semanal + Carboplatina",
+      "start_date": "2025-07-01",
+      "end_date": "2025-11-01"
+    }
+  ],
+  "control": "resposta parcial; próxima consulta 01/12/2025 para revisão pós-operatória e definição de tratamento adjuvante"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "age_or_birthdate": 64,
+  "gender": "male",
+  "ecog_ps": 2,
+  "diagnosis": "PN - CPPC - CARCINOMA PEQUENAS CELULAS PULMAO ESTADIO EXTENSO",
+  "diagnosis_date": "2025-01-28",
+  "molecular_status": null,
+  "stage": "IV extenso",
+  "pathology_group": "pulmão",
+  "treatments": [
+    {
+      "name": "carboplatina + etoposido + atezolizumab",
+      "start_date": "2025-02-10",
+      "end_date": "2025-06-15"
+    }
+  ],
+  "control": "Ciclo 3 adiado por neutropenia G4; toxicidade relatada neutropenia G4, fadiga G2."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "age_or_birthdate": 59,
+  "gender": "masculino",
+  "ecog_ps": 1,
+  "diagnosis": "PN - ADENOCARCINOMA PULMAO KRAS G12C",
+  "diagnosis_date": null,
+  "molecular_status": "KRAS G12C mutado, PD-L1 TPS 0 %",
+  "stage": "cT3N2M1b (IVB)",
+  "pathology_group": "pulmão",
+  "treatments": [
+    {
+      "name": "carboplatina AUC 5 + pemetrexed 500 mg/m2 + pembrolizumab 200 mg q3 semanas",
+      "start_date": "2025-05-05",
+      "end_date": null
+    },
+    {
+      "name": "Radioterapia pálica lombar",
+      "start_date": "2025-05-20",
+      "end_date": "2025-05-26"
+    },
+    {
+      "name": "pembrolizumab 200 mg q3 semanas",
+      "start_date": "2025-10-22",
+      "end_date": null
+    }
+  ],
+  "control": "resposta parcial (PR), não há sinais de progressão clínica"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "age_or_birthdate": 72,
+  "gender": "male",
+  "ecog_ps": 2,
+  "diagnosis": "carcinoma escamoso de pulmão esquerdo, G2, cT4N3M1c (IVC) com metástases ósseas múltiplas (esqueleto axial) e cerebral (lesão frontal direita 2 cm)",
+  "diagnosis_date": "2025-03-01",
+  "molecular_status": "PD-L1 TPS 80 %",
+  "stage": "cT4N3M1c (IVC)",
+  "pathology_group": "pneumologia",
+  "treatments": [
+    {
+      "name": "pembrolizumab 200 mg q3 semanas",
+      "start_date": "2025-03-15",
+      "end_date": null
+    },
+    {
+      "name": "Radioterapia cerebral 20 Gy/5 fr",
+      "start_date": "2025-03-10",
+      "end_date": "2025-03-16"
+    }
+  ],
+  "control": "tolerado bem; toxicidade única: fadiga G1, sem necessidade de dose-modificação"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "age_or_birthdate": 63,
+  "gender": "female",
+  "ecog_ps": 0,
+  "diagnosis": "carcinoma invasor NST mama direita, G2",
+  "diagnosis_date": null,
+  "molecular_status": "ER 90 %, PR 40 %; HER2 negativo",
+  "stage": "pT2N2M0 - IIIA",
+  "pathology_group": "mama",
+  "treatments": [
+    {
+      "name": "Mastectomia direita + axillectomia",
+      "start_date": "2025-01-15",
+      "end_date": null
+    },
+    {
+      "name": "Quimioterapia adjuvante AC-T",
+      "start_date": "2025-02-01",
+      "end_date": "2025-03-15"
+    },
+    {
+      "name": "Quimioterapia adjuvante AC-T",
+      "start_date": "2025-04-01",
+      "end_date": "2025-06-15"
+    },
+    {
+      "name": "Radioterapia adjuvante",
+      "start_date": "2025-07-01",
+      "end_date": "2025-08-05"
+    }
+  ],
+  "control": "Sem queixa de dor ou linfonodos palpáveis; Cicatriz operatória cicatrizada, sem sinal de infecção; Alopecia ainda presente, porém em processo de reganho capilar; Náuseas ausentes desde final de março 2025; ECOG-PS 0, atividade plena; Sem febre."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "age_or_birthdate": 81,
+  "gender": "male",
+  "ecog_ps": 3,
+  "diagnosis": "PN - ADENOCARCINOMA PULMAO",
+  "diagnosis_date": "2025-02-15",
+  "molecular_status": "PD-L1 <50",
+  "stage": "IV",
+  "pathology_group": "pulmão",
+  "treatments": [
+    {
+      "name": "Cuidados de suporte paliativo",
+      "start_date": "2025-02-20",
+      "end_date": null
+    }
+  ],
+  "control": "Astenia grau 2 e dispneia em repouso desde diagnóstico, evoluindo gradualmente. Peso 60 kg, sem perda significativa nas últimas semanas. ECOG-ps 3. Manter abordagem de suporte sintomático. Optimizar broncodilatadores, considerar oxigenoterapia domiciliária se SatO2 <90 %. Agendar avaliação de dor e de suporte nutricional. Não há indicação de iniciar terapia sistémica neste momento. Revisão clínica prevista para 15-05-2025."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "age_or_birthdate": 52,
+  "gender": "female",
+  "ecog_ps": 1,
+  "diagnosis": "OM - MAMA NEOADJUVANTE TRIPLO NEGATIVO",
+  "diagnosis_date": null,
+  "molecular_status": "TRIPLO NEGATIVO",
+  "stage": "IV",
+  "pathology_group": "mama",
+  "treatments": [
+    {
+      "name": "THP (docetaxel 75 mg/m2 + trastuzumab + pertuzumab)",
+      "start_date": "05-12-2024",
+      "end_date": null
+    }
+  ],
+  "control": "ECOG 1, Sem febre, PET-CT de avaliação em 01-06-2025, Agendar controle laboratorial antes da próxima infusão."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "age_or_birthdate": 66,
+  "gender": "male",
+  "ecog_ps": 1,
+  "diagnosis": "Adenocarcinoma moderadamente diferenciado do cólon sigmoide, G2",
+  "diagnosis_date": null,
+  "molecular_status": "KRAS G12D mutado, MMR MSS, HER2- negativo, PD-L1 negativo",
+  "stage": "IV",
+  "pathology_group": "digestivo",
+  "treatments": [
+    {
+      "name": "FOLFOX + Bevacizumab",
+      "start_date": "2025-01-25",
+      "end_date": "2025-07-30"
+    },
+    {
+      "name": "5-FU + Bevacizumab",
+      "start_date": "2025-08-15",
+      "end_date": null
+    }
+  ],
+  "control": "doença estável-parcial (SD) com diminuição das metástases hepáticas"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "age_or_birthdate": 44,
+  "gender": "female",
+  "ecog_ps": 0,
+  "diagnosis": "Adenocarcinoma pulmonar direito, ALK rearranjado, cT2N2M1c (estágio IV) com metastases cerebrais",
+  "diagnosis_date": "2025-03-12",
+  "molecular_status": "ALK+",
+  "stage": "IV",
+  "pathology_group": "pulmão",
+  "treatments": [
+    {
+      "name": "Alectinib",
+      "start_date": "2025-03-20",
+      "end_date": null
+    },
+    {
+      "name": "Radiotherapy",
+      "start_date": "2025-03-25",
+      "end_date": "2025-03-31"
+    }
+  ],
+  "control": "lesões cerebrais estáveis"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "age_or_birthdate": 71,
+  "gender": "female",
+  "ecog_ps": 1,
+  "diagnosis": "OM - MAMA PALIATIVO LUMINAL A PIK3CA",
+  "diagnosis_date": "2023-09-10",
+  "molecular_status": "ER +, PR +, HER2 -, PD-L1 -, PIK3CA mutação",
+  "stage": "IV",
+  "pathology_group": "mama",
+  "treatments": [
+    {
+      "name": "Letrozol 2,5 mg diário associado a palbociclib 125 mg d 1-21/28",
+      "start_date": "2023-09-20",
+      "end_date": null
+    },
+    {
+      "name": "Radioterapia paliativa de 20 Gy em 5 frações",
+      "start_date": "2023-10-01",
+      "end_date": "2023-10-07"
+    }
+  ],
+  "control": "Ausência de sinais de progressão sistémica, sem novas metastases, com alívio sintomático parcial da dor lombar. Estabilidade das lesões ósseas confirmada por cintilografia óssea em 2024. Adesão ao tratamento oral com letrozol e palbociclib, sem novas toxicidades ≥ G2."
+}
+

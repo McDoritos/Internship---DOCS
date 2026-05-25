@@ -71,6 +71,24 @@ Molecular data, may help refine the normalized diagnosis only when the normaliza
 - Never infer molecular status;
 - Never assign a molecular subtype, unless the diary explicitly provides the necessary markers;
 - If the diary provides molecular markers but the normalization table does NOT contain a matching molecular subtype, keep the diagnosis generic.
+- Never remove or alter prefixes such as "OM -", "PN -", "PE -", "OPED -", etc.
+- Never create new normalized diagnoses that are not present in the table.
+- Never partially match or approximate: the output must be an exact string from the normalization table.
+
+Examples:
+Input diagnosis:
+"Carcinoma invasor NST, G3, triple‑negative (ER‑, PR‑, HER2 0), PD‑L1 CPS 15, cT2N1M0 (IIIA), pós‑quimioterapia neoadjuvante"
+
+Correct normalized output:
+"OM - MAMA NEOADJUVANTE TRIPLO NEGATIVO"
+
+Incorrect outputs (never do this):
+- "MAMA NEOADJUVANTE TRIPLO NEGATIVO"        (missing prefix)
+- "OM MAMA NEOADJUVANTE TRIPLO NEGATIVO"     (missing hyphen)
+- "OM - mama neoadjuvante triplo negativo"   (changed case)
+- "OM - MAMA TRIPLO NEGATIVO"                (lost subtype)
+- "MAMA TNBC"                                (translation)
+- "OM - MAMA NEOADJUVANTE TRIPLO NEGATIVO PD-L1+" (added info)
 
 If no mapping exists, keep the original.
 
