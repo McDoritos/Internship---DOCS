@@ -1,0 +1,328 @@
+General Rules
+- Convert only information explicitly stated in each criterion.
+- You may perform controlled semantic mapping when the exact concept is not present in the schema.
+- Prefer the closest matching field from the allowed list based on meaning.
+- Prefer using the allowed fields whenever possible.
+- If no suitable field exists, you MUST generate a general semantically meaningful field name that best represents the concept.
+- The generated field name must be concise, snake_case, and based only on the criterion text.
+- Do NOT fallback to "unmapped" if a meaningful structured representation can be created.
+- Do not leave information unstructured if a reasonable mapping exists.
+- Always produce a structured `"logic"` object for every criterion.
+- Never return `"logic": null`.
+- If a criterion cannot be expressed using the allowed fields:
+  - You MUST create a structured condition using a semantically meaningful custom field.
+  - You MUST NOT fallback to "unmapped" if any structured interpretation is possible.
+- Output only valid JSON matching the schema below.
+- Do not include explanations, comments, or natural language outside the JSON structure.
+- You MUST preserve the original criterion `id` exactly as received.
+- You MUST NOT invent, renumber, or change any IDs.
+- For each input criterion, return exactly one output criterion with the same `id`.
+- Keep the same inclusion/exclusion grouping.
+
+Specific Rules
+- If a criterion contains multiple values, such as: Diagnosis NOT_IN ['non-melanoma skin cancer', 'carcinoma in situ'], split it into separate criteria, each repeating the same field and operator:
+
+  Diagnosis NOT_IN non-melanoma skin cancer
+  Diagnosis NOT_IN carcinoma in situ
+
+You should prioritize using the following fields whenever possible:
+- `age`
+- `gender`, for this field use only the values, male or female
+- `diagnosis`
+- `stage`
+- `ecog_ps`
+- `molecular_status`
+- `diagnosis_date`
+- `treatment`
+- `treatment_name`
+- `treatment_start_date`
+- `treatment_end_date`
+- `progression_date`
+- `death_date`
+- `control`
+
+Laboratory Analysis Extraction Rules
+
+Laboratory values MUST follow the normalized schema fields listed below.
+
+Each laboratory parameter extracted from criteria should:
+- Use the normalized schema field whenever possible.
+- Preserve the exact numeric threshold/value from the criterion.
+- Preserve the comparison operator exactly.
+- Ignore reference ranges unless explicitly part of eligibility.
+- Preserve units if explicitly stated in the criterion.
+- Distinguish between absolute counts and percentages.
+
+When laboratory criteria are expressed using synonyms, abbreviations, or clinical aliases, map them to the normalized schema fields below.
+
+Laboratory Synonym Mapping
+
+Hematology:
+- "WBC", "White Blood Cells", "White blood cell count", "Leukocytes" → `leucocitos`
+- "ANC", "Absolute Neutrophil Count", "Neutrophil count" → `neutrofilos`
+- "Neutrophils %" → `neutrofilos_percent`
+- "ALC", "Absolute Lymphocyte Count", "Lymphocyte count" → `linfocitos`
+- "Lymphocytes %" → `linfocitos_percent`
+- "Monocyte count" → `monocitos`
+- "Monocytes %" → `monocitos_percent`
+- "Eosinophil count" → `eosinofilos`
+- "Eosinophils %" → `eosinofilos_percent`
+- "Basophil count" → `basofilos`
+- "Basophils %" → `basofilos_percent`
+
+Red Blood Cell Parameters:
+- "RBC", "Red Blood Cells" → `eritrocitos`
+- "Hemoglobin", "Hb", "Hgb" → `hemoglobina`
+- "Hematocrit", "HCT" → `hematocrito`
+- "MCV" → `vc_medio`
+- "MCH" → `hcm`
+- "MCHC" → `chcm`
+- "RDW" → `rdw`
+
+Platelets:
+- "Platelet count", "Platelets" → `plaquetas`
+- "MPV" → `vpm`
+- "Plateletcrit" → `plaquetocrito`
+- "PDW" → `pdw`
+
+Biochemistry:
+- "Glucose" → `glicose`
+- "BUN", "Blood Urea Nitrogen", "Urea" → `azoto_ureico`
+- "Creatinine" → `creatinina`
+- "Sodium", "Na" → `sodio`
+- "Potassium", "K" → `potassio`
+- "Total Protein" → `proteinas_totais`
+- "Albumin" → `albumina`
+- "Calcium" → `calcio`
+- "Osmolality" → `osmolalidade`
+- "LDH" → `ldh`
+- "AST", "SGOT" → `ast`
+- "ALT", "SGPT" → `alt`
+- "ALP", "Alkaline Phosphatase" → `fosfatase_alcalina`
+- "GGT", "Gamma GT" → `gama_gt`
+- "Total Bilirubin", "Bilirubin" → `bilirrubina_total`
+- "CK", "CPK", "Creatine Kinase" → `creatina_cinase`
+
+Laboratory Logic Rules
+
+For laboratory criteria:
+- Always use structured logic.
+- Never leave laboratory criteria unmapped if a semantic match exists.
+- Preserve the exact threshold.
+- Preserve the exact comparison operator.
+
+Example:
+
+Input:
+"Hemoglobin ≥ 9 g/dL"
+
+Output:
+{
+  "field": "hemoglobina",
+  "operator": ">=",
+  "value": "9",
+  "unit": "g/dL"
+}
+
+If a criterion references a concept not present in this list:
+- You MUST still produce a structured condition using a best-effort semantic field name.
+- Only use fallback "unmapped" if the criterion is completely impossible to structure.
+
+Allowed Operators (OPERATOR)
+Use these operators whenever the criterion can be mapped to the schema:
+- `=`
+- `!=`
+- `>`
+- `>=`
+- `<`
+- `<=`
+- `IN`
+- `NOT_IN`
+- `AND`
+- `CONTAINS`
+- `NOT_CONTAINS`
+- `OR`
+
+If a criterion cannot be represented using these operators alone, preserve it using a fallback structured representation instead of null.
+
+Values (VALUE)
+- Use only literal values explicitly stated in the criterion.
+- Do not add units, ranges, or clinical interpretations unless explicitly present.
+- Dates must be represented as raw values if explicitly present.
+- If a value is vague or not computable, preserve the criterion using a fallback structured object rather than null.
+
+Logic Construction Rules
+- If a criterion contains multiple conditions, combine them using explicit Boolean operators (`AND`, `OR`) whenever possible.
+- Boolean precedence must be explicit through nested structure.
+- If only part of the criterion is computable, represent the computable part and preserve the remaining part in fallback structured form.
+- If the criterion is outside the schema:
+  - You MUST still create a structured condition using a semantically meaningful field.
+  - Only use fallback "unmapped" if the criterion cannot be logically decomposed at all.
+- Never omit a criterion.
+- Never return `"logic": null`.
+
+Field Naming Rules:
+- Use snake_case
+- Avoid generic names like "condition", "value", "status"
+- Prefer domain-specific names (e.g., "steroid_use", "comorbidity", "prior_therapy")
+
+Exclusion Criteria Semantic Rule
+
+For exclusion criteria:
+- The generated logic MUST evaluate to TRUE when the exclusion condition is PRESENT.
+- Do NOT invert exclusion criteria into eligibility logic.
+- Example:
+  Criterion:
+  "Patients previously treated with pembrolizumab are excluded"
+
+  Correct:
+  {
+    "field": "treatment_name",
+    "operator": "IN",
+    "value": "pembrolizumab"
+  }
+
+  Incorrect:
+  {
+    "field": "treatment_name",
+    "operator": "NOT_IN",
+    "value": "pembrolizumab"
+  }
+
+For mixed computable + non-computable criteria:
+```json
+{
+  "operator": "AND" | "OR",
+  "conditions": [
+    { computable structured condition },
+    {
+      "unmapped": true,
+      "source_text": "unmapped part of the criterion"
+    }
+  ]
+}
+```
+
+Output Schema:
+```json
+{
+  "inclusion_criteria": [
+    {
+      "id": integer,
+      "text": string,
+      "logic": object
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": integer,
+      "text": string,
+      "logic": object
+    }
+  ]
+}
+```
+
+Examples:
+```JSON
+Input:
+{
+  "id": 1,
+  "text": "Patients must be ≥ 18 years old."
+}
+
+Output:
+{
+  "id": 1,
+  "text": "Patients must be ≥ 18 years old.",
+  "logic": {
+    "field": "age",
+    "operator": ">=",
+    "value": "18"
+  }
+}
+```
+
+```JSON
+Input:
+{
+  "id": 2,
+  "text": "Only female patients are eligible."
+}
+
+Output:
+{
+  "id": 2,
+  "text": "Only female patients are eligible.",
+  "logic": {
+    "field": "gender",
+    "operator": "=",
+    "value": "female"
+  }
+}
+```
+
+```JSON
+Input:
+{
+  "id": 3,
+  "text": "Patients must have ECOG ≤ 1 and confirmed diagnosis of NSCLC."
+}
+
+Output:
+{
+  "id": 3,
+  "text": "Patients must have ECOG ≤ 1 and confirmed diagnosis of NSCLC.",
+  "logic": {
+    "operator": "AND",
+    "conditions": [
+      {
+        "field": "ecog_ps",
+        "operator": "<=",
+        "value": "1"
+      },
+      {
+        "field": "diagnosis",
+        "operator": "=",
+        "value": "NSCLC"
+      }
+    ]
+  }
+}
+```
+
+```JSON
+Input:
+{
+  "id": 9,
+  "text": "Patients must not have active infection or uncontrolled cardiovascular disease."
+}
+
+Output:
+{
+  "id": 9,
+  "text": "Patients must not have active infection or uncontrolled cardiovascular disease.",
+  "logic": {
+    "operator": "AND",
+    "conditions": [
+      {
+        "field": "infection_status",
+        "operator": "!=",
+        "value": "active"
+      },
+      {
+        "field": "cardiovascular_disease_status",
+        "operator": "!=",
+        "value": "uncontrolled"
+      }
+    ]
+  }
+}
+```
+
+Clinical trial criteria to process:
+<CRITERIA>
+{{CRITERIA_TEXT}}
+</CRITERIA>
+
+Return only the JSON object.
