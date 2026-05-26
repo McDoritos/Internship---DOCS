@@ -60,7 +60,7 @@ NORMALIZATION_FILES = list(NORMALIZATION_DIR.glob("normalization-sheet*.csv"))
 PATIENT_TEXT_CACHE = {}
 
 CLIENT = Groq(api_key=GROQ_KEY)
-MODEL = "openai/gpt-oss-120b" # llama-3.3-70b-versatile, openai/gpt-oss-120b
+MODEL = "llama-3.3-70b-versatile" # llama-3.3-70b-versatile, openai/gpt-oss-120b
 TEMP = 0.7
 
 DIAGNOSIS_OPTIONS = {
@@ -1546,6 +1546,10 @@ def extract_evidence(patient, logic):
     return evidences
 
 def parse_possible_list(value):
+    
+    if isinstance(value, bool):
+        return value
+    
     if isinstance(value, str):
         value = value.strip()
 
@@ -1678,6 +1682,11 @@ def evaluate_condition(patient, logic):
         field = logic["field"]
         operator = logic["operator"].upper()
         value = parse_possible_list(logic["value"])
+        
+        print(f"[DEBUG] field={field}, operator={operator}, value={value}, type={type(value)}")
+        
+        if isinstance(value, bool):
+            value = str(value).lower()
 
         if field not in KNOWN_FIELDS:
             print(f"[LLM FALLBACK] Field '{field}' not in schema")
@@ -2556,9 +2565,13 @@ def parameter_extraction(request, diary_id):
             
             normalized_document_content = normalize_docs(document, document_content)
             
-            extracted_params = parameter_extraction_pipeline(document, normalized_document_content)
+            #extracted_params = parameter_extraction_pipeline(document, normalized_document_content)
             
-            #extracted_params = dummy_params_extraction
+            extracted_params = dummy_params_extraction
+            dummy = True
+            
+            if dummy:
+                sleep(20)  
             
             extracted_params["lab"] = lab_dict
             

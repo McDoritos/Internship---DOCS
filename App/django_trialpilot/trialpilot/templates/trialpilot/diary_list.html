@@ -13,11 +13,11 @@
 
         <div class="loading-icon-wrapper">
 
-            <div class="spinner-border text-primary loading-spinner"
-                 role="status">
-                <span class="visually-hidden">Loading...</span>
+            <div class="custom-spinner" role="status" aria-label="Loading">
+                <div class="custom-spinner__ring"></div>
+                <div class="custom-spinner__ring custom-spinner__ring--delay"></div>
             </div>
-
+        
         </div>
 
         <h4 class="loading-title">
@@ -125,7 +125,6 @@
                     </form>
                 </div>
             </div>
-
 
             <button class="btn btn-outline-secondary btn-sm rounded-ui" data-bs-toggle="modal"
                 data-bs-target="#uploadModal">

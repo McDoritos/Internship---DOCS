@@ -1625,8 +1625,10 @@ body {
 
     border-width: 0.45rem;
 
+    filter: drop-shadow(0 0 0 rgba(59,130,246,0));
+
     animation:
-        spinner-grow 1.2s linear infinite,
+        spinner-border 0.9s linear infinite,
         pulseGlow 2s ease-in-out infinite;
 }
 
@@ -1730,4 +1732,39 @@ body {
 
 body.loading {
     overflow: hidden;
+}
+
+.custom-spinner {
+    position: relative;
+    width: 48px;
+    height: 48px;
+}
+
+.custom-spinner__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 0.45rem solid transparent;
+    border-top-color: #3b82f6;
+    animation: customSpin 0.9s linear infinite;
+}
+
+.custom-spinner__ring--delay {
+    border-top-color: transparent;
+    border-right-color: rgba(59, 130, 246, 0.35);
+    animation-duration: 0.9s;
+    animation-delay: -0.45s;
+}
+
+.custom-spinner--green .custom-spinner__ring {
+    border-top-color: #10b981;
+}
+
+.custom-spinner--green .custom-spinner__ring--delay {
+    border-top-color: transparent;
+    border-right-color: rgba(16, 185, 129, 0.35);
+}
+
+@keyframes customSpin {
+    to { transform: rotate(360deg); }
 }
