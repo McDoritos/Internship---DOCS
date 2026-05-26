@@ -1,19 +1,22 @@
 Extraction Requirements:
 
-- The text provided contains ONLY {{CRITERIA_TYPE}} criteria from a clinical trial.
-- Extract all {{CRITERIA_TYPE}} criteria present in the text.
-- DO NOT extract or infer any other type of criteria.
+- Extract ALL inclusion and exclusion criteria present in the text.
 - Each criterion must be kept exactly as written (no rewriting or interpretation).
 - If a criterion contains multiple independent conditions, split them into separate entries.
 - Ignore any text that is not a clear eligibility criterion.
 - Do not add missing information or infer new criteria.
 - Avoid duplicates.
+- If a section (inclusion or exclusion) is not present in the text, return an empty list for that section.
 
 Output Format:
 
 ```JSON
 {
-  "{{CRITERIA_TYPE}}_criteria": [
+  "inclusion_criteria": [
+    "<criterion 1>",
+    "<criterion 2>"
+  ],
+  "exclusion_criteria": [
     "<criterion 1>",
     "<criterion 2>"
   ]
