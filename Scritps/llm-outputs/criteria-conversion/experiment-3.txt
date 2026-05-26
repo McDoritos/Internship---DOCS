@@ -1,0 +1,250 @@
+Ouput for file ../Test_Files/Clinical_trials/Criteria_extracted\clinical-trial-extracted_e1.txt
+{
+  "inclusion_criteria": [
+    {
+      "id": 1,
+      "text": "Age ≥ 18 years.",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": "18"
+      }
+    },
+    {
+      "id": 2,
+      "text": "Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+      "logic": {
+        "field": "progression_after_therapy",
+        "operator": "IN",
+        "value": "first-line platinum-based chemotherapy combined with anti-PD-1, first-line platinum-based chemotherapy combined with anti-PD-L1"
+      }
+    },
+    {
+      "id": 4,
+      "text": "ECOG Performance Status 0–1.",
+      "logic": {
+        "field": "ecog_ps",
+        "operator": "IN",
+        "value": "0–1"
+      }
+    },
+    {
+      "id": 5,
+      "text": "At least one measurable lesion per RECIST 1.1.",
+      "logic": {
+        "field": "recist_version",
+        "operator": "=",
+        "value": "1.1"
+      }
+    },
+    {
+      "id": 6,
+      "text": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L.",
+      "logic": {
+        "field": "neutrofilos",
+        "operator": ">=",
+        "value": "1.5",
+        "unit": "x 10^9/L"
+      }
+    },
+    {
+      "id": 7,
+      "text": "Platelets ≥ 100 x 10^9/L.",
+      "logic": {
+        "field": "plaquetas",
+        "operator": ">=",
+        "value": "100",
+        "unit": "x 10^9/L"
+      }
+    },
+    {
+      "id": 8,
+      "text": "Hemoglobin ≥ 9 g/dL.",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": "9",
+        "unit": "g/dL"
+      }
+    },
+    {
+      "id": 9,
+      "text": "AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+      "logic": {
+        "field": "ast",
+        "operator": "<=",
+        "value": "2.5",
+        "unit": "x ULN"
+      }
+    },
+    {
+      "id": 10,
+      "text": "ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+      "logic": {
+        "field": "alt",
+        "operator": "<=",
+        "value": "2.5",
+        "unit": "x ULN"
+      }
+    },
+    {
+      "id": 11,
+      "text": "Total bilirubin ≤ 1.5 x ULN.",
+      "logic": {
+        "field": "bilirrubina_total",
+        "operator": "<=",
+        "value": "1.5",
+        "unit": "x ULN"
+      }
+    },
+    {
+      "id": 12,
+      "text": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+      "logic": {
+        "field": "creatinina",
+        "operator": ">=",
+        "value": "40",
+        "unit": "mL/min"
+      }
+    },
+    {
+      "id": 13,
+      "text": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+      "logic": {
+        "field": "pregnancy_test",
+        "operator": "NOT_CONTAINS",
+        "value": "positive"
+      }
+    },
+    {
+      "id": 14,
+      "text": "Signed informed consent prior to any study-specific procedure.",
+      "logic": {
+        "field": "informed_consent",
+        "operator": "=",
+        "value": "signed"
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 1,
+      "text": "Known EGFR genomic alterations with available approved targeted therapy.",
+      "logic": {
+        "field": "genomic_alteration",
+        "operator": "IN",
+        "value": "EGFR"
+      }
+    },
+    {
+      "id": 2,
+      "text": "Known ALK genomic alterations with available approved targeted therapy.",
+      "logic": {
+        "field": "genomic_alteration",
+        "operator": "IN",
+        "value": "ALK"
+      }
+    },
+    {
+      "id": 3,
+      "text": "Known ROS1 genomic alterations with available approved targeted therapy.",
+      "logic": {
+        "field": "genomic_alteration",
+        "operator": "IN",
+        "value": "ROS1"
+      }
+    },
+    {
+      "id": 4,
+      "text": "Untreated brain metastases.",
+      "logic": {
+        "field": "brain_metastases",
+        "operator": "NOT_CONTAINS",
+        "value": "treated"
+      }
+    },
+    {
+      "id": 5,
+      "text": "Symptomatic brain metastases.",
+      "logic": {
+        "field": "brain_metastases_symptomatic",
+        "operator": "=",
+        "value": "true"
+      }
+    },
+    {
+      "id": 6,
+      "text": "Active autoimmune disease requiring systemic immunosuppressive therapy.",
+      "logic": {
+        "field": "autoimmune_disease",
+        "operator": "NOT_CONTAINS",
+        "value": "systemic immunosuppressive therapy"
+      }
+    },
+    {
+      "id": 7,
+      "text": "Interstitial lung disease.",
+      "logic": {
+        "field": "lung_disease",
+        "operator": "=",
+        "value": "interstitial"
+      }
+    },
+    {
+      "id": 8,
+      "text": "Active non-infectious pneumonitis.",
+      "logic": {
+        "field": "pneumonitis",
+        "operator": "NOT_CONTAINS",
+        "value": "infectious"
+      }
+    },
+    {
+      "id": 9,
+      "text": "Active infection requiring systemic therapy.",
+      "logic": {
+        "field": "infection",
+        "operator": "NOT_CONTAINS",
+        "value": "systemic therapy"
+      }
+    },
+    {
+      "id": 10,
+      "text": "Prior exposure to LUMITAX.",
+      "logic": {
+        "field": "prior_exposure",
+        "operator": "NOT_CONTAINS",
+        "value": "LUMITAX"
+      }
+    },
+    {
+      "id": 11,
+      "text": "Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ).",
+      "logic": {
+        "field": "other_malignancy",
+        "operator": "NOT_CONTAINS",
+        "value": "non-melanoma skin cancer or carcinoma in situ"
+      }
+    }
+  ]
+}
+
