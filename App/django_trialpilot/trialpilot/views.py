@@ -2565,10 +2565,10 @@ def parameter_extraction(request, diary_id):
             
             normalized_document_content = normalize_docs(document, document_content)
             
-            #extracted_params = parameter_extraction_pipeline(document, normalized_document_content)
+            extracted_params = parameter_extraction_pipeline(document, normalized_document_content)
             
-            extracted_params = dummy_params_extraction
-            dummy = True
+            #extracted_params = dummy_params_extraction
+            dummy = False
             
             if dummy:
                 sleep(20)  
