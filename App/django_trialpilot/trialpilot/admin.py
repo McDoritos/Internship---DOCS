@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Document, Version, Patient_profile, Treatment, Trial_criteria, Patient_trial_match, Criterion_evaluation, Trial_criteria, Logic_criteria, Analysis, ClinicalTrial
+from .models import Document, Trial_cohort, Version, Patient_profile, Treatment, Trial_criteria, Patient_trial_match, Criterion_evaluation, Trial_criteria, Logic_criteria, Analysis, ClinicalTrial
 
 # Register your models here.
 admin.site.register(Document)
@@ -12,3 +12,4 @@ admin.site.register(Criterion_evaluation)
 admin.site.register(Logic_criteria)
 admin.site.register(Analysis)
 admin.site.register(ClinicalTrial)
+admin.site.register(Trial_cohort)

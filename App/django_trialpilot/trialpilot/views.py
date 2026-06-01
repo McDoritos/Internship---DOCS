@@ -7,7 +7,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
 from httpx import request
-from .models import Criterion_evaluation, Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria, Analysis, ClinicalTrial
+from .models import Criterion_evaluation, Document, Patient_trial_match, Version, Patient_profile, Treatment, Trial_criteria, Logic_criteria, Analysis, ClinicalTrial, Trial_cohort
 from .forms import UploadDocumentForm, UploadTrialForm
 from groq import Groq
 import os
@@ -44,6 +44,9 @@ SYS_PARAMETER_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "pa
 
 CRITERIA_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-extraction" / "criteria-extraction_prompt.txt"
 SYS_CRITERIA_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-extraction" / "sys_criteria-extraction_prompt.txt"
+
+SYS_TRIAL_STRUCTURE_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "trial-structure" / "sys_trial-structure_prompt.txt"
+TRIAL_STRUCTURE_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "trial-structure" / "trial-structure_prompt.txt"
 
 CRITERIA_CONVERSION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-conversion" / "criteria-conversion_prompt.txt"
 SYS_CRITERIA_CONVERSION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-conversion" / "sys_criteria-conversion_prompt.txt"
@@ -1250,7 +1253,17 @@ def parameter_extraction_pipeline(document, document_content):
         },
         log_label=document.title
     )
-    
+
+def cohort_identification_step(trial, trial_content):
+    return run_json_prompt_pipeline(
+        system_prompt_path=SYS_TRIAL_STRUCTURE_PROMPT_FILE,
+        user_prompt_path=TRIAL_STRUCTURE_PROMPT_FILE,
+        replacements={
+            "{{TRIAL_TEXT}}": trial_content,
+        },
+        log_label=trial.title
+    )
+
 def criteria_extraction_step(trial, trial_content):
 
     inclusion_text, exclusion_text = split_by_sections_trial(trial_content)
@@ -2764,10 +2777,32 @@ def criteria_extraction(request, trial_id):
             
             normalized_document_content = normalize_docs(document, document_content)
             
-            #criteria_extracted = criteria_extraction_step(document, normalized_document_content)
+            cohort_structure = cohort_identification_step(document, normalized_document_content)
             
-            criteria_extracted = dummy_criteria_extraction
-            dummy = True
+            has_cohorts = cohort_structure.get("has_cohorts", False)
+            cohorts_data = cohort_structure.get("cohorts", [])
+            
+            cohort_map = {}
+            
+            if has_cohorts and cohorts_data:
+                with transaction.atomic():
+                    clinical_trial = document.clinical_trial
+                    for cohort_data in cohorts_data:
+                        cohort_obj = Trial_cohort.objects.create(
+                            name=cohort_data["name"],
+                            description=cohort_data.get("description","")
+                        )
+                        
+                        cohort_map[cohort_data["cohort_id"]] = cohort_obj
+            
+            criteria_extracted = criteria_extraction_step(
+                document,
+                normalized_document_content,
+                cohorts=cohorts_data if has_cohorts else None
+            )
+            
+            #criteria_extracted = dummy_criteria_extraction
+            dummy = False
             
             if dummy:
                 sleep(5)  

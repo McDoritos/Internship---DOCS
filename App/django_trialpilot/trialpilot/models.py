@@ -118,12 +118,45 @@ class Analysis(models.Model):
     def __str__(self):
         return f"Analysis for patient {self.patient.id}"
     
+class Trial_cohort(models.Model):
+
+    clinical_trial = models.ForeignKey(
+        ClinicalTrial,
+        on_delete=models.CASCADE,
+        related_name="cohorts"
+    )
+
+    cohort_id = models.CharField(max_length=50)
+    name = models.CharField(max_length=255)
+
+    description = models.TextField(
+        null=True,
+        blank=True
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.clinical_trial.study_name} - {self.name}"    
+    
 class Trial_criteria(models.Model):
     class CriterionType(models.TextChoices):
         INCLUSION = "inclusion", "Inclusion"
         EXCLUSION = "exclusion", "Exclusion"
 
-    document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name="trial_criteria")
+    document = models.ForeignKey(
+        Document,
+        on_delete=models.CASCADE,
+        related_name="trial_criteria"
+    )
+
+    cohort = models.ForeignKey(
+        Trial_cohort,
+        on_delete=models.CASCADE,
+        related_name="criteria",
+        null=True,
+        blank=True
+    )
     type = models.CharField(max_length=20, choices=CriterionType.choices)
     
     raw_criterion = models.TextField()
