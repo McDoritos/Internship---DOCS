@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "49 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Social ocasional"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Melanoma cutâneo dorsal",
+    "histology": "Melanoma maligno",
+    "grade": "Alto risco",
+    "diagnosis_date": "2025-02-05",
+    "stage": {
+      "tnm": "cT4bN2M1a",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Pulmão"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "N/A",
+    "PD-L1": "Positivo",
+    "NGS": "BRAF V600E mutado",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["Enxaquecas"],
+    "past_surgical": ["Exérese de nevo"],
+    "family_history": ["Nega"],
+    "home_medications": ["Sumatriptano SOS"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "PET-CT",
+        "date": "2025-02-08",
+        "findings": "Metástases pulmonares múltiplas hipermetabólicas."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Lesão dorsal",
+        "date": "2025-02-05",
+        "histology": "Melanoma maligno",
+        "immunohistochemistry": "SOX10+, S100+, BRAF mutado"
+      }
+    ]
+  },
+  "symptoms": ["Tosse seca ligeira"],
+  "weight": "63 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Nivolumab + Ipilimumab",
+      "intent": "Paliativo",
+      "start_date": "2025-02-20",
+      "end_date": "2025-05-25",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Hipotiroidismo imuno-mediado G2"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-06-15",
+    "reason_for_visit": "Avaliação de resposta",
+    "planned_next_steps": "Manutenção com nivolumab",
+    "next_appointment": "2025-07-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Miguel Santos",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica"
+  }
+}

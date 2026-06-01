@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "58 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 30 UMA",
+    "alcohol_use": "Moderado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Reto",
+    "histology": "Adenocarcinoma",
+    "grade": "G2",
+    "diagnosis_date": "2025-02-10",
+    "stage": {
+      "tnm": "cT3N1M0",
+      "overall_stage": "IIIB"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Não realizado",
+    "NGS": "RAS/BRAF wild-type",
+    "genetic_testing": "MMR proficiente"
+  },
+  "medical_history": {
+    "past_medical": ["HTA"],
+    "past_surgical": ["Apendicectomia"],
+    "family_history": ["Nega"],
+    "home_medications": ["Perindopril 5 mg id"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Pélvica",
+        "date": "2025-02-15",
+        "findings": "Tumor retal médio com invasão da gordura mesorretal e adenopatia regional."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Reto",
+        "date": "2025-02-10",
+        "histology": "Adenocarcinoma moderadamente diferenciado",
+        "immunohistochemistry": "MMR intacto"
+      }
+    ]
+  },
+  "symptoms": ["Rectorragias", "Tenesmo"],
+  "weight": "82 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Quimiorradioterapia com Capecitabina",
+      "intent": "Neoadjuvante",
+      "start_date": "2025-03-01",
+      "end_date": "2025-04-10",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Proctite G1, fadiga G1"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Pelve",
+      "dose": "50.4 Gy",
+      "fractions": "28",
+      "start_date": "2025-03-01",
+      "end_date": "2025-04-10"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-05-05",
+    "reason_for_visit": "Reavaliação pré-operatória",
+    "planned_next_steps": "Cirurgia retal",
+    "next_appointment": "2025-05-20"
+  },
+  "administrative": {
+    "physician": "Dr(a). Ana Ribeiro",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Digestiva"
+  }
+}

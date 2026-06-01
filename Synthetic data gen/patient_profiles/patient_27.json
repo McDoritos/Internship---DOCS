@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "42 anos",
+    "sex": "Masculino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Social ocasional"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Coxa esquerda",
+    "histology": "Sarcoma pleomórfico indiferenciado",
+    "grade": "G3",
+    "diagnosis_date": "2025-01-20",
+    "stage": {
+      "tnm": "pT3N0M0",
+      "overall_stage": "III"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Negativo",
+    "NGS": "Sem alterações acionáveis",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["Sem antecedentes relevantes"],
+    "past_surgical": ["Exérese tumoral"],
+    "family_history": ["Nega"],
+    "home_medications": []
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Membro Inferior",
+        "date": "2025-01-10",
+        "findings": "Massa muscular profunda 9 cm."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Coxa esquerda",
+        "date": "2025-01-20",
+        "histology": "Sarcoma pleomórfico indiferenciado",
+        "immunohistochemistry": "Vimentina+, sem marcador específico"
+      }
+    ]
+  },
+  "symptoms": ["Massa dolorosa na coxa"],
+  "weight": "88 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Cirurgia seguida de radioterapia",
+      "intent": "Adjuvante",
+      "start_date": "2025-02-15",
+      "end_date": "2025-05-20",
+      "dose_modifications": "Não aplicável",
+      "toxicity_events": "Dermatite G1"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Coxa esquerda",
+      "dose": "60 Gy",
+      "fractions": "30",
+      "start_date": "2025-04-01",
+      "end_date": "2025-05-20"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-08-10",
+    "reason_for_visit": "Vigilância",
+    "planned_next_steps": "TC torácica periódica",
+    "next_appointment": "2025-11-10"
+  },
+  "administrative": {
+    "physician": "Dr(a). Miguel Santos",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Sarcomas"
+  }
+}

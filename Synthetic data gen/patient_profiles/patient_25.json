@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "58 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Raro"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Pâncreas",
+    "histology": "Tumor neuroendócrino bem diferenciado",
+    "grade": "G2",
+    "diagnosis_date": "2025-01-12",
+    "stage": {
+      "tnm": "cT2N1M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Negativo",
+    "NGS": "Sem alterações acionáveis",
+    "genetic_testing": "MEN1 negativo"
+  },
+  "medical_history": {
+    "past_medical": ["Hipotiroidismo"],
+    "past_surgical": ["Apendicectomia"],
+    "family_history": ["Nega"],
+    "home_medications": ["Levotiroxina 100 mcg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "PET-DOTATATE",
+        "date": "2025-01-15",
+        "findings": "Captação intensa em tumor pancreático e múltiplas lesões hepáticas."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pâncreas",
+        "date": "2025-01-12",
+        "histology": "Tumor neuroendócrino G2",
+        "immunohistochemistry": "Chromogranina+, Synaptophysin+, Ki67 8%"
+      }
+    ]
+  },
+  "symptoms": ["Dor abdominal ligeira"],
+  "weight": "69 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Lanreotido",
+      "intent": "Paliativo",
+      "start_date": "2025-02-01",
+      "end_date": "Em curso",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Dor local G1"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-07-01",
+    "reason_for_visit": "Avaliação de estabilidade",
+    "planned_next_steps": "Manter lanreotido",
+    "next_appointment": "2025-10-01"
+  },
+  "administrative": {
+    "physician": "Dr(a). Ana Ribeiro",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Digestiva"
+  }
+}

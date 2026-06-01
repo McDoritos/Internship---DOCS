@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "68 anos",
+    "sex": "Masculino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Raro"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Gânglio cervical",
+    "histology": "Linfoma difuso de grandes células B",
+    "grade": "Alto grau",
+    "diagnosis_date": "2025-01-05",
+    "stage": {
+      "tnm": "Estádio III",
+      "overall_stage": "III"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "N/A",
+    "PD-L1": "Não realizado",
+    "NGS": "Não realizado",
+    "genetic_testing": "MYC negativo"
+  },
+  "medical_history": {
+    "past_medical": ["HTA"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Nega"],
+    "home_medications": ["Losartan 50 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "PET-CT",
+        "date": "2025-01-08",
+        "findings": "Adenopatias cervicais, mediastínicas e abdominais."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Gânglio cervical",
+        "date": "2025-01-05",
+        "histology": "Linfoma difuso de grandes células B",
+        "immunohistochemistry": "CD20+, BCL6+"
+      }
+    ]
+  },
+  "symptoms": ["Sudorese noturna", "Perda ponderal 6 kg"],
+  "weight": "75 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "R-CHOP",
+      "intent": "Curativo",
+      "start_date": "2025-01-20",
+      "end_date": "2025-05-15",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Neutropenia G2"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-06-20",
+    "reason_for_visit": "Avaliação pós-tratamento",
+    "planned_next_steps": "PET-CT de resposta",
+    "next_appointment": "2025-07-20"
+  },
+  "administrative": {
+    "physician": "Dr(a). Miguel Santos",
+    "clinic_location": "ULS Coimbra",
+    "service": "Hematologia Oncológica"
+  }
+}

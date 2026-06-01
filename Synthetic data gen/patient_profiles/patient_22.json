@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "46 anos",
+    "sex": "Masculino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Moderado"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Testículo direito",
+    "histology": "Seminoma clássico",
+    "grade": "N/A",
+    "diagnosis_date": "2025-01-15",
+    "stage": {
+      "tnm": "pT2N2M0",
+      "overall_stage": "IIB"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "N/A",
+    "PD-L1": "N/A",
+    "NGS": "Não realizado",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["Sem antecedentes relevantes"],
+    "past_surgical": ["Orquidectomia direita"],
+    "family_history": ["Nega"],
+    "home_medications": []
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-01-18",
+        "findings": "Adenopatias retroperitoneais até 3 cm."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Testículo direito",
+        "date": "2025-01-15",
+        "histology": "Seminoma clássico",
+        "immunohistochemistry": "PLAP+, OCT3/4+"
+      }
+    ]
+  },
+  "symptoms": ["Massa testicular indolor"],
+  "weight": "78 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "EP (Etoposido + Cisplatina)",
+      "intent": "Curativo",
+      "start_date": "2025-02-01",
+      "end_date": "2025-04-01",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Náuseas G1, neutropenia G2"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-06-15",
+    "reason_for_visit": "Avaliação pós-tratamento",
+    "planned_next_steps": "Vigilância",
+    "next_appointment": "2025-09-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Urológica"
+  }
+}

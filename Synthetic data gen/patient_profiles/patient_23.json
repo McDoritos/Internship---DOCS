@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "75 anos",
+    "sex": "Feminino",
+    "smoking_status": "Ex-fumadora 15 UMA",
+    "alcohol_use": "Raro"
+  },
+  "performance_status": {
+    "ecog_ps": 2
+  },
+  "diagnosis": {
+    "primary_site": "Esófago distal",
+    "histology": "Adenocarcinoma",
+    "grade": "G3",
+    "diagnosis_date": "2025-03-02",
+    "stage": {
+      "tnm": "cT3N2M0",
+      "overall_stage": "III"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Positivo (3+)",
+    "PD-L1": "CPS 8",
+    "NGS": "Sem alterações adicionais",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["DRGE"],
+    "past_surgical": ["Prótese da anca"],
+    "family_history": ["Nega"],
+    "home_medications": ["Omeprazol 20 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "PET-CT",
+        "date": "2025-03-05",
+        "findings": "Lesão distal do esófago e adenopatias regionais."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Esófago",
+        "date": "2025-03-02",
+        "histology": "Adenocarcinoma",
+        "immunohistochemistry": "HER2 3+"
+      }
+    ]
+  },
+  "symptoms": ["Disfagia progressiva", "Perda ponderal 5 kg"],
+  "weight": "61 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Carboplatina + Paclitaxel concomitante RT",
+      "intent": "Neoadjuvante",
+      "start_date": "2025-03-20",
+      "end_date": "2025-04-30",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Esofagite G2"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Esófago",
+      "dose": "41.4 Gy",
+      "fractions": "23",
+      "start_date": "2025-03-20",
+      "end_date": "2025-04-30"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-06-10",
+    "reason_for_visit": "Avaliação cirúrgica",
+    "planned_next_steps": "Esofagectomia",
+    "next_appointment": "2025-06-25"
+  },
+  "administrative": {
+    "physician": "Dr(a). Ana Ribeiro",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Digestiva"
+  }
+}

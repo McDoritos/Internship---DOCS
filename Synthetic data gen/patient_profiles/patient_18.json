@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "57 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Endométrio",
+    "histology": "Carcinoma endometrioide",
+    "grade": "G3",
+    "diagnosis_date": "2025-02-22",
+    "stage": {
+      "tnm": "pT3N1M0",
+      "overall_stage": "IIIC"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "ER positivo",
+    "HER2": "Negativo",
+    "PD-L1": "Positivo",
+    "NGS": "dMMR",
+    "genetic_testing": "Perda MLH1/PMS2"
+  },
+  "medical_history": {
+    "past_medical": ["Obesidade"],
+    "past_surgical": ["Colecistectomia"],
+    "family_history": ["Mãe com carcinoma endometrial"],
+    "home_medications": ["Nenhuma"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-02-25",
+        "findings": "Sem metastização à distância."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Endométrio",
+        "date": "2025-02-22",
+        "histology": "Carcinoma endometrioide G3",
+        "immunohistochemistry": "dMMR"
+      }
+    ]
+  },
+  "symptoms": ["Hemorragia pós-menopausa"],
+  "weight": "91 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Carboplatina + Paclitaxel",
+      "intent": "Adjuvante",
+      "start_date": "2025-03-15",
+      "end_date": "2025-07-01",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Fadiga G1"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Pelve",
+      "dose": "45 Gy",
+      "fractions": "25",
+      "start_date": "2025-07-20",
+      "end_date": "2025-08-25"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-09-15",
+    "reason_for_visit": "Consulta pós-tratamento",
+    "planned_next_steps": "Vigilância",
+    "next_appointment": "2025-12-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Carla Mendes",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Ginecológica"
+  }
+}

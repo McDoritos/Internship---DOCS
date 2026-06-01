@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "55 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Ovário",
+    "histology": "Carcinoma seroso de alto grau",
+    "grade": "Alto grau",
+    "diagnosis_date": "2025-01-20",
+    "stage": {
+      "tnm": "pT3cN1M0",
+      "overall_stage": "IIIC"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Não realizado",
+    "NGS": "HRD positivo",
+    "genetic_testing": "BRCA1 mutado"
+  },
+  "medical_history": {
+    "past_medical": ["Hipotiroidismo"],
+    "past_surgical": ["Cesarianas x2"],
+    "family_history": ["Irmã com carcinoma da mama"],
+    "home_medications": ["Levotiroxina 75 mcg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-01-15",
+        "findings": "Massa anexial bilateral e carcinomatose peritoneal."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Ovário",
+        "date": "2025-01-20",
+        "histology": "Carcinoma seroso de alto grau",
+        "immunohistochemistry": "PAX8+, WT1+"
+      }
+    ]
+  },
+  "symptoms": ["Distensão abdominal", "Saciedade precoce"],
+  "weight": "64 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Carboplatina + Paclitaxel",
+      "intent": "Adjuvante",
+      "start_date": "2025-02-10",
+      "end_date": "2025-06-01",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Neuropatia G1, alopecia"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-06-20",
+    "reason_for_visit": "Fim de tratamento",
+    "planned_next_steps": "Manutenção com olaparib",
+    "next_appointment": "2025-07-20"
+  },
+  "administrative": {
+    "physician": "Dr(a). Carla Mendes",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Ginecológica"
+  }
+}

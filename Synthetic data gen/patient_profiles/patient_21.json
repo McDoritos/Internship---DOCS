@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "67 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Pâncreas",
+    "histology": "Adenocarcinoma ductal",
+    "grade": "G2",
+    "diagnosis_date": "2025-02-08",
+    "stage": {
+      "tnm": "cT4N1M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Negativo",
+    "NGS": "KRAS G12R mutado",
+    "genetic_testing": "BRCA negativo"
+  },
+  "medical_history": {
+    "past_medical": ["Diabetes tipo 2"],
+    "past_surgical": ["Colecistectomia"],
+    "family_history": ["Pai com carcinoma pancreático"],
+    "home_medications": ["Metformina 850 mg bid"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-02-05",
+        "findings": "Massa pancreática corpo-caudal com múltiplas lesões hepáticas."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Pâncreas",
+        "date": "2025-02-08",
+        "histology": "Adenocarcinoma ductal",
+        "immunohistochemistry": "CK7+, CA19-9 elevado"
+      }
+    ]
+  },
+  "symptoms": ["Dor epigástrica", "Perda ponderal 8 kg"],
+  "weight": "57 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "mFOLFIRINOX",
+      "intent": "Paliativo",
+      "start_date": "2025-02-20",
+      "end_date": "2025-08-01",
+      "dose_modifications": "Redução irinotecano 20%",
+      "toxicity_events": "Diarreia G2, neuropatia G1"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-08-15",
+    "reason_for_visit": "Avaliação imagiológica",
+    "planned_next_steps": "Manter tratamento",
+    "next_appointment": "2025-09-05"
+  },
+  "administrative": {
+    "physician": "Dr(a). Ana Ribeiro",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Digestiva"
+  }
+}

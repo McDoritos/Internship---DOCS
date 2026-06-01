@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "62 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 25 UMA",
+    "alcohol_use": "Elevado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Orofaringe",
+    "histology": "Carcinoma escamoso",
+    "grade": "G2",
+    "diagnosis_date": "2025-01-10",
+    "stage": {
+      "tnm": "cT2N2M0",
+      "overall_stage": "IVA"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "CPS 30",
+    "NGS": "Não realizado",
+    "genetic_testing": "HPV positivo"
+  },
+  "medical_history": {
+    "past_medical": ["HTA"],
+    "past_surgical": ["Amigdalectomia"],
+    "family_history": ["Nega"],
+    "home_medications": ["Perindopril"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "PET-CT",
+        "date": "2025-01-15",
+        "findings": "Tumor amigdalino esquerdo com adenopatias cervicais."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Orofaringe",
+        "date": "2025-01-10",
+        "histology": "Carcinoma escamoso",
+        "immunohistochemistry": "p16 fortemente positivo"
+      }
+    ]
+  },
+  "symptoms": ["Odinofagia", "Disfagia ligeira"],
+  "weight": "71 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Cisplatina concomitante com radioterapia",
+      "intent": "Curativo",
+      "start_date": "2025-02-01",
+      "end_date": "2025-03-20",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Mucosite G2, xerostomia G1"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Orofaringe e cadeias cervicais",
+      "dose": "70 Gy",
+      "fractions": "35",
+      "start_date": "2025-02-01",
+      "end_date": "2025-03-20"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-06-15",
+    "reason_for_visit": "Avaliação pós-tratamento",
+    "planned_next_steps": "PET-CT de resposta",
+    "next_appointment": "2025-07-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Miguel Santos",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Cabeça e Pescoço"
+  }
+}

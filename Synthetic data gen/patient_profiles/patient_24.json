@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "60 anos",
+    "sex": "Masculino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Tiróide",
+    "histology": "Carcinoma medular",
+    "grade": "N/A",
+    "diagnosis_date": "2025-02-18",
+    "stage": {
+      "tnm": "pT2N1bM0",
+      "overall_stage": "IVA"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Não realizado",
+    "NGS": "Mutação RET positiva",
+    "genetic_testing": "MEN2 negativo"
+  },
+  "medical_history": {
+    "past_medical": ["HTA"],
+    "past_surgical": ["Herniorrafia umbilical"],
+    "family_history": ["Nega"],
+    "home_medications": ["Perindopril 5 mg id"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC Cervical",
+        "date": "2025-02-10",
+        "findings": "Nódulo tiroideu direito com adenopatias laterocervicais."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Tiróide",
+        "date": "2025-02-18",
+        "histology": "Carcinoma medular",
+        "immunohistochemistry": "Calcitonina+, CEA+"
+      }
+    ]
+  },
+  "symptoms": ["Massa cervical palpável"],
+  "weight": "82 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Tiroidectomia total + esvaziamento ganglionar",
+      "intent": "Curativo",
+      "start_date": "2025-03-05",
+      "end_date": "2025-03-05",
+      "dose_modifications": "Não aplicável",
+      "toxicity_events": "Hipocalcemia transitória G1"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-06-20",
+    "reason_for_visit": "Consulta pós-operatória",
+    "planned_next_steps": "Vigilância",
+    "next_appointment": "2025-09-20"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Endócrina"
+  }
+}

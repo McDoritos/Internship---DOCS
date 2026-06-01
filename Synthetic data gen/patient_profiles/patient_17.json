@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "73 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 35 UMA",
+    "alcohol_use": "Moderado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Estômago",
+    "histology": "Adenocarcinoma",
+    "grade": "Pouco diferenciado",
+    "diagnosis_date": "2025-01-15",
+    "stage": {
+      "tnm": "cT4N2M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Fígado"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Positivo (3+)",
+    "PD-L1": "CPS 10",
+    "NGS": "Sem alterações adicionais",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["HTA"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Nega"],
+    "home_medications": ["Amlodipina 5 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-01-12",
+        "findings": "Espessamento gástrico difuso e múltiplas lesões hepáticas."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Estômago",
+        "date": "2025-01-15",
+        "histology": "Adenocarcinoma gástrico",
+        "immunohistochemistry": "HER2 3+"
+      }
+    ]
+  },
+  "symptoms": ["Saciedade precoce", "Perda ponderal 7 kg"],
+  "weight": "65 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "FOLFOX + Trastuzumab",
+      "intent": "Paliativo",
+      "start_date": "2025-01-30",
+      "end_date": "2025-07-01",
+      "dose_modifications": "Redução oxaliplatina",
+      "toxicity_events": "Neuropatia G2"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-07-20",
+    "reason_for_visit": "Avaliação imagiológica",
+    "planned_next_steps": "Manutenção com trastuzumab",
+    "next_appointment": "2025-08-20"
+  },
+  "administrative": {
+    "physician": "Dr(a). Ana Ribeiro",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Digestiva"
+  }
+}

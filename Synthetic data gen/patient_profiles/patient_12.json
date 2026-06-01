@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "69 anos",
+    "sex": "Masculino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Raro"
+  },
+  "performance_status": {
+    "ecog_ps": 0
+  },
+  "diagnosis": {
+    "primary_site": "Próstata",
+    "histology": "Adenocarcinoma acinar",
+    "grade": "ISUP 5",
+    "diagnosis_date": "2024-10-12",
+    "stage": {
+      "tnm": "cT3bN1M1b",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Osso"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "N/A",
+    "PD-L1": "Não realizado",
+    "NGS": "Sem alterações acionáveis",
+    "genetic_testing": "BRCA negativo"
+  },
+  "medical_history": {
+    "past_medical": ["HTA", "Dislipidémia"],
+    "past_surgical": ["Colecistectomia"],
+    "family_history": ["Pai com carcinoma prostático"],
+    "home_medications": ["Rosuvastatina 10 mg", "Ramipril 5 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "PET PSMA",
+        "date": "2024-10-15",
+        "findings": "Captação prostática extensa e múltiplas metástases ósseas."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Próstata",
+        "date": "2024-10-12",
+        "histology": "Adenocarcinoma acinar",
+        "immunohistochemistry": "PSA positivo"
+      }
+    ]
+  },
+  "symptoms": ["Dor lombar", "Nictúria"],
+  "weight": "79 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "ADT + Abiraterona + Prednisolona",
+      "intent": "Paliativo",
+      "start_date": "2024-11-01",
+      "end_date": "Em curso",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Afrontamentos G1"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-06-01",
+    "reason_for_visit": "Avaliação PSA",
+    "planned_next_steps": "Manter terapêutica",
+    "next_appointment": "2025-09-01"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Urológica"
+  }
+}

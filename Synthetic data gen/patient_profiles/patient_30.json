@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "55 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Mediastino anterior",
+    "histology": "Timoma tipo B3",
+    "grade": "N/A",
+    "diagnosis_date": "2025-02-14",
+    "stage": {
+      "tnm": "cT3N0M1a",
+      "overall_stage": "IVA"
+    },
+    "metastatic_sites": ["Pleura"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Positivo",
+    "NGS": "Sem alterações acionáveis",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["Miastenia gravis"],
+    "past_surgical": ["Timectomia diagnóstica"],
+    "family_history": ["Nega"],
+    "home_medications": ["Piridostigmina"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC Torácica",
+        "date": "2025-02-10",
+        "findings": "Massa mediastínica anterior com implantes pleurais."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Mediastino",
+        "date": "2025-02-14",
+        "histology": "Timoma tipo B3",
+        "immunohistochemistry": "CK AE1/AE3+, p63+"
+      }
+    ]
+  },
+  "symptoms": ["Dispneia ligeira", "Fadiga"],
+  "weight": "66 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "CAP (Cisplatina + Doxorrubicina + Ciclofosfamida)",
+      "intent": "Paliativo",
+      "start_date": "2025-03-01",
+      "end_date": "2025-07-01",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Náuseas G2, alopecia"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-07-25",
+    "reason_for_visit": "Avaliação imagiológica",
+    "planned_next_steps": "Discussão multidisciplinar",
+    "next_appointment": "2025-08-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Torácica"
+  }
+}

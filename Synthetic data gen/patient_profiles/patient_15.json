@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "61 anos",
+    "sex": "Masculino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Raro"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Rim esquerdo",
+    "histology": "Carcinoma de células claras",
+    "grade": "G3",
+    "diagnosis_date": "2025-01-08",
+    "stage": {
+      "tnm": "cT3aN1M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Pulmão"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Positivo",
+    "NGS": "Sem alterações acionáveis",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["HTA"],
+    "past_surgical": ["Colecistectomia"],
+    "family_history": ["Nega"],
+    "home_medications": ["Ramipril 10 mg id"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-01-05",
+        "findings": "Massa renal esquerda 8 cm e múltiplos nódulos pulmonares bilaterais."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Rim esquerdo",
+        "date": "2025-01-08",
+        "histology": "Carcinoma de células claras",
+        "immunohistochemistry": "PAX8+, CAIX+"
+      }
+    ]
+  },
+  "symptoms": ["Hematúria intermitente", "Dor lombar esquerda"],
+  "weight": "85 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Nivolumab + Cabozantinib",
+      "intent": "Paliativo",
+      "start_date": "2025-01-25",
+      "end_date": "Em curso",
+      "dose_modifications": "Redução cabozantinib para 40 mg",
+      "toxicity_events": "Síndrome mão-pé G2, diarreia G1"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-06-10",
+    "reason_for_visit": "Avaliação imagiológica",
+    "planned_next_steps": "Manter tratamento",
+    "next_appointment": "2025-08-10"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Urológica"
+  }
+}

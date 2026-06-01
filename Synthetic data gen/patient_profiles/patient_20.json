@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "54 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Raro"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Vias biliares intra-hepáticas",
+    "histology": "Colangiocarcinoma",
+    "grade": "Moderadamente diferenciado",
+    "diagnosis_date": "2025-03-12",
+    "stage": {
+      "tnm": "cT3N1M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Peritoneu"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Negativo",
+    "NGS": "Fusão FGFR2 positiva",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["Diabetes tipo 2"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Nega"],
+    "home_medications": ["Metformina 1000 mg bid"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Hepática",
+        "date": "2025-03-10",
+        "findings": "Massa intra-hepática 6 cm com implantes peritoneais."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Fígado",
+        "date": "2025-03-12",
+        "histology": "Colangiocarcinoma",
+        "immunohistochemistry": "CK7+, CK19+"
+      }
+    ]
+  },
+  "symptoms": ["Dor abdominal", "Perda ponderal 6 kg"],
+  "weight": "58 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Gemcitabina + Cisplatina + Durvalumab",
+      "intent": "Paliativo",
+      "start_date": "2025-03-25",
+      "end_date": "2025-08-01",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Náuseas G2, anemia G1"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-08-20",
+    "reason_for_visit": "Avaliação de resposta",
+    "planned_next_steps": "Pemigatinib em progressão",
+    "next_appointment": "2025-09-10"
+  },
+  "administrative": {
+    "physician": "Dr(a). Ana Ribeiro",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Digestiva"
+  }
+}

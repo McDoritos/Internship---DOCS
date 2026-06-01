@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "69 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 20 UMA",
+    "alcohol_use": "Elevado prévio"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Fígado",
+    "histology": "Carcinoma hepatocelular",
+    "grade": "Moderadamente diferenciado",
+    "diagnosis_date": "2025-02-02",
+    "stage": {
+      "tnm": "cT3N0M1",
+      "overall_stage": "IV"
+    },
+    "metastatic_sites": ["Pulmão"]
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "Não realizado",
+    "NGS": "Não realizado",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["Cirrose hepática Child-Pugh A"],
+    "past_surgical": ["Nega"],
+    "family_history": ["Nega"],
+    "home_medications": ["Espironolactona 50 mg"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Hepática",
+        "date": "2025-01-28",
+        "findings": "Lesão hepática 7 cm com invasão vascular e nódulos pulmonares."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Fígado",
+        "date": "2025-02-02",
+        "histology": "Carcinoma hepatocelular",
+        "immunohistochemistry": "HepPar1+, Arginase-1+"
+      }
+    ]
+  },
+  "symptoms": ["Dor hipocôndrio direito", "Fadiga"],
+  "weight": "73 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Atezolizumab + Bevacizumab",
+      "intent": "Paliativo",
+      "start_date": "2025-02-20",
+      "end_date": "Em curso",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Proteinúria G1"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-06-25",
+    "reason_for_visit": "Avaliação imagiológica",
+    "planned_next_steps": "Manter imunoterapia",
+    "next_appointment": "2025-08-20"
+  },
+  "administrative": {
+    "physician": "Dr(a). Ana Ribeiro",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Digestiva"
+  }
+}

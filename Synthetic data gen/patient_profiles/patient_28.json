@@ -1,0 +1,85 @@
+{
+  "demographics": {
+    "age_or_birthdate": "50 anos",
+    "sex": "Feminino",
+    "smoking_status": "Nunca fumou",
+    "alcohol_use": "Negado"
+  },
+  "performance_status": {
+    "ecog_ps": 1
+  },
+  "diagnosis": {
+    "primary_site": "Colo do útero",
+    "histology": "Carcinoma escamoso",
+    "grade": "G2",
+    "diagnosis_date": "2025-01-25",
+    "stage": {
+      "tnm": "cT3bN1M0",
+      "overall_stage": "IIIC1"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "CPS 20",
+    "NGS": "Não realizado",
+    "genetic_testing": "HPV 16 positivo"
+  },
+  "medical_history": {
+    "past_medical": ["Nega"],
+    "past_surgical": ["Cesarianas x2"],
+    "family_history": ["Nega"],
+    "home_medications": []
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "RM Pélvica",
+        "date": "2025-01-20",
+        "findings": "Tumor cervical com extensão parametrial."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Colo uterino",
+        "date": "2025-01-25",
+        "histology": "Carcinoma escamoso",
+        "immunohistochemistry": "p16 positivo"
+      }
+    ]
+  },
+  "symptoms": ["Hemorragia vaginal", "Dor pélvica"],
+  "weight": "64 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Cisplatina semanal concomitante RT",
+      "intent": "Curativo",
+      "start_date": "2025-02-15",
+      "end_date": "2025-04-01",
+      "dose_modifications": "Sem alterações",
+      "toxicity_events": "Diarreia G1, cistite rádica G1"
+    }
+  ],
+  "radiotherapy": [
+    {
+      "site": "Pelve",
+      "dose": "50.4 Gy",
+      "fractions": "28",
+      "start_date": "2025-02-15",
+      "end_date": "2025-04-01"
+    }
+  ],
+  "follow_up": {
+    "control_date": "2025-07-01",
+    "reason_for_visit": "Avaliação de resposta",
+    "planned_next_steps": "Vigilância",
+    "next_appointment": "2025-10-01"
+  },
+  "administrative": {
+    "physician": "Dr(a). Carla Mendes",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Ginecológica"
+  }
+}

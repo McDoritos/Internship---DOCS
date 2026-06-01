@@ -1,0 +1,77 @@
+{
+  "demographics": {
+    "age_or_birthdate": "77 anos",
+    "sex": "Masculino",
+    "smoking_status": "Ex-fumador 45 UMA",
+    "alcohol_use": "Moderado"
+  },
+  "performance_status": {
+    "ecog_ps": 2
+  },
+  "diagnosis": {
+    "primary_site": "Bexiga",
+    "histology": "Carcinoma urotelial",
+    "grade": "Alto grau",
+    "diagnosis_date": "2025-02-18",
+    "stage": {
+      "tnm": "cT2N1M0",
+      "overall_stage": "IIIA"
+    },
+    "metastatic_sites": []
+  },
+  "molecular_profile": {
+    "hormone_receptors": "N/A",
+    "HER2": "Negativo",
+    "PD-L1": "CPS 20",
+    "NGS": "FGFR negativo",
+    "genetic_testing": "Não aplicável"
+  },
+  "medical_history": {
+    "past_medical": ["DPOC"],
+    "past_surgical": ["RTU vesical"],
+    "family_history": ["Nega"],
+    "home_medications": ["Tiotrópio"]
+  },
+  "diagnostic_workup": {
+    "imaging": [
+      {
+        "type": "TC TAP",
+        "date": "2025-02-20",
+        "findings": "Espessamento vesical infiltrativo e adenopatia ilíaca."
+      }
+    ],
+    "biopsies": [
+      {
+        "site": "Bexiga",
+        "date": "2025-02-18",
+        "histology": "Carcinoma urotelial invasivo",
+        "immunohistochemistry": "GATA3 positivo"
+      }
+    ]
+  },
+  "symptoms": ["Hematúria macroscópica"],
+  "weight": "73 kg",
+  "treatments": [
+    {
+      "line_number": 1,
+      "regimen": "Gemcitabina + Cisplatina",
+      "intent": "Neoadjuvante",
+      "start_date": "2025-03-05",
+      "end_date": "2025-06-15",
+      "dose_modifications": "Redução cisplatina por nefrotoxicidade G2",
+      "toxicity_events": "Nefrotoxicidade G2, anemia G1"
+    }
+  ],
+  "radiotherapy": [],
+  "follow_up": {
+    "control_date": "2025-07-01",
+    "reason_for_visit": "Avaliação pré-cistectomia",
+    "planned_next_steps": "Cistectomia radical",
+    "next_appointment": "2025-07-15"
+  },
+  "administrative": {
+    "physician": "Dr(a). Pedro Almeida",
+    "clinic_location": "ULS Coimbra",
+    "service": "Oncologia Médica Urológica"
+  }
+}
