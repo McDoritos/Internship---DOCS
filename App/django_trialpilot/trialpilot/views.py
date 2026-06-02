@@ -2185,6 +2185,30 @@ def document_save(document, file, new_filename, version_id):
     )
     
     print("Saving to:", default_storage.path(f"documents/{new_filename}"))
+    
+
+def get_ordered_logic_with_positions(logic_criteria_qs, cohorts):
+    ordered = []
+
+    for lc in logic_criteria_qs:
+        if lc.criterion.type == "inclusion" and lc.criterion.cohort is None:
+            ordered.append(lc)
+
+    for cohort in cohorts:
+        for lc in logic_criteria_qs:
+            if lc.criterion.type == "inclusion" and lc.criterion.cohort_id == cohort.id:
+                ordered.append(lc)
+
+    for lc in logic_criteria_qs:
+        if lc.criterion.type == "exclusion" and lc.criterion.cohort is None:
+            ordered.append(lc)
+
+    for cohort in cohorts:
+        for lc in logic_criteria_qs:
+            if lc.criterion.type == "exclusion" and lc.criterion.cohort_id == cohort.id:
+                ordered.append(lc)
+
+    return {lc.id: i + 1 for i, lc in enumerate(ordered)}
 
 # Create your views here.
 def trial_list(request):
@@ -3283,11 +3307,18 @@ def criteria_conversion(request, trial_id):
 
             has_cohorts = cohorts.exists()
             
+            criterion_position = get_ordered_logic_with_positions(logic_criteria, cohorts if has_cohorts else None)
+            
+            logic_criteria_list = sorted(
+                logic_criteria,
+                key=lambda lc: criterion_position.get(lc.id, 9999)
+            )
             return render(request, 'trialpilot/trial_criteria-conversion.html', {
                 "trial": document,
-                "logic_criteria": logic_criteria,
+                "logic_criteria": logic_criteria_list,
                 "has_cohorts": has_cohorts,
-                "cohorts": cohorts
+                "cohorts": cohorts,
+                "criterion_position": criterion_position
             })
             
         elif request.method == 'POST':

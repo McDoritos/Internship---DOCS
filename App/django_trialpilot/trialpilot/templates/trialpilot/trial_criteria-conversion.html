@@ -70,7 +70,7 @@
 
                                             {% for logic in general %}
                                             <div class="preview-criterion-card">
-                                                <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                                <div class="preview-criterion-number">{{ criterion_position|get_item:logic.id }}</div>
                                                 <div class="preview-criterion-text">
                                                     {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
                                                 </div>
@@ -93,7 +93,7 @@
                                             {% if cohort_logic %}
                                                 {% for logic in cohort_logic %}
                                                 <div class="preview-criterion-card">
-                                                    <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                                    <div class="preview-criterion-number">{{ criterion_position|get_item:logic.id }}</div>
                                                     <div class="preview-criterion-text">
                                                         {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
                                                     </div>
@@ -114,7 +114,7 @@
                                     {% for logic in logic_criteria %}
                                         {% if logic.criterion.type == "inclusion" %}
                                         <div class="preview-criterion-card">
-                                            <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                            <div class="preview-criterion-number">{{ criterion_position|get_item:logic.id }}</div>
                                             <div class="preview-criterion-text">
                                                 {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
                                             </div>
@@ -156,7 +156,7 @@
 
                                             {% for logic in general %}
                                             <div class="preview-criterion-card">
-                                                <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                                <div class="preview-criterion-number">{{ criterion_position|get_item:logic.id }}</div>
                                                 <div class="preview-criterion-text">
                                                     {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
                                                 </div>
@@ -179,7 +179,7 @@
                                             {% if cohort_logic %}
                                                 {% for logic in cohort_logic %}
                                                 <div class="preview-criterion-card">
-                                                    <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                                    <div class="preview-criterion-number">{{ criterion_position|get_item:logic.id }}</div>
                                                     <div class="preview-criterion-text">
                                                         {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
                                                     </div>
@@ -200,7 +200,7 @@
                                     {% for logic in logic_criteria %}
                                         {% if logic.criterion.type == "exclusion" %}
                                         <div class="preview-criterion-card">
-                                            <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                            <div class="preview-criterion-number">{{ criterion_position|get_item:logic.id }}</div>
                                             <div class="preview-criterion-text">
                                                 {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
                                             </div>

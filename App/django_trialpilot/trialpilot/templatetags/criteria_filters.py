@@ -27,3 +27,7 @@ def filter_logic_type(logic_queryset, criterion_type):
         logic for logic in logic_queryset
         if logic.criterion.type == criterion_type
     ]
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

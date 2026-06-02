@@ -122,20 +122,33 @@
                                     {% with general=inclusion_criteria|filter_cohort:None %}
                                         {% if general %}
                                         <div class="cohort-group mb-3">
+
                                             <div class="cohort-group-label general-label">
                                                 <i class="bi bi-globe2 mr-1"></i> General
                                             </div>
-                                            {% for criterion in general %}
-                                            <div class="criterion-item">
-                                                <div class="criterion-number">{{ forloop.counter }}</div>
-                                                <input type="text" name="criterion_{{ criterion.id }}"
-                                                    value="{{ criterion.raw_criterion }}"
-                                                    class="form-control criterion-input">
-                                                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
+
+                                            <div id="inclusion-general-container">
+                                                {% for criterion in general %}
+                                                <div class="criterion-item">
+                                                    <div class="criterion-number">{{ forloop.counter }}</div>
+                                                    <input type="text" name="criterion_{{ criterion.id }}"
+                                                        value="{{ criterion.raw_criterion }}"
+                                                        class="form-control criterion-input">
+                                                    <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
+                                                {% endfor %}
                                             </div>
-                                            {% endfor %}
+
+                                            <button type="button"
+                                                    class="btn btn-soft-success mt-3 add-field"
+                                                    data-target="inclusion-general-container"
+                                                    data-name="inclusion[]"
+                                                    data-placeholder="Write inclusion criterion...">
+                                                <i class="bi bi-plus-lg mr-1"></i> Add Inclusion Criterion
+                                            </button>
+
                                         </div>
                                         {% endif %}
                                     {% endwith %}
@@ -208,13 +221,6 @@
 
                             </div>
 
-                            <button type="button"
-                                    class="btn btn-soft-success mt-3 add-field"
-                                    data-target="inclusion-container"
-                                    data-name="inclusion[]"
-                                    data-placeholder="Write inclusion criterion...">
-                                <i class="bi bi-plus-lg mr-1"></i> Add Inclusion Criterion
-                            </button>
                         </div>
 
                         <!-- EXCLUSION — estrutura idêntica à inclusão -->
@@ -238,20 +244,33 @@
                                     {% with general=exclusion_criteria|filter_cohort:None %}
                                         {% if general %}
                                         <div class="cohort-group mb-3">
+                                            
                                             <div class="cohort-group-label general-label">
                                                 <i class="bi bi-globe2 mr-1"></i> General
                                             </div>
-                                            {% for criterion in general %}
-                                            <div class="criterion-item">
-                                                <div class="criterion-number">{{ forloop.counter }}</div>
-                                                <input type="text" name="criterion_{{ criterion.id }}"
-                                                    value="{{ criterion.raw_criterion }}"
-                                                    class="form-control criterion-input">
-                                                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
+
+                                            <div id="exclusion-general-container">
+                                                {% for criterion in general %}
+                                                <div class="criterion-item">
+                                                    <div class="criterion-number">{{ forloop.counter }}</div>
+                                                    <input type="text" name="criterion_{{ criterion.id }}"
+                                                        value="{{ criterion.raw_criterion }}"
+                                                        class="form-control criterion-input">
+                                                    <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
+                                                {% endfor %}
                                             </div>
-                                            {% endfor %}
+
+                                            <button type="button"
+                                                    class="btn btn-soft-danger mt-3 add-field"
+                                                    data-target="exclusion-general-container"
+                                                    data-name="exclusion[]"
+                                                    data-placeholder="Write exclusion criterion...">
+                                                <i class="bi bi-plus-lg mr-1"></i> Add Exclusion Criterion
+                                            </button>
+
                                         </div>
                                         {% endif %}
                                     {% endwith %}
@@ -322,13 +341,6 @@
 
                             </div>
 
-                            <button type="button"
-                                    class="btn btn-soft-danger mt-3 add-field"
-                                    data-target="exclusion-container"
-                                    data-name="exclusion[]"
-                                    data-placeholder="Write exclusion criterion...">
-                                <i class="bi bi-plus-lg mr-1"></i> Add Exclusion Criterion
-                            </button>
                         </div>
                     </div>
 
