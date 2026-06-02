@@ -487,6 +487,38 @@ body {
 }
 
 /*Trial criteria extraction*/
+
+.cohort-group-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.general-label {
+    background-color: #f0f4ff;
+    color: #4361ee;
+    border: 1px solid #c5d1fb;
+}
+
+.cohort-label {
+    background-color: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+
+.cohort-group {
+    padding: 10px 12px;
+    border-left: 3px solid #e2e8f0;
+    border-radius: 0 8px 8px 0;
+    background: #fafafa;
+}
+
 .glass-card {
     background: #ffffff;
     border: 1px solid #e9ecef;

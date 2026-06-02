@@ -1,5 +1,7 @@
 {% extends "trialpilot/base.html" %}
 
+{% load criteria_filters %}
+
 {% block title %}Clinical Trial Criteria Extraction{% endblock %}
 
 {% block content %}
@@ -98,7 +100,7 @@
 
                     <div class="criteria-scroll flex-grow-1">
 
-                        <!-- Inclusion -->
+                        <!-- INCLUSION -->
                         <div class="criteria-section mb-4">
                             <div class="criteria-section-header inclusion-header">
                                 <div class="d-flex align-items-center justify-content-between w-100">
@@ -107,25 +109,83 @@
                                         <span class="fw-semibold">Inclusion Criteria</span>
                                     </div>
                                     <span class="criteria-count" id="inclusion-count">
-                                        {{ inclusion_criteria |length }}
+                                        {{ inclusion_criteria|length }}
                                     </span>
                                 </div>
                             </div>
 
                             <div class="criteria-body" id="inclusion-container">
-                                {% for criterion in inclusion_criteria  %}
-                                <div class="criterion-item">
-                                    <div class="criterion-number">{{ forloop.counter }}</div>
-                                    <input type="text" name="criterion_{{ criterion.id }}" value="{{ criterion.raw_criterion }}" class="form-control criterion-input">
-                                    <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove criterion">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                                {% empty %}
-                                <div class="empty-mini text-muted" id="inclusion-empty">
-                                    No inclusion criteria extracted.
-                                </div>
-                                {% endfor %}
+
+                                {% if has_cohorts %}
+
+                                    <!-- Critérios gerais -->
+                                    {% with general=inclusion_criteria|filter_cohort:None %}
+                                        {% if general %}
+                                        <div class="cohort-group mb-3">
+                                            <div class="cohort-group-label general-label">
+                                                <i class="bi bi-globe2 mr-1"></i> General
+                                            </div>
+                                            {% for criterion in general %}
+                                            <div class="criterion-item">
+                                                <div class="criterion-number">{{ forloop.counter }}</div>
+                                                <input type="text" name="criterion_{{ criterion.id }}"
+                                                    value="{{ criterion.raw_criterion }}"
+                                                    class="form-control criterion-input">
+                                                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                    {% endwith %}
+
+                                    <!-- Critérios por cohort -->
+                                    {% for cohort in cohorts %}
+                                    <div class="cohort-group mb-3">
+                                        <div class="cohort-group-label cohort-label">
+                                            <i class="bi bi-diagram-3 mr-1"></i>
+                                            Cohort {{ cohort.cohort_id }} — {{ cohort.name }}
+                                        </div>
+                                        {% for criterion in inclusion_criteria %}
+                                            {% if criterion.cohort_id == cohort.id %}
+                                            <div class="criterion-item">
+                                                <div class="criterion-number">{{ forloop.counter }}</div>
+                                                <input type="text" name="criterion_{{ criterion.id }}"
+                                                    value="{{ criterion.raw_criterion }}"
+                                                    class="form-control criterion-input">
+                                                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            {% endif %}
+                                        {% empty %}
+                                            <div class="empty-mini text-muted">No criteria for this cohort.</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <!-- Sem cohorts — comportamento original -->
+                                    {% for criterion in inclusion_criteria %}
+                                    <div class="criterion-item">
+                                        <div class="criterion-number">{{ forloop.counter }}</div>
+                                        <input type="text" name="criterion_{{ criterion.id }}"
+                                            value="{{ criterion.raw_criterion }}"
+                                            class="form-control criterion-input">
+                                        <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    {% empty %}
+                                    <div class="empty-mini text-muted" id="inclusion-empty">
+                                        No inclusion criteria extracted.
+                                    </div>
+                                    {% endfor %}
+
+                                {% endif %}
+
                             </div>
 
                             <button type="button"
@@ -137,7 +197,7 @@
                             </button>
                         </div>
 
-                        <!-- Exclusion -->
+                        <!-- EXCLUSION — estrutura idêntica à inclusão -->
                         <div class="criteria-section">
                             <div class="criteria-section-header exclusion-header">
                                 <div class="d-flex align-items-center justify-content-between w-100">
@@ -146,25 +206,80 @@
                                         <span class="fw-semibold">Exclusion Criteria</span>
                                     </div>
                                     <span class="criteria-count" id="exclusion-count">
-                                        {{ exclusion_criteria |length }}
+                                        {{ exclusion_criteria|length }}
                                     </span>
                                 </div>
                             </div>
 
                             <div class="criteria-body" id="exclusion-container">
-                                {% for criterion in exclusion_criteria %}
-                                <div class="criterion-item">
-                                    <div class="criterion-number">{{ forloop.counter }}</div>
-                                    <input type="text" name="criterion_{{ criterion.id }}" value="{{ criterion.raw_criterion }}" class="form-control criterion-input">
-                                    <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove criterion">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                                {% empty %}
-                                <div class="empty-mini text-muted" id="exclusion-empty">
-                                    No exclusion criteria extracted.
-                                </div>
-                                {% endfor %}
+
+                                {% if has_cohorts %}
+
+                                    {% with general=exclusion_criteria|filter_cohort:None %}
+                                        {% if general %}
+                                        <div class="cohort-group mb-3">
+                                            <div class="cohort-group-label general-label">
+                                                <i class="bi bi-globe2 mr-1"></i> General
+                                            </div>
+                                            {% for criterion in general %}
+                                            <div class="criterion-item">
+                                                <div class="criterion-number">{{ forloop.counter }}</div>
+                                                <input type="text" name="criterion_{{ criterion.id }}"
+                                                    value="{{ criterion.raw_criterion }}"
+                                                    class="form-control criterion-input">
+                                                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                    {% endwith %}
+
+                                    {% for cohort in cohorts %}
+                                    <div class="cohort-group mb-3">
+                                        <div class="cohort-group-label cohort-label">
+                                            <i class="bi bi-diagram-3 mr-1"></i>
+                                            Cohort {{ cohort.cohort_id }} — {{ cohort.name }}
+                                        </div>
+                                        {% for criterion in exclusion_criteria %}
+                                            {% if criterion.cohort_id == cohort.id %}
+                                            <div class="criterion-item">
+                                                <div class="criterion-number">{{ forloop.counter }}</div>
+                                                <input type="text" name="criterion_{{ criterion.id }}"
+                                                    value="{{ criterion.raw_criterion }}"
+                                                    class="form-control criterion-input">
+                                                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            {% endif %}
+                                        {% empty %}
+                                            <div class="empty-mini text-muted">No criteria for this cohort.</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    {% for criterion in exclusion_criteria %}
+                                    <div class="criterion-item">
+                                        <div class="criterion-number">{{ forloop.counter }}</div>
+                                        <input type="text" name="criterion_{{ criterion.id }}"
+                                            value="{{ criterion.raw_criterion }}"
+                                            class="form-control criterion-input">
+                                        <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    {% empty %}
+                                    <div class="empty-mini text-muted" id="exclusion-empty">
+                                        No exclusion criteria extracted.
+                                    </div>
+                                    {% endfor %}
+
+                                {% endif %}
+
                             </div>
 
                             <button type="button"
@@ -183,7 +298,6 @@
                             <small class="text-muted">
                                 Confirm the extracted criteria before proceeding to the logic conversion stage.
                             </small>
-
                             <button type="submit" class="btn btn-success px-4 py-2 rounded-pill shadow-sm">
                                 <i class="bi bi-arrow-right-circle mr-2"></i>
                                 Confirm and Continue

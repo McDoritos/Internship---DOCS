@@ -1,0 +1,665 @@
+{
+  "inclusion_criteria": [
+    {
+      "id": 3510,
+      "text": "Males and females ≥ 18 years of age",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": 18
+      }
+    },
+    {
+      "id": 3511,
+      "text": "Have locally advanced or metastatic histologically or cytologically confirmed NSCLC, KRAS G12C-mutated",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3512,
+      "text": "The presence of a KRAS G12C mutation should be established prior to entry as assessed in a CLIA qualified laboratory.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": 1
+          },
+          {
+            "field": "karnofsky_score",
+            "operator": ">=",
+            "value": 80
+          }
+        ]
+      }
+    },
+    {
+      "id": 3513,
+      "text": "Testing may be done on tumor tissue (archival or fresh) or on ctDNA from blood.",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": 9
+      }
+    },
+    {
+      "id": 3514,
+      "text": "Have received at least 1 prior line of cancer therapy with a PD-1 or PD-L1 inhibitor with or without platinum-based chemotherapy (unless subject is not eligible or refuses chemotherapy or PD-1/PD-L1 therapy and have documented progression on all prior cancer therapies",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Creatinine clearance ≥ 40 mL/min."
+      }
+    },
+    {
+      "id": 3515,
+      "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": 18
+      }
+    },
+    {
+      "id": 3516,
+      "text": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3517,
+      "text": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and Naïve to KRAS G12C inhibitor therapy",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": 1
+          },
+          {
+            "field": "karnofsky_score",
+            "operator": ">=",
+            "value": 80
+          }
+        ]
+      }
+    },
+    {
+      "id": 3518,
+      "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": 9
+      }
+    },
+    {
+      "id": 3519,
+      "text": "metastatic NSCLC",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Creatinine clearance ≥ 40 mL/min."
+      }
+    },
+    {
+      "id": 3520,
+      "text": "refractory to or relapsed on at least 1 prior cancer therapy as noted above, and",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": 18
+      }
+    },
+    {
+      "id": 3521,
+      "text": "naïve to KRAS G12C inhibitor therapy",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3522,
+      "text": "Measurable disease by Response Evaluation Criteria in Solid Tumors (RECIST) 1.1",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": 1
+          },
+          {
+            "field": "karnofsky_score",
+            "operator": ">=",
+            "value": 80
+          }
+        ]
+      }
+    },
+    {
+      "id": 3523,
+      "text": "Have discontinued previous treatments for cancer, except for sotorasib for subjects to receive VIC-1911 plus sotorasib combination treatment, and have resolution, except where otherwise stated in the inclusion criteria, of all clinically significant toxic effects of prior cancer treatment, surgery, or radiotherapy to Grade ≤ 1",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": 9
+      }
+    },
+    {
+      "id": 3524,
+      "text": "Adequate performance status: Eastern Cooperative Oncology Group (ECOG) ≤ 2",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Creatinine clearance ≥ 40 mL/min."
+      }
+    },
+    {
+      "id": 3525,
+      "text": "Life expectancy of ≥ 3 months",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": 18
+      }
+    },
+    {
+      "id": 3526,
+      "text": "Hemoglobin (Hb) ≥ 8 g/dL",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3527,
+      "text": "Absolute neutrophil count (ANC) ≥ 1.0 x 10^9 cells/L",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": 1
+          },
+          {
+            "field": "karnofsky_score",
+            "operator": ">=",
+            "value": 80
+          }
+        ]
+      }
+    },
+    {
+      "id": 3528,
+      "text": "Platelets ≥ 75 x 10^9 cells/L",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": 9
+      }
+    },
+    {
+      "id": 3529,
+      "text": "Calculated creatinine clearance ≥ 50 mL/minute x 1.73 m2 per the Cockcroft-Gault formula",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Creatinine clearance ≥ 40 mL/min."
+      }
+    },
+    {
+      "id": 3530,
+      "text": "Total bilirubin ≤ 1.5 times the ULN, unless due to Gilbert's disease, or < 3 times the ULN for subjects with liver metastases",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": 18
+      }
+    },
+    {
+      "id": 3531,
+      "text": "ALT/AST ≤ 2 times the ULN, or < 3 times the ULN for subjects with liver metastases",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3532,
+      "text": "Negative serum pregnancy test within 14 days prior to the first dose of study",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": 1
+          },
+          {
+            "field": "karnofsky_score",
+            "operator": ">=",
+            "value": 80
+          }
+        ]
+      }
+    },
+    {
+      "id": 3533,
+      "text": "Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases are allowed without prior local therapy, as long as all lesions are each ≤ 1 cm.",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": 9
+      }
+    },
+    {
+      "id": 3534,
+      "text": "Prior local therapy is required (e.g., stereotactic radiosurgery [SRS], stereotactic body radiation therapy [SBRT], or surgery) for any lesion > 1 cm or any lesion that is symptomatic.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Creatinine clearance ≥ 40 mL/min."
+      }
+    },
+    {
+      "id": 3535,
+      "text": "Subjects must be clinically stable and asymptomatic following local therapy.",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": 18
+      }
+    },
+    {
+      "id": 3536,
+      "text": "Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases following prior local therapy (e.g., SRS, SBRT or surgery) are allowed.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3537,
+      "text": "Sexually active WCBP and male subjects must agree to use adequate methods to avoid pregnancy throughout the study and for 28 days after the completion of study treatment",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": 1
+          },
+          {
+            "field": "karnofsky_score",
+            "operator": ">=",
+            "value": 80
+          }
+        ]
+      }
+    },
+    {
+      "id": 3538,
+      "text": "Ability to proved written informed consent",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": 9
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 3539,
+      "text": "Serious cardiac condition within the last 6 months, such as uncontrolled arrhythmia, myocardial infarction, unstable angina or heart disease defined by the New York Heart Association (NYHA) Class III or Class IV",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "egfr_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "alk_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "ros1_status",
+            "operator": "=",
+            "value": "positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3540,
+      "text": "QT interval corrected for rate (QTc) > 480 msec on the ECG obtained at Screening using Fridericia method for QTc calculation",
+      "logic": {
+        "field": "infection_status",
+        "operator": "=",
+        "value": "active"
+      }
+    },
+    {
+      "id": 3541,
+      "text": "Medications that are inhibitors or inducers of UDP-glucuronosyltransferases (UGTs) are prohibited in the Dose Escalation Phase",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Autoimmune disease requiring treatment."
+      }
+    },
+    {
+      "id": 3542,
+      "text": "History of corneal epithelial cysts or other ocular events leading to blurred vision, or has medically relevant abnormalities identified on screening ophthalmologic examination",
+      "logic": {
+        "field": "prior_lumitax_exposure",
+        "operator": "=",
+        "value": true
+      }
+    },
+    {
+      "id": 3543,
+      "text": "Symptomatic pneumonitis/interstitial lung disease requiring medical intervention",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "egfr_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "alk_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "ros1_status",
+            "operator": "=",
+            "value": "positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3544,
+      "text": "Symptomatic central nervous system metastasis",
+      "logic": {
+        "field": "infection_status",
+        "operator": "=",
+        "value": "active"
+      }
+    },
+    {
+      "id": 3545,
+      "text": "Leptomeningeal carcinomatosis",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Autoimmune disease requiring treatment."
+      }
+    },
+    {
+      "id": 3546,
+      "text": "Inability to swallow oral medication",
+      "logic": {
+        "field": "prior_lumitax_exposure",
+        "operator": "=",
+        "value": true
+      }
+    },
+    {
+      "id": 3547,
+      "text": "Gastrointestinal conditions that could impair absorption or tolerance of study drugs",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "egfr_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "alk_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "ros1_status",
+            "operator": "=",
+            "value": "positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3548,
+      "text": "Current hematologic malignancies",
+      "logic": {
+        "field": "infection_status",
+        "operator": "=",
+        "value": "active"
+      }
+    },
+    {
+      "id": 3549,
+      "text": "Second, active primary solid tumor malignancy that, in the judgement of the Investigator or Sponsor Medical Monitor, may affect the interpretation of results, with the exception of carcinoma in situ of any origin, non-muscle invasive bladder cancer, and Gleason < 3+3 prostate cancer",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Autoimmune disease requiring treatment."
+      }
+    },
+    {
+      "id": 3550,
+      "text": "Active infection with human immunodeficiency virus (HIV), hepatitis B virus (HBV) or hepatitis C virus (HCV) requiring treatment within the last week prior to study treatment",
+      "logic": {
+        "field": "prior_lumitax_exposure",
+        "operator": "=",
+        "value": true
+      }
+    },
+    {
+      "id": 3551,
+      "text": "Other active infection requiring IV antibiotic usage within the last week prior to study treatment",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "egfr_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "alk_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "ros1_status",
+            "operator": "=",
+            "value": "positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3552,
+      "text": "Previous MEK or EGFR inhibitor therapy",
+      "logic": {
+        "field": "infection_status",
+        "operator": "=",
+        "value": "active"
+      }
+    },
+    {
+      "id": 3553,
+      "text": "Any other medical intervention or other condition which, in the opinion of the",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Autoimmune disease requiring treatment."
+      }
+    },
+    {
+      "id": 3554,
+      "text": "Unable to tolerate marketed dose of KRAS G12C inhibitor on prior therapy for subjects to be enrolled in combination VIC-1911 plus sotorasib treatment cohorts",
+      "logic": {
+        "field": "prior_lumitax_exposure",
+        "operator": "=",
+        "value": true
+      }
+    },
+    {
+      "id": 3555,
+      "text": "R inhibitor therapy",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "egfr_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "alk_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "ros1_status",
+            "operator": "=",
+            "value": "positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3556,
+      "text": "Any other medical intervention or other condition which, in the opinion of the Principal Investigator, could compromise adherence to study requirements or confound the interpretation of study results",
+      "logic": {
+        "field": "infection_status",
+        "operator": "=",
+        "value": "active"
+      }
+    },
+    {
+      "id": 3557,
+      "text": "Receipt of an investigational product on a clinical trial within 5 elimination half-lives or within 28 days, whichever is shorter, prior to C1D1 on this study, or currently enrolled in a clinical trial involving an investigational product or any other type of medical research judged not to be scientifically or medically compatible with this study",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Autoimmune disease requiring treatment."
+      }
+    },
+    {
+      "id": 3558,
+      "text": "Previously completed or withdrawn from any other study investigating an aurora kinase A inhibitor",
+      "logic": {
+        "field": "prior_lumitax_exposure",
+        "operator": "=",
+        "value": true
+      }
+    },
+    {
+      "id": 3559,
+      "text": "Known hypersensitivity to VIC-1911 or its components",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "egfr_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "alk_status",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "field": "ros1_status",
+            "operator": "=",
+            "value": "positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3560,
+      "text": "If female, pregnant, breast-feeding, or planning to become pregnant",
+      "logic": {
+        "field": "infection_status",
+        "operator": "=",
+        "value": "active"
+      }
+    }
+  ]
+}

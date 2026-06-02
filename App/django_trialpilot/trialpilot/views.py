@@ -45,6 +45,9 @@ SYS_PARAMETER_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "pa
 CRITERIA_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-extraction" / "criteria-extraction_prompt.txt"
 SYS_CRITERIA_EXTRACTION_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-extraction" / "sys_criteria-extraction_prompt.txt"
 
+CRITERIA_EXTRACTION_COHORT_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-extraction" / "criteria-extraction-cohort_prompt.txt"
+SYS_CRITERIA_EXTRACTION_COHORT_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "criteria-extraction" / "sys_criteria-extraction-cohort_prompt.txt"
+
 SYS_TRIAL_STRUCTURE_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "trial-structure" / "sys_trial-structure_prompt.txt"
 TRIAL_STRUCTURE_PROMPT_FILE = Path(settings.BASE_DIR) / "prompts" / "trial-structure" / "trial-structure_prompt.txt"
 
@@ -1264,7 +1267,128 @@ def cohort_identification_step(trial, trial_content):
         log_label=trial.title
     )
 
-def criteria_extraction_step(trial, trial_content):
+def criteria_extraction_step(trial, trial_content, cohorts=None):
+    if not cohorts:
+        return _extract_criteria_no_cohorts(trial, trial_content)
+    else:
+        return _extract_criteria_with_cohorts(trial, trial_content, cohorts)
+
+
+def _extract_criteria_no_cohorts(trial, trial_content):
+    inclusion_text, exclusion_text = split_by_sections_trial(trial_content)
+    if not inclusion_text and not exclusion_text:
+        raise ValueError("Could not detect Inclusion/Exclusion sections")
+
+    all_inclusion = []
+    all_exclusion = []
+
+    inclusion_chunks = split_text_into_chunks(inclusion_text, max_chars=2000, overlap=100)
+    for i, chunk in enumerate(inclusion_chunks):
+        print(f"{trial.title} - Inclusion Chunk {i+1}/{len(inclusion_chunks)}")
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_CRITERIA_EXTRACTION_PROMPT_FILE,
+            user_prompt_path=CRITERIA_EXTRACTION_PROMPT_FILE,
+            replacements={
+                "{{TRIAL_TEXT}}": chunk,
+                "{{CRITERIA_TYPE}}": "inclusion"
+            },
+            log_label=f"{trial.title} (inclusion chunk {i+1})"
+        )
+        all_inclusion.extend(result.get("inclusion_criteria", []))
+
+    exclusion_chunks = split_text_into_chunks(exclusion_text, max_chars=2000, overlap=100)
+    for i, chunk in enumerate(exclusion_chunks):
+        print(f"{trial.title} - Exclusion Chunk {i+1}/{len(exclusion_chunks)}")
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_CRITERIA_EXTRACTION_PROMPT_FILE,
+            user_prompt_path=CRITERIA_EXTRACTION_PROMPT_FILE,
+            replacements={
+                "{{TRIAL_TEXT}}": chunk,
+                "{{CRITERIA_TYPE}}": "exclusion"
+            },
+            log_label=f"{trial.title} (exclusion chunk {i+1})"
+        )
+        all_exclusion.extend(result.get("exclusion_criteria", []))
+
+    return {
+        "document_id": trial.id,
+        "document_title": trial.title,
+        "has_cohorts": False,
+        "inclusion_criteria": deduplicate(all_inclusion),
+        "exclusion_criteria": deduplicate(all_exclusion)
+    }
+
+
+def _extract_criteria_with_cohorts(trial, trial_content, cohorts):
+    all_inclusion = []
+    all_exclusion = []
+
+    cohorts_context = "\n".join(
+        f"- ID: {c['cohort_id']} | Name: {c['name']}"
+        for c in cohorts
+    )
+
+    inclusion_text, exclusion_text = split_by_sections_trial(trial_content)
+    if not inclusion_text and not exclusion_text:
+        raise ValueError("Could not detect Inclusion/Exclusion sections")
+
+    inclusion_chunks = split_text_into_chunks(inclusion_text or "", max_chars=2000, overlap=100)
+    for i, chunk in enumerate(inclusion_chunks):
+        if not chunk.strip():
+            continue
+        print(f"{trial.title} - Cohort-aware Inclusion Chunk {i+1}/{len(inclusion_chunks)}")
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_CRITERIA_EXTRACTION_COHORT_PROMPT_FILE,
+            user_prompt_path=CRITERIA_EXTRACTION_COHORT_PROMPT_FILE,
+            replacements={
+                "{{TRIAL_TEXT}}": chunk,
+                "{{CRITERIA_TYPE}}": "inclusion",
+                "{{COHORTS_CONTEXT}}": cohorts_context,
+            },
+            log_label=f"{trial.title} cohort-aware (inclusion chunk {i+1})"
+        )
+        for criterion in result.get("inclusion_criteria", []):
+            if isinstance(criterion, str):
+                all_inclusion.append({"cohort_id": None, "text": criterion})
+            else:
+                all_inclusion.append({
+                    "cohort_id": criterion.get("cohort_id"), 
+                    "text": criterion.get("text", "")
+                })
+
+    exclusion_chunks = split_text_into_chunks(exclusion_text or "", max_chars=2000, overlap=100)
+    for i, chunk in enumerate(exclusion_chunks):
+        if not chunk.strip():
+            continue
+        print(f"{trial.title} - Cohort-aware Exclusion Chunk {i+1}/{len(exclusion_chunks)}")
+        result = run_json_prompt_pipeline(
+            system_prompt_path=SYS_CRITERIA_EXTRACTION_COHORT_PROMPT_FILE,
+            user_prompt_path=CRITERIA_EXTRACTION_COHORT_PROMPT_FILE,
+            replacements={
+                "{{TRIAL_TEXT}}": chunk,
+                "{{CRITERIA_TYPE}}": "exclusion",
+                "{{COHORTS_CONTEXT}}": cohorts_context,
+            },
+            log_label=f"{trial.title} cohort-aware (exclusion chunk {i+1})"
+        )
+        for criterion in result.get("exclusion_criteria", []):
+            if isinstance(criterion, str):
+                all_exclusion.append({"cohort_id": None, "text": criterion})
+            else:
+                all_exclusion.append({
+                    "cohort_id": criterion.get("cohort_id"),
+                    "text": criterion.get("text", "")
+                })
+
+    return {
+        "document_id": trial.id,
+        "document_title": trial.title,
+        "has_cohorts": True,
+        "inclusion_criteria": deduplicate(all_inclusion),
+        "exclusion_criteria": deduplicate(all_exclusion)
+    }
+    
+def criteria_extraction_step_bp(trial, trial_content):
 
     inclusion_text, exclusion_text = split_by_sections_trial(trial_content)
     if not inclusion_text and not exclusion_text:
@@ -2782,6 +2906,10 @@ def criteria_extraction(request, trial_id):
             has_cohorts = cohort_structure.get("has_cohorts", False)
             cohorts_data = cohort_structure.get("cohorts", [])
             
+            print(f"[DEBUG] Cohort structure: {cohort_structure}")
+            print(f"[DEBUG] Has cohorts: {has_cohorts}")
+            print(f"[DEBUG] Cohort data: {cohorts_data}")
+            
             cohort_map = {}
             
             if has_cohorts and cohorts_data:
@@ -2789,6 +2917,8 @@ def criteria_extraction(request, trial_id):
                     clinical_trial = document.clinical_trial
                     for cohort_data in cohorts_data:
                         cohort_obj = Trial_cohort.objects.create(
+                            cohort_id=cohort_data["cohort_id"],
+                            clinical_trial=clinical_trial,
                             name=cohort_data["name"],
                             description=cohort_data.get("description","")
                         )
@@ -2809,6 +2939,8 @@ def criteria_extraction(request, trial_id):
             
             parsed_criteria = ContentFile(json.dumps(criteria_extracted, ensure_ascii=False).encode("utf-8"))
             
+            print(f"[DEBUG] CRITERIA EXTRACTED: {criteria_extracted}")
+            
             original_name, ext = document.title.rsplit('.', 1)
             name, old_id = original_name.rsplit('_', 1)
             unique_id = uuid.uuid4().hex
@@ -2821,18 +2953,34 @@ def criteria_extraction(request, trial_id):
                 inclusion_list = criteria_extracted.get("inclusion_criteria", [])
                 exclusion_list = criteria_extracted.get("exclusion_criteria", [])
 
-                for criterion_text in inclusion_list:
+                for criterion in inclusion_list:
+                    if isinstance(criterion, dict):
+                        criterion_text = criterion.get("text", "")
+                        cohort_obj = cohort_map.get(criterion.get("cohort_id"))
+                    else:
+                        criterion_text = criterion
+                        cohort_obj = None
+
                     Trial_criteria.objects.create(
                         document=document,
+                        cohort=cohort_obj,
                         type=Trial_criteria.CriterionType.INCLUSION,
                         raw_criterion=criterion_text,
                         validated_criterion=criterion_text,
                         validated=False
                     )
 
-                for criterion_text in exclusion_list:
+                for criterion in exclusion_list:
+                    if isinstance(criterion, dict):
+                        criterion_text = criterion.get("text", "")
+                        cohort_obj = cohort_map.get(criterion.get("cohort_id"))
+                    else:
+                        criterion_text = criterion
+                        cohort_obj = None
+
                     Trial_criteria.objects.create(
                         document=document,
+                        cohort=cohort_obj,
                         type=Trial_criteria.CriterionType.EXCLUSION,
                         raw_criterion=criterion_text,
                         validated_criterion=criterion_text,
@@ -2849,11 +2997,17 @@ def criteria_extraction(request, trial_id):
                 type=Trial_criteria.CriterionType.EXCLUSION
             )
             
-            return render(request, 'trialpilot/trial_criteria-extraction.html',  {
+            cohorts = Trial_cohort.objects.filter(
+                clinical_trial=document.clinical_trial
+            ).order_by('cohort_id') if has_cohorts else []
+
+            return render(request, 'trialpilot/trial_criteria-extraction.html', {
                 "trial": document,
                 "trial_content": document_content,
-                "inclusion_criteria": inclusion_criteria,
-                "exclusion_criteria": exclusion_criteria
+                "has_cohorts": has_cohorts,
+                "cohorts": cohorts,
+                "inclusion_criteria": inclusion_criteria.select_related('cohort'),
+                "exclusion_criteria": exclusion_criteria.select_related('cohort'),
             })
         
         elif request.method == 'POST':
