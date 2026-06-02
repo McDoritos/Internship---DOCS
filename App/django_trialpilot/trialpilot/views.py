@@ -3032,7 +3032,63 @@ def criteria_extraction(request, trial_id):
 
                         except Trial_criteria.DoesNotExist:
                             continue
-                        
+                
+                new_inclusions = request.POST.getlist("inclusion[]")
+                new_exclusions = request.POST.getlist("exclusion[]")
+                
+                for text in new_inclusions:
+                    if text.strip():
+                        Trial_criteria.objects.create(
+                            document=document,
+                            cohort=None,
+                            type=Trial_criteria.CriterionType.INCLUSION,
+                            raw_criterion=text.strip(),
+                            validated_criterion=text.strip(),
+                            validated=True
+                        )
+
+                for text in new_exclusions:
+                    if text.strip():
+                        Trial_criteria.objects.create(
+                            document=document,
+                            cohort=None,
+                            type=Trial_criteria.CriterionType.EXCLUSION,
+                            raw_criterion=text.strip(),
+                            validated_criterion=text.strip(),
+                            validated=True
+                        )
+                
+                for key in request.POST:
+                    if key.startswith("new_inclusion_cohort_"):
+                        cohort_id = key.replace("new_inclusion_cohort_", "").replace("[]", "")
+                        cohort_obj = Trial_cohort.objects.get(id=cohort_id)
+
+                        for text in request.POST.getlist(key):
+                            if text.strip():
+                                Trial_criteria.objects.create(
+                                    document=document,
+                                    cohort=cohort_obj,
+                                    type=Trial_criteria.CriterionType.INCLUSION,
+                                    raw_criterion=text.strip(),
+                                    validated_criterion=text.strip(),
+                                    validated=True
+                                )
+
+                    if key.startswith("new_exclusion_cohort_"):
+                        cohort_id = key.replace("new_exclusion_cohort_", "").replace("[]", "")
+                        cohort_obj = Trial_cohort.objects.get(id=cohort_id)
+
+                        for text in request.POST.getlist(key):
+                            if text.strip():
+                                Trial_criteria.objects.create(
+                                    document=document,
+                                    cohort=cohort_obj,
+                                    type=Trial_criteria.CriterionType.EXCLUSION,
+                                    raw_criterion=text.strip(),
+                                    validated_criterion=text.strip(),
+                                    validated=True
+                                )
+                
                 inclusion_criteria = Trial_criteria.objects.filter(
                     document=document,
                     type=Trial_criteria.CriterionType.INCLUSION
@@ -3220,10 +3276,18 @@ def criteria_conversion(request, trial_id):
                 print("Conditions:")
                 for condition in logic.conditions:
                     print(json.dumps(condition, indent=2))
+                    
+            cohorts = Trial_cohort.objects.filter(
+                clinical_trial=document.clinical_trial
+            ).order_by("cohort_id")
+
+            has_cohorts = cohorts.exists()
             
             return render(request, 'trialpilot/trial_criteria-conversion.html', {
                 "trial": document,
-                "logic_criteria": logic_criteria
+                "logic_criteria": logic_criteria,
+                "has_cohorts": has_cohorts,
+                "cohorts": cohorts
             })
             
         elif request.method == 'POST':

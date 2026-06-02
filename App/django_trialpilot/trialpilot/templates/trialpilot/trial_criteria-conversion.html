@@ -1,5 +1,7 @@
 {% extends "trialpilot/base.html" %}
 
+{% load criteria_filters %}
+
 {% block title %}Clinical Trial Criteria Logical Conversion{% endblock %}
 
 {% block content %}
@@ -43,7 +45,7 @@
 
                     <div class="criteria-preview-scroll">
 
-                        <!-- Inclusion -->
+                        <!-- INCLUSION -->
                         <div class="criteria-section mb-4">
                             <div class="criteria-section-header inclusion-header">
                                 <div class="d-flex align-items-center justify-content-between w-100">
@@ -51,31 +53,85 @@
                                         <i class="bi bi-plus-circle-fill mr-2"></i>
                                         <span class="fw-semibold">Inclusion Criteria</span>
                                     </div>
-                                    <span class="criteria-count">
-                                        {{ logic_criteria|dictsort:"criterion.id"|length }}
-                                    </span>
                                 </div>
                             </div>
 
                             <div class="criteria-body">
-                                {% for logic in logic_criteria %}
-                                    {% if logic.criterion.type == "inclusion" %}
+
+                                {% if has_cohorts %}
+
+                                    <!-- General -->
+                                    {% with general=logic_criteria|filter_logic_cohort:None|filter_logic_type:"inclusion" %}
+                                        {% if general %}
+                                        <div class="cohort-group mb-3">
+                                            <div class="cohort-group-label general-label">
+                                                <i class="bi bi-globe2 mr-1"></i> General
+                                            </div>
+
+                                            {% for logic in general %}
+                                            <div class="preview-criterion-card">
+                                                <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                                <div class="preview-criterion-text">
+                                                    {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                    {% endwith %}
+
+                                    <!-- Cohorts -->
+                                    {% for cohort in cohorts %}
+                                    <div class="cohort-group mb-3">
+
+                                        <div class="cohort-group-label cohort-label">
+                                            <i class="bi bi-diagram-3 mr-1"></i>
+                                            Cohort {{ cohort.cohort_id }} — {{ cohort.name }}
+                                        </div>
+
+                                        {% with cohort_logic=logic_criteria|filter_logic_cohort:cohort.id|filter_logic_type:"inclusion" %}
+                                            {% if cohort_logic %}
+                                                {% for logic in cohort_logic %}
+                                                <div class="preview-criterion-card">
+                                                    <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                                    <div class="preview-criterion-text">
+                                                        {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            {% else %}
+                                                <div class="empty-mini text-muted">
+                                                    No criteria for this cohort.
+                                                </div>
+                                            {% endif %}
+                                        {% endwith %}
+
+                                    </div>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    {% for logic in logic_criteria %}
+                                        {% if logic.criterion.type == "inclusion" %}
                                         <div class="preview-criterion-card">
                                             <div class="preview-criterion-number">{{ forloop.counter }}</div>
                                             <div class="preview-criterion-text">
                                                 {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
                                             </div>
                                         </div>
-                                    {% endif %}
-                                {% empty %}
-                                    <div class="empty-mini text-muted">
-                                        No inclusion criteria available.
-                                    </div>
-                                {% endfor %}
+                                        {% endif %}
+                                    {% empty %}
+                                        <div class="empty-mini text-muted">
+                                            No inclusion criteria available.
+                                        </div>
+                                    {% endfor %}
+
+                                {% endif %}
+
                             </div>
                         </div>
 
-                        <!-- Exclusion -->
+                        <!-- EXCLUSION -->
                         <div class="criteria-section">
                             <div class="criteria-section-header exclusion-header">
                                 <div class="d-flex align-items-center justify-content-between w-100">
@@ -87,20 +143,77 @@
                             </div>
 
                             <div class="criteria-body">
-                                {% for logic in logic_criteria %}
-                                    {% if logic.criterion.type == "exclusion" %}
+
+                                {% if has_cohorts %}
+
+                                    <!-- General -->
+                                    {% with general=logic_criteria|filter_logic_cohort:None|filter_logic_type:"exclusion" %}
+                                        {% if general %}
+                                        <div class="cohort-group mb-3">
+                                            <div class="cohort-group-label general-label">
+                                                <i class="bi bi-globe2 mr-1"></i> General
+                                            </div>
+
+                                            {% for logic in general %}
+                                            <div class="preview-criterion-card">
+                                                <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                                <div class="preview-criterion-text">
+                                                    {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                    {% endwith %}
+
+                                    <!-- Cohorts -->
+                                    {% for cohort in cohorts %}
+                                    <div class="cohort-group mb-3">
+
+                                        <div class="cohort-group-label cohort-label">
+                                            <i class="bi bi-diagram-3 mr-1"></i>
+                                            Cohort {{ cohort.cohort_id }} — {{ cohort.name }}
+                                        </div>
+
+                                        {% with cohort_logic=logic_criteria|filter_logic_cohort:cohort.id|filter_logic_type:"exclusion" %}
+                                            {% if cohort_logic %}
+                                                {% for logic in cohort_logic %}
+                                                <div class="preview-criterion-card">
+                                                    <div class="preview-criterion-number">{{ forloop.counter }}</div>
+                                                    <div class="preview-criterion-text">
+                                                        {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            {% else %}
+                                                <div class="empty-mini text-muted">
+                                                    No criteria for this cohort.
+                                                </div>
+                                            {% endif %}
+                                        {% endwith %}
+
+                                    </div>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    {% for logic in logic_criteria %}
+                                        {% if logic.criterion.type == "exclusion" %}
                                         <div class="preview-criterion-card">
                                             <div class="preview-criterion-number">{{ forloop.counter }}</div>
                                             <div class="preview-criterion-text">
                                                 {{ logic.criterion.validated_criterion|default:logic.criterion.raw_criterion }}
                                             </div>
                                         </div>
-                                    {% endif %}
-                                {% empty %}
-                                    <div class="empty-mini text-muted">
-                                        No exclusion criteria available.
-                                    </div>
-                                {% endfor %}
+                                        {% endif %}
+                                    {% empty %}
+                                        <div class="empty-mini text-muted">
+                                            No exclusion criteria available.
+                                        </div>
+                                    {% endfor %}
+
+                                {% endif %}
+
                             </div>
                         </div>
 

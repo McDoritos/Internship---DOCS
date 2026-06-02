@@ -970,17 +970,26 @@ document.addEventListener("DOMContentLoaded", function () {
 /* Trial Criteria Extraction */
 document.addEventListener("DOMContentLoaded", function () {
 
-    function updateNumbers(containerId, countId) {
-        const container = document.getElementById(containerId);
-        const count = document.getElementById(countId);
+    function renumberContainer(container) {
         const items = container.querySelectorAll(".criterion-item");
-
         items.forEach((item, index) => {
             const number = item.querySelector(".criterion-number");
             if (number) number.textContent = index + 1;
         });
+    }
 
-        count.textContent = items.length;
+    function updateGlobalInclusionCount() {
+        const all = document.querySelectorAll(
+            "#inclusion-container .criterion-item, [id^='inclusion-cohort-'] .criterion-item"
+        );
+        document.getElementById("inclusion-count").textContent = all.length;
+    }
+
+    function updateGlobalExclusionCount() {
+        const all = document.querySelectorAll(
+            "#exclusion-container .criterion-item, [id^='exclusion-cohort-'] .criterion-item"
+        );
+        document.getElementById("exclusion-count").textContent = all.length;
     }
 
     function removeEmptyState(container) {
@@ -1000,8 +1009,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    document.querySelectorAll(".add-field").forEach(button => {
+    document.querySelectorAll(".add-field, .add-cohort-field").forEach(button => {
         button.addEventListener("click", function () {
+
             const container = document.getElementById(this.dataset.target);
             const fieldName = this.dataset.name;
             const placeholder = this.dataset.placeholder || "Write criterion...";
@@ -1011,10 +1021,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const wrapper = document.createElement("div");
             wrapper.className = "criterion-item";
 
-            const itemCount = container.querySelectorAll(".criterion-item").length + 1;
-
             wrapper.innerHTML = `
-                <div class="criterion-number">${itemCount}</div>
+                <div class="criterion-number"></div>
                 <input type="text" name="${fieldName}" class="form-control criterion-input" placeholder="${placeholder}">
                 <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove criterion">
                     <i class="bi bi-trash"></i>
@@ -1024,11 +1032,10 @@ document.addEventListener("DOMContentLoaded", function () {
             container.appendChild(wrapper);
             wrapper.querySelector("input").focus();
 
-            if (container.id === "inclusion-container") {
-                updateNumbers("inclusion-container", "inclusion-count");
-            } else if (container.id === "exclusion-container") {
-                updateNumbers("exclusion-container", "exclusion-count");
-            }
+            renumberContainer(container);
+
+            updateGlobalInclusionCount();
+            updateGlobalExclusionCount();
         });
     });
 
@@ -1038,20 +1045,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const item = removeBtn.closest(".criterion-item");
         const container = item.parentElement;
+
         item.remove();
 
+        renumberContainer(container);
+
+        updateGlobalInclusionCount();
+        updateGlobalExclusionCount();
+
         if (container.id === "inclusion-container") {
-            updateNumbers("inclusion-container", "inclusion-count");
             ensureEmptyState("inclusion-container", "No inclusion criteria extracted.");
-        } else if (container.id === "exclusion-container") {
-            updateNumbers("exclusion-container", "exclusion-count");
+        }
+        if (container.id === "exclusion-container") {
             ensureEmptyState("exclusion-container", "No exclusion criteria extracted.");
         }
     });
 
-    updateNumbers("inclusion-container", "inclusion-count");
-    updateNumbers("exclusion-container", "exclusion-count");
+    document.querySelectorAll(".criteria-body").forEach(container => {
+        renumberContainer(container);
+    });
+
+    updateGlobalInclusionCount();
+    updateGlobalExclusionCount();
 });
+
 
 /* Diary Parameter Extraction */
 document.addEventListener("DOMContentLoaded", function () {

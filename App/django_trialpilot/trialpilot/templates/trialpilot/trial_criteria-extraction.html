@@ -143,25 +143,45 @@
                                     <!-- Critérios por cohort -->
                                     {% for cohort in cohorts %}
                                     <div class="cohort-group mb-3">
+
                                         <div class="cohort-group-label cohort-label">
                                             <i class="bi bi-diagram-3 mr-1"></i>
                                             Cohort {{ cohort.cohort_id }} — {{ cohort.name }}
                                         </div>
-                                        {% for criterion in inclusion_criteria %}
-                                            {% if criterion.cohort_id == cohort.id %}
-                                            <div class="criterion-item">
-                                                <div class="criterion-number">{{ forloop.counter }}</div>
-                                                <input type="text" name="criterion_{{ criterion.id }}"
-                                                    value="{{ criterion.raw_criterion }}"
-                                                    class="form-control criterion-input">
-                                                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </div>
-                                            {% endif %}
-                                        {% empty %}
-                                            <div class="empty-mini text-muted">No criteria for this cohort.</div>
-                                        {% endfor %}
+
+                                        <div class="cohort-criteria-container"
+                                            id="inclusion-cohort-{{ cohort.id }}">
+
+                                            {% for criterion in inclusion_criteria %}
+                                                {% if criterion.cohort_id == cohort.id %}
+                                                <div class="criterion-item">
+                                                    <div class="criterion-number">{{ forloop.counter }}</div>
+
+                                                    <input type="text"
+                                                        name="criterion_{{ criterion.id }}"
+                                                        value="{{ criterion.raw_criterion }}"
+                                                        class="form-control criterion-input">
+
+                                                    <button type="button"
+                                                            class="btn btn-icon btn-remove remove-field"
+                                                            title="Remove">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </div>
+
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-success mt-2 add-cohort-field"
+                                                data-target="inclusion-cohort-{{ cohort.id }}"
+                                                data-name="new_inclusion_cohort_{{ cohort.id }}[]"
+                                                data-placeholder="Write inclusion criterion...">
+                                            <i class="bi bi-plus-lg"></i>
+                                            Add Criterion to Cohort
+                                        </button>
+
                                     </div>
                                     {% endfor %}
 
@@ -238,25 +258,45 @@
 
                                     {% for cohort in cohorts %}
                                     <div class="cohort-group mb-3">
+
                                         <div class="cohort-group-label cohort-label">
                                             <i class="bi bi-diagram-3 mr-1"></i>
                                             Cohort {{ cohort.cohort_id }} — {{ cohort.name }}
                                         </div>
-                                        {% for criterion in exclusion_criteria %}
-                                            {% if criterion.cohort_id == cohort.id %}
-                                            <div class="criterion-item">
-                                                <div class="criterion-number">{{ forloop.counter }}</div>
-                                                <input type="text" name="criterion_{{ criterion.id }}"
-                                                    value="{{ criterion.raw_criterion }}"
-                                                    class="form-control criterion-input">
-                                                <button type="button" class="btn btn-icon btn-remove remove-field" title="Remove">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </div>
-                                            {% endif %}
-                                        {% empty %}
-                                            <div class="empty-mini text-muted">No criteria for this cohort.</div>
-                                        {% endfor %}
+
+                                        <div class="cohort-criteria-container"
+                                            id="exclusion-cohort-{{ cohort.id }}">
+
+                                            {% for criterion in exclusion_criteria %}
+                                                {% if criterion.cohort_id == cohort.id %}
+                                                <div class="criterion-item">
+                                                    <div class="criterion-number">{{ forloop.counter }}</div>
+
+                                                    <input type="text"
+                                                        name="criterion_{{ criterion.id }}"
+                                                        value="{{ criterion.raw_criterion }}"
+                                                        class="form-control criterion-input">
+
+                                                    <button type="button"
+                                                            class="btn btn-icon btn-remove remove-field"
+                                                            title="Remove">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </div>
+
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-danger mt-2 add-cohort-field"
+                                                data-target="exclusion-cohort-{{ cohort.id }}"
+                                                data-name="new_exclusion_cohort_{{ cohort.id }}[]"
+                                                data-placeholder="Write exclusion criterion...">
+                                            <i class="bi bi-plus-lg"></i>
+                                            Add Criterion to Cohort
+                                        </button>
+
                                     </div>
                                     {% endfor %}
 
