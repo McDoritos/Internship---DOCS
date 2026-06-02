@@ -1145,6 +1145,29 @@ def deduplicate(criteria_list):
 
     return result
 
+def deduplicate_cohort_criteria(criteria_list):
+    """
+    Deduplicação para critérios com estrutura {"cohort_id": ..., "text": ...}.
+    Dois critérios similares mas de cohorts diferentes são entradas distintas.
+    """
+    result = []
+
+    for c in criteria_list:
+        raw_text = c.get("text", "")
+        cohort_id = c.get("cohort_id")
+        text = normalize(raw_text)
+
+        already_exists = any(
+            r.get("cohort_id") == cohort_id and
+            is_similar(text, normalize(r.get("text", "")))
+            for r in result
+        )
+
+        if not already_exists:
+            result.append(c)
+
+    return result
+
 def run_json_prompt_pipeline(
     *,
     system_prompt_path,
@@ -1320,8 +1343,6 @@ def _extract_criteria_no_cohorts(trial, trial_content):
 
 
 def _extract_criteria_with_cohorts(trial, trial_content, cohorts):
-    all_inclusion = []
-    all_exclusion = []
 
     cohorts_context = "\n".join(
         f"- ID: {c['cohort_id']} | Name: {c['name']}"
@@ -1332,62 +1353,45 @@ def _extract_criteria_with_cohorts(trial, trial_content, cohorts):
     if not inclusion_text and not exclusion_text:
         raise ValueError("Could not detect Inclusion/Exclusion sections")
 
-    inclusion_chunks = split_text_into_chunks(inclusion_text or "", max_chars=2000, overlap=100)
-    for i, chunk in enumerate(inclusion_chunks):
-        if not chunk.strip():
-            continue
-        print(f"{trial.title} - Cohort-aware Inclusion Chunk {i+1}/{len(inclusion_chunks)}")
-        result = run_json_prompt_pipeline(
-            system_prompt_path=SYS_CRITERIA_EXTRACTION_COHORT_PROMPT_FILE,
-            user_prompt_path=CRITERIA_EXTRACTION_COHORT_PROMPT_FILE,
-            replacements={
-                "{{TRIAL_TEXT}}": chunk,
-                "{{CRITERIA_TYPE}}": "inclusion",
-                "{{COHORTS_CONTEXT}}": cohorts_context,
-            },
-            log_label=f"{trial.title} cohort-aware (inclusion chunk {i+1})"
-        )
-        for criterion in result.get("inclusion_criteria", []):
-            if isinstance(criterion, str):
-                all_inclusion.append({"cohort_id": None, "text": criterion})
-            else:
-                all_inclusion.append({
-                    "cohort_id": criterion.get("cohort_id"), 
-                    "text": criterion.get("text", "")
-                })
+    all_inclusion = []
+    all_exclusion = []
 
-    exclusion_chunks = split_text_into_chunks(exclusion_text or "", max_chars=2000, overlap=100)
-    for i, chunk in enumerate(exclusion_chunks):
-        if not chunk.strip():
+    for criteria_type, text in [("inclusion", inclusion_text), ("exclusion", exclusion_text)]:
+        if not text or not text.strip():
             continue
-        print(f"{trial.title} - Cohort-aware Exclusion Chunk {i+1}/{len(exclusion_chunks)}")
+
+        print(f"{trial.title} - Cohort-aware single-call ({criteria_type})")
+
         result = run_json_prompt_pipeline(
             system_prompt_path=SYS_CRITERIA_EXTRACTION_COHORT_PROMPT_FILE,
             user_prompt_path=CRITERIA_EXTRACTION_COHORT_PROMPT_FILE,
             replacements={
-                "{{TRIAL_TEXT}}": chunk,
-                "{{CRITERIA_TYPE}}": "exclusion",
+                "{{TRIAL_TEXT}}": text,
+                "{{CRITERIA_TYPE}}": criteria_type,
                 "{{COHORTS_CONTEXT}}": cohorts_context,
             },
-            log_label=f"{trial.title} cohort-aware (exclusion chunk {i+1})"
+            log_label=f"{trial.title} cohort-aware ({criteria_type})"
         )
-        for criterion in result.get("exclusion_criteria", []):
-            if isinstance(criterion, str):
-                all_exclusion.append({"cohort_id": None, "text": criterion})
+
+        key = f"{criteria_type}_criteria"
+        for criterion in result.get(key, []):
+            entry = {
+                "cohort_id": criterion.get("cohort_id") if isinstance(criterion, dict) else None,
+                "text": criterion.get("text", "") if isinstance(criterion, dict) else criterion
+            }
+            if criteria_type == "inclusion":
+                all_inclusion.append(entry)
             else:
-                all_exclusion.append({
-                    "cohort_id": criterion.get("cohort_id"),
-                    "text": criterion.get("text", "")
-                })
+                all_exclusion.append(entry)
 
     return {
         "document_id": trial.id,
         "document_title": trial.title,
         "has_cohorts": True,
-        "inclusion_criteria": deduplicate(all_inclusion),
-        "exclusion_criteria": deduplicate(all_exclusion)
+        "inclusion_criteria": deduplicate_cohort_criteria(all_inclusion),
+        "exclusion_criteria": deduplicate_cohort_criteria(all_exclusion)
     }
-    
+        
 def criteria_extraction_step_bp(trial, trial_content):
 
     inclusion_text, exclusion_text = split_by_sections_trial(trial_content)
