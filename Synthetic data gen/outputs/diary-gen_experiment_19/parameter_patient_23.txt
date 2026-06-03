@@ -654,3 +654,397 @@ Observações adicionais:
 Processado por computador - SClínico
 Pag. 1/1
 </CLEAN_DIARY>
+
+Analysis Report System Prompt:
+```json
+{
+  "hematology": {
+    "leucocitos": { 
+      "value": 3.5, 
+      "unit": "x10^9/L", 
+      "reference": "3.90–10.2" 
+    },
+    "neutrofilos": { 
+      "value": 1.8, 
+      "unit": "x10^9/L", 
+      "percentage": 51.4, 
+      "reference": "1.50–7.70" 
+    },
+    "linfocitos": { 
+      "value": 1.2, 
+      "unit": "x10^9/L", 
+      "percentage": 34.3, 
+      "reference": "1.10–4.50" 
+    },
+    "monocitos": { 
+      "value": 0.3, 
+      "unit": "x10^9/L", 
+      "percentage": 8.6, 
+      "reference": "0.10–0.90" 
+    },
+    "eosinofilos": { 
+      "value": 0.1, 
+      "unit": "x10^9/L", 
+      "percentage": 2.9, 
+      "reference": "0.02–0.50" 
+    },
+    "basofilos": { 
+      "value": 0.03, 
+      "unit": "x10^9/L", 
+      "percentage": 0.9, 
+      "reference": "0.00–0.20" 
+    }
+  },
+  "eritrocitos": {
+    "eritrocitos": { 
+      "value": 4.1, 
+      "unit": "x10^12/L", 
+      "reference": "3.9–5.2" 
+    },
+    "hemoglobina": { 
+      "value": 12.5, 
+      "unit": "g/dL", 
+      "reference": "12.0–15.6" 
+    },
+    "hematocrito": { 
+      "value": 38.5, 
+      "unit": "%", 
+      "reference": "35.5–45.5" 
+    },
+    "Volume_Corpuscular_Medio": { 
+      "value": 92.1, 
+      "unit": "fL", 
+      "reference": "80–99" 
+    },
+    "Hemoglobina_Corpuscular_Media": { 
+      "value": 32.1, 
+      "unit": "pg", 
+      "reference": "27–33.5" 
+    },
+    "C.Hemoglobina_Corpuscular_Media": { 
+      "value": 35.5, 
+      "unit": "g/dL", 
+      "reference": "31–37" 
+    },
+    "Coeficiente_Variação_Eritrócitos": { 
+      "value": 13.2, 
+      "unit": "%", 
+      "reference": "11.5–15.0" 
+    }
+  },
+  "plaquetas": {
+    "plaquetas": { 
+      "value": 160, 
+      "unit": "x10^9/L", 
+      "reference": "150–400" 
+    },
+    "volume_plaquetar_medio": { 
+      "value": 9.5, 
+      "unit": "fL", 
+      "reference": "8.5–12.0" 
+    },
+    "plaquetocrito": { 
+      "value": 0.22, 
+      "unit": "%", 
+      "reference": "0.20–0.45" 
+    },
+    "Coeficiente_Variação_Plaquetas": { 
+      "value": 11.1, 
+      "unit": "%", 
+      "reference": "9.0-17.0" 
+    }
+  },
+  "bioquimica": {
+    "glicose": { 
+      "value": 92, 
+      "unit": "mg/dL", 
+      "reference": "60–109" 
+    },
+    "azoto_ureico": { 
+      "value": 18.2, 
+      "unit": "mg/dL", 
+      "reference": "7.9–20.9" 
+    },
+    "creatinina": { 
+      "value": 0.81, 
+      "unit": "mg/dL", 
+      "reference": "0.55–1.02" 
+    },
+    "sodio": { 
+      "value": 140, 
+      "unit": "mmol/L", 
+      "reference": "136–146" 
+    },
+    "potassio": { 
+      "value": 4.2, 
+      "unit": "mmol/L", 
+      "reference": "3.5–5.1" 
+    },
+    "proteinas_totais": { 
+      "value": 6.5, 
+      "unit": "g/dL", 
+      "reference": "6.6–8.3" 
+    },
+    "albumina": { 
+      "value": 4.1, 
+      "unit": "g/dL", 
+      "reference": "3.5–5.2" 
+    },
+    "calcio": { 
+      "value": 9.6, 
+      "unit": "mg/dL", 
+      "reference": "8.8–10.6" 
+    },
+    "osmolalidade": { 
+      "value": 282, 
+      "unit": "mOsm/Kg", 
+      "reference": "260–302" 
+    },
+    "ldh": { 
+      "value": 210, 
+      "unit": "U/L", 
+      "reference": "<247" 
+    },
+    "ast": { 
+      "value": 16, 
+      "unit": "U/L", 
+      "reference": "<31" 
+    },
+    "alt": { 
+      "value": 10, 
+      "unit": "U/L", 
+      "reference": "<34" 
+    },
+    "fosfatase_alcalina": { 
+      "value": 85, 
+      "unit": "U/L", 
+      "reference": "30–120" 
+    },
+    "gama_gt": { 
+      "value": 12, 
+      "unit": "U/L", 
+      "reference": "<38" 
+    },
+    "bilirrubina_total": { 
+      "value": 0.6, 
+      "unit": "mg/dL", 
+      "reference": "0.2–1.2" 
+    },
+    "Creatina_cinase": { 
+      "value": 105, 
+      "unit": "U/L", 
+      "reference": "<145" 
+    }
+  }
+}
+```
+
+Analysis Report Generation Prompt:
+Rules:
+- Maintain realistic medical consistency with the patient profile.
+- Respect plausible biological ranges (values may be normal or abnormal).
+- Use medically plausible correlations (e.g., chemotherapy → low leukocytes).
+- If chemotherapy is recent, reflect mild to moderate cytopenias with possible recovery patterns.
+- Do NOT copy values from the example.
+- Use the same units and structure as defined in the schema.
+- Ensure all values are coherent.
+
+Reference handling:
+- Reference ranges MUST be copied exactly from the example.
+- Do NOT modify, reinterpret, or generate new reference ranges.
+
+Mathematical consistency:
+- Neutrophils, lymphocytes, monocytes, eosinophils, and basophils percentages MUST sum to approximately 100% (±2%).
+- Absolute leukocyte subsets must be consistent with total leukocyte count.
+- Neutrophils value must not exceed total leukocytes.
+
+STRICT OUTPUT RULES:
+- Output ONLY valid JSON
+- Do NOT include explanations or text outside JSON
+- ALL fields must be present
+- Use null if necessary
+- Do NOT truncate the output
+- Ensure the JSON is complete and properly closed (all brackets and braces)
+
+FORMAT REQUIREMENTS:
+- Use consistent indentation
+- Each field must be on its own line
+- Do NOT change formatting midway
+- The entire JSON must follow the SAME formatting style as the schema presented to you
+
+Clinical realism guidelines:
+- Oncology patients may show:
+  - Leukopenia or neutropenia (especially after chemotherapy)
+  - Anemia (low hemoglobin)
+  - Thrombocytopenia (low platelets)
+- Liver enzymes (AST, ALT) may increase depending on metastases or drugs
+- Kidney function (creatinine) may vary depending on treatment toxicity
+
+Consistency priority:
+1. Patient profile (highest priority)
+2. Clinical diary
+3. Example (structure and reference ranges only)
+
+Output must follow this exact JSON schema:
+```JSON
+{
+  "hematology": {
+    "leucocitos": { "value": float, "unit": "x10^9/L", "reference": "string" },
+    "neutrofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "linfocitos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "monocitos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "eosinofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" },
+    "basofilos": { "value": float, "unit": "x10^9/L", "percentage": float, "reference": "string" }
+  },
+  "eritrocitos": {
+    "eritrocitos": { "value": float, "unit": "x10^12/L", "reference": "string" },
+    "hemoglobina": { "value": float, "unit": "g/dL", "reference": "string" },
+    "hematocrito": { "value": float, "unit": "%", "reference": "string" },
+    "Volume_Corpuscular_Medio": { "value": float, "unit": "fL", "reference": "string" },
+    "Hemoglobina_Corpuscular_Media": { "value": float, "unit": "pg", "reference": "string" },
+    "C.Hemoglobina_Corpuscular_Media": { "value": float, "unit": "g/dL", "reference": "string" },
+    "Coeficiente_Variação_Eritrócitos": { "value": float, "unit": "%", "reference": "string" }
+  },
+  "plaquetas": {
+    "plaquetas": { "value": float, "unit": "x10^9/L", "reference": "string" },
+    "volume_plaquetar_medio": { "value": float, "unit": "fL", "reference": "string" },
+    "plaquetocrito": { "value": float, "unit": "%", "reference": "string" },
+    "Coeficiente_Variação_Plaquetas": { "value" : float, "unit": "%", "reference": "string"}
+  },
+  "bioquimica": {
+    "glicose": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "azoto_ureico": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "creatinina": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "sodio": { "value": float, "unit": "mmol/L", "reference": "string" },
+    "potassio": { "value": float, "unit": "mmol/L", "reference": "string" },
+    "proteinas_totais": { "value": float, "unit": "g/dL", "reference": "string" },
+    "albumina": { "value": float, "unit": "g/dL", "reference": "string" },
+    "calcio": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "osmolalidade": { "value": float, "unit": "mOsm/Kg", "reference": "string" },
+    "ldh": { "value": float, "unit": "U/L", "reference": "string" },
+    "ast": { "value": float, "unit": "U/L", "reference": "string" },
+    "alt": { "value": float, "unit": "U/L", "reference": "string" },
+    "fosfatase_alcalina": { "value": float, "unit": "U/L", "reference": "string" },
+    "gama_gt": { "value": float, "unit": "U/L", "reference": "string" },
+    "bilirrubina_total": { "value": float, "unit": "mg/dL", "reference": "string" },
+    "Creatina_cinase": { "value": float, "unit": "U/L", "reference": "string" }
+  }
+}
+```
+
+Ensure values are coherent across the report.
+
+PATIENT PROFILE:
+<PATIENT>
+{"demographics": {"age_or_birthdate": "75 anos", "sex": "Feminino", "smoking_status": "Ex-fumadora 15 UMA", "alcohol_use": "Raro"}, "performance_status": {"ecog_ps": 2}, "diagnosis": {"primary_site": "Es\u00f3fago distal", "histology": "Adenocarcinoma", "grade": "G3", "diagnosis_date": "2025-03-02", "stage": {"tnm": "cT3N2M0", "overall_stage": "III"}, "metastatic_sites": []}, "molecular_profile": {"hormone_receptors": "N/A", "HER2": "Positivo (3+)", "PD-L1": "CPS 8", "NGS": "Sem altera\u00e7\u00f5es adicionais", "genetic_testing": "N\u00e3o aplic\u00e1vel"}, "medical_history": {"past_medical": ["DRGE"], "past_surgical": ["Pr\u00f3tese da anca"], "family_history": ["Nega"], "home_medications": ["Omeprazol 20 mg"]}, "diagnostic_workup": {"imaging": [{"type": "PET-CT", "date": "2025-03-05", "findings": "Les\u00e3o distal do es\u00f3fago e adenopatias regionais."}], "biopsies": [{"site": "Es\u00f3fago", "date": "2025-03-02", "histology": "Adenocarcinoma", "immunohistochemistry": "HER2 3+"}]}, "symptoms": ["Disfagia progressiva", "Perda ponderal 5 kg"], "weight": "61 kg", "treatments": [{"line_number": 1, "regimen": "Carboplatina + Paclitaxel concomitante RT", "intent": "Neoadjuvante", "start_date": "2025-03-20", "end_date": "2025-04-30", "dose_modifications": "Sem altera\u00e7\u00f5es", "toxicity_events": "Esofagite G2"}], "radiotherapy": [{"site": "Es\u00f3fago", "dose": "41.4 Gy", "fractions": "23", "start_date": "2025-03-20", "end_date": "2025-04-30"}], "follow_up": {"control_date": "2025-06-10", "reason_for_visit": "Avalia\u00e7\u00e3o cir\u00fargica", "planned_next_steps": "Esofagectomia", "next_appointment": "2025-06-25"}, "administrative": {"physician": "Dr(a). Ana Ribeiro", "clinic_location": "ULS Coimbra", "service": "Oncologia M\u00e9dica Digestiva"}}
+</PATIENT>
+
+LABORATORY REPORT EXAMPLE:
+<ANALYSIS>
+Hemograma com leucograma
+
+Leucócitos: 2.2 x10^9/L (referência: 3.90–10.2)
+Neutrófilos: 1.06 x10^9/L (48.1%) (referência: 1.50–7.70)
+Linfócitos: 0.89 x10^9/L (40.5%) (referência: 1.10–4.50)
+Monócitos: 0.18 x10^9/L (8.2%) (referência: 0.10–0.90)
+Eosinófilos: 0.03 x10^9/L (1.4%) (referência: 0.02–0.50)
+Basófilos: 0.04 x10^9/L (1.8%) (referência: 0.00–0.20)
+
+Eritrócitos: 4.19 x10^12/L (referência: 3.9–5.2)
+Hemoglobina: 14.1 g/dL (referência: 12.0–15.6)
+Hematócrito: 39.1% (referência: 35.5–45.5)
+Volume Corpuscular Medio: 93.3 fL (referência: 80–99)
+Hemoglobina Corpuscular Media: 33.7 pg (referência: 27–33.5)
+C. Hemoglobina Corpuscular Media: 36.1 g/dL (referência: 31–37)
+Coeficiente Variação Eritrócitos: 14.7% (referência: 11.5–15.0)
+
+Plaquetas: 148 x10^9/L (referência: 150–400)
+Volume plaquetar médio: 9.9 fL (referência: 8.5–12.0)
+Plaquetócrito: 0.15% (referência: 0.20–0.45)
+Coeficiente Variação Plaquetas: 10.7% (referência: 9.0-17.0)
+
+---
+
+Bioquímica - Sangue
+
+Glicose: 95 mg/dL (referência: 60–109)
+Azoto ureico: 17.8 mg/dL (referência: 7.9–20.9)
+Creatinina: 0.78 mg/dL (referência: 0.55–1.02)
+
+Sódio: 139 mmol/L (referência: 136–146)
+Potássio: 4.4 mmol/L (referência: 3.5–5.1)
+
+Proteínas totais: 6.2 g/dL (referência: 6.6–8.3)
+Albumina: 4.3 g/dL (referência: 3.5–5.2)
+
+Cálcio: 9.4 mg/dL (referência: 8.8–10.6)
+Osmolalidade: 279 mOsm/Kg (referência: 260–302)
+
+LDH: 219 U/L (referência: <247)
+AST (GOT): 17 U/L (referência: <31)
+ALT (GPT): 9 U/L (referência: <34)
+
+Fosfatase alcalina: 82 U/L (referência: 30–120)
+Gama GT: 13 U/L (referência: <38)
+
+Bilirrubina total: 0.7 mg/dL (referência: 0.2–1.2)
+Creatina cinase: 100 U/L (referência: <145)
+</ANALYSIS>
+
+CLINICAL DIARY:
+<DIARY>
+UNIDADE LOCAL DE SAÚDE COIMBRA
+Diário Clínico
+Consulta Externa
+10-06-2025 09:45
+Dr(a). Ana Ribeiro (ULS COIMBRA – ONCOLOGIA MÉDICA DIGESTIVA)
+
+75 anos, sexo feminino, ex‑fumadora 15 UMA, consumo alcoólico raro. Peso 61 kg, ECOG‑PS 2.
+
+Diagnóstico inicial em 02‑03‑2025: adenocarcinoma distal do esófago, G3, HER2 3+ (IHC), PD‑L1 CPS 8, cT3 N2 M0 – estágio III. História de disfagia progressiva há 3 meses, perda ponderal de 5 kg. Antecedentes médicos: doença de refluxo gastroesofágico (DRGE) e prótese total da anca esquerda. Medicação habitual: Omeprazol 20 mg OD.
+
+Work‑up diagnóstico:
+- PET‑CT 05‑03‑2025: lesão hipermetabólica na zona distal do esófago (SUV ≈ 12) com adenopatias regionais cervicais e mediastinais; sem sítios metastáticos à distância.
+- Endoscopia digestiva alta com biopsia 02‑03‑2025: adenocarcinoma, HER2 3+ confirmado por IHC; PD‑L1 CPS 8.
+- Laboratório pré‑terápico (06‑03‑2025): Hb 13,2 g/dL, neutrófilos 4,2 10⁹/L, creatinina 0,9 mg/dL, albumina 3,8 g/dL.
+
+Tratamento neoadjuvante:
+- Regime 1ª linha: Carboplatina AUC 5 + Paclitaxel 175 mg/m² (dia 1 q 3 semanas) + radioterapia conformacional 41,4 Gy/23 frações, iniciado 20‑03‑2025, concluído 30‑04‑2025.
+- Toxicidade durante C1‑C2: esofagite G2 (odynofagia, necessidade de dieta líquida), controlada com dieta blanda, sucralfato 1 g TID e reforço de omeprazol. Nenhum evento hematológico ≥ G2; creatinina estável.
+
+Reavaliação pós‑neoadjuvante:
+- PET‑CT 08‑06‑2025: redução do SUV da lesão esofágica para 5, adenopatias regionais ainda captantes porém diminuídas; sem evidência de metástases à distância.
+- TC torácico com contraste 09‑06‑2025: diminuição do espessamento da parede esofágica distal, linfonodos mediastinais < 1 cm, sem infiltrado pulmonar.
+- Laboratório 09‑06‑2025: Hb 12,8 g/dL, neutrófilos 3,9 10⁹/L, creatinina 0,88 mg/dL, albumina 3,7 g/dL.
+
+Consulta de avaliação cirúrgica (10‑06‑2025):
+- Paciente relata melhora da disfagia, tolera dieta pastosa, peso estável (61 kg). ECOG‑PS mantém‑se 2.
+- Exame físico: sem linfonodos palpáveis, ausculta pulmonar limpa, sinais vitais dentro da normalidade.
+- Discussão multidisciplinar realizada 12‑06‑2025 (oncologia, cirurgia torácica, anestesiologia, cardiologia). Conclusão: candidato a esofagectomia Ivor‑Lewis, com plano de adjuvância HER2‑dirigida (trastuzumabe) a iniciar pós‑operatório, considerando HER2 3+ e ausência de contraindicações cardíacas.
+
+Planeamento pré‑operatório:
+- Avaliação cardiológica agendada para 15‑07‑2025 (ecocardiograma, troponina, avaliação de fração de ejeção – objetivo EF > 55 %).
+- Avaliação pulmonar (espirometria) prevista para 16‑07‑2025; resultados esperados adequados para cirurgia maior.
+- Optimização nutricional: encaminhamento para serviço de nutrição oncológica, suplementação proteica oral.
+- Medicação: manter Omeprazol 20 mg OD; iniciar sucralfato 1 g TID até cirurgia; suspender Paclitaxel e Carboplatina.
+
+Data prevista para esofagectomia: 24‑07‑2025, com equipe de cirurgia torácica e anestesia. Consentimento informado obtido, paciente aceita risco cirúrgico e adjuvância com trastuzumabe + capecitabina (esquema pós‑operatório) conforme protocolo HER2‑positivo.
+
+Seguimento pós‑consulta:
+- Consulta de retorno para revisão de exames pré‑operatórios agendada para 25‑06‑2025.
+- Laboratórios de rotina (Hb, função renal, eletrólitos) a repetir em 02‑07‑2025.
+- Monitorização de toxicidade gastrointestinal e controle da DRGE com ajuste de dose de Omeprazol se necessário.
+- Reforço de apoio psicossocial: encaminhamento ao serviço de apoio ao idoso, dado suporte familiar limitado.
+
+Observações adicionais:
+- Paciente demonstra compreensão do plano terapêutico e expressa preferência por tratamento curativo, apesar da idade avançada.
+- Não há história familiar de neoplasias digestivas.
+- Considerar vacinação contra influenza e pneumococo antes da cirurgia.
+
+Processado por computador - SClínico
+Pag. 1/1
+
+
+</DIARY>
+
+
