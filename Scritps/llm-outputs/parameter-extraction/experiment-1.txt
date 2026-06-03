@@ -243,3 +243,436 @@ Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
   "control": "Ausência de sinais de progressão sistémica, sem novas metastases, com alívio sintomático parcial da dor lombar. Estabilidade das lesões ósseas confirmada por cintilografia óssea em 2024. Adesão ao tratamento oral com letrozol e palbociclib, sem novas toxicidades ≥ G2."
 }
 
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_11.txt
+{
+  "age_or_birthdate": 58,
+  "gender": "male",
+  "ecog_ps": 1,
+  "diagnosis": "Adenocarcinoma retal G2 cT3N1M0 (IIIB)",
+  "diagnosis_date": "2025-02-10",
+  "molecular_status": null,
+  "stage": "IIIB",
+  "pathology_group": "digestivo",
+  "treatments": [
+    {
+      "name": "quimiorradioterapia com Capecitabina",
+      "start_date": "2025-03-01",
+      "end_date": "2025-04-10"
+    }
+  ],
+  "control": "Sem alterações de dose, toxicidades G1 apenas"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_12.txt
+{
+  "age_or_birthdate": 69,
+  "gender": "male",
+  "ecog_ps": 0,
+  "diagnosis": "Adenocarcinoma prostático acinar, ISUP 5",
+  "diagnosis_date": "2024-10-12",
+  "molecular_status": "PD‑L1 CPS 15",
+  "stage": "cT3bN1M1b (metástases ósseas)",
+  "pathology_group": null,
+  "treatments": [
+    {
+      "name": "ADT + Abiraterona 1000 mg/d + Prednisolona 5 mg/d",
+      "start_date": "2024-11-01",
+      "end_date": null
+    }
+  ],
+  "control": "Manter esquema atual, controle laboratorial e clínico"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_13.txt
+{
+  "age_or_birthdate": 55,
+  "gender": "female",
+  "ecog_ps": 0,
+  "diagnosis": "OM - CARCINOMA SEROSO ALTO GRAU OVÁRIO",
+  "diagnosis_date": "2025-01-20",
+  "molecular_status": "HRD positivo, mutação BRCA1 confirmada",
+  "stage": "IIIC",
+  "pathology_group": "GINECOLOGIA",
+  "treatments": [
+    {
+      "name": "carboplatina AUC 5 + paclitaxel 175 mg/m2",
+      "start_date": "2025-06-01",
+      "end_date": "2025-06-01",
+      "control": "Toxicidades durante a quimio: neuropatia periférica G1, alopecia C2, sem necessidade de dose-modificação."
+    },
+    {
+      "name": "olaparibe 300 mg via oral duas vezes ao dia",
+      "start_date": "2025-07-05",
+      "end_date": null,
+      "control": "Monitorização de hemograma completo a cada 4 semanas e função renal mensal."
+    }
+  ],
+  "control": "Próxima consulta oncológica 20-07-2025 - avaliação clínica, CA-125 e revisão de toxicidades. Controle de sangue programado para 12-07-2025. Avaliação com psicologia oncológica 27-06-2025 - apoio à ansiedade e estratégias de coping. Encaminhamento ao serviço de genética para atualização familiar 02-08-2025."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_14.txt
+{
+  "age_or_birthdate": 77,
+  "gender": "masculino",
+  "ecog_ps": 2,
+  "diagnosis": "Carcinoma urotelial de bexiga, alto grau",
+  "diagnosis_date": null,
+  "molecular_status": null,
+  "stage": "cT2N1M0, estágio IIIA",
+  "pathology_group": "digestivo",
+  "treatments": [
+    {
+      "name": "Gemcitabina 1000 mg/m2 d1,8 + Cisplatina 70 mg/m2 d1",
+      "start_date": "2025-03-05",
+      "end_date": "2025-06-15"
+    }
+  ],
+  "control": "Sem febre"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_15.txt
+{
+  "age_or_birthdate": 61,
+  "gender": "masculino",
+  "ecog_ps": 1,
+  "diagnosis": "carcinoma de células claras de rim, grau 3, estágio cT3aN1M1 (IV), PD-L1 positivo",
+  "diagnosis_date": "2025-01-05",
+  "molecular_status": "PD-L1 positivo",
+  "stage": "cT3aN1M1 (IV)",
+  "pathology_group": null,
+  "treatments": [
+    {
+      "name": "Nivolumab 240 mg iv a cada 2 semanas + Cabozantinib 40 mg oral diário",
+      "start_date": "2025-01-25",
+      "end_date": null
+    }
+  ],
+  "control": "Próxima consulta: 2025-08-10. Planeia-se novo TC TAP em 2025-09-10 para reavaliação radiológica."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_16.txt
+{
+  "age_or_birthdate": 49,
+  "gender": "female",
+  "ecog_ps": 0,
+  "diagnosis": "PE - MELANOMA PALIATIVO BRAF V600E",
+  "diagnosis_date": null,
+  "molecular_status": "BRAF V600E mutado, PD-L1 70 % positivo",
+  "stage": "cT4bN2M1a (IV)",
+  "pathology_group": "pele",
+  "treatments": [
+    {
+      "name": "Nivolumab 480 mg q4 semanas",
+      "start_date": "01-07-2025",
+      "end_date": null,
+      "control": "doença estável (SD) após 9 ciclos de manutenção"
+    },
+    {
+      "name": "Dabrafenibe 150 mg PO BID + Trametinibe 2 mg PO BID",
+      "start_date": "15-02-2026",
+      "end_date": null,
+      "control": "redução de SUV dos nódulos pulmonares (de 9,2 para 4,5) e diminuição volumétrica de 20 %, ECOG-PS 0"
+    }
+  ],
+  "control": null
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_17.txt
+{
+  "age_or_birthdate": 73,
+  "gender": "male",
+  "ecog_ps": 1,
+  "diagnosis": "Adenocarcinoma gástrico pouco diferenciado",
+  "diagnosis_date": "2025-01-15",
+  "molecular_status": "HER2 3+ (imunohistoquímica), PD-L1 CPS 10",
+  "stage": "IV",
+  "pathology_group": "digestivo",
+  "treatments": [
+    {
+      "name": "FOLFOX + Trastuzumab",
+      "start_date": "2025-01-30",
+      "end_date": "2025-07-01"
+    },
+    {
+      "name": "Trastuzumab manutenção",
+      "start_date": "2025-07-08",
+      "end_date": "2025-12-12"
+    },
+    {
+      "name": "Trastuzumab-deruxtecan (T-DXd)",
+      "start_date": "2026-01-15",
+      "end_date": null
+    }
+  ],
+  "control": "progressão hepática confirmada 12-12-2025"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_18.txt
+{
+  "age_or_birthdate": 57,
+  "gender": "female",
+  "ecog_ps": 0,
+  "diagnosis": "OM - CARCINOMA ENDOMETRIO",
+  "diagnosis_date": "2025-02-22",
+  "molecular_status": "MMRd",
+  "stage": "IIIC",
+  "pathology_group": "GINECOLOGIA",
+  "treatments": [
+    {
+      "name": "Carboplatin + Paclitaxel",
+      "start_date": "2025-03-15",
+      "end_date": "2025-07-01"
+    },
+    {
+      "name": "Radiotherapy",
+      "start_date": "2025-07-20",
+      "end_date": "2025-08-25"
+    }
+  ],
+  "control": "Estado clínico estável, sem evidência de doença residual. Toxicidades de baixa gravidade, manejáveis e não requerem intervenção farmacológica adicional."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_19.txt
+{
+  "age_or_birthdate": 62,
+  "gender": "masculino",
+  "ecog_ps": 1,
+  "diagnosis": "Carcinoma escamoso de orofaringe",
+  "diagnosis_date": "2025-01-10",
+  "molecular_status": "HPV positivo, PD-L1 CPS 30",
+  "stage": "cT2N2M0 - IVA",
+  "pathology_group": "cabeca_pescoco",
+  "treatments": [
+    {
+      "name": "cisplatina 100 mg/m2 + radioterpia 70 Gy/35 fracionamentos",
+      "start_date": "2025-02-01",
+      "end_date": "2025-03-20"
+    }
+  ],
+  "control": "resposta parcial, sem evidência de doença residual significativa"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_20.txt
+{
+  "age_or_birthdate": 54,
+  "gender": "feminino",
+  "ecog_ps": 1,
+  "diagnosis": "colangiocarcinoma intra-hepático, moderadamente diferenciado, cT3 N1 M1 (estádio IV) com metástases peritoneais",
+  "diagnosis_date": null,
+  "molecular_status": "fusão FGFR2 positiva; HER2 negativo; PD-L1 negativo",
+  "stage": "IV",
+  "pathology_group": "digestivo",
+  "treatments": [
+    {
+      "name": "quimioterapia de 1a linha (Gemcitabina 1000 mg/m2 d1-8 + Cisplatina 25 mg/m2 d1-2 + Durvalumab 1500 mg q4 semanas)",
+      "start_date": "2025-03-25",
+      "end_date": "2025-08-01"
+    },
+    {
+      "name": "Pemigatinib 13,5 mg via oral, 21 dias on / 7 dias off",
+      "start_date": "2025-08-24",
+      "end_date": null
+    }
+  ],
+  "control": "doença estável no sítio hepático, porém progressão peritoneal compatível com falha da combinação quimio-imunoterapia"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_21.txt
+{
+  "age_or_birthdate": 67,
+  "gender": "female",
+  "ecog_ps": 1,
+  "diagnosis": "Adenocarcinoma ductal de pâncreas G2, cT4N1M1 (estádio IV)",
+  "diagnosis_date": "2025-02-08",
+  "molecular_status": "KRAS G12R mutado, HER2 negativo, PD-L1 negativo, BRCA negativo",
+  "stage": "IV",
+  "pathology_group": "digestivo",
+  "treatments": [
+    {
+      "name": "mFOLFIRINOX",
+      "start_date": "2025-02-20",
+      "end_date": "2025-08-01"
+    }
+  ],
+  "control": "TC-TAP de 10-08-2025 mostra lesões hepáticas estáveis em tamanho, sem nova lesão pulmonar ou linfonodal; massa pancreática sem aumento de volume. CA19-9 212 U/mL (pré-tratamento 845 U/mL). Funções hepáticas e renais dentro dos limites."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_22.txt
+{
+  "age_or_birthdate": 46,
+  "gender": "male",
+  "ecog_ps": 0,
+  "diagnosis": "seminoma testicular direito, pT2N2M0 (estádio IIB)",
+  "diagnosis_date": "2025-01-15",
+  "molecular_status": null,
+  "stage": "IIB",
+  "pathology_group": null,
+  "treatments": [
+    {
+      "name": "Etoposido + Cisplatina",
+      "start_date": "2025-02-01",
+      "end_date": "2025-04-01"
+    }
+  ],
+  "control": "regressão completa das adenopatias retroperitoneais, marcadores tumorais normais"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_23.txt
+{
+  "age_or_birthdate": 75,
+  "gender": "female",
+  "ecog_ps": 2,
+  "diagnosis": "OM - ESOFAGO ADENOCARCINOMA NEOADJUVANTE",
+  "diagnosis_date": "2025-03-02",
+  "molecular_status": "HER2 3+ (IHC), PD-L1 CPS 8",
+  "stage": "III",
+  "pathology_group": "digestivo",
+  "treatments": [
+    {
+      "name": "Carboplatina AUC 5 + Paclitaxel 175 mg/m2 + RT conformacional 41,4 Gy/23 frações",
+      "start_date": "2025-03-20",
+      "end_date": "2025-04-30"
+    }
+  ],
+  "control": "melhora da disfagia, tolera dieta pastosa, peso estável (61 kg). ECOG-PS mantém-se 2. Sem febre."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_24.txt
+{
+  "age_or_birthdate": 60,
+  "gender": "masculino",
+  "ecog_ps": 0,
+  "diagnosis": "carcinoma medular da tiróide",
+  "diagnosis_date": null,
+  "molecular_status": "mutação RET positiva, HER2-negativo",
+  "stage": "IVA",
+  "pathology_group": null,
+  "treatments": [],
+  "control": "Marcadores tumorais negativos, imagem sem sinais de recidiva"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_25.txt
+{
+  "age_or_birthdate": 58,
+  "gender": "female",
+  "ecog_ps": 0,
+  "diagnosis": "Tumor neuroendócrino pancreático bem diferenciado G2",
+  "diagnosis_date": null,
+  "molecular_status": "Chromogranina+, Synaptophysin+, Ki-67 8%, HER2-, PD-L1-, NGS sem alterações acionáveis, MEN1-",
+  "stage": "cT2N1M1 - Estádio IV com metastases hepáticas",
+  "pathology_group": "tne",
+  "treatments": [
+    {
+      "name": "PRRT (177Lu-DOTATATE)",
+      "start_date": "05-01-2026",
+      "end_date": null
+    },
+    {
+      "name": "Lanreotida",
+      "start_date": "05-01-2026",
+      "end_date": null
+    }
+  ],
+  "control": "PET-DOTATATE 15-07-2026: captação residual baixa nas lesões hepáticas, SUV < 3, sem evidência de novo foco. CgA 185 ng/mL. TC abdome 20-07-2026: lesões hepáticas < 1 cm, sem crescimento; pâncreas 2,9 cm, sem invasão vascular. ECOG-PS mantido em 0."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_26.txt
+{
+  "age_or_birthdate": 69,
+  "gender": "masculino",
+  "ecog_ps": 1,
+  "diagnosis": "OM - HEPATOCARCINOMA BCLC C",
+  "diagnosis_date": "2025-02-02",
+  "molecular_status": "PD-L1 CPS 15",
+  "stage": "cT3N0M1 (estádio IV)",
+  "pathology_group": "digestivo",
+  "treatments": [
+    {
+      "name": "Atezolizumabe + Bevacizumabe",
+      "start_date": "2025-02-20",
+      "end_date": null
+    }
+  ],
+  "control": "Proteinúria grau 1, monitorizada. Avaliação nefrológica em 10-07-2025."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_27.txt
+{
+  "age_or_birthdate": 42,
+  "gender": "masculino",
+  "ecog_ps": 0,
+  "diagnosis": "Sarcoma pleomórfico indiferenciado",
+  "diagnosis_date": "2025-01-20",
+  "molecular_status": null,
+  "stage": "III",
+  "pathology_group": null,
+  "treatments": [
+    {
+      "name": "Radioterapia",
+      "start_date": "2025-04-01",
+      "end_date": "2025-05-20"
+    }
+  ],
+  "control": "Toxicidade: dermatite G1. ECOG 0. TC torácica programada. Próxima consulta: 10-11-2025."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_28.txt
+{
+  "age_or_birthdate": 50,
+  "gender": "female",
+  "ecog_ps": 1,
+  "diagnosis": "OM - CARCINOMA COLO DO ÚTERO",
+  "diagnosis_date": "2025-01-25",
+  "molecular_status": null,
+  "stage": "IIIC1",
+  "pathology_group": "GINECOLOGIA",
+  "treatments": [
+    {
+      "name": "Quimiorradioterapia com cisplatina semanal concomitante com radioterapia",
+      "start_date": "2025-02-15",
+      "end_date": null
+    }
+  ],
+  "control": "A paciente está agendada para uma consulta de acompanhamento em 1 de outubro de 2025 para avaliar a resposta ao tratamento e discutir as opções de seguimento."
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_29.txt
+{
+  "age_or_birthdate": 68,
+  "gender": "masculino",
+  "ecog_ps": 1,
+  "diagnosis": "Linfoma difuso de grandes células B",
+  "diagnosis_date": "2025-01-05",
+  "molecular_status": "MYC negativo",
+  "stage": "III",
+  "pathology_group": "oncologia_pediatrica",
+  "treatments": [
+    {
+      "name": "R-CHOP",
+      "start_date": "2025-01-20",
+      "end_date": null
+    }
+  ],
+  "control": "Resposta parcial à terapêutica conforme avaliado por PET-CT em 15-04-2025"
+}
+
+Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_30.txt
+{
+  "age_or_birthdate": 55,
+  "gender": "female",
+  "ecog_ps": 1,
+  "diagnosis": "PN - TIMOMA MALIGNO",
+  "diagnosis_date": "2025-02-14",
+  "molecular_status": null,
+  "stage": "IVA",
+  "pathology_group": "pneumologia",
+  "treatments": [
+    {
+      "name": "CAP (Cisplatina + Doxorrubicina + Ciclofosfamida)",
+      "start_date": "2025-03-01",
+      "end_date": "2025-07-01"
+    }
+  ],
+  "control": "A paciente apresenta uma boa resposta ao tratamento, com melhoria dos sintomas."
+}
+
