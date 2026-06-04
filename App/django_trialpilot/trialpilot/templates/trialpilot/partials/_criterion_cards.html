@@ -1,0 +1,69 @@
+{# trialpilot/_criterion_cards.html #}
+{% for c in criteria %}
+<div
+    class="small mb-2 p-2 border rounded criterion-card"
+    data-type="{{ c.criterion_type|default:'inclusion' }}"
+    data-result="{{ c.result|yesno:'true,false' }}"
+    data-text="{{ c.criterion }}"
+    data-cohort-id="{{ cohort_id|default:'' }}"
+>
+    <div class="criterion-header-content">
+        {% if c.result %}
+            {% if c.criterion_type == "exclusion" %}
+                <i class="criterion-status-icon bi bi-exclamation-circle-fill text-danger"></i>
+                <strong>Triggered:</strong> {{ c.criterion }}
+            {% else %}
+                <i class="criterion-status-icon bi bi-check-circle-fill text-success"></i>
+                <strong>{{ c.criterion }}</strong>
+            {% endif %}
+        {% else %}
+            {% if c.criterion_type == "exclusion" %}
+                <i class="criterion-status-icon bi bi-check-circle-fill text-success"></i>
+                {{ c.criterion }}
+            {% else %}
+                <i class="criterion-status-icon bi bi-x-circle-fill text-danger"></i>
+                <strong>{{ c.criterion }}</strong>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="text-muted small ms-4">
+        {% for e in c.evidences %}
+        <div class="mb-1">
+            <div><strong>{{ e.field|title }}</strong></div>
+            <div>
+                {% if e.patient_value is not None %}
+                    Patient: <strong>{{ e.patient_value }}{% if e.patient_unit %} {{ e.patient_unit }}{% endif %}</strong>
+                {% else %}
+                    Patient: <span class="text-muted fst-italic">Not available</span>
+                {% endif %}
+                {{ e.operator }}
+                Expected: <strong>{{ e.expected_value }}{% if e.expected_unit %} {{ e.expected_unit }}{% endif %}</strong>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if c.llm_justification %}
+    <div class="mt-2 p-2 border-start border-3 border-info bg-white small text-muted">
+        <strong>LLM Justification:</strong>
+        <div class="mt-1">{{ c.llm_justification }}</div>
+    </div>
+    {% endif %}
+
+    <div class="criterion-actions mt-3">
+        <button type="button" class="decision-btn pass-btn"
+            onclick="setCriterionOverride('{{ patient_id }}', '{{ c.id }}', 'pass', this)">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Mark as Pass</span>
+        </button>
+        <button type="button" class="decision-btn fail-btn"
+            onclick="setCriterionOverride('{{ patient_id }}', '{{ c.id }}', 'fail', this)">
+            <i class="bi bi-x-circle-fill"></i>
+            <span>Mark as Fail</span>
+        </button>
+    </div>
+</div>
+{% empty %}
+<p class="text-muted small fst-italic">No criteria.</p>
+{% endfor %}

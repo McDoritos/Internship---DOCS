@@ -66,7 +66,7 @@ NORMALIZATION_FILES = list(NORMALIZATION_DIR.glob("normalization-sheet*.csv"))
 PATIENT_TEXT_CACHE = {}
 
 CLIENT = Groq(api_key=GROQ_KEY)
-MODEL = "llama-3.3-70b-versatile" # llama-3.3-70b-versatile, openai/gpt-oss-120b
+MODEL = "openai/gpt-oss-120b" # llama-3.3-70b-versatile, openai/gpt-oss-120b
 TEMP = 0.7
 
 DIAGNOSIS_OPTIONS = {
@@ -1539,109 +1539,130 @@ def patient_matching_step(patient, trial, trial_criteria):
     match_obj, _ = Patient_trial_match.objects.get_or_create(
         patient=patient,
         trial=trial,
-        defaults={
-            "decision": Patient_trial_match.Decision.INCONCLUSIVE
-        }
+        defaults={"decision": Patient_trial_match.Decision.INCONCLUSIVE}
     )
 
-    inclusion_results = []
-    exclusion_results = []
-
-    inclusion_details = []
-    exclusion_details = []
+    general_criteria = []
+    cohort_criteria_map = {}
 
     for c in trial_criteria:
+        if c.cohort is None:
+            general_criteria.append(c)
+        else:
+            cid = c.cohort.id
+            if cid not in cohort_criteria_map:
+                cohort_criteria_map[cid] = {"cohort": c.cohort, "criteria": []}
+            cohort_criteria_map[cid]["criteria"].append(c)
+            
+    def evaluate_criteria_list(criteria):
+        inclusion_results, exclusion_results = [], []
+        inclusion_details, exclusion_details = [], []
 
-        logic = c.logic.validated_logic
+        for c in criteria:
+            logic = c.logic.validated_logic if hasattr(c, "logic") and c.logic else None
+            if not logic:
+                continue
 
-        if not logic:
-            continue
+            evaluation = evaluate_condition(patient, logic)
+            auto_result = evaluation["result"]
+            justification = evaluation["justification"]
+            evaluation_method = evaluation["method"]
 
-        evaluation = evaluate_condition(patient, logic)
-
-        auto_result = evaluation["result"]
-        justification = evaluation["justification"]
-        evaluation_method = evaluation["method"]
-
-        Criterion_evaluation.objects.update_or_create(
-            match=match_obj,
-            criterion=c,
-            defaults={
-                "automatic_result": (
-                    Criterion_evaluation.EvaluationChoices.PASS
-                    if auto_result
-                    else Criterion_evaluation.EvaluationChoices.FAIL
-                ),
-
-                "evaluation_method": evaluation_method,
-
-                "llm_justification": justification
-            }
-        )
-        
-        manual_eval = Criterion_evaluation.objects.filter(
-            match=match_obj,
-            criterion=c
-        ).first()
-
-        final_result = auto_result
-        manual_override = False
-
-        if manual_eval and manual_eval.manual_result:
-            manual_override = True
-            final_result = (
-                manual_eval.manual_result ==
-                Criterion_evaluation.EvaluationChoices.PASS
+            Criterion_evaluation.objects.update_or_create(
+                match=match_obj,
+                criterion=c,
+                defaults={
+                    "automatic_result": (
+                        Criterion_evaluation.EvaluationChoices.PASS
+                        if auto_result
+                        else Criterion_evaluation.EvaluationChoices.FAIL
+                    ),
+                    "evaluation_method": evaluation_method,
+                    "llm_justification": justification,
+                }
             )
 
-        evidences = extract_evidence(patient, logic)
+            manual_eval = Criterion_evaluation.objects.filter(
+                match=match_obj, criterion=c
+            ).first()
 
-        detail = {
-            "id": c.id,
-            "criterion": c.raw_criterion,
-            "logic": logic,
+            final_result = auto_result
+            manual_override = False
 
-            "result": final_result,
+            if manual_eval and manual_eval.manual_result:
+                manual_override = True
+                final_result = (
+                    manual_eval.manual_result == Criterion_evaluation.EvaluationChoices.PASS
+                )
 
-            "auto_result": auto_result,
+            detail = {
+                "id": c.id,
+                "criterion": c.raw_criterion,
+                "logic": logic,
+                "result": final_result,
+                "auto_result": auto_result,
+                "manual_override": manual_override,
+                "manual_result": manual_eval.manual_result if manual_eval else None,
+                "evidences": extract_evidence(patient, logic),
+                "evaluation_method": evaluation_method,
+                "criterion_type": c.type,
+                "llm_justification": justification,
+            }
 
-            "manual_override": manual_override,
+            if c.type == "inclusion":
+                inclusion_results.append(final_result)
+                inclusion_details.append(detail)
+            elif c.type == "exclusion":
+                exclusion_results.append(final_result)
+                exclusion_details.append(detail)
 
-            "manual_result": (
-                manual_eval.manual_result
-                if manual_eval else None
-            ),
-
-            "evidences": evidences,
-
-            "evaluation_method": evaluation_method,
-
-            "llm_justification": justification
+        return {
+            "eligible": all(inclusion_results) and not any(exclusion_results),
+            "inclusion_passed": sum(inclusion_results),
+            "inclusion_total": len(inclusion_results),
+            "exclusion_triggered": sum(exclusion_results),
+            "inclusion_details": inclusion_details,
+            "exclusion_details": exclusion_details,
         }
 
-        if c.type == "inclusion":
-            inclusion_results.append(final_result)
-            inclusion_details.append(detail)
+    general_result = evaluate_criteria_list(general_criteria)
+    general_passes = general_result["eligible"]
 
-        elif c.type == "exclusion":
-            exclusion_results.append(final_result)
-            exclusion_details.append(detail)
+    cohort_results = {}
+    eligible_cohorts = []
 
-    is_eligible = (
-        all(inclusion_results)
-        and
-        not any(exclusion_results)
-    )
+    for cid, data in cohort_criteria_map.items():
+        cohort_result = evaluate_criteria_list(data["criteria"])
+        cohort_result["cohort_name"] = data["cohort"].name
+        cohort_result["cohort_id"] = data["cohort"].cohort_id
+        cohort_results[cid] = cohort_result
+
+        if general_passes and cohort_result["eligible"]:
+            eligible_cohorts.append({
+                "id": cid,
+                "cohort_id": data["cohort"].cohort_id,
+                "name": data["cohort"].name,
+            })
+
+    has_cohorts = bool(cohort_criteria_map)
+
+    if has_cohorts:
+        is_eligible = general_passes and bool(eligible_cohorts)
+    else:
+        is_eligible = general_passes
 
     return {
         "eligible": is_eligible,
-        "inclusion_passed": sum(inclusion_results),
-        "inclusion_total": len(inclusion_results),
-        "exclusion_triggered": sum(exclusion_results),
-        "inclusion_details": inclusion_details,
-        "exclusion_details": exclusion_details
+        "inclusion_passed": general_result["inclusion_passed"],
+        "inclusion_total": general_result["inclusion_total"],
+        "exclusion_triggered": general_result["exclusion_triggered"],
+        "inclusion_details": general_result["inclusion_details"],
+        "exclusion_details": general_result["exclusion_details"],
+        "has_cohorts": has_cohorts,
+        "eligible_cohorts": eligible_cohorts,
+        "cohort_results": cohort_results,
     }
-    
+        
 def extract_evidence(patient, logic):
     evidences = []
 
@@ -2373,10 +2394,31 @@ def trial_details(request, trial_id):
    
     versions = Version.objects.filter(document=trial)
     
+    clinical_trial = ClinicalTrial.objects.get(
+        document=trial
+    )
+    
+    cohorts = Trial_cohort.objects.filter(
+        clinical_trial=clinical_trial
+    ).order_by("id")
+
+    for cohort in cohorts:
+        cohort.inclusion_count = Trial_criteria.objects.filter(
+            cohort=cohort,
+            type=Trial_criteria.CriterionType.INCLUSION
+        ).count()
+
+        cohort.exclusion_count = Trial_criteria.objects.filter(
+            cohort=cohort,
+            type=Trial_criteria.CriterionType.EXCLUSION
+        ).count()
+
     matches = Patient_trial_match.objects.filter(
         trial=trial
     ).select_related("patient")
-    
+
+    has_cohorts = cohorts.exists()
+
     for match in matches:
 
         inclusion_total = 0
@@ -2386,8 +2428,10 @@ def trial_details(request, trial_id):
         inclusion_details = []
         exclusion_details = []
 
+        cohort_results = {}
+
         evaluations = match.criterion_evaluations.select_related(
-            "criterion"
+            "criterion__cohort"
         )
 
         for evaluation in evaluations:
@@ -2406,42 +2450,68 @@ def trial_details(request, trial_id):
                     or criterion.raw_criterion
                 ),
                 "result": result,
-                "justification": (
-                    evaluation.llm_justification
-                ),
-                "manual_override": (
-                    evaluation.manual_result is not None
-                )
+                "justification": evaluation.llm_justification,
+                "manual_override": evaluation.manual_result is not None
             }
 
-            # INCLUSION
-            if criterion.type == "inclusion":
+            if criterion.cohort is None:
+                # Critério geral
+                if criterion.type == "inclusion":
+                    inclusion_total += 1
+                    if result == Criterion_evaluation.EvaluationChoices.PASS:
+                        inclusion_passed += 1
+                    inclusion_details.append(detail)
 
-                inclusion_total += 1
+                elif criterion.type == "exclusion":
+                    if result == Criterion_evaluation.EvaluationChoices.PASS:
+                        exclusion_triggered += 1
+                    exclusion_details.append(detail)
 
-                if result == Criterion_evaluation.EvaluationChoices.PASS:
-                    inclusion_passed += 1
+            else:
+                # Critério de cohort
+                cid = criterion.cohort.id
 
-                inclusion_details.append(detail)
+                if cid not in cohort_results:
+                    cohort_results[cid] = {
+                        "cohort_name": criterion.cohort.name,
+                        "cohort_id": criterion.cohort.cohort_id,
+                        "inclusion_total": 0,
+                        "inclusion_passed": 0,
+                        "exclusion_triggered": 0,
+                        "inclusion_details": [],
+                        "exclusion_details": [],
+                    }
 
-            # EXCLUSION
-            elif criterion.type == "exclusion":
+                if criterion.type == "inclusion":
+                    cohort_results[cid]["inclusion_total"] += 1
+                    if result == Criterion_evaluation.EvaluationChoices.PASS:
+                        cohort_results[cid]["inclusion_passed"] += 1
+                    cohort_results[cid]["inclusion_details"].append(detail)
 
-                if result == Criterion_evaluation.EvaluationChoices.PASS:
-                    exclusion_triggered += 1
+                elif criterion.type == "exclusion":
+                    if result == Criterion_evaluation.EvaluationChoices.PASS:
+                        cohort_results[cid]["exclusion_triggered"] += 1
+                    cohort_results[cid]["exclusion_details"].append(detail)
 
-                exclusion_details.append(detail)
+        # Calcular elegibilidade por cohort
+        eligible_cohorts = []
+        for cid, data in cohort_results.items():
+            cohort_eligible = (
+                data["inclusion_passed"] == data["inclusion_total"]
+                and data["exclusion_triggered"] == 0
+            )
+            data["eligible"] = cohort_eligible
+            if cohort_eligible:
+                eligible_cohorts.append(data["cohort_name"])
 
         match.inclusion_total = inclusion_total
         match.inclusion_passed = inclusion_passed
         match.exclusion_triggered = exclusion_triggered
-
         match.inclusion_details = inclusion_details
         match.exclusion_details = exclusion_details
-    
-    clinical_trial = ClinicalTrial.objects.get(
-        document=trial
-    )
+        match.has_cohorts = has_cohorts
+        match.cohort_results = cohort_results
+        match.eligible_cohorts = eligible_cohorts
     
     return render(request, "trialpilot/trial_details.html", {
         "trial": trial,
@@ -2450,6 +2520,7 @@ def trial_details(request, trial_id):
         "inclusion_criteria": inclusion_criteria,
         "exclusion_criteria": exclusion_criteria,
         "matches": matches,
+        "cohorts": cohorts,
         "clinical_trial":clinical_trial
         
     })
@@ -3201,9 +3272,9 @@ def criteria_conversion(request, trial_id):
                 ]
             }
             
-            #converted_logic = criteria_conversion_step(criteria_payload)
-            converted_logic = build_dummy_conversion(criteria_payload)
-            dummy = True
+            converted_logic = criteria_conversion_step(criteria_payload)
+            #converted_logic = build_dummy_conversion(criteria_payload)
+            dummy = False
             
             if dummy:
                 sleep(5) 

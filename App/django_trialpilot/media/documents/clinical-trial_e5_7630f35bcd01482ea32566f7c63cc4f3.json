@@ -1,0 +1,764 @@
+{
+  "inclusion_criteria": [
+    {
+      "id": 4363,
+      "text": "Males and females ≥ 18 years of age",
+      "logic": {
+        "field": "age",
+        "operator": ">=",
+        "value": "18"
+      }
+    },
+    {
+      "id": 4364,
+      "text": "Have locally advanced or metastatic histologically or cytologically confirmed NSCLC, KRAS G12C-mutated",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "KRAS G12C-mutated"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4365,
+      "text": "The presence of a KRAS G12C mutation should be established prior to entry as assessed in a CLIA qualified laboratory.",
+      "logic": {
+        "field": "kras_g12c_mutation_status",
+        "operator": "=",
+        "value": "detected"
+      }
+    },
+    {
+      "id": 4366,
+      "text": "Testing may be done on tumor tissue (archival or fresh) or on ctDNA from blood.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "tumor_tissue_test",
+            "operator": "=",
+            "value": "performed"
+          },
+          {
+            "field": "ctdna_from_blood_test",
+            "operator": "=",
+            "value": "performed"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4367,
+      "text": "Have received at least 1 prior line of cancer therapy with a PD-1 or PD-L1 inhibitor with or without platinum-based chemotherapy (unless subject is not eligible or refuses chemotherapy or PD-1/PD-L1 therapy and have documented progression on all prior cancer therapies",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "prior_cancer_therapy",
+            "operator": ">=",
+            "value": "1"
+          },
+          {
+            "field": "prior_therapy_type",
+            "operator": "IN",
+            "value": "PD-1 or PD-L1 inhibitor"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4368,
+      "text": "Measurable disease by Response Evaluation Criteria in Solid Tumors (RECIST) 1.1",
+      "logic": {
+        "field": "measurable_disease",
+        "operator": "=",
+        "value": "yes"
+      }
+    },
+    {
+      "id": 4369,
+      "text": "Have discontinued previous treatments for cancer, except for sotorasib for subjects to receive VIC-1911 plus sotorasib combination treatment, and have resolution, except where otherwise stated in the inclusion criteria, of all clinically significant toxic effects of prior cancer treatment, surgery, or radiotherapy to Grade ≤ 1",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "prior_treatment_discontinued",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "toxic_effects_resolved",
+            "operator": "<=",
+            "value": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4370,
+      "text": "Adequate performance status: Eastern Cooperative Oncology Group (ECOG) ≤ 2",
+      "logic": {
+        "field": "ecog_ps",
+        "operator": "<=",
+        "value": "2"
+      }
+    },
+    {
+      "id": 4371,
+      "text": "Life expectancy of ≥ 3 months",
+      "logic": {
+        "field": "life_expectancy",
+        "operator": ">=",
+        "value": "3"
+      }
+    },
+    {
+      "id": 4372,
+      "text": "Subjects with brain metastases: 11.1 KRAS G12C inhibitor naïve: Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases are allowed without prior local therapy, as long as all lesions are each ≤ 1 cm.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "brain_metastases_stable",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "brain_metastases_asymptomatic",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "brain_metastases_size",
+            "operator": "<=",
+            "value": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4373,
+      "text": "Prior local therapy is required (e.g., stereotactic radiosurgery [SRS], stereotactic body radiation therapy [SBRT], or surgery) for any lesion > 1 cm or any lesion that is symptomatic.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "prior_local_therapy",
+            "operator": "=",
+            "value": "required"
+          },
+          {
+            "unmapped": true,
+            "source_text": "for any lesion > 1 cm or any lesion that is symptomatic"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4374,
+      "text": "Subjects must be clinically stable and asymptomatic following local therapy.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "clinical_stability",
+            "operator": "=",
+            "value": "stable"
+          },
+          {
+            "field": "symptomatic_status",
+            "operator": "=",
+            "value": "asymptomatic"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4375,
+      "text": "11.2 KRAS G12C inhibitor pretreated: Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases following prior local therapy (e.g., SRS, SBRT or surgery) are allowed.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "kras_g12c_inhibitor_pretreatment",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "clinical_stability",
+            "operator": "=",
+            "value": "stable"
+          },
+          {
+            "field": "symptomatic_status",
+            "operator": "=",
+            "value": "asymptomatic"
+          },
+          {
+            "unmapped": true,
+            "source_text": "no increase in corticosteroid requirement"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4376,
+      "text": "Adequate hematologic without ongoing transfusion support: Hemoglobin (Hb) ≥ 8 g/dL",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "8",
+            "unit": "g/dL"
+          },
+          {
+            "unmapped": true,
+            "source_text": "without ongoing transfusion support"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4377,
+      "text": "Absolute neutrophil count (ANC) ≥ 1.0 x 10^9 cells/L",
+      "logic": {
+        "field": "neutrofilos",
+        "operator": ">=",
+        "value": "1.0",
+        "unit": "x 10^9 cells/L"
+      }
+    },
+    {
+      "id": 4378,
+      "text": "Platelets ≥ 75 x 10^9 cells/L",
+      "logic": {
+        "field": "plaquetas",
+        "operator": ">=",
+        "value": "75",
+        "unit": "x 10^9 cells/L"
+      }
+    },
+    {
+      "id": 4379,
+      "text": "Adequate renal and hepatic function: Calculated creatinine clearance ≥ 50 mL/minute x 1.73 m2 per the Cockcroft-Gault formula",
+      "logic": {
+        "field": "creatinina_limiar",
+        "operator": ">=",
+        "value": "50",
+        "unit": "mL/minute x 1.73 m2"
+      }
+    },
+    {
+      "id": 4380,
+      "text": "Total bilirubin ≤ 1.5 times the ULN, unless due to Gilbert's disease, or < 3 times the ULN for subjects with liver metastases",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5",
+            "unit": "times the ULN"
+          },
+          {
+            "field": "bilirrubina_total",
+            "operator": "<",
+            "value": "3",
+            "unit": "times the ULN"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4381,
+      "text": "ALT/AST ≤ 2 times the ULN, or < 3 times the ULN for subjects with liver metastases",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "alt",
+            "operator": "<=",
+            "value": "2",
+            "unit": "times the ULN"
+          },
+          {
+            "field": "ast",
+            "operator": "<=",
+            "value": "2",
+            "unit": "times the ULN"
+          },
+          {
+            "field": "alt",
+            "operator": "<",
+            "value": "3",
+            "unit": "times the ULN"
+          },
+          {
+            "field": "ast",
+            "operator": "<",
+            "value": "3",
+            "unit": "times the ULN"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4382,
+      "text": "Negative serum pregnancy test within 14 days prior to the first dose of study therapy for women of child-bearing potential (WCBP).",
+      "logic": {
+        "field": "teste_gravidez",
+        "operator": "=",
+        "value": "negativo"
+      }
+    },
+    {
+      "id": 4383,
+      "text": "Sexually active WCBP and male subjects must agree to use adequate methods to avoid pregnancy throughout the study and for 28 days after the completion of study treatment.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "gender",
+            "operator": "IN",
+            "value": "male"
+          },
+          {
+            "unmapped": true,
+            "source_text": "Sexually active WCBP and male subjects must agree to use adequate methods to avoid pregnancy throughout the study and for 28 days after the completion of study treatment."
+          }
+        ]
+      }
+    },
+    {
+      "id": 4384,
+      "text": "Ability to proved written informed consent",
+      "logic": {
+        "unmapped": true,
+        "source_text": "Ability to proved written informed consent"
+      }
+    },
+    {
+      "id": 4385,
+      "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "stage",
+            "operator": "IN",
+            "value": "locally advanced or metastatic"
+          },
+          {
+            "field": "prior_therapy",
+            "operator": ">",
+            "value": "0"
+          },
+          {
+            "field": "kras_g12c_inhibitor_therapy",
+            "operator": "=",
+            "value": "relapsed/refractory"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4386,
+      "text": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "prior_therapy",
+            "operator": ">",
+            "value": "0"
+          },
+          {
+            "field": "kras_g12c_inhibitor_therapy",
+            "operator": "=",
+            "value": "relapsed/refractory"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4387,
+      "text": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and Naïve to KRAS G12C inhibitor therapy",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "prior_therapy",
+            "operator": ">",
+            "value": "0"
+          },
+          {
+            "field": "kras_g12c_inhibitor_therapy",
+            "operator": "=",
+            "value": "naive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4390,
+      "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and naïve to KRAS G12C inhibitor therapy",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+          },
+          {
+            "field": "disease_status",
+            "operator": "IN",
+            "value": [
+              "locally_advanced",
+              "metastatic"
+            ]
+          },
+          {
+            "field": "prior_therapy",
+            "operator": ">",
+            "value": "0"
+          },
+          {
+            "field": "kras_g12c_inhibitor_therapy_status",
+            "operator": "=",
+            "value": "naive"
+          }
+        ]
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 4391,
+      "text": "Serious cardiac condition within the last 6 months, such as uncontrolled arrhythmia, myocardial infarction, unstable angina or heart disease defined by the New York Heart Association (NYHA) Class III or Class IV",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "cardiac_condition",
+            "operator": "=",
+            "value": "uncontrolled_arrhythmia"
+          },
+          {
+            "field": "cardiac_condition",
+            "operator": "=",
+            "value": "myocardial_infarction"
+          },
+          {
+            "field": "cardiac_condition",
+            "operator": "=",
+            "value": "unstable_angina"
+          },
+          {
+            "field": "nyha_class",
+            "operator": "IN",
+            "value": [
+              "III",
+              "IV"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 4392,
+      "text": "QT interval corrected for rate (QTc) > 480 msec on the ECG obtained at Screening using Fridericia method for QTc calculation",
+      "logic": {
+        "field": "qt_interval_corrected",
+        "operator": ">",
+        "value": "480",
+        "unit": "msec"
+      }
+    },
+    {
+      "id": 4393,
+      "text": "Medications that are inhibitors or inducers of UDP-glucuronosyltransferases (UGTs) are prohibited in the Dose Escalation Phase",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "medication_ugt_inhibitor",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "medication_ugt_inducer",
+            "operator": "=",
+            "value": "yes"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4394,
+      "text": "History of corneal epithelial cysts or other ocular events leading to blurred vision, or has medically relevant abnormalities identified on screening ophthalmologic examination",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "corneal_epithelial_cysts",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "ocular_events",
+            "operator": "=",
+            "value": "blurred_vision"
+          },
+          {
+            "field": "ophthalmologic_abnormalities",
+            "operator": "=",
+            "value": "medically_relevant"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4395,
+      "text": "Symptomatic pneumonitis/interstitial lung disease requiring medical intervention",
+      "logic": {
+        "field": "pneumonitis_interstitial_lung_disease",
+        "operator": "=",
+        "value": "symptomatic"
+      }
+    },
+    {
+      "id": 4396,
+      "text": "Symptomatic central nervous system metastasis",
+      "logic": {
+        "field": "central_nervous_system_metastasis_status",
+        "operator": "=",
+        "value": "symptomatic"
+      }
+    },
+    {
+      "id": 4397,
+      "text": "Leptomeningeal carcinomatosis",
+      "logic": {
+        "field": "leptomeningeal_carcinomatosis_status",
+        "operator": "=",
+        "value": "present"
+      }
+    },
+    {
+      "id": 4398,
+      "text": "Inability to swallow oral medication",
+      "logic": {
+        "field": "swallowing_ability",
+        "operator": "=",
+        "value": "impaired"
+      }
+    },
+    {
+      "id": 4399,
+      "text": "Gastrointestinal conditions that could impair absorption or tolerance of study drugs",
+      "logic": {
+        "field": "gastrointestinal_condition_status",
+        "operator": "=",
+        "value": "impairing"
+      }
+    },
+    {
+      "id": 4400,
+      "text": "Current hematologic malignancies",
+      "logic": {
+        "field": "hematologic_malignancy_status",
+        "operator": "=",
+        "value": "current"
+      }
+    },
+    {
+      "id": 4401,
+      "text": "Second, active primary solid tumor malignancy that, in the judgement of the Investigator or Sponsor Medical Monitor, may affect the interpretation of results, with the exception of carcinoma in situ of any origin, non-muscle invasive bladder cancer, and Gleason < 3+3 prostate cancer",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "!=",
+            "value": "carcinoma_in_situ"
+          },
+          {
+            "field": "diagnosis",
+            "operator": "!=",
+            "value": "non_muscle_invasive_bladder_cancer"
+          },
+          {
+            "field": "diagnosis",
+            "operator": "!=",
+            "value": "gleason_3_plus_3_prostate_cancer"
+          },
+          {
+            "unmapped": true,
+            "source_text": "Second, active primary solid tumor malignancy that, in the judgement of the Investigator or Sponsor Medical Monitor, may affect the interpretation of results"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4402,
+      "text": "Active infection with human immunodeficiency virus (HIV), hepatitis B virus (HBV) or hepatitis C virus (HCV) requiring treatment within the last week prior to study treatment",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "hiv_status",
+            "operator": "=",
+            "value": "active"
+          },
+          {
+            "field": "hepatitis_b_status",
+            "operator": "=",
+            "value": "active"
+          },
+          {
+            "field": "hepatitis_c_status",
+            "operator": "=",
+            "value": "active"
+          },
+          {
+            "unmapped": true,
+            "source_text": "requiring treatment within the last week prior to study treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4403,
+      "text": "Other active infection requiring IV antibiotic usage within the last week prior to study treatment",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "infection_status",
+            "operator": "=",
+            "value": "active"
+          },
+          {
+            "unmapped": true,
+            "source_text": "requiring IV antibiotic usage within the last week prior to study treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4404,
+      "text": "Unable to tolerate marketed dose of KRAS G12C inhibitor on prior therapy",
+      "logic": {
+        "field": "kras_g12c_inhibitor_tolerance",
+        "operator": "=",
+        "value": "unable"
+      }
+    },
+    {
+      "id": 4407,
+      "text": "Previous MEK or EGFR inhibitor therapy",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "mek_inhibitor"
+          },
+          {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "egfr_inhibitor"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4408,
+      "text": "Any other medical intervention or other condition which, in the opinion of the Principal Investigator, could compromise adherence to study requirements or confound the interpretation of study results",
+      "logic": {
+        "field": "medical_intervention",
+        "operator": "=",
+        "value": "compromising"
+      }
+    },
+    {
+      "id": 4409,
+      "text": "Receipt of an investigational product on a clinical trial within 5 elimination half-lives or within 28 days, whichever is shorter, prior to C1D1 on this study, or currently enrolled in a clinical trial involving an investigational product or any other type of medical research judged not to be scientifically or medically compatible with this study",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "investigational_product_receipt",
+            "operator": "=",
+            "value": "within_5_elimination_half_lives"
+          },
+          {
+            "field": "investigational_product_receipt",
+            "operator": "=",
+            "value": "within_28_days"
+          },
+          {
+            "field": "current_enrollment",
+            "operator": "=",
+            "value": "investigational_product_trial"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4410,
+      "text": "Previously completed or withdrawn from any other study investigating an aurora kinase A inhibitor",
+      "logic": {
+        "field": "prior_study",
+        "operator": "IN",
+        "value": "aurora_kinase_a_inhibitor"
+      }
+    },
+    {
+      "id": 4411,
+      "text": "Known hypersensitivity to VIC-1911 or its components",
+      "logic": {
+        "field": "hypersensitivity_to_vic_1911",
+        "operator": "=",
+        "value": "true"
+      }
+    },
+    {
+      "id": 4412,
+      "text": "If female, pregnant, breast-feeding, or planning to become pregnant",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "gender",
+            "operator": "=",
+            "value": "female"
+          },
+          {
+            "field": "pregnancy_status",
+            "operator": "IN",
+            "value": "pregnant,breast-feeding,planning_to_become_pregnant"
+          }
+        ]
+      }
+    }
+  ]
+}

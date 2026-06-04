@@ -1,5 +1,7 @@
 {% extends "trialpilot/base.html" %}
 
+{% load criteria_filters %}
+
 {% block title %}Clinical Trial Details{% endblock %}
 
 {% block content %}
@@ -46,7 +48,7 @@
         class="btn btn-outline-success px-4 py-2 rounded-pill shadow-sm rounded-ui
         {% if not trial.extracted %} disabled-link {% endif %}">
 
-        <i class="bi bi-card-checklist me-1"></i>
+        <i class="bi bi-card-checklist mr-1"></i>
         Match Patients
 
     </a>
@@ -188,6 +190,56 @@
         </div>
 
     </div>
+    
+    <div class="card mb-4 shadow-sm">
+
+        <div class="card-header">
+            <h5 class="mb-0">
+                Study Cohorts
+            </h5>
+        </div>
+
+        <div class="card-body p-0">
+            {% if cohorts %}
+            <table class="table table-hover mb-0" style="font-size: 14px;">
+                <thead>
+                    <tr class="border-bottom">
+                        <th class="text-muted fw-normal ps-3" style="width: 100px; font-size: 12px;">Cohort</th>
+                        <th class="text-muted fw-normal" style="font-size: 12px;">Name</th>
+                        <th class="text-muted fw-normal text-center" style="width: 140px; font-size: 12px;">Inclusion criteria</th>
+                        <th class="text-muted fw-normal text-center pe-3" style="width: 140px; font-size: 12px;">Exclusion criteria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cohort in cohorts %}
+                    <tr>
+                        <td class="ps-3 align-middle">
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill">
+                                {{ cohort.cohort_id }}
+                            </span>
+                        </td>
+                        <td class="align-middle fw-semibold">{{ cohort.name }}</td>
+                        <td class="align-middle text-center">
+                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">
+                                {{ cohort.inclusion_count }}
+                            </span>
+                        </td>
+                        <td class="align-middle text-center pe-3">
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-3">
+                                {{ cohort.exclusion_count }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="text-muted mb-0 p-3">This trial does not define separate cohorts.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
 
     <!-- DOCUMENT CONTENT -->
     <div class="card mb-4 shadow-sm">
@@ -237,58 +289,200 @@
 
             <!-- Inclusion -->
             <h6 class="text-success mb-3">
-                <i class="bi bi-plus-circle-fill me-1"></i> Inclusion Criteria
+                <i class="bi bi-plus-circle-fill mr-1"></i>
+                Inclusion Criteria
             </h6>
 
-            {% for c in inclusion_criteria %}
-            <div class="border rounded p-3 mb-3">
+            {% if cohorts %}
 
-                <div class="mb-2">
-                    <strong>#{{ forloop.counter }}</strong> —
-                    {{ c.validated_criterion|default:c.raw_criterion }}
+                <!-- GENERAL -->
+                {% with general=inclusion_criteria|filter_cohort:None %}
+                    {% if general %}
+                    <div class="mb-4">
+
+                        <div class="cohort-group-label general-label mb-3">
+                            <i class="bi bi-globe2 mr-1"></i>
+                            General Criteria
+                        </div>
+
+                        {% for c in general %}
+                        <div class="border rounded p-3 mb-3">
+
+                            <div class="mb-2">
+                                <strong>#{{ c.id }}</strong> —
+                                {{ c.validated_criterion|default:c.raw_criterion }}
+                            </div>
+
+                            <div class="bg-light rounded p-2">
+                                <small class="text-muted">Logic</small>
+                                <p class="mb-0">
+                                    {{ c.formatted_logic|default:"No logic available" }}
+                                </p>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    {% endif %}
+                {% endwith %}
+
+                <!-- COHORTS -->
+                {% for cohort in cohorts %}
+
+                <div class="mb-4">
+
+                    <div class="cohort-group-label cohort-label mb-3">
+                        <i class="bi bi-diagram-3 mr-1"></i>
+                        Cohort {{ cohort.cohort_id }} — {{ cohort.name }}
+                    </div>
+
+                    {% for c in inclusion_criteria %}
+                        {% if c.cohort_id == cohort.id %}
+
+                        <div class="border rounded p-3 mb-3">
+
+                            <div class="mb-2">
+                                <strong>#{{ c.id }}</strong> —
+                                {{ c.validated_criterion|default:c.raw_criterion }}
+                            </div>
+
+                            <div class="bg-light rounded p-2">
+                                <small class="text-muted">Logic</small>
+                                <p class="mb-0">
+                                    {{ c.formatted_logic|default:"No logic available" }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+                    {% endfor %}
+
                 </div>
 
-                <!-- LOGIC -->
-                <div class="bg-light rounded p-2">
-                    <small class="text-muted">Logic</small>
-                    <p class="mb-0">
-                        {{ c.formatted_logic|default:"No logic available" }}
-                    </p>
+                {% endfor %}
+
+            {% else %}
+
+                {% for c in inclusion_criteria %}
+                <div class="border rounded p-3 mb-3">
+
+                    <div class="mb-2">
+                        <strong>#{{ c.id }}</strong> —
+                        {{ c.validated_criterion|default:c.raw_criterion }}
+                    </div>
+
+                    <div class="bg-light rounded p-2">
+                        <small class="text-muted">Logic</small>
+                        <p class="mb-0">
+                            {{ c.formatted_logic|default:"No logic available" }}
+                        </p>
+                    </div>
+
                 </div>
+                {% endfor %}
 
-            </div>
-            {% empty %}
-            <p class="text-muted">No inclusion criteria.</p>
-            {% endfor %}
+            {% endif %}
 
-            <hr>
 
             <!-- Exclusion -->
+            <hr>
+
             <h6 class="text-danger mb-3">
-                <i class="bi bi-dash-circle-fill me-1"></i> Exclusion Criteria
+                <i class="bi bi-dash-circle-fill mr-1"></i>
+                Exclusion Criteria
             </h6>
 
-            {% for c in exclusion_criteria %}
-            <div class="border rounded p-3 mb-3">
+            {% if cohorts %}
 
-                <div class="mb-2">
-                    <strong>#{{ forloop.counter }}</strong> —
-                    {{ c.validated_criterion|default:c.raw_criterion }}
+                {% with general=exclusion_criteria|filter_cohort:None %}
+                    {% if general %}
+                    <div class="mb-4">
+
+                        <div class="cohort-group-label general-label mb-3">
+                            <i class="bi bi-globe2 mr-1"></i>
+                            General Criteria
+                        </div>
+
+                        {% for c in general %}
+                        <div class="border rounded p-3 mb-3">
+
+                            <div class="mb-2">
+                                <strong>#{{ c.id }}</strong> —
+                                {{ c.validated_criterion|default:c.raw_criterion }}
+                            </div>
+
+                            <div class="bg-light rounded p-2">
+                                <small class="text-muted">Logic</small>
+                                <p class="mb-0">
+                                    {{ c.formatted_logic|default:"No logic available" }}
+                                </p>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% for cohort in cohorts %}
+
+                <div class="mb-4">
+
+                    <div class="cohort-group-label cohort-label mb-3">
+                        <i class="bi bi-diagram-3 mr-1"></i>
+                        Cohort {{ cohort.cohort_id }} — {{ cohort.name }}
+                    </div>
+
+                    {% for c in exclusion_criteria %}
+                        {% if c.cohort_id == cohort.id %}
+
+                        <div class="border rounded p-3 mb-3">
+
+                            <div class="mb-2">
+                                <strong>#{{ c.id }}</strong> —
+                                {{ c.validated_criterion|default:c.raw_criterion }}
+                            </div>
+
+                            <div class="bg-light rounded p-2">
+                                <small class="text-muted">Logic</small>
+                                <p class="mb-0">
+                                    {{ c.formatted_logic|default:"No logic available" }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+                    {% endfor %}
+
                 </div>
 
-                <!-- LOGIC -->
-                <div class="bg-light rounded p-2">
-                    <small class="text-muted">Logic</small>
-                    <p class="mb-0">
-                        {{ c.formatted_logic|default:"No logic available" }}
-                    </p>
+                {% endfor %}
+
+            {% else %}
+
+                {% for c in exclusion_criteria %}
+                <div class="border rounded p-3 mb-3">
+
+                    <div class="mb-2">
+                        <strong>#{{ c.id }}</strong> —
+                        {{ c.validated_criterion|default:c.raw_criterion }}
+                    </div>
+
+                    <div class="bg-light rounded p-2">
+                        <small class="text-muted">Logic</small>
+                        <p class="mb-0">
+                            {{ c.formatted_logic|default:"No logic available" }}
+                        </p>
+                    </div>
+
                 </div>
+                {% endfor %}
 
-            </div>
-            {% empty %}
-            <p class="text-muted">No exclusion criteria.</p>
-            {% endfor %}
-
+            {% endif %}
         </div>
     </div>
 
@@ -332,28 +526,30 @@
                         <div>
 
                             <div class="d-flex align-items-center gap-2 mb-1">
+                            <h6 class="mb-0 fw-bold mr-2">Patient {{ m.patient.id }}</h6>
 
-                                <h6 class="mb-0 fw-bold mr-2">
-                                    Patient {{ m.patient.id }}
-                                </h6>
+                            {% if m.decision == "eligible" %}
+                            <span class="badge text-white bg-success">Eligible</span>
+                            {% elif m.decision == "ineligible" %}
+                            <span class="badge text-white bg-danger">Ineligible</span>
+                            {% else %}
+                            <span class="badge text-white bg-warning">Inconclusive</span>
+                            {% endif %}
 
-                                {% if m.decision == "eligible" %}
-                                <span class="badge text-white bg-success">
-                                    Eligible
-                                </span>
-
-                                {% elif m.decision == "ineligible" %}
-                                <span class="badge text-white bg-danger">
-                                    Ineligible
-                                </span>
-
+                            {% if m.has_cohorts %}
+                                {% if m.eligible_cohorts %}
+                                    {% for name in m.eligible_cohorts %}
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                        {{ name }}
+                                    </span>
+                                    {% endfor %}
                                 {% else %}
-                                <span class="badge  text-white bg-warning">
-                                    Inconclusive
-                                </span>
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                        No eligible cohort
+                                    </span>
                                 {% endif %}
-
-                            </div>
+                            {% endif %}
+                        </div>
 
                             <div class="text-muted small">
 
@@ -370,15 +566,16 @@
                         <!-- RIGHT METRICS -->
                         <div class="d-flex gap-4">
 
-                            <div class="match-metric">
+                            <div class="match-metric mr-2">
 
                                 <div class="match-metric-value text-success">
                                     {{ m.inclusion_passed }}/{{ m.inclusion_total }}
                                 </div>
 
                                 <div class="match-metric-label">
-                                    Inclusion
+                                    {% if m.has_cohorts %}General Inclusion{% else %}Inclusion{% endif %}
                                 </div>
+
 
                             </div>
 
@@ -389,7 +586,7 @@
                                 </div>
 
                                 <div class="match-metric-label">
-                                    Exclusions
+                                    {% if m.has_cohorts %}General Exclusions{% else %}Exclusions{% endif %}
                                 </div>
 
                             </div>
@@ -424,92 +621,133 @@
                     </div>
                     {% endif %}
 
-                    <div
-                        class="collapse mt-3"
-                        id="match-details-{{ forloop.counter }}"
-                    >
+                    <div class="collapse mt-3" id="match-details-{{ forloop.counter }}">
 
-                        <div class="row g-3">
-
-                            <!-- INCLUSION -->
-                            <div class="col-md-6">
-
-                                <h6 class="text-success mb-3">
-                                    Inclusion Criteria
-                                </h6>
-
-                                {% for c in m.inclusion_details %}
-                                <div class="border rounded p-3 mb-2 bg-light">
-
-                                    <div class="d-flex align-items-start gap-2">
-
-                                        {% if c.result == "pass" %}
-                                        <i class="bi bi-check-circle-fill text-success mr-2"></i>
-                                        {% else %}
-                                        <i class="bi bi-x-circle-fill text-danger mr-2"></i>
-                                        {% endif %}
-
-                                        <div>
-
-                                            <div class="fw-semibold small">
-                                                {{ c.criterion }}
-                                            </div>
-
-                                            {% if c.justification %}
-                                            <div class="small text-muted mt-2">
-                                                {{ c.justification }}
-                                            </div>
-                                            {% endif %}
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                {% endfor %}
-
+                        <!-- CRITÉRIOS GERAIS -->
+                        {% if m.inclusion_details or m.exclusion_details %}
+                        <div class="mb-3">
+                            {% if m.has_cohorts %}
+                            <div class="cohort-group-label general-label mb-2">
+                                <i class="bi bi-globe2 mr-1"></i> General Criteria
                             </div>
+                            {% endif %}
 
-                            <!-- EXCLUSION -->
-                            <div class="col-md-6">
-
-                                <h6 class="text-danger mb-3">
-                                    Exclusion Criteria
-                                </h6>
-
-                                {% for c in m.exclusion_details %}
-                                <div class="border rounded p-3 mb-2 bg-light">
-
-                                    <div class="d-flex align-items-start gap-2">
-
-                                        {% if c.result == "pass" %}
-                                        <i class="bi bi-exclamation-circle-fill text-danger mr-2"></i>
-                                        {% else %}
-                                        <i class="bi bi-check-circle-fill text-success mr-2"></i>
-                                        {% endif %}
-
-                                        <div>
-
-                                            <div class="fw-semibold small">
-                                                {{ c.criterion }}
-                                            </div>
-
-                                            {% if c.justification %}
-                                            <div class="small text-muted mt-2">
-                                                {{ c.justification }}
-                                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <h6 class="text-success mb-2">Inclusion Criteria</h6>
+                                    {% for c in m.inclusion_details %}
+                                    <div class="border rounded p-3 mb-2 bg-light">
+                                        <div class="d-flex align-items-start gap-2">
+                                            {% if c.result == "pass" %}
+                                            <i class="bi bi-check-circle-fill text-success mr-1"></i>
+                                            {% else %}
+                                            <i class="bi bi-x-circle-fill text-danger mr-1"></i>
                                             {% endif %}
-
+                                            <div>
+                                                <div class="fw-semibold small">{{ c.criterion }}</div>
+                                                {% if c.justification %}
+                                                <div class="small text-muted mt-1">{{ c.justification }}</div>
+                                                {% endif %}
+                                            </div>
                                         </div>
-
                                     </div>
-
+                                    {% empty %}
+                                    <p class="text-muted small fst-italic">No general inclusion criteria.</p>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
 
+                                <div class="col-md-6">
+                                    <h6 class="text-danger mb-2">Exclusion Criteria</h6>
+                                    {% for c in m.exclusion_details %}
+                                    <div class="border rounded p-3 mb-2 bg-light">
+                                        <div class="d-flex align-items-start gap-2">
+                                            {% if c.result == "pass" %}
+                                            <i class="bi bi-exclamation-circle-fill text-danger mr-1"></i>
+                                            {% else %}
+                                            <i class="bi bi-check-circle-fill text-success mr-1"></i>
+                                            {% endif %}
+                                            <div>
+                                                <div class="fw-semibold small">{{ c.criterion }}</div>
+                                                {% if c.justification %}
+                                                <div class="small text-muted mt-1">{{ c.justification }}</div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <p class="text-muted small fst-italic">No general exclusion criteria.</p>
+                                    {% endfor %}
+                                </div>
                             </div>
-
                         </div>
+                        {% endif %}
+
+                        <!-- CRITÉRIOS POR COHORT -->
+                        {% if m.has_cohorts %}
+                            {% for cohort_id, cohort_data in m.cohort_results.items %}
+                            <div class="border rounded p-3 mb-3 bg-white">
+
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="cohort-group-label cohort-label mb-0">
+                                        <i class="bi bi-diagram-3 mr-1"></i>
+                                        Cohort {{ cohort_data.cohort_id }} — {{ cohort_data.cohort_name }}
+                                    </div>
+                                    <span class="badge text-white {% if cohort_data.eligible %}bg-success{% else %}bg-danger{% endif %}">
+                                        {% if cohort_data.eligible %}Eligible{% else %}Ineligible{% endif %}
+                                    </span>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <h6 class="text-success mb-2">Inclusion</h6>
+                                        {% for c in cohort_data.inclusion_details %}
+                                        <div class="border rounded p-3 mb-2 bg-light">
+                                            <div class="d-flex align-items-start gap-2">
+                                                {% if c.result == "pass" %}
+                                                <i class="bi bi-check-circle-fill text-success mr-1"></i>
+                                                {% else %}
+                                                <i class="bi bi-x-circle-fill text-danger mr-1"></i>
+                                                {% endif %}
+                                                <div>
+                                                    <div class="fw-semibold small">{{ c.criterion }}</div>
+                                                    {% if c.justification %}
+                                                    <div class="small text-muted mt-1">{{ c.justification }}</div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <p class="text-muted small fst-italic">No inclusion criteria.</p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger mb-2">Exclusion</h6>
+                                        {% for c in cohort_data.exclusion_details %}
+                                        <div class="border rounded p-3 mb-2 bg-light">
+                                            <div class="d-flex align-items-start gap-2">
+                                                {% if c.result == "pass" %}
+                                                <i class="bi bi-exclamation-circle-fill text-danger mr-1"></i>
+                                                {% else %}
+                                                <i class="bi bi-check-circle-fill text-success mr-1"></i>
+                                                {% endif %}
+                                                <div>
+                                                    <div class="fw-semibold small">{{ c.criterion }}</div>
+                                                    {% if c.justification %}
+                                                    <div class="small text-muted mt-1">{{ c.justification }}</div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <p class="text-muted small fst-italic">No exclusion criteria.</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endfor %}
+                        {% endif %}
 
                     </div>
 

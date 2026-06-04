@@ -78,11 +78,29 @@
                     <small class="text-muted">
                         {{ m.patient.diagnosis }} • {{ m.patient.age }} years
                     </small>
+
+                    {% if m.result.has_cohorts %}
+                    <div class="mt-1">
+                        {% if m.result.eligible_cohorts %}
+                            {% for cohort in m.result.eligible_cohorts %}
+                                <span class="badge bg-success-subtle text-success border border-success-subtle me-1">
+                                    {{ cohort.name }}
+                                </span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                No eligible cohort
+                            </span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 </div>
 
                 <!-- COL 2: INCLUSION -->
                 <div style="width: 20%;" class="text-center">
-                    <small class="text-muted d-block">Inclusion Criteria Passed</small>
+                    <small class="text-muted d-block">
+                        {% if m.result.has_cohorts %}General Inclusion{% else %}Inclusion Criteria Passed{% endif %}
+                    </small>
                     <strong
                         id="inclusion-count-{{ m.patient.id }}"
                         data-total="{{ m.result.inclusion_total }}"
@@ -94,7 +112,9 @@
 
                 <!-- COL 3: EXCLUSION -->
                 <div style="width: 20%;" class="text-center">
-                    <small class="text-muted d-block">Exclusion Criteria Triggered</small>
+                    <small class="text-muted d-block">
+                        {% if m.result.has_cohorts %}General Exclusion{% else %}Exclusion Criteria Triggered{% endif %}
+                    </small>
                     <strong
                         id="exclusion-count-{{ m.patient.id }}"
                         data-current="{{ m.result.exclusion_triggered }}"
@@ -102,7 +122,6 @@
                         {{ m.result.exclusion_triggered }}
                     </strong>
                 </div>
-
                 <!-- COL 4: STATUS -->
                 <div style="width: 15%;" class="d-flex justify-content-center align-items-center">
                     <span
@@ -132,7 +151,6 @@
 
                 <div class="mb-3 p-3 border rounded bg-white">
                     <h6 class="mb-2">Patient Summary</h6>
-
                     <div class="row small">
                         <div class="col-md-4"><strong>Age:</strong> {{ m.patient.age }}</div>
                         <div class="col-md-4"><strong>Diagnosis:</strong> {{ m.patient.diagnosis }}</div>
@@ -140,241 +158,80 @@
                     </div>
                 </div>
 
-                <div class="row">
-
-                    <!-- INCLUSION -->
-                    <div class="col-md-6">
-                        <h6 class="text-success">Inclusion Criteria</h6>
-
-                        {% for c in m.result.inclusion_details %}
-                        <div
-                            class="small mb-2 p-2 border rounded criterion-card"
-                            data-type="inclusion"
-                            data-result="{{ c.result|yesno:'true,false' }}"
-                            data-text="{{ c.criterion }}"
-                        >
-
-                            <div class="criterion-header-content">
-                                {% if c.result %}
-                                <i class="criterion-status-icon bi bi-check-circle-fill text-success"></i>
-                                {% else %}
-                                <i class="criterion-status-icon bi bi-x-circle-fill text-danger"></i>
-                                {% endif %}
-
-                                <strong>{{ c.criterion }}</strong>
-                            </div>
-
-                            <!-- EVIDENCE -->
-                            <div class="text-muted small ms-4">
-
-                                {% for e in c.evidences %}
-                                <div class="mb-1">
-
-                                    <div>
-                                        <strong>{{ e.field|title }}</strong>
-                                    </div>
-
-                                    <div>
-
-                                        {% if e.patient_value is not None %}
-
-                                            Patient: <strong>
-                                                {{ e.patient_value }}
-
-                                                {% if e.patient_unit %}
-                                                    {{ e.patient_unit }}
-                                                {% endif %}
-                                            </strong>
-
-                                        {% else %}
-
-                                            Patient: <span class="text-muted fst-italic">
-                                                Not available
-                                            </span>
-
-                                        {% endif %}
-
-                                        {{ e.operator }}
-
-                                        Expected: <strong>
-                                            {{ e.expected_value }}
-
-                                            {% if e.expected_unit %}
-                                                {{ e.expected_unit }}
-                                            {% endif %}
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-                                {% endfor %}
-
-                            </div>
-
-                            {% if c.llm_justification %}
-                            <div class="mt-2 p-2 border-start border-3 border-info bg-white small text-muted">
-                                <strong>LLM Justification:</strong>
-                                <div class="mt-1">
-                                    {{ c.llm_justification }}
-                                </div>
-                            </div>
-                            {% endif %}
-
-                            <div class="criterion-actions mt-3">
-
-                                <button
-                                    type="button"
-                                    class="decision-btn pass-btn"
-                                    onclick="setCriterionOverride(
-                                        '{{ m.patient.id }}',
-                                        '{{ c.id }}',
-                                        'pass',
-                                        this
-                                    )">
-
-                                    <i class="bi bi-check-circle-fill"></i>
-                                    <span>Mark as Pass</span>
-
-                                </button>
-
-                                <button
-                                    type="button"
-                                    class="decision-btn fail-btn"
-                                    onclick="setCriterionOverride(
-                                        '{{ m.patient.id }}',
-                                        '{{ c.id }}',
-                                        'fail',
-                                        this
-                                    )">
-
-                                    <i class="bi bi-x-circle-fill"></i>
-                                    <span>Mark as Fail</span>
-
-                                </button>
-
-                            </div>
-
+                <!-- CRITÉRIOS GERAIS (sem cohort) -->
+                {% if m.result.inclusion_details or m.result.exclusion_details %}
+                <div class="mb-3">
+                    <h6 class="text-muted border-bottom pb-1 mb-2">
+                        <i class="bi bi-funnel me-1"></i> General Criteria
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-success">Inclusion</h6>
+                            {% include "trialpilot/partials/_criterion_cards.html" with criteria=m.result.inclusion_details patient_id=m.patient.id cohort_id='' %}
                         </div>
-                        {% endfor %}
-                    </div>
-
-                    <!-- EXCLUSION -->
-                    <div class="col-md-6">
-                        <h6 class="text-danger">Exclusion Criteria</h6>
-
-                        {% for c in m.result.exclusion_details %}
-                        <div
-                            class="small mb-2 p-2 border rounded criterion-card"
-                            data-type="exclusion"
-                            data-result="{{ c.result|yesno:'true,false' }}"
-                            data-text="{{ c.criterion }}"
-                        >
-
-                            <div class="criterion-header-content">
-                                {% if c.result %}
-                                <i class="criterion-status-icon bi bi-exclamation-circle-fill text-danger"></i>
-                                <strong>Triggered:</strong> {{ c.criterion }}
-                                {% else %}
-                                <i class="criterion-status-icon bi bi-check-circle-fill text-success"></i>
-                                {{ c.criterion }}
-                                {% endif %}
-                            </div>
-
-                            <!-- EVIDENCE -->
-                            <div class="text-muted small ms-4">
-
-                                {% for e in c.evidences %}
-                                <div class="mb-1">
-
-                                    <div>
-                                        <strong>{{ e.field|title }}</strong>
-                                    </div>
-
-                                    <div>
-
-                                        {% if e.patient_value is not None %}
-
-                                            Patient: <strong>
-                                                {{ e.patient_value }}
-
-                                                {% if e.patient_unit %}
-                                                    {{ e.patient_unit }}
-                                                {% endif %}
-                                            </strong>
-
-                                        {% else %}
-
-                                            Patient: <span class="text-muted fst-italic">
-                                                Not available
-                                            </span>
-
-                                        {% endif %}
-
-                                        {{ e.operator }}
-
-                                        Expected: <strong>
-                                            {{ e.expected_value }}
-
-                                            {% if e.expected_unit %}
-                                                {{ e.expected_unit }}
-                                            {% endif %}
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-                                {% endfor %}
-
-                            </div>
-
-                            {% if c.llm_justification %}
-                            <div class="mt-2 p-2 border-start border-3 border-info bg-white small text-muted">
-                                <strong>LLM Justification:</strong>
-                                <div class="mt-1">
-                                    {{ c.llm_justification }}
-                                </div>
-                            </div>
-                            {% endif %}
-
-                            <div class="criterion-actions mt-3">
-
-                                <button
-                                    type="button"
-                                    class="decision-btn pass-btn"
-                                    onclick="setCriterionOverride(
-                                        '{{ m.patient.id }}',
-                                        '{{ c.id }}',
-                                        'pass',
-                                        this
-                                    )">
-
-                                    <i class="bi bi-check-circle-fill"></i>
-                                    <span>Mark as Pass</span>
-
-                                </button>
-
-                                <button
-                                    type="button"
-                                    class="decision-btn fail-btn"
-                                    onclick="setCriterionOverride(
-                                        '{{ m.patient.id }}',
-                                        '{{ c.id }}',
-                                        'fail',
-                                        this
-                                    )">
-
-                                    <i class="bi bi-x-circle-fill"></i>
-                                    <span>Mark as Fail</span>
-
-                                </button>
-
-                            </div>
-
+                        <div class="col-md-6">
+                            <h6 class="text-danger">Exclusion</h6>
+                            {% include "trialpilot/partials/_criterion_cards.html" with criteria=m.result.exclusion_details patient_id=m.patient.id cohort_id='' %}
                         </div>
-                        {% endfor %}
                     </div>
-
                 </div>
+                {% endif %}
+
+                <!-- CRITÉRIOS POR COHORT -->
+                {% if m.result.has_cohorts %}
+                    {% for cohort_id, cohort_data in m.result.cohort_results.items %}
+                    <div class="mb-3 border rounded bg-white p-3">
+
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h6 class="mb-0">
+                                <i class="bi bi-diagram-3 me-1"></i>
+                                Cohort: <strong>{{ cohort_data.cohort_name }}</strong>
+                                <small class="text-muted ms-1">({{ cohort_data.cohort_id }})</small>
+                            </h6>
+
+                            <div class="d-flex align-items-center gap-3">
+                                <small class="text-muted">
+                                    Inclusion:
+                                    <strong
+                                        id="inclusion-count-{{ m.patient.id }}-{{ cohort_id }}"
+                                        data-current="{{ cohort_data.inclusion_passed }}"
+                                        data-total="{{ cohort_data.inclusion_total }}"
+                                    >
+                                        {{ cohort_data.inclusion_passed }}/{{ cohort_data.inclusion_total }}
+                                    </strong>
+                                </small>
+                                <small class="text-muted">
+                                    Exclusion triggered:
+                                    <strong
+                                        id="exclusion-count-{{ m.patient.id }}-{{ cohort_id }}"
+                                        data-current="{{ cohort_data.exclusion_triggered }}"
+                                    >
+                                        {{ cohort_data.exclusion_triggered }}
+                                    </strong>
+                                </small>
+                                <span
+                                    id="cohort-badge-{{ m.patient.id }}-{{ cohort_id }}"
+                                    class="badge {% if cohort_data.eligible %}bg-success{% else %}bg-danger{% endif %}"
+                                >
+                                    {% if cohort_data.eligible %}Eligible{% else %}Ineligible{% endif %}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-success">Inclusion</h6>
+                                {% include "trialpilot/partials/_criterion_cards.html" with criteria=cohort_data.inclusion_details patient_id=m.patient.id cohort_id=cohort_id %}
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-danger">Exclusion</h6>
+                                {% include "trialpilot/partials/_criterion_cards.html" with criteria=cohort_data.exclusion_details patient_id=m.patient.id cohort_id=cohort_id %}
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                {% endif %}
 
             </div>
 

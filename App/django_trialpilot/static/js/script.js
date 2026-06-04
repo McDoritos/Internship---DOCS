@@ -1476,23 +1476,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-/* PATIENT MATCHING */
 document.addEventListener("DOMContentLoaded", function () {
 
     window.setCriterionOverride = function (patientId, criterionId, decision, button) {
         const criterionCard = button.closest(".criterion-card");
         const criterionType = criterionCard.dataset.type;
         const criterionText = criterionCard.dataset.text;
+        const cohortId = criterionCard.dataset.cohortId || "";
 
         const previousResult = criterionCard.dataset.result === "true";
         let newResult;
 
         if (criterionType === "inclusion") {
-            console.log("INCLUSION triggered → decision:", decision);
             newResult = (decision === "pass");
         } else {
-            console.log("EXCLUSION triggered → decision:", decision);
-
             newResult = (decision === "fail");
         }
 
@@ -1500,28 +1497,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         criterionCard.dataset.result = newResult;
 
+        // ── Atualizar ícone do header ──────────────────────────────────────
         const headerDiv = criterionCard.querySelector(".criterion-header-content");
 
         if (criterionType === "inclusion") {
-            if (newResult) {
-                headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-check-circle-fill text-success"></i> <strong>${criterionText}</strong>`;
-            } else {
-                headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-x-circle-fill text-danger"></i> <strong>${criterionText}</strong>`;
-            }
+            headerDiv.innerHTML = newResult
+                ? `<i class="criterion-status-icon bi bi-check-circle-fill text-success"></i> <strong>${criterionText}</strong>`
+                : `<i class="criterion-status-icon bi bi-x-circle-fill text-danger"></i> <strong>${criterionText}</strong>`;
         } else {
-            if (newResult) {
-                headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-exclamation-circle-fill text-danger"></i> <strong>Triggered:</strong> ${criterionText}`;
-            } else {
-                headerDiv.innerHTML = `<i class="criterion-status-icon bi bi-check-circle-fill text-success"></i> ${criterionText}`;
-            }
+            headerDiv.innerHTML = newResult
+                ? `<i class="criterion-status-icon bi bi-exclamation-circle-fill text-danger"></i> <strong>Triggered:</strong> ${criterionText}`
+                : `<i class="criterion-status-icon bi bi-check-circle-fill text-success"></i> ${criterionText}`;
         }
 
-        const actions = button.parentElement;
-        actions.querySelectorAll(".decision-btn").forEach(btn => btn.classList.remove("active"));
+        // ── Marcar botão ativo ─────────────────────────────────────────────
+        button.parentElement.querySelectorAll(".decision-btn").forEach(btn => btn.classList.remove("active"));
         button.classList.add("active");
 
-        const inclusionElement = document.getElementById(`inclusion-count-${patientId}`);
-        const exclusionElement = document.getElementById(`exclusion-count-${patientId}`);
+        // ── Atualizar contadores (gerais ou cohort) ────────────────────────
+        const suffix = cohortId ? `${patientId}-${cohortId}` : patientId;
+        const inclusionElement = document.getElementById(`inclusion-count-${suffix}`);
+        const exclusionElement = document.getElementById(`exclusion-count-${suffix}`);
+
         let inclusionCurrent = parseInt(inclusionElement.dataset.current);
         let exclusionCurrent = parseInt(exclusionElement.dataset.current);
 
@@ -1536,14 +1533,46 @@ document.addEventListener("DOMContentLoaded", function () {
             exclusionElement.innerText = exclusionCurrent;
         }
 
-        const inclusionTotal = parseInt(inclusionElement.dataset.total);
-        const isEligible = (inclusionCurrent === inclusionTotal) && (exclusionCurrent === 0);
+        // ── Atualizar badge do cohort (se aplicável) ───────────────────────
+        if (cohortId) {
+            const inclusionTotal = parseInt(inclusionElement.dataset.total);
+            const isCohortEligible = (inclusionCurrent === inclusionTotal) && (exclusionCurrent === 0);
+            const cohortBadge = document.getElementById(`cohort-badge-${patientId}-${cohortId}`);
+
+            cohortBadge.className = `badge ${isCohortEligible ? "bg-success" : "bg-danger"}`;
+            cohortBadge.innerText = isCohortEligible ? "Eligible" : "Ineligible";
+        }
+
+        // ── Recalcular elegibilidade global do paciente ────────────────────
+        // Gerais: todos os critérios gerais têm de passar
+        const generalInclusion = document.getElementById(`inclusion-count-${patientId}`);
+        const generalExclusion = document.getElementById(`exclusion-count-${patientId}`);
+
+        const generalInclusionOk = generalInclusion
+            ? parseInt(generalInclusion.dataset.current) === parseInt(generalInclusion.dataset.total)
+            : true;
+        const generalExclusionOk = generalExclusion
+            ? parseInt(generalExclusion.dataset.current) === 0
+            : true;
+        const generalPasses = generalInclusionOk && generalExclusionOk;
+
+        // Cohorts: pelo menos um cohort elegível (se existirem cohort badges)
+        const allCohortBadges = document.querySelectorAll(`[id^="cohort-badge-${patientId}-"]`);
+        const hasAnyCohort = allCohortBadges.length > 0;
+        const atLeastOneCohortEligible = hasAnyCohort
+            ? Array.from(allCohortBadges).some(b => b.innerText.trim() === "Eligible")
+            : true;
+
+        const isEligible = generalPasses && (!hasAnyCohort || atLeastOneCohortEligible);
+
+        // ── Atualizar badge global do paciente ─────────────────────────────
         const badge = document.getElementById(`eligibility-badge-${patientId}`);
         const wasEligible = badge.innerText.trim() === "Eligible";
 
-        badge.className = `badge ${isEligible ? 'bg-success' : 'bg-danger'} px-3 py-2 text-white rounded-ui`;
+        badge.className = `badge ${isEligible ? "bg-success" : "bg-danger"} px-3 py-2 text-white rounded-ui`;
         badge.innerText = isEligible ? "Eligible" : "Ineligible";
 
+        // ── Atualizar contadores do summary (Eligible / Ineligible) ────────
         if (wasEligible !== isEligible) {
             const eSummary = document.getElementById("eligible-count");
             const iSummary = document.getElementById("ineligible-count");
@@ -1554,6 +1583,7 @@ document.addEventListener("DOMContentLoaded", function () {
             iSummary.innerText = iCount;
         }
 
+        // ── Guardar override para o POST ───────────────────────────────────
         let decisionToSave = decision;
         if (criterionType === "exclusion") {
             decisionToSave = (decision === "pass") ? "fail" : "pass";
