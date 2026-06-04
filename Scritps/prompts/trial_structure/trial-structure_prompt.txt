@@ -1,0 +1,27 @@
+Instructions:
+
+- Detect all cohorts explicitly described in the trial.
+- Extract the cohort identifier exactly as written.
+- Extract a short descriptive name for the cohort.
+- Do not extract eligibility criteria.
+- Do not infer cohorts that are not explicitly described.
+- If no cohorts exist, return has_cohorts = false.
+
+Output format:
+
+{
+  "has_cohorts": true,
+  "cohorts": [
+    {
+      "cohort_id": "1",
+      "name": "BRCA negative, ≥3 prior lines"
+    }
+  ]
+}
+
+Clinical trial text:
+<TRIAL>
+{{TRIAL_TEXT}}
+</TRIAL>
+
+Return only JSON.

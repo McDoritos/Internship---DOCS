@@ -190,7 +190,7 @@
                             </h6>
 
                             <div class="d-flex align-items-center gap-3">
-                                <small class="text-muted">
+                                <small class="text-muted mr-2">
                                     Inclusion:
                                     <strong
                                         id="inclusion-count-{{ m.patient.id }}-{{ cohort_id }}"
@@ -200,7 +200,7 @@
                                         {{ cohort_data.inclusion_passed }}/{{ cohort_data.inclusion_total }}
                                     </strong>
                                 </small>
-                                <small class="text-muted">
+                                <small class="text-muted mr-2">
                                     Exclusion triggered:
                                     <strong
                                         id="exclusion-count-{{ m.patient.id }}-{{ cohort_id }}"
@@ -211,7 +211,7 @@
                                 </small>
                                 <span
                                     id="cohort-badge-{{ m.patient.id }}-{{ cohort_id }}"
-                                    class="badge {% if cohort_data.eligible %}bg-success{% else %}bg-danger{% endif %}"
+                                    class="text-white badge {% if cohort_data.eligible %}bg-success{% else %}bg-danger{% endif %}"
                                 >
                                     {% if cohort_data.eligible %}Eligible{% else %}Ineligible{% endif %}
                                 </span>
