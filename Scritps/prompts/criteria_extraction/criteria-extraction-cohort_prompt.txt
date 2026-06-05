@@ -7,11 +7,28 @@ Extraction Requirements:
 - Do not add missing information or infer new criteria.
 - Avoid duplicates.
 - If a section (inclusion or exclusion) is not present in the text, return an empty list for that section.
-- For each criterion, determine whether it is general or cohort-specific:
-  - Criteria listed before any cohort heading are general and apply to all cohorts: set cohort_id to null.
-  - Criteria listed under a cohort heading (e.g. "Cohort 1a:", "Cohort 2b:") are specific to that cohort: set cohort_id to the exact ID from the known cohorts list.
-  - If a criterion references multiple cohorts by description (e.g. "for subjects in combination therapy cohorts"), create one entry per applicable cohort.
-  - Only expand to multiple cohorts when the criterion clearly targets a specific subset — if it applies to all, set cohort_id to null.
+
+Cohort Assignment Rules:
+
+- Criteria listed before any cohort heading are general and apply to all cohorts: set cohort_id to null.
+- Criteria listed under a cohort heading (e.g. "Cohort 1a:", "Cohort 2b:") are specific to that cohort: set cohort_id to the exact ID from the known cohorts list.
+- If a criterion explicitly references multiple cohorts by description (e.g. "combination therapy cohorts"), create one entry per applicable cohort.
+- Only expand to multiple cohorts when the text explicitly targets a cohort subset.
+- Do not infer cohort membership from medical concepts, treatment history, biomarker status, or subgroup descriptions unless the criterion explicitly references a cohort or cohort subset.
+
+Cohort Scope Rules:
+
+- A cohort heading starts a cohort-specific section.
+- All criteria following a cohort heading belong to that cohort until:
+  - another cohort heading appears, or
+  - a new major section starts (e.g. Inclusion Criteria, Exclusion Criteria).
+- Criteria that appear before the first cohort heading are general and apply to all cohorts.
+- Criteria appearing after the last cohort heading but outside any clearly cohort-specific subsection should be treated as general unless the text explicitly references a subset of cohorts.
+
+Section Header Rules:
+
+- Section headers, category labels, numbering labels, and descriptive headings are not eligibility criteria and must not be extracted.
+- Criteria listed under such headers inherit the same cohort scope as the surrounding section unless the text explicitly references a cohort subset.
 
 Known cohorts:
 {{COHORTS_CONTEXT}}
