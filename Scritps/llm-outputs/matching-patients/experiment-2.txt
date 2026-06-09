@@ -1,0 +1,1754 @@
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+"match": true,
+"justification": "The patient's age is explicitly recorded as 47 years, satisfying the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+  "match": false,
+  "justification": "The patient's clinical stage is cT2N1M0 (Stage IIIA), indicating no distant metastases, and there is no evidence of metastatic disease in the provided clinical data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+  "match": false,
+  "justification": "The patient received platinum-based chemotherapy but no anti-PD-1 or anti-PD-L1 therapy is documented, and there is no evidence of progression; a partial response was noted."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1",
+  "match": true,
+  "justification": "ECOG performance status is explicitly documented as 0 in the clinical diary, which falls within the required range of 0–1."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+  "match": true,
+  "justification": "The patient has a palpable nodule measuring 2 cm in diameter, which satisfies the RECIST 1.1 requirement for a measurable lesion with longest diameter ≥ 10 mm."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": true,
+"justification": "The patient's absolute neutrophil count is 1.8 x10^9/L, which exceeds the required minimum of 1.5 x10^9/L, confirming the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x10^9/L",
+  "match": true,
+  "justification": "The patient's platelet count is 220 x10^9/L, which exceeds the inclusion criterion threshold of 100 x10^9/L."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+"match": false,
+"justification": "Hemoglobin level is not explicitly documented in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "The patient's AST level is 20 U/L, below the 2.5 x ULN threshold of 77.5 U/L, and there is no evidence of liver metastases in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "The patient's ALT is 12 U/L, below the 2.5 x ULN limit of 85 U/L, and no liver metastases are indicated, satisfying the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN",
+  "match": true,
+  "justification": "Patient's total bilirubin is 0.8 mg/dL, below the upper limit of normal (1.2 mg/dL), satisfying the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+  "match": false,
+  "justification": "The CKD-EPI formula requires additional patient parameters such as height and race, which are not provided, preventing confirmation of the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+  "match": false,
+  "justification": "The clinical diary does not provide any information about a pregnancy test, so the criterion cannot be confirmed based on the available data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "The clinical diary does not mention any study-specific procedures or signed informed consent, so the criterion cannot be confirmed based on available data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy",
+  "match": false,
+  "justification": "The clinical diary and laboratory values do not provide any information on EGFR genomic alterations, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "The clinical diary and laboratory values do not mention any known ALK genomic alterations, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding ROS1 genomic alterations or targeted therapy availability is provided in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "No mention of brain metastases in the clinical diary or laboratory values, so the criterion cannot be confirmed based on available information."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Symptomatic brain metastases.",
+  "match": false,
+  "justification": "The clinical diary lacks any mention of neurological symptoms or evidence of brain metastases, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy.",
+  "match": false,
+  "justification": "No information in the clinical diary indicates any active autoimmune disease or systemic immunosuppressive therapy, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Interstitial lung disease",
+  "match": false,
+  "justification": "No clinical evidence or documentation of interstitial lung disease in the patient's clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis",
+  "match": false,
+  "justification": "No information regarding active non-infectious pneumonitis is present in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy",
+  "match": false,
+  "justification": "The patient denies fever, has no reported infection symptoms, and laboratory values are within normal limits, showing no evidence of active infection."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX",
+  "match": false,
+  "justification": "No mention of Lumitax in the clinical diary or laboratory values, and information is missing, making it impossible to confirm prior exposure."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ)",
+  "match": false,
+  "justification": "The clinical diary does not provide any information about other invasive malignancies, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+  "match": true,
+  "justification": "The patient is explicitly stated to be 64 years old in the clinical diary, which satisfies the age ≥ 18 years criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV)",
+"match": false,
+"justification": "The patient has histologically confirmed small cell lung cancer, not non-small cell lung cancer (NSCLC), as specified in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+  "match": false,
+  "justification": "No documentation of disease progression in the clinical diary; the first-line therapy has concluded without evidence of progression, and response is pending PET-CT."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1.",
+  "match": false,
+  "justification": "The patient's ECOG performance status is explicitly recorded as 2 in the clinical diary, which is outside the required range of 0–1 for inclusion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+  "match": true,
+  "justification": "The clinical diary specifies a hepatic lesion measuring 2.5 cm, which meets RECIST 1.1 criteria for a measurable lesion as it exceeds the 10 mm minimum size requirement."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+  "match": false,
+  "justification": "The patient's absolute neutrophil count is 0.8 x 10^9/L, which is below the required threshold of 1.5 x 10^9/L, indicating neutropenia that does not satisfy the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x 10^9/L",
+  "match": false,
+  "justification": "Platelet count is not mentioned in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+"match": true,
+"justification": "The patient's hemoglobin level is 12.8 g/dL, which is above the required threshold of 9 g/dL and within normal reference range."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "Patient has liver metastases (metastases hepáticas confirmed), so AST ≤ 5 x ULN applies. AST is 20 U/L, which is less than 5 x ULN (5 x 31 U/L = 155 U/L)."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+"match": true,
+"justification": "The patient has liver metastases (confirmed hepatic lesion in TC TAP), and their ALT level of 12 U/L is well below the upper limit of 5 x ULN (calculated as 170 U/L based on ULN of 34 U/L)."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN",
+  "match": true,
+  "justification": "The patient's total bilirubin is 0.9 mg/dL, and the upper limit of normal (ULN) is 1.2 mg/dL, satisfying the condition as 0.9 ≤ 1.5 × 1.2."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+  "match": false,
+  "justification": "Creatinine clearance using CKD-EPI formula was not calculated or provided in the clinical diary or laboratory values, so the criterion could not be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+"match": false,
+"justification": "The patient is male, so the inclusion criterion, which applies only to women, is not relevant and cannot be satisfied."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+"match": false,
+"justification": "The clinical diary does not contain any mention of signed informed consent or study-specific procedures, so the criterion cannot be confirmed based on the provided information."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "The clinical diary does not contain any information on EGFR genomic alterations, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding ALK genomic alterations is provided in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy",
+  "match": false,
+  "justification": "No documentation in the clinical diary or laboratory values confirms the presence of ROS1 genomic alterations, so the exclusion criterion cannot be verified."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "No mention of brain metastases in the clinical diary or laboratory values, so criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Symptomatic brain metastases",
+  "match": false,
+  "justification": "No evidence of brain metastases or related symptoms in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy.",
+  "match": false,
+  "justification": "No mention of autoimmune disease or immunosuppressive therapy in the clinical diary, so criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "EXCLUSION CRITERION - Interstitial lung disease",
+"match": false,
+"justification": "No clinical evidence or symptoms of interstitial lung disease documented in the patient's clinical diary, and no relevant findings are present."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis.",
+  "match": false,
+  "justification": "No clinical evidence or documentation in the diary indicates active non-infectious pneumonitis; physical examination and laboratory findings do not suggest lung inflammation."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy.",
+  "match": false,
+  "justification": "No fever or signs of infection documented in the clinical diary, and laboratory values do not indicate active infection."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX",
+  "match": false,
+  "justification": "No information regarding prior exposure to LUMITAX is available in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ).",
+  "match": false,
+  "justification": "No information about other active invasive malignancies is present in the clinical diary, and the family history does not specify any current malignancies."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+  "match": true,
+  "justification": "The patient's age is explicitly stated as 59 years, which satisfies the age requirement of ≥18 years."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+  "match": true,
+  "justification": "The patient has a histologically confirmed adenocarcinoma of the lung (NSCLC) with Stage IV metastatic disease as explicitly stated in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy",
+"match": false,
+"justification": "The patient shows a documented partial response per RECIST criteria with no progression, as per the clinical diary, failing to meet the progression requirement."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1",
+  "match": true,
+  "justification": "The patient's ECOG Performance Status is explicitly documented as 1 in the clinical diary, which falls within the required range of 0–1 for inclusion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+"match": true,
+"justification": "The right lung mass was explicitly described as measurable (6 cm) and used in RECIST 1.1 assessment, showing a >30% reduction."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+  "match": true,
+  "justification": "The absolute neutrophil count is 4.5 x10^9/L as recorded in the clinical diary, which meets the requirement of ≥1.5 x10^9/L."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x10^9/L",
+  "match": true,
+  "justification": "The patient's platelet count is 180 x10^9/L, which meets the inclusion criterion of ≥ 100 x10^9/L based on laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+  "match": true,
+  "justification": "The patient's hemoglobin level is 12.2 g/dL, meeting the ≥ 9 g/dL threshold based on explicit laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+  "match": true,
+  "justification": "The patient's AST is 20 U/L, with liver metastases present, so the ULN is 31 U/L, and AST ≤ 5 x ULN (155 U/L) is satisfied."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": false,
+  "justification": "ALT value is not provided in the clinical diary, preventing confirmation of the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN.",
+"match": true,
+"justification": "The patient's total bilirubin is 0.6 mg/dL, and the ULN is 1.2 mg/dL, so it satisfies the ≤ 1.5 x ULN criterion based on laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+"match": true,
+"justification": "GFR of 85 mL/min is explicitly documented in the laboratory values and is typically used interchangeably with creatinine clearance, satisfying the threshold."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+"match": false,
+"justification": "The patient is male and does not fall under the specified inclusion criterion, which applies only to women of childbearing potential."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "The clinical diary lacks any mention of study-specific procedures or signed informed consent, making the criterion unverifiable."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "EGFR genomic alterations are not mentioned in the clinical diary or laboratory values, making the criterion uncertain and not satisfiable."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding ALK genomic alterations is present in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy",
+  "match": false,
+  "justification": "The clinical diary and laboratory values do not mention any ROS1 genomic alterations, so the criterion cannot be confirmed based on available data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "No information regarding brain metastases is provided in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "EXCLUSION CRITERION - Symptomatic brain metastases",
+  "match": false,
+  "justification": "No mention of brain metastases in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy.",
+"match": false,
+"justification": "No evidence in the clinical diary or laboratory values indicates an active autoimmune disease or its treatment with systemic immunosuppressive therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "EXCLUSION CRITERION - Interstitial lung disease",
+  "match": false,
+  "justification": "No evidence of interstitial lung disease is present in the clinical diary or laboratory values, making the criterion uncertain."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis",
+  "match": false,
+  "justification": "No evidence of active non-infectious pneumonitis in the clinical diary; the examination findings and history do not mention or suggest this condition."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy",
+"match": false,
+"justification": "No evidence of active infection in the clinical diary or laboratory values; patient is afebrile and hemogram shows no signs of infection."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+  "criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX",
+  "match": false,
+  "justification": "No evidence of prior exposure to LUMITAX is present in the clinical diary or laboratory values, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ)",
+"match": false,
+"justification": "The patient's clinical diary does not mention any other active invasive malignancy, and no history of non-melanoma skin cancer or carcinoma in situ is indicated, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+  "match": true,
+  "justification": "The patient's age is explicitly stated as 72 years in the clinical diary, which satisfies the criterion of being at least 18 years old."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+"match": true,
+"justification": "The patient has histologically confirmed metastatic squamous cell carcinoma (Stage IV NSCLC) based on biopsy and staging in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+  "match": false,
+  "justification": "The patient received pembrolizumab (anti-PD-1) as first-line monotherapy without platinum-based chemotherapy, and imaging showed stable or responding disease with no documented progression."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1",
+  "match": false,
+  "justification": "The patient's ECOG performance status is documented as 2, which exceeds the required range of 0–1, indicating functional impairment not permitted by the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+  "match": true,
+  "justification": "The patient has a lung lesion measuring 4.2 cm and a brain metastasis measuring 1.5 cm, both exceeding the RECIST 1.1 minimum size requirement for measurable lesions."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L.",
+"match": false,
+"justification": "The clinical diary does not provide explicit values for absolute neutrophil count (ANC), only stating that the hemogram is normal, which is insufficient to confirm the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x 10^9/L",
+  "match": false,
+  "justification": "The platelet count is not explicitly mentioned in the clinical diary, making it impossible to confirm the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+  "match": true,
+  "justification": "The patient's hemoglobin level is 13.8 g/dL, which satisfies the criterion of ≥ 9 g/dL based on the laboratory values provided."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+"match": false,
+"justification": "Liver metastases are not mentioned in the clinical diary, making the criterion uncertain to confirm."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+"match": false,
+"justification": "The clinical diary does not confirm liver metastases, making the inclusion criterion uncertain and thus not satisfied."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN",
+  "match": true,
+  "justification": "The patient's total bilirubin is 0.8 mg/dL, which is below the calculated limit of 1.8 mg/dL based on the upper limit of normal from laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "The clinical diary does not provide the calculated eGFR using the CKD-EPI formula, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+  "match": false,
+  "justification": "The patient is male and not in the category of women of childbearing potential, so the criterion does not apply."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "The clinical diary does not explicitly document signed informed consent for any study-specific procedures, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "The clinical diary and laboratory values lack any mention of EGFR genomic alterations, and NGS results indicate no actionable mutations, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information about ALK genomic alterations is present in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy",
+  "match": false,
+  "justification": "No information in the clinical diary or lab values confirms ROS1 genomic alterations, as NGS results only indicate no actionable mutations without specifying ROS1 status."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "The patient underwent radiotherapy for the brain metastasis in March 2025, confirming treatment was administered, and no untreated metastases are indicated in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "EXCLUSION CRITERION - Symptomatic brain metastases.",
+"match": true,
+"justification": "The patient has documented brain metastases and reports residual headaches, indicating symptomatic involvement as per clinical presentation."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "The clinical diary and laboratory values lack any documentation of active autoimmune disease or immunosuppressive therapy, as the patient's conditions (e.g., DPOC and lung cancer) do not align with autoimmune diagnoses."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "EXCLUSION CRITERION - Interstitial lung disease",
+"match": false,
+"justification": "No clinical evidence or laboratory findings in the diary indicate interstitial lung disease; the patient's presentation is consistent with COPD, and imaging shows no interstitial changes."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis",
+  "match": false,
+  "justification": "The clinical diary does not indicate any active non-infectious pneumonitis; symptoms and findings are consistent with chronic obstructive pulmonary disease without evidence of pneumonitis."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy.",
+  "match": false,
+  "justification": "The clinical diary shows no signs of active infection or fever, and while CRP is elevated, it is not confirmed as an active infection requiring systemic therapy based on the provided data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX.",
+"match": false,
+"justification": "No information regarding prior exposure to LUMITAX is present in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+  "criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ)",
+  "match": false,
+  "justification": "The clinical diary does not mention any other active invasive malignancy, and laboratory values do not indicate any such condition, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+  "match": true,
+  "justification": "The patient's age is explicitly stated as 63 years in the clinical diary, confirming eligibility based on the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+"match": false,
+"justification": "The patient has a diagnosis of invasive breast carcinoma, not NSCLC, and is at stage IIIA without metastasis, so the inclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+  "match": false,
+  "justification": "The patient received adjuvant chemotherapy with AC-T, not platinum-based, and there is no documentation of progression or use of anti-PD-1/PD-L1 therapy in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1",
+  "match": true,
+  "justification": "The patient's ECOG Performance Status is explicitly stated as 0 in the clinical diary, indicating full activity without restrictions, which satisfies the inclusion criterion for ECOG 0–1."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+  "match": false,
+  "justification": "The patient's PET-CT scan shows no evidence of disease or measurable lesions, indicating no inclusion based on RECIST 1.1 criteria."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+  "match": true,
+  "justification": "The patient's absolute neutrophil count on 07-10-2025 is 2.0 × 10^9/L, which meets the inclusion criterion of ≥ 1.5 × 10^9/L based on the clinical diary entry."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x10^9/L.",
+  "match": true,
+  "justification": "The patient's platelet count is 220 x10^9/L, which exceeds the minimum requirement of 100 x10^9/L based on laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL.",
+  "match": true,
+  "justification": "The patient's hemoglobin level from the clinical diary is 13.2 g/dL, which meets the ≥ 9 g/dL threshold for inclusion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": false,
+  "justification": "The AST value is not provided in the clinical diary, so the inclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5.0 x ULN if liver metastases)",
+"match": true,
+"justification": "Patient's ALT is 12 U/L, and ULN is 34 U/L based on laboratory reference, so it satisfies ALT ≤ 85 U/L (2.5 x ULN). No liver metastases are indicated in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN",
+  "match": true,
+  "justification": "Patient's total bilirubin is 0.6 mg/dL, which is less than 1.5 times the upper limit of normal (1.8 mg/dL) based on the reference range provided in the laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+  "match": false,
+  "justification": "Creatinine clearance was not measured or calculated in the provided clinical diary or laboratory values, so the criterion could not be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+  "match": false,
+  "justification": "No pregnancy test result is documented in the clinical diary, preventing confirmation of the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "The clinical diary lacks any reference to a clinical trial or informed consent process, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding EGFR genomic alterations is present in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+"match": false,
+"justification": "No information regarding ALK genomic alterations or targeted therapy availability is provided in the clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding ROS1 genomic alterations or targeted therapy availability is present in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "No evidence of brain metastases in clinical diary or imaging; PET-CT showed no distant metastases, and clinical assessment revealed no neurological symptoms."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Symptomatic brain metastases.",
+  "match": false,
+  "justification": "The clinical diary does not document any symptoms or imaging evidence of brain metastases, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy",
+  "match": false,
+  "justification": "No evidence of active autoimmune disease or systemic immunosuppressive therapy in the clinical diary or laboratory values, as no such conditions or treatments are mentioned."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Interstitial lung disease",
+  "match": false,
+  "justification": "No clinical evidence or laboratory findings in the provided data indicate interstitial lung disease, as it is not mentioned in the clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis",
+  "match": false,
+  "justification": "No clinical evidence or laboratory findings in the patient's records indicate active non-infectious pneumonitis, as there are no reported symptoms, signs, or abnormalities related to lung inflammation."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy",
+  "match": false,
+  "justification": "No fever, no signs of infection, and clinical assessment indicates stability without evidence of active infection requiring systemic therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX.",
+  "match": false,
+  "justification": "The clinical diary does not contain any information about prior exposure to LUMITAX, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+  "criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ)",
+  "match": false,
+  "justification": "No evidence of other active invasive malignancy is present in the clinical diary, and no such condition is mentioned or indicated."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+  "match": true,
+  "justification": "The patient's age is explicitly recorded as 81 years, which meets the age requirement."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+  "match": true,
+  "justification": "The clinical diary explicitly confirms a histologically confirmed adenocarcinoma (a subtype of NSCLC) at stage IV with metastatic involvement to the liver."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy",
+  "match": false,
+  "justification": "No evidence of first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy administered, as per the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1",
+  "match": false,
+  "justification": "The patient's ECOG performance status is explicitly documented as 3 in the clinical diary, which does not meet the inclusion criterion of 0–1."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+  "match": false,
+  "justification": "The clinical diary documents a pulmonary mass and liver lesion but lacks specific RECIST 1.1 measurements, so it cannot be confirmed that there is a measurable lesion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x10^9/L",
+  "match": true,
+  "justification": "The patient's absolute neutrophil count is 5.6 x10^9/L from the clinical diary, which satisfies the ≥ 1.5 x10^9/L requirement."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x 10^9/L",
+  "match": false,
+  "justification": "The platelet count is not documented in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+  "match": true,
+  "justification": "The patient's hemoglobin level is documented as 12.2 g/dL in the clinical diary, which meets the inclusion criterion of ≥ 9 g/dL."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "The patient's AST level is 20 U/L, and with liver metastases, the upper limit is ≤5 × ULN (155 U/L) based on ULN of 31 U/L from laboratory reference, which is below the observed value."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+"match": true,
+"justification": "ALT level is 12 U/L, which is less than 5 times the ULN of 34 U/L, satisfying the inclusion criterion with liver metastases."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN.",
+  "match": true,
+  "justification": "The patient's total bilirubin is 0.8 mg/dL, and the ULN is 1.2 mg/dL, so 1.5 x ULN is 1.8 mg/dL; since 0.8 ≤ 1.8, the criterion is met."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+  "match": false,
+  "justification": "Creatinine clearance was not directly measured or calculated using the CKD-EPI formula in the clinical diary or laboratory values, making confirmation of the criterion impossible."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+"match": false,
+"justification": "The patient is male and the inclusion criterion is specific to women, so it does not apply."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "The clinical diary does not mention any study-specific procedures or signed informed consent, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No evidence of known EGFR genomic alterations, as NGS testing was negative in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding ALK genomic alterations or available approved targeted therapy is present in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy.",
+"match": false,
+"justification": "ROS1 genomic alteration status is not explicitly mentioned in the clinical diary, so it cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "No mention of brain metastases in the clinical diary, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Symptomatic brain metastases.",
+  "match": false,
+  "justification": "No mention of brain metastases or related symptoms in the clinical diary, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy.",
+  "match": false,
+  "justification": "No evidence in the clinical diary or laboratory values indicates an active autoimmune disease or systemic immunosuppressive therapy requirement, as the patient's history and findings are consistent with COPD and chronic coronary disease without autoimmune features."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Interstitial lung disease",
+  "match": false,
+  "justification": "The clinical diary does not mention interstitial lung disease, and the patient's respiratory symptoms and findings are consistent with COPD rather than interstitial lung disease."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis.",
+  "match": false,
+  "justification": "No explicit mention of active non-infectious pneumonitis in the clinical diary; findings such as dyspnea and bilateral crackles may be attributed to the patient's chronic DPOC or underlying malignancy without confirmation."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy.",
+  "match": false,
+  "justification": "No fever or signs of infection documented in the clinical diary, and leukocyte count is within normal range, indicating no evidence of active infection requiring systemic therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX",
+  "match": false,
+  "justification": "No information in the clinical diary indicates prior exposure to LUMITAX, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ).",
+  "match": false,
+  "justification": "No mention of any other malignancy in the clinical diary, and laboratory values do not indicate any other active invasive malignancy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+"match": true,
+"justification": "The patient's age is explicitly stated as 52 years in the clinical diary, which satisfies the inclusion criterion of being at least 18 years old."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+  "match": false,
+  "justification": "The patient has metastatic breast cancer, not NSCLC, as confirmed by the clinical diagnosis, despite meeting the metastatic stage criteria."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+  "match": false,
+  "justification": "The patient's chemotherapy regimen (THP with docetaxel, trastuzumab, pertuzumab) is not platinum-based and not combined with anti-PD-1 or anti-PD-L1 therapy, as explicitly stated in the clinical diary, and no documented progression is evident."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1.",
+  "match": true,
+  "justification": "The patient's ECOG performance status is explicitly documented as 1 in the clinical diary, which falls within the inclusion criterion range of 0–1."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+"match": false,
+"justification": "The clinical diary documents lesions but does not explicitly assess or confirm their measurability under RECIST 1.1, leading to uncertainty in satisfying the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+  "match": true,
+  "justification": "The patient's absolute neutrophil count is 2.1 x 10^9/L, which satisfies the criterion of ≥ 1.5 x 10^9/L based on the clinical diary entry."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x 10^9/L",
+  "match": false,
+  "justification": "The platelet count is not explicitly mentioned in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+"match": true,
+"justification": "The hemoglobin level is explicitly documented as 13.0 g/dL, which exceeds the required minimum of 9 g/dL."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "The patient's AST level is 20.0 U/L, which is less than the ULN of 31 U/L, satisfying the inclusion criterion even with liver metastases."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "The patient has liver metastases, so the ALT upper limit is 5 x ULN (170 U/L). The patient's ALT is 12.0 U/L, which is below the limit."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN.",
+  "match": true,
+  "justification": "The patient's total bilirubin level is 0.8 mg/dL, which is below the 1.5 x ULN threshold of 1.8 mg/dL, based on the laboratory reference values provided."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+  "match": false,
+  "justification": "The CKD-EPI formula for estimated creatinine clearance was not provided or calculable from the available clinical diary and laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+  "match": false,
+  "justification": "The clinical diary and laboratory values do not include any information about a pregnancy test or the patient's menopausal status, making it impossible to confirm the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "No documentation in the clinical diary indicates that the patient signed informed consent for any study-specific procedure, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+"match": false,
+"justification": "No information regarding EGFR genomic alterations is present in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding ALK genomic alterations is present in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding ROS1 genomic alterations or targeted therapy availability is present in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "The clinical diary does not mention brain metastases, and without this information, the criterion cannot be confirmed based on available data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "EXCLUSION CRITERION - Symptomatic brain metastases.",
+"match": false,
+"justification": "No evidence of brain metastases or neurological symptoms in the clinical diary, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy",
+  "match": false,
+  "justification": "No evidence of active autoimmune disease or immunosuppressive therapy is present in the clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "EXCLUSION CRITERION - Interstitial lung disease.",
+"match": false,
+"justification": "No clinical evidence or documentation of interstitial lung disease in the provided clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis",
+  "match": false,
+  "justification": "The clinical diary lacks any mention of respiratory symptoms or evidence of pneumonitis, and laboratory values do not indicate related abnormalities, making confirmation impossible."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy",
+  "match": false,
+  "justification": "No fever or infection symptoms reported in the clinical diary, and laboratory values do not indicate active infection."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX",
+  "match": false,
+  "justification": "No information regarding prior exposure to LUMITAX is present in the clinical diary, so it cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ).",
+  "match": false,
+  "justification": "No other active invasive malignancy is documented in the clinical diary, and the patient's history only references the current breast cancer diagnosis."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+```json
+{
+"criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+"match": true,
+"justification": "The patient is explicitly stated to be 66 years old, which satisfies the age requirement."
+}
+```
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+  "match": false,
+  "justification": "The patient has a confirmed diagnosis of adenocarcinoma of the colon, not NSCLC, as evidenced by the clinical diary and histology markers such as CK20 and CDX2 positivity, which are specific to gastrointestinal cancers."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+  "match": false,
+  "justification": "The patient received first-line FOLFOX plus Bevacizumab, not platinum-based chemo with anti-PD-1/L1, and their disease showed stable disease with response, not progression."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1",
+"match": true,
+"justification": "The patient's ECOG Performance Status is explicitly recorded as 1 in the clinical diary, which falls within the specified range of 0–1 for inclusion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1",
+  "match": false,
+  "justification": "The clinical diary does not provide explicit RECIST 1.1-defined measurements or confirmation of any lesion being measurable, such as diameter ≥10 mm, despite references to lesions and monitoring."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L.",
+  "match": true,
+  "justification": "The patient's absolute neutrophil count is 5.1 x10^9/L, as recorded in the clinical diary, which meets the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x10^9/L",
+  "match": true,
+  "justification": "The patient's platelet count is documented as 210 ×10⁹/L, which is greater than or equal to the inclusion criterion of 100 ×10^9/L."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+  "match": true,
+  "justification": "The patient's hemoglobin level is 13.2 g/dL, which satisfies the criterion of ≥ 9 g/dL based on the clinical diary entry."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "The patient's AST level is 20 U/L, and with liver metastases present, the limit is 5 x ULN (155 U/L), which is satisfied based on laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+  "match": true,
+  "justification": "Patient has liver metastases, so ALT ≤ 5 × ULN applies; ALT is 12 U/L and ULN is 34 U/L, satisfying the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN",
+  "match": false,
+  "justification": "Total bilirubin is not documented in the clinical diary, preventing confirmation of the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+"match": true,
+"justification": "CKD-EPI formula using serum creatinine 0.9 mg/dL, age 66 years, and male sex estimates creatinine clearance at approximately 119 mL/min, exceeding the threshold."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+  "match": false,
+  "justification": "The patient is male, not female, so the inclusion criterion does not apply."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "The clinical diary does not mention any study-specific procedure or signed informed consent, so the criterion cannot be confirmed based on available information."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information regarding EGFR genomic alterations is provided in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "The clinical diary does not contain any mention of known ALK genomic alterations, so the criterion cannot be confirmed based on available data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No evidence in the clinical diary or laboratory values indicates known ROS1 genomic alterations, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "No mention of brain metastases in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Symptomatic brain metastases.",
+  "match": false,
+  "justification": "No mention of brain metastases or related symptoms in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy.",
+  "match": false,
+  "justification": "The patient's clinical diary and laboratory values do not mention any active autoimmune disease or immunosuppressive therapy, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Interstitial lung disease.",
+  "match": false,
+  "justification": "No clinical evidence or symptoms suggestive of interstitial lung disease is documented in the provided clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis",
+  "match": false,
+  "justification": "The clinical diary contains no mention of respiratory symptoms, lung inflammation, or related findings, so the criterion for active non-infectious pneumonitis cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy.",
+"match": false,
+"justification": "No fever or signs of infection documented in the clinical diary; laboratory values are within normal limits, supporting no active infection."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX.",
+  "match": false,
+  "justification": "The clinical diary and laboratory values do not mention prior exposure to LUMITAX, so the criterion cannot be confirmed based on available data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+  "criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ)",
+  "match": false,
+  "justification": "No other malignancy is documented in the clinical diary, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+  "match": true,
+  "justification": "The patient is explicitly stated to be 44 years old, which satisfies the age requirement of ≥ 18 years."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+  "match": true,
+  "justification": "The patient has a histologically confirmed diagnosis of adenocarcinoma (NSCLC subtype) at Stage IV with metastases, as documented in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+  "match": false,
+  "justification": "The patient's clinical diary shows first-line treatment was targeted therapy with alectinib, not platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1.",
+  "match": true,
+  "justification": "The patient's ECOG Performance Status is documented as 0 in the clinical diary, which meets the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+  "match": false,
+  "justification": "The clinical diary lacks specific lesion diameters from the TC TAP report to confirm RECIST 1.1 measurability, despite historical lesions being <1 cm, which likely do not meet the criteria."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+```json
+{
+"criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": true,
+"justification": "The patient's ANC is explicitly recorded as 1.8 x 10^9/L in the laboratory values, which is above the threshold of 1.5 x 10^9/L."
+}
+```
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x10^9/L",
+  "match": true,
+  "justification": "The patient's platelet count is 180 x10^9/L, which satisfies the inclusion criterion of ≥ 100 x10^9/L as per the laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+  "match": true,
+  "justification": "The patient's hemoglobin level is 12.1 g/dL, which is greater than or equal to 9 g/dL, satisfying the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "The patient's AST value is 20 U/L, which is below the ULN of 31 U/L, satisfying ≤2.5 x ULN, and no liver metastases are indicated in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": false,
+  "justification": "The clinical diary does not specify the presence of liver metastases, which is required for accurate evaluation of the criterion, making the condition uncertain."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN",
+"match": true,
+"justification": "The patient's total bilirubin is 0.8 mg/dL, which is below the normal range upper limit (ULN) of 1.2 mg/dL, satisfying the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+  "match": false,
+  "justification": "Creatinine clearance was not directly measured or calculated using the CKD-EPI formula in the provided clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+  "match": false,
+  "justification": "No information regarding a pregnancy test is present in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "The clinical diary lacks any reference to a clinical trial or signed informed consent, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+"match": false,
+"justification": "The clinical diary and laboratory values do not provide any evidence of known EGFR genomic alterations, as the focus is on ALK rearrangement and no EGFR-specific tests are mentioned."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy.",
+  "match": true,
+  "justification": "The patient's clinical diary explicitly states a known ALK rearrangement, and alectinib, an approved targeted therapy, is being administered, confirming the exclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No mention of ROS1 genomic alterations in the clinical diary, so it cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases.",
+  "match": false,
+  "justification": "The patient received treatment for brain metastases, including radiotherapy and alectinib, as documented in the clinical diary, confirming they are not untreated."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "EXCLUSION CRITERION - Symptomatic brain metastases",
+  "match": false,
+  "justification": "The patient is asymptomatic with no reported headaches or neurological symptoms, and ECOG performance status is 0, indicating no current symptomatic brain metastases despite the presence of metastases."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "No evidence of active autoimmune disease or immunosuppressive therapy in the provided clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "EXCLUSION CRITERION - Interstitial lung disease",
+  "match": false,
+  "justification": "No clinical evidence or mention of interstitial lung disease in the patient's diary, and symptoms like dry cough may be related to metastatic disease rather than ILD."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis.",
+  "match": false,
+  "justification": "No clinical evidence or symptoms of active non-infectious pneumonitis is present in the patient's clinical diary, with no reported respiratory issues or abnormalities."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy.",
+"match": false,
+"justification": "The patient has no fever, no reported symptoms of infection, and laboratory values are within normal limits, indicating no active infection requiring systemic therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX.",
+  "match": false,
+  "justification": "No information regarding prior exposure to LUMITAX is present in the clinical diary, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ)",
+"match": false,
+"justification": "The clinical diary does not mention any other malignancy, so the exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
+  "match": true,
+  "justification": "The patient's age is explicitly stated as 71 years in the clinical diary, meeting the age requirement."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+  "match": false,
+  "justification": "The patient has metastatic breast cancer, not NSCLC, as explicitly documented in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+  "match": false,
+  "justification": "The patient did not receive first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy; the clinical diary specifies treatment with letrozol and palbociclib, which does not align with the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - ECOG Performance Status 0–1",
+  "match": true,
+  "justification": "The clinical diary explicitly documents an ECOG performance status of 1, which falls within the required range of 0–1 for inclusion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - At least one measurable lesion per RECIST 1.1.",
+  "match": false,
+  "justification": "The clinical diary does not explicitly document RECIST-measurable lesion dimensions or confirm their presence, making the criterion uncertain."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+  "match": true,
+  "justification": "The absolute neutrophil count is 2.8 x10^9/L, which meets the threshold of ≥1.5 x10^9/L based on laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Platelets ≥ 100 x10^9/L.",
+  "match": false,
+  "justification": "Platelet count is not documented in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Hemoglobin ≥ 9 g/dL",
+  "match": true,
+  "justification": "The hemoglobin level is 13.2 g/dL, which exceeds the 9 g/dL threshold as documented in the laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "INCLUSION CRITERION - AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+"match": true,
+"justification": "The patient's AST is 20 U/L, and ULN is 31 U/L, satisfying AST ≤ 2.5 x ULN (77.5 U/L). No liver metastases present, so standard criterion applies."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases)",
+  "match": true,
+  "justification": "The patient's ALT level is 12 U/L, with ULN at 34 U/L, meeting the criterion as it is below 2.5 x ULN."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Total bilirubin ≤ 1.5 x ULN",
+  "match": true,
+  "justification": "The patient's total bilirubin is 0.6 mg/dL, and the ULN is 1.2 mg/dL (from reference range), so it satisfies ≤ 1.5 x ULN."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+  "match": false,
+  "justification": "Creatinine clearance or CKD-EPI calculation was not explicitly provided in the clinical diary, so the criterion could not be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+  "match": false,
+  "justification": "The clinical diary does not provide information on the patient's menopausal status or the result of a pregnancy test, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "INCLUSION CRITERION - Signed informed consent prior to any study-specific procedure.",
+  "match": false,
+  "justification": "No mention of signed informed consent for study-specific procedures is present in the clinical diary, resulting in an uncertain status."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "EXCLUSION CRITERION - Known EGFR genomic alterations with available approved targeted therapy.",
+"match": false,
+"justification": "No mention of EGFR genomic alterations in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ALK genomic alterations with available approved targeted therapy",
+  "match": false,
+  "justification": "The clinical diary does not mention any known ALK genomic alterations, so the exclusion criterion cannot be confirmed based on available data."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "EXCLUSION CRITERION - Known ROS1 genomic alterations with available approved targeted therapy.",
+  "match": false,
+  "justification": "No information on ROS1 genomic alterations is present in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "EXCLUSION CRITERION - Untreated brain metastases",
+  "match": false,
+  "justification": "No mention of brain metastases in the clinical diary, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "EXCLUSION CRITERION - Symptomatic brain metastases",
+  "match": false,
+  "justification": "The clinical diary lacks any mention of brain metastases or associated symptoms, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active autoimmune disease requiring systemic immunosuppressive therapy.",
+  "match": false,
+  "justification": "The clinical diary lacks any mention of autoimmune diseases or immunosuppressive therapy, so the criterion cannot be confirmed based on available information."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "EXCLUSION CRITERION - Interstitial lung disease",
+  "match": false,
+  "justification": "No evidence or mention of interstitial lung disease in the clinical diary or laboratory values; the patient's condition is focused on breast cancer and bone metastases with no respiratory symptoms or lung imaging."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "EXCLUSION CRITERION - Active non-infectious pneumonitis",
+"match": false,
+"justification": "No evidence of pneumonitis is present in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+  "criterion": "EXCLUSION CRITERION - Active infection requiring systemic therapy.",
+  "match": false,
+  "justification": "No evidence of active infection or systemic therapy for infection in the clinical diary or laboratory values."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "EXCLUSION CRITERION - Prior exposure to LUMITAX",
+"match": false,
+"justification": "No information regarding prior exposure to LUMITAX is present in the clinical diary or laboratory values, so the criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "EXCLUSION CRITERION - Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ)",
+"match": false,
+"justification": "No other invasive malignancy is documented in the clinical diary, so the exclusion criterion cannot be confirmed."
+}
+

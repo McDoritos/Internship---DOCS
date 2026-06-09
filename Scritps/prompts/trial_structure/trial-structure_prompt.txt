@@ -5,7 +5,7 @@ Instructions:
 - Extract a short descriptive name for the cohort.
 - Do not extract eligibility criteria.
 - Do not infer cohorts that are not explicitly described.
-- If no cohorts exist, return has_cohorts = false.
+- If no cohorts exist, return has_cohorts = false and with an empty list of cohorts ("cohorts" : []).
 
 Output format:
 
