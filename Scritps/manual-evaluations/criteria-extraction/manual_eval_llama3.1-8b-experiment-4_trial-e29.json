@@ -1,0 +1,369 @@
+{
+    "trial": "e29",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Adults, aged 18 through 75 years of age, with pathologically confirmed acute myelogenous leukemia, in pathologically confirmed complete remission following anti-leukemic therapy.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "The predicted criteria do not collectively match the GOLD criterion. While some predicted criteria ('Adults, aged 18 through 75 years of age,', 'with pathologically confirmed acute myelogenous leukemia,', 'in pathologically confirmed complete remission following anti-leukemic therapy.') partially match parts of the GOLD criterion, no single predicted criterion or combination of predicted criteria fully captures the entire meaning of the GOLD criterion without adding extra conditions or losing clinically relevant details."
+                }
+            },
+            {
+                "gold": "AST, ALT and Alkaline Phosphatase <5x Upper Limit normal (ULN), direct bilirubin < 2.0 mg/dl.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "AST, ALT and Alkaline Phosphatase <5x Upper Limit normal (ULN),",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches part of the GOLD criterion, but it does not include the condition for direct bilirubin < 2.0 mg/dl, which is also present in the GOLD criterion and is found in another predicted criterion (index 4)."
+                }
+            },
+            {
+                "gold": "Adequate renal function as defined by: calculated creatinine clearance ≥ 60 mL/min (Cockcroft-Gault Formula) or serum Cr less than institution ULN (the elderly will often have < 60 GFR)",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Adequate renal function as defined by: calculated creatinine clearance ≥ 60 mL/min (Cockcroft-Gault Formula) or serum Cr less than institution ULN (the elderly will often have < 60 GFR)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details of the renal function requirement."
+                }
+            },
+            {
+                "gold": "ECOG performance status 0-2.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "ECOG performance status 0-2.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Have a diagnosis of high-risk AML as established by a poor-risk karyotype, adverse risk by ELN criteria, a therapy-related AML, age ≥ 60 or with antecedent hematologic disorder",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Have a diagnosis of high-risk AML as established by a poor-risk karyotype,",
+                    "classification": "partial",
+                    "explanation": "The predicted criteria split the GOLD criterion into multiple parts (criterion 7, 8, and 9), but collectively preserve the full meaning, with the exception of 'age ≥ 60 or with antecedent hematologic disorder' being split into criterion 10. However, criterion 10 also includes 'age ≥ 60' which is part of the original GOLD criterion, but the 'or with antecedent hematologic disorder' is preserved. Thus, it is considered a partial match due to the splitting."
+                }
+            },
+            {
+                "gold": "LVEF must be equal to or greater than 40%, as measured by MUGA scan or echocardiogram",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "LVEF must be equal to or greater than 40%, as measured by MUGA scan or echocardiogram",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all clinically meaningful details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients, or appropriate designee, must be able to provide informed consent.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Patients, or appropriate designee, must be able to provide informed consent.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context of informed consent."
+                }
+            },
+            {
+                "gold": "Must not have received systemic anti-neoplastic therapy, including radiotherapy within 14 days of study treatment.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Must not have received systemic anti-neoplastic therapy, including radiotherapy within 14 days of study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and logical context without any loss of clinically relevant details."
+                }
+            },
+            {
+                "gold": "Female patients of childbearing age must have negative pregnancy test.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Female patients of childbearing age must have negative pregnancy test.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Male subject agrees to use an acceptable method for contraception during the entire study treatment period and through 6 months after the last dose of lenalidomide.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Male subject agrees to use an acceptable method for contraception during the entire study treatment period and through 6 months after the last dose of lenalidomide.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "All study participants must be registered into the mandatory Revlimid REMS® program, and be willing and able to comply with the requirements of the REMS® program.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "All study participants must be registered into the mandatory Revlimid REMS® program, and be willing and able to comply with the requirements of the REMS® program.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and requirements of the REMS program registration and compliance."
+                }
+            },
+            {
+                "gold": "Females of reproductive potential must adhere to the scheduled pregnancy testing as required in the Revlimid REMS® program.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Females of reproductive potential must adhere to the scheduled pregnancy testing as required in the Revlimid REMS® program.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "If needed, patients should be able to take aspirin (81 or 325 mg) daily as prophylactic anticoagulation.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "If needed, patients should be able to take aspirin (81 or 325 mg) daily as prophylactic anticoagulation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Haploidentical 1st-degree relative as defined by 3/6 or 4/6 HLA-matched at HLA -A, -B, or -DRB1 who is 18-70 years of age",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Haploidentical 1st-degree relative as defined by 3/6 or 4/6 HLA-matched at HLA -A, -B, or -DRB1 who is 18-70 years of age",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "ECOG performance status 0 or 1",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "ECOG performance status 0 or 1",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context of ECOG performance status."
+                }
+            },
+            {
+                "gold": "Excellent health per conventional pre-donor history (medical and psychosocial evaluation)",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Excellent health per conventional pre-donor history (medical and psychosocial evaluation)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "No positive testing for viral infection (HbsAg, HIV, HCV)",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "No positive testing for viral infection (HbsAg, HIV, HCV)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Donor ability to understand and provide informed consent",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Donor ability to understand and provide informed consent",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Meets standard institutional criteria for GCSF mobilized PBSC donation",
+                "evaluation": {
+                    "match_index": 24,
+                    "match_text": "Meets standard institutional criteria for GCSF mobilized PBSC donation",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any additions or omissions."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Diagnosis of acute promyelocytic leukemia",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Diagnosis of acute promyelocytic leukemia",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Active refractory or relapsed acute leukemia",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Active refractory or relapsed acute leukemia",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Prior use of fludarabine, as this agent has been associated with higher subsequent rates of graft versus host disease",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Prior use of fludarabine,",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion 'Prior use of fludarabine,' is a partial match because it only captures part of the GOLD criterion. The GOLD criterion also mentions the reason for the exclusion, which is the association with higher subsequent rates of graft versus host disease, but this information is split into a separate predicted criterion ('as this agent has been associated with higher subsequent rates of graft versus host disease')."
+                }
+            },
+            {
+                "gold": "Individuals with a history of a different malignancy are ineligible except for the following circumstances. Individuals with a history of other malignancies are eligible if they have been disease-free for at least 3 years and are deemed by the investigator to be at low risk for recurrence of that malignancy.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Individuals with a history of other malignancies are eligible if they have been disease-free for at least 3 years and are deemed by the investigator to be at low risk for recurrence of that malignancy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, preserving all details about eligibility for individuals with a history of other malignancies."
+                }
+            },
+            {
+                "gold": "Individuals with the following cancers are eligible if diagnosed and treated within the past 3 years: cervical cancer in situ, and basal cell or squamous cell carcinoma of the skin.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Individuals with the following cancers are eligible if diagnosed and treated within the past 3 years: cervical cancer in situ,",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion partially matches the GOLD criterion, as it only mentions cervical cancer in situ and is split into two separate criteria (index 6 and 7), with the second part ('and basal cell or squamous cell carcinoma of the skin.') found at index 7. The full meaning is preserved across these two predicted criteria."
+                }
+            },
+            {
+                "gold": "Uncontrolled intercurrent illness that would limit compliance with study requirements.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Uncontrolled intercurrent illness that would limit compliance with study requirements.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "HIV-positive individuals on combination antiretroviral therapy are ineligible because of the potential for pharmacokinetic interactions with study drug.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "HIV-positive individuals on combination antiretroviral therapy are ineligible because of the potential for pharmacokinetic interactions with study drug.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context regarding HIV-positive individuals on combination antiretroviral therapy."
+                }
+            },
+            {
+                "gold": "A diagnosis of active hepatitis B or C as defined by detectable viral load assays in the blood",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "A diagnosis of active hepatitis B or C as defined by detectable viral load assays in the blood",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all clinically meaningful details and logical meaning."
+                }
+            },
+            {
+                "gold": "Known hypersensitivity to thalidomide or lenalidomide.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Known hypersensitivity to thalidomide or lenalidomide.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "The development of erythema nodosum if characterized by a desquamating rash while taking lenalidomide.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "The development of erythema nodosum if characterized by a desquamating rash while taking lenalidomide.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Known or suspected cardiac amyloidosis",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Significant cardiac disease as determined by the investigator including: Known or suspected cardiac amyloidosis",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with 'Known or suspected cardiac amyloidosis' being a part of the predicted text, preserving the full meaning of the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Congestive heart failure of Class III or IV of the NYHA classification",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Congestive heart failure of Class III or IV of the NYHA classification",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Uncontrolled angina, hypertension or arrhythmia",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Uncontrolled angina, hypertension or arrhythmia",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 'Uncontrolled angina, hypertension or arrhythmia' is semantically equivalent to the GOLD criterion, with no details lost and the logical meaning preserved."
+                }
+            },
+            {
+                "gold": "Myocardial infarction in past 6 months",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Myocardial infarction in past 6 months",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Any uncontrolled or severe cardiovascular disease",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Any uncontrolled or severe cardiovascular disease",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Prior cerebrovascular event with persistent neurologic deficit",
+                "evaluation": {
+                    "match_index": 19,
+                    "match_text": "Prior cerebrovascular event with persistent neurologic deficit",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Medical conditions that, in the investigator's opinion, would impose excessive risk to the subject.",
+                "evaluation": {
+                    "match_index": 19,
+                    "match_text": "Medical conditions that, in the investigator's opinion, would impose excessive risk to the subject.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 19 is semantically equivalent to the GOLD criterion, preserving the full meaning and clinical context without adding or removing any details."
+                }
+            },
+            {
+                "gold": "Equal to or greater than grade 2 ataxia, cranial or peripheral neuropathy.",
+                "evaluation": {
+                    "match_index": 28,
+                    "match_text": "Equal to or greater than grade 2 ataxia, cranial or peripheral neuropathy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Systemic infection requiring IV antibiotic therapy within 7 days preceding the first dose of study drug, or other severe infection.",
+                "evaluation": {
+                    "match_index": 27,
+                    "match_text": "Systemic infection requiring IV antibiotic therapy within 7 days preceding the first dose of study drug, or other severe infection.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 27 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Pregnant women are excluded from this study.",
+                "evaluation": {
+                    "match_index": 29,
+                    "match_text": "Pregnant women are excluded from this study.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 34,
+        "partial": 4,
+        "wrong": 1,
+        "errors": 0,
+        "evaluated": 39,
+        "human_accuracy": 87.17948717948718,
+        "partial_score": 92.3076923076923
+    }
+}

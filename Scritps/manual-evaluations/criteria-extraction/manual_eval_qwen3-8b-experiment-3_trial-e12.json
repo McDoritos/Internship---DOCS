@@ -1,0 +1,189 @@
+{
+    "trial": "e12",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Provision of signed and dated informed consent form.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Provision of signed and dated informed consent form.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Subject is 18 years of age and older.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Subject is 18 years of age and older.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Subject has a diagnosis of unresectable Stage 3 pancreatic adenocarcinoma cancer cytologically or pathologically confirmed per American Joint Committee on Cancer (AJCC) staging criteria.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Subject has a diagnosis of unresectable Stage 3 pancreatic adenocarcinoma cancer cytologically or pathologically confirmed per American Joint Committee on Cancer (AJCC) staging criteria.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Subject has a tumor evaluated as Stage 3 according to National Comprehensive Cancer Network (NCCN) guidelines, based on radiographic imaging or exploratory surgery.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Subject has a tumor evaluated as Stage 3 according to National Comprehensive Cancer Network (NCCN) guidelines, based on radiographic imaging or exploratory surgery.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Maximum axial and anterior to posterior tumor dimension of ≤3.5cm, after receiving three months of treatment with the modified FOLFIRINOX regimen.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Maximum axial and anterior to posterior tumor dimension of ≤3.5cm, after receiving three months of treatment with the modified FOLFIRINOX regimen.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all clinically meaningful details and logical meaning."
+                }
+            },
+            {
+                "gold": "Subject has received 3 months of treatment with the modified FOLFIRINOX regimen.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Subject has received 3 months of treatment with the modified FOLFIRINOX regimen.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Subject has an Eastern Cooperative Oncology Group (ECOG) performance status of 0 or 1.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Subject has an Eastern Cooperative Oncology Group (ECOG) performance status of 0 or 1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Subject has an American Society of Anesthesiologists (ASA) classification of physical health status of 1 or 2.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Subject has an American Society of Anesthesiologists (ASA) classification of physical health status of 1 or 2.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 7 is semantically equivalent to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Subjects who are or may be pregnant as determined by a positive pregnancy test or breastfeeding or male or female patients of reproductive potential who are not willing to employ highly effective birth control from screening to 6 months after the last dose of chemotherapy.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Subjects who are or may be pregnant as determined by a positive pregnancy test or breastfeeding or male or female patients of reproductive potential who are not willing to employ highly effective birth control from screening to 6 months after the last dose of chemotherapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Subjects who are unable to tolerate general anesthetic with full skeletal muscle blockade.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Subjects who are unable to tolerate general anesthetic with full skeletal muscle blockade.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Subjects who are actively bleeding, anticoagulated, coagulopathy, or have any of the following hematology results: hemoglobin less than 10 g/dL without the support of growth factors or transfusions absolute neutrophil count less than 1500 cells/mL; or platelet count less than 100,000.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Subjects who are actively bleeding, anticoagulated, coagulopathy, or have any of the following hematology results: hemoglobin less than 10 g/dL without the support of growth factors or transfusions absolute neutrophil count less than 1500 cells/mL; or platelet count less than 100,000.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Subjects with the presence of implanted cardiac pacemakers, defibrillators, electronic devices or implanted devices with metal parts in the thoracic cavity at the time of IRE.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Subjects with the presence of implanted cardiac pacemakers, defibrillators, electronic devices or implanted devices with metal parts in the thoracic cavity at the time of IRE.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Subjects with history of epilepsy or other neurological disease.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Subjects with history of epilepsy or other neurological disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Subjects with renal, cardiac, liver, or hematological abnormalities of concern to the investigator.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Subjects with renal, cardiac, liver, or hematological abnormalities of concern to the investigator.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Subjects with Stage 3, 4, or 5 chronic kidney disease.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Subjects with Stage 3, 4, or 5 chronic kidney disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Subjects receiving IRE for margin accentuation.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Subjects receiving IRE for margin accentuation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Subjects who at 3 months after FOLFIRINOX treatment have evidence of disease progression.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Subjects who at 3 months after FOLFIRINOX treatment have evidence of disease progression.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Participation in another interventional trial for pancreatic cancer.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Participation in another interventional trial for pancreatic cancer.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Subjects who did not meet study defined criteria for adequacy of induction treatment at the end of the 3 months.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Subjects who did not meet study defined criteria for adequacy of induction treatment at the end of the 3 months.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 19,
+        "partial": 0,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 19,
+        "human_accuracy": 100.0,
+        "partial_score": 100.0
+    }
+}

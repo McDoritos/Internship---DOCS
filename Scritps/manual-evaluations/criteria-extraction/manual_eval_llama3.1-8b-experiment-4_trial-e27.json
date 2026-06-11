@@ -1,0 +1,161 @@
+{
+    "trial": "e27",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Histopathology or cytopathology proven gastric cancer;",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Histopathology or cytopathology proven gastric cancer;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Operable advanced gastric cancer patients: primary lesions can be completely excision, no distant metastasis;",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Operable advanced gastric cancer patients: primary lesions can be completely excision, no distant metastasis;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Postoperative patients who can tolerate 5-FU based (5-FU，S-1 or Capecitabine) adjuvant chemotherapy;",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Postoperative patients who can tolerate 5-FU based (5-FU,S-1 or Capecitabine) adjuvant chemotherapy;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Life expectancy of at least 6 months;",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Life expectancy of at least 6 months;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "ECOG（Eastern Cooperative Oncology Group ） score 0-1;",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "ECOG(Eastern Cooperative Oncology Group ) score 0-1;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details of the ECOG score requirement."
+                }
+            },
+            {
+                "gold": "Age: 18~80 years old;",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Age: 18~80 years old;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details of the age requirement."
+                }
+            },
+            {
+                "gold": "Normal hemodynamic indices before the recruitment (including blood cell count and liver/kidney function).",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Normal hemodynamic indices before the recruitment (including blood cell count and liver/kidney function).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "WBC（White blood cell count ）>4.0×109/L; NEU（Neutrophils）>1.5×109/L; PLT（Platelet）>100×109/L;",
+                "evaluation": {
+                    "match_index": [
+                        7,
+                        8,
+                        9
+                    ],
+                    "match_text": [
+                        "WBC(White blood cell count )>4.0×10^9/L;",
+                        "NEU(Neutrophils)>1.5×10^9/L;",
+                        "PLT(Platelet)>100×10^9/L;"
+                    ],
+                    "classification": "correct",
+                    "explanation": "The GOLD criterion is split into three separate predicted criteria, but collectively they preserve the full meaning of the GOLD criterion without losing any details."
+                }
+            },
+            {
+                "gold": "Roughly normal cardiopulmonary function: No coronary heart disease, myocardial infarction, pulmonary heart disease, refractory hypertension;",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Roughly normal cardiopulmonary function: No coronary heart disease, myocardial infarction, pulmonary heart disease, refractory hypertension;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Not concomitant with other uncontrollable benign diseases before the recruitment;",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Not concomitant with other uncontrollable benign diseases before the recruitment;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Voluntarily signed the informed consent.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Voluntarily signed the informed consent.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Advanced gastric cancer patients with distant metastasis and inoperable ;",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Advanced gastric cancer patients with distant metastasis and inoperable ;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients who cannot tolerate 5-FU based adjuvant chemotherapy;",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patients who cannot tolerate 5-FU based adjuvant chemotherapy;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Pregnant or lactating women;",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Pregnant or lactating women;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients who have no desire to participate in the study.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Patients who have no desire to participate in the study.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 15,
+        "partial": 0,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 15,
+        "human_accuracy": 100.0,
+        "partial_score": 100.0
+    }
+}

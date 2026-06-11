@@ -1,0 +1,332 @@
+{
+    "trial": "e22",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Subjects must have histologically or cytologically confirmed adenocarcinoma of the breast with locally recurrent or metastatic disease. Locally recurrent disease must not be amenable to any local treatment with curative intent. Metastatic disease must be demonstrated either radiographically or histologically.",
+                "evaluation": {
+                    "match_index": [
+                        0,
+                        1,
+                        2
+                    ],
+                    "match_text": [
+                        "Subjects must have histologically or cytologically confirmed adenocarcinoma of the breast with locally recurrent or metastatic disease.",
+                        "Locally recurrent disease must not be amenable to any local treatment with curative intent.",
+                        "Metastatic disease must be demonstrated either radiographically or histologically."
+                    ],
+                    "classification": "correct",
+                    "explanation": "The predicted criteria correctly split the GOLD criterion into three separate criteria, preserving the full meaning and details of the original text."
+                }
+            },
+            {
+                "gold": "Single-probe average HER2 copy number ≥6.0 signals/cell",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Single-probe average HER2 copy number ≥6.0 signals/cell",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with the same condition and threshold value."
+                }
+            },
+            {
+                "gold": "Dual-probe HER2/Chromosome 17 centromere (CEP17) ratio ≥2.0 with an average HER2 copy number ≥4.0 signals/cell",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Dual-probe HER2/Chromosome 17 centromere (CEP17) ratio ≥2.0 with an average HER2 copy number ≥4.0 signals/cell",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 5 is semantically equivalent to the GOLD criterion, with the same conditions and thresholds."
+                }
+            },
+            {
+                "gold": "Dual-probe HER2/CEP17 ratio ≥2.0 with an average HER2 copy number <4.0 signals/cell",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Dual-probe HER2/CEP17 ratio ≥2.0 with an average HER2 copy number <4.0 signals/cell",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same conditions and thresholds."
+                }
+            },
+            {
+                "gold": "Dual-probe HER2/CEP17 ratio < 2.0 with an average HER2 copy number > 6.0 signals/cell",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Dual-probe HER2/CEP17 ratio < 2.0 with an average HER2 copy number > 6.0 signals/cell",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Patients should have progressed on at least two lines of HER2-directed therapy in the metastatic setting, and prior therapy for metastatic disease should include both pertuzumab and ado-trastuzumab unless contraindicated or declined by the patient.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Patients should have progressed on at least two lines of HER2-directed therapy in the metastatic setting, and prior therapy for metastatic disease should include both pertuzumab and ado-trastuzumab unless contraindicated or declined by the patient.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "There is no upper limit on the number prior therapies",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "There is no upper limit on the number prior therapies",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients may have measurable disease only, non-measurable disease only, or both (RECIST 1.1). Concomitant treatment with bone-targeted therapies such as Receptor activator of nuclear factor kappa-B ligand (RANKL) inhibitors or bisphosphonates is allowed. It is anticipated that most patients will have measurable disease, given the behavior of HER2+ metastatic breast cancer.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Patients may have measurable disease only, non-measurable disease only, or both (RECIST 1.1). Concomitant treatment with bone-targeted therapies such as Receptor activator of nuclear factor kappa-B ligand (RANKL) inhibitors or bisphosphonates is allowed.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Because no dosing or adverse event data are currently available on the use of ruxolitinib in combination with trastuzumab in patients <18 years of age, children are excluded from this study.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Because no dosing or adverse event data are currently available on the use of ruxolitinib in combination with trastuzumab in patients <18 years of age, children are excluded from this study.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added, and the logical meaning is preserved."
+                }
+            },
+            {
+                "gold": "Women and men of all races and ethnic groups are eligible for this trial.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Women and men of all races and ethnic groups are eligible for this trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 11 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Eastern Cooperative Oncology Group (ECOG) performance status 0-2 (Karnofsky equal to or greater than 60)",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Eastern Cooperative Oncology Group (ECOG) performance status 0-2 (Karnofsky equal to or greater than 60)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 12 is semantically equivalent to the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Left ventricular ejection fraction greater than or equal to 50 percent by transthoracic echocardiography or multi-gated acquisition scan (MUGA) within 28 days prior to the first dose of the study drug.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Left ventricular ejection fraction greater than or equal to 50 percent by transthoracic echocardiography or multi-gated acquisition scan (MUGA) within 28 days prior to the first dose of the study drug.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "The subject has a baseline corrected QT interval less than or equal to 480ms.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "The subject has a baseline corrected QT interval less than or equal to 480ms.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "leukocytes greater than or equal to 3,000/microliter (mcL).",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "leukocytes greater than or equal to 3,000/microliter (mcL).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "absolute neutrophil count greater than or equal to 1,500/mcL.",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "absolute neutrophil count greater than or equal to 1,500/mcL.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 17 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "platelets greater than or equal to 100,000/mcL.",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "platelets greater than or equal to 100,000/mcL.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 17 exactly matches the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "hemoglobin greater than or equal to 9 g/dL.",
+                "evaluation": {
+                    "match_index": 19,
+                    "match_text": "hemoglobin greater than or equal to 9 g/dL.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "total bilirubin less than or equal to 1.5 times the upper limit of normal.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "total bilirubin less than or equal to 1.5 times the upper limit of normal.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Aspartate Aminotransferase (AST/SGOT)/ Alanine Aminotransferase (ALT/SGPT) less than or equal to 2.5 time institutional upper limit of normal.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Aspartate Aminotransferase (AST/SGOT)/ Alanine Aminotransferase (ALT/SGPT) less than or equal to 2.5 time institutional upper limit of normal.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Serum creatinine less than or equal to 1.5 times the upper limit of normal or calculated creatinine clearance greater than or equal to 60 mL/min.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Serum creatinine less than or equal to 1.5 times the upper limit of normal or calculated creatinine clearance greater than or equal to 60 mL/min.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and logical structure."
+                }
+            },
+            {
+                "gold": "Women of childbearing potential and men must use adequate contraception prior to study entry and for the duration of study participation. Contraception should continue to be used for a minimum of 5 mean half-lives after the last dose of study drugs (mean Trastuzumab half-life at 6 mg/kg 16 days; mean half-life Ruxolitinib: 3 hours)",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Women of childbearing potential and men must use adequate contraception prior to study entry and for the duration of study participation. Contraception should continue to be used for a minimum of 5 mean half-lives after the last dose of study drugs (mean Trastuzumab half-life at 6 mg/kg 16 days; mean half-life Ruxolitinib: 3 hours)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 21 is semantically equivalent to the GOLD criterion, preserving all details about contraception requirements for women of childbearing potential and men."
+                }
+            },
+            {
+                "gold": "Patient is able to swallow, retain, and absorb oral medication.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "Patient is able to swallow, retain, and absorb oral medication.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 20 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Informed Consent. Ability to understand and the willingness to sign a written informed consent document.",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Informed Consent. Ability to understand and the willingness to sign a written informed consent document.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Patients who have had chemotherapy, hormonal therapy, or radiotherapy within 2 weeks prior to entering the study or those who have not recovered from adverse events due to agents administered more than 2 weeks earlier.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Patients who have had chemotherapy, hormonal therapy, or radiotherapy within 2 weeks prior to entering the study or those who have not recovered from adverse events due to agents administered more than 2 weeks earlier.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Patients who are receiving any other investigational agents or have received other investigational agents within 2 weeks or 5 half-lives of the compound or active metabolites, whichever is longer before the first dose of the study treatment.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patients who are receiving any other investigational agents or have received other investigational agents within 2 weeks or 5 half-lives of the compound or active metabolites, whichever is longer before the first dose of the study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients who have previously been treated with an interleukin-6 (IL-6), Janus kinase (JAK) or Signal Transducers and Activators of Transcription (STAT) inhibitor for any indication, such as ruxolitinib or tocilizumab.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Patients who have previously been treated with an interleukin-6 (IL-6), Janus kinase (JAK) or Signal Transducers and Activators of Transcription (STAT) inhibitor for any indication, such as ruxolitinib or tocilizumab.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "The subject has untreated, symptomatic, or progressive brain metastases. History of Central Nervous System (CNS) metastases or cord compression is allowable if patient has been clinically stable for at least 6 weeks since completion of definitive treatment and is off steroids without symptoms for at least 28 days.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "The subject has untreated, symptomatic, or progressive brain metastases. History of Central Nervous System (CNS) metastases or cord compression is allowable if patient has been clinically stable for at least 6 weeks since completion of definitive treatment and is off steroids without symptoms for at least 28 days.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "History of allergic reactions attributed to compounds of similar chemical or biologic composition to ruxolitinib or trastuzumab.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "History of allergic reactions attributed to compounds of similar chemical or biologic composition to ruxolitinib or trastuzumab.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "The effects of ruxolitinib on the developing human fetus are unknown. For this reason and because Janus kinase 2 (JAK2) inhibitor agents as well as other therapeutic agents used in this trial are known to be teratogenic, women of child-bearing potential and men must agree to use adequate contraception (hormonal or barrier method of birth control; abstinence) prior to study entry and for the duration of study participation. Should a woman become pregnant or suspect she is pregnant while she or her partner is participating in this study, she should inform the principal investigator immediately.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "The effects of ruxolitinib on the developing human fetus are unknown. For this reason and because Janus kinase 2 (JAK2) inhibitor agents as well as other therapeutic agents used in this trial are known to be teratogenic, women of child-bearing potential and men must agree to use adequate contraception (hormonal or barrier method of birth control; abstinence) prior to study entry and for the duration of study participation. Should a woman become pregnant or suspect she is pregnant while she or her partner is participating in this study, she should inform the principal investigator immediately.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 5 is semantically equivalent to the GOLD criterion, preserving all details about contraception requirements for women of child-bearing potential and men, as well as the procedure in case of suspected pregnancy."
+                }
+            },
+            {
+                "gold": "Patients receiving any medications or substances that are strong inhibitors of cytochrome P450 (CYP450) 3A4 isoenzyme are ineligible. Patients must be off the strong inhibitor for at least 1 week prior to being deemed eligible.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Patients receiving any medications or substances that are strong inhibitors of cytochrome P450 (CYP450) 3A4 isoenzyme are ineligible. Patients must be off the strong inhibitor for at least 1 week prior to being deemed eligible.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 6 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients may not have an uncontrolled intercurrent illness including, but not limited to, ongoing or active infection, symptomatic congestive heart failure, unstable angina pectoris, cardiac arrhythmia, or psychiatric illness that would limit compliance with study requirements.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Patients may not have an uncontrolled intercurrent illness including, but not limited to, ongoing or active infection, symptomatic congestive heart failure, unstable angina pectoris, cardiac arrhythmia, or psychiatric illness that would limit compliance with study requirements.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without adding extra constraints or losing clinically relevant information."
+                }
+            },
+            {
+                "gold": "Patients must not have clinically significant cardiovascular disease (New York Heart Association Class III or IV heart failure), uncontrolled clinically significant atrial or ventricular cardiac arrhythmias, or any of the following within the past 6 months: myocardial infarction, new evidence of transmural infarction on electrocardiogram (ECG), unstable angina, coronary angioplasty.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Patients must not have clinically significant cardiovascular disease (New York Heart Association Class III or IV heart failure), uncontrolled clinically significant atrial or ventricular cardiac arrhythmias, or any of the following within the past 6 months: myocardial infarction, new evidence of transmural infarction on electrocardiogram (ECG), unstable angina, coronary angioplasty.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is an exact match to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Pregnant women are excluded from this study because ruxolitinib is a Class C agent with the potential for teratogenic or abortifacient effects. Because there is an unknown but potential risk for adverse events in nursing infants secondary to treatment of the mother with ruxolitinib, breastfeeding must be discontinued if the mother is treated with ruxolitinib. These potential risks also apply to trastuzumab, which can cause fetal harm when administered to a pregnant woman.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Pregnant women are excluded from this study because ruxolitinib is a Class C agent with the potential for teratogenic or abortifacient effects. Because there is an unknown but potential risk for adverse events in nursing infants secondary to treatment of the mother with ruxolitinib, breastfeeding must be discontinued if the mother is treated with ruxolitinib. These potential risks also apply to trastuzumab, which can cause fetal harm when administered to a pregnant woman.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 is semantically equivalent to the GOLD criterion, preserving all details about the exclusion of pregnant women, the potential risks of ruxolitinib and trastuzumab, and the requirement to discontinue breastfeeding."
+                }
+            },
+            {
+                "gold": "Active Infections. Patients with known active infections with human immunodeficiency virus (HIV), hepatitis A virus (HAV), hepatitis B (HBV), and hepatitis C virus (HCV) infections will not be considered for this trial. HIV+ patients on combination antiretroviral therapy are ineligible because of the potential for pharmacokinetic interactions with ruxolitinib. In addition, these patients are at increased risk of lethal infections when treated with marrow-suppressive therapy. Testing for HIV or hepatitis is not required.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Active Infections. Patients with known active infections with human immunodeficiency virus (HIV), hepatitis A virus (HAV), hepatitis B (HBV), and hepatitis C virus (HCV) infections will not be considered for this trial. HIV+ patients on combination antiretroviral therapy are ineligible because of the potential for pharmacokinetic interactions with ruxolitinib. In addition, these patients are at increased risk of lethal infections when treated with marrow-suppressive therapy. Testing for HIV or hepatitis is not required.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 34,
+        "partial": 0,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 34,
+        "human_accuracy": 100.0,
+        "partial_score": 100.0
+    }
+}

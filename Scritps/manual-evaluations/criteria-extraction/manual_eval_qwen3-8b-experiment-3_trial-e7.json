@@ -1,0 +1,261 @@
+{
+    "trial": "e7",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "ECOG performance status of 0 or 1.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "ECOG performance status of 0 or 1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Histologically or cytologically confirmed, Stage IV non-squamous or squamous NSCLC.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Histologically or cytologically confirmed, Stage IV non-squamous or squamous NSCLC.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 1 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "No prior treatment for Stage IV non-squamous or squamous NSCLC.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "No prior treatment for Stage IV non-squamous or squamous NSCLC.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients who have received prior neo-adjuvant, adjuvant chemotherapy, radiotherapy, or chemo-radiotherapy with curative intent for non-metastatic disease must have experienced a treatment free interval of at least 6 months from enrollment since the last chemotherapy, radiotherapy, or chemo-radiotherapy cycle.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Patients who have received prior neo-adjuvant, adjuvant chemotherapy, radiotherapy, or chemo-radiotherapy with curative intent for non-metastatic disease must have experienced a treatment free interval of at least 6 months from enrollment since the last chemotherapy, radiotherapy, or chemo-radiotherapy cycle.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is an exact match to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Tumor TC3 or IC3, as determined by SP142 performed by a central laboratory on previously obtained archival tumor tissue or tissue obtained from a biopsy at screening.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Tumor TC3 or IC3, as determined by SP142 performed by a central laboratory on previously obtained archival tumor tissue or tissue obtained from a biopsy at screening.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Measurable disease, as defined by RECIST v1.1.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Measurable disease, as defined by RECIST v1.1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Adequate hematologic and end-organ function.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Adequate hematologic and end-organ function.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Life expectancy ≥3 months.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Life expectancy \\u22653 months.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same life expectancy requirement of ≥3 months."
+                }
+            },
+            {
+                "gold": "For women of childbearing potential: agreement to remain abstinent or use contraception, and agreement to refrain from donating.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "For women of childbearing potential: agreement to remain abstinent or use contraception, and agreement to refrain from donating.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Known sensitizing mutation in the EGFR gene or ALK fusion oncogene.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Known sensitizing mutation in the EGFR gene or ALK fusion oncogene.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Symptomatic, untreated, or actively progressing CNS metastases.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Symptomatic, untreated, or actively progressing CNS metastases.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Spinal cord compression not definitively treated with surgery and/or radiation, or previously diagnosed and treated spinal cord compression without evidence that disease has been clinically stable for ≥2 weeks prior to enrollment.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Spinal cord compression not definitively treated with surgery and/or radiation, or previously diagnosed and treated spinal cord compression without evidence that disease has been clinically stable for ≥2 weeks prior to enrollment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Current leptomeningeal disease.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Current leptomeningeal disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Uncontrolled tumor-related pain.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Uncontrolled tumor-related pain.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Uncontrolled pleural effusion, pericardial effusion, or ascites requiring recurrent drainage procedures.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Uncontrolled pleural effusion, pericardial effusion, or ascites requiring recurrent drainage procedures.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Uncontrolled or symptomatic hypercalcemia.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Uncontrolled or symptomatic hypercalcemia.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Malignancies other than NSCLC within 5 years prior to enrollment, with the exception of those with a negligible risk of metastasis or death treated with expected curative outcome.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Malignancies other than NSCLC within 5 years prior to enrollment, with the exception of those with a negligible risk of metastasis or death treated with expected curative outcome.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Pregnancy or breastfeeding, or intention of becoming pregnant during study treatment or within at least 5 months after the last dose of atezolizumab.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Pregnancy or breastfeeding, or intention of becoming pregnant during study treatment or within at least 5 months after the last dose of atezolizumab.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "History of severe allergic, anaphylactic, or other hypersensitivity reactions to chimeric or humanized antibodies or fusion proteins.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "History of severe allergic, anaphylactic, or other hypersensitivity reactions to chimeric or humanized antibodies or fusion proteins.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Known allergy or hypersensitivity to biopharmaceuticals produced in Chinese hamster ovary cells or any component of the atezolizumab formulation.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Known allergy or hypersensitivity to biopharmaceuticals produced in Chinese hamster ovary cells or any component of the atezolizumab formulation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Active or history of autoimmune disease or immune deficiency.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Active or history of autoimmune disease or immune deficiency.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 11 is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "History of idiopathic pulmonary fibrosis, organizing pneumonia, drug-induced pneumonitis, idiopathic pneumonitis, or evidence of active pneumonitis on screening chest CT scan.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "History of idiopathic pulmonary fibrosis, organizing pneumonia, drug-induced pneumonitis, idiopathic pneumonitis, or evidence of active pneumonitis on screening chest CT scan.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 11 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Positive human immunodeficiency virus (HIV) test result at screening.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Positive human immunodeficiency virus (HIV) test result at screening.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patients with active hepatitis B or active hepatitis C at screening.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Patients with active hepatitis B or active hepatitis C at screening.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Active tuberculosis.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Active tuberculosis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Severe infections within 4 weeks prior to randomization, including, but not limited to, hospitalization for complications of infection, bacteremia, or severe pneumonia.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Severe infections within 4 weeks prior to randomization, including, but not limited to, hospitalization for complications of infection, bacteremia, or severe pneumonia.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Significant cardiovascular disease.",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "Significant cardiovascular disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 27,
+        "partial": 0,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 27,
+        "human_accuracy": 100.0,
+        "partial_score": 100.0
+    }
+}

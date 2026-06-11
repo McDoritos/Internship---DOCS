@@ -1,0 +1,576 @@
+{
+    "trial": "e23",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Men or women at least 18 years of age with histologically or cytologically confirmed adenocarcinoma of the breast with unresectable or metastatic disease.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Men or women at least 18 years of age with histologically or cytologically confirmed adenocarcinoma of the breast with unresectable or metastatic disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Most recent tumor biopsy or surgical resection specimen must be either estrogen-receptor (ER) positive, progesterone receptors (PgR) positive, or both, as defined by immunohistochemistry (IHC) ≥1% (as per the American Society of Clinical Oncology (ASCO)-College of American Pathologists (CAP) guidelines).",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Most recent tumor biopsy or surgical resection specimen must be either estrogen-receptor (ER) positive, progesterone receptors (PgR) positive, or both, as defined by immunohistochemistry (IHC) ≥1% (as per the American Society of Clinical Oncology (ASCO)-College of American Pathologists (CAP) guidelines).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "HER2-negative breast cancer defined as a negative in situ hybridization test or an immunohistochemistry (IHC) status of 0, 1+ or 2+. If IHC is 2+ (i.e. indeterminate), a negative in situ hybridization (Fluorescent in situ hybridization (FISH), Chromogenic in situ hybridization (CISH), or Silver-enhanced in situ hybridization (SISH)) test is required by local laboratory testing. (as per the ASCO-CAP guidelines).",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "HER2-negative breast cancer defined as a negative in situ hybridization test or an immunohistochemistry (IHC) status of 0, 1+ or 2+. If IHC is 2+ (i.e. indeterminate), a negative in situ hybridization (Fluorescent in situ hybridization (FISH), Chromogenic in situ hybridization (CISH), or Silver-enhanced in situ hybridization (SISH)) test is required by local laboratory testing. (as per the ASCO-CAP guidelines).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Postmenopausal status or receiving ovarian ablation with a GnRH agonist such as goserelin.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Postmenopausal status or receiving ovarian ablation with a GnRH agonist such as goserelin. Postmenopausal status ( is defined by any one of the following criteria:",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion but adds extra information defining postmenopausal status, which is not present in the original GOLD criterion."
+                }
+            },
+            {
+                "gold": "Prior bilateral oophorectomy.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Prior bilateral oophorectomy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Age ≥60 years.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Age ≥60 years.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 'Age ≥60 years.' is semantically equivalent to the GOLD criterion 'Age ≥60 years.'"
+                }
+            },
+            {
+                "gold": "Age <60 and amenorrhea for 12 or more months (in the absence of chemotherapy, tamoxifen, toremifen, or ovarian suppression) and follicle stimulating hormone (FSH), luteinizing hormone (LH), and estradiol in the postmenopausal range per local normal.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Age <60 and amenorrhea for 12 or more months (in the absence of chemotherapy, tamoxifen, toremifen, or ovarian suppression) and follicle stimulating hormone (FSH), luteinizing hormone (LH), and estradiol in the postmenopausal range per local normal",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 5 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "If the patient does not meet criteria for postmenopausal status but is receiving ovarian ablation therapy with a gonadotropin-releasing hormone (GnRH) agonist such as goserelin, the patient is eligible for this study, provided that the GnRH agonist is started at least 2 weeks prior to C1D1 of anti-estrogen therapy.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "If the patient does not meet criteria for postmenopausal status but is receiving ovarian ablation therapy with a gonadotropin-releasing hormone (GnRH) agonist such as goserelin, the patient is eligible for this study, provided that the GnRH agonist is started at least 2 weeks prior to C1D1 of anti-estrogen therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have evidence of measurable or unmeasurable disease.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Have evidence of measurable or unmeasurable disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Eastern Cooperative Group (ECOG) performance status of 0 or 1.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Eastern Cooperative Group (ECOG) performance status of 0 or 1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context of the ECOG performance status requirement."
+                }
+            },
+            {
+                "gold": "No prior cdk 4/6 inhibitor (Closed to Accrual).",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "No prior cdk 4/6 inhibitor (Closed to Accrual). If patient has not previously received letrozole, letrozole will be supplied by Novartis. If previously progressed on letrozole, another aromatase inhibitor that the patient has not previously received is allowed, per standard of care (anastrazole or exemestane, not supplied by study). Ribociclib will be supplied by Novartis. If patient has previously received letrozole, anastrazole, and exemestane, (s)he is not eligible.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion contains the required information about no prior cdk 4/6 inhibitor, but it also includes additional information about letrozole and other aromatase inhibitors that is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "If patient has not previously received letrozole, letrozole will be supplied by Novartis.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "No prior cdk 4/6 inhibitor (Closed to Accrual). If patient has not previously received letrozole, letrozole will be supplied by Novartis. If previously progressed on letrozole, another aromatase inhibitor that the patient has not previously received is allowed, per standard of care (anastrazole or exemestane, not supplied by study). Ribociclib will be supplied by Novartis. If patient has previously received letrozole, anastrazole, and exemestane, (s)he is not eligible.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 contains the information from the GOLD criterion, specifically the condition about letrozole supply if the patient has not previously received it."
+                }
+            },
+            {
+                "gold": "If previously progressed on letrozole, another aromatase inhibitor that the patient has not previously received is allowed, per standard of care (anastrazole or exemestane, not supplied by study).",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "No prior cdk 4/6 inhibitor (Closed to Accrual). If patient has not previously received letrozole, letrozole will be supplied by Novartis. If previously progressed on letrozole, another aromatase inhibitor that the patient has not previously received is allowed, per standard of care (anastrazole or exemestane, not supplied by study). Ribociclib will be supplied by Novartis. If patient has previously received letrozole, anastrazole, and exemestane, (s)he is not eligible.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 contains the full information from the GOLD criterion, including the condition for previously progressed patients on letrozole and the allowed aromatase inhibitors."
+                }
+            },
+            {
+                "gold": "Ribociclib will be supplied by Novartis.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "No prior cdk 4/6 inhibitor (Closed to Accrual). If patient has not previously received letrozole, letrozole will be supplied by Novartis. If previously progressed on letrozole, another aromatase inhibitor that the patient has not previously received is allowed, per standard of care (anastrazole or exemestane, not supplied by study). Ribociclib will be supplied by Novartis. If patient has previously received letrozole, anastrazole, and exemestane, (s)he is not eligible.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the information that 'Ribociclib will be supplied by Novartis', which matches the GOLD criterion."
+                }
+            },
+            {
+                "gold": "If patient has previously received letrozole, anastrazole, and exemestane, (s)he is not eligible.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "No prior cdk 4/6 inhibitor (Closed to Accrual). If patient has not previously received letrozole, letrozole will be supplied by Novartis. If previously progressed on letrozole, another aromatase inhibitor that the patient has not previously received is allowed, per standard of care (anastrazole or exemestane, not supplied by study). Ribociclib will be supplied by Novartis. If patient has previously received letrozole, anastrazole, and exemestane, (s)he is not eligible.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 correctly captures the GOLD criterion, stating that a patient who has previously received letrozole, anastrazole, and exemestane is not eligible."
+                }
+            },
+            {
+                "gold": "For scenario 1, patients are allowed to have started the aromatase inhibitor within 4 consecutive weeks prior to protocol registration.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "For scenario 1, patients are allowed to have started the aromatase inhibitor within 4 consecutive weeks prior to protocol registration. For instance, it is acceptable for patient who will be treated with letrozole in scenario #1, to have started letrozole within 4 consecutive weeks prior to protocol registration.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "No prior fulvestrant allowed.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "No prior fulvestrant allowed.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, with no additional or missing information."
+                }
+            },
+            {
+                "gold": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression. If the patient was enrolled in a randomized clinical trial involving ribociclib or abemaciclib or palbociclib (such as the MONALEESA or PALOMA series of trials), then it must be known after study discontinuation and unblinding that the patient received the investigational drug and not placebo. Ribociclib or abemaciclib or palbociclib can also be given as standard of care. Documentation of progression and duration of response on aromatase inhibitor or tamoxifen plus CDK 4/6 inhibitor should be provided whenever possible. If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization. If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization. If neither has been administered, selection of fulvestrant or exemestane in the randomization will be per investigator discretion.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 is semantically equivalent to the GOLD criterion, preserving all the information and logical meaning."
+                }
+            },
+            {
+                "gold": "If the patient was enrolled in a randomized clinical trial involving ribociclib or abemaciclib or palbociclib (such as the MONALEESA or PALOMA series of trials), then it must be known after study discontinuation and unblinding that the patient received the investigational drug and not placebo.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression. If the patient was enrolled in a randomized clinical trial involving ribociclib or abemaciclib or palbociclib (such as the MONALEESA or PALOMA series of trials), then it must be known after study discontinuation and unblinding that the patient received the investigational drug and not placebo. Ribociclib or abemaciclib or palbociclib can also be given as standard of care. Documentation of progression and duration of response on aromatase inhibitor or tamoxifen plus CDK 4/6 inhibitor should be provided whenever possible. If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization. If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization. If neither has been administered, selection of fulvestrant or exemestane in the randomization will be per investigator discretion.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 contains the full information from the GOLD criterion, including the requirement for patients enrolled in a randomized clinical trial involving ribociclib, abemaciclib, or palbociclib to have received the investigational drug and not placebo after study discontinuation and unblinding."
+                }
+            },
+            {
+                "gold": "Documentation of progression and duration of response on aromatase inhibitor or tamoxifen plus CDK 4/6 inhibitor should be provided whenever possible.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression. If the patient was enrolled in a randomized clinical trial involving ribociclib or abemaciclib or palbociclib (such as the MONALEESA or PALOMA series of trials), then it must be known after study discontinuation and unblinding that the patient received the investigational drug and not placebo. Ribociclib or abemaciclib or palbociclib can also be given as standard of care. Documentation of progression and duration of response on aromatase inhibitor or tamoxifen plus CDK 4/6 inhibitor should be provided whenever possible. If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization. If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization. If neither has been administered, selection of fulvestane or exemestane in the randomization will be per investigator discretion.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the required information about documentation of progression and duration of response on aromatase inhibitor or tamoxifen plus CDK 4/6 inhibitor, although it is part of a larger criterion."
+                }
+            },
+            {
+                "gold": "If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression. If the patient was enrolled in a randomized clinical trial involving ribociclib or abemaciclib or palbociclib (such as the MONALEESA or PALOMA series of trials), then it must be known after study discontinuation and unblinding that the patient received the investigational drug and not placebo. Ribociclib or abemaciclib or palbociclib can also be given as standard of care. Documentation of progression and duration of response on aromatase inhibitor or tamoxifen plus CDK 4/6 inhibitor should be provided whenever possible. If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization. If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization. If neither has been administered, selection of fulvestrant or exemestane in the randomization will be per investigator discretion.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the exact information from the GOLD criterion, including the condition that if a patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization."
+                }
+            },
+            {
+                "gold": "If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization.",
+                "evaluation": {
+                    "match_index": 19,
+                    "match_text": "If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization. If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization. If neither has been administered, selection of fulvestrant or exemestane in the randomization will be per investigator discretion.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, as it correctly states that if the patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization."
+                }
+            },
+            {
+                "gold": "If neither has been administered, selection of fulvestrant or exemestane in the randomization will be per investigator discretion.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression. If the patient was enrolled in a randomized clinical trial involving ribociclib or abemaciclib or palbociclib (such as the MONALEESA or PALOMA series of trials), then it must be known after study discontinuation and unblinding that the patient received the investigational drug and not placebo. Ribociclib or abemaciclib or palbociclib can also be given as standard of care. Documentation of progression and duration of response on aromatase inhibitor or tamoxifen plus CDK 4/6 inhibitor should be provided whenever possible. If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization. If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization. If neither has been administered, selection of fulvestrant or exemestane in the randomization will be per investigator discretion.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 contains the GOLD criterion information, including the condition that if neither fulvestrant nor exemestane has been administered, the selection will be per investigator discretion."
+                }
+            },
+            {
+                "gold": "Absolute neutrophil count ≥ 1500 per microliter, Platelets ≥ 75,000 per microliter, Hemoglobin level ≥ 8.0 gm/dL on screening complete blood count.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Absolute neutrophil count ≥ 1500 per microliter, Platelets ≥ 75,000 per microliter, Hemoglobin level ≥ 8.0 gm/dL on screening complete blood count.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with the same laboratory parameters and thresholds."
+                }
+            },
+            {
+                "gold": "Potassium, sodium, total calcium (corrected only in the case of hypoalbuminemia), magnesium, and phosphorus within normal limits of the local laboratory.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "Potassium, sodium, total calcium (corrected only in the case of hypoalbuminemia), magnesium, and phosphorus within normal limits of the local laboratory (screening values can be rechecked after electrolyte repletion and before the first dose of study medication, if necessary).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion with minor additional information about rechecking screening values, which does not change the eligibility criteria."
+                }
+            },
+            {
+                "gold": "Serum creatinine level ≤ 1.5 mg/dL or estimated glomerular filtration rate > 50 mL/min.",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Serum creatinine level ≤ 1.5 mg/dL or estimated glomerular filtration rate > 50 mL/min.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 23 is semantically equivalent to the GOLD criterion, with the same conditions and logical meaning."
+                }
+            },
+            {
+                "gold": "In absence of liver metastases, alanine aminotransferase (ALT) and aspartate aminotransferase (AST) should be below 2.5 × the upper limit of normal (ULN).",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "In absence of liver metastases, alanine aminotransferase (ALT) and aspartate aminotransferase (AST) should be below 2.5 × the upper limit of normal (ULN). If the patient has liver metastases, ALT and AST should be < 5 × ULN.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion for the case without liver metastases, but it also includes an additional condition for patients with liver metastases, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "If the patient has liver metastases, ALT and AST should be < 5 × ULN.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "In absence of liver metastases, alanine aminotransferase (ALT) and aspartate aminotransferase (AST) should be below 2.5 × the upper limit of normal (ULN). If the patient has liver metastases, ALT and AST should be < 5 × ULN.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, including the condition for liver metastases and the corresponding ALT and AST thresholds."
+                }
+            },
+            {
+                "gold": "Total bilirubin ≤ 1.5 x ULN.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "Total bilirubin ≤ 1.5 x ULN. (In patients with well documented Gilbert's Syndrome, total bilirubin ≤ 3 × ULN with direct bilirubin within normal range).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, with the additional consideration for Gilbert's Syndrome, which does not change the eligibility for patients without this condition."
+                }
+            },
+            {
+                "gold": "In patients with well documented Gilbert's Syndrome, total bilirubin ≤ 3 × ULN with direct bilirubin within normal range.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "Total bilirubin ≤ 1.5 x ULN. (In patients with well documented Gilbert's Syndrome, total bilirubin ≤ 3 × ULN with direct bilirubin within normal range).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, with the correct condition for Gilbert's Syndrome and the corresponding bilirubin levels."
+                }
+            },
+            {
+                "gold": "international normalized ratio (INR) ≤ 1.5",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "international normalized ratio (INR) ≤ 1.5",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, with the same condition (INR ≤ 1.5) being represented as INR ≤ 1.5."
+                }
+            },
+            {
+                "gold": "Written informed consent and HIPAA authorization obtained from the subject/legal representative prior to performing any protocol-related procedures.",
+                "evaluation": {
+                    "match_index": 19,
+                    "match_text": "a) Written informed consent and HIPAA authorization obtained from the subject/legal representative prior to performing any protocol-related procedures b) Subjects must be willing and able to comply with scheduled visits, treatment schedule, laboratory testing, and other requirements of the study",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion for written informed consent and HIPAA authorization, but it also includes additional requirements for subject compliance that are not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Subjects must be willing and able to comply with scheduled visits, treatment schedule, laboratory testing, and other requirements of the study.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "a) Written informed consent and HIPAA authorization obtained from the subject/legal representative prior to performing any protocol-related procedures b) Subjects must be willing and able to comply with scheduled visits, treatment schedule, laboratory testing, and other requirements of the study",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, as it includes the requirement for subjects to be willing and able to comply with scheduled visits, treatment schedule, laboratory testing, and other requirements of the study."
+                }
+            },
+            {
+                "gold": "Must be able to swallow ribociclib and oral aromatase inhibitor, such as letrozole or exemestane.",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Must be able to swallow ribociclib and oral aromatase inhibitor, such as letrozole or exemestane.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 21 is an exact match to the GOLD criterion, preserving the full meaning and details."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Patient has a known hypersensitivity to any of the excipients of ribociclib, aromatase inhibitors (such as letrozole) or fulvestrant",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Patient has a known hypersensitivity to any of the excipients of ribociclib, aromatase inhibitors (such as letrozole) or fulvestrant",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Active central nervous system (CNS) disease.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Active central nervous system (CNS) disease. History of CNS metastases or cord compression is allowable if the patient has been clinically stable for at least 4 weeks since completion of definitive treatment and is off systemic steroids. In the case of brain metastases, the patient must have stable or improved imaging at least 4 weeks after completion of definitive treatment. If there is evidence of active leptomeningeal disease, the patient is ineligible.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the original GOLD criterion but adds extra conditions, such as the allowance of CNS metastases or cord compression if the patient has been clinically stable, which changes the logical meaning and adds constraints not present in the original GOLD criterion."
+                }
+            },
+            {
+                "gold": "History of CNS metastases or cord compression is allowable if the patient has been clinically stable for at least 4 weeks since completion of definitive treatment and is off systemic steroids.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Active central nervous system (CNS) disease. History of CNS metastases or cord compression is allowable if the patient has been clinically stable for at least 4 weeks since completion of definitive treatment and is off systemic steroids. In the case of brain metastases, the patient must have stable or improved imaging at least 4 weeks after completion of definitive treatment. If there is evidence of active leptomeningeal disease, the patient is ineligible.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the core information from the GOLD criterion but adds extra conditions (e.g., stable or improved imaging for brain metastases, ineligibility due to active leptomeningeal disease) not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "In the case of brain metastases, the patient must have stable or improved imaging at least 4 weeks after completion of definitive treatment.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Active central nervous system (CNS) disease. History of CNS metastases or cord compression is allowable if the patient has been clinically stable for at least 4 weeks since completion of definitive treatment and is off systemic steroids. In the case of brain metastases, the patient must have stable or improved imaging at least 4 weeks after completion of definitive treatment. If there is evidence of active leptomeningeal disease, the patient is ineligible.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion contains the required information about brain metastases, but also includes additional conditions not present in the GOLD criterion, such as CNS metastases, cord compression, and leptomeningeal disease."
+                }
+            },
+            {
+                "gold": "If there is evidence of active leptomeningeal disease, the patient is ineligible.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Active central nervous system (CNS) disease. History of CNS metastases or cord compression is allowable if the patient has been clinically stable for at least 4 weeks since completion of definitive treatment and is off systemic steroids. In the case of brain metastases, the patient must have stable or improved imaging at least 4 weeks after completion of definitive treatment. If there is evidence of active leptomeningeal disease, the patient is ineligible.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the full meaning of the GOLD criterion, including the ineligibility due to active leptomeningeal disease, and provides additional context about CNS disease."
+                }
+            },
+            {
+                "gold": "Identified as having visceral crisis, lymphangitic spread, or leptomeningeal carcinomatosis.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Identified as having visceral crisis, lymphangitic spread, or leptomeningeal carcinomatosis. Visceral crisis is not the mere presence of visceral metastases but implies severe organ dysfunction as assessed by symptoms and signs, laboratory studies, and rapid progression of the disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with additional details that do not change the eligibility criteria."
+                }
+            },
+            {
+                "gold": "Received more than 1 prior systemic chemotherapy in the unresectable or metastatic setting.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Received more than 1 prior systemic chemotherapy in the unresectable or metastatic setting. If the patient received 1 prior systemic chemotherapy, the patient is eligible. Having received prior therapies for breast cancer (such as everolimus or experimental agents) does not affect eligibility for this study.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the original GOLD criterion but adds extra conditions not present in the GOLD, specifically the eligibility of patients who received 1 prior systemic chemotherapy and the effect of prior therapies for breast cancer on eligibility."
+                }
+            },
+            {
+                "gold": "Completion of major surgery, chemotherapy, targeted therapy (such as everolimus or experimental agents) or radiation within 14 days prior to starting investigational drug or has not recovered from major side effects.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Completion of major surgery, chemotherapy, targeted therapy (such as everolimus or experimental agents_ or radiation within 14 days prior to starting investigational drug or has not recovered from major side effects. There is no required washout period from completion of prior anti-estrogen therapy (either scenario) or prior CDK 4/6 inhibitor (if scenario 2) to initiation of ribociclib/placebo and anti-estrogen on trial.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion in terms of the main requirement (completion of major surgery, chemotherapy, targeted therapy, or radiation within 14 days), but adds extra information about washout periods for prior therapies that is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Residual acute toxic effects of prior anti-cancer therapy that have not resolved to CTCAE v.4 Grade ≤1.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Residual acute toxic effects of prior anti-cancer therapy that have not resolved to CTCAE v.4 Grade ≤1. Exception to this criterion: patients with grade 1 taxane-induced neuropathy, any grade of alopecia, amenorrhea or other toxicities not considered a safety risk for the patient as per investigator's discretion, are allowed to enter the study.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion is similar to the GOLD criterion but adds exceptions for certain toxicities, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Presence of a concurrent malignancy or malignancy diagnosed within 5 years of randomization, with the exception of basal or squamous cell carcinoma, non-melanomatous skin cancer, curatively resected cervical cancer, localized prostate cancer treated with curative intent, and stage I colorectal cancer treated with curative resection.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Presence of a concurrent malignancy or malignancy diagnosed within 5 years of randomization, with the exception of basal or squamous cell carcinoma, non-melanomatous skin cancer, curatively resected cervical cancer, localized prostate cancer treated with curative intent, and stage I colorectal cancer treated with curative resection.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 6 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patient has impairment of gastrointestinal (GI) function or GI disease that may significantly alter the absorption of the study drugs.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Patient has impairment of gastrointestinal (GI) function or GI disease that may significantly alter the absorption of the study drugs (e.g. ulcerative diseases, uncontrolled nausea, vomiting, diarrhea, malabsorption syndrome, or small bowel resection).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, preserving all the information and logical meaning."
+                }
+            },
+            {
+                "gold": "Patient has a known history of HIV infection (testing not mandatory).",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Patient has a known history of HIV infection (testing not mandatory).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "History of myocardial infarction (MI), angina pectoris, symptomatic pericarditis, or coronary artery bypass graft (CABG) within 6 months prior to study entry",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "History of myocardial infarction (MI), angina pectoris, symptomatic pericarditis, or coronary artery bypass graft (CABG) within 6 months prior to study entry",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Documented cardiomyopathy",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Documented cardiomyopathy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no additional or missing details."
+                }
+            },
+            {
+                "gold": "Patient has a known Left Ventricular Fraction (LVEF) <50% as determined by Multiple Gated acquisition (MUGA) scan or echocardiogram (ECHO).",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Patient has a known Left Ventricular Fraction (LVEF) <50% as determined by Multiple Gated acquisition (MUGA) scan or echocardiogram (ECHO).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all clinically meaningful details and logical meaning."
+                }
+            },
+            {
+                "gold": "Long QT syndrome or family history of long QT syndrome or family history of idiopathic sudden death or congenital long QT syndrome.",
+                "evaluation": {
+                    "match_index": 14,
+                    "match_text": "Long QT syndrome or family history of long QT syndrome or family history of idiopathic sudden death or congenital long QT syndrome, or any of the following:",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion but adds extra conditions not present in the GOLD criterion, such as risk factors for Torsades de Pointe and concomitant medications that cannot be discontinued or replaced."
+                }
+            },
+            {
+                "gold": "Risk factors for Torsades de Pointe (TdP) including uncorrected hypocalcemia, hypokalemia or hypomagnesaemia, history of cardiac failure, or history of clinically significant/symptomatic bradycardia",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "i. Risk factors for Torsades de Pointe (TdP) including uncorrected hypocalcemia, hypokalemia or hypomagnesaemia, history of cardiac failure, or history of clinically significant/symptomatic bradycardia",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, including all risk factors for Torsades de Pointe (TdP)."
+                }
+            },
+            {
+                "gold": "Concomitant medications(s) with a known risk to prolong the QT interval and/or known to cause Torsades de Pointe that cannot be discontinued or replaced by safe alternative medication (e.g. within 5 half-lives or 7 days prior to starting study drug)",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "Concomitant medications(s) with a known risk to prolong the QT interval and/or known to cause Torsades de Pointe that cannot be discontinued or replaced by safe alternative medication (e.g. within 5 half-lives or 7 days prior to starting study drug)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 20 is semantically equivalent to the GOLD criterion, preserving all details about concomitant medications that may prolong the QT interval or cause Torsades de Pointe."
+                }
+            },
+            {
+                "gold": "Inability to determine the QTc interval",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "iii. Inability to determine the QTc interval",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Clinically significant cardiac arrhythmias (e.g., ventricular tachycardia), complete left bundle branch block, high-grade Atrioventricular block (e.g., bifascicular block, Mobitz type II and third degree Atrioventricular (AV) block)",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Clinically significant cardiac arrhythmias (e.g., ventricular tachycardia), complete left bundle branch block, high-grade Atrioventricular block (e.g., bifascicular block, Mobitz type II and third degree Atrioventricular (AV) block)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all the details and logical meaning."
+                }
+            },
+            {
+                "gold": "Systolic Blood Pressure (SPB) >160 or <90 mmHg.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "Systolic Blood Pressure (SPB) >160 or <90 mmHg.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Corrected QT interval (QTcF) > 450 msec (QT interval using Fridericia's correction) on screening electrocardiogram.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Corrected QT interval (QTcF) > 450 msec (QT interval using Fridericia's correction) on screening electrocardiogram. If QTc prolongation is felt to be related to electrolyte imbalance, an EKG can be repeated after correction of electrolytes. Mean resting heart rate 50-100 bpm (determined from ECG).",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion but includes additional information about mean resting heart rate and the possibility of repeating the EKG after correcting electrolytes, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Mean resting heart rate 50-100 bpm (determined from ECG).",
+                "evaluation": {
+                    "match_index": 24,
+                    "match_text": "Corrected QT interval (QTcF) > 450 msec (QT interval using Fridericia's correction) on screening electrocardiogram. If QTc prolongation is felt to be related to electrolyte imbalance, an EKG can be repeated after correction of electrolytes. Mean resting heart rate 50-100 bpm (determined from ECG).",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion contains the required information about the mean resting heart rate (50-100 bpm), but it also includes additional information about the QT interval, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "The presence of any other concurrent severe and/or uncontrolled medical condition that would, in the investigator or treating physician's judgment, cause unacceptable safety risks, contraindicate patient participation in the clinical study or compromise compliance with the protocol.",
+                "evaluation": {
+                    "match_index": 24,
+                    "match_text": "The presence of any other concurrent severe and/or uncontrolled medical condition that would, in the investigator or treating physician's judgment, cause unacceptable safety risks, contraindicate patient participation in the clinical study or compromise compliance with the protocol. This includes uncontrolled infections that could potentially be exacerbated by anti-neoplastic treatment, active untreated or uncontrolled fungal bacterial or viral infections, etc.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, preserving the full meaning and clinical context, including the judgment of the investigator or treating physician regarding unacceptable safety risks."
+                }
+            },
+            {
+                "gold": "Currently receiving treatment, including medications and herbal preparations, with known strong inducers or inhibitors of cytochrome p450 enzymes CYP3A4/5 medications that have a narrow therapeutic window and are predominately metabolized through CYP3A4/5 or herbal preparations/medications, dietary supplements, which cannot be discontinued prior to receiving investigational drug.",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Currently receiving treatment, including medications and herbal preparations, with known strong inducers or inhibitors of cytochrome p450 enzymes CYP3A4/5 medications that have a narrow therapeutic window and are predominately metabolized through CYP3A4/5 or herbal preparations/medications, dietary supplements, which cannot be discontinued prior to receiving investigational drug. Anti-retrovirals, anti-microbials, and anti-arrhythmics are the most common medications that interact with these enzyme. Please refer to Section 5: Pharmaceutical Information and Appendix B for more information and a list of drugs that should not be used concurrently with ribociclib.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion with additional details about common interacting medications and reference to further information, but the core meaning and constraints are preserved."
+                }
+            },
+            {
+                "gold": "Patients who are receiving any other investigational agents concurrently or have received investigational agents within 14 days or 5 half-lives of the compound or active metabolites, whichever is longer before the first dose of the study treatment.",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Patients who are receiving any other investigational agents concurrently or have received investigational agents within 14 days or 5 half-lives of the compound or active metabolites, whichever is longer before the first dose of the study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 21 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patient is concurrently using hormone replacement therapy.",
+                "evaluation": {
+                    "match_index": 14,
+                    "match_text": "Patient is concurrently using hormone replacement therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Subject is pregnant or nursing. Serum or urine Beta-Human chorionic gonadotropin (HCG) must be checked in all pre- and peri-menopausal patients.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "16. Subject is pregnant or nursing. Serum or urine Beta-Human chorionic gonadotropin (HCG) must be checked in all pre- and peri-menopausal patients. (Fulvestrant is pregnancy category D and CDK4/6 inhibitors have demonstrated teratogenicity/fetotoxicity in animal studies.)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, including the requirement for HCG checks in pre- and peri-menopausal patients."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 49,
+        "partial": 13,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 62,
+        "human_accuracy": 79.03225806451613,
+        "partial_score": 89.51612903225806
+    }
+}

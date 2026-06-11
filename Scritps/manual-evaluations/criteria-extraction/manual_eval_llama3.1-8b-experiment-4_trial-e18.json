@@ -1,0 +1,135 @@
+{
+    "trial": "e18",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Male or female patients ≥ 18 years at the day of consenting;",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Male or female patients ≥ 18 years at the day of consenting;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, preserving the full meaning of age and sex eligibility."
+                }
+            },
+            {
+                "gold": "Histologically confirmed diagnosis of Soft Tissue Sarcoma (STS) excepted GIST.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Histologically confirmed diagnosis of Soft Tissue Sarcoma (STS) excepted GIST.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Metastatic disease or unresectable locally advanced malignancy for which standard therapy by anthracycline is decided;",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Metastatic disease or unresectable locally advanced malignancy for which standard therapy by anthracycline is decided;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "At least one measurable lesion as per RECIST version 1.1.;",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "At least one measurable lesion as per RECIST version 1.1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "ECOG Performance Status of 0-2;",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "ECOG Performance Status of 0-2;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Patients must have an adequate organ and bone marrow function at baseline;",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Patients must have an adequate organ and bone marrow function at baseline;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patient should understand, sign, and date the written voluntary informed consent form prior to any protocol-specific procedures performed and should be able and willing to comply with procedures as per protocol;",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Patient should understand, sign, and date the written voluntary informed consent form prior to any protocol-specific procedures performed and should be able and willing to comply with procedures as per protocol;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 6 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Covered by a medical insurance.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Covered by a medical insurance.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Evidence of significant uncontrolled concomitant disease that could affect compliance with the protocol or interpretation of results;",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Evidence of significant uncontrolled concomitant disease that could affect compliance with the protocol or interpretation of results;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without adding extra constraints or losing clinically relevant information."
+                }
+            },
+            {
+                "gold": "Prior treatment with anthracycline;",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Prior treatment with anthracycline;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "History of other malignancy other than study disease (except for basal cell or squamous cell carcinoma of the skin or carcinoma in situ of the cervix) unless the patient has been free of disease for at least 3 years;",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "History of other malignancy other than study disease (except for basal cell or squamous cell carcinoma of the skin or carcinoma in situ of the cervix) unless the patient has been free of disease for at least 3 years;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Metabolic syndrome;",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Metabolic syndrome;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Pregnant or breast-feeding woman criteria",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion 'Pregnant or breast-feeding woman criteria', which is related to pregnancy and breastfeeding status, not concomitant diseases, prior treatments, or medical history."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 12,
+        "partial": 0,
+        "wrong": 1,
+        "errors": 0,
+        "evaluated": 13,
+        "human_accuracy": 92.3076923076923,
+        "partial_score": 92.3076923076923
+    }
+}

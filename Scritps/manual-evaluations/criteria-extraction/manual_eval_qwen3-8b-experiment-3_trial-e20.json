@@ -1,0 +1,195 @@
+{
+    "trial": "e20",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Histologic or cytologic diagnosis of thymoma, Stage II-IV.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Histologic or cytologic diagnosis of thymoma, Stage II-IV.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details without addition or removal of clinically meaningful information."
+                }
+            },
+            {
+                "gold": "Males or females between 18 Years to 75 Years.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Males or females between 18 Years to 75 Years.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "No prior SBRT, if the surgery or chemotherapy has been administered, the interval is at least above four weeks.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "No prior SBRT, if the surgery or chemotherapy has been administered, the interval is at least above four weeks.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Performance status of 0, 1 on the ECOG criteria. Expected survival is above three months.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Performance status of 0, 1 on the ECOG criteria. Expected survival is above three months.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "At least one unidimensional measurable lesion meeting Response Evaluation Criteria in Solid Tumors (RECIST. 2000).",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "At least one unidimensional measurable lesion meeting Response Evaluation Criteria in Solid Tumors (RECIST. 2000).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Patients can have the brain / meningeal metastasis history, but the metastasis must be treated by operation or radiotherapy), and clinically stable for at least 2 months.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Patients can have the brain / meningeal metastasis history, but the metastasis must be treated by operation or radiotherapy), and clinically stable for at least 2 months.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Adequate hematologic (neutrophil count >= 1,500/uL, platelets >= 100,000/uL), hepatic (transaminase =< upper normal limit(UNL)x2.5, bilirubin level =< UNLx1.5), and renal (creatinine =< UNL) function.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Adequate hematologic (neutrophil count >= 1,500/uL, platelets >= 100,000/uL), hepatic (transaminase =< upper normal limit(UNL)x2.5, bilirubin level =< UNLx1.5), and renal (creatinine =< UNL) function.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 6 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patient compliance that allow adequate follow-up. Informed consent from patient or patient's relative.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Patient compliance that allow adequate follow-up. Informed consent from patient or patient's relative.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "If female: childbearing potential either terminated by surgery, radiation, or menopause, or attenuated by use of an approved contraceptive method (intrauterine device [IUD], birth control pills, or barrier device) during and for 2 months after trial.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "If female: childbearing potential either terminated by surgery, radiation, or menopause, or attenuated by use of an approved contraceptive method (intrauterine device [IUD], birth control pills, or barrier device) during and for 2 months after trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "If male, use of an approved contraceptive method during the study and 2 months afterwards.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "If male: use of an approved contraceptive method during the study and 2 months afterwards.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Females with childbearing potential must have a urine negative HCG test within 7 days prior to the study enrollment.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "If female: must have a urine negative HCG test within 7 days prior to the study enrollment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "No concomitant prescriptions including cyclosporin A, valproic acid, phenobarbital, phenytoin, ketoconazole.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "No concomitant prescriptions including cyclosporin A, valproic acid, phenobarbital, phenytoin, ketoconazole.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 11 is semantically equivalent to the GOLD criterion, listing the same concomitant prescriptions to be excluded."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "No pathological or cytological evidence of cancer.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "No pathological or cytological evidence of cancer.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Inability to comply with protocol or study procedures.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Inability to comply with protocol or study procedures.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Medically uncontrolled serious heart, lung, neurological, psychological, metabolic disease Second primary malignancy that is clinically detectable at the time of consideration for study enrollment.",
+                "evaluation": {
+                    "match_index": [
+                        2,
+                        4
+                    ],
+                    "match_text": [
+                        "Medically uncontrolled serious heart, lung, neurological, psychological, metabolic disease",
+                        "Second primary malignancy that is clinically detectable at the time of consideration for study enrollment."
+                    ],
+                    "classification": "correct",
+                    "explanation": "The GOLD criterion was split into two predicted criteria, but both collectively preserve the full meaning of the GOLD criterion without losing any details."
+                }
+            },
+            {
+                "gold": "Pregnant or breast-feeding.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Pregnant or breast-feeding.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Enrollment in other study within 30 days.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Enrollment in other study within 30 days.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Brain metastasis with symptoms.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Brain metastasis with symptoms.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Hypokalemic and intestinal obstruction history.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Hypokalemic and intestinal obstruction history.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 19,
+        "partial": 0,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 19,
+        "human_accuracy": 100.0,
+        "partial_score": 100.0
+    }
+}

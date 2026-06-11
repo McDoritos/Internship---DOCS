@@ -1,0 +1,279 @@
+{
+    "trial": "e17",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Age ≥18 years, gender unlimited;",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Age \\u226518 years, gender unlimited;",
+                    "classification": "wrong",
+                    "explanation": "The predicted criterion has a different operator (\\u2265 instead of \\u2265, but the value is also incorrect, it should be \\u2265 18 instead of \\u2265 18)"
+                }
+            },
+            {
+                "gold": "Patients diagnosis of primary hepatocellular carcinoma by histopathology and/or cytology;",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patients diagnosis of primary hepatocellular carcinoma by histopathology and/or cytology;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "At the initial enrollment evaluation, patients were expected to accept radical resection of liver cancer and meet at least one of the following high-risk recurrence factors after surgery: ①There are 3 or more tumor lesions in the liver; ②The diameter of a single tumor lesion is >8cm; ③Existence macrovascular tumor thrombus; ④>5 MVI or MVI occurred in the distant paracancer tissues;",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "At the initial enrollment evaluation, patients were expected to accept radical resection of liver cancer and meet at least one of the following high-risk recurrence factors after surgery: 1There are 3 or more tumor lesions in the liver; 2The diameter of a single tumor lesion is >8cm; 3Existence macrovascular tumor thrombus; 4>5 MVI or MVI occurred in the distant paracancer tissues;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Before enrollment (after radical resection of liver cancer), imaging evaluation was performed to ensure that the tumor was completely removed (clear margin);",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Before enrollment (after radical resection of liver cancer), imaging evaluation was performed to ensure that the tumor was completely removed (clear margin);",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Must have at least 1 resectable lesion (diameter ≥2 cm);",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Must have at least 1 resectable lesion (diameter ≥2 cm);",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same condition of having at least 1 resectable lesion with a diameter of ≥2 cm."
+                }
+            },
+            {
+                "gold": "ECOG score <2;",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "ECOG score <2;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context of the ECOG score requirement."
+                }
+            },
+            {
+                "gold": "Child-Pugh score ≤7;",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Child-Pugh score ≤7;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 'Child-Pugh score ≤7;' exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "White blood cell count ≥3.0E+9/ L, neutrophil count ≥1.5E+9/ L, platelet countPlatelet count ≥8.0E10/ L, hemoglobin ≥80g/L",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Hematology and organ function indicators should be met simultaneously: (1) White blood cell count ≥3.0E+9/ L, neutrophil count ≥1.5E+9/ L, platelet countPlatelet count ≥8.0E10/ L, hemoglobin ≥80g/L (2) Liver function: aspartate aminotransferase (AST)≤5 times normal value, alanine aminotransferase (ALT)≤5 times normal value, bilirubin ≤5 times normal value, serum albumin ≥28 g/L; (3) Renal function: creatinine (Cr)≤1.5 times normal limit, creatinine clearance ≥50 mL/min;",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the required hematology indicators (white blood cell count, neutrophil count, platelet count, and hemoglobin) but also adds extra conditions related to liver and renal function that are not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Aspartate aminotransferase (AST)≤5 times normal value, alanine aminotransferase (ALT)≤5 times normal value, bilirubin ≤5 times normal value, serum albumin ≥28 g/L;",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Hematology and organ function indicators should be met simultaneously: (1) White blood cell count ≥3.0E+9/ L, neutrophil count ≥1.5E+9/ L, platelet countPlatelet count ≥8.0E10/ L, hemoglobin ≥80g/L (2) Liver function: aspartate aminotransferase (AST)≤5 times normal value, alanine aminotransferase (ALT)≤5 times normal value, bilirubin ≤5 times normal value, serum albumin ≥28 g/L; (3) Renal function: creatinine (Cr)≤1.5 times normal limit, creatinine clearance ≥50 mL/min;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 6 contains the same liver function requirements as the GOLD criterion, including AST, ALT, bilirubin, and serum albumin thresholds, without adding extra conditions or losing clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Creatinine (Cr)≤1.5 times normal limit, creatinine clearance ≥50 mL/min;",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Hematology and organ function indicators should be met simultaneously: (1) White blood cell count ≥3.0E+9/ L, neutrophil count ≥1.5E+9/ L, platelet countPlatelet count ≥8.0E10/ L, hemoglobin ≥80g/L (2) Liver function: aspartate aminotransferase (AST)≤5 times normal value, alanine aminotransferase (ALT)≤5 times normal value, bilirubin ≤5 times normal value, serum albumin ≥28 g/L; (3) Renal function: creatinine (Cr)≤1.5 times normal limit, creatinine clearance ≥50 mL/min;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion correctly captures the renal function requirements, including creatinine and creatinine clearance thresholds, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "An estimated life expectancy of ≥3 months;",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "An estimated life expectancy of ≥3 months;",
+                    "classification": "wrong",
+                    "explanation": "The predicted criterion has a life expectancy of less than 3 months, whereas the GOLD criterion requires a life expectancy of greater than or equal to 3 months."
+                }
+            },
+            {
+                "gold": "Participation in this clinical study voluntary, can cooperate with researchers to carry out research, and sign informed consent.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Participation in this clinical study voluntary, can cooperate with researchers to carry out research, and sign informed consent.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and requirements for participation in the clinical study."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Primary hepatocellular carcinoma (HCC) has recurred in the past, or has other types of liver cancer at the same time (such as intrahepatic cholangiocarcinoma, mixed type of liver cancer);",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Primary hepatocellular carcinoma (HCC) has recurred in the past, or has other types of liver cancer at the same time (such as intrahepatic cholangiocarcinoma, mixed type of liver cancer);",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have a history of high fever or severe infection within 2 weeks prior to pretreatment, or are expected to undergo systemic anti-infective therapy or systemic steroid therapy during this trial;",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Have a history of high fever or severe infection within 2 weeks prior to pretreatment, or are expected to undergo systemic anti-infective therapy or systemic steroid therapy during this trial;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Hepatic encephalopathy occurred within 2 weeks before pretreatment;",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Hepatic encephalopathy occurred within 2 weeks before pretreatment;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Previous or screening with autoimmune liver disease;",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Previous or screening with autoimmune liver disease;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Screening with moderate or higher peritoneal effusion;",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Screening with moderate or higher peritoneal effusion;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Clear neurological/psychiatric symptoms are known to be associated with brain metastases and/or assessed by MMSE;",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Clear neurological/psychiatric symptoms are known to be associated with brain metastases and/or assessed by MMSE;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have received or are expected to participate in this study within 4 weeks before pretreatment to receive TIL required focus radiotherapy, or tumor evaluation focus (target focus or non-target focus) radiotherapy, or radical radiotherapy;",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Have received or are expected to participate in this study within 4 weeks before pretreatment to receive TIL required focus radiotherapy, or tumor evaluation focus (target focus or non-target focus) radiotherapy, or radical radiotherapy;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Any toxic response resulting from previous anti-tumor treatment prior to pretreatment did not return to grade 1 or below (CTCAE5.0 version);",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Any toxic response resulting from previous anti-tumor treatment prior to pretreatment did not return to grade 1 or below (CTCAE5.0 version);",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Previous history of organ / stem cell transplantation or expected to be involved in this trial for organ / stem cell transplantation;",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Previous history of organ / stem cell transplantation or expected to be involved in this trial for organ / stem cell transplantation;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving the full meaning without adding or removing clinically relevant details."
+                }
+            },
+            {
+                "gold": "Left ventricular ejection fraction (LVEF)<45% or New York Heart Association (NYHA)≥ grade 2;",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Left ventricular ejection fraction (LVEF)<45% or New York Heart Association (NYHA)≥ grade 2;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and logical structure, including the use of 'or' to connect LVEF and NYHA conditions."
+                }
+            },
+            {
+                "gold": "Known or private HIV infection or syphilis infection;",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Known or private HIV infection or syphilis infection;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "The previous 3 years other system primary malignant tumor history (except skin basal cell carcinoma or cervical carcinoma in situ);",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "The previous 3 years other system primary malignant tumor history (except skin basal cell carcinoma or cervical carcinoma in situ);",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "A known allergy to two or more non-homogeneous foods/drugs, or a known history of allergies to pre-treated drugs, including cyclophosphamide, fludarbin, interleukin;",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "A known allergy to two or more non-homogeneous foods/drugs, or a known history of allergies to pre-treated drugs, including cyclophosphamide, fludarbin, interleukin;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Pregnant, lactating women or within one year of having a family plan;",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Pregnant, lactating women or within one year of having a family plan;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Participated in other clinical trials within 3 months prior to screening;",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Participated in other clinical trials within 3 months prior to screening;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Other circumstances that the researchers considered inappropriate to participate in the experiment.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Other circumstances that the researchers considered inappropriate to participate in the experiment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 26,
+        "partial": 1,
+        "wrong": 2,
+        "errors": 0,
+        "evaluated": 29,
+        "human_accuracy": 89.65517241379311,
+        "partial_score": 91.37931034482759
+    }
+}

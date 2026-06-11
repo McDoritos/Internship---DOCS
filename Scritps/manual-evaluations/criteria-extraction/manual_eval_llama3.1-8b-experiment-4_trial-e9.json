@@ -1,0 +1,198 @@
+{
+    "trial": "e9",
+    "results": {
+        "inclusion": [
+            {
+                "gold": ">= 18 years of age",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "= >= 18 years of age",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the extra '=' likely being a formatting error that does not change the clinical meaning."
+                }
+            },
+            {
+                "gold": "Have an Eastern Cooperative Oncology Group (ECOG) performance status of =< 1 at the time of study treatment initiation",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Have an Eastern Cooperative Oncology Group (ECOG) performance status of =< 1 at the time of study treatment initiation",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Histologically or cytologically confirmed diagnosis of small cell lung cancer (SCLC)",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Histologically or cytologically confirmed diagnosis of small cell lung cancer (SCLC)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context of the diagnosis requirement."
+                }
+            },
+            {
+                "gold": "Patient should have extensive stage disease, defined as, malignant pleural effusion, pulmonary metastases in the contralateral lung, and/or the presence of extra-thoracic metastatic disease",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Patient should have extensive stage disease, defined as, malignant pleural effusion, pulmonary metastases in the contralateral lung, and/or the presence of extra-thoracic metastatic disease",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Must have measurable disease based on Response Evaluation Criteria in Solid Tumors (RECIST) 1.1 prior to starting platinum-based systemic chemotherapy",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Must have measurable disease based on Response Evaluation Criteria in Solid Tumors (RECIST) 1.1 prior to starting platinum-based systemic chemotherapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Absolute neutrophil count (ANC) >= 1.5 x 10^9/L",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Absolute neutrophil count (ANC) >= 1.5 x 10^9/L",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Platelets >= 100 x 10^9/L",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Platelets >= 100 x 10^9/L",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Hemoglobin >= 9 g/dL",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Hemoglobin >= 9 g/dL",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Serum creatinine =< 1.5 x institution upper limit of normal (ULN) and calculated creatinine clearance of at least 15 ml/min.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Serum creatinine =< 1.5 x institution upper limit of normal (ULN) and calculated creatinine clearance of at least 15 ml/min.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Alanine aminotransferase (ALT) and aspartate aminotransferase (AST) =< 3 x upper limit of normal (ULN) (ALT and AST =< 5 x ULN is acceptable if liver metastases are present)",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Alanine aminotransferase (ALT) and aspartate aminotransferase (AST) =< 3 x upper limit of normal (ULN)",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion is missing the exception for liver metastases, which allows ALT and AST to be =< 5 x ULN."
+                }
+            },
+            {
+                "gold": "Total serum bilirubin =< 1.5 x ULN.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Total serum bilirubin =< 1.5 x ULN",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "For patients with well documented Gilbert's syndrome, total bilirubin =< 3 x ULN with direct bilirubin within normal range.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "For patients with well documented Gilbert's syndrome, total bilirubin =< 3 x ULN with direct bilirubin within normal range.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Participant must understand the investigational nature of this study and sign an approved written informed consent form prior to receiving any study related procedure.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Participant must understand the investigational nature of this study and sign an approved written informed consent form prior to receiving any study related procedure",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving the full meaning and requirements."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "ad major surgery within 14 days prior to starting study drug or has not recovered from major side effects (tumor biopsy is not considered major surgery) resulting from a prior surgery",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "ad major surgery within 14 days prior to starting study drug or has not recovered from major side effects (tumor biopsy is not considered major surgery) resulting from a prior surgery",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Positive for immunosuppressive disease, acquired immunodeficiency syndrome (AIDS) or other immune depressing diseases.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Positive for immunosuppressive disease, acquired immunodeficiency syndrome (AIDS) or other immune depressing diseases.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving all the information without any loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "For human immunodeficiency virus (HIV), HVC and HBC-mandatory testing is required prior to enrollment",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "For human immunodeficiency virus (HIV), HVC and HBC-mandatory testing is required prior to enrollment",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patient has known hypersensitivity to the components of the study drugs or any analogs",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Patient has known hypersensitivity to the components of the study drugs or any analogs",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "History or current evidence of any condition, therapy, or laboratory abnormality that might confound the results of the study, interfere with the patient's participation for the full duration of the study, or is not in the best interest of the patient to participate, including, but not limited to: Myocardial infarction or arterial or venous thromboembolic events within 6 months prior to baseline or severe or unstable angina, New York Heart Association (NYHA) class III or IV disease.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "History or current evidence of any condition, therapy, or laboratory abnormality that might confound the results of the study, interfere with the patient's participation for the full duration of the study, or is not in the best interest of the patient to participate, including, but not limited to:",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion is partial because it does not include the specific examples listed in the GOLD criterion (myocardial infarction, arterial or venous thromboembolic events, severe or unstable angina, NYHA class III or IV disease), which are captured in separate predicted criteria (index 5, 6, and 7). However, the predicted criterion at index 4 preserves the general meaning of the GOLD criterion."
+                }
+            },
+            {
+                "gold": "History of documented congestive heart failure (New York Heart Association functional classification III or IV) within 6 months prior to baseline.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "History of documented congestive heart failure (New York Heart Association functional classification III or IV) within 6 months prior to baseline",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Poorly controlled arrhythmias",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Poorly controlled arrhythmias",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 18,
+        "partial": 2,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 20,
+        "human_accuracy": 90.0,
+        "partial_score": 95.0
+    }
+}

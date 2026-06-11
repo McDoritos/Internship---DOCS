@@ -1,0 +1,171 @@
+{
+    "trial": "e19",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Clinical stage IB3-IIB cervical cancer (FIGO, 2018 standard) with the tumor diameter > 4cm before treatment.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Pathologically confirmed cervical cancer, including cervical squamous cell carcinoma, adenocarcinoma and adenosquamous carcinoma.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion for pathologically confirmed cervical cancer types."
+                }
+            },
+            {
+                "gold": "Age：18-70 years old.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion for age range."
+                }
+            },
+            {
+                "gold": "ECOG status score ≤1;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "WBC≥3.5*10^9/L, NEU≥1.5*10^9/L, Platelet≥80×10^9 /L; AST and ALT ≤1.5 times normal upper limit; Total bilirubin ≤1.5 times the upper limit of normal value; serum creatinine and blood urea nitrogen ≤the upper limit of normal value.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match against the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Well-compliance and willing to keep in touch.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Able to sign informed consent, including complying with the requirements and restrictions listed in the Informed Consent (ICF) and this protocol.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion, which requires the ability to sign informed consent and comply with protocol requirements and restrictions."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "After 2-3 cycles of neoadjuvant chemotherapy, patients do not undergo laparotomic or laparoscopic extensive hysterectomy + pelvic lymph node dissection with cervical cancer foci sealed before dissection of the vagina and without uterine manipulator.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria are provided to match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Neoadjuvant chemotherapy regimens are different from postoperative adjuvant therapy regimens.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Postoperative high risk factors: ① lymph node metastasis, ② parauterine infiltration, ③ positive surgical margin.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match against the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Postoperative risk factors meet the Sedlis standard of the NCCN guideline.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion regarding postoperative risk factors meeting the Sedlis standard of the NCCN guideline."
+                }
+            },
+            {
+                "gold": "Participate in other clinical trials.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Severe diseases of other important systems and organs.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Persons without disposing capacity.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match against the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Drug and/or alcohol abuse.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criterion matches the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Unable or unwilling to sign informed consents.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Not eligible for the study judged by researchers.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 0,
+        "partial": 0,
+        "wrong": 17,
+        "errors": 0,
+        "evaluated": 17,
+        "human_accuracy": 0.0,
+        "partial_score": 0.0
+    }
+}

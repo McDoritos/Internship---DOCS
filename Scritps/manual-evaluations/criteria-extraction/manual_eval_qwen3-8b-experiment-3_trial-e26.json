@@ -1,0 +1,495 @@
+{
+    "trial": "e26",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Unresectable or metastatic, histologically confirmed advanced solid tumor, where standard curative or palliative measures are no longer effective or are not considered appropriate or safe in the opinion of the investigator.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "All Patients\nUnresectable or metastatic, histologically confirmed advanced solid tumor, where standard curative or palliative measures are no longer effective or are not considered appropriate or safe in the opinion of the investigator.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without adding extra constraints or losing clinically relevant information."
+                }
+            },
+            {
+                "gold": "FGFR1-3 fusion, rearrangement, activating mutation, or FGFR2 extracellular domain in-frame deletions on tumor profiling in tumor tissue as determined by testing routinely performed at a Clinical Laboratory Improvement Amendments (CLIA) or other similarly certified laboratory. If the FGFR alteration is present on circulating tumor DNA (ctDNA) analysis alone, the patient may be eligible with principal investigator approval. Additional mutations may be considered with principal investigator approval.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "FGFR1-3 fusion, rearrangement, activating mutation, or FGFR2 extracellular domain in-frame deletions on tumor profiling in tumor tissue as determined by testing routinely performed at a Clinical Laboratory Improvement Amendments (CLIA) or other similarly certified laboratory. If the FGFR alteration is present on circulating tumor DNA (ctDNA) analysis alone, the patient may be eligible with principal investigator approval. Additional mutations may be considered with principal investigator approval.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 1 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Eastern Cooperative Oncology Group (ECOG) 0-1.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Eastern Cooperative Oncology Group (ECOG) 0-1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context of the ECOG performance status requirement."
+                }
+            },
+            {
+                "gold": "At least 18 years of age.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "At least 18 years of age.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Ability to swallow tablets.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Ability to swallow tablets.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Life expectancy >/=3 months",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Life expectancy >/=3 months",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Ability to comply with outpatient treatment, laboratory monitoring, and required clinic visits for the duration of study participation.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Ability to comply with outpatient treatment, laboratory monitoring, and required clinic visits for the duration of study participation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and logical context without any loss of clinically relevant details."
+                }
+            },
+            {
+                "gold": "Patients with cholangiocarcinoma must have adequate biliary drainage (per investigator's discretion), with no evidence of ongoing infection.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Patients with cholangiocarcinoma must have adequate biliary drainage (per investigator's discretion), with no evidence of ongoing infection.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Willingness of men and women of reproductive potential to observe conventional and effective birth control for the duration of treatment and for 3 months following the last dose of study treatment.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Willingness of men and women of reproductive potential to observe conventional and effective birth control for the duration of treatment and for 3 months following the last dose of study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details regarding birth control requirements for men and women of reproductive potential."
+                }
+            },
+            {
+                "gold": "Measurable or non-measurable disease as determined by RECIST 1.1.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Measurable or non-measurable disease as determined by RECIST 1.1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "ALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Adequate organ function defined as:\nALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases\nTotal bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN\nSerum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min\nHemoglobin ≥ 9 g/dL (≥ 90 g/L)\nAbsolute Neutrophil Count ≥ 1.5 x 109/L\nPlatelets ≥ 75 x 109/L\nINR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy\nNOTE: Transfusions to increase a patient's hemoglobin level or initiation of erythropoietin or G-CSF therapy to meet enrollment criteria are not allowed in the 14 days preceding the first dose of study drug. If a patient receives transfusions, erythropoietin, or G-CSF therapy ≥ 14 days prior to the first dose, the hematologic criteria listed above must be met following the 14-day window and prior to the first dose of study therapy",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion contains the required ALT or AST information but also includes additional organ function criteria not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Total bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Adequate organ function defined as:\nALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases\nTotal bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN\nSerum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min\nHemoglobin ≥ 9 g/dL (≥ 90 g/L)\nAbsolute Neutrophil Count ≥ 1.5 x 109/L\nPlatelets ≥ 75 x 109/L\nINR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy\nNOTE: Transfusions to increase a patient's hemoglobin level or initiation of erythropoietin or G-CSF therapy to meet enrollment criteria are not allowed in the 14 days preceding the first dose of study drug. If a patient receives transfusions, erythropoietin, or G-CSF therapy ≥ 14 days prior to the first dose, the hematologic criteria listed above must be met following the 14-day window and prior to the first dose of study therapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 contains the total bilirubin condition from the GOLD criterion, including the conditions for Gilbert's Disease, and does so without adding extra constraints or losing clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Serum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Adequate organ function defined as:\nALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases\nTotal bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN\nSerum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min\nHemoglobin ≥ 9 g/dL (≥ 90 g/L)\nAbsolute Neutrophil Count ≥ 1.5 x 109/L\nPlatelets ≥ 75 x 109/L\nINR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy\nNOTE: Transfusions to increase a patient's hemoglobin level or initiation of erythropoietin or G-CSF therapy to meet enrollment criteria are not allowed in the 14 days preceding the first dose of study drug. If a patient receives transfusions, erythropoietin, or G-CSF therapy ≥ 14 days prior to the first dose, the hematologic criteria listed above must be met following the 14-day window and prior to the first dose of study therapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 contains the GOLD criterion 'Serum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min' within its 'Adequate organ function' section, preserving the full meaning and logical structure of the original criterion."
+                }
+            },
+            {
+                "gold": "Hemoglobin ≥ 9 g/dL (≥ 90 g/L)",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Adequate organ function defined as:\nALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases\nTotal bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN\nSerum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min\nHemoglobin ≥ 9 g/dL (≥ 90 g/L)\nAbsolute Neutrophil Count ≥ 1.5 x 109/L\nPlatelets ≥ 75 x 109/L\nINR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy\nNOTE: Transfusions to increase a patient's hemoglobin level or initiation of erythropoietin or G-CSF therapy to meet enrollment criteria are not allowed in the 14 days preceding the first dose of study drug. If a patient receives transfusions, erythropoietin, or G-CSF therapy ≥ 14 days prior to the first dose, the hematologic criteria listed above must be met following the 14-day window and prior to the first dose of study therapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 contains the GOLD criterion 'Hemoglobin ≥ 9 g/dL (≥ 90 g/L)' as part of the 'Adequate organ function' definition, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Absolute Neutrophil Count ≥ 1.5 x 109/L",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Adequate organ function defined as:\nALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases\nTotal bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN\nSerum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min\nHemoglobin ≥ 9 g/dL (≥ 90 g/L)\nAbsolute Neutrophil Count ≥ 1.5 x 109/L\nPlatelets ≥ 75 x 109/L\nINR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy\nNOTE: Transfusions to increase a patient's hemoglobin level or initiation of erythropoietin or G-CSF therapy to meet enrollment criteria are not allowed in the 14 days preceding the first dose of study drug. If a patient receives transfusions, erythropoietin, or G-CSF therapy ≥ 14 days prior to the first dose, the hematologic criteria listed above must be met following the 14-day window and prior to the first dose of study therapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 contains the GOLD criterion 'Absolute Neutrophil Count ≥ 1.5 x 10^9/L' as part of the 'Adequate organ function' definition, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Platelets ≥ 75 x 109/L",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Adequate organ function defined as:\nALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases\nTotal bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN\nSerum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min\nHemoglobin ≥ 9 g/dL (≥ 90 g/L)\nAbsolute Neutrophil Count ≥ 1.5 x 109/L\nPlatelets ≥ 75 x 109/L\nINR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy\nNOTE: Transfusions to increase a patient's hemoglobin level or initiation of erythropoietin or G-CSF therapy to meet enrollment criteria are not allowed in the 14 days preceding the first dose of study drug. If a patient receives transfusions, erythropoietin, or G-CSF therapy ≥ 14 days prior to the first dose, the hematologic criteria listed above must be met following the 14-day window and prior to the first dose of study therapy",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion contains the required platelet count, but it is part of a larger criterion that includes other organ function requirements, making it a partial match."
+                }
+            },
+            {
+                "gold": "INR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Adequate organ function defined as:\nALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases\nTotal bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN\nSerum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min\nHemoglobin ≥ 9 g/dL (≥ 90 g/L)\nAbsolute Neutrophil Count ≥ 1.5 x 109/L\nPlatelets ≥ 75 x 109/L\nINR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy\nNOTE: Transfusions to increase a patient's hemoglobin level or initiation of erythropoietin or G-CSF therapy to meet enrollment criteria are not allowed in the 14 days preceding the first dose of study drug. If a patient receives transfusions, erythropoietin, or G-CSF therapy ≥ 14 days prior to the first dose, the hematologic criteria listed above must be met following the 14-day window and prior to the first dose of study therapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 contains the full information of the GOLD criterion regarding INR or PT, aPTT or PTT, including the condition for participants receiving anticoagulant therapy."
+                }
+            },
+            {
+                "gold": "Histologically or cytologically confirmed diagnosis of advanced or metastatic cholangiocarcinoma",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Histologically or cytologically confirmed diagnosis of advanced or metastatic cholangiocarcinoma",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "No prior treatment with a selective FGFR inhibitor treatment",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "No prior treatment with a selective FGFR inhibitor treatment",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and logical context."
+                }
+            },
+            {
+                "gold": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion on tumor profiling in tumor tissue as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion on tumor profiling in tumor tissue as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "An archived tumor tissue sample is available in patients not undergoing fresh tumor biopsy. Patients who do not have adequate archival tumor tissue available are required to undergo a fresh tumor biopsy. If a fresh biopsy cannot be safely performed, the patient may be eligible with principal investigator approval.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "An archived tumor tissue sample is available in patients not undergoing fresh tumor biopsy. Patients who do not have adequate archival tumor tissue available are required to undergo a fresh tumor biopsy. If a fresh biopsy cannot be safely performed, the patient may be eligible with principal investigator approval.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 11 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Histologically or cytologically confirmed diagnosis of advanced or metastatic cholangiocarcinoma",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Histologically or cytologically confirmed diagnosis of advanced or metastatic cholangiocarcinoma",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Prior FGFR inhibitor treatment at any time prior to treatment start is required",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Prior FGFR inhibitor treatment at any time prior to treatment start is required",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and logical context."
+                }
+            },
+            {
+                "gold": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion for which they derived clinical benefit (objective response of any duration or stable disease for at least 6 months) from prior FGFR inhibitor therapy, as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion for which they derived clinical benefit (objective response of any duration or stable disease for at least 6 months) from prior FGFR inhibitor therapy, as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all clinically relevant details and logical meaning."
+                }
+            },
+            {
+                "gold": "An archived tumor tissue sample after progression on or intolerance of prior FGFR inhibitor available in patients not undergoing fresh tumor biopsy. Patients who do not have adequate archival tumor tissue available are required to undergo a fresh tumor biopsy. If a fresh biopsy cannot be safely performed, the patient may be eligible with principal investigator approval.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "An archived tumor tissue sample after progression on or intolerance of prior FGFR inhibitor available in patients not undergoing fresh tumor biopsy. Patients who do not have adequate archival tumor tissue available are required to undergo a fresh tumor biopsy. If a fresh biopsy cannot be safely performed, the patient may be eligible with principal investigator approval.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 20 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Known hypersensitivity to afatinib or pemigatinib or excipients of pemigatinib",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Known hypersensitivity to afatinib or pemigatinib or excipients of pemigatinib",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "For patients treated with a prior FGFR inhibitor, those with known activating mutation(s) in the FGFR2 kinase domain on ctDNA or biopsy analysis within 8 weeks of start of study drugs; activating mutations in the FGFR2 kinase domain seen on ctDNA or biopsy analysis prior to the 8-week timepoint may be allowed after discussion with the study PI.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "For patients treated with a prior FGFR inhibitor, those with known activating mutation(s) in the FGFR2 kinase domain on ctDNA or biopsy analysis within 8 weeks of start of study drugs; activating mutations in the FGFR2 kinase domain seen on ctDNA or biopsy analysis prior to the 8-week timepoint may be allowed after discussion with the study PI.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 1 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Systemic or liver-directed anticancer therapy within 2 weeks; or anticancer monoclonal antibody within 4 weeks prior to planned start of pemigatinib and afatinib.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Systemic or liver-directed anticancer therapy within 2 weeks; or anticancer monoclonal antibody within 4 weeks prior to planned start of pemigatinib and afatinib.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patient has adverse events from prior therapy that have not resolved to ≤ grade 1; exceptions for non-clinically meaningful adverse events (AEs) can be made with input from the principal investigator.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Patient has adverse events from prior therapy that have not resolved to ≤ grade 1; exceptions for non-clinically meaningful adverse events (AEs) can be made with input from the principal investigator.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Major surgery within 4 weeks prior to planned start of pemigatinib and afatinib (tumor biopsy, biliary stent or catheter placement, and feeding tube placement are not considered major surgical procedures).",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Major surgery within 4 weeks prior to planned start of pemigatinib and afatinib (tumor biopsy, biliary stent or catheter placement, and feeding tube placement are not considered major surgical procedures).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Received prior palliative non-CNS radiation within 2 weeks or extended-field radiation administered within 4 weeks of first dose of study drug. Subjects must have recovered from all radiation-related toxicities, not require corticosteroids, and not have had radiation pneumonitis. Fibrotic pulmonary disease from prior radiotherapy is permissible with approval of the study PI.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Received prior palliative non-CNS radiation within 2 weeks or extended-field radiation administered within 4 weeks of first dose of study drug. Subjects must have recovered from all radiation-related toxicities, not require corticosteroids, and not have had radiation pneumonitis. Fibrotic pulmonary disease from prior radiotherapy is permissible with approval of the study PI.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 5 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Known pre-existing interstitial lung disease",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Known pre-existing interstitial lung disease",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Current hypovitaminosis D requiring supraphysiologic (eg 50,000 IU/weekly) to replenish the deficiency. Vitamin D supplements are allowed.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Current hypovitaminosis D requiring supraphysiologic (eg 50,000 IU/weekly) to replenish the deficiency. Vitamin D supplements are allowed.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "History and/or current evidence of clinically significant ectopic mineralization/calcification or non-tumor related alteration of calcium-phosphorus homeostasis.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "History and/or current evidence of clinically significant ectopic mineralization/calcification or non-tumor related alteration of calcium-phosphorus homeostasis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is an exact match to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "History and/or current evidence of clinically significant corneal or retinal disorder confirmed by ophthalmological examination",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "History and/or current evidence of clinically significant corneal or retinal disorder confirmed by ophthalmological examination",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all clinically meaningful details and logical meaning."
+                }
+            },
+            {
+                "gold": "Child-Pugh B and C cirrhosis",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Child-Pugh B and C cirrhosis",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Chronic nausea, vomiting, or diarrhea considered to be clinically significant in the opinion of the investigator. This includes significant or recent gastrointestinal disorders with diarrhea as a major symptom",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Chronic nausea, vomiting, or diarrhea considered to be clinically significant in the opinion of the investigator. This includes significant or recent gastrointestinal disorders with diarrhea as a major symptom",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Clinically significant active malabsorption syndrome or other condition likely to affect gastrointestinal absorption of the study drug.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Clinically significant, active malabsorption syndrome or other condition likely to affect gastrointestinal absorption of the study drug.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patients with a history of another primary malignancy that is currently clinically significant, and has potential for metastases or currently requires active intervention (except for gonadotropin-releasing hormone (GnRH) or luteinizing hormone-releasing hormone (LH-RH) agonists in prostate cancer or hormonal therapy in breast cancer",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Patients with a history of another primary malignancy that is currently clinically significant, and has potential for metastases or currently requires active intervention (except for gonadotropin-releasing hormone (GnRH) or luteinizing hormone-releasing hormone (LH-RH) agonists in prostate cancer or hormonal therapy in breast cancer)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 11 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have history of hepatic encephalopathy of any grade",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Have history of hepatic encephalopathy of any grade",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patients with ascites requiring serial paracenteses",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Patients with ascites requiring serial paracenteses",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Active central nervous system (CNS) metastases are not eligible. Patients with asymptomatic and treated brain metastases may participate provided that they are stable for ≥ 2 months. Patients with suspected or confirmed leptomeningeal disease are not eligible even if treated. Patients with glioblastoma multiforme (GBM) are not eligible.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Active central nervous system (CNS) metastases are not eligible. Patients with asymptomatic and treated brain metastases may participate provided that they are stable for ≥ 2 months. Patients with suspected or confirmed leptomeningeal disease are not eligible even if treated. Patients with glioblastoma multiforme (GBM) are not eligible.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 15 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Clinically significant, active cardiovascular disease such as uncontrolled hypertension, congestive heart failure New York Heart Association (NYHA) classification of 3, unstable angina or poorly controlled arrhythmia, or history of myocardial infarction within 6 months prior to planned start of pemigatinib and afatinib",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Clinically significant, active cardiovascular disease such as uncontrolled hypertension, congestive heart failure New York Heart Association (NYHA) classification of 3, unstable angina or poorly controlled arrhythmia, or history of myocardial infarction within 6 months prior to planned start of pemigatinib and afatinib",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 16 is semantically equivalent to the GOLD criterion, preserving all clinically meaningful details and logical meaning."
+                }
+            },
+            {
+                "gold": "Fridericia's corrected QT interval (QTcF) > 480 ms on ECG conducted during Screening, or history of torsades de pointes or personal or family history of prolonged QT syndrome. Correction of suspected drug-induced QTcF prolongation can be attempted at the investigator's discretion and only if clinically safe to do so with either discontinuation of the offending drug or switch to another drug not known to be associated with QTcF prolongation.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Fridericia's corrected QT interval (QTcF) > 480 ms on ECG conducted during Screening, or history of torsades de pointes or personal or family history of prolonged QT syndrome.Correction of suspected drug-induced QTcF prolongation can be attempted at the investigator's discretion and only if clinically safe to do so with either discontinuation of the offending drug or switch to another drug not known to be associated with QTcF prolongation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Active uncontrolled systemic bacterial, viral, fungal or parasitic infection (except for fungal nail infection), or other clinically significant active disease process which in the opinion of the investigator and the sponsor-investigator makes it undesirable for the patient to participate in the trial. Screening for chronic conditions is not required.",
+                "evaluation": {
+                    "match_index": 22,
+                    "match_text": "Active uncontrolled systemic bacterial, viral, fungal or parasitic infection (except for fungal nail infection), or other clinically significant active disease process which in the opinion of the investigator and the sponsor-investigator makes it undesirable for the patient to participate in the trial. Screening for chronic conditions is not required.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Active hepatitis B virus (HBV)",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Active hepatitis B virus (HBV)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Known human immunodeficiency virus (HIV) and on anti-retroviral therapy for HIV (excluded due to potential drug-drug interactions between anti-retroviral medications and study treatment but HIV itself is not an exclusion).",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Known human immunodeficiency virus (HIV) and on anti-retroviral therapy for HIV(excluded due to potential drug-drug interactions between anti-retroviral medications and study treatment but HIV itself is not an exclusion).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all clinically meaningful details and logical meaning."
+                }
+            },
+            {
+                "gold": "Known or suspected active drug or alcohol use",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Known or suspected active drug or alcohol use",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Concomitant treatment with known strong p-gp inhibitor.",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Concomitant treatment with known strong p-gp inhibitor.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Use of any potent CYP3A4 inhibitors or inducers or moderate CYP3A4 inducers within 14 days or 5 half-lives (whichever is longer) before the first dose of study treatment.",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Use of any potent CYP3A4 inhibitors or inducers or moderate CYP3A4 inducers within 14 days or 5 half-lives (whichever is longer) before the first dose of study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 21 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Pregnancy during the study or within 30 days of the last dose of study intervention. Also excluded are any persons of childbearing potential, including men who are able to father a child, who are unwilling to use a medically acceptable method of contraception during the trial (see below section 3.3). Lactation and breastfeeding during the study or within 30 days of the last dose of study intervention is also not allowed. Female patients must have a negative pregnancy test (B-HCG test in urine or serum) prior to commencing study treatment.",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Pregnancy during the study or within 30 days of the last dose of study intervention. Also excluded are any persons of childbearing potential, including men who are able to father a child, who are unwilling to use a medically acceptable method of contraception during the trial (see below section 3.3). Lactation and breastfeeding during the study or within 30 days of the last dose of study intervention is also not allowed. Female patients must have a negative pregnancy test (B-HCG test in urine or serum) prior to commencing study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 23 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Unable to swallow pills",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Unable to swallow pills",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Any other concomitant serious illness or organ system dysfunction which in the opinion of the investigator would either compromise patient safety or interfere with the evaluation of the safety of the study drug. Patients unable or deemed by the investigator as unlikely to comply with the protocol are also excluded.",
+                "evaluation": {
+                    "match_index": 24,
+                    "match_text": "Any other concomitant serious illness or organ system dysfunction which in the opinion of the investigator would either compromise patient safety or interfere with the evaluation of the safety of the study drug. Patients unable or deemed by the investigator as unlikely to comply with the protocol are also excluded.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 24 is an exact match to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 51,
+        "partial": 2,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 53,
+        "human_accuracy": 96.22641509433963,
+        "partial_score": 98.11320754716981
+    }
+}

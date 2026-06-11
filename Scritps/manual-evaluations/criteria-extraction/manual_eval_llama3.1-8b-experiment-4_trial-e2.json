@@ -1,0 +1,189 @@
+{
+    "trial": "e2",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Woman with age ≥ 18 years.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Woman with age \\u2265 18 years.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patient who completed surgery for his breast cancer and for which definitive histo-pathological analysis of surgical specimen is available.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patient who completed surgery for his breast cancer and for which definitive histo-pathological analysis of surgical specimen is available.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Invasive breast carcinoma pN0 or pN(i+) with histological tumor size ≤ 10 mm (pT1a/b subgroup).",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Invasive breast carcinoma pN0 or pN(i+) with histological tumor size ≤ 10 mm (pT1a/b subgroup)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Invasive breast carcinoma with histological tumor size > 10 mm and ≤ 30 mm (pT1c T2 ≤ 30 mm control group).",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "invasive breast carcinoma with histological tumor size > 10 mm and ≤ 30 mm (pT1c T2 ≤ 30 mm control group)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same tumor size range and control group specification."
+                }
+            },
+            {
+                "gold": "Patient with HER2-negative breast carcinoma: immuno-histochemistry (IHC) score = 0, 1+ or 2+ and in situ hybridization (FISH, CISH, or SISH) negative (local laboratory testing).",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Patient with HER2-negative breast carcinoma: immuno-histochemistry (IHC) score = 0, 1+ or 2+ and in situ hybridization (FISH, CISH, or SISH) negative (local laboratory testing)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patient with ER and PR negative invasive carcinoma (< 1% stained cells by immuno-histochemistry assay) (local laboratory testing).",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Patient with ER and PR negative invasive carcinoma (< 1% stained cells by immuno-histochemistry assay) (local laboratory testing)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup. All lesions must be ER, PR and HER2-negative.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion adds extra conditions (ER, PR, and HER2-negative lesions) not present in the GOLD criterion, making it a partial match."
+                }
+            },
+            {
+                "gold": "In case of multifocality, all lesions must be ER, PR and HER2-negative.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup. All lesions must be ER, PR and HER2-negative.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the required receptor status (ER, PR, and HER2-negative) for all lesions in case of multifocality but adds an additional constraint regarding tumor size, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "In case of breast conserving surgery, clear margins are required.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "In case of breast conserving surgery, clear margins are required.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patient affiliated to a Social Health Insurance in France.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Patient affiliated to a Social Health Insurance in France.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patient information and written informed consent form signed prior to any study specific procedures.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Patient information and written informed consent form signed prior to any study specific procedures.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Patients with any previous malignancy of the breast or other site, with the exception of adequately treated basal or squamous cell carcinoma, non-melanomatous skin cancer totally resected.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Patients with any previous malignancy of the breast or other site, with the exception of adequately treated basal or squamous cell carcinoma, non-melanomatous skin cancer totally resected.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without adding extra constraints or losing clinically relevant information."
+                }
+            },
+            {
+                "gold": "Non-invasive breast carcinoma (i.e. ductal carcinoma in situ exclusively).",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Non-invasive breast carcinoma (i.e. ductal carcinoma in situ exclusively)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context of non-invasive breast carcinoma."
+                }
+            },
+            {
+                "gold": "Inoperable breast invasive carcinoma.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Inoperable breast invasive carcinoma",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Synchronous bilateral breast cancer.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Synchronous bilateral breast cancer",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patients who received neo-adjuvant treatment (radiotherapy or chemotherapy or other before surgery).",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Patients who received neo-adjuvant treatment (radiotherapy or chemotherapy or other before surgery)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and logical structure."
+                }
+            },
+            {
+                "gold": "Pregnant or breast-feeding women.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Pregnant or breast-feeding women",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Any psychological, familial, geographic or social situation, according to the judgment of investigator, potentially preventing the provision of informed consent or compliance to study procedure.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Any psychological, familial, geographic or social situation, according to the judgment of investigator, potentially preventing the provision of informed consent or compliance to study procedure.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 6 is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patient who has forfeited his/her freedom by administrative or legal award or who is under guardianship.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Patient who has forfeited his/her freedom by administrative or legal award or who is under guardianship",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 17,
+        "partial": 2,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 19,
+        "human_accuracy": 89.47368421052632,
+        "partial_score": 94.73684210526315
+    }
+}

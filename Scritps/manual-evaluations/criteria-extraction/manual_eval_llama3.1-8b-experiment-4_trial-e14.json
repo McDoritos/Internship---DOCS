@@ -1,0 +1,360 @@
+{
+    "trial": "e14",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Signed written informed consent.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Signed written informed consent.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Age >= 18 years old.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Age >= 18 years old.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Life expectancy of at least 12 weeks.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Life expectancy of at least 12 weeks.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Have histologically confirmed ovarian, gastric/esophageal adenocarcinoma, uterine serous papillary, or bladder cancer.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Have histologically confirmed ovarian, gastric/esophageal adenocarcinoma, uterine serous papillary, or bladder cancer.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Have ErbB2-positive cancer as determined by Fluorescence In Situ Hybridization (FISH) assay.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Have ErbB2-positive cancer as determined by Fluorescence In Situ Hybridization (FISH) assay.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have documented tumor progression after receiving all standard/approved chemotherapies per National Comprehensive Cancer Network (NCCN) guidelines (V1) for their specific cancer and no approved therapy exists.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Have documented tumor progression after receiving all standard/approved chemotherapies per National Comprehensive Cancer Network (NCCN) guidelines (V1) for their specific cancer and no approved therapy exists.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 5 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without adding extra constraints or losing clinically relevant information."
+                }
+            },
+            {
+                "gold": "Have one or more tumors measurable by medical imaging and assessed using the Response Evaluation Criteria in Solid Tumors (RECIST) criteria.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Have one or more tumors measurable by medical imaging and assessed using the Response Evaluation Criteria in Solid Tumors (RECIST) criteria.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Eastern Cooperative Oncology Group (ECOG) Performance Status of 0 or 1.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Eastern Cooperative Oncology Group (ECOG) Performance Status of 0 or 1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context of the ECOG Performance Status requirement."
+                }
+            },
+            {
+                "gold": "Have archived tumor tissue available for biomarker analysis.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Have archived tumor tissue available for biomarker analysis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Have a negative serum pregnancy test if female of childbearing potential.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Have a negative serum pregnancy test if female of childbearing potential.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Any chemotherapy, major surgery, or irradiation must have been completed at least 3 weeks prior to receiving study drug (6 weeks for mitomycin-C or nitrosourea) and subject must have recovered from all toxicities incurred as a result of previous therapy.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Any chemotherapy, major surgery, or irradiation must have been completed at least 3 weeks prior to receiving study drug (6 weeks for mitomycin-C or nitrosourea) and subject must have recovered from all toxicities incurred as a result of previous therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Have a gastrointestinal tract intact enough to swallow and assure absorption of the drug.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Have a gastrointestinal tract intact enough to swallow and assure absorption of the drug.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Women of childbearing potential must have a negative serum pregnancy test at screening and must use an approved contraceptive method, if appropriate (for example, intrauterine device, birth control pills, or barrier device) beginning 2 weeks before the first dose of investigational product and for 28 days after the final dose of investigational product.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Women of childbearing potential must have a negative serum pregnancy test at screening and must use an approved contraceptive method, if appropriate (for example, intrauterine device, birth control pills, or barrier device) beginning 2 weeks before the first dose of investigational product and for 28 days after the final dose of investigational product.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Males able to father a child must practice adequate methods of birth control or practice complete abstinence from intercourse from the first dose of investigational treatment until one week after the final dose of investigational treatment.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Males able to father a child must practice adequate methods of birth control or practice complete abstinence from intercourse from the first dose of investigational treatment until one week after the final dose of investigational treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have a cardiac ejection fraction within institutional range of normal as measured by either echocardiogram or multigated acquisition scans.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Have a cardiac ejection fraction within institutional range of normal as measured by either echocardiogram or multigated acquisition scans. The same method of cardiac evaluation must be used consistently throughout the study.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion adds the condition that 'The same method of cardiac evaluation must be used consistently throughout the study', which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "The same method of cardiac evaluation must be used consistently throughout the study.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Have a cardiac ejection fraction within institutional range of normal as measured by either echocardiogram or multigated acquisition scans. The same method of cardiac evaluation must be used consistently throughout the study.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, including the requirement for consistent cardiac evaluation method throughout the study."
+                }
+            },
+            {
+                "gold": "absolute neutrophil count >1.5 x 109/L",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Subjects must have adequate organ function: Hematologic: absolute neutrophil count >1.5 x 10^9/L hemoglobin >9 g/dL platelets >75 x 10^9/L",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, with the absolute neutrophil count >1.5 x 10^9/L being correctly specified, and no clinically meaningful details lost."
+                }
+            },
+            {
+                "gold": "hemoglobin >9 g/dL",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Subjects must have adequate organ function: Hematologic: absolute neutrophil count >1.5 x 10^9/L hemoglobin >9 g/dL platelets >75 x 10^9/L",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the exact hemoglobin threshold as the GOLD criterion, with no additional constraints or loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "platelets >75 x 109/L",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Subjects must have adequate organ function: Hematologic: absolute neutrophil count >1.5 x 10^9/L hemoglobin >9 g/dL platelets >75 x 10^9/L",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, with the platelet threshold correctly specified as >75 x 10^9/L, and is part of a larger criterion about adequate organ function, but all relevant information is preserved."
+                }
+            },
+            {
+                "gold": "albumin >2.5 g/dL",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Hepatic: albumin >2.5 g/dL serum bilirubin <1.25 x upper limit of normal aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases aspartate aminotransferase/alanine aminotransferase <5 x ULN with documented liver metastases",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the albumin requirement but also adds other liver function tests, making it a partial match."
+                }
+            },
+            {
+                "gold": "serum bilirubin <1.25 x upper limit of normal",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Hepatic: albumin >2.5 g/dL serum bilirubin <1.25 x upper limit of normal aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases aspartate aminotransferase/alanine aminotransferase <5 x ULN with documented liver metastases",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the full meaning of the GOLD criterion, including the serum bilirubin threshold, and does not add any extra constraints or lose any clinically meaningful details."
+                }
+            },
+            {
+                "gold": "aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Hepatic: albumin >2.5 g/dL serum bilirubin <1.25 x upper limit of normal aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases aspartate aminotransferase/alanine aminotransferase <5 x ULN with documented liver metastases",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the full information of the GOLD criterion, including the condition for liver metastases, and no clinically meaningful details are lost."
+                }
+            },
+            {
+                "gold": "aspartate aminotransferase/alanine aminotransferase <5 x ULN with documented liver metastases",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Hepatic: albumin >2.5 g/dL serum bilirubin <1.25 x upper limit of normal aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases aspartate aminotransferase/alanine aminotransferase <5 x ULN with documented liver metastases",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, including the condition for liver metastases and the corresponding AST/ALT threshold."
+                }
+            },
+            {
+                "gold": "serum creatinine <2.0 mg/dL",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Renal: serum creatinine <2.0 mg/dL OR - calculated creatinine clearance1 >40 mL/min",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, with the addition of an alternative condition (calculated creatinine clearance >40 mL/min) that does not change the eligibility based on serum creatinine <2.0 mg/dL."
+                }
+            },
+            {
+                "gold": "calculated creatinine clearance1 >40 mL/min",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Renal: serum creatinine <2.0 mg/dL OR - calculated creatinine clearance1 >40 mL/min",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, with the added condition of serum creatinine <2.0 mg/dL being an alternative, not a contradiction, thus preserving the logical meaning."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Have New York Heart Association Class III or IV, cardiac disease, myocardial infarction within past 6 months, unstable arrhythmia or evidence of ischemia on electrocardiogram.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Have New York Heart Association Class III or IV, cardiac disease, myocardial infarction within past 6 months, unstable arrhythmia or evidence of ischemia on electrocardiogram.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Subjects who have had chemotherapy or radiotherapy within 3 weeks prior to entering the study or who have unresolved or unstable, serious toxicity from prior administration of another investigational drug and/or of prior cancer treatment.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Subjects who have had chemotherapy or radiotherapy within 3 weeks prior to entering the study or who have unresolved or unstable, serious toxicity from prior administration of another investigational drug and/or of prior cancer treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 1 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without adding extra constraints or losing clinically relevant information."
+                }
+            },
+            {
+                "gold": "Concurrent treatment with an investigational agent or participation in another treatment clinical trial.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Concurrent treatment with an investigational agent or participation in another treatment clinical trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Prior lapatinib therapy.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Prior lapatinib therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "ECOG Performance Status 2 or greater.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "ECOG Performance Status 2 or greater.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Subjects receiving concurrent chemotherapy, radiation therapy, immunotherapy, biologic therapy (including an ErbB1 and/or ErbB2 inhibitor), or hormonal therapy for treatment of their cancer.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Subjects receiving concurrent chemotherapy, radiation therapy, immunotherapy, biologic therapy (including an ErbB1 and/or ErbB2 inhibitor), or hormonal therapy for treatment of their cancer. Concurrent treatment with bisphosphonates is allowed.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion but adds an additional constraint allowing concurrent treatment with bisphosphonates, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Concurrent treatment with bisphosphonates is allowed.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Subjects receiving concurrent chemotherapy, radiation therapy, immunotherapy, biologic therapy (including an ErbB1 and/or ErbB2 inhibitor), or hormonal therapy for treatment of their cancer. Concurrent treatment with bisphosphonates is allowed.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains all the information from the GOLD criterion and preserves the logical meaning, allowing concurrent treatment with bisphosphonates."
+                }
+            },
+            {
+                "gold": "History of allergic reactions attributed to compounds of similar chemical composition (quinazolines) to lapatinib.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "History of allergic reactions attributed to compounds of similar chemical composition (quinazolines) to lapatinib.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Concurrent treatment with prohibited medications.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Concurrent treatment with prohibited medications.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Malabsorption syndrome, resection of the small bowel or active, uncontrolled ulcerative colitis.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Malabsorption syndrome, resection of the small bowel or active, uncontrolled ulcerative colitis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Concurrent disease or condition that would make the subject inappropriate for study participation or any serious medical or psychiatric disorder that would interfere with the subject's safety.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Concurrent disease or condition that would make the subject inappropriate for study participation or any serious medical or psychiatric disorder that would interfere with the subject's safety.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is an exact match to the GOLD criterion, preserving the full meaning and logical context without adding or removing any clinically relevant details."
+                }
+            },
+            {
+                "gold": "Uncontrolled infection.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Uncontrolled infection.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Pregnant or lactating females.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Pregnant or lactating females.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 35,
+        "partial": 3,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 38,
+        "human_accuracy": 92.10526315789474,
+        "partial_score": 96.05263157894737
+    }
+}
