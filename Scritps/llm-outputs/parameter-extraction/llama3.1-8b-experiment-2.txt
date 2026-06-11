@@ -545,9 +545,6 @@ Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_28.txt
 This JSON object represents the extracted clinical data from the provided diary. The `age_or_birthdate` field is set to `null` because no age or birthdate information was available in the diary. The `gender` field is set to "feminino" (female) as explicitly stated in the diary.
 
 Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_29.txt
-Here is the extracted data in the specified JSON format:
-
-```
 {
   "age_or_birthdate": 68,
   "gender": "male",
@@ -556,7 +553,7 @@ Here is the extracted data in the specified JSON format:
   "diagnosis_date": null,
   "molecular_status": null,
   "stage": "estadio III",
-  "pathology_group": "oncologia_pediatrica", // Linfoma difuso de grandes células B is a pediatric cancer
+  "pathology_group": "oncologia_pediatrica",
   "treatments": [
     {
       "name": "R-CHOP",
@@ -567,46 +564,7 @@ Here is the extracted data in the specified JSON format:
   ],
   "control": "resposta parcial à terapêutica"
 }
-```
-
-Note that the `diagnosis_date` field is set to `null` because it's not explicitly mentioned in the clinical diary. The `molecular_status` field is also set to `null` because there's no mention of molecular markers or biomarkers in the diary.
-
-The `pathology_group` field is set to "oncologia_pediatrica" because Linfoma difuso de grandes células B is a type of pediatric cancer.
-
 Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
-Here is the extracted data in JSON format:
-
-```json
-{
-  "age_or_birthdate": 72,
-  "gender": "male",
-  "ecog_ps": 2,
-  "diagnosis": "carcinoma escamoso de pulmão esquerdo, G2, cT4N3M1c (IVC) com metástases ósseas múltiplas (esqueleto axial) e cerebral (lesão frontal direita 2 cm)",
-  "diagnosis_date": null,
-  "molecular_status": "PD-L1 TPS 80%",
-  "stage": "IVC",
-  "pathology_group": "pulmão",
-  "treatments": [
-    {
-      "name": "pembrolizumab",
-      "start_date": "2025-03-15",
-      "end_date": null
-    },
-    {
-      "name": "radioterapia cerebral",
-      "start_date": "2025-03-10",
-      "end_date": "2025-03-16"
-    }
-  ],
-  "control": "céfaleias residuais, hemoptises esporadicas controladas, dor torácica moderada (analgésicos habituais)"
-}
-```
-
-Note: The `diagnosis` field is not normalized according to the provided table. If you need to normalize it, I can try to match it with the normalization table, but please note that the normalization process may introduce errors if the original text does not exactly match any entry in the table.
-
-After normalizing the diagnosis, the updated JSON object would be:
-
-```json
 {
   "age_or_birthdate": 72,
   "gender": "male",
@@ -630,9 +588,6 @@ After normalizing the diagnosis, the updated JSON object would be:
   ],
   "control": "céfaleias residuais, hemoptises esporadicas controladas, dor torácica moderada (analgésicos habituais)"
 }
-```
-
-Please note that this is an approximation and might not be entirely accurate. The original text was matched with the closest entry in the normalization table, but some details might have been lost or altered during the process.
 
 Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_30.txt
 {
@@ -655,7 +610,6 @@ Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_30.txt
 }
 
 Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
-```json
 {
   "age_or_birthdate": 63,
   "gender": "feminino",
@@ -679,7 +633,6 @@ Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
   ],
   "control": null
 }
-```
 
 Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
 {
@@ -723,9 +676,6 @@ Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
 }
 
 Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
-Here is the extracted data in JSON format:
-
-```json
 {
   "age_or_birthdate": 66,
   "gender": "male",
@@ -752,9 +702,6 @@ Here is the extracted data in JSON format:
     "comorbidities": "HTA, Diabetes tipo 2"
   }
 }
-```
-
-Note that the `diagnosis_date` field is set to `null` since it was not explicitly mentioned in the clinical diary. Also, the molecular status is extracted as a string without any normalization.
 
 Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
 {
@@ -782,7 +729,6 @@ Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
 }
 
 Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
-```
 {
     "age_or_birthdate": 71,
     "gender": "female",
@@ -808,5 +754,4 @@ Ouput for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
     ],
     "control": null
 }
-```
 
