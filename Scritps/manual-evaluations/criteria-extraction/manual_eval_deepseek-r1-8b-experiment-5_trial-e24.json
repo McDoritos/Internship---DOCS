@@ -1,0 +1,369 @@
+{
+    "trial": "e24",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Histologically confirmed high grade (WHO Grade IV) glioma including but not limited to glioblastoma, gliosarcoma, glioblastoma with oligodendroglial features, glioblastoma with PNET features, tested as IDH wild-type, as per revised WHO 2021 criteria.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Histologically confirmed high grade (WHO Grade IV) glioma including but not limited to glioblastoma, gliosarcoma, glioblastoma with oligodendroglial features, glioblastoma with PNET features, tested as IDH wild-type, as per revised WHO 2021 criteria. Patients must also have evidence of tumor recurrence/progression by MRI (RANO criteria) after standard front-line therapy. b. First recurrence or progressive disease after a standard line therapy.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the full GOLD criterion but adds extra conditions not present in the GOLD criterion, such as evidence of tumor recurrence/progression by MRI and first recurrence or progressive disease after standard line therapy."
+                }
+            },
+            {
+                "gold": "Patients must also have evidence of tumor recurrence/progression by MRI (RANO criteria) after standard front-line therapy.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Histologically confirmed high grade (WHO Grade IV) glioma including but not limited to glioblastoma, gliosarcoma, glioblastoma with oligodendroglial features, glioblastoma with PNET features, tested as IDH wild-type, as per revised WHO 2021 criteria. Patients must also have evidence of tumor recurrence/progression by MRI (RANO criteria) after standard front-line therapy. b. First recurrence or progressive disease after a standard line therapy.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion contains the required information about tumor recurrence/progression by MRI (RANO criteria) after standard front-line therapy, but it also includes additional information about histologically confirmed high-grade glioma, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "First recurrence or progressive disease after a standard line therapy.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Histologically confirmed high grade (WHO Grade IV) glioma including but not limited to glioblastoma, gliosarcoma, glioblastoma with oligodendroglial features, glioblastoma with PNET features, tested as IDH wild-type, as per revised WHO 2021 criteria. Patients must also have evidence of tumor recurrence/progression by MRI (RANO criteria) after standard front-line therapy. b. First recurrence or progressive disease after a standard line therapy.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion contains the required information about 'First recurrence or progressive disease after a standard line therapy', but it also includes additional details about histologically confirmed high-grade glioma, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Resectable disease: Resection is being considered as part of the standard of care for the patient and it is thought that it is feasible that a majority of contrast-enhancing tumor mass/signal can be resected.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Resectable disease: Resection is being considered as part of the standard of care for the patient and it is thought that it is feasible that a majority of contrast-enhancing tumor mass/signal can be resected.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients must be between the ages of 18 and 75 years old (inclusive).",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Patients must be between the ages of 18 and 75 years old (inclusive).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Karnofsky Performance score ≥ 60.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Karnofsky Performance score ≥ 60.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with the same condition and threshold value."
+                }
+            },
+            {
+                "gold": "Use of steroids must be limited to ≤ 4 mg of decadron daily.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Use of steroids must be limited to ≤ 4 mg of decadron daily.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Hgb ≥ 12 g/dL (male) or ≥ 11.5 g/dL (females)",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Hgb ≥ 12 g/dL (male) or ≥ 11.5 g/dL (females)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context of the hemoglobin requirement."
+                }
+            },
+            {
+                "gold": "ANC ≥ 1500/uL",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "ANC ≥ 1500/uL",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 'ANC ≥ 1500/uL' exactly matches the GOLD criterion 'ANC ≥ 1500/uL', preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Platelets ≥ 100,000/uL",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Platelets ≥ 100,000/uL",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same platelet threshold."
+                }
+            },
+            {
+                "gold": "Absolute lymphocyte count ≥150/uL",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Absolute lymphocyte count ≥150/uL",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same threshold value and unit of measurement."
+                }
+            },
+            {
+                "gold": "Serum Creatinine ≤ 1.5mg/dl; Cr clearance should be ≥ 50 mL/min",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Serum Creatinine ≤ 1.5mg/dl; Cr clearance should be ≥ 50 mL/min",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details of the original criterion, including the serum creatinine threshold and the creatinine clearance requirement."
+                }
+            },
+            {
+                "gold": "Serum AST and ALT ≤ 3x ULN (Grade 1)",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Serum AST and ALT ≤ 3x ULN (Grade 1)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with the same conditions and thresholds for serum AST and ALT."
+                }
+            },
+            {
+                "gold": "Total Bilirubin ≤ 1.5 X ULN",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Total Bilirubin ≤ 1.5 X ULN",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same threshold value and unit of measurement."
+                }
+            },
+            {
+                "gold": "PT or PTT ≤ 1.25 X ULN",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "PT or PTT ≤ 1.25 X ULN",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same condition (PT or PTT) and threshold (≤ 1.25 X ULN)."
+                }
+            },
+            {
+                "gold": "Cardiac ejection fraction ≥45% without signs of physiologically significant pericardial effusion or clinically significant ECG findings.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Cardiac ejection fraction ≥45% without signs of physiologically significant pericardial effusion or clinically significant ECG findings.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Baseline oxygen saturation > 92% on room air",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Baseline oxygen saturation > 92% on room air",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Subjects of child-bearing or child-fathering potential must be willing to use an effective method of contraception (hormonal or two barrier methods) while on study and for at least 4 months following the last CAR T cell infusion or as long as B7-H3CART are detectable in peripheral blood or CSF.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Subjects of child-bearing or child-fathering potential must be willing to use an effective method of contraception (hormonal or two barrier methods) while on study and for at least 4 months following the last CAR T cell infusion or as long as B7-H3CART are detectable in peripheral blood or CSF.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "All female subjects of childbearing age must have a negative blood or urine pregnancy test.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "All female subjects of childbearing age must have a negative blood or urine pregnancy test.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Ability to understand and willingness to sign a written informed consent document.",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "Ability to understand and willingness to sign a written informed consent document.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 17 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Must be willing and able to comply with procedures, return visits and evaluations at Stanford Health Care while on this protocol.",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "Must be willing and able to comply with procedures, return visits and evaluations at Stanford Health Care while on this protocol.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 17 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "At least 6 weeks following completion of front-line radiation therapy.",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "Prior Therapy: At least 6 weeks following completion of front-line radiation therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "At least 3 weeks post chemotherapy or 5 half-lives, whichever is shorter must have elapsed since any prior systemic therapy, except for systemic inhibitory/stimulatory immune checkpoint therapy, which requires 5 half-lives.",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Prior Therapy: At least 3 weeks post chemotherapy or 5 half-lives, whichever is shorter must have elapsed since any prior systemic therapy, except for systemic inhibitory/stimulatory immune checkpoint therapy, which requires 5 half-lives.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "At least 4 weeks from bevacizumab treatment, which can be used only for radiation necrosis or pseudo-progression.",
+                "evaluation": {
+                    "match_index": 18,
+                    "match_text": "Prior Therapy: At least 4 weeks from bevacizumab treatment, which can be used only for radiation necrosis or pseudo-progression.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Prior cytotoxic chemotherapy, radiation, or other anticancer therapies including investigational agents discontinued at least 4 weeks prior to Day 1 of treatment.",
+                "evaluation": {
+                    "match_index": 18,
+                    "match_text": "Prior Therapy: Prior cytotoxic chemotherapy, radiation, or other anticancer therapies including investigational agents discontinued at least 4 weeks prior to Day 1 of treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Toxicities due to prior therapy must be stable and recovered to ≤ Grade 1 (except for clinically non-significant toxicities such as alopecia).",
+                "evaluation": {
+                    "match_index": 19,
+                    "match_text": "Prior Therapy: Toxicities due to prior therapy must be stable and recovered to ≤ Grade 1 (except for clinically non-significant toxicities such as alopecia).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same conditions and exceptions."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Pregnant or patients who are breastfeeding.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Pregnant or patients who are breastfeeding.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Prior or concurrent treatment with Avastin (bevacizumab) for the purposes of recurrent disease.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Prior or concurrent treatment with Avastin (bevacizumab) for the purposes of recurrent disease. Avastin (bevacizumab) may have been used for radiation necrosis.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion adds extra information about Avastin being used for radiation necrosis, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Prior exposure to chimeric antigen receptor (CAR) based therapies.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Prior exposure to chimeric antigen receptor (CAR) based therapies.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Known sensitivity or allergy to any agents/reagents used in this study.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Known sensitivity or allergy to any agents/reagents used in this study.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Requires current anticoagulation therapy that cannot be safely paused for surgical resection and Ommaya access.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Requires current anticoagulation therapy that cannot be safely paused for surgical resection and Ommaya access.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Prior malignancy except previously diagnosed and definitively treated more than 3 years prior to trial or whose prognosis is deemed good enough to not warrant surveillance.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Prior malignancy except previously diagnosed and definitively treated more than 3 years prior to trial or whose prognosis is deemed good enough to not warrant surveillance.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Clinical evidence of significant increased intracranial pressure (i.e. impending herniation) or uncontrolled seizures.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Clinical evidence of significant increased intracranial pressure (i.e. impending herniation) or uncontrolled seizures.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Presence of fungal, bacterial, viral, or other infection that is uncontrolled or requiring IV antimicrobials for management.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Presence of fungal, bacterial, viral, or other infection that is uncontrolled or requiring IV antimicrobials for management. Simple UTI and uncomplicated bacterial pharyngitis are permitted if responding to active treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the addition of permitted exceptions that do not change the eligibility criteria."
+                }
+            },
+            {
+                "gold": "Known history of infection with HIV or hepatitis B (HBsAg positive) or hepatitis C virus (anti-HCV positive).",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Known history of infection with HIV or hepatitis B (HBsAg positive) or hepatitis C virus (anti-HCV positive). A history of hepatitis B or hepatitis C is permitted if the viral load is undetectable per quantitative PCR and/or nucleic acid testing.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the core information from the GOLD criterion but adds an additional condition regarding viral load for hepatitis B or C, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Primary immunodeficiency or history of autoimmune disease (e.g. Crohn's, rheumatoid arthritis, systemic lupus) resulting in end organ injury or requiring systemic immunosuppression/systemic disease modifying agents within the last 2 years.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Primary immunodeficiency or history of autoimmune disease (e.g. Crohn's, rheumatoid arthritis, systemic lupus) resulting in end organ injury or requiring systemic immunosuppression/systemic disease modifying agents within the last 2 years.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Significant medical diseases or conditions, including poorly controlled conditions: i.e. hypertension, cardiovascular disease, diabetes mellitus, chronic obstructive pulmonary disease, pulmonary fibrosis, inflammatory disorders, immunodeficiency, renal failure including patients requiring dialysis, liver dysfunction, second malignancy, or active infection.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Significant medical diseases or conditions, including poorly controlled conditions: i.e. hypertension, cardiovascular disease, diabetes mellitus, chronic obstructive pulmonary disease, pulmonary fibrosis, inflammatory disorders, immunodeficiency (e.g., HIV infection), immune compromised for reasons other than malignancy (e.g., chronic corticosteroid therapy or other immunosuppressive therapy), renal failure including patients requiring dialysis, liver dysfunction, second malignancy (except treated basal cell or localized squamous cell skin carcinomas), or active infection.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 is semantically equivalent to the GOLD criterion, preserving all the information and logical meaning without adding extra constraints or losing clinically meaningful details."
+                }
+            },
+            {
+                "gold": "History of bone marrow or stem cell transplantation.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "History of bone marrow or stem cell transplantation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "In the investigator's judgment, the subject is unlikely to complete all protocol-required study visits or procedures, including follow-up visits, or comply with the study requirements for participation.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "In the investigator's judgment, the subject is unlikely to complete all protocol- required study visits or procedures, including follow-up visits, or comply with the study requirements for participation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 11 is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 34,
+        "partial": 5,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 39,
+        "human_accuracy": 87.17948717948718,
+        "partial_score": 93.58974358974359
+    }
+}

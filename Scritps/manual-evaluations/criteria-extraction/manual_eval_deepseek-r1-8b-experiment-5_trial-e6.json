@@ -1,0 +1,224 @@
+{
+    "trial": "e6",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "The patient shall sign the Informed Consent Form.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "The patient shall sign the Informed Consent Form.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and requirements."
+                }
+            },
+            {
+                "gold": "Aged 18 ≥ years.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Aged 18 ≥ years.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 'Aged 18 ≥ years.' is semantically equivalent to the GOLD criterion 'Aged 18 ≥ years.'"
+                }
+            },
+            {
+                "gold": "Histological or cytological diagnosis of NSCLC by needle biopsy, and evaluated by researchers as stage III-IVA, and diagnosed as ALK positive through genetic testing.",
+                "evaluation": {
+                    "match_index": [
+                        2,
+                        4,
+                        3
+                    ],
+                    "match_text": [
+                        "Histological or cytological diagnosis of NSCLC by needle biopsy.",
+                        "Diagnosed as ALK positive through genetic testing.",
+                        "Evaluated by researchers as stage III-IVA."
+                    ],
+                    "classification": "correct",
+                    "explanation": "The predicted criteria correctly split the GOLD criterion into separate criteria while preserving the full meaning."
+                }
+            },
+            {
+                "gold": "Eastern Cooperative Oncology Group (ECOG) performance-status score of 0 or 1.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Eastern Cooperative Oncology Group (ECOG) performance-status score of 0 or 1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context of the ECOG performance-status score requirement."
+                }
+            },
+            {
+                "gold": "According to the MDT evaluation (which should include a thoracic surgeon specializing in tumor surgery), it is considered that the primary NSCLC is potentially completely resectable;",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "According to the MDT evaluation (which should include a thoracic surgeon specializing in tumor surgery), it is considered that the primary NSCLC is potentially completely resectable;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "At least 1 measurable lesion according to RECIST 1.1.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "At least 1 measurable lesion according to RECIST 1.1.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patients with good function of other main organs (liver, kidney, blood system, etc.)",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Patients with good function of other main organs (liver, kidney, blood system, etc.)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients with lung function can tolerate surgery;",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Patients with lung function can tolerate surgery;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Fertile female patients must voluntarily use effective contraceptives not less than 120 days after chemotherapy or the last dose of toripalimab (whichever is later) during the study period, and urine or serum pregnancy test results within 7 days prior to enrollment are negative.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Fertile female patients must voluntarily use effective contraceptives not less than 120 days after chemotherapy or the last dose of toripalimab (whichever is later) during the study period, and urine or serum pregnancy test results within 7 days prior to enrollment are negative.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Unsterilized male patients must voluntarily use effective contraception during the study period not less than 120 d",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Unsterilized male patients must voluntarily use effective contraception during the study period not less than 120 d",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Previously received targeted therapy (including TKI or monoclonal antibodies), immunotherapy, or any investigational drug treatment for NSCLC;",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Previously received targeted therapy (including TKI or monoclonal antibodies), immunotherapy, or any investigational drug treatment for NSCLC;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Pathological confirmation of mixed small cell and non-small cell lung cancer;",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Pathological confirmation of mixed small cell and non-small cell lung cancer;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 1 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Patients with a malignancy other than NSCLC within five years prior to the start of this trial，except for cured basal cell carcinoma of the skin, early gastrointestinal (GI) carcinoma excised through endoscopy, cervical carcinoma in situ, ductal carcinoma in situ of the breast, papillary thyroid carcinoma, or any cured cancer deemed to have no impact on the survival of the current NSCLC;",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Patients with a malignancy other than NSCLC within five years prior to the start of this trial,except for cured basal cell carcinoma of the skin, early gastrointestinal (GI) carcinoma excised through endoscopy, cervical carcinoma in situ, ductal carcinoma in situ of the breast, papillary thyroid carcinoma, or any cured cancer deemed to have no impact on the survival of the current NSCLC;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Participants with any unstable systemic disease (including active infection, uncontrolled hypertension), unstable angina pectoris, angina pectoris starting in the last three months, congestive heart failure (>= NYHA) Grade II), myocardial infarction (6 months before admission), severe arrhythmia requiring drug treatment, liver, kidney or metabolic diseases;",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Participants with any unstable systemic disease (including active infection, uncontrolled hypertension), unstable angina pectoris, angina pectoris starting in the last three months, congestive heart failure (>= NYHA) Grade II), myocardial infarction (6 months before admission), severe arrhythmia requiring drug treatment, liver, kidney or metabolic diseases;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Patients with congenital or acquired immune dysfunction (such as HIV infected individuals);",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Patients with congenital or acquired immune dysfunction (such as HIV infected individuals);",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Received other major surgical treatments (excluding diagnosis) within 4 weeks prior to the start of the study or expected to undergo major surgical treatments during the study period;",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Received other major surgical treatments (excluding diagnosis) within 4 weeks prior to the start of the study or expected to undergo major surgical treatments during the study period;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Participants who are allergic to the test drug or any auxiliary materials;",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Participants who are allergic to the test drug or any auxiliary materials;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "A history of extensive diffuse bilateral interstitial fibrosis in the past or before medication, or a known grade 3 or 4 history of interstitial fibrosis or interstitial lung disease, including pneumonia, allergic pneumonia, interstitial pneumonia, interstitial lung disease, obliterative bronchiolitis, and pulmonary fibrosis, but not including local radiation pneumonia or radiation pulmonary fibrosis history;",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "A history of extensive diffuse bilateral interstitial fibrosis in the past or before medication, or a known grade 3 or 4 history of interstitial fibrosis or interstitial lung disease, including pneumonia, allergic pneumonia, interstitial pneumonia, interstitial lung disease, obliterative bronchiolitis, and pulmonary fibrosis, but not including local radiation pneumonia or radiation pulmonary fibrosis history;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Pregnant or lactating women;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "The GOLD criterion 'Pregnant or lactating women;' is not present in the predicted criteria list."
+                }
+            },
+            {
+                "gold": "Any malabsorption;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion 'Any malabsorption;' as they do not mention malabsorption or any related condition."
+                }
+            },
+            {
+                "gold": "Participants suffering from nervous system diseases or mental diseases that cannot cooperate",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion, which excludes participants with nervous system or mental diseases that prevent cooperation."
+                }
+            },
+            {
+                "gold": "Other factors that researchers think it is not suitable for enrollment.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion, which refers to 'Other factors that researchers think it is not suitable for enrollment.' The predicted criteria are specific and detailed, whereas the GOLD criterion is vague and open-ended."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 18,
+        "partial": 0,
+        "wrong": 4,
+        "errors": 0,
+        "evaluated": 22,
+        "human_accuracy": 81.81818181818183,
+        "partial_score": 81.81818181818183
+    }
+}

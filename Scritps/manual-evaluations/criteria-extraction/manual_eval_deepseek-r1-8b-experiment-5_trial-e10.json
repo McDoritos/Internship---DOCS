@@ -1,0 +1,261 @@
+{
+    "trial": "e10",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Patients with a histological or cytological verified adenocarcinoma of the colon or rectum with non-resectable or metastatic cancer.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Patients with a histological or cytological verified adenocarcinoma of the colon or rectum with non-resectable or metastatic cancer.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients with measurable disease without previous radiotherapy",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patients with measurable disease without previous radiotherapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients with metastatic colorectal cancer with progression after previous therapy with 5-fluoropyrimidines, oxaliplatin or irinotecan.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Patients with metastatic colorectal cancer with progression after previous therapy with 5-fluoropyrimidines, oxaliplatin or irinotecan. Patients should have been treated with oxaliplatin, but if oxaliplatin has be contraindicated or not tolerated the patient can participate in the trial.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion mostly matches the GOLD criterion but adds an extra condition about oxaliplatin treatment, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Patients should have been treated with oxaliplatin, but if oxaliplatin has be contraindicated or not tolerated the patient can participate in the trial.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Patients with metastatic colorectal cancer with progression after previous therapy with 5-fluoropyrimidines, oxaliplatin or irinotecan. Patients should have been treated with oxaliplatin, but if oxaliplatin has be contraindicated or not tolerated the patient can participate in the trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 2 contains the full information from the GOLD criterion, including the condition for oxaliplatin treatment, contraindication, and intolerance, without adding extra constraints or losing clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Patients with KRAS-mutation in their primary tumour or metastasis.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Patients with KRAS-mutation in their primary tumour or metastasis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients with progression after therapy with irinotecan or cetuximab independent of KRAS mutation status.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Patients with progression after therapy with irinotecan or cetuximab independent of KRAS mutation status.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Previous radiotherapy is allowed to less than 25 % of the bone marrow.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Previous radiotherapy is allowed to less than 25 % of the bone marrow.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Age more or equal to 18 years.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Age more or equal to 18 years.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Performance status less than 3.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Performance status less than 3.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "An expected survival time of at least 3 months.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "An expected survival time of at least 3 months.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Signed informed consent according to specifications from the ethical comites.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Signed informed consent according to specifications from the ethical comites.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Former or other concurrent malignant disease except treated basal cell carcinoma or in situ cervical cancer.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Former or other concurrent malignant disease except treated basal cell carcinoma or in situ cervical cancer.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "No cytotoxic therapy or other experimental treatment within 28 days before inclusion.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "No cytotoxic therapy or other experimental treatment within 28 days before inclusion.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "No former therapy with everolimus or other rapamycin as sirolimus or temsirolimus.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "No former therapy with everolimus or other rapamycin as sirolimus or temsirolimus.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "No known hypersensitivity for one or more components in the therapy.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "No known hypersensitivity for one or more components in the therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "No uncontrolled diabetes",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "No uncontrolled diabetes",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "No serious non-healing wounds, gastric ulcers, bone fractures, greater surgical procedures, major traumatic injuries within 28 days before inclusion.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "No serious non-healing wounds, gastric ulcers, bone fractures, greater surgical procedures, major traumatic injuries within 28 days before inclusion.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 5 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "No ongoing bleeding or pathological condition associated with a risk of bleeding.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "No ongoing bleeding or pathological condition associated with a risk of bleeding.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "No liver disease as cirrhose, chronical active hepatitis or chronic persistent hepatitis.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "No liver disease as cirrhose, chronical active hepatitis or chronic persistent hepatitis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "No gastrointestinal disturbances in function that might cause a major change in the absorption of everolimus as ulcerative disease, uncontrolled nausea, vomiting, diarrhoea, malabsorption syndrome.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "No gastrointestinal disturbances in function that might cause a major change in the absorption of everolimus as ulcerative disease, uncontrolled nausea, vomiting, diarrhoea, malabsorption syndrome.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "No planned immunisation with attenuated virus in the study period.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "No planned immunisation with attenuated virus in the study period.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Patients that is unable to follow treatment or evaluation plan.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Patients that is unable to follow treatment or evaluation plan.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Every condition or therapy that after the judgement of investigator might infer the patient a risk or influence the trials objective.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Every condition or therapy that after the judgement of investigator might infer the patient a risk or influence the trials objective.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Pregnant or breastfeeding women.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Pregnant or breastfeeding women.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details."
+                }
+            },
+            {
+                "gold": "At fertile women this is insured by a negative test of pregnancy or use of a safe anticonception during the trial period and at least 3 months after end of treatment.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "At fertile women this is insured by a negative test of pregnancy or use of a safe anticonception during the trial period and at least 3 months after end of treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients with active infections or other serious medical co-morbidity, that might prevent the patient from being treated with the protocoled therapy.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Patients with active infections or other serious medical co-morbidity, that might prevent the patient from being treated with the protocoled therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Incapacitated",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Incapacitated",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no additional or missing details."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 26,
+        "partial": 1,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 27,
+        "human_accuracy": 96.29629629629629,
+        "partial_score": 98.14814814814815
+    }
+}

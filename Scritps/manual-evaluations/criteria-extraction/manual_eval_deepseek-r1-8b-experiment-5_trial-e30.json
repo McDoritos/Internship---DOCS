@@ -1,0 +1,225 @@
+{
+    "trial": "e30",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Women who have high-grade serous ovarian, primary peritoneal or fallopian tube cancer.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Women who have high-grade serous ovarian, primary peritoneal or fallopian tube cancer.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details without addition or removal of clinically meaningful information."
+                }
+            },
+            {
+                "gold": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Cohorts 1 to 3: Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Cohorts 1 to 3: Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Cohorts 1 to 3: Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Are BRCA negative and have received 3 or more prior lines of therapy.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Are BRCA negative and have received 3 or more prior lines of therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Are BRCA negative and have received less than 3 prior lines of therapy.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Are BRCA negative and have received less than 3 prior lines of therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Are BRCA positive and have previously received a PARP.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Are BRCA positive and have previously received a PARP.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have primary platinum refractory disease.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Have primary platinum refractory disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Have adequate organ function.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Have adequate organ function.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Must be able and willing to undergo mandatory tumor biopsy.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Must be able and willing to undergo mandatory tumor biopsy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Cohorts 1-3: Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, with all information preserved and no clinically meaningful details lost."
+                }
+            },
+            {
+                "gold": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Cohorts 1-3: Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with all details preserved, including the specific agents and the platinum-resistant setting."
+                }
+            },
+            {
+                "gold": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Cohorts 1-3: Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with all details preserved, including the specific agents and the platinum-resistant setting."
+                }
+            },
+            {
+                "gold": "Have known central nervous system malignancy or metastasis.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Have known central nervous system malignancy or metastasis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Have previously participated in any study involving a checkpoint kinase 1 inhibitor or have hypersensitivity to the study drug or excipients.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Have previously participated in any study involving a checkpoint kinase 1 inhibitor or have hypersensitivity to the study drug or excipients.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "history of abdominal fistula or gastrointestinal perforation",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "history of abdominal fistula or gastrointestinal perforation",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "intra-abdominal abscess within last 3 months prior to the first dose of study drug",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "intra-abdominal abscess within last 3 months prior to the first dose of study drug",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "a radiographically confirmed bowel obstruction within 3 months prior to the first dose of study drug",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "a radiographically confirmed bowel obstruction within 3 months prior to the first dose of study drug",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have a symptomatic human immunodeficiency virus infection or symptomatic activated/reactivated hepatitis A, B, or C (screening is not required).",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Have a symptomatic human immunodeficiency virus infection or symptomatic activated/reactivated hepatitis A, B, or C (screening is not required).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have a serious cardiac condition.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Have a serious cardiac condition.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Have a history of prior radiotherapy to the whole pelvis.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Have a history of prior radiotherapy to the whole pelvis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Have chronic daily treatment with corticosteroids, excluding inhaled or topical steroids.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Have chronic daily treatment with corticosteroids, excluding inhaled or topical steroids.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Have known factors that may increase the risk of infection while on study drug treatment. These may include, but are not limited to, an indwelling peritoneal catheter or open wounds. Catheters for vascular access are permitted.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Have known factors that may increase the risk of infection while on study drug treatment. These may include, but are not limited to, an indwelling peritoneal catheter or open wounds. Catheters for vascular access are permitted.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 23,
+        "partial": 0,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 23,
+        "human_accuracy": 100.0,
+        "partial_score": 100.0
+    }
+}

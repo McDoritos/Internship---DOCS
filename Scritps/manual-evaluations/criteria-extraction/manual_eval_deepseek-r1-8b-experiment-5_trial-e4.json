@@ -1,0 +1,549 @@
+{
+    "trial": "e4",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Written informed consent and HIPAA authorization for release of personal health information.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Written informed consent and HIPAA authorization for release of personal health information. NOTE: HIPAA authorization may be included in the informed consent or obtained separately.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, with additional clarifying information that does not change the eligibility criteria."
+                }
+            },
+            {
+                "gold": "Age ≥ 18 years at the time of consent.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Age \\u2265 18 years at the time of consent.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with the same condition of age being greater than or equal to 18 years at the time of consent."
+                }
+            },
+            {
+                "gold": "ECOG Performance Status of 0-2 within 28 days prior to registration.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "ECOG Performance Status of 0-2 within 28 days prior to registration.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Men and postmenopausal female patients.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Men and postmenopausal female patients. Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included. Postmenopausal is defined as: Age >= 55 years and one year or more of amenorrhea. Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml. Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml. Prior bilateral oophorectomy. NOTE: Women who do not fit the criteria for being postmenopausal as above are deemed premenopausal. Premenopausal patients (age 18 or older) who can be rendered postmenopausal will also be eligible. Methods eligible for rending premenopausal patients postmenopausal include: Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml. LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the original GOLD criterion but adds extra conditions and details about postmenopausal status, which are not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Men and postmenopausal female patients. Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included. Postmenopausal is defined as: Age >= 55 years and one year or more of amenorrhea. Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml. Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml. Prior bilateral oophorectomy. NOTE: Women who do not fit the criteria for being postmenopausal as above are deemed premenopausal. Premenopausal patients (age 18 or older) who can be rendered postmenopausal will also be eligible. Methods eligible for rending premenopausal patients postmenopausal include: Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml. LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion includes all the information from the GOLD criterion and preserves the logical meaning, making it a correct match."
+                }
+            },
+            {
+                "gold": "Age >= 55 years and one year or more of amenorrhea.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Men and postmenopausal female patients. Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included. Postmenopausal is defined as: Age >= 55 years and one year or more of amenorrhea. Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml. Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml. Prior bilateral oophorectomy. NOTE: Women who do not fit the criteria for being postmenopausal as above are deemed premenopausal. Premenopausal patients (age 18 or older) who can be rendered postmenopausal will also be eligible. Methods eligible for rending premenopausal patients postmenopausal include: Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml. LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion includes the full definition of postmenopausal, which matches the GOLD criterion 'Age >= 55 years and one year or more of amenorrhea' as part of its definition."
+                }
+            },
+            {
+                "gold": "Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Men and postmenopausal female patients. Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included. Postmenopausal is defined as: Age >= 55 years and one year or more of amenorrhea. Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml. Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml. Prior bilateral oophorectomy. NOTE: Women who do not fit the criteria for being postmenopausal as above are deemed premenopausal. Premenopausal patients (age 18 or older) who can be rendered postmenopausal will also be eligible. Methods eligible for rending premenopausal patients postmenopausal include: Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml. LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 contains the exact information from the GOLD criterion, including age, amenorrhea, and estradiol levels, without adding extra conditions or losing clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "ECOG Performance Status of 0-2 within 28 days prior to registration. Men and postmenopausal female patients. Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included. Postmenopausal is defined as: Age >= 55 years and one year or more of amenorrhea. Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml. Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml. Prior bilateral oophorectomy. NOTE: Women who do not fit the criteria for being postmenopausal as above are deemed premenopausal. Premenopausal patients (age 18 or older) who can be rendered postmenopausal will also be eligible. Methods eligible for rending premenopausal patients postmenopausal include: Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml. LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 contains the full information of the GOLD criterion, including age, prior hysterectomy, intact ovaries, and estradiol level, without adding extra conditions or losing clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Prior bilateral oophorectomy",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Men and postmenopausal female patients. Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included. Postmenopausal is defined as: Age >= 55 years and one year or more of amenorrhea. Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml. Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml. Prior bilateral oophorectomy. NOTE: Women who do not fit the criteria for being postmenopausal as above are deemed premenopausal. Premenopausal patients (age 18 or older) who can be rendered postmenopausal will also be eligible. Methods eligible for rending premenopausal patients postmenopausal include: Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml. LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion includes the GOLD criterion 'Prior bilateral oophorectomy' as part of the definition of postmenopausal status, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Men and postmenopausal female patients. Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included. Postmenopausal is defined as: Age >= 55 years and one year or more of amenorrhea. Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml. Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml. Prior bilateral oophorectomy. NOTE: Women who do not fit the criteria for being postmenopausal as above are deemed premenopausal. Premenopausal patients (age 18 or older) who can be rendered postmenopausal will also be eligible. Methods eligible for rending premenopausal patients postmenopausal include: Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml. LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 contains the full information from the GOLD criterion, including the details about LHRH agonist treatment, estradiol level, and the timing of treatment. The logical meaning is preserved, and no clinically meaningful details are lost."
+                }
+            },
+            {
+                "gold": "LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 contains the exact text of the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Histologically confirmed metastatic or unresectable (not amenable to curative therapy) breast cancer.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Histologically confirmed metastatic or unresectable (not amenable to curative therapy) breast cancer.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Has confirmed hormone receptor positivity with ER >=1% and/or PR >=1%.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Has confirmed hormone receptor positivity with ER >=1% and/or PR >=1%. Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the additional detail about preferred receptor testing not changing the eligibility criteria."
+                }
+            },
+            {
+                "gold": "Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Has confirmed hormone receptor positivity with ER >=1% and/or PR >=1%. Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, preserving the full meaning and details about preferred receptor testing locations."
+                }
+            },
+            {
+                "gold": "Has confirmed HER2 negative breast cancer.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Has confirmed HER2 negative breast cancer. HER2 negative or non-amplified is determined by the current ASCO-CAP criteria which are as follows: HER2 testing by IHC as 0 or 1+. Or negative by in situ hybridization (FISH/CISH/SISH) defined as Her2/CEP17 ratio <2 and for single probe assessment a HER2 copy number <6). Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, including the definition of HER2 negativity according to ASCO-CAP criteria."
+                }
+            },
+            {
+                "gold": "HER2 negative or non-amplified is determined by the current ASCO-CAP criteria which are as follows: HER2 testing by IHC as 0 or 1+.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Has confirmed HER2 negative breast cancer. HER2 negative or non-amplified is determined by the current ASCO-CAP criteria which are as follows: HER2 testing by IHC as 0 or 1+. Or negative by in situ hybridization (FISH/CISH/SISH) defined as Her2/CEP17 ratio <2 and for single probe assessment a HER2 copy number <6). Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, as it includes the ASCO-CAP criteria for determining HER2 negativity, which is defined as HER2 testing by IHC as 0 or 1+."
+                }
+            },
+            {
+                "gold": "Negative by in situ hybridization (FISH/CISH/SISH) defined as Her2/CEP17 ratio <2 and for single probe assessment a HER2 copy number <6).",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Has confirmed HER2 negative breast cancer. HER2 negative or non-amplified is determined by the current ASCO-CAP criteria which are as follows: HER2 testing by IHC as 0 or 1+. Or negative by in situ hybridization (FISH/CISH/SISH) defined as Her2/CEP17 ratio <2 and for single probe assessment a HER2 copy number <6). Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 5 contains the full information from the GOLD criterion, including the definition of HER2 negativity by in situ hybridization, and preserves the logical meaning."
+                }
+            },
+            {
+                "gold": "Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Has confirmed hormone receptor positivity with ER >=1% and/or PR >=1%. Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, preserving the full meaning and details about preferred receptor testing locations."
+                }
+            },
+            {
+                "gold": "PIK3CA mutation identified via local testing from tumor tissue or blood.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "PIK3CA mutation identified via local testing from tumor tissue or blood.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Has either measurable disease, i.e. at least one measurable lesion as per RECIST 1.1 criteria OR if no measurable disease is present, then at least one predominantly lytic bone lesion must be present, within 28 days prior to registration.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Has either measurable disease, i.e. at least one measurable lesion as per RECIST 1.1 criteria OR if no measurable disease is present, then at least one predominantly lytic bone lesion must be present, within 28 days prior to registration. Patients with no measurable disease and only one predominantly lytic bone lesion that has been previously irradiated are eligible if there is documented evidence of disease progression of the bone lesion after irradiation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion with additional relevant details about previously irradiated bone lesions."
+                }
+            },
+            {
+                "gold": "Patients with no measurable disease and only one predominantly lytic bone lesion that has been previously irradiated are eligible if there is documented evidence of disease progression of the bone lesion after irradiation.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Has either measurable disease, i.e. at least one measurable lesion as per RECIST 1.1 criteria OR if no measurable disease is present, then at least one predominantly lytic bone lesion must be present, within 28 days prior to registration. Patients with no measurable disease and only one predominantly lytic bone lesion that has been previously irradiated are eligible if there is documented evidence of disease progression of the bone lesion after irradiation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, including the condition for patients with no measurable disease and a previously irradiated predominantly lytic bone lesion, with documented evidence of disease progression."
+                }
+            },
+            {
+                "gold": "Has received at least one line of therapy with an endocrine therapy or endocrine therapy combination with other agents in the metastatic setting.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Has received at least one line of therapy with an endocrine therapy or endocrine therapy combination with other agents in the metastatic setting.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Must have received endocrine therapy (aromatase inhibitor or fulvestrant as single agent or in combination with other agents) as last line of therapy with progressive disease, as determined by treating physician.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Must have received endocrine therapy (aromatase inhibitor or fulvestrant as single agent or in combination with other agents) as last line of therapy with progressive disease, as determined by treating physician.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "No more than two prior lines of endocrine therapy or endocrine therapy combinations in the metastatic setting.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "No more than two prior lines of endocrine therapy or endocrine therapy combinations in the metastatic setting. Transition from one nonsteroidal aromatase inhibitor to a second nonsteroidal aromatase inhibitor due to tolerance will only count as one line of endocrine therapy. Combination therapy will be considered one line even if one of the agents is discontinued and the other continued.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, including details about counting lines of endocrine therapy and combination therapy."
+                }
+            },
+            {
+                "gold": "Transition from one nonsteroidal aromatase inhibitor to a second nonsteroidal aromatase inhibitor due to tolerance will only count as one line of endocrine therapy.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "No more than two prior lines of endocrine therapy or endocrine therapy combinations in the metastatic setting. Transition from one nonsteroidal aromatase inhibitor to a second nonsteroidal aromatase inhibitor due to tolerance will only count as one line of endocrine therapy. Combination therapy will be considered one line even if one of the agents is discontinued and the other continued.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the full meaning of the GOLD criterion, including the specific condition of transitioning between nonsteroidal aromatase inhibitors due to tolerance counting as one line of endocrine therapy."
+                }
+            },
+            {
+                "gold": "Combination therapy will be considered one line even if one of the agents is discontinued and the other continued.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "No more than two prior lines of endocrine therapy or endocrine therapy combinations in the metastatic setting. Transition from one nonsteroidal aromatase inhibitor to a second nonsteroidal aromatase inhibitor due to tolerance will only count as one line of endocrine therapy. Combination therapy will be considered one line even if one of the agents is discontinued and the other continued.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, preserving the full meaning about combination therapy being considered one line."
+                }
+            },
+            {
+                "gold": "Patient must have received treatment with a CDK4/6 inhibitor for breast cancer in the metastatic setting.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Patient must have received treatment with a CDK4/6 inhibitor for breast cancer in the metastatic setting. CDK4/6 inhibitor discontinuation due to intolerance or reasons other than progression is allowed.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the addition of allowed discontinuation reasons, which does not change the eligibility criteria."
+                }
+            },
+            {
+                "gold": "CDK4/6 inhibitor discontinuation due to intolerance or reasons other than progression is allowed.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Patient must have received treatment with a CDK4/6 inhibitor for breast cancer in the metastatic setting. CDK4/6 inhibitor discontinuation due to intolerance or reasons other than progression is allowed.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Demonstrate adequate organ function as defined in the protocol; all screening labs to be obtained within 28 days prior to registration.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Demonstrate adequate organ function as defined in the protocol; all screening labs to be obtained within 28 days prior to registration.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Men who are not surgically or medically sterile must agree to use an acceptable method of contraception.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Men who are not surgically or medically sterile must agree to use an acceptable method of contraception. Acceptable forms of contraception include castration, vasectomy, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository. Male patients with female sexual partners who are pregnant, possibly pregnant, or who could become pregnant during the study must agree to use condoms at least one month after the last dose of study drug. Total abstinence for the same study period is an acceptable alternative.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, including the requirement for men to use an acceptable method of contraception if not surgically or medically sterile."
+                }
+            },
+            {
+                "gold": "Acceptable forms of contraception include castration, vasectomy, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Men who are not surgically or medically sterile must agree to use an acceptable method of contraception. Acceptable forms of contraception include castration, vasectomy, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository. Male patients with female sexual partners who are pregnant, possibly pregnant, or who could become pregnant during the study must agree to use condoms at least one month after the last dose of study drug. Total abstinence for the same study period is an acceptable alternative.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, listing the same acceptable forms of contraception."
+                }
+            },
+            {
+                "gold": "Male patients with female sexual partners who are pregnant, possibly pregnant, or who could become pregnant during the study must agree to use condoms at least one month after the last dose of study drug.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Men who are not surgically or medically sterile must agree to use an acceptable method of contraception. Acceptable forms of contraception include castration, vasectomy, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository. Male patients with female sexual partners who are pregnant, possibly pregnant, or who could become pregnant during the study must agree to use condoms at least one month after the last dose of study drug. Total abstinence for the same study period is an acceptable alternative.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, including the requirement for male patients to use condoms with female partners who are pregnant, possibly pregnant, or could become pregnant during the study."
+                }
+            },
+            {
+                "gold": "Total abstinence for the same study period is an acceptable alternative.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Men who are not surgically or medically sterile must agree to use an acceptable method of contraception. Acceptable forms of contraception include castration, vasectomy, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository. Male patients with female sexual partners who are pregnant, possibly pregnant, or who could become pregnant during the study must agree to use condoms at least one month after the last dose of study drug. Total abstinence for the same study period is an acceptable alternative.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the GOLD criterion as part of a larger statement about contraception, but all the information from the GOLD criterion is present and no clinically meaningful details are lost."
+                }
+            },
+            {
+                "gold": "Premenopausal females must agree to use an acceptable method of contraception or to abstain from sexual intercourse for the duration of their participation in the study and for 3 months after discontinuation of therapy.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "Premenopausal females must agree to use an acceptable method of contraception or to abstain from sexual intercourse for the duration of their participation in the study and for 3 months after discontinuation of therapy. Adequate forms of contraception include: total abstinence, surgery intended to prevent pregnancy (defined as hysterectomy, bilateral oophorectomy or bilateral tubal ligation), non-hormonal IUD, or condom/occlusive cap with spermicidal foam/gel/film/cream/suppository.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, including the requirement for premenopausal females to use contraception or abstain from sexual intercourse during and after the study."
+                }
+            },
+            {
+                "gold": "Adequate forms of contraception include: total abstinence, surgery intended to prevent pregnancy (defined as hysterectomy, bilateral oophorectomy or bilateral tubal ligation), non-hormonal IUD, or condom/occlusive cap with spermicidal foam/gel/film/cream/suppository).",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Premenopausal females must agree to use an acceptable method of contraception or to abstain from sexual intercourse for the duration of their participation in the study and for 3 months after discontinuation of therapy. Adequate forms of contraception include: total abstinence, surgery intended to prevent pregnancy (defined as hysterectomy, bilateral oophorectomy or bilateral tubal ligation), non-hormonal IUD, or condom/occlusive cap with spermicidal foam/gel/film/cream/suppository.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion in terms of the acceptable forms of contraception, including total abstinence, surgery, non-hormonal IUD, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository."
+                }
+            },
+            {
+                "gold": "As determined by the enrolling physician or protocol designee, ability of the subject to understand and comply with study procedures for the entire length of the study",
+                "evaluation": {
+                    "match_index": 19,
+                    "match_text": "As determined by the enrolling physician or protocol designee, ability of the subject to understand and comply with study procedures for the entire length of the study",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "HIV-infected patients on effective anti-retroviral therapy with undetectable viral load within 6 months of registration are eligible for this trial.",
+                "evaluation": {
+                    "match_index": 20,
+                    "match_text": "HIV-infected patients on effective anti-retroviral therapy with undetectable viral load within 6 months of registration are eligible for this trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all clinically relevant details and logical meaning."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Patients with prior chemotherapy for metastatic or advanced disease.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Patients with prior chemotherapy for metastatic or advanced disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Active infection requiring systemic therapy.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Active infection requiring systemic therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients with a prior or concurrent malignancy whose natural history or treatment has the potential to interfere with the safety or efficacy assessment of the investigational regimen are not eligible for this trial.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Patients with a prior or concurrent malignancy whose natural history or treatment has the potential to interfere with the safety or efficacy assessment of the investigational regimen are not eligible for this trial.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Uncontrolled, active CNS metastases causing clinical symptoms or metastases that require therapeutic intervention, including leptomeningeal disease.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Uncontrolled, active CNS metastases causing clinical symptoms or metastases that require therapeutic intervention, including leptomeningeal disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Subjects who are symptomatic and have not undergone prior brain imaging must undergo a head computed tomography (CT) scan or brain magnetic resonance imaging (MRI) within 28 days prior to registration to exclude brain metastases.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "NOTE: Subjects who are symptomatic and have not undergone prior brain imaging must undergo a head computed tomography (CT) scan or brain magnetic resonance imaging (MRI) within 28 days prior to registration to exclude brain metastases.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Treatment with any investigational drug within 14 days prior to registration.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Treatment with any investigational drug within 14 days prior to registration.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Radiotherapy to index lesion <= 4 weeks or limited field radiation to index lesion for palliation <= 2 weeks prior to randomization.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Radiotherapy to index lesion <= 4 weeks or limited field radiation to index lesion for palliation <= 2 weeks prior to randomization.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Established diagnosis of diabetes mellitus type I or persistent poorly controlled diabetes mellitus, with an uninterrupted hemoglobin A1c > 8.0% for 1 year or greater despite standard care.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Established diagnosis of diabetes mellitus type I or persistent poorly controlled diabetes mellitus, with an uninterrupted hemoglobin A1c > 8.0% for 1 year or greater despite standard care. For patients with newly diagnosed diabetes mellitus without 1 year of hemoglobin A1c values, available hemoglobin A1c values cannot all be > 8.0%.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion adds an extra condition for patients with newly diagnosed diabetes mellitus, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "For patients with newly diagnosed diabetes mellitus without 1 year of hemoglobin A1c values, available hemoglobin A1c values cannot all be > 8.0%.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Established diagnosis of diabetes mellitus type I or persistent poorly controlled diabetes mellitus, with an uninterrupted hemoglobin A1c > 8.0% for 1 year or greater despite standard care. For patients with newly diagnosed diabetes mellitus without 1 year of hemoglobin A1c values, available hemoglobin A1c values cannot all be > 8.0%.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 7 contains the full information from the GOLD criterion, including the condition for newly diagnosed diabetes mellitus and the hemoglobin A1c threshold, without adding extra constraints or losing clinically meaningful details."
+                }
+            },
+            {
+                "gold": "Symptomatic visceral disease or any disease burden that makes the patient ineligible for endocrine therapy per the investigator's best judgment.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Symptomatic visceral disease or any disease burden that makes the patient ineligible for endocrine therapy per the investigator's best judgment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "As determined by the enrolling physician or protocol designee, impairment of gastrointestinal function or disease that may significantly alter the absorption of the study drugs.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "As determined by the enrolling physician or protocol designee, impairment of gastrointestinal function or disease that may significantly alter the absorption of the study drugs.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 is semantically equivalent to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Currently documented clinically active pneumonitis.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Currently documented clinically active pneumonitis. Patients could have received prior treatment for pneumonitis but pneumonitis must have clinically resolved and treatments for pneumonitis (e.g. steroids) must be completed prior to randomization.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion adds extra conditions not present in the GOLD criterion, specifically the requirement for pneumonitis to have clinically resolved and treatments to be completed prior to randomization."
+                }
+            },
+            {
+                "gold": "Patients could have received prior treatment for pneumonitis but pneumonitis must have clinically resolved and treatments for pneumonitis (e.g. steroids) must be completed prior to randomization.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Currently documented clinically active pneumonitis. Patients could have received prior treatment for pneumonitis but pneumonitis must have clinically resolved and treatments for pneumonitis (e.g. steroids) must be completed prior to randomization.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Active cardiac disease, defined as any of the following within 6 months prior to the start of study treatment:",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Active cardiac disease, defined as any of the following within 6 months prior to the start of study treatment: History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction. History of documented congestive heart failure (New York Heart Association functional classification III-IV). History of any cardiac arrhythmias, (e.g., ventricular tachycardia), complete left bundle branch block, high grade AV block (e.g., bifascicular block, Mobitz type II and third degree AV block), supraventricular, nodal arrhythmias, or conduction abnormality. Systolic blood pressure (SBP) >180 mmHg and/or Diastolic Blood Pressure (DBP) ≥ 100 mm Hg at screening. Initiation or adjustment of antihypertensive medication(s) is allowed prior to screening.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, including all details about active cardiac disease within 6 months prior to the start of study treatment."
+                }
+            },
+            {
+                "gold": "History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Active cardiac disease, defined as any of the following within 6 months prior to the start of study treatment: History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction. History of documented congestive heart failure (New York Heart Association functional classification III-IV). History of any cardiac arrhythmias, (e.g., ventricular tachycardia), complete left bundle branch block, high grade AV block (e.g., bifascicular block, Mobitz type II and third degree AV block), supraventricular, nodal arrhythmias, or conduction abnormality. Systolic blood pressure (SBP) >180 mmHg and/or Diastolic Blood Pressure (DBP) ≥ 100 mm Hg at screening. Initiation or adjustment of antihypertensive medication(s) is allowed prior to screening.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the GOLD criterion but adds extra conditions not present in the GOLD, such as history of documented congestive heart failure, cardiac arrhythmias, and blood pressure thresholds."
+                }
+            },
+            {
+                "gold": "History of documented congestive heart failure (New York Heart Association functional classification III-IV).",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Active cardiac disease, defined as any of the following within 6 months prior to the start of study treatment: History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction. History of documented congestive heart failure (New York Heart Association functional classification III-IV). History of any cardiac arrhythmias, (e.g., ventricular tachycardia), complete left bundle branch block, high grade AV block (e.g., bifascicular block, Mobitz type II and third degree AV block), supraventricular, nodal arrhythmias, or conduction abnormality. Systolic blood pressure (SBP) >180 mmHg and/or Diastolic Blood Pressure (DBP) ≥ 100 mm Hg at screening. Initiation or adjustment of antihypertensive medication(s) is allowed prior to screening.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion contains the required information about history of documented congestive heart failure (New York Heart Association functional classification III-IV), but it also includes additional conditions not present in the GOLD criterion, such as history of angina pectoris, coronary artery bypass graft, and cardiac arrhythmias."
+                }
+            },
+            {
+                "gold": "History of any cardiac arrhythmias, (e.g., ventricular tachycardia), complete left bundle branch block, high grade AV block (e.g., bifascicular block, Mobitz type II and third degree AV block), supraventricular, nodal arrhythmias, or conduction abnormality.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Active cardiac disease, defined as any of the following within 6 months prior to the start of study treatment: History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction. History of documented congestive heart failure (New York Heart Association functional classification III-IV). History of any cardiac arrhythmias, (e.g., ventricular tachycardia), complete left bundle branch block, high grade AV block (e.g., bifascicular block, Mobitz type II and third degree AV block), supraventricular, nodal arrhythmias, or conduction abnormality. Systolic blood pressure (SBP) >180 mmHg and/or Diastolic Blood Pressure (DBP) ≥ 100 mm Hg at screening. Initiation or adjustment of antihypertensive medication(s) is allowed prior to screening.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion partially matches the GOLD criterion, as it includes the relevant cardiac arrhythmias and conduction abnormalities, but also adds additional conditions such as history of angina pectoris, coronary artery bypass graft, and blood pressure thresholds that are not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Systolic blood pressure (SBP) >180 mmHg and/or Diastolic Blood Pressure (DBP) ≥ 100 mm Hg at screening.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Active cardiac disease, defined as any of the following within 6 months prior to the start of study treatment: History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction. History of documented congestive heart failure (New York Heart Association functional classification III-IV). History of any cardiac arrhythmias, (e.g., ventricular tachycardia), complete left bundle branch block, high grade AV block (e.g., bifascicular block, Mobitz type II and third degree AV block), supraventricular, nodal arrhythmias, or conduction abnormality. Systolic blood pressure (SBP) >180 mmHg and/or Diastolic Blood Pressure (DBP) ≥ 100 mm Hg at screening. Initiation or adjustment of antihypertensive medication(s) is allowed prior to screening.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the blood pressure requirement, but also adds other cardiac disease conditions not present in the GOLD criterion, making it a partial match."
+                }
+            },
+            {
+                "gold": "Initiation or adjustment of antihypertensive medication(s) is allowed prior to screening.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Systolic blood pressure (SBP) >180 mmHg and/or Diastolic Blood Pressure (DBP) ≥ 100 mm Hg at screening. Initiation or adjustment of antihypertensive medication(s) is allowed prior to screening.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the full meaning of the GOLD criterion, including the allowance for initiation or adjustment of antihypertensive medication(s) prior to screening, with no details lost or additional constraints added."
+                }
+            },
+            {
+                "gold": "History of acute pancreatitis within 1 year of screening or a past medical history of chronic pancreatitis.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "History of acute pancreatitis within 1 year of screening or a past medical history of chronic pancreatitis.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Prior treatment with PI3K, mTOR or AKT inhibitor in the metastatic setting.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Prior treatment with PI3K, mTOR or AKT inhibitor in the metastatic setting.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "History of chronic steroid use (defined as daily steroid use > 14 days) and requirement for continued chronic steroid use.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "History of chronic steroid use (defined as daily steroid use > 14 days) and requirement for continued chronic steroid use.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 52,
+        "partial": 7,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 59,
+        "human_accuracy": 88.13559322033898,
+        "partial_score": 94.0677966101695
+    }
+}

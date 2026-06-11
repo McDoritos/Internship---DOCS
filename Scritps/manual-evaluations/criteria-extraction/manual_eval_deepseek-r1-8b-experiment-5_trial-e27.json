@@ -1,0 +1,153 @@
+{
+    "trial": "e27",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Histopathology or cytopathology proven gastric cancer;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion for histopathology or cytopathology proven gastric cancer."
+                }
+            },
+            {
+                "gold": "Operable advanced gastric cancer patients: primary lesions can be completely excision, no distant metastasis;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Postoperative patients who can tolerate 5-FU based (5-FU，S-1 or Capecitabine) adjuvant chemotherapy;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Life expectancy of at least 6 months;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "ECOG（Eastern Cooperative Oncology Group ） score 0-1;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion for ECOG score 0-1."
+                }
+            },
+            {
+                "gold": "Age: 18~80 years old;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion for age range."
+                }
+            },
+            {
+                "gold": "Normal hemodynamic indices before the recruitment (including blood cell count and liver/kidney function).",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion, which requires normal hemodynamic indices, including blood cell count and liver/kidney function before recruitment."
+                }
+            },
+            {
+                "gold": "WBC（White blood cell count ）>4.0×109/L; NEU（Neutrophils）>1.5×109/L; PLT（Platelet）>100×109/L;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Roughly normal cardiopulmonary function: No coronary heart disease, myocardial infarction, pulmonary heart disease, refractory hypertension;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match against the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Not concomitant with other uncontrollable benign diseases before the recruitment;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Voluntarily signed the informed consent.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Advanced gastric cancer patients with distant metastasis and inoperable ;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match against the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Patients who cannot tolerate 5-FU based adjuvant chemotherapy;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Pregnant or lactating women;",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria match the GOLD criterion regarding pregnant or lactating women."
+                }
+            },
+            {
+                "gold": "Patients who have no desire to participate in the study.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "No predicted criteria were provided to match the GOLD criterion."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 0,
+        "partial": 0,
+        "wrong": 15,
+        "errors": 0,
+        "evaluated": 15,
+        "human_accuracy": 0.0,
+        "partial_score": 0.0
+    }
+}

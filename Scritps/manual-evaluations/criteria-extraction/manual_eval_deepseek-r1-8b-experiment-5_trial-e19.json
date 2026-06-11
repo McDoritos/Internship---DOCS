@@ -1,0 +1,179 @@
+{
+    "trial": "e19",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Clinical stage IB3-IIB cervical cancer (FIGO, 2018 standard) with the tumor diameter > 4cm before treatment.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Clinical stage IB3-IIB cervical cancer (FIGO, 2018 standard) with the tumor diameter > 4cm before treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Pathologically confirmed cervical cancer, including cervical squamous cell carcinoma, adenocarcinoma and adenosquamous carcinoma.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Pathologically confirmed cervical cancer, including cervical squamous cell carcinoma, adenocarcinoma and adenosquamous carcinoma.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Age：18-70 years old.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Age:18-70 years old.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details of the age requirement."
+                }
+            },
+            {
+                "gold": "ECOG status score ≤1;",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "ECOG status score ≤1;",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same condition (ECOG status score ≤1) and no additional constraints or lost details."
+                }
+            },
+            {
+                "gold": "WBC≥3.5*10^9/L, NEU≥1.5*10^9/L, Platelet≥80×10^9 /L; AST and ALT ≤1.5 times normal upper limit; Total bilirubin ≤1.5 times the upper limit of normal value; serum creatinine and blood urea nitrogen ≤the upper limit of normal value.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "WBC≥3.5*10^9/L, NEU≥1.5*10^9/L, Platelet≥80×10^9 /L; AST and ALT ≤1.5 times normal upper limit; Total bilirubin ≤1.5 times the upper limit of normal value; serum creatinine and blood urea nitrogen ≤the upper limit of normal value.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Well-compliance and willing to keep in touch.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Well-compliance and willing to keep in touch.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Able to sign informed consent, including complying with the requirements and restrictions listed in the Informed Consent (ICF) and this protocol.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Able to sign informed consent, including complying with the requirements and restrictions listed in the Informed Consent (ICF) and this protocol.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and requirements."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "After 2-3 cycles of neoadjuvant chemotherapy, patients do not undergo laparotomic or laparoscopic extensive hysterectomy + pelvic lymph node dissection with cervical cancer foci sealed before dissection of the vagina and without uterine manipulator.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "After 2-3 cycles of neoadjuvant chemotherapy, patients do not undergo laparotomic or laparoscopic extensive hysterectomy + pelvic lymph node dissection with cervical cancer foci sealed before dissection of the vagina and without uterine manipulator.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Neoadjuvant chemotherapy regimens are different from postoperative adjuvant therapy regimens.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Neoadjuvant chemotherapy regimens are different from postoperative adjuvant therapy regimens.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Postoperative high risk factors: ① lymph node metastasis, ② parauterine infiltration, ③ positive surgical margin.",
+                "evaluation": {
+                    "match_index": [
+                        2,
+                        3,
+                        4
+                    ],
+                    "match_text": [
+                        "1 lymph node metastasis",
+                        "2 parauterine infiltration",
+                        "3 positive surgical margin"
+                    ],
+                    "classification": "correct",
+                    "explanation": "The predicted criteria 1, 2, and 3 collectively preserve the full meaning of the GOLD criterion, listing lymph node metastasis, parauterine infiltration, and positive surgical margin as postoperative high risk factors without losing any details or adding extra constraints."
+                }
+            },
+            {
+                "gold": "Postoperative risk factors meet the Sedlis standard of the NCCN guideline.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Postoperative risk factors meet the Sedlis standard of the NCCN guideline.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Participate in other clinical trials.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Participate in other clinical trials.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Severe diseases of other important systems and organs.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Severe diseases of other important systems and organs.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 7 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Persons without disposing capacity.",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Persons without disposing capacity.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Drug and/or alcohol abuse.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Drug and/or alcohol abuse.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Unable or unwilling to sign informed consents.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Persons without disposing capacity.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion 'Persons without disposing capacity' is semantically equivalent to the GOLD criterion 'Unable or unwilling to sign informed consents', but it uses different wording. However, another predicted criterion 'Unable or unwilling to sign informed consents' at index 9 is an exact match."
+                }
+            },
+            {
+                "gold": "Not eligible for the study judged by researchers.",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Not eligible for the study judged by researchers.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 16,
+        "partial": 1,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 17,
+        "human_accuracy": 94.11764705882352,
+        "partial_score": 97.05882352941177
+    }
+}

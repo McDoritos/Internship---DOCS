@@ -1,0 +1,441 @@
+{
+    "trial": "e25",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Age ≥ 18 years old.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Age \\u2265 18 years old.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with the same age threshold and operator."
+                }
+            },
+            {
+                "gold": "Patients with advanced renal cell carcinoma of a histological or cytological confirmation of clear cell (or with a component of clear cell) renal carcinoma that have previously progressed on or were intolerant to first-line therapy with sunitinib, sorafenib, pazopanib, axitinib, bevacizumab, or cytokine therapy.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patients with advanced renal cell carcinoma of a histological or cytological confirmation of clear cell (or with a component of clear cell) renal carcinoma that have previously progressed on or were intolerant to first-line therapy with sunitinib, sorafenib, pazopanib, axitinib, bevacizumab, or cytokine therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 1 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Patients must have had prior nephrectomy (partial or total).",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Patients must have had prior nephrectomy (partial or total).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patients with at least one measurable lesion at baseline as per the RECIST 1.0 criteria. If skin lesions are reported as target lesions, they should be documented (at baseline and at every physical exam) using color photography and a measuring device (such as a caliper) in clear focus to allow the size of the lesion(s) to be determined from the photograph.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Patients with at least one measurable lesion at baseline as per the RECIST 1.0 criteria. If skin lesions are reported as target lesions, they should be documented (at baseline and at every physical exam) using color photography and a measuring device (such as a caliper) in clear focus to allow the size of the lesion(s) to be determined from the photograph.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients with a Karnofsky Performance Status ≥ 70%.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Patients with a Karnofsky Performance Status ≥ 70%.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "ANC ≥ 1.5 x 109/L,",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Adequate bone marrow function as shown by: ANC ≥ 1.5 x 109/L,",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same ANC threshold."
+                }
+            },
+            {
+                "gold": "Platelets ≥ 100 x 109/L,",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Platelets ≥ 100 x 109/L,",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Hemoglobin >9 g/dL",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Hemoglobin >9 g/dL",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Serum bilirubin ≤ 1.5 x ULN,",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Adequate liver function as shown by: Serum bilirubin ≤ 1.5 x ULN,",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same threshold value for serum bilirubin."
+                }
+            },
+            {
+                "gold": "ALT and AST ≤ 2.5 x ULN. Patients with known liver metastases may enroll if their AST and ALT ≤ 5 x ULN,",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "ALT and AST ≤ 2.5 x ULN. Patients with known liver metastases may enroll if their AST and ALT ≤ 5 x ULN,",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "INR < 1.3 (INR < 3 in patients treated with anticoagulants)",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "INR < 1.3 (INR < 3 in patients treated with anticoagulants)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Adequate renal function: serum creatinine ≤ 2.0 x ULN.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Adequate renal function: serum creatinine ≤ 2.0 x ULN.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the only difference being the use of ≤ (less than or equal to) instead of ≥ (less than or equal to), but the meaning is preserved as both represent 'less than or equal to'."
+                }
+            },
+            {
+                "gold": "Fasting serum cholesterol ≤300 mg/dl OR ≤7.75 mmol/L AND fasting triglycerides ≤2.5 x ULN.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Fasting serum cholesterol ≤300 mg/dl",
+                    "classification": "partial",
+                    "explanation": "The predicted criteria split the GOLD criterion into two parts, but missed the 'OR' condition and the second part of the criterion is also split. However, the semantic meaning of the fasting serum cholesterol part is preserved, but the triglycerides part is split and the 'OR' condition is lost."
+                }
+            },
+            {
+                "gold": "Written informed consent obtained before any trial related activity and according to local guidelines.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Written informed consent obtained before any trial related activity and according to local guidelines.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Patients with brain metastases.",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Patients with brain metastases.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Patients within 4 weeks post-major surgery (e.g., intra-thoracic, intra-abdominal or intrapelvic), open biopsy, or significant traumatic injury to avoid wound healing complications.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patients within 4 weeks post-major surgery (e.g., intra-thoracic, intra-abdominal or intrapelvic), open biopsy, or significant traumatic injury to avoid wound healing complications.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Minor procedures and percutaneous biopsies or placement of vascular access device require 7 days prior to study entry.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Minor procedures and percutaneous biopsies or placement of vascular access device require 7 days prior to study entry.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Patients in anticipation of the need for major surgical procedure during the course of the study.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Patients in anticipation of the need for major surgical procedure during the course of the study.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is an exact match to the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients who had radiation therapy within 4 weeks prior to start of study treatment (palliative radiotherapy to bone lesions allowed up to 2 weeks prior to study treatment start).",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Patients who had radiation therapy within 4 weeks prior to start of study treatment (palliative radiotherapy to bone lesions allowed up to 2 weeks prior to study treatment start).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients with a serious non-healing wound, ulcer, or bone fracture.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Patients with a serious non-healing wound, ulcer, or bone fracture.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Patients with a history of seizure(s) not controlled with standard medical therapy.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Patients with a history of seizure(s) not controlled with standard medical therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patients who have received more than one prior treatment regimen for metastatic renalcell carcinoma",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Patients who have received more than one prior treatment regimen for metastatic renal cell carcinoma",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Patients who have received adjuvant therapy for RCC",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Patients who have received adjuvant therapy for RCC",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients who have previously received systemic mTOR inhibitors (eg, sirolimus, temsirolimus, everolimus)",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Patients who have previously received systemic mTOR inhibitors (eg, sirolimus, temsirolimus, everolimus)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients with a known hypersensitivity to everolimus or other rapamycins (eg, sirolimus, temsirolimus) or to its excipients.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Patients with a known hypersensitivity to everolimus or other rapamycins (eg, sirolimus, temsirolimus) or to its excipients.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 is an exact semantic match to the GOLD criterion, preserving all details about hypersensitivity to everolimus or other rapamycins and their excipients."
+                }
+            },
+            {
+                "gold": "History or clinical evidence of central nervous system (CNS) metastases.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "History or clinical evidence of central nervous system (CNS) metastases.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 11 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Malabsorption syndrome:",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Malabsorption syndrome:",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no additional or missing information."
+                }
+            },
+            {
+                "gold": "Major resection of the stomach or small bowel that could affect the absorption of study drug",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Major resection of the stomach or small bowel that could affect the absorption of study drug",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Active peptic ulcer disease",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Active peptic ulcer disease",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Ulcerative colitis, or other gastrointestinal conditions with increased risk of perforation",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Inflammatory bowel disease: i. Ulcerative colitis, or other gastrointestinal conditions with increased risk of perforation ii. History of abdominal fistula, gastrointestinal perforation, or intra abdominal abscess within 28 days prior to beginning study treatment.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion partially matches the GOLD criterion, as it includes ulcerative colitis and other gastrointestinal conditions with increased risk of perforation, but also adds additional conditions (abdominal fistula, gastrointestinal perforation, or intra-abdominal abscess) not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "History of abdominal fistula, gastrointestinal perforation, or intra abdominal abscess within 28 days prior to beginning study treatment.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "ii. History of abdominal fistula, gastrointestinal perforation, or intra abdominal abscess within 28 days prior to beginning study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, preserving the full meaning and details, including the 28-day time frame and specific conditions (abdominal fistula, gastrointestinal perforation, or intra abdominal abscess)."
+                }
+            },
+            {
+                "gold": "Patients with a known history of HIV seropositivity. Screening for HIV infection at baseline is not required.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Patients with a known history of HIV seropositivity. Screening for HIV infection at baseline is not required.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Active bleeding diathesis",
+                "evaluation": {
+                    "match_index": 16,
+                    "match_text": "Active bleeding diathesis",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Uncontrolled diabetes mellitus as defined by fasting serum glucose > 2.0 x ULN.",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "Uncontrolled diabetes mellitus as defined by fasting serum glucose > 2.0 x ULN.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and details of the original criterion."
+                }
+            },
+            {
+                "gold": "unstable angina pectoris, symptomatic congestive heart failure, myocardial infarction ≤ 6 months prior to enrollment, serious uncontrolled cardiac arrhythmia,",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "unstable angina pectoris, symptomatic congestive heart failure, myocardial infarction ≤ 6 months prior to enrollment, serious uncontrolled cardiac arrhythmia,",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion is split into two parts, but it captures the full meaning of the GOLD criterion, except for the exact wording of '≤ 6 months prior to enrollment' which is present but not directly connected to 'myocardial infarction' in the predicted text."
+                }
+            },
+            {
+                "gold": "active or uncontrolled severe infection,",
+                "evaluation": {
+                    "match_index": 37,
+                    "match_text": "active or uncontrolled severe infection,",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 37 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "history of invasive fungal infections,",
+                "evaluation": {
+                    "match_index": 37,
+                    "match_text": "history of invasive fungal infections,",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 'history of invasive fungal infections,' is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "severe hepatic impairment (Child-Pugh class C),",
+                "evaluation": {
+                    "match_index": 27,
+                    "match_text": "severe hepatic impairment (Child-Pugh class C),",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context of severe hepatic impairment (Child-Pugh class C)."
+                }
+            },
+            {
+                "gold": "severely impaired lung function",
+                "evaluation": {
+                    "match_index": 37,
+                    "match_text": "severely impaired lung function",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no loss of clinically meaningful details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "History of cerebrovascular accident (CVA) including transient ischemic attack (TIA) ≤ 6 months before start of study treatment.",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "History of cerebrovascular accident (CVA) including transient ischemic attack (TIA) ≤ 6 months before start of study treatment.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 21 is semantically equivalent to the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "History of pulmonary embolism or untreated deep venous thrombosis (DVT) within the past 6 months.",
+                "evaluation": {
+                    "match_index": 26,
+                    "match_text": "History of pulmonary embolism or untreated deep venous thrombosis (DVT) within the past 6 months. Note: Subjects with recent DVT who have been treated with therapeutic anti-coagulating agents for at least 6 weeks are eligible.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, including the time frame and the condition of untreated DVT, with additional clarification on treated DVT eligibility."
+                }
+            },
+            {
+                "gold": "Patients who have a history of another primary malignancy and off treatment for ≤ 3 years, with the exception of non-melanoma skin cancer and carcinoma in situ of the uterine cervix or breast, and localized cancer of the bladder (T1) and prostate (T1 - T2).",
+                "evaluation": {
+                    "match_index": 22,
+                    "match_text": "Patients who have a history of another primary malignancy and off treatment for ≤ 3 years, with the exception of non-melanoma skin cancer and carcinoma in situ of the uterine cervix or breast, and localized cancer of the bladder (T1) and prostate (T1 - T2).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 22 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Female patients who are pregnant or nursing (lactating).",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Female patients who are pregnant or nursing (lactating).",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 21 is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Adults of reproductive potential who are not using effective birth control methods.",
+                "evaluation": {
+                    "match_index": 21,
+                    "match_text": "Adults of reproductive potential who are not using effective birth control methods.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Adequate contraceptives must be used throughout the trial and for 8 weeks after last study drug administration in female patients. Women of child-bearing potential must have a negative serum pregnancy test within 7 days prior to first administration of study drug.",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Adequate contraceptives must be used throughout the trial and for 8 weeks after last study drug administration in female patients. Women of child-bearing potential must have a negative serum pregnancy test within 7 days prior to first administration of study drug.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients who are using other investigational agents or who had received investigational drugs ≤ 2 weeks prior to study treatment start. This should not include sunitinib, sorafenib, axitinib, pazopanib and cytokines.",
+                "evaluation": {
+                    "match_index": 23,
+                    "match_text": "Patients who are using other investigational agents or who had received investigational drugs ≤ 2 weeks prior to study treatment start. This should not include sunitinib, sorafenib, axitinib, pazopanib and cytokines.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients unwilling or unable to comply with the protocol.",
+                "evaluation": {
+                    "match_index": 27,
+                    "match_text": "Patients unwilling or unable to comply with the protocol.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 44,
+        "partial": 3,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 47,
+        "human_accuracy": 93.61702127659575,
+        "partial_score": 96.80851063829788
+    }
+}

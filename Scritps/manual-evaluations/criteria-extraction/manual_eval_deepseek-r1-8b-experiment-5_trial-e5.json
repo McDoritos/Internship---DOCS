@@ -1,0 +1,459 @@
+{
+    "trial": "e5",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Males and females ≥ 18 years of age",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Males and females ≥ 18 years of age",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same age and gender requirements."
+                }
+            },
+            {
+                "gold": "Have locally advanced or metastatic histologically or cytologically confirmed NSCLC, KRAS G12C-mutated",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Have locally advanced or metastatic histologically or cytologically confirmed NSCLC, KRAS G12C-mutated",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "The presence of a KRAS G12C mutation should be established prior to entry as assessed in a CLIA qualified laboratory. Testing may be done on tumor tissue (archival or fresh) or on ctDNA from blood.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "The presence of a KRAS G12C mutation should be established prior to entry as assessed in a CLIA qualified laboratory. Testing may be done on tumor tissue (archival or fresh) or on ctDNA from blood.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Have received at least 1 prior line of cancer therapy with a PD-1 or PD-L1 inhibitor with or without platinum-based chemotherapy (unless subject is not eligible or refuses chemotherapy or PD-1/PD-L1 therapy and have documented progression on all prior cancer therapies",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Have received at least 1 prior line of cancer therapy with a PD-1 or PD-1 PD-1 inhibitor with or without platinum-based chemotherapy (unless subject is not eligible or refuses chemotherapy or PD-1/PD-1 therapy and have documented progression on all prior cancer therapies",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion is similar to the GOLD criterion, but it contains 'PD-1 PD-1 inhibitor' instead of 'PD-1 or PD-L1 inhibitor', which may change the eligibility criteria."
+                }
+            },
+            {
+                "gold": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 9 is semantically equivalent to the GOLD criterion, preserving all details about refractoriness or relapse on prior cancer therapy and KRAS G12C inhibitor therapy."
+                }
+            },
+            {
+                "gold": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and Naïve to KRAS G12C inhibitor therapy",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Locally advanced or metastatic NSCLC: Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study, or Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and Naïve to KRAS G12C inhibitor therapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion #11 correctly captures the full meaning of the GOLD criterion, including refractoriness to or relapse on at least 1 prior cancer therapy and naïvety to KRAS G12C inhibitor therapy, with the 'or' condition correctly preserving the logical meaning."
+                }
+            },
+            {
+                "gold": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving all details about locally advanced or metastatic NSCLC, prior cancer therapy, and KRAS G12C inhibitor therapy."
+                }
+            },
+            {
+                "gold": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 8 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and naïve to KRAS G12C inhibitor therapy",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Locally advanced or metastatic NSCLC: Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study, or Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and Naïve to KRAS G12C inhibitor therapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion #10 correctly captures the full meaning of the GOLD criterion, including the condition of being refractory to or relapsed on at least 1 prior cancer therapy and being naïve to KRAS G12C inhibitor therapy, with the 'or' condition correctly preserving the logical meaning."
+                }
+            },
+            {
+                "gold": "Measurable disease by Response Evaluation Criteria in Solid Tumors (RECIST) 1.1",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Measurable disease by Response Evaluation Criteria in Solid Tumors (RECIST) 1.1",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and details."
+                }
+            },
+            {
+                "gold": "Have discontinued previous treatments for cancer, except for sotorasib for subjects to receive VIC-1911 plus sotorasib combination treatment, and have resolution, except where otherwise stated in the inclusion criteria, of all clinically significant toxic effects of prior cancer treatment, surgery, or radiotherapy to Grade ≤ 1",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Have discontinued previous treatments for cancer, except for sotorasib for subjects to receive VIC-1911 plus sotorasib combination treatment, and have resolution, except where otherwise stated in the inclusion criteria, of all clinically significant toxic effects of prior cancer treatment, surgery, or radiotherapy to Grade ≤ 1",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 5 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Adequate performance status: Eastern Cooperative Oncology Group (ECOG) ≤ 2",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Adequate performance status: Eastern Cooperative Oncology Group (ECOG) ≤ 2",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same ECOG performance status requirement (≤ 2)."
+                }
+            },
+            {
+                "gold": "Life expectancy of ≥ 3 months",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Life expectancy of ≥ 3 months",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with the same life expectancy requirement of ≥ 3 months."
+                }
+            },
+            {
+                "gold": "Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases are allowed without prior local therapy, as long as all lesions are each ≤ 1 cm.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Subjects with brain metastases: 11.1 KRAS G12C inhibitor naïve: Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases are allowed without prior local therapy, as long as all lesions are each ≤ 1 cm. Prior local therapy is required (e.g., stereotactic radiosurgery [SRS], stereotactic body radiation therapy [SBRT], or surgery) for any lesion > 1 cm or any lesion that is symptomatic. Subjects must be clinically stable and asymptomatic following local therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, including the details about clinically stable asymptomatic brain metastases, the size of lesions, and the requirement for prior local therapy."
+                }
+            },
+            {
+                "gold": "Prior local therapy is required (e.g., stereotactic radiosurgery [SRS], stereotactic body radiation therapy [SBRT], or surgery) for any lesion > 1 cm or any lesion that is symptomatic.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Subjects with brain metastases: 11.1 KRAS G12C inhibitor naïve: Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases are allowed without prior local therapy, as long as all lesions are each ≤ 1 cm. Prior local therapy is required (e.g., stereotactic radiosurgery [SRS], stereotactic body radiation therapy [SBRT], or surgery) for any lesion > 1 cm or any lesion that is symptomatic. Subjects must be clinically stable and asymptomatic following local therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the full meaning of the GOLD criterion, including the requirement for prior local therapy for lesions > 1 cm or symptomatic lesions, while also providing additional context that does not change the eligibility criteria."
+                }
+            },
+            {
+                "gold": "Subjects must be clinically stable and asymptomatic following local therapy.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Subjects with brain metastases: 11.1 KRAS G12C inhibitor naïve: Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases are allowed without prior local therapy, as long as all lesions are each ≤ 1 cm. Prior local therapy is required (e.g., stereotactic radiosurgery [SRS], stereotactic body radiation therapy [SBRT], or surgery) for any lesion > 1 cm or any lesion that is symptomatic. Subjects must be clinically stable and asymptomatic following local therapy.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the information from the GOLD criterion, specifically the requirement for subjects to be clinically stable and asymptomatic following local therapy, although it is in the context of brain metastases."
+                }
+            },
+            {
+                "gold": "Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases following prior local therapy (e.g., SRS, SBRT or surgery) are allowed.",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "11.2 KRAS G12C inhibitor pretreated: Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases following prior local therapy (e.g., SRS, SBRT or surgery) are allowed.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion 11.2 accurately captures the full meaning of the GOLD criterion, including the requirement for clinically stable and asymptomatic brain metastases following prior local therapy."
+                }
+            },
+            {
+                "gold": "Hemoglobin (Hb) ≥ 8 g/dL",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion 'Hemoglobin (Hb) ≥ 8 g/dL', which specifies a hemoglobin threshold for eligibility."
+                }
+            },
+            {
+                "gold": "Absolute neutrophil count (ANC) ≥ 1.0 x 10^9 cells/L",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion for Absolute Neutrophil Count (ANC) ≥ 1.0 x 10^9 cells/L"
+                }
+            },
+            {
+                "gold": "Platelets ≥ 75 x 10^9 cells/L",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion 'Platelets ≥ 75 x 10^9 cells/L', which specifies a platelet count requirement."
+                }
+            },
+            {
+                "gold": "Calculated creatinine clearance ≥ 50 mL/minute x 1.73 m2 per the Cockcroft-Gault formula",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion for calculated creatinine clearance ≥ 50 mL/minute x 1.73 m2 per the Cockcroft-Gault formula."
+                }
+            },
+            {
+                "gold": "Total bilirubin ≤ 1.5 times the ULN, unless due to Gilbert's disease, or < 3 times the ULN for subjects with liver metastases",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion regarding total bilirubin levels."
+                }
+            },
+            {
+                "gold": "ALT/AST ≤ 2 times the ULN, or < 3 times the ULN for subjects with liver metastases",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion regarding ALT/AST levels."
+                }
+            },
+            {
+                "gold": "Negative serum pregnancy test within 14 days prior to the first dose of study therapy for women of child-bearing potential (WCBP).",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion regarding a negative serum pregnancy test for women of child-bearing potential."
+                }
+            },
+            {
+                "gold": "Sexually active WCBP and male subjects must agree to use adequate methods to avoid pregnancy throughout the study and for 28 days after the completion of study treatment.",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion regarding contraception and pregnancy prevention for sexually active WCBP and male subjects."
+                }
+            },
+            {
+                "gold": "Ability to proved written informed consent",
+                "evaluation": {
+                    "match_index": null,
+                    "match_text": null,
+                    "classification": "wrong",
+                    "explanation": "None of the predicted criteria match the GOLD criterion 'Ability to provide written informed consent'."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Serious cardiac condition within the last 6 months, such as uncontrolled arrhythmia, myocardial infarction, unstable angina or heart disease defined by the New York Heart Association (NYHA) Class III or Class IV",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Serious cardiac condition within the last 6 months, such as uncontrolled arrhythmia, myocardial infarction, unstable angina or heart disease defined by the New York Heart Association (NYHA) Class III or Class IV",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 0 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "QT interval corrected for rate (QTc) > 480 msec on the ECG obtained at Screening using Fridericia method for QTc calculation",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "QT interval corrected for rate (QTc) > 480 msec on the ECG obtained at Screening using Fridericia method for QTc calculation",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Medications that are inhibitors or inducers of UDP-glucuronosyltransferases (UGTs) are prohibited in the Dose Escalation Phase",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Medications that are inhibitors or inducers of UDP-glucuronosyltransferases (UGTs) are prohibited in the Dose Escalation Phase",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "History of corneal epithelial cysts or other ocular events leading to blurred vision, or has medically relevant abnormalities identified on screening ophthalmologic examination",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "History of corneal epithelial cysts or other ocular events leading to blurred vision, or has medically relevant abnormalities identified on screening ophthalmologic examination",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 3 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Symptomatic pneumonitis/interstitial lung disease requiring medical intervention",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Symptomatic pneumonitis/interstitial lung disease requiring medical intervention",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 4 is an exact match to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Symptomatic central nervous system metastasis",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Symptomatic central nervous system metastasis",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Leptomeningeal carcinomatosis",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Leptomeningeal carcinomatosis",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Inability to swallow oral medication",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Inability to swallow oral medication",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Gastrointestinal conditions that could impair absorption or tolerance of study drugs",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Gastrointestinal conditions that could impair absorption or tolerance of study drugs",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Current hematologic malignancies",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Current hematologic malignancies",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Second, active primary solid tumor malignancy that, in the judgement of the Investigator or Sponsor Medical Monitor, may affect the interpretation of results, with the exception of carcinoma in situ of any origin, non-muscle invasive bladder cancer, and Gleason < 3+3 prostate cancer",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Second, active primary solid tumor malignancy that, in the judgement of the Investigator or Sponsor Medical Monitor, may affect the interpretation of results, with the exception of carcinoma in situ of any origin, non-muscle invasive bladder cancer, and Gleason < 3+3 prostate cancer",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 10 is an exact match to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Active infection with human immunodeficiency virus (HIV), hepatitis B virus (HBV) or hepatitis C virus (HCV) requiring treatment within the last week prior to study treatment",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Active infection with human immunodeficiency virus (HIV), hepatitis B virus (HBV) or hepatitis C virus (HCV) requiring treatment within the last week prior to study treatment",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Other active infection requiring IV antibiotic usage within the last week prior to study treatment",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Other active infection requiring IV antibiotic usage within the last week prior to study treatment",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Unable to tolerate marketed dose of KRAS G12C inhibitor on prior therapy for subjects to be enrolled in combination VIC-1911 plus sotorasib treatment cohorts.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Unable to tolerate marketed dose of KRAS G12C inhibitor on prior therapy for subjects to be enrolled in combination VIC-1911 plus sotorasib treatment cohorts. Alternatively, these subjects may be able to enroll in the VIC-1911 monotherapy treatment cohort, upon discussion with the Medical Monitor and Study Chair.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion but adds extra information about alternative enrollment in the VIC-1911 monotherapy treatment cohort, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Unable to tolerate marketed dose of KRAS G12C inhibitor on prior therapy for subjects to be enrolled in combination VIC-1911 plus sotorasib treatment cohorts.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Unable to tolerate marketed dose of KRAS G12C inhibitor on prior therapy for subjects to be enrolled in combination VIC-1911 plus sotorasib treatment cohorts. Alternatively, these subjects may be able to enroll in the VIC-1911 monotherapy treatment cohort, upon discussion with the Medical Monitor and Study Chair.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion adds extra information about an alternative enrollment option in the VIC-1911 monotherapy treatment cohort, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Unable to tolerate marketed dose of KRAS G12C inhibitor on prior therapy for subjects to be enrolled in combination VIC-1911 plus sotorasib treatment cohorts.",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Unable to tolerate marketed dose of KRAS G12C inhibitor on prior therapy for subjects to be enrolled in combination VIC-1911 plus sotorasib treatment cohorts. Alternatively, these subjects may be able to enroll in the VIC-1911 monotherapy treatment cohort, upon discussion with the Medical Monitor and Study Chair.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion matches the GOLD criterion but adds extra information about alternative enrollment in the VIC-1911 monotherapy treatment cohort, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Previous MEK or EGFR inhibitor therapy",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Previous MEK or EGFR inhibitor therapy",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Any other medical intervention or other condition which, in the opinion of the Principal Investigator, could compromise adherence to study requirements or confound the interpretation of study results",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Any other medical intervention or other condition which, in the opinion of the Principal Investigator, could compromise adherence to study requirements or confound the interpretation of study results",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Receipt of an investigational product on a clinical trial within 5 elimination half-lives or within 28 days, whichever is shorter, prior to C1D1 on this study, or currently enrolled in a clinical trial involving an investigational product or any other type of medical research judged not to be scientifically or medically compatible with this study",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Receipt of an investigational product on a clinical trial within 5 elimination half-lives or within 28 days, whichever is shorter, prior to C1D1 on this study, or currently enrolled in a clinical trial involving an investigational product or any other type of medical research judged not to be scientifically or medically compatible with this study",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 12 is semantically equivalent to the GOLD criterion, preserving all details and logical meaning without any additions or omissions."
+                }
+            },
+            {
+                "gold": "Previously completed or withdrawn from any other study investigating an aurora kinase A inhibitor",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Previously completed or withdrawn from any other study investigating an aurora kinase A inhibitor",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with no details lost or added."
+                }
+            },
+            {
+                "gold": "Known hypersensitivity to VIC-1911 or its components",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "Known hypersensitivity to VIC-1911 or its components",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "If female, pregnant, breast-feeding, or planning to become pregnant",
+                "evaluation": {
+                    "match_index": 17,
+                    "match_text": "If female, pregnant, breast-feeding, or planning to become pregnant",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 36,
+        "partial": 4,
+        "wrong": 9,
+        "errors": 0,
+        "evaluated": 49,
+        "human_accuracy": 73.46938775510205,
+        "partial_score": 77.55102040816327
+    }
+}

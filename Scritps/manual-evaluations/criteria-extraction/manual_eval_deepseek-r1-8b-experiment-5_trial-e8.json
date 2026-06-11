@@ -1,0 +1,279 @@
+{
+    "trial": "e8",
+    "results": {
+        "inclusion": [
+            {
+                "gold": "Participants must be >18 years old at time of diagnosis",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Participants must be >18 years old at time of diagnosis",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Histologically confirmed non-small cell lung cancer",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Histologically confirmed non-small cell lung cancer",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "ECOG PS 2",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "ECOG PS 2",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Clinical staging of IIIc or IV disease.",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "Clinical staging of IIIc or IV disease.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "For patients with stage IIIc disease, patients are ineligible for or refuse standard treatment with platinum-double chemotherapy and radiation.",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "For patients with stage IIIc disease, patients are ineligible for or refuse standard treatment with platinum-double chemotherapy and radiation.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "For patients with stage IV disease, platinum doublet chemotherapy is not appropriate, deemed unsafe by the treating physician, or declined by the patient",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "For patients with stage IV disease, platinum doublet chemotherapy is not appropriate, deemed unsafe by the treating physician, or declined by the patient",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Absolute neutrophil count (ANC) ≥1000/mm3",
+                "evaluation": {
+                    "match_index": 7,
+                    "match_text": "Absolute neutrophil count (ANC) \\u22651000/mm3",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same threshold value and unit of measurement."
+                }
+            },
+            {
+                "gold": "Platelet count ≥100,000/mm3",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "Platelet count ≥100,000/mm3",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the same platelet count threshold."
+                }
+            },
+            {
+                "gold": "CrCl>50 (if pemetrexed is to be offered)",
+                "evaluation": {
+                    "match_index": 8,
+                    "match_text": "CrCl>50 (if pemetrexed is to be offered)",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "AST and ALT ≤ 2.5 x ULN",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "AST and ALT ≤ 2.5 x ULN",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, with the same parameters and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients with small, asymptomatic brain metastases are eligible",
+                "evaluation": {
+                    "match_index": 9,
+                    "match_text": "Patients with small, asymptomatic brain metastases are eligible",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Women of childbearing potential must be negative for pregnancy testing (urine or blood) and agree to use effective contraception.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Women of childbearing potential must be negative for pregnancy testing (urine or blood) and agree to use effective contraception. Viable contraception should be used after trial screening, before initiation of chemotherapy, and throughout the duration of active treatment in the study.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the addition of details about the duration of contraception use, which does not change the eligibility criteria."
+                }
+            },
+            {
+                "gold": "Viable contraception should be used after trial screening, before initiation of chemotherapy, and throughout the duration of active treatment in the study.",
+                "evaluation": {
+                    "match_index": 10,
+                    "match_text": "Women of childbearing potential must be negative for pregnancy testing (urine or blood) and agree to use effective contraception. Viable contraception should be used after trial screening, before initiation of chemotherapy, and throughout the duration of active treatment in the study.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion, including the requirement for viable contraception after trial screening, before initiation of chemotherapy, and throughout the duration of active treatment."
+                }
+            },
+            {
+                "gold": "Amenorrheic >2 years",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Non-childbearing potential is defined as (by other than medical reasons): -Amenorrheic >2 years",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion accurately captures the GOLD criterion, including the specific time frame of amenorrhea (>2 years), and is part of the definition of non-childbearing potential."
+                }
+            },
+            {
+                "gold": "Amenorrheic for <2 years and a follicle-stimulating hormone value in the postmenopausal range upon pre-study (screening) evaluation",
+                "evaluation": {
+                    "match_index": 11,
+                    "match_text": "Amenorrheic for <2 years and a follicle-stimulating hormone value in the postmenopausal range upon pre-study (screening) evaluation",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Post hysterectomy, oophorectomy or tubal ligation.",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Post hysterectomy, oophorectomy or tubal ligation. Otherwise the patient must be willing to use 2 adequate barrier methods throughout the study, starting with the screening visit through 120 days after the last dose of study drug",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the GOLD criterion but adds extra conditions about using barrier methods, which changes the logical meaning and adds additional constraints."
+                }
+            },
+            {
+                "gold": "Otherwise the patient must be willing to use 2 adequate barrier methods throughout the study, starting with the screening visit through 120 days after the last dose of study drug",
+                "evaluation": {
+                    "match_index": 12,
+                    "match_text": "Otherwise the patient must be willing to use 2 adequate barrier methods throughout the study, starting with the screening visit through 120 days after the last dose of study drug",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Participants must read or be read and explained the purposes of the study and sign a statement of informed consent prior to participation.",
+                "evaluation": {
+                    "match_index": 13,
+                    "match_text": "Participants must read or be read and explained the purposes of the study and sign a statement of informed consent prior to participation. Those who do not read or understand English are eligible and may be consented according to institutional regulations.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion semantically, with the additional detail about non-English speakers being eligible, which does not change the logical meaning or add extra constraints."
+                }
+            },
+            {
+                "gold": "Those who do not read or understand English are eligible and may be consented according to institutional regulations.",
+                "evaluation": {
+                    "match_index": 15,
+                    "match_text": "Participants must read or be read and explained the purposes of the study and sign a statement of informed consent prior to participation. Those who do not read or understand English are eligible and may be consented according to institutional regulations.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving the full meaning and clinical context."
+                }
+            }
+        ],
+        "exclusion": [
+            {
+                "gold": "Patients with history of autoimmune conditions with the following exceptions, which are allowed: alopecia, vitiligo, rheumatoid arthritis, psoriasis/psoriatic arthritis, Hashimoto's thyroiditis",
+                "evaluation": {
+                    "match_index": 0,
+                    "match_text": "Patients with history of autoimmune conditions with the following exceptions, which are allowed: alopecia, vitiligo, rheumatoid arthritis, psoriasis/psoriatic arthritis, Hashimoto's thyroiditis",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is semantically equivalent to the GOLD criterion, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Patients on immunosuppressive medication, including steroids (if doses exceed equivalent of prednisone 10 mg daily).",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patients on immunosuppressive medication, including steroids (if doses exceed equivalent of prednisone 10 mg daily). Short courses of steroids which are discontinued prior to start of treatment are acceptable.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion adds an extra condition about short courses of steroids, which is not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Short courses of steroids which are discontinued prior to start of treatment are acceptable.",
+                "evaluation": {
+                    "match_index": 1,
+                    "match_text": "Patients on immunosuppressive medication, including steroids (if doses exceed equivalent of prednisone 10 mg daily). Short courses of steroids which are discontinued prior to start of treatment are acceptable.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion contains the full meaning of the GOLD criterion, including the allowance of short courses of steroids discontinued prior to treatment start, within the context of immunosuppressive medication."
+                }
+            },
+            {
+                "gold": "Patients with cardiovascular, hepatic, or renal systemic diseases that would preclude use of chemotherapy and/or immunotherapy per the treating investigator.",
+                "evaluation": {
+                    "match_index": 2,
+                    "match_text": "Patients with cardiovascular, hepatic, or renal systemic diseases that would preclude use of chemotherapy and/or immunotherapy per the treating investigator.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion at index 2 is semantically equivalent to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "The patient must not be on any clinical trials involving other experimental therapies during study treatment",
+                "evaluation": {
+                    "match_index": 3,
+                    "match_text": "The patient must not be on any clinical trials involving other experimental therapies during study treatment",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and logical context."
+                }
+            },
+            {
+                "gold": "Women who are currently pregnant or breast-feeding",
+                "evaluation": {
+                    "match_index": 4,
+                    "match_text": "Women who are currently pregnant or breast-feeding",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning without any loss of details or addition of extra constraints."
+                }
+            },
+            {
+                "gold": "Patients with any other concurrent medical or psychiatric condition that were deemed inappropriate for entry into the study per the investigator.",
+                "evaluation": {
+                    "match_index": 5,
+                    "match_text": "Patients with any other concurrent medical or psychiatric condition that were deemed inappropriate for entry into the study per the investigator.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion is an exact match to the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            },
+            {
+                "gold": "Symptomatic, untreated brain metastases.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Symptomatic, untreated brain metastases. Patients with treated brain metastases may be considered eligible after completion of radiation if steroids have been tapered to less than equivalent of 10 mg of prednisone.",
+                    "classification": "partial",
+                    "explanation": "The predicted criterion includes the GOLD criterion but adds extra conditions about treated brain metastases and steroid tapering, which are not present in the GOLD criterion."
+                }
+            },
+            {
+                "gold": "Patients with treated brain metastases may be considered eligible after completion of radiation if steroids have been tapered to less than equivalent of 10 mg of prednisone.",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Symptomatic, untreated brain metastases. Patients with treated brain metastases may be considered eligible after completion of radiation if steroids have been tapered to less than equivalent of 10 mg of prednisone.",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion matches the GOLD criterion exactly, preserving all details and logical meaning."
+                }
+            },
+            {
+                "gold": "Active infection requiring IV antibiotics",
+                "evaluation": {
+                    "match_index": 6,
+                    "match_text": "Active infection requiring IV antibiotics",
+                    "classification": "correct",
+                    "explanation": "The predicted criterion exactly matches the GOLD criterion, preserving the full meaning and clinical context."
+                }
+            }
+        ]
+    },
+    "metrics": {
+        "correct": 26,
+        "partial": 3,
+        "wrong": 0,
+        "errors": 0,
+        "evaluated": 29,
+        "human_accuracy": 89.65517241379311,
+        "partial_score": 94.82758620689656
+    }
+}
