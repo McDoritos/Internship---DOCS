@@ -1,0 +1,52 @@
+[
+  {
+    "criterion": "At least one measurable lesion per RECIST 1.1",
+    "match": true,
+    "justification": "The diary reports a 2.4 cm left breast lesion and axillary nodes of 12 mm, which are measurable per RECIST 1.1."
+  },
+  {
+    "criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+    "match": false,
+    "justification": "ANC is 1.2 x10^9/L, which is below the 1.5 x10^9/L threshold."
+  },
+  {
+    "criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+    "match": false,
+    "justification": "No pregnancy test result is documented in the diary."
+  },
+  {
+    "criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No EGFR genomic alterations are reported in the diary."
+  },
+  {
+    "criterion": "Known ALK genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No ALK rearrangement or mutation is documented."
+  },
+  {
+    "criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No ROS1 genomic alteration is reported in the clinical diary."
+  },
+  {
+    "criterion": "Untreated brain metastases",
+    "match": false,
+    "justification": "Imaging shows no brain metastases."
+  },
+  {
+    "criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+    "match": true,
+    "justification": "Creatinine is 0.80 mg/dL with normal renal function, consistent with CrCl ≥ 40 mL/min."
+  },
+  {
+    "criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+    "match": false,
+    "justification": "No autoimmune disease or systemic immunosuppressive therapy is reported."
+  },
+  {
+    "criterion": "Other active invasive malignancy within 3 years",
+    "match": false,
+    "justification": "Only metastatic HER2-positive breast carcinoma is documented; no second malignancy is reported."
+  }
+]

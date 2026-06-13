@@ -1,0 +1,700 @@
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "At least one measurable lesion per RECIST 1.1",
+  "match": true,
+  "justification": "The patient's PET-CT on 20/06/2025 shows a hypermetabolic lesion in the left breast with reduction of SUV compared to the initial study, indicating at least one measurable lesion according to RECIST 1.1 criteria."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "At least one measurable lesion per RECIST 1.1",
+"match": false,
+"justification": "The clinical diary does not mention any new or persistent lesions outside the primary tumor, nor does it confirm the presence of at least one measurable lesion as defined by RECIST 1.1."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "At least one measurable lesion per RECIST 1.1",
+"match": true,
+"justification": "The patient has a history of multiple liver lesions with SUVmax 2.1, indicating at least one measurable lesion according to the RECIST 1.1 criteria."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "At least one measurable lesion per RECIST 1.1",
+"match": false,
+"justification": "The patient's CT torácico de controlo (02-06-2025) shows a stable lesion in the left lung with a size of 4.2 cm, but no new mediastinal involvement, and there is no mention of any other measurable lesions according to RECIST 1.1 criteria."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "At least one measurable lesion per RECIST 1.1",
+"match": false,
+"justification": "No measurable lesions are reported in the clinical diary, therefore the patient does not meet this inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "At least one measurable lesion per RECIST 1.1",
+"match": false,
+"Justification": "No evidence of measurable lesions in the provided radiology report (TC TAP 10-02-2025), which is a requirement for inclusion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "At least one measurable lesion per RECIST 1.1",
+  "match": true,
+  "justification": "The clinical diary mentions the results of a TC TAP on 03-09-2025, which indicates a lesion in the breast with a size of 2.4 cm and adenopathies in the axilla without evident metastases."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "At least one measurable lesion per RECIST 1.1",
+"match": false,
+"justification": "The clinical diary does not mention the presence of at least one measurable lesion as per RECIST 1.1; however, it mentions 'sigmoide ainda espessado, sem obstrução' in the CT-ABDOMEN/PELVE report, which indicates a non-measurable lesion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+  "criterion": "At least one measurable lesion per RECIST 1.1",
+  "match": false,
+  "justification": "According to the clinical diary, TC TAP 18-06-2025 showed stable brain lesions without edema, but there is no mention of new or progressive measurable lesions."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "At least one measurable lesion per RECIST 1.1",
+"match": false,
+"justification": "No new lesions were identified and existing lesions are stable, as confirmed by PET-CT on 20-09-2024."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": true,
+"justification": "The patient's laboratory values show an ANC of 1.9 x 10^9/L, which is within the normal reference range and meets the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": false,
+"justification": "The patient's ANC value of 1.4 x 10^9/L is below the reference range."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": false,
+"justification": "The patient's ANC is 1.7 x 10^9/L, which satisfies the criterion. However, the laboratory values are from analysis 30-06 and there is no information on when these results were obtained in relation to the current consultation date (01-10-2025)."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": false,
+"justification": "The patient's ANC is 1.8 x 10^9/L, which meets the criterion, however, the reference range for neutrofilos in the laboratory values provided does not match the expected value of 1.50\u20137.70."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": true,
+"justification": "The patient's ANC value is 1.8 x 10^9/L, which meets the criterion of ≥ 1.5 x 10^9/L."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": false,
+"justification": "The patient's absolute neutrophil count is 1.7 x 10^9/L, which meets the criterion, but there is another lab value for leucocitos that should be considered. However, according to this other lab value (leucócitos), it shows a reference range of 3.90–10.2 x 10^9/L and the patient's actual count is 7.8 x 10^9/L. Therefore, due to conflicting information, we cannot confirm if the ANC meets the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": false,
+"justification": "The patient's ANC is below the required threshold, with a value of 1.2 x 10^9/L."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": false,
+"justification": "The patient's ANC is below the minimum reference value of 1.50 x 10^9/L (value: 1.8 x 10^9/L)."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": false,
+"justification": "The patient's ANC is 1.8 x 10^9/L, which is within the reference range of 1.50-7.70 x 10^9/L, but it does not meet the criterion of being ≥ 1.5 x 10^9/L."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+"match": true,
+"justification": "According to the laboratory values, ANC is 2.8 x 10^9/L, which satisfies the inclusion criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "The patient's clinical diary does not mention any pregnancy test results, and the patient is 47 years old, which implies she may be postmenopausal. However, her fertility status could not be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "No information regarding the patient's gender or pregnancy status is explicitly present in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "The clinical diary does not mention any pregnancy test results, and the patient's gender is listed as masculine (59 anos, masculino)."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "The patient's clinical diary does not mention the results of any pregnancy test, and there is no information about the patient being postmenopausal or surgically sterilized."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "The clinical diary does not mention a recent pregnancy test result, and there is no explicit information on the patient's fertility status or any measures taken to prevent pregnancy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "The patient's gender is male, therefore the criterion does not apply."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"Justification": "The patient's clinical diary does not mention a pregnancy test or indicate that the patient is pregnant, but it also does not explicitly state that she is not of childbearing potential. Therefore, according to the strict interpretation required, we cannot confirm that the criterion is met."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "The patient's gender is male, therefore a pregnancy test is not required."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "The patient's gender is explicitly mentioned as female, but there is no mention of a pregnancy test result in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+"match": false,
+"justification": "No information is available in the patient's clinical diary regarding the patient's reproductive status or the results of a recent pregnancy test."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any information about EGFR genomic alterations or the presence of a targeted therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+  "criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+  "match": false,
+  "justification": "There is no information in the clinical diary indicating the presence of known EGFR genomic alterations, nor any mention of approved targeted therapy for such alterations."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The patient's clinical diary does not mention any known EGFR genomic alterations."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any EGFR genomic alterations."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "There is no information about EGFR genomic alterations in the clinical diary, and therefore this exclusion criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No information is present in the clinical diary regarding EGFR genomic alterations or the availability of approved targeted therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No information is provided in the clinical diary regarding EGFR genomic alterations or the use of approved targeted therapy for such alterations."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any known EGFR genomic alterations, and therefore the criterion is not met."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any information about EGFR genomic alterations or the use of targeted therapy for this condition."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "There is no mention of EGFR genomic alterations or their status in the patient's clinical diary, and therefore this criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "There is no mention of known ALK genomic alterations in the patient's clinical diary, and therefore this criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No information regarding ALK genomic alterations is present in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No information is present in the clinical diary regarding ALK genomic alterations or the availability of approved targeted therapies for this condition."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any known ALK genomic alterations, and the NGS (Next-Generation Sequencing) results show no mutations actionable for ALK inhibitors."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"Justification": "The clinical diary does not mention the presence of known ALK genomic alterations or the availability of approved targeted therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"Justification": "No mention of ALK genomic alterations or targeted therapy in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No information on ALK genomic alterations or targeted therapy is present in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any known ALK genomic alterations, and the presence of KRAS G12D mutation is documented but it's a different genetic alteration."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": true,
+"justification": "Patient's clinical diary indicates that the patient has an Adenocarcinoma pulmonar direito, ALK rearranjado, which is a known ALK genomic alteration. Additionally, the diary mentions that the patient was initiated on alectinib 20 mg/kg PO c1 in 20-03-2025, which is an approved targeted therapy for this specific alteration."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "Known ALK genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No information is present in the clinical diary regarding known ALK genomic alterations, and there is no mention of approved targeted therapy for such alterations."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+  "match": false,
+  "justification": "No mention of ROS1 genomic alterations or targeted therapy in the clinical diary."
+}
+
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "There is no mention of ROS1 genomic alterations or the use of a targeted therapy for this condition in the provided clinical diary, thus it cannot be confirmed that the patient has known ROS1 genomic alterations with available approved targeted therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "There is no mention of ROS1 genomic alterations or the use of targeted therapy in the patient's clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any known ROS1 genomic alterations, and the NGS result is reported as 'sem mutações acionáveis' (without actionable mutations), which suggests that ROS1 genomic alterations were not identified."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No mention of ROS1 genomic alterations or targeted therapy in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+  "criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+  "match": false,
+  "justification": "No information is present in the clinical diary regarding ROS1 genomic alterations or the availability of approved targeted therapy for this patient."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any known ROS1 genomic alterations, and therefore the exclusion criterion is not met."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "The clinical diary does not mention any ROS1 genomic alterations, and no information is provided on the use of targeted therapy for this specific alteration."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No mention of ROS1 genomic alterations or use of targeted therapy in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+"match": false,
+"justification": "No information regarding ROS1 genomic alterations or their availability is present in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "No information is present in the clinical diary indicating the presence of untreated brain metastases, and a PET-CT scan on 20/06/2025 showed no evidence of distant metastases."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "The clinical diary does not mention the presence of untreated brain metastases, and the ECOG score is 2, indicating that the patient is experiencing some degree of disability but is still able to carry out daily activities."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "No mention of untreated brain metastases in the clinical diary, and the patient's recent follow-up exams (e.g., TC de controlo on 01-07-2025) did not indicate any new or worsening central nervous system involvement. The patient's ECOG-PS is also maintained at 1, indicating no significant decline in performance status."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "Patient has a history of cerebral (lesão frontal direita 2 cm) metastases, but is being treated with radioterapia cerebral 20 Gy/5 fr (10-03-2025 to 16-03-2025)."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "No information about brain metastases is present in the clinical diary, and there are no indications of neurological symptoms or signs that would suggest untreated brain metastases."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "There is no mention of brain metastases in the patient's clinical diary, and there are no signs or symptoms suggestive of central nervous system involvement."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "No mention of brain metastases in the clinical diary, and the patient has ECOG-PS 1 which indicates good performance status but does not necessarily indicate the presence of central nervous system involvement. However, the criterion is strict and implies the absence of any evidence of untreated brain metastases."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "No mention of brain metastases or any neurological symptoms that would suggest untreated central nervous system involvement."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "The patient has a history of cerebral lesions, but they are described as 'estáveis' (stable) after radioterapia cerebral 20 Gy/5 fr between 25-03 to 31-03-2025, indicating that the brain metastases were treated."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "Untreated brain metastases",
+"match": false,
+"justification": "The patient's clinical diary does not mention any untreated brain metastases and the latest PET-CT scan on 10-03-2024 showed no new foci, indicating the absence of active brain metastases."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "The CKD-EPI formula requires eGFR values, which are not present in the laboratory results provided. Therefore, it is not possible to confirm whether the creatinine clearance meets the specified criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "The patient's creatinine level is 1.02 mg/dL, but the calculated creatinine clearance cannot be determined with certainty based on the provided laboratory values. However, according to the CKD-EPI formula, a creatinine level of 1.02 mg/dL corresponds to a creatinine clearance below the threshold for stage I chronic kidney disease, which is approximately 40 mL/min."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "The patient's creatinine value is 0.85 mg/dL, which corresponds to a GFR of 85 mL/min according to the CKD-EPI formula. This value does not meet the inclusion criterion of ≥ 40 mL/min."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "The patient's creatinine value is 0.95 mg/dL, which corresponds to a calculated creatinine clearance of approximately 60 mL/min (CKD-EPI formula), exceeding the required threshold."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "The patient's creatinine value is 0.82 mg/dL, and the calculation of creatinine clearance using the CKD-EPI formula could not be confirmed from the provided clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "The patient's creatinine value is 0.9 mg/dL, but the calculated creatinine clearance using the CKD-EPI formula cannot be determined without additional information on age, sex, race, and ethnicity."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+  "criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+  "match": false,
+  "justification": "The patient's creatinine value is 0.8 mg/dL, but the reference range for this test and the CKD-EPI formula to calculate creatinine clearance are not provided in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "Patient's creatinine value is 0.81 mg/dL, but the CKD-EPI formula requires additional information to calculate creatinine clearance accurately."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": false,
+"justification": "Creatinine value is available, but creatinine clearance calculation is not provided in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+"match": true,
+"justification": "The patient's creatinine value is 0.85 mg/dL, and using the CKD-EPI formula, their creatinine clearance is calculated to be greater than 40 mL/min."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "There is no mention of an active autoimmune disease in the clinical diary, and the patient's laboratory values do not indicate any signs of current autoimmune activity."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "The clinical diary does not mention any active autoimmune disease requiring systemic immunosuppressive therapy, with the exception of cancer treatment which is not an autoimmune condition."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "The patient's clinical diary does not mention any active autoimmune disease or the need for systemic immunosuppressive therapy, according to the literature (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7094393/)"
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "No evidence of active autoimmune disease or systemic immunosuppressive therapy in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "There is no mention of an active autoimmune disease in the clinical diary, and the patient is only taking Ramipril 5 mg for hypertension."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "There is no mention of an active autoimmune disease or the use of systemic immunosuppressive therapy in the patient's clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "There is no mention of active autoimmune disease or requirement for systemic immunosuppressive therapy in the patient's clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "There is no mention of an active autoimmune disease in the patient's clinical diary, but it does mention Diabetes tipo 2 - em uso de Ramipril 5 mg id, Metformina 850 mg bid which is a chronic condition being treated with metformin and ramipril. However, this is not considered systemic immunosuppressive therapy as per the criterion."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "No mention of active autoimmune disease or systemic immunosuppressive therapy in the clinical diary."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+"criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+"match": false,
+"justification": "No information in the clinical diary indicates an active autoimmune disease or the requirement for systemic immunosuppressive therapy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_1.txt
+{
+  "criterion": "Other active invasive malignancy within 3 years",
+  "match": false,
+  "justification": "The patient's clinical diary mentions a diagnosis of 'Carcinoma invasor NST, G3' and treatment with neoadjuvant chemotherapy, but it does not mention any other active invasive malignancies within the past 3 years. However, as this criterion is part of an exclusion criterion for a clinical trial, we must also consider the definition of 'adequately treated non-melanoma skin cancer or carcinoma in situ'. There is no information provided about previous non-melanoma skin cancers or carcinomas in situ."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_10.txt
+{
+    "criterion": "Other active invasive malignancy within 3 years",
+    "match": false,
+    "justification": "The patient has a history of lung small cell carcinoma with metastases to the liver, confirmed by a CT scan on 28-01-2025 (stage IV extensive), and the treatment for this cancer was completed only 2 months ago. According to the clinical evidence, this indicates an active invasive malignancy within 3 years that does not meet the criterion's exception criteria."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_2.txt
+{
+"criterion": "Other active invasive malignancy within 3 years",
+"match": false,
+"justification": "There is no information in the clinical diary that indicates the presence of another active invasive malignancy, but the patient has a history of adenocarcinoma pulmonar direito diagnosed 6 months ago and treated with chemotherapy and immunotherapy. The ECOG-PS score is 1, indicating that the patient's current disease is stable, but this does not exclude the possibility of another active invasive malignancy."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_3.txt
+{
+"criterion": "Other active invasive malignancy within 3 years",
+"match": false,
+"justification": "The patient has a history of multiple metastatic lesions, including bone and brain metastases, confirmed by imaging studies."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_4.txt
+{
+"criterion": "Other active invasive malignancy within 3 years",
+"match": false,
+"justification": "There is no information in the clinical diary indicating another active invasive malignancy within the last 3 years, and there is a documented history of carcinoma invasor NST mama direita, G2, diagnosed with stage pT2N2M0 – IIIA."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
+{
+"criterion": "Other active invasive malignancy within 3 years",
+"match": false,
+"justification": "The patient has a history of adenocarcinoma of the right lung, diagnosed on February 15, 2025 (stage IV with liver metastasis), which is an active invasive malignancy. This diagnosis occurred less than 3 years ago, and there is no indication that it was adequately treated or in situ."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
+{
+"criterion": "Other active invasive malignancy within 3 years",
+"match": false,
+"justification": "No information is present in the clinical diary to confirm or deny the presence of other active invasive malignancies within the last 3 years, except for the patient's primary breast cancer which is being treated. The criterion cannot be confirmed."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
+{
+"criterion": "Other active invasive malignancy within 3 years",
+"match": false,
+"justification": "The patient has a history of adenocarcinoma moderadamente diferenciado do cólon sigmoide, G2 (diagnosed on 12-01-2025) with metastases to the liver and is currently undergoing treatment for this condition. This indicates an active invasive malignancy within the past year, thus excluding the patient from participating in the clinical trial."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
+{
+"criterion": "Other active invasive malignancy within 3 years",
+"match": false,
+"justification": "The patient has a history of adenocarcinoma pulmonar direito, ALK rearranjado, cT2N2M1c (estágio IV) with metastases cerebrais, which is an active invasive malignancy. This diagnosis was confirmed by biopsy and the patient has not been adequately treated for non-melanoma skin cancer or carcinoma in situ."
+}
+
+Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_9.txt
+{
+    "criterion": "Other active invasive malignancy within 3 years",
+    "match": false,
+    "justification": "The patient was diagnosed with carcinoma invasor NST of the right breast in 10-09-2023, which is an active invasive malignancy. The diagnosis date exceeds the allowed timeframe by one year."
+}

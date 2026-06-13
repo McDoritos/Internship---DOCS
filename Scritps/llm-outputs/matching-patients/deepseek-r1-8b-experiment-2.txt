@@ -910,7 +910,7 @@ Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
 
 Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_5.txt
 {
-  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x10^9/L",
+  "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
   "match": true,
   "justification": "The patient's absolute neutrophil count is 5.6 x10^9/L from the clinical diary, which satisfies the ≥ 1.5 x10^9/L requirement."
 }
@@ -1224,13 +1224,11 @@ Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_6.txt
 }
 
 Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
-```json
 {
 "criterion": "INCLUSION CRITERION - Age ≥ 18 years.",
 "match": true,
 "justification": "The patient is explicitly stated to be 66 years old, which satisfies the age requirement."
 }
-```
 
 Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_7.txt
 {
@@ -1436,13 +1434,11 @@ Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
 }
 
 Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
-```json
 {
 "criterion": "INCLUSION CRITERION - Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
 "match": true,
 "justification": "The patient's ANC is explicitly recorded as 1.8 x 10^9/L in the laboratory values, which is above the threshold of 1.5 x 10^9/L."
 }
-```
 
 Output for file ../Test_Files/Clinical_diaries\inconsistancy-diary_patient_8.txt
 {

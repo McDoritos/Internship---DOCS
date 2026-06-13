@@ -1,0 +1,52 @@
+[
+  {
+    "criterion": "At least one measurable lesion per RECIST 1.1",
+    "match": true,
+    "justification": "The diary reports a 4 cm right lung mass and a hepatic metastasis, both measurable per RECIST 1.1."
+  },
+  {
+    "criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+    "match": true,
+    "justification": "ANC is 5.6 x10^9/L, which is above the 1.5 x10^9/L threshold."
+  },
+  {
+    "criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+    "match": false,
+    "justification": "The patient is male, and no pregnancy test is applicable or reported."
+  },
+  {
+    "criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "NGS is reported as negative, and no EGFR alteration is documented."
+  },
+  {
+    "criterion": "Known ALK genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No ALK rearrangement or mutation is reported in the clinical diary."
+  },
+  {
+    "criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No ROS1 genomic alteration is documented in the diary."
+  },
+  {
+    "criterion": "Untreated brain metastases",
+    "match": false,
+    "justification": "Imaging reports only a hepatic metastasis; no brain metastases are described."
+  },
+  {
+    "criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+    "match": true,
+    "justification": "Creatinine is 1.1 mg/dL with no renal impairment noted, consistent with CrCl ≥ 40 mL/min."
+  },
+  {
+    "criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+    "match": false,
+    "justification": "No autoimmune disease or systemic immunosuppressive therapy is reported."
+  },
+  {
+    "criterion": "Other active invasive malignancy within 3 years",
+    "match": false,
+    "justification": "Only metastatic lung adenocarcinoma is documented; no second malignancy is reported."
+  }
+]

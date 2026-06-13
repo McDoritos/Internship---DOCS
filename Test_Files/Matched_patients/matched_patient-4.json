@@ -1,0 +1,52 @@
+[
+  {
+    "criterion": "At least one measurable lesion per RECIST 1.1",
+    "match": true,
+    "justification": "The diary reports a 3.2 cm breast lesion on MRI, which is measurable per RECIST 1.1."
+  },
+  {
+    "criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+    "match": true,
+    "justification": "ANC is 1.8 x10^9/L, which is above the 1.5 x10^9/L threshold."
+  },
+  {
+    "criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+    "match": false,
+    "justification": "The patient had a hysterectomy, but no pregnancy test result is documented."
+  },
+  {
+    "criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No EGFR genomic alterations are reported in the diary."
+  },
+  {
+    "criterion": "Known ALK genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No ALK rearrangement or mutation is documented."
+  },
+  {
+    "criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No ROS1 genomic alteration is reported in the clinical diary."
+  },
+  {
+    "criterion": "Untreated brain metastases",
+    "match": false,
+    "justification": "Imaging shows no distant disease and no brain metastases."
+  },
+  {
+    "criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+    "match": true,
+    "justification": "Creatinine is 0.82 mg/dL with normal renal function, consistent with CrCl ≥ 40 mL/min."
+  },
+  {
+    "criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+    "match": false,
+    "justification": "No autoimmune disease or systemic immunosuppressive therapy is reported."
+  },
+  {
+    "criterion": "Other active invasive malignancy within 3 years",
+    "match": false,
+    "justification": "Only breast carcinoma is documented; no second malignancy is reported."
+  }
+]

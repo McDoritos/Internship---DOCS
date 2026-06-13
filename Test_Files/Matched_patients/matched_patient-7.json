@@ -1,0 +1,52 @@
+[
+  {
+    "criterion": "At least one measurable lesion per RECIST 1.1",
+    "match": true,
+    "justification": "The diary reports multiple measurable hepatic metastases and a sigmoid primary lesion, which meet RECIST 1.1 measurability criteria."
+  },
+  {
+    "criterion": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L",
+    "match": true,
+    "justification": "ANC is 5.1 x10^9/L, which is above the 1.5 x10^9/L threshold."
+  },
+  {
+    "criterion": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation",
+    "match": false,
+    "justification": "The patient is male, and no pregnancy test is applicable or reported."
+  },
+  {
+    "criterion": "Known EGFR genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "The diary reports KRAS G12D mutation and MSS status, with no EGFR alterations."
+  },
+  {
+    "criterion": "Known ALK genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No ALK rearrangement or mutation is documented in the clinical diary."
+  },
+  {
+    "criterion": "Known ROS1 genomic alterations with available approved targeted therapy",
+    "match": false,
+    "justification": "No ROS1 genomic alteration is reported in the diary."
+  },
+  {
+    "criterion": "Untreated brain metastases",
+    "match": false,
+    "justification": "Imaging reports only hepatic metastases; no brain metastases are described."
+  },
+  {
+    "criterion": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula)",
+    "match": true,
+    "justification": "Creatinine is 0.81 mg/dL with no renal impairment noted, consistent with CrCl ≥ 40 mL/min."
+  },
+  {
+    "criterion": "Active autoimmune disease requiring systemic immunosuppressive therapy",
+    "match": false,
+    "justification": "No autoimmune disease or systemic immunosuppressive therapy is reported."
+  },
+  {
+    "criterion": "Other active invasive malignancy within 3 years",
+    "match": false,
+    "justification": "Only metastatic colorectal adenocarcinoma is documented; no second malignancy is reported."
+  }
+]
