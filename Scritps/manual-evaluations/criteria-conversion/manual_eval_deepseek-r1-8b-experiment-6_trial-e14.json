@@ -1,0 +1,531 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Signed written informed consent.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "signed"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps the original criterion to a custom field, which is acceptable since there is no schema field for informed consent, and the logic is coherent and accurate."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Age >= 18 years old.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Life expectancy of at least 12 weeks.",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">=",
+            "value": "12"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'life_expectancy' when no schema field exists, but it is acceptable. However, the logic accuracy is preserved, and the structure is coherent."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have histologically confirmed ovarian, gastric/esophageal adenocarcinoma, uterine serous papillary, or bladder cancer.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "ovarian"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "gastric"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "esophageal"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "uterine serous papillary"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "bladder"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps the original criterion to the 'diagnosis' schema field and preserves the meaning using the correct operator and values."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have ErbB2-positive cancer as determined by Fluorescence In Situ Hybridization (FISH) assay.",
+        "logic": {
+            "field": "erb_b2_status",
+            "operator": "=",
+            "value": "positive"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a field that corresponds to the ErbB2 status, and correctly preserves the meaning of having ErbB2-positive cancer."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have documented tumor progression after receiving all standard/approved chemotherapies per National Comprehensive Cancer Network (NCCN) guidelines (V1) for their specific cancer and no approved therapy exists.",
+        "logic": {
+            "field": "previous_chemotherapy",
+            "operator": "IN",
+            "value": "all standard/approved"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'previous_chemotherapy' instead of the allowed schema field 'treatment' and did not fully capture the meaning of the original criterion, which includes tumor progression and absence of approved therapy."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have one or more tumors measurable by medical imaging and assessed using the Response Evaluation Criteria in Solid Tumors (RECIST) criteria.",
+        "logic": {
+            "field": "tumor_measurable",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a field that conveys the same meaning as 'having one or more tumors measurable by medical imaging' and correctly applies the operator and value to represent the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Eastern Cooperative Oncology Group (ECOG) Performance Status of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "0,1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and values."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have archived tumor tissue available for biomarker analysis.",
+        "logic": {
+            "field": "tumor_tissue_available",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'tumor_tissue_available' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have a negative serum pregnancy test if female of childbearing potential.",
+        "logic": {
+            "field": "pregnancy_test",
+            "operator": "=",
+            "value": "negative"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'pregnancy_test' instead of a normalized lab field or schema field, and it does not account for the 'female of childbearing potential' condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women of childbearing potential must have a negative serum pregnancy test at screening and must use an approved contraceptive method, if appropriate (for example, intrauterine device, birth control pills, or barrier device) beginning 2 weeks before the first dose of investigational product and for 28 days after the final dose of investigational product.",
+        "logic": {
+            "field": "contraception_use",
+            "operator": "=",
+            "value": "approved"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'contraception_use' instead of the allowed schema field 'treatment' or a more specific field, and it does not fully capture the original criterion's requirements, such as the negative serum pregnancy test and the duration of contraceptive use."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Males able to father a child must practice adequate methods of birth control or practice complete abstinence from intercourse from the first dose of investigational treatment until one week after the final dose of investigational treatment.",
+        "logic": {
+            "field": "male_birth_control",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'male_birth_control' instead of a schema field, and the logic does not fully capture the original criterion's meaning, which includes the requirement for adequate birth control methods or abstinence during a specific time period."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have a cardiac ejection fraction within institutional range of normal as measured by either echocardiogram or multigated acquisition scans.",
+        "logic": {
+            "field": "cardiac_ef",
+            "operator": "=",
+            "value": "institutional range"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cardiac_ef' instead of a normalized lab field or schema field, and the value 'institutional range' is not a specific numerical value, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "The same method of cardiac evaluation must be used consistently throughout the study.",
+        "logic": {
+            "field": "cardiac_method_consistent",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the original criterion, using a custom field since no schema field exists for this specific condition, and the operator and value are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "absolute neutrophil count >1.5 x 109/L",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">",
+            "value": "1.5 x 10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'neutrofilos' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "hemoglobin >9 g/dL",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">",
+            "value": "9 g/dL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "platelets >75 x 109/L",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">",
+            "value": "75 x 10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'plaquetas' and preserves the original meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "albumin >2.5 g/dL",
+        "logic": {
+            "field": "albumina",
+            "operator": ">",
+            "value": "2.5 g/dL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'albumina' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "serum bilirubin <1.25 x upper limit of normal",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<",
+            "value": "1.25 x ULN"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'bilirrubina_total' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases",
+        "logic": {
+            "field": "alt",
+            "operator": "<",
+            "value": "3 x ULN"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'alt' for alanine aminotransferase, but it does not account for the condition 'if no documented liver metastases' which is part of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "aspartate aminotransferase/alanine aminotransferase <5 x ULN with documented liver metastases",
+        "logic": {
+            "field": "alt",
+            "operator": "<",
+            "value": "5 x ULN"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'alt' for alanine aminotransferase, but it does not account for the aspartate aminotransferase (ast) and the condition of documented liver metastases."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "serum creatinine <2.0 mg/dL",
+        "logic": {
+            "field": "creatinina",
+            "operator": "<",
+            "value": "2.0 mg/dL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'creatinina' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "calculated creatinine clearance1 >40 mL/min",
+        "logic": {
+            "field": "clearance_creatinina",
+            "operator": ">",
+            "value": "40 mL/min"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using the appropriate field and operator, and preserves the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have New York Heart Association Class III or IV, cardiac disease, myocardial infarction within past 6 months, unstable arrhythmia or evidence of ischemia on electrocardiogram.",
+        "logic": {
+            "field": "cardiac_condition",
+            "operator": "IN",
+            "value": "NYHA_class_III_or_IV, myocardial_infarction, unstable_arrhythmia, ischemia"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cardiac_condition' instead of using the allowed schema fields such as 'diagnosis' and specific values related to cardiac conditions. However, the logic accuracy is preserved, and the exclusion semantics are correctly applied."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who have had chemotherapy or radiotherapy within 3 weeks prior to entering the study or who have unresolved or unstable, serious toxicity from prior administration of another investigational drug and/or of prior cancer treatment.",
+        "logic": {
+            "field": "previous_toxicity",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'previous_toxicity' instead of the allowed schema fields such as 'treatment' or 'treatment_name', and does not fully capture the original criterion's conditions, including the time frame and type of prior treatments."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent treatment with an investigational agent or participation in another treatment clinical trial.",
+        "logic": {
+            "field": "concurrent_investigational",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'concurrent_investigational' when a more specific schema field such as 'treatment' could be used, and the logic is not fully explicit about 'participation in another treatment clinical trial'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior lapatinib therapy.",
+        "logic": {
+            "field": "previous_lapatinib",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'previous_lapatinib' instead of the allowed schema field 'treatment' or 'treatment_name' which could be used to represent prior lapatinib therapy."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "ECOG Performance Status 2 or greater.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": ">=",
+            "value": "2"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects receiving concurrent chemotherapy, radiation therapy, immunotherapy, biologic therapy (including an ErbB1 and/or ErbB2 inhibitor), or hormonal therapy for treatment of their cancer.",
+        "logic": {
+            "field": "concurrent_therapy",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'concurrent_therapy' when a schema field 'treatment' exists, and the logic does not explicitly specify the types of therapy mentioned in the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent treatment with bisphosphonates is allowed.",
+        "logic": {
+            "field": "bisphosphonates",
+            "operator": "=",
+            "value": "allowed"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'bisphosphonates' instead of the schema field 'treatment' or 'treatment_name', which could better represent the concept of concurrent treatment with bisphosphonates."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of allergic reactions attributed to compounds of similar chemical composition (quinazolines) to lapatinib.",
+        "logic": {
+            "field": "lapatinib_allergy",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lapatinib_allergy' instead of a schema field or a more specific normalized field, but the logic accuracy and structure are correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent treatment with prohibited medications.",
+        "logic": {
+            "field": "prohibited_medications",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prohibited_medications' when a schema field 'treatment' exists, which could be used to represent the concept of prohibited medications."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Malabsorption syndrome, resection of the small bowel or active, uncontrolled ulcerative colitis.",
+        "logic": {
+            "field": "gastrointestinal_condition",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'gastrointestinal_condition' when a more specific schema field such as 'diagnosis' could be used, and the logic does not fully capture the original criterion's conditions."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent disease or condition that would make the subject inappropriate for study participation or any serious medical or psychiatric disorder that would interfere with the subject's safety.",
+        "logic": {
+            "field": "concurrent_disorder",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'concurrent_disorder' when a more specific schema field such as 'diagnosis' could be used, and the logic is simplified but preserves the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Uncontrolled infection.",
+        "logic": {
+            "field": "infection_control",
+            "operator": "=",
+            "value": "false"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'infection_control' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnant or lactating females.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "=",
+            "value": "pregnant_or_lactating"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'pregnancy_status' which is acceptable since there is no direct schema field for pregnancy or lactation status, and the operator and value correctly preserve the meaning of the original criterion."
+        }
+    }
+]

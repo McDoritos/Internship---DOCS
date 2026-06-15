@@ -1,0 +1,307 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Clinical stage IB3-IIB cervical cancer (FIGO, 2018 standard) with the tumor diameter > 4cm before treatment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": "IB3",
+                    "unit": "FIGO 2018"
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": "IIB",
+                    "unit": "FIGO 2018"
+                },
+                {
+                    "field": "tumor_diameter",
+                    "operator": ">",
+                    "value": "4cm"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field for 'stage' but uses a custom field 'tumor_diameter' instead of a potentially available schema field, and also does not account for the range of stages (IB3-IIB) as a single condition."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Pathologically confirmed cervical cancer, including cervical squamous cell carcinoma, adenocarcinoma and adenosquamous carcinoma.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "adenosquamous carcinoma"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only includes one of the specified cancer types (adenosquamous carcinoma) and does not account for cervical squamous cell carcinoma and adenocarcinoma."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Age：18-70 years old.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "age",
+                    "operator": "<=",
+                    "value": "70"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using the correct schema field 'age' and preserving the meaning with correct operators and values."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "ECOG status score ≤1;",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": "1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "WBC≥3.5*10^9/L, NEU≥1.5*10^9/L, Platelet≥80×10^9 /L; AST and ALT ≤1.5 times normal upper limit; Total bilirubin ≤1.5 times the upper limit of normal value; serum creatinine and blood urea nitrogen ≤the upper limit of normal value.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "leucocitos",
+                    "operator": ">=",
+                    "value": "3.5*10^9/L"
+                },
+                {
+                    "field": "neutrofilos",
+                    "operator": ">=",
+                    "value": "1.5*10^9/L"
+                },
+                {
+                    "field": "plaquetas",
+                    "operator": ">=",
+                    "value": "80×10^9 /L"
+                },
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "1.5 times normal upper limit"
+                },
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "1.5 times normal upper limit"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "1.5 times the upper limit of normal value"
+                },
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "upper limit of normal value"
+                },
+                {
+                    "field": "azoto_ureico",
+                    "operator": "<=",
+                    "value": "upper limit of normal value"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields and preserving the meaning of the conditions."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Well-compliance and willing to keep in touch.",
+        "logic": {
+            "field": "compliance",
+            "operator": "=",
+            "value": "well"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'compliance' when no schema field exists, but the logic accuracy is preserved. However, the field 'compliance' does not exactly match the original criterion 'Well-compliance and willing to keep in touch', which implies a more complex condition."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Able to sign informed consent, including complying with the requirements and restrictions listed in the Informed Consent (ICF) and this protocol.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "signed"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'informed_consent' which is acceptable since there is no direct schema field for this concept, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "After 2-3 cycles of neoadjuvant chemotherapy, patients do not undergo laparotomic or laparoscopic extensive hysterectomy + pelvic lymph node dissection with cervical cancer foci sealed before dissection of the vagina and without uterine manipulator.",
+        "logic": {
+            "field": "surgical_procedure",
+            "operator": "NOT_IN",
+            "value": "laparotomic or laparoscopic extensive hysterectomy + pelvic lymph node dissection with cervical cancer foci sealed before dissection of the vagina and without uterine manipulator"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'surgical_procedure' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy and exclusion semantics are preserved."
+        }
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Neoadjuvant chemotherapy regimens are different from postoperative adjuvant therapy regimens.",
+        "logic": {
+            "field": "chemotherapy_regimen",
+            "operator": "NOT_IN",
+            "value": "postoperative adjuvant therapy regimens"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'chemotherapy_regimen' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Postoperative high risk factors: ① lymph node metastasis, ② parauterine infiltration, ③ positive surgical margin.",
+        "logic": {
+            "field": "postoperative_risk_factors",
+            "operator": "IN",
+            "value": "positive surgical margin"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'postoperative_risk_factors' when a more specific schema field 'diagnosis' or 'treatment' could be used, and only one of the three risk factors is included in the logic rule."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Postoperative risk factors meet the Sedlis standard of the NCCN guideline.",
+        "logic": {
+            "field": "postoperative_risk_factors",
+            "operator": "IN",
+            "value": "Sedlis standard of the NCCN guideline"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'postoperative_risk_factors' when it could be mapped to a more specific schema field or a combination of fields, and the logic seems to preserve the meaning but the field selection is not optimal."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Participate in other clinical trials.",
+        "logic": {
+            "field": "clinical_trials_participation",
+            "operator": "NOT_IN",
+            "value": "other clinical trials"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the exclusion condition, it should evaluate TRUE when participation in other clinical trials is present, but the 'NOT_IN' operator suggests the opposite."
+        }
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Severe diseases of other important systems and organs.",
+        "logic": {
+            "field": "systemic_diseases",
+            "operator": "NOT_IN",
+            "value": "none"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'systemic_diseases' when a more specific schema field such as 'diagnosis' could be used, and the logic is partially preserved as it checks for absence of severe diseases."
+        }
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Persons without disposing capacity.",
+        "logic": {
+            "field": "legal_capacity",
+            "operator": "NOT_IN",
+            "value": "disposing capacity"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'legal_capacity' instead of a schema field, and the field does not exist in the allowed schema fields. Additionally, the meaning of 'disposing capacity' is not clear in the context of the clinical trial, but it seems that the logic is trying to exclude people without it, which is the opposite of what the original criterion states."
+        }
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Drug and/or alcohol abuse.",
+        "logic": {
+            "field": "substance_abuse",
+            "operator": "NOT_IN",
+            "value": "none"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'substance_abuse' instead of a more specific schema field, and the logic is mostly correct but could be improved with a more precise field, however the meaning is preserved."
+        }
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "Unable or unwilling to sign informed consents.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "NOT_IN",
+            "value": "signed"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'informed_consent' which is not a schema field, and the meaning is also not directly related to the inability or unwillingness to sign informed consents."
+        }
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "Not eligible for the study judged by researchers.",
+        "logic": {
+            "field": "eligibility",
+            "operator": "NOT_IN",
+            "value": "eligible"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'eligibility' instead of a schema field, and the meaning is also incorrect as it checks for 'NOT_IN' 'eligible' which is opposite of the original criterion."
+        }
+    }
+]

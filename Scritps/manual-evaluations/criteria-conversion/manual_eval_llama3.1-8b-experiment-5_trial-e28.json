@@ -1,0 +1,197 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Age > 20, Japanese men at the time of informed consent.",
+        "logic": {
+            "operator": ">",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">",
+                    "value": "20"
+                },
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule correctly uses the schema fields 'age' and 'gender', but it does not account for the 'Japanese' ethnicity condition mentioned in the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients who provided informed consent. If the patient has died, opt-out will be applicable.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "informed_consent",
+                    "operator": "=",
+                    "value": "provided"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "If the patient has died, opt-out will be applicable."
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'informed_consent' which is acceptable since there is no schema field for informed consent, but it does not fully capture the original criterion regarding the opt-out condition for deceased patients."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients who are diagnosed as mCRPC between January 1st in 2014 and December 31st in 2018.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "mCRPC"
+                },
+                {
+                    "field": "diagnosis_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "diagnosis_date",
+                    "operator": "<=",
+                    "value": "2018-12-31"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields (diagnosis and diagnosis_date) and preserving the meaning with correct operators and values."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients who have a FFPE tumor sample (primary or metastatic) with Formalin Neutral Buffer Solution.",
+        "logic": {
+            "operator": "=",
+            "conditions": [
+                {
+                    "field": "sample_type",
+                    "operator": "=",
+                    "value": "FFPE"
+                },
+                {
+                    "field": "sample_status",
+                    "operator": "=",
+                    "value": "with Formalin Neutral Buffer Solution"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used custom fields 'sample_type' and 'sample_status' instead of potentially available schema fields, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients which the investigator judges to secure the enough amount of tumor samples for future laboratory test.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Patients which the investigator judges to secure the enough amount of tumor samples for future laboratory test."
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not map to any schema field and does not provide a clear logical condition, failing to preserve the meaning of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have failed HRR-related gene mutation testing with the myChoice HRD plus in screening period.",
+        "logic": {
+            "operator": "=",
+            "conditions": [
+                {
+                    "field": "test_result",
+                    "operator": "!=",
+                    "value": "failed"
+                },
+                {
+                    "field": "test_type",
+                    "operator": "=",
+                    "value": "myChoice HRD plus"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion by using '!=' for 'failed' instead of '=' and also lacks a field for 'HRR-related gene mutation testing' and 'screening period'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have an only FFPE primary tumor sample (primary or metastatic) with unbuffered formalin including acidic formalin.",
+        "logic": {
+            "operator": "=",
+            "conditions": [
+                {
+                    "field": "sample_type",
+                    "operator": "=",
+                    "value": "FFPE"
+                },
+                {
+                    "field": "sample_status",
+                    "operator": "=",
+                    "value": "with unbuffered formalin including acidic formalin"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields 'sample_type' and 'sample_status' instead of possible schema fields, and the condition for 'sample_status' is not fully clear, but the meaning is partially preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have taken an investigational medical product for prostate cancer from Jan 1st , 2014 to Dec 31st 2020.",
+        "logic": {
+            "operator": "=",
+            "conditions": [
+                {
+                    "field": "treatment",
+                    "operator": "=",
+                    "value": "investigational medical product"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "prostate cancer"
+                },
+                {
+                    "field": "treatment_start_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "treatment_end_date",
+                    "operator": "<=",
+                    "value": "2020-12-31"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields and preserving the meaning of the exclusion condition."
+        }
+    }
+]

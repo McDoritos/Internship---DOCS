@@ -1,0 +1,412 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Women who have high-grade serous ovarian, primary peritoneal or fallopian tube cancer.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "high-grade serous ovarian, primary peritoneal or fallopian tube cancer"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion using the correct operator and value."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "platinum_resistance_status",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "brca_genetic_status",
+                    "operator": "NOT_IN",
+                    "value": [
+                        "BRCA1",
+                        "BRCA2"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' for BRCA1 and BRCA2 genes, when it should be checking for the presence of alterations in these genes."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "platinum_resistance_status",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "brca_genetic_status",
+                    "operator": "NOT_IN",
+                    "value": [
+                        "BRCA1",
+                        "BRCA2"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' for BRCA1 and BRCA2 genes, when it should be checking for the presence of alterations in these genes."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "platinum_resistance_status",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "brca_genetic_status",
+                    "operator": "NOT_IN",
+                    "value": [
+                        "BRCA1",
+                        "BRCA2"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' for BRCA1 and BRCA2 genes, when it should be checking for the presence of alterations in these genes."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Are BRCA negative and have received 3 or more prior lines of therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "brca_genetic_status",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "prior_therapy_count",
+                    "operator": ">=",
+                    "value": 3
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct fields and operators to represent the inclusion condition."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Are BRCA negative and have received less than 3 prior lines of therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "brca_genetic_status",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "prior_therapy_count",
+                    "operator": "<",
+                    "value": 3
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct fields and operators to represent the conditions of being BRCA negative and having less than 3 prior lines of therapy."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Are BRCA positive and have previously received a PARP.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "brca_genetic_status",
+                    "operator": "=",
+                    "value": "positive"
+                },
+                {
+                    "field": "prior_parp_therapy",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using correct fields and operators to represent the inclusion condition of being BRCA positive and having previously received PARP therapy."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Have primary platinum refractory disease.",
+        "logic": {
+            "field": "platinum_resistance_status",
+            "operator": "=",
+            "value": "primary refractory"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'platinum_resistance_status' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Have adequate organ function.",
+        "logic": {
+            "field": "organ_function_status",
+            "operator": "=",
+            "value": "adequate"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'organ_function_status' instead of a schema field or normalized lab field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Must be able and willing to undergo mandatory tumor biopsy.",
+        "logic": {
+            "field": "willingness_to_undergo_biopsy",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'willingness_to_undergo_biopsy' when no schema field exists, but it is acceptable as no schema field is available for this criterion."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "operator": "IN",
+            "value": [
+                "gemcitabine",
+                "pegylated liposomal doxorubicin",
+                "paclitaxel"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion, which requires that all three agents have been previously received in the platinum-resistant setting. The current logic rule only checks if any of these agents are present, without considering the setting or the requirement that all three must have been received."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "operator": "IN",
+            "value": [
+                "gemcitabine",
+                "pegylated liposomal doxorubicin",
+                "paclitaxel"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion, which requires that all three agents have been previously received in the platinum-resistant setting. The current logic rule only checks if any of these agents are present, without considering the platinum-resistant setting or the requirement that all three agents have been received."
+        }
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "operator": "IN",
+            "value": [
+                "gemcitabine",
+                "pegylated liposomal doxorubicin",
+                "paclitaxel"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion, which requires that all three agents have been previously received in the platinum-resistant setting. The current logic rule only checks if any of these agents are present, without considering the setting or the requirement that all three must have been received."
+        }
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Have known central nervous system malignancy or metastasis.",
+        "logic": {
+            "field": "cns_malignancy_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cns_malignancy_status' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Have previously participated in any study involving a checkpoint kinase 1 inhibitor or have hypersensitivity to the study drug or excipients.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "previous_ck1_inhibitor_study_participation",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "hypersensitivity_to_study_drug_or_excipients",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields ('previous_ck1_inhibitor_study_participation' and 'hypersensitivity_to_study_drug_or_excipients') instead of schema fields, but the meaning and logic accuracy are preserved."
+        }
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "history of abdominal fistula or gastrointestinal perforation",
+        "logic": {
+            "field": "abdominal_fistula_or_gi_perforation_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'abdominal_fistula_or_gi_perforation_history' instead of the allowed schema field 'diagnosis' or a more specific field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "intra-abdominal abscess within last 3 months prior to the first dose of study drug",
+        "logic": {
+            "field": "intra_abdominal_abscess_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'intra_abdominal_abscess_status' instead of a schema field, and the logic does not account for the time frame 'within last 3 months prior to the first dose of study drug'."
+        }
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "a radiographically confirmed bowel obstruction within 3 months prior to the first dose of study drug",
+        "logic": {
+            "field": "bowel_obstruction_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'bowel_obstruction_status' instead of a schema field, and the logic does not fully capture the 'within 3 months prior' condition."
+        }
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "Have a symptomatic human immunodeficiency virus infection or symptomatic activated/reactivated hepatitis A, B, or C (screening is not required).",
+        "logic": {
+            "field": "hiv_or_hepatitis_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hiv_or_hepatitis_status' instead of the allowed schema field 'diagnosis' or a more specific normalized lab field, but the logic accuracy and structure are mostly preserved."
+        }
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Have a serious cardiac condition.",
+        "logic": {
+            "field": "serious_cardiac_condition",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'serious_cardiac_condition' when it could be mapped to the 'diagnosis' schema field with a specific value, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Have a history of prior radiotherapy to the whole pelvis.",
+        "logic": {
+            "field": "prior_radiotherapy_to_pelvis_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prior_radiotherapy_to_pelvis_status' instead of a schema field, but the logic and meaning are preserved."
+        }
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "Have chronic daily treatment with corticosteroids, excluding inhaled or topical steroids.",
+        "logic": {
+            "field": "chronic_corticosteroid_use_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'chronic_corticosteroid_use_status' instead of the allowed schema field 'treatment' which could be used to represent corticosteroid use, and the logic does not explicitly exclude inhaled or topical steroids."
+        }
+    },
+    {
+        "id": 23,
+        "type": "exclusion",
+        "text": "Have known factors that may increase the risk of infection while on study drug treatment. These may include, but are not limited to, an indwelling peritoneal catheter or open wounds. Catheters for vascular access are permitted.",
+        "logic": {
+            "field": "infection_risk_factors_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'infection_risk_factors_status' instead of a schema field or normalized lab field, but the logic accuracy and structure are mostly preserved."
+        }
+    }
+]

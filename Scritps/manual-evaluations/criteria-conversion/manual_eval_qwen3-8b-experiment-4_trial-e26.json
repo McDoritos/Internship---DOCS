@@ -1,0 +1,724 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Unresectable or metastatic, histologically confirmed advanced solid tumor, where standard curative or palliative measures are no longer effective or are not considered appropriate or safe in the opinion of the investigator.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "advanced solid tumor"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field, but it does not fully capture the meaning of the original criterion, which includes 'unresectable or metastatic' and the ineffectiveness of standard measures."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "FGFR1-3 fusion, rearrangement, activating mutation, or FGFR2 extracellular domain in-frame deletions on tumor profiling in tumor tissue as determined by testing routinely performed at a Clinical Laboratory Improvement Amendments (CLIA) or other similarly certified laboratory. If the FGFR alteration is present on circulating tumor DNA (ctDNA) analysis alone, the patient may be eligible with principal investigator approval. Additional mutations may be considered with principal investigator approval.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "FGFR1-3 fusion, FGFR1-3 rearrangement, FGFR1-3 activating mutation, FGFR2 extracellular domain in-frame deletion"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the molecular_status schema field and preserves the meaning of the original criterion, correctly identifying the FGFR alterations."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Eastern Cooperative Oncology Group (ECOG) 0-1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "0, 1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'ecog_ps' schema field and accurately represents the ECOG 0-1 inclusion criterion using the 'IN' operator with values '0, 1'."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "At least 18 years of age.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Ability to swallow tablets.",
+        "logic": {
+            "field": "swallow_ability",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'swallow_ability' when no schema field exists, which is acceptable, but it would be better to use a more standardized field if available."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Life expectancy >/=3 months",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">=",
+            "value": "3"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'life_expectancy' when no schema field exists, but it's acceptable. However, the logic is simple and accurate, preserving the original meaning."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Ability to comply with outpatient treatment, laboratory monitoring, and required clinic visits for the duration of study participation.",
+        "logic": {
+            "field": "compliance_status",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'compliance_status' when no schema field exists, which is acceptable, but the logic is simple and does not fully capture the complexity of the original criterion, which mentions multiple aspects of compliance."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Patients with cholangiocarcinoma must have adequate biliary drainage (per investigator's discretion), with no evidence of ongoing infection.",
+        "logic": {
+            "field": "biliary_drainage_status",
+            "operator": "=",
+            "value": "adequate"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'biliary_drainage_status' instead of a schema field, and also missed the condition of 'no evidence of ongoing infection'."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Willingness of men and women of reproductive potential to observe conventional and effective birth control for the duration of treatment and for 3 months following the last dose of study treatment.",
+        "logic": {
+            "field": "birth_control_compliance",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'birth_control_compliance' instead of a schema field, but the meaning is preserved and the operator/value is correct. A more accurate representation would use a schema field such as 'treatment' or 'control' with additional context."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Measurable or non-measurable disease as determined by RECIST 1.1.",
+        "logic": {
+            "field": "disease_status",
+            "operator": "IN",
+            "value": "measurable, non-measurable"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'disease_status' instead of the allowed schema field 'diagnosis' or a more specific field, and the logic is mostly correct but could be improved with a more precise field."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "ALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ALT",
+                    "operator": "<=",
+                    "value": "3"
+                },
+                {
+                    "field": "AST",
+                    "operator": "<=",
+                    "value": "3"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule does not fully capture the original criterion, missing the conditions for liver metastases and the corresponding ULN multipliers."
+        }
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "2.0"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "3"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not fully capture the original criterion, missing the conditions related to Gilbert's Disease and direct bilirubin."
+        }
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "Serum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "1.5"
+                },
+                {
+                    "field": "creatinine_clearance",
+                    "operator": ">=",
+                    "value": "60"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'creatinine_clearance' instead of the allowed schema field 'creatinina' for the second condition, and also missed the 'ULN' (Upper Limit of Normal) consideration for the first condition."
+        }
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "Hemoglobin ≥ 9 g/dL (≥ 90 g/L)",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "9"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "Absolute Neutrophil Count ≥ 1.5 x 109/L",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'neutrofilos' instead of the normalized lab field 'neutrofilos' which is acceptable, but it lacks the unit and the multiplier 'x 10^9/L' in the value."
+        }
+    },
+    {
+        "id": 16,
+        "type": "inclusion",
+        "text": "Platelets ≥ 75 x 109/L",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "75"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'plaquetas' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "INR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "INR",
+                    "operator": "<=",
+                    "value": "1.5"
+                },
+                {
+                    "field": "PT",
+                    "operator": "<=",
+                    "value": "1.5"
+                },
+                {
+                    "field": "aPTT",
+                    "operator": "<=",
+                    "value": "1.5"
+                },
+                {
+                    "field": "PTT",
+                    "operator": "<=",
+                    "value": "1.5"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not account for the 'unless participant is receiving anticoagulant therapy' condition and incorrectly applies the same operator and value to all fields without considering the ULN (Upper Limit of Normal) and the 'or' conditions between INR or PT and aPTT or PTT."
+        }
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed diagnosis of advanced or metastatic cholangiocarcinoma",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "cholangiocarcinoma"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'diagnosis', but it does not fully capture the meaning of the original criterion, which specifies 'advanced or metastatic' cholangiocarcinoma."
+        }
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "No prior treatment with a selective FGFR inhibitor treatment",
+        "logic": {
+            "field": "prior_treatment",
+            "operator": "NOT_IN",
+            "value": "selective FGFR inhibitor"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prior_treatment' when a schema field 'treatment' exists, and the logic is mostly correct but could be improved with the existing schema fields."
+        }
+    },
+    {
+        "id": 20,
+        "type": "inclusion",
+        "text": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion on tumor profiling in tumor tissue as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "FGFR2 fusion, FGFR2 in-frame rearrangement, FGFR2 extracellular domain in-frame deletion"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the molecular_status schema field and preserves the meaning of the original criterion, correctly identifying the FGFR2 alterations."
+        }
+    },
+    {
+        "id": 21,
+        "type": "inclusion",
+        "text": "An archived tumor tissue sample is available in patients not undergoing fresh tumor biopsy. Patients who do not have adequate archival tumor tissue available are required to undergo a fresh tumor biopsy. If a fresh biopsy cannot be safely performed, the patient may be eligible with principal investigator approval.",
+        "logic": {
+            "field": "tumor_biopsy_status",
+            "operator": "=",
+            "value": "available"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'tumor_biopsy_status' instead of a schema field, and it does not fully capture the complexity of the original criterion, which includes conditions for fresh tumor biopsy and principal investigator approval."
+        }
+    },
+    {
+        "id": 22,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed diagnosis of advanced or metastatic cholangiocarcinoma",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "cholangiocarcinoma"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'diagnosis', but it does not fully capture the meaning of the original criterion, which specifies 'advanced or metastatic' cholangiocarcinoma."
+        }
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "Prior FGFR inhibitor treatment at any time prior to treatment start is required",
+        "logic": {
+            "field": "prior_treatment",
+            "operator": "IN",
+            "value": "FGFR inhibitor"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prior_treatment' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 24,
+        "type": "inclusion",
+        "text": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion for which they derived clinical benefit (objective response of any duration or stable disease for at least 6 months) from prior FGFR inhibitor therapy, as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "FGFR2 fusion, FGFR2 in-frame rearrangement, FGFR2 extracellular domain in-frame deletion"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the molecular_status schema field and correctly represents the FGFR2 alterations mentioned in the original criterion."
+        }
+    },
+    {
+        "id": 25,
+        "type": "inclusion",
+        "text": "An archived tumor tissue sample after progression on or intolerance of prior FGFR inhibitor available in patients not undergoing fresh tumor biopsy. Patients who do not have adequate archival tumor tissue available are required to undergo a fresh tumor biopsy. If a fresh biopsy cannot be safely performed, the patient may be eligible with principal investigator approval.",
+        "logic": {
+            "field": "tumor_biopsy_status",
+            "operator": "=",
+            "value": "available"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'tumor_biopsy_status' instead of a schema field, and it does not fully capture the complexity of the original criterion, which involves multiple conditions and exceptions."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Known hypersensitivity to afatinib or pemigatinib or excipients of pemigatinib",
+        "logic": {
+            "field": "hypersensitivity",
+            "operator": "IN",
+            "value": "afatinib, pemigatinib, excipients of pemigatinib"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hypersensitivity' when a more specific schema field such as 'diagnosis' could be used, and the logic does not explicitly handle the exclusion semantics."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "For patients treated with a prior FGFR inhibitor, those with known activating mutation(s) in the FGFR2 kinase domain on ctDNA or biopsy analysis within 8 weeks of start of study drugs; activating mutations in the FGFR2 kinase domain seen on ctDNA or biopsy analysis prior to the 8-week timepoint may be allowed after discussion with the study PI.",
+        "logic": {
+            "field": "mutation_status",
+            "operator": "IN",
+            "value": "activating mutation in FGFR2 kinase domain"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'mutation_status' instead of the allowed schema field 'molecular_status', and it does not fully capture the temporal aspect of the original criterion (within 8 weeks of start of study drugs)."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Systemic or liver-directed anticancer therapy within 2 weeks; or anticancer monoclonal antibody within 4 weeks prior to planned start of pemigatinib and afatinib.",
+        "logic": {
+            "field": "previous_therapy",
+            "operator": "IN",
+            "value": "systemic or liver-directed anticancer therapy, anticancer monoclonal antibody"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'previous_therapy' instead of the allowed schema field 'treatment' and does not account for the time frames specified in the original criterion."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Patient has adverse events from prior therapy that have not resolved to ≤ grade 1; exceptions for non-clinically meaningful adverse events (AEs) can be made with input from the principal investigator.",
+        "logic": {
+            "field": "adverse_event_status",
+            "operator": "!=",
+            "value": "resolved to ≤ grade 1"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'adverse_event_status' instead of a schema field, and the operator and value are simplified and do not fully capture the nuances of the original criterion, including the exception for non-clinically meaningful adverse events."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Major surgery within 4 weeks prior to planned start of pemigatinib and afatinib (tumor biopsy, biliary stent or catheter placement, and feeding tube placement are not considered major surgical procedures).",
+        "logic": {
+            "field": "surgery_status",
+            "operator": "!=",
+            "value": "major surgery"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'surgery_status' instead of a schema field, and the logic does not fully capture the original criterion's meaning, which includes a time frame and specific exceptions."
+        }
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "Received prior palliative non-CNS radiation within 2 weeks or extended-field radiation administered within 4 weeks of first dose of study drug. Subjects must have recovered from all radiation-related toxicities, not require corticosteroids, and not have had radiation pneumonitis. Fibrotic pulmonary disease from prior radiotherapy is permissible with approval of the study PI.",
+        "logic": {
+            "field": "radiation_status",
+            "operator": "!=",
+            "value": "palliative non-CNS radiation within 2 weeks, extended-field radiation within 4 weeks"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'radiation_status' instead of the allowed schema fields 'treatment' or 'treatment_name', and the logic does not fully capture the original criterion's conditions, such as recovery from radiation-related toxicities and absence of radiation pneumonitis."
+        }
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "Known pre-existing interstitial lung disease",
+        "logic": {
+            "field": "lung_disease_status",
+            "operator": "=",
+            "value": "pre-existing interstitial"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lung_disease_status' instead of the allowed schema field 'diagnosis' which could potentially map to this condition, and also used a non-normalized description of the disease."
+        }
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "Current hypovitaminosis D requiring supraphysiologic (eg 50,000 IU/weekly) to replenish the deficiency. Vitamin D supplements are allowed.",
+        "logic": {
+            "field": "vitamin_d_status",
+            "operator": "=",
+            "value": "hypovitaminosis D requiring supraphysiologic supplementation"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'vitamin_d_status' instead of a normalized lab field or schema field, but the logic accuracy and exclusion semantics are preserved."
+        }
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "History and/or current evidence of clinically significant ectopic mineralization/calcification or non-tumor related alteration of calcium-phosphorus homeostasis.",
+        "logic": {
+            "field": "mineralization_status",
+            "operator": "=",
+            "value": "clinically significant ectopic mineralization/calcification, non-tumor related calcium-phosphorus homeostasis alteration"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'mineralization_status' instead of a schema field or normalized lab field, but the logic accuracy and structure are mostly preserved."
+        }
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "History and/or current evidence of clinically significant corneal or retinal disorder confirmed by ophthalmological examination",
+        "logic": {
+            "field": "eye_disease_status",
+            "operator": "=",
+            "value": "clinically significant corneal or retinal disorder"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'eye_disease_status' instead of a possible schema field 'diagnosis' which could be used to represent the condition, and the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Child-Pugh B and C cirrhosis",
+        "logic": {
+            "field": "liver_status",
+            "operator": "IN",
+            "value": "Child-Pugh B, Child-Pugh C"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'liver_status' instead of the allowed schema field 'diagnosis' or a more specific field, and used a synonym 'Child-Pugh B, Child-Pugh C' which could be mapped to a more normalized field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Chronic nausea, vomiting, or diarrhea considered to be clinically significant in the opinion of the investigator. This includes significant or recent gastrointestinal disorders with diarrhea as a major symptom",
+        "logic": {
+            "field": "gastrointestinal_status",
+            "operator": "=",
+            "value": "clinically significant chronic nausea, vomiting, diarrhea"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'gastrointestinal_status' instead of the allowed schema field 'diagnosis' which could be used to represent gastrointestinal disorders. The logic accuracy is preserved, but the field selection is imperfect."
+        }
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Clinically significant, active cardiovascular disease such as uncontrolled hypertension, congestive heart failure New York Heart Association (NYHA) classification of 3, unstable angina or poorly controlled arrhythmia, or history of myocardial infarction within 6 months prior to planned start of pemigatinib and afatinib",
+        "logic": {
+            "field": "cardiovascular_status",
+            "operator": "=",
+            "value": "uncontrolled hypertension, NYHA 3, unstable angina, poorly controlled arrhythmia, myocardial infarction within 6 months"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cardiovascular_status' instead of a schema field, and the value is a list of conditions instead of a single value, but the meaning is partially preserved."
+        }
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Fridericia's corrected QT interval (QTcF) > 480 ms on ECG conducted during Screening, or history of torsades de pointes or personal or family history of prolonged QT syndrome. Correction of suspected drug-induced QTcF prolongation can be attempted at the investigator's discretion and only if clinically safe to do so with either discontinuation of the offending drug or switch to another drug not known to be associated with QTcF prolongation.",
+        "logic": {
+            "field": "QTcF_status",
+            "operator": ">",
+            "value": "480"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'QTcF_status' instead of a normalized lab field or schema field, and it does not fully capture the original criterion, which includes conditions such as history of torsades de pointes or personal or family history of prolonged QT syndrome."
+        }
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Active uncontrolled systemic bacterial, viral, fungal or parasitic infection (except for fungal nail infection), or other clinically significant active disease process which in the opinion of the investigator and the sponsor-investigator makes it undesirable for the patient to participate in the trial. Screening for chronic conditions is not required.",
+        "logic": {
+            "field": "infection_status",
+            "operator": "=",
+            "value": "active uncontrolled systemic bacterial, viral, fungal or parasitic infection"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'infection_status' instead of a schema field, and it does not fully capture the complexity of the original criterion, which includes exceptions and the investigator's opinion."
+        }
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "Active hepatitis B virus (HBV)",
+        "logic": {
+            "field": "infection_status",
+            "operator": "=",
+            "value": "active hepatitis B virus (HBV)"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'infection_status' instead of a schema field, and there is no direct schema field for 'hepatitis B virus' status, but 'diagnosis' could be a more suitable field."
+        }
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "Known human immunodeficiency virus (HIV) and on anti-retroviral therapy for HIV (excluded due to potential drug-drug interactions between anti-retroviral medications and study treatment but HIV itself is not an exclusion).",
+        "logic": {
+            "field": "HIV_status",
+            "operator": "=",
+            "value": "known HIV on anti-retroviral therapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'HIV_status' instead of the allowed schema field 'diagnosis' or a more specific field, and the value is not normalized, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "Known or suspected active drug or alcohol use",
+        "logic": {
+            "field": "substance_use",
+            "operator": "=",
+            "value": "active drug or alcohol use"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'substance_use' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "Concomitant treatment with known strong p-gp inhibitor.",
+        "logic": {
+            "field": "drug_interaction",
+            "operator": "=",
+            "value": "strong p-gp inhibitor"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'drug_interaction' when a schema field 'treatment' or 'treatment_name' could be more appropriate, and the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Use of any potent CYP3A4 inhibitors or inducers or moderate CYP3A4 inducers within 14 days or 5 half-lives (whichever is longer) before the first dose of study treatment.",
+        "logic": {
+            "field": "drug_interaction",
+            "operator": "IN",
+            "value": "potent CYP3A4 inhibitors, potent CYP3 4 inducers, moderate CYP3A4 inducers"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'drug_interaction' instead of a more specific schema field like 'treatment' and does not fully capture the temporal aspect of the original criterion (within 14 days or 5 half-lives before the first dose of study treatment)."
+        }
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Pregnancy during the study or within 30 days of the last dose of study intervention. Also excluded are any persons of childbearing potential, including men who are able to father a child, who are unwilling to use a medically acceptable method of contraception during the trial (see below section 3.3). Lactation and breastfeeding during the study or within 30 days of the last dose of study intervention is also not allowed. Female patients must have a negative pregnancy test (B-HCG test in urine or serum) prior to commencing study treatment.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "!=",
+            "value": "pregnancy, lactation, unwilling to use contraception"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'pregnancy_status' which is not a schema field, but the meaning is partially preserved. A more accurate representation would use a combination of fields such as 'diagnosis' or a custom field for pregnancy and lactation status, and 'treatment' for contraception, but the current implementation conveys the main idea."
+        }
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "Unable to swallow pills",
+        "logic": {
+            "field": "swallow_ability",
+            "operator": "!=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'swallow_ability' when no schema field exists, which is acceptable, but the logic seems to preserve the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 23,
+        "type": "exclusion",
+        "text": "Any other concomitant serious illness or organ system dysfunction which in the opinion of the investigator would either compromise patient safety or interfere with the evaluation of the safety of the study drug. Patients unable or deemed by the investigator as unlikely to comply with the protocol are also excluded.",
+        "logic": {
+            "field": "compliance_status",
+            "operator": "!=",
+            "value": "able to comply with protocol"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'compliance_status' instead of a schema field, and it partially preserves the meaning of the original criterion, but does not fully capture the complexity of the exclusion criterion."
+        }
+    }
+]

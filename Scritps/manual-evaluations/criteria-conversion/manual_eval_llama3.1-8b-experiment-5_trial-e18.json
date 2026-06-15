@@ -1,0 +1,224 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Male or female patients ≥ 18 years at the day of consenting;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule correctly uses the 'gender' schema field, but it misses the age condition (≥ 18 years) specified in the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologically confirmed diagnosis of Soft Tissue Sarcoma (STS) excepted GIST.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "Soft Tissue Sarcoma"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'diagnosis', but it does not account for the exception of GIST, which is part of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Metastatic disease or unresectable locally advanced malignancy for which standard therapy by anthracycline is decided;",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "anthracycline"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only partially captures the original criterion, which requires metastatic disease or unresectable locally advanced malignancy, but the rule only checks for anthracycline treatment."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At least one measurable lesion as per RECIST version 1.1.",
+        "logic": {
+            "field": "lesion_status",
+            "operator": ">=",
+            "value": 1
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, which requires at least one measurable lesion, and uses a suitable field and operator."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ECOG Performance Status of 0-2;",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": 2
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'ecog_ps' schema field and accurately represents the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients must have an adequate organ and bone marrow function at baseline;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "kidney_function",
+                    "operator": ">=",
+                    "value": 1
+                },
+                {
+                    "field": "liver_function",
+                    "operator": ">=",
+                    "value": 1
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (kidney_function, liver_function) instead of normalized lab fields or schema fields, but the logic accuracy and structure are preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient should understand, sign, and date the written voluntary informed consent form prior to any protocol-specific procedures performed and should be able and willing to comply with procedures as per protocol;",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the original criterion, which requires patients to understand and sign the informed consent form, using a correct field and operator."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Covered by a medical insurance.",
+        "logic": {
+            "field": "medical_insurance",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Custom field 'medical_insurance' is used instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Evidence of significant uncontrolled concomitant disease that could affect compliance with the protocol or interpretation of results;",
+        "logic": {
+            "field": "comorbidities",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'comorbidities' instead of a schema field, and the logic is simplified but preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior treatment with anthracycline;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "anthracycline"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the schema field 'treatment_name' and accurately represents the exclusion criterion for prior treatment with anthracycline."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of other malignancy other than study disease (except for basal cell or squamous cell carcinoma of the skin or carcinoma in situ of the cervix) unless the patient has been free of disease for at least 3 years;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "prior_malignancy",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "time_since_prior_malignancy",
+                    "operator": ">=",
+                    "value": 3
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'prior_malignancy' instead of the allowed schema field 'diagnosis', and 'time_since_prior_malignancy' is not a schema field, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Metabolic syndrome;",
+        "logic": {
+            "field": "metabolic_syndrome",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'metabolic_syndrome' when no schema field exists, but the logic is simple and accurate, and the exclusion semantics are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnant or breast-feeding woman criteria",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "breast_feeding_status",
+                    "operator": "=",
+                    "value": true
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using appropriate fields and operators to represent the exclusion criteria for pregnant or breast-feeding women."
+        }
+    }
+]

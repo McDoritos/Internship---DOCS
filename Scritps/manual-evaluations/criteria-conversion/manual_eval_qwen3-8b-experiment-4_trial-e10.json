@@ -1,0 +1,540 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Patients with a histological or cytological verified adenocarcinoma of the colon or rectum with non-resectable or metastatic cancer.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "IN",
+                    "value": [
+                        "adenocarcinoma of colon",
+                        "adenocarcinoma of rectum"
+                    ]
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": [
+                        "non-resectable",
+                        "metastatic"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields (diagnosis and stage) and preserving the meaning of the inclusion criterion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patients with measurable disease without previous radiotherapy",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "disease_measurable",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "radiotherapy_previous",
+                    "operator": "!=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using correct fields and operators to represent the inclusion criterion."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Patients with metastatic colorectal cancer with progression after previous therapy with 5-fluoropyrimidines, oxaliplatin or irinotecan.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "metastatic colorectal cancer"
+                },
+                {
+                    "field": "progression_after_therapy",
+                    "operator": "IN",
+                    "value": [
+                        "5-fluoropyrimidines",
+                        "oxaliplatin",
+                        "irinotecan"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'diagnosis', but uses a custom field 'progression_after_therapy' instead of the allowed schema field 'progression_date' or a combination of 'treatment' and 'progression_date' to convey the meaning of progression after previous therapy."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Patients should have been treated with oxaliplatin, but if oxaliplatin has been contraindicated or not tolerated the patient can participate in the trial.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": [
+                        "oxaliplatin"
+                    ]
+                },
+                {
+                    "field": "treatment_contraindicated",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "treatment_tolerated",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'treatment_name' but introduces custom fields 'treatment_contraindicated' and 'treatment_tolerated' which could be mapped to a more accurate representation, such as using 'treatment_name' with a condition for contraindication or intolerance."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Patients with KRAS-mutation in their primary tumour or metastasis.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": [
+                "KRAS-mutation"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'molecular_status' schema field and accurately represents the inclusion criterion for patients with KRAS-mutation in their primary tumour or metastasis."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Patients with progression after therapy with irinotecan or cetuximab independent of KRAS mutation status.",
+        "logic": {
+            "field": "progression_after_therapy",
+            "operator": "IN",
+            "value": [
+                "irinotecan",
+                "cetuximab"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'progression_after_therapy' instead of the allowed schema field 'progression_date' and 'treatment', and does not account for the KRAS mutation status."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Previous radiotherapy is allowed to less than 25 % of the bone marrow.",
+        "logic": {
+            "field": "radiotherapy_previous",
+            "operator": "<",
+            "value": "25",
+            "unit": "%"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'radiotherapy_previous' instead of a schema field, and the logic is mostly correct but lacks explicit reference to 'bone marrow'."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Age more or equal to 18 years.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Performance status less than 3.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<",
+            "value": "3"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "An expected survival time of at least 3 months.",
+        "logic": {
+            "field": "survival_expected",
+            "operator": ">=",
+            "value": "3",
+            "unit": "months"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'survival_expected' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Signed informed consent according to specifications from the ethical comites.",
+        "logic": {
+            "field": "consent_signed",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using a custom field 'consent_signed' which is acceptable since there is no schema field for informed consent."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Former or other concurrent malignant disease except treated basal cell carcinoma or in situ cervical cancer.",
+        "logic": {
+            "field": "malignant_disease_previous",
+            "operator": "NOT_IN",
+            "value": [
+                "basal cell carcinoma",
+                "in situ cervical cancer"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'malignant_disease_previous' instead of the allowed schema field 'diagnosis', and the logic is mostly correct but could be improved with the correct field."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "No cytotoxic therapy or other experimental treatment within 28 days before inclusion.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "therapy_cytotoxic_previous",
+                    "operator": "<",
+                    "value": "28",
+                    "unit": "days"
+                },
+                {
+                    "field": "therapy_experimental_previous",
+                    "operator": "<",
+                    "value": "28",
+                    "unit": "days"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (therapy_cytotoxic_previous, therapy_experimental_previous) instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "No former therapy with everolimus or other rapamycin as sirolimus or temsirolimus.",
+        "logic": {
+            "field": "therapy_previous",
+            "operator": "NOT_IN",
+            "value": [
+                "everolimus",
+                "sirolimus",
+                "temsirolimus"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a suitable custom field 'therapy_previous' since no schema field exists for this specific condition, and accurately inverts the condition for an exclusion criterion."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "No known hypersensitivity for one or more components in the therapy.",
+        "logic": {
+            "field": "hypersensitivity_known",
+            "operator": "!=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a suitable field and operator to represent the exclusion of known hypersensitivity."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "No uncontrolled diabetes",
+        "logic": {
+            "field": "diabetes_uncontrolled",
+            "operator": "!=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly uses a custom field 'diabetes_uncontrolled' since there is no direct schema field for 'uncontrolled diabetes', and the operator and value are correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "No serious non-healing wounds, gastric ulcers, bone fractures, greater surgical procedures, major traumatic injuries within 28 days before inclusion.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "wound_non_healing",
+                    "operator": "<",
+                    "value": "28",
+                    "unit": "days"
+                },
+                {
+                    "field": "gastric_ulcer",
+                    "operator": "<",
+                    "value": "28",
+                    "unit": "days"
+                },
+                {
+                    "field": "bone_fracture",
+                    "operator": "<",
+                    "value": "28",
+                    "unit": "days"
+                },
+                {
+                    "field": "surgical_procedure_major",
+                    "operator": "<",
+                    "value": "28",
+                    "unit": "days"
+                },
+                {
+                    "field": "traumatic_injury_major",
+                    "operator": "<",
+                    "value": "28",
+                    "unit": "days"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (wound_non_healing, gastric_ulcer, bone_fracture, surgical_procedure_major, traumatic_injury_major) instead of schema fields, but the meaning is preserved and operators/values are correct. However, the schema does not have specific fields for these conditions, so it's not entirely incorrect, but it's not using the allowed schema fields either."
+        }
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "No ongoing bleeding or pathological condition associated with a risk of bleeding.",
+        "logic": {
+            "field": "bleeding_ongoing",
+            "operator": "!=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a coherent JSON structure and explicit boolean logic, and the meaning is preserved with the correct operator and value."
+        }
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "No liver disease as cirrhose, chronical active hepatitis or chronic persistent hepatitis.",
+        "logic": {
+            "field": "liver_disease",
+            "operator": "NOT_IN",
+            "value": [
+                "cirrhose",
+                "chronical active hepatitis",
+                "chronic persistent hepatitis"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'liver_disease' instead of the allowed schema field 'diagnosis' which could be used to represent liver disease, however the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "No gastrointestinal disturbances in function that might cause a major change in the absorption of everolimus as ulcerative disease, uncontrolled nausea, vomiting, diarrhoea, malabsorption syndrome.",
+        "logic": {
+            "field": "gastrointestinal_disturbance",
+            "operator": "NOT_IN",
+            "value": [
+                "ulcerative disease",
+                "uncontrolled nausea",
+                "vomiting",
+                "diarrhoea",
+                "malabsorption syndrome"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'gastrointestinal_disturbance' instead of a more specific schema field or normalized lab field, but the logic accuracy and exclusion semantics are preserved."
+        }
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "No planned immunisation with attenuated virus in the study period.",
+        "logic": {
+            "field": "immunisation_planned",
+            "operator": "!=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a suitable field and operator to exclude patients with planned immunisation."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Patients that is unable to follow treatment or evaluation plan.",
+        "logic": {
+            "field": "compliance_treatment",
+            "operator": "!=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'compliance_treatment' when a more suitable schema field such as 'control' could be considered, but since 'control' may not perfectly capture the meaning of 'compliance_treatment', it's not a clear-cut case, hence 'partial'."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Every condition or therapy that after the judgement of investigator might infer the patient a risk or influence the trials objective.",
+        "logic": {
+            "field": "condition_risk",
+            "operator": "!=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'condition_risk' when a more suitable schema field such as 'diagnosis' or 'treatment' could be used, and the logic accuracy is preserved but the field selection is imperfect."
+        }
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Pregnant or breastfeeding women.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "IN",
+            "value": [
+                "pregnant",
+                "breastfeeding"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'pregnancy_status' which is acceptable since there is no direct schema field for pregnancy or breastfeeding status, and the logic is coherent with the exclusion semantics."
+        }
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "At fertile women this is insured by a negative test of pregnancy or use of a safe anticonception during the trial period and at least 3 months after end of treatment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "fertility_status",
+                    "operator": "NOT_IN",
+                    "value": [
+                        "pregnant",
+                        "breastfeeding"
+                    ]
+                },
+                {
+                    "field": "anticonception_safe",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "pregnancy_test_negative",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "anticonception_duration",
+                    "operator": ">=",
+                    "value": "3",
+                    "unit": "months"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (fertility_status, anticonception_safe, pregnancy_test_negative, anticonception_duration) instead of schema fields or normalized lab fields, but the meaning is partially preserved and the structure is coherent."
+        }
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Patients with active infections or other serious medical co-morbidity, that might prevent the patient from being treated with the protocoled therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "infection_active",
+                    "operator": "!=",
+                    "value": "yes"
+                },
+                {
+                    "field": "co_morbidity_serious",
+                    "operator": "!=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which excludes patients with active infections or serious medical co-morbidity. The rule should evaluate to TRUE when 'infection_active' or 'co_morbidity_serious' is 'yes', but instead it checks for '!= yes'."
+        }
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "Incapacitated",
+        "logic": {
+            "field": "incapacitated",
+            "operator": "!=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'incapacitated' when it could be mapped to a more specific schema field, such as 'ecog_ps' which is related to the patient's performance status, or potentially creating a new field for 'incapacitation status'. However, the logic itself seems to preserve the meaning of the original criterion."
+        }
+    }
+]

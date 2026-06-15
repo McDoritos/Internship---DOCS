@@ -1,0 +1,237 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Histopathology or cytopathology proven gastric cancer;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "gastric cancer"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Operable advanced gastric cancer patients: primary lesions can be completely excision, no distant metastasis;",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "operable"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the 'treatment' field, which is a schema field, but it does not fully capture the meaning of the original criterion, which includes the presence of primary lesions that can be completely excised and the absence of distant metastasis."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Postoperative patients who can tolerate 5-FU based (5-FU，S-1 or Capecitabine) adjuvant chemotherapy;",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "postoperative"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule only checks for 'postoperative' treatment, but the original criterion requires patients who can tolerate 5-FU based adjuvant chemotherapy, which is not captured in the logic rule."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Life expectancy of at least 6 months;",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">=",
+            "value": "6"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'life_expectancy' when no schema field exists, but it is acceptable. However, the logic accuracy is preserved, and the structure is coherent."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "ECOG（Eastern Cooperative Oncology Group ） score 0-1;",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "=",
+            "value": "0-1"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The operator '=' is incorrect for a range value '0-1', it should be a range operator or two separate conditions for 0 and 1."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Age: 18~80 years old;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "age",
+                    "operator": "<=",
+                    "value": "80"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using the correct schema field 'age' and preserving the meaning with correct operators and values."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Normal hemodynamic indices before the recruitment (including blood cell count and liver/kidney function).",
+        "logic": {
+            "field": "hemoglobin_level",
+            "operator": ">",
+            "value": "9"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'hemoglobin_level' instead of the normalized lab field 'hemoglobina', and only partially covers the original criterion which includes multiple hemodynamic indices and liver/kidney function."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "WBC（White blood cell count ）>4.0×109/L; NEU（Neutrophils）>1.5×109/L; PLT（Platelet）>100×109/L;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "leucocitos_count",
+                    "operator": ">",
+                    "value": "4.0×10^9/L"
+                },
+                {
+                    "field": "neutrofilos_count",
+                    "operator": ">",
+                    "value": "1.5×10^9/L"
+                },
+                {
+                    "field": "plaquetas_count",
+                    "operator": ">",
+                    "value": "100×10^9/L"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct normalized lab fields (leucocitos, neutrofilos, plaquetas) and preserving the meaning and operators."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Roughly normal cardiopulmonary function: No coronary heart disease, myocardial infarction, pulmonary heart disease, refractory hypertension;",
+        "logic": {
+            "field": "cardiovascular_disease_status",
+            "operator": "=",
+            "value": "normal"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cardiovascular_disease_status' instead of a combination of schema fields or normalized lab fields that could accurately represent the criterion, such as 'diagnosis' for specific conditions like coronary heart disease or myocardial infarction."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Not concomitant with other uncontrollable benign diseases before the recruitment;",
+        "logic": {
+            "field": "benign_disease_status",
+            "operator": "=",
+            "value": "no"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'benign_disease_status' when a more specific schema field like 'diagnosis' could be used, and the logic seems to preserve the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Voluntarily signed the informed consent.",
+        "logic": {
+            "field": "consent_signed",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using a custom field 'consent_signed' which is acceptable since there is no schema field for informed consent."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Advanced gastric cancer patients with distant metastasis and inoperable ;",
+        "logic": {
+            "field": "diagnosis_stage",
+            "operator": "=",
+            "value": "inoperable"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not fully capture the original criterion, which includes 'distant metastasis' and 'advanced gastric cancer', but the rule only checks for 'inoperable' stage. Also, 'diagnosis_stage' is not a direct match for the allowed schema field 'stage' or 'diagnosis'."
+        }
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Patients who cannot tolerate 5-FU based adjuvant chemotherapy;",
+        "logic": {
+            "field": "treatment_tolerance",
+            "operator": "=",
+            "value": "no"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'treatment_tolerance' instead of the allowed schema field 'treatment' which could be used to infer tolerance to 5-FU based adjuvant chemotherapy."
+        }
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Pregnant or lactating women;",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pregnancy_status' instead of a schema field, and the logic does not fully capture the original criterion which includes both 'Pregnant or lactating women'."
+        }
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Patients who have no desire to participate in the study.",
+        "logic": {
+            "field": "study_participation_desire",
+            "operator": "=",
+            "value": "no"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the exclusion criterion, as it correctly identifies patients who have no desire to participate in the study."
+        }
+    }
+]

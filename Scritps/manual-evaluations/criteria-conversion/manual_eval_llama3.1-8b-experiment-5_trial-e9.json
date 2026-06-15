@@ -1,0 +1,346 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": ">= 18 years of age",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have an Eastern Cooperative Oncology Group (ECOG) performance status of =< 1 at the time of study treatment initiation",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": "1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed diagnosis of small cell lung cancer (SCLC)",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "SCLC"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient should have extensive stage disease, defined as, malignant pleural effusion, pulmonary metastases in the contralateral lung, and/or the presence of extra-thoracic metastatic disease",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "malignant_pleural_effusion",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "pulmonary_metastases",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "extra_thoracic_metastatic_disease",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (malignant_pleural_effusion, pulmonary_metastases, extra_thoracic_metastatic_disease) instead of the allowed schema field 'stage' or a more specific field related to metastatic disease, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Must have measurable disease based on Response Evaluation Criteria in Solid Tumors (RECIST) 1.1 prior to starting platinum-based systemic chemotherapy",
+        "logic": {
+            "field": "measurable_disease",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'measurable_disease' which is acceptable since there is no direct schema field for this concept, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Absolute neutrophil count (ANC) >= 1.5 x 10^9/L",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a synonym 'neutrofilos' instead of the normalized lab field 'neutrofilos' which is acceptable, but it missed the unit and the multiplier (x 10^9/L) in the value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Platelets >= 100 x 10^9/L",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'plaquetas' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Hemoglobin >= 9 g/dL",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "9",
+            "unit": "g/dL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Serum creatinine =< 1.5 x institution upper limit of normal (ULN) and calculated creatinine clearance of at least 15 ml/min.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "1.5"
+                },
+                {
+                    "field": "creatinine_clearance",
+                    "operator": ">=",
+                    "value": "15",
+                    "unit": "ml/min"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'creatinina' for serum creatinine, but it does not account for the 'institution upper limit of normal (ULN)' and uses a custom field 'creatinine_clearance' instead of a schema field or a calculated value based on existing fields."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Alanine aminotransferase (ALT) and aspartate aminotransferase (AST) =< 3 x upper limit of normal (ULN) (ALT and AST =< 5 x ULN is acceptable if liver metastases are present)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "3"
+                },
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "3"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields 'alt' and 'ast' instead of the normalized lab field 'alt' which is not present, but 'ast' is present. Also, it does not account for the exception when liver metastases are present."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Total serum bilirubin =< 1.5 x ULN.",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'bilirrubina_total', but it's missing the 'x ULN' part, which is essential to the original criterion's meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "For patients with well documented Gilbert's syndrome, total bilirubin =< 3 x ULN with direct bilirubin within normal range.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "3"
+                },
+                {
+                    "field": "bilirrubina_direta",
+                    "operator": "=",
+                    "value": "within normal range"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab fields (bilirrubina_total), but the value for bilirrubina_total is not multiplied by ULN and the condition for bilirrubina_direta should use a range instead of 'within normal range'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Participant must understand the investigational nature of this study and sign an approved written informed consent form prior to receiving any study related procedure.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'informed_consent' which is acceptable since there is no schema field for informed consent, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "ad major surgery within 14 days prior to starting study drug or has not recovered from major side effects (tumor biopsy is not considered major surgery) resulting from a prior surgery",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "major_surgery",
+                    "operator": ">=",
+                    "value": "14"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "has not recovered from major side effects (tumor biopsy is not considered major surgery) resulting from a prior surgery"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'major_surgery' instead of a schema field, and it does not fully capture the original criterion's meaning, particularly the part about not recovering from major side effects. However, the overall structure and logic accuracy are mostly preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Positive for immunosuppressive disease, acquired immunodeficiency syndrome (AIDS) or other immune depressing diseases.",
+        "logic": {
+            "field": "immunosuppressive_disease",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'immunosuppressive_disease' instead of the allowed schema field 'diagnosis' or a more specific normalized lab field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "For human immunodeficiency virus (HIV), HVC and HBC-mandatory testing is required prior to enrollment",
+        "logic": {
+            "field": "hiv_testing_required",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hiv_testing_required' instead of a normalized lab field or schema field, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patient has known hypersensitivity to the components of the study drugs or any analogs",
+        "logic": {
+            "field": "hypersensitivity",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hypersensitivity' when a more specific schema field or normalized lab field could have been used, and the logic does not fully capture the original criterion's meaning of 'known hypersensitivity to the components of the study drugs or any analogs'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History or current evidence of any condition, therapy, or laboratory abnormality that might confound the results of the study, interfere with the patient's participation for the full duration of the study, or is not in the best interest of the patient to participate, including, but not limited to: Myocardial infarction or arterial or venous thromboembolic events within 6 months prior to baseline or severe or unstable angina, New York Heart Association (NYHA) class III or IV disease.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "myocardial_infarction",
+                    "operator": ">=",
+                    "value": "6"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "severe or unstable angina, New York Heart Association (NYHA) class III or IV disease."
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'myocardial_infarction' which could be mapped to a more specific field like 'diagnosis' or 'medical history', and it also includes an unmapped condition, but the overall meaning is partially preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of documented congestive heart failure (New York Heart Association functional classification III or IV) within 6 months prior to baseline.",
+        "logic": {
+            "field": "congestive_heart_failure",
+            "operator": ">=",
+            "value": "6"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses an incorrect field and operator. It should use the 'diagnosis' field and check for 'congestive heart failure' with a specific New York Heart Association classification, and also consider the time frame 'within 6 months prior to baseline'. The current rule is checking if 'congestive_heart_failure' is greater than or equal to 6, which does not preserve the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Poorly controlled arrhythmias",
+        "logic": {
+            "unmapped": true,
+            "source_text": "poorly controlled arrhythmias"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not map to any allowed schema field and does not provide a clear logical condition for the exclusion criterion, resulting in an incorrect representation of the original criterion."
+        }
+    }
+]

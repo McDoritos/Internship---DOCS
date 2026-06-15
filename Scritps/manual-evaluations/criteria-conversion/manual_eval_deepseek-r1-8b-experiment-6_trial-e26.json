@@ -1,0 +1,280 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Unresectable or metastatic, histologically confirmed advanced solid tumor, where standard curative or palliative measures are no longer effective or are not considered appropriate or safe in the opinion of the investigator.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "unresectable advanced solid tumor OR metastatic advanced solid tumor"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the 'diagnosis' schema field and preserves the meaning of the original criterion, using the correct operator and values."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "FGFR1-3 fusion, rearrangement, activating mutation, or FGFR2 extracellular domain in-frame deletions on tumor profiling in tumor tissue as determined by testing routinely performed at a Clinical Laboratory Improvement Amendments (CLIA) or other similarly certified laboratory. If the FGFR alteration is present on circulating tumor DNA (ctDNA) analysis alone, the patient may be eligible with principal investigator approval. Additional mutations may be considered with principal investigator approval.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "FGFR1 fusion OR FGFR1 rearrangement OR FGFR1 activating mutation OR FGFR2 extracellular domain in-frame deletion OR FGFR3 fusion OR FGFR3 rearrangement OR FGFR3 activating mutation OR FGFR2 fusion OR FGFR2 rearrangement OR FGFR2 extracellular domain in-frame deletion"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the molecular_status schema field and preserves the meaning of the original criterion, including the various FGFR alterations."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Eastern Cooperative Oncology Group (ECOG) 0-1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": "1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'ecog_ps' schema field and accurately represents the ECOG 0-1 criterion using the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At least 18 years of age.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'age' schema field and accurately represents the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Ability to swallow tablets.",
+        "logic": {
+            "field": "pill_swallowing_ability",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pill_swallowing_ability' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Life expectancy >/=3 months",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">=",
+            "value": "3"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'life_expectancy' when no schema field exists, but it's acceptable. However, the logic is simple and accurate, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Ability to comply with outpatient treatment, laboratory monitoring, and required clinic visits for the duration of study participation.",
+        "logic": {
+            "field": "treatment_compliance",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'treatment_compliance' when no schema field exists, which is acceptable, but the original criterion is about ability to comply with treatment and visits, and the logic rule simplifies it to a single field, potentially losing some meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with cholangiocarcinoma must have adequate biliary drainage (per investigator's discretion), with no evidence of ongoing infection.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "biliary_drainage_status",
+                    "operator": "=",
+                    "value": "adequate"
+                },
+                {
+                    "field": "infection_status",
+                    "operator": "!=",
+                    "value": "present"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (biliary_drainage_status, infection_status) instead of schema fields or normalized lab fields, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Willingness of men and women of reproductive potential to observe conventional and effective birth control for the duration of treatment and for 3 months following the last dose of study treatment.",
+        "logic": {
+            "field": "reproductive_control",
+            "operator": "=",
+            "value": "effective"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'reproductive_control' instead of a schema field, and the logic does not fully capture the original criterion's meaning, which includes the duration of treatment and 3 months following the last dose."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Measurable or non-measurable disease as determined by RECIST 1.1.",
+        "logic": {
+            "field": "disease_status",
+            "operator": "=",
+            "value": "measurable OR non-measurable"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'disease_status' instead of the allowed schema field 'diagnosis' or a more specific field, and the value should be an array or a list for multiple values, but the meaning is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "liver_function",
+                    "operator": "<=",
+                    "value": "3 × ULN"
+                },
+                {
+                    "field": "liver_function",
+                    "operator": "<=",
+                    "value": "5 × ULN"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'liver_function' instead of the normalized lab fields 'alt' and 'ast', and does not account for the absence or presence of liver metastases."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "2.0 × ULN"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "3 × ULN"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'bilirrubina_total', but it does not fully capture the original criterion's conditions, such as the absence of Gilbert's Disease and the direct bilirubin level."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Serum Creatinine ≤ 1.5 × ULN OR calculated creatinine clearance ≥ 60ml/min",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "1.5 × ULN"
+                },
+                {
+                    "field": "creatinina_clearance",
+                    "operator": ">=",
+                    "value": "60ml/min"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'creatinina_clearance' instead of the allowed schema field 'creatinina' and a calculated field, and 'creatinina' is a normalized lab field but the operator and value are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Hemoglobin ≥ 9 g/dL (≥ 90 g/L)",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "9"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Absolute Neutrophil Count ≥ 1.5 x 109/L",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1.5 x 109/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'neutrofilos' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Platelets ≥ 75 x 109/L",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "75 x 109/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'plaquetas' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "INR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy",
+        "logic": {
+            "field": "coagulation_status",
+            "operator": "<=",
+            "value": "1.5 × ULN"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'coagulation_status' instead of using the normalized lab fields related to coagulation (e.g., INR, PT, aPTT, or PTT) and did not account for the condition of the participant receiving anticoagulant therapy."
+        }
+    }
+]

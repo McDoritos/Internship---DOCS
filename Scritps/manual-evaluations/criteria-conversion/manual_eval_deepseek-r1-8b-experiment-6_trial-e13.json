@@ -1,0 +1,226 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologically confirmed pure seminomatous testicular germ cell tumor",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "pure_seminomatous_testicular_germ_cell_tumor"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps the original criterion to the 'diagnosis' schema field with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Presence of iliac or retroperitoneal lymph node metastasis detected in contrast-enhanced CT or MRI, classified as local or unilaterally regional",
+        "logic": {
+            "field": "stage",
+            "operator": "=",
+            "value": "local_or_unilaterally_regional"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the 'stage' field, which is a schema field, but it does not fully capture the original criterion, which mentions specific locations (iliac or retroperitoneal lymph node metastasis) and imaging modalities (contrast-enhanced CT or MRI)."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Maximum extent of lymph node metastasis (LN-M) singular or multiple, with a maximum size of 5 cm in transverse CT diameter (UICC IIB)",
+        "logic": {
+            "field": "lymph_node_size",
+            "operator": "<=",
+            "value": "5 cm"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lymph_node_size' instead of a normalized field, and the operator and value are correct, but the field does not exactly match the allowed schema fields or normalized lab fields."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with an elevation in HCG after orchiectomy at the time of staging examination can be included if the directly preoperatively determined HCG does not exceed 5 IU/L.",
+        "logic": {
+            "field": "hcg_level",
+            "operator": "<=",
+            "value": "5 IU/L"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hcg_level' instead of the normalized lab field, and the logic does not fully capture the original criterion's conditions, such as the elevation in HCG after orchiectomy and the staging examination."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Initial diagnosis of a tumor in UICC stage IIA/IIB",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "iiia_or_iib"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'iiia_or_iib' as the value, but the original criterion specifies 'UICC stage IIA/IIB', which corresponds to a different stage."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a tumor in clinical stage (CS) I under active surveillance",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "recurrence_under_active_surveillance"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses the 'treatment' field, which does not accurately represent the concept of 'recurrence of a tumor in clinical stage I under active surveillance'. A more suitable field would be 'diagnosis' or 'stage' in combination with other fields to convey the meaning of recurrence under active surveillance."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a CS I tumor after adjuvant therapy with carboplatin mono",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "recurrence_after_adjuvant_therapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the 'treatment' field, which is a schema field, but the value 'recurrence_after_adjuvant_therapy' does not accurately represent the original criterion, which specifies 'Recurrence of a CS I tumor after adjuvant therapy with carboplatin mono'. A more accurate representation would require additional fields, such as 'diagnosis' and 'treatment_name'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "LN-M with a transverse diameter >5 cm in CT (UICC IIC)",
+        "logic": {
+            "field": "lymph_node_size",
+            "operator": ">",
+            "value": "5 cm"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lymph_node_size' instead of a schema field, and the unit 'cm' is not normalized, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other metastases than LN-M (UICC III)",
+        "logic": {
+            "field": "metastasis_type",
+            "operator": "=",
+            "value": "other_than_ln_m"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'metastasis_type' instead of the allowed schema field 'diagnosis' or 'stage', which could be used to represent the UICC stage and metastasis information."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient received a different chemotherapy than described above",
+        "logic": {
+            "field": "previous_chemotherapy",
+            "operator": "=",
+            "value": "different_than_described"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'previous_chemotherapy' when a schema field 'treatment' or 'treatment_name' could be used, and the logic is partially preserved but the field selection is not optimal."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient underwent retroperitoneal radiotherapy",
+        "logic": {
+            "field": "previous_radiotherapy",
+            "operator": "=",
+            "value": "retroperitoneal"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'previous_radiotherapy' instead of the allowed schema field 'treatment' or 'treatment_name', which could better represent the concept of retroperitoneal radiotherapy."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient is in a reduced general condition or has a life-threatening illness",
+        "logic": {
+            "field": "general_condition",
+            "operator": "=",
+            "value": "reduced_or_life_threatening"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'general_condition' when a schema field 'ecog_ps' exists, which is more specific to the patient's general condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient has a psychiatric illness",
+        "logic": {
+            "field": "psychiatric_illness",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'psychiatric_illness' when it could be mapped to the 'diagnosis' schema field, which is a more general field that could include psychiatric illness."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Evidence of non-seminomatous germ cell tumor components in the RPLND histology",
+        "logic": {
+            "field": "histology",
+            "operator": "=",
+            "value": "non_seminomatous_components"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a relevant field and correct operator and value for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Complete resection cannot be ensured due to previous surgeries",
+        "logic": {
+            "field": "surgical_resection",
+            "operator": "=",
+            "value": "cannot_be_ensured"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'surgical_resection' which does not exist in the allowed schema fields, and the meaning is also not preserved as it does not consider 'previous surgeries' as the reason for 'cannot be ensured'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "In the \"high risk\" group: Contraindications to cisplatin, etoposide, or bleomycin (severe liver insufficiency, severe kidney insufficiency, severe lung insufficiency, hypersensitivity, severe bone marrow depression, profound hearing impairments)",
+        "logic": {
+            "field": "contraindications",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'contraindications' when a more specific schema field such as 'diagnosis' or normalized lab fields related to liver, kidney, or lung function could be used, and the rule does not fully capture the complexity of the original criterion."
+        }
+    }
+]

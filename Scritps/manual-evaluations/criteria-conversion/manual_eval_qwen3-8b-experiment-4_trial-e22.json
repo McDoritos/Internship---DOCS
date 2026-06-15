@@ -1,0 +1,522 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Subjects must have histologically or cytologically confirmed adenocarcinoma of the breast with locally recurrent or metastatic disease. Locally recurrent disease must not be amenable to any local treatment with curative intent. Metastatic disease must be demonstrated either radiographically or histologically.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "adenocarcinoma of the breast"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only partially captures the original criterion, missing the requirements for locally recurrent or metastatic disease and the ineligibility for local treatment with curative intent."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Single-probe average HER2 copy number ≥6.0 signals/cell",
+        "logic": {
+            "field": "molecular_status",
+            "operator": ">=",
+            "value": "6.0"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the molecular_status field and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Dual-probe HER2/Chromosome 17 centromere (CEP17) ratio ≥2.0 with an average HER2 copy number ≥4.0 signals/cell",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": ">=",
+                    "value": "2.0"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": ">=",
+                    "value": "4.0"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses the 'molecular_status' field incorrectly, as it is trying to represent a ratio and an average copy number, which cannot be accurately represented by a single field with two conditions. Additionally, the field 'molecular_status' is not specific enough to capture the dual-probe HER2/CEP17 ratio and HER2 copy number."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Dual-probe HER2/CEP17 ratio ≥2.0 with an average HER2 copy number <4.0 signals/cell",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": ">=",
+                    "value": "2.0"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "<",
+                    "value": "4.0"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses the same field 'molecular_status' for both conditions, which is incorrect. It should use a different field or a more specific field related to HER2 copy number and ratio."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Dual-probe HER2/CEP17 ratio < 2.0 with an average HER2 copy number > 6.0 signals/cell",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": "<",
+                    "value": "2.0"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": ">",
+                    "value": "6.0"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses the same field 'molecular_status' for both conditions, which is incorrect. It should use a different field or a custom field to represent 'HER2/CEP17 ratio' and 'average HER2 copy number'. Additionally, the operator and value for the 'HER2/CEP17 ratio' condition are correct, but the field is not specific enough."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Patients should have progressed on at least two lines of HER2-directed therapy in the metastatic setting, and prior therapy for metastatic disease should include both pertuzumab and ado-trastuzumab unless contraindicated or declined by the patient.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "pertuzumab, ado-trastuzumab"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only partially captures the original criterion, which requires progression on at least two lines of HER2-directed therapy and prior therapy including both pertuzumab and ado-trastuzumab. The rule also uses a custom field 'prior_therapy' instead of the allowed schema field 'treatment' or 'treatment_name'."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "There is no upper limit on the number prior therapies",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "NOT_IN",
+            "value": "upper limit"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion, as it implies a specific 'upper limit' value instead of indicating no upper limit on the number of prior therapies."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Patients may have measurable disease only, non-measurable disease only, or both (RECIST 1.1). Concomitant treatment with bone-targeted therapies such as Receptor activator of nuclear factor kappa-B ligand (RANKL) inhibitors or bisphosphonates is allowed. It is anticipated that most patients will have measurable disease, given the behavior of HER2+ metastatic breast cancer.",
+        "logic": {
+            "field": "disease_status",
+            "operator": "IN",
+            "value": "measurable, non-measurable, both"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a relevant field and correct logic to represent the allowed disease statuses."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Because no dosing or adverse event data are currently available on the use of ruxolitinib in combination with trastuzumab in patients <18 years of age, children are excluded from this study.",
+        "logic": {
+            "field": "age",
+            "operator": "<",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The original criterion excludes children under 18, but the logic rule is an inclusion criterion, which is inconsistent with the original intent."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Women and men of all races and ethnic groups are eligible for this trial.",
+        "logic": {
+            "field": "race",
+            "operator": "NOT_IN",
+            "value": "excluded"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The original criterion states that all races and ethnic groups are eligible, but the logic rule uses 'NOT_IN' with a value of 'excluded', which inverts the meaning and does not accurately represent the inclusion of all races and ethnic groups."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Eastern Cooperative Oncology Group (ECOG) performance status 0-2 (Karnofsky equal to or greater than 60)",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": "2"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'ecog_ps' schema field and accurately represents the ECOG performance status 0-2 criterion."
+        }
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Left ventricular ejection fraction greater than or equal to 50 percent by transthoracic echocardiography or multi-gated acquisition scan (MUGA) within 28 days prior to the first dose of the study drug.",
+        "logic": {
+            "field": "lv_ejection_fraction",
+            "operator": ">=",
+            "value": "50"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'lv_ejection_fraction' instead of a normalized lab field or schema field, and it does not account for the time frame 'within 28 days prior to the first dose of the study drug' and the methods 'by transthoracic echocardiography or multi-gated acquisition scan (MUGA)' specified in the original criterion."
+        }
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "The subject has a baseline corrected QT interval less than or equal to 480ms.",
+        "logic": {
+            "field": "qt_interval",
+            "operator": "<=",
+            "value": "480ms"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'qt_interval' instead of a normalized field, but the logic and operator are correct."
+        }
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "leukocytes greater than or equal to 3,000/microliter (mcL).",
+        "logic": {
+            "field": "leucocitos",
+            "operator": ">=",
+            "value": "3000/mcL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'leucocitos' and preserves the original meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "absolute neutrophil count greater than or equal to 1,500/mcL.",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1500/mcL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'neutrofilos' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 16,
+        "type": "inclusion",
+        "text": "platelets greater than or equal to 100,000/mcL.",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100000/mcL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'plaquetas' and accurately represents the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "hemoglobin greater than or equal to 9 g/dL.",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "9 g/dL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and preserves the original meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "total bilirubin less than or equal to 1.5 times the upper limit of normal.",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'bilirrubina_total', but it's missing the context of 'upper limit of normal' which is required to accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "Aspartate Aminotransferase (AST/SGOT)/ Alanine Aminotransferase (ALT/SGPT) less than or equal to 2.5 time institutional upper limit of normal.",
+        "logic": {
+            "field": "ast",
+            "operator": "<=",
+            "value": "2.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'ast' instead of the normalized lab field 'ast' which is allowed, but it also misses the 'ALT/SGPT' part of the criterion and the reference to the institutional upper limit of normal."
+        }
+    },
+    {
+        "id": 20,
+        "type": "inclusion",
+        "text": "Serum creatinine less than or equal to 1.5 times the upper limit of normal or calculated creatinine clearance greater than or equal to 60 mL/min.",
+        "logic": {
+            "field": "creatinina",
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "1.5"
+                },
+                {
+                    "field": "creatinina",
+                    "operator": ">=",
+                    "value": "60 mL/min"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses the same field 'creatinina' for both conditions, but the original criterion refers to two different concepts: serum creatinine and calculated creatinine clearance. The second condition should use a different field or calculation, not just 'creatinina' with a different value."
+        }
+    },
+    {
+        "id": 21,
+        "type": "inclusion",
+        "text": "Women of childbearing potential and men must use adequate contraception prior to study entry and for the duration of study participation. Contraception should continue to be used for a minimum of 5 mean half-lives after the last dose of study drugs (mean Trastuzumab half-life at 6 mg/kg 16 days; mean half-life Ruxolitinib: 3 hours)",
+        "logic": {
+            "field": "contraception",
+            "operator": "=",
+            "value": "required"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'contraception' instead of a schema field, and it does not fully capture the nuances of the original criterion, such as the duration of contraception use and the specific details about study drugs."
+        }
+    },
+    {
+        "id": 22,
+        "type": "inclusion",
+        "text": "Patient is able to swallow, retain, and absorb oral medication.",
+        "logic": {
+            "field": "oral_medication_ability",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'oral_medication_ability' when no schema field exists, which is acceptable, but it would be better to use a more specific field if available, however since no schema field exists for this, it's not heavily penalized."
+        }
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "Informed Consent. Ability to understand and the willingness to sign a written informed consent document.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "signed"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'informed_consent' which is acceptable since there is no schema field for informed consent, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Patients who have had chemotherapy, hormonal therapy, or radiotherapy within 2 weeks prior to entering the study or those who have not recovered from adverse events due to agents administered more than 2 weeks earlier.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "chemotherapy, hormonal therapy, radiotherapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'prior_therapy' instead of the allowed schema field 'treatment' and does not account for the time frame specified in the original criterion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Patients who are receiving any other investigational agents or have received other investigational agents within 2 weeks or 5 half-lives of the compound or active metabolites, whichever is longer before the first dose of the study treatment.",
+        "logic": {
+            "field": "investigational_agents",
+            "operator": "NOT_IN",
+            "value": "allowed"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'investigational_agents' instead of the allowed schema field 'treatment' and did not accurately capture the temporal relationship described in the criterion."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients who have previously been treated with an interleukin-6 (IL-6), Janus kinase (JAK) or Signal Transducers and Activators of Transcription (STAT) inhibitor for any indication, such as ruxolitinib or tocilizumab.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "IL-6, JAK, STAT inhibitor"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'prior_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', but the meaning is partially preserved."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "The subject has untreated, symptomatic, or progressive brain metastases. History of Central Nervous System (CNS) metastases or cord compression is allowable if patient has been clinically stable for at least 6 weeks since completion of definitive treatment and is off steroids without symptoms for at least 28 days.",
+        "logic": {
+            "field": "brain_metastases",
+            "operator": "NOT_IN",
+            "value": "untreated, symptomatic, progressive"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'brain_metastases' instead of a schema field, and the operator and value do not fully capture the complexity of the original criterion, which includes conditions for treated CNS metastases."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "History of allergic reactions attributed to compounds of similar chemical or biologic composition to ruxolitinib or trastuzumab.",
+        "logic": {
+            "field": "allergic_reactions",
+            "operator": "IN",
+            "value": "ruxolitinib, trastuzumab"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'allergic_reactions' instead of a schema field, and the logic does not fully capture the meaning of 'similar chemical or biologic composition'."
+        }
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "The effects of ruxolitinib on the developing human fetus are unknown. For this reason and because Janus kinase 2 (JAK2) inhibitor agents as well as other therapeutic agents used in this trial are known to be teratogenic, women of child-bearing potential and men must agree to use adequate contraception (hormonal or barrier method of birth control; abstinence) prior to study entry and for the duration of study participation. Should a woman become pregnant or suspect she is pregnant while she or her partner is participating in this study, she should inform the principal investigator immediately.",
+        "logic": {
+            "field": "contraception",
+            "operator": "NOT_IN",
+            "value": "allowed"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the original criterion, which requires women of child-bearing potential and men to use adequate contraception, but the rule only checks if contraception is not in the allowed list, without considering the context of child-bearing potential and the requirement for contraception use."
+        }
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "Patients receiving any medications or substances that are strong inhibitors of cytochrome P450 (CYP450) 3A4 isoenzyme are ineligible. Patients must be off the strong inhibitor for at least 1 week prior to being deemed eligible.",
+        "logic": {
+            "field": "drug_interactions",
+            "operator": "IN",
+            "value": "strong CYP450 3A4 inhibitors"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'drug_interactions' instead of a more specific schema field like 'treatment' or 'treatment_name', and it does not account for the time constraint of being off the strong inhibitor for at least 1 week prior to being deemed eligible."
+        }
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "Patients may not have an uncontrolled intercurrent illness including, but not limited to, ongoing or active infection, symptomatic congestive heart failure, unstable angina pectoris, cardiac arrhythmia, or psychiatric illness that would limit compliance with study requirements.",
+        "logic": {
+            "field": "intercurrent_illness",
+            "operator": "NOT_IN",
+            "value": "controlled"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'intercurrent_illness' when a more specific schema field such as 'diagnosis' could be used, and the logic does not fully capture the complexity of the original criterion."
+        }
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Patients must not have clinically significant cardiovascular disease (New York Heart Association Class III or IV heart failure), uncontrolled clinically significant atrial or ventricular cardiac arrhythmias, or any of the following within the past 6 months: myocardial infarction, new evidence of transmural infarction on electrocardiogram (ECG), unstable angina, coronary angioplasty.",
+        "logic": {
+            "field": "cardiovascular_disease",
+            "operator": "NOT_IN",
+            "value": "NYHA III/IV, uncontrolled arrhythmias, myocardial infarction, transmural infarction, unstable angina, coronary angioplasty"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'cardiovascular_disease' instead of a more specific schema field, and the values are not fully normalized, but the meaning is partially preserved."
+        }
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Pregnant women are excluded from this study because ruxolitinib is a Class C agent with the potential for teratogenic or abortifacient effects. Because there is an unknown but potential risk for adverse events in nursing infants secondary to treatment of the mother with ruxolitinib, breastfeeding must be discontinued if the mother is treated with ruxolitinib. These potential risks also apply to trastuzumab, which can cause fetal harm when administered to a pregnant woman.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "NOT_IN",
+            "value": "pregnant, breastfeeding"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the exclusion criterion, using a custom field 'pregnancy_status' which is acceptable since there is no direct schema field for pregnancy status, and the operator and values accurately reflect the exclusion condition."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Active Infections. Patients with known active infections with human immunodeficiency virus (HIV), hepatitis A virus (HAV), hepatitis B (HBV), and hepatitis C virus (HCV) infections will not be considered for this trial. HIV+ patients on combination antiretroviral therapy are ineligible because of the potential for pharmacokinetic interactions with ruxolitinib. In addition, these patients are at increased risk of lethal infections when treated with marrow-suppressive therapy. Testing for HIV or hepatitis is not required.",
+        "logic": {
+            "field": "infections",
+            "operator": "NOT_IN",
+            "value": "HIV, HAV, HBV, HCV"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'infections' instead of the allowed schema field 'diagnosis' and does not account for the specifics of HIV+ patients on combination antiretroviral therapy."
+        }
+    }
+]

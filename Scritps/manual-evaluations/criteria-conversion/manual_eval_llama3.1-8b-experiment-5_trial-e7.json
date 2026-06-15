@@ -1,0 +1,434 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ECOG performance status of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "=",
+            "value": "1"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only accounts for ECOG performance status of 1, but the original criterion also includes a status of 0."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed, Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "IV"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule correctly maps to the schema fields 'diagnosis' and 'stage', but it does not account for the 'non-squamous or squamous' and 'histologically or cytologically confirmed' aspects of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "No prior treatment for Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "operator": "NOT_IN",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "NSCLC"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the original criterion, which excludes patients with prior treatment for Stage IV non-squamous or squamous NSCLC. The rule only checks if 'NSCLC' is not in the treatment_name field, but it does not consider the stage or type of NSCLC."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients who have received prior neo-adjuvant, adjuvant chemotherapy, radiotherapy, or chemo-radiotherapy with curative intent for non-metastatic disease must have experienced a treatment free interval of at least 6 months from enrollment since the last chemotherapy, radiotherapy, or chemo-radiotherapy cycle.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "treatment_start_date",
+                    "operator": ">=",
+                    "value": "-6 months"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion. It checks for a treatment name of 'NSCLC' and a treatment start date within the last 6 months, whereas the original criterion requires a treatment-free interval of at least 6 months since the last chemotherapy, radiotherapy, or chemo-radiotherapy cycle for non-metastatic disease."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Tumor TC3 or IC3, as determined by SP142 performed by a central laboratory on previously obtained archival tumor tissue or tissue obtained from a biopsy at screening.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "TC3"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'molecular_status', but it only accounts for 'TC3' and not 'IC3' as specified in the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Measurable disease, as defined by RECIST v1.1.",
+        "logic": {
+            "field": "measureable_disease",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'measureable_disease' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Adequate hematologic and end-organ function.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "hematocrit",
+                    "operator": ">=",
+                    "value": 35
+                },
+                {
+                    "field": "platelets",
+                    "operator": ">=",
+                    "value": 100000
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses 'hematocrit' and 'platelets' which are not the exact normalized lab fields ('hematocrito' and 'plaquetas' respectively), but it preserves the meaning and has correct operators and values."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Life expectancy ≥3 months.",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">=",
+            "value": 3
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'life_expectancy' instead of a schema field, but the logic accuracy and structure are correct. Since 'life_expectancy' is not a normalized lab field or a schema field, it is considered a custom field, and the model is penalized for not using a schema field if it existed. However, in this case, there is no direct schema field for 'life expectancy', so it's not completely wrong, hence 'partial'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "For women of childbearing potential: agreement to remain abstinent or use contraception, and agreement to refrain from donating.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "=",
+            "value": false
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pregnancy_status' instead of a schema field, and the logic does not fully capture the original criterion's requirements for contraception and refraining from donating."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Adequate organ function.",
+        "logic": {
+            "field": "kidney_function",
+            "operator": ">=",
+            "value": 60
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'kidney_function' instead of a normalized lab field or schema field, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known sensitizing mutation in the EGFR gene or ALK fusion oncogene.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "EGFR"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'molecular_status', but it only accounts for the EGFR gene mutation and not the ALK fusion oncogene mentioned in the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Symptomatic, untreated, or actively progressing CNS metastases.",
+        "logic": {
+            "field": "cns_metastases",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a custom field 'cns_metastases' which is acceptable since there is no direct schema field for CNS metastases, and the operator and value correctly convey the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Spinal cord compression not definitively treated with surgery and/or radiation, or previously diagnosed and treated spinal cord compression without evidence that disease has been clinically stable for ≥2 weeks prior to enrollment.",
+        "logic": {
+            "field": "spinal_cord_compression",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the complexity of the original criterion, which involves multiple conditions (treatment status, previous diagnosis, and clinical stability) that are not reflected in the provided JSON rule."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Current leptomeningeal disease.",
+        "logic": {
+            "field": "leptomeningeal_disease",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a custom field 'leptomeningeal_disease' since no schema field exists, and the logic accurately preserves the meaning of the exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Uncontrolled tumor-related pain.",
+        "logic": {
+            "field": "pain_control",
+            "operator": "=",
+            "value": false
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pain_control' instead of a schema field, and the logic is mostly correct but could be improved with a more specific field if available."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Uncontrolled pleural effusion, pericardial effusion, or ascites requiring recurrent drainage procedures.",
+        "logic": {
+            "field": "effusion_control",
+            "operator": "=",
+            "value": false
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'effusion_control' when a more specific representation could be used, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Uncontrolled or symptomatic hypercalcemia.",
+        "logic": {
+            "field": "hypercalcemia_control",
+            "operator": "=",
+            "value": false
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hypercalcemia_control' instead of a normalized lab field or schema field, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Malignancies other than NSCLC within 5 years prior to enrollment, with the exception of those with a negligible risk of metastasis or death treated with expected curative outcome.",
+        "logic": {
+            "operator": "NOT_IN",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "NSCLC"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the original criterion, which excludes malignancies other than NSCLC within 5 years prior to enrollment, with specific exceptions. The rule only checks if the treatment name is not NSCLC, which does not convey the same meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnancy or breastfeeding, or intention of becoming pregnant during study treatment or within at least 5 months after the last dose of atezolizumab.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'pregnancy_status' instead of a schema field, and it does not fully capture the original criterion, which includes breastfeeding and intention of becoming pregnant."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of severe allergic, anaphylactic, or other hypersensitivity reactions to chimeric or humanized antibodies or fusion proteins.",
+        "logic": {
+            "field": "allergy_history",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'allergy_history' instead of a more specific schema field, and the logic does not fully capture the complexity of the original criterion, which mentions specific types of reactions and substances."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known allergy or hypersensitivity to biopharmaceuticals produced in Chinese hamster ovary cells or any component of the atezolizumab formulation.",
+        "logic": {
+            "field": "allergy_know",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'allergy_know' instead of a more specific schema field, and the value is correct but the field name is not normalized, however the meaning is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active or history of autoimmune disease or immune deficiency.",
+        "logic": {
+            "field": "autoimmune_disease",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'autoimmune_disease' instead of the allowed schema field 'diagnosis' which could potentially map to autoimmune disease, and the logic seems to preserve the meaning of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of idiopathic pulmonary fibrosis, organizing pneumonia, drug-induced pneumonitis, idiopathic pneumonitis, or evidence of active pneumonitis on screening chest CT scan.",
+        "logic": {
+            "field": "pneumonia_history",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pneumonia_history' instead of a more specific schema field such as 'diagnosis' which could better capture the various conditions mentioned in the criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Positive human immunodeficiency virus (HIV) test result at screening.",
+        "logic": {
+            "field": "hiv_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hiv_status' instead of a normalized field, but the logic and operator are correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients with active hepatitis B or active hepatitis C at screening.",
+        "logic": {
+            "field": "hepatitis_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hepatitis_status' instead of the allowed schema field 'diagnosis' or a more specific normalized lab field, but the logic accuracy and structure are correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active tuberculosis.",
+        "logic": {
+            "field": "tuberculosis_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'tuberculosis_status' instead of the allowed schema field 'diagnosis' which could potentially map to tuberculosis."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Severe infections within 4 weeks prior to randomization, including, but not limited to, hospitalization for complications of infection, bacteremia, or severe pneumonia.",
+        "logic": {
+            "field": "infection_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'infection_status' instead of a more specific schema field or normalized lab field, and the logic does not fully capture the complexity of the original criterion, which includes specific types of infections and a time frame."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Significant cardiovascular disease.",
+        "logic": {
+            "field": "cardiovascular_disease",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cardiovascular_disease' instead of the allowed schema field 'diagnosis' which could potentially map to this condition, and there is no schema field that exactly matches 'cardiovascular_disease', but the logic is simple and accurate."
+        }
+    }
+]

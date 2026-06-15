@@ -1,0 +1,307 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Woman with age ≥ 18 years.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields and preserving the meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient who completed surgery for his breast cancer and for which definitive histo-pathological analysis of surgical specimen is available.",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "breast cancer surgery"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the 'treatment' field which is a schema field, but it does not fully capture the original criterion, which requires the patient to have completed surgery and have a definitive histo-pathological analysis available. The rule only checks for the type of treatment."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Invasive breast carcinoma pN0 or pN(i+) with histological tumor size ≤ 10 mm (pT1a/b subgroup).",
+        "logic": {
+            "field": "stage",
+            "operator": "IN",
+            "value": "pT1a, pT1b"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'stage', but it does not fully capture the original criterion, which also includes the conditions 'pN0 or pN(i+)' and 'histological tumor size ≤ 10 mm'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Invasive breast carcinoma with histological tumor size > 10 mm and ≤ 30 mm (pT1c T2 ≤ 30 mm control group).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": "pT1c, pT2"
+                },
+                {
+                    "field": "tumor_size",
+                    "operator": "BETWEEN",
+                    "value": "10.0",
+                    "value_upper": "30.0"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'tumor_size' instead of a schema field, and the stage field is used correctly but the values are partially correct (pT1c and pT2 are correct, but the original criterion also mentions T2 ≤ 30 mm which is not fully captured by the 'stage' field)."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient with HER2-negative breast carcinoma: immuno-histochemistry (IHC) score = 0, 1+ or 2+ and in situ hybridization (FISH, CISH, or SISH) negative (local laboratory testing).",
+        "logic": {
+            "field": "her2_status",
+            "operator": "NOT_IN",
+            "value": "positive"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the molecular_status schema field (her2_status) and accurately preserves the meaning of the original criterion, which excludes patients with HER2-positive breast carcinoma."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient with ER and PR negative invasive carcinoma (< 1% stained cells by immuno-histochemistry assay) (local laboratory testing).",
+        "logic": {
+            "field": "hormone_receptor_status",
+            "operator": "NOT_IN",
+            "value": "positive"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'hormone_receptor_status' instead of the allowed schema field 'molecular_status' or normalized lab fields, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "largest_tumor_size",
+                    "operator": "<=",
+                    "value": "10.0"
+                },
+                {
+                    "field": "largest_tumor_size",
+                    "operator": "<=",
+                    "value": "30.0"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'largest_tumor_size' instead of a schema field, and the condition is not explicitly linked to the 'inclusion subgroup' mentioned in the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "In case of multifocality, all lesions must be ER, PR and HER2-negative.",
+        "logic": {
+            "field": "multifocal_status",
+            "operator": "=",
+            "value": "all_negative"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'multifocal_status' instead of the allowed schema field 'diagnosis' or 'molecular_status', and the logic does not explicitly evaluate ER, PR, and HER2-negative status."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "In case of breast conserving surgery, clear margins are required.",
+        "logic": {
+            "field": "margin_status",
+            "operator": "=",
+            "value": "clear"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a suitable field and correct operator and value, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient affiliated to a Social Health Insurance in France.",
+        "logic": {
+            "field": "insurance_type",
+            "operator": "=",
+            "value": "social_health_insurance_france"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'insurance_type' instead of the allowed schema field 'control' or a more specific field, and there is no direct mapping to the allowed schema fields, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient information and written informed consent form signed prior to any study specific procedures.",
+        "logic": {
+            "field": "consent_status",
+            "operator": "=",
+            "value": "signed"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'consent_status' which is acceptable since there is no schema field for informed consent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients with any previous malignancy of the breast or other site, with the exception of adequately treated basal or squamous cell carcinoma, non-melanomatous skin cancer totally resected.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "previous_malignancy",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "with the exception of adequately treated basal or squamous cell carcinoma, non-melanomatous skin cancer totally resected"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'previous_malignancy' which is not a schema field, but it does preserve the meaning of the original criterion. However, it does not fully capture the exception for adequately treated basal or squamous cell carcinoma, and non-melanomatous skin cancer, which is included as unmapped source text instead of being properly integrated into the logic."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Non-invasive breast carcinoma (i.e. ductal carcinoma in situ exclusively).",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "NOT_IN",
+            "value": "invasive"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly uses the 'diagnosis' field and inverts the condition using 'NOT_IN' to exclude invasive breast carcinoma, aligning with the exclusion criterion for non-invasive breast carcinoma."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Inoperable breast invasive carcinoma.",
+        "logic": {
+            "field": "treatability",
+            "operator": "!=",
+            "value": "operable"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'treatability' instead of the allowed schema field 'diagnosis' or a more specific field related to the operability of the breast invasive carcinoma, but the logic accuracy and exclusion semantics are preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Synchronous bilateral breast cancer.",
+        "logic": {
+            "field": "cancer_side",
+            "operator": "NOT_IN",
+            "value": "unilateral"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'cancer_side' instead of the allowed schema field 'diagnosis', and the operator and value do not accurately represent the concept of synchronous bilateral breast cancer."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who received neo-adjuvant treatment (radiotherapy or chemotherapy or other before surgery).",
+        "logic": {
+            "field": "previous_therapy",
+            "operator": "IN",
+            "value": "neo_adjuvant"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'previous_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', and the logic does not fully capture the original criterion's meaning of 'before surgery'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnant or breast-feeding women.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "=",
+            "value": "pregnant_or_nursing"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a custom field 'pregnancy_status' which is acceptable since there is no direct schema field for pregnancy or breast-feeding status, and the operator and value accurately represent the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Any psychological, familial, geographic or social situation, according to the judgment of investigator, potentially preventing the provision of informed consent or compliance to study procedure.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Any psychological, familial, geographic or social situation, according to the judgment of investigator, potentially preventing the provision of informed consent or compliance to study procedure."
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not map to any schema field and does not provide a clear logical condition for exclusion, failing to evaluate the exclusion condition as TRUE when present."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patient who has forfeited his/her freedom by administrative or legal award or who is under guardianship.",
+        "logic": {
+            "field": "legal_status",
+            "operator": "NOT_IN",
+            "value": "restricted"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'legal_status' when a more specific schema field might not exist, but the logic accuracy is preserved and the structure is coherent."
+        }
+    }
+]

@@ -1,0 +1,613 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Adults, aged 18 through 75 years of age, with pathologically confirmed acute myelogenous leukemia, in pathologically confirmed complete remission following anti-leukemic therapy.",
+        "logic": {
+            "field": "age",
+            "operator": "BETWEEN",
+            "value": "18,75"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'age' schema field and accurately represents the age range specified in the original criterion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "AST, ALT and Alkaline Phosphatase <5x Upper Limit normal (ULN), direct bilirubin < 2.0 mg/dl.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ast",
+                    "operator": "<",
+                    "value": "5x ULN"
+                },
+                {
+                    "field": "alt",
+                    "operator": "<",
+                    "value": "5x ULN"
+                },
+                {
+                    "field": "fosfatase_alcalina",
+                    "operator": "<",
+                    "value": "5x ULN"
+                },
+                {
+                    "field": "bilirrubina_directa",
+                    "operator": "<",
+                    "value": "2.0 mg/dl"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields (ast, alt, fosfatase_alcalina, and bilirrubina_directa) and preserving the meaning with correct operators and values."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Adequate renal function as defined by: calculated creatinine clearance ≥ 60 mL/min (Cockcroft-Gault Formula) or serum Cr less than institution ULN (the elderly will often have < 60 GFR)",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "creatinina_clearance",
+                    "operator": ">=",
+                    "value": "60 mL/min"
+                },
+                {
+                    "field": "creatinina",
+                    "operator": "<",
+                    "value": "institution ULN"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'creatinina_clearance' instead of calculating it from 'creatinina' and other fields, and 'creatinina' is a normalized lab field, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "ECOG performance status 0-2.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "BETWEEN",
+            "value": "0,2"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the schema field 'ecog_ps' and accurately represents the original criterion using the BETWEEN operator with values 0 and 2."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Have a diagnosis of high-risk AML as established by a poor-risk karyotype, adverse risk by ELN criteria, a therapy-related AML, age ≥ 60 or with antecedent hematologic disorder",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "karyotype_risk",
+                    "operator": "=",
+                    "value": "poor-risk"
+                },
+                {
+                    "field": "eln_risk",
+                    "operator": "=",
+                    "value": "adverse"
+                },
+                {
+                    "field": "aml_type",
+                    "operator": "=",
+                    "value": "therapy-related"
+                },
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "60"
+                },
+                {
+                    "field": "antecedent_hematologic_disorder",
+                    "operator": "=",
+                    "value": "present"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (karyotype_risk, eln_risk, aml_type, antecedent_hematologic_disorder) instead of the allowed schema fields (diagnosis) or normalized lab fields, but the meaning is preserved and operators/values are correct."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "LVEF must be equal to or greater than 40%, as measured by MUGA scan or echocardiogram",
+        "logic": {
+            "field": "lv_ef",
+            "operator": ">=",
+            "value": "40%"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lv_ef' instead of a normalized lab field or schema field, and the operator and value are correct, but the field name does not exactly match the allowed schema fields or normalized lab fields."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Patients, or appropriate designee, must be able to provide informed consent.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps the original criterion to a custom field, as there is no schema field for informed consent, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Must not have received systemic anti-neoplastic therapy, including radiotherapy within 14 days of study treatment.",
+        "logic": {
+            "field": "treatment",
+            "operator": "NOT_IN",
+            "value": "systemic_anti_neoplastic_therapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'treatment', but it does not fully capture the original criterion, which also mentions 'radiotherapy' and a specific time frame 'within 14 days of study treatment'."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Female patients of childbearing age must have negative pregnancy test.",
+        "logic": {
+            "field": "pregnancy_test",
+            "operator": "=",
+            "value": "negative"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'pregnancy_test' which is acceptable since there is no schema field for pregnancy test, and the logic is correct for an inclusion criterion."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Male subject agrees to use an acceptable method for contraception during the entire study treatment period and through 6 months after the last dose of lenalidomide.",
+        "logic": {
+            "field": "contraception_method",
+            "operator": "IN",
+            "value": "acceptable_method"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'contraception_method' instead of a schema field, and the logic does not fully capture the original criterion's meaning, which includes the duration of contraception use."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "All study participants must be registered into the mandatory Revlimid REMS® program, and be willing and able to comply with the requirements of the REMS® program.",
+        "logic": {
+            "field": "rems_program",
+            "operator": "=",
+            "value": "registered"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'rems_program' when no schema field exists, which is acceptable, but the logic rule does not fully capture the original criterion's requirements of being 'willing and able to comply' with the REMS program."
+        }
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Females of reproductive potential must adhere to the scheduled pregnancy testing as required in the Revlimid REMS® program.",
+        "logic": {
+            "field": "pregnancy_testing",
+            "operator": "=",
+            "value": "scheduled"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pregnancy_testing' instead of a schema field, and the logic does not fully capture the original criterion's meaning, which includes 'females of reproductive potential' and adherence to the Revlimid REMS program."
+        }
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "If needed, patients should be able to take aspirin (81 or 325 mg) daily as prophylactic anticoagulation.",
+        "logic": {
+            "field": "aspirin_able",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'aspirin_able' instead of a schema field, and does not account for the specific dosage mentioned in the original criterion."
+        }
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "Haploidentical 1st-degree relative as defined by 3/6 or 4/6 HLA-matched at HLA -A, -B, or -DRB1 who is 18-70 years of age",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "donor_hla_match",
+                    "operator": "BETWEEN",
+                    "value": "3/6,4/6"
+                },
+                {
+                    "field": "donor_age",
+                    "operator": "BETWEEN",
+                    "value": "18,70"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct fields and operators to represent the HLA match and age range for the donor."
+        }
+    },
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "ECOG performance status 0 or 1",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "0,1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the schema field 'ecog_ps' and accurately represents the original criterion using the correct operator and values."
+        }
+    },
+    {
+        "id": 16,
+        "type": "inclusion",
+        "text": "Excellent health per conventional pre-donor history (medical and psychosocial evaluation)",
+        "logic": {
+            "field": "health_status",
+            "operator": "=",
+            "value": "excellent"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'health_status' when no schema field exists, but it could be argued that it is related to 'diagnosis' or other fields, however since no schema field exists for this, it is not heavily penalized, and the logic seems to preserve the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "No positive testing for viral infection (HbsAg, HIV, HCV)",
+        "logic": {
+            "field": "viral_infection",
+            "operator": "NOT_IN",
+            "value": "HbsAg,HIV,HCV"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'viral_infection' instead of using the allowed schema fields or normalized lab fields, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Donor ability to understand and provide informed consent",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'informed_consent' which is acceptable since there is no schema field for this concept, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "Meets standard institutional criteria for GCSF mobilized PBSC donation",
+        "logic": {
+            "field": "donation_type",
+            "operator": "=",
+            "value": "gcsf_mobilized_pbsc"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'donation_type' which is acceptable since there is no schema field for this specific condition, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Diagnosis of acute promyelocytic leukemia",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "NOT_IN",
+            "value": "acute_promyelocytic_leukemia"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses NOT_IN operator for an exclusion criterion, which inverts the intended meaning. It should use 'IN' to evaluate TRUE when the exclusion condition is present."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Active refractory or relapsed acute leukemia",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "NOT_IN",
+            "value": "active_refractory,relapsed"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses NOT_IN operator, which means the diagnosis should not be 'active_refractory' or 'relapsed', but the original criterion is looking for patients with active refractory or relapsed acute leukemia, so the logic is inverted."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Prior use of fludarabine, as this agent has been associated with higher subsequent rates of graft versus host disease",
+        "logic": {
+            "field": "treatment",
+            "operator": "NOT_IN",
+            "value": "fludarabine"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'NOT_IN' which means the treatment is not fludarabine, but for an exclusion criterion, it should evaluate TRUE when the exclusion condition (prior use of fludarabine) is present, so it should be 'IN' instead."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Individuals with a history of a different malignancy are ineligible except for the following circumstances. Individuals with a history of other malignancies are eligible if they have been disease-free for at least 3 years and are deemed by the investigator to be at low risk for recurrence of that malignancy.",
+        "logic": {
+            "field": "malignancy_history",
+            "operator": "NOT_IN",
+            "value": "other_malignancies"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the original criterion, which requires a history of being disease-free for at least 3 years and being at low risk for recurrence. The rule also uses a custom field 'malignancy_history' instead of a schema field, and the operator and value do not correctly represent the exception circumstances."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Individuals with the following cancers are eligible if diagnosed and treated within the past 3 years: cervical cancer in situ, and basal cell or squamous cell carcinoma of the skin.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "NOT_IN",
+            "value": "cervical_cancer_in_situ,basal_cell_carcinoma,squamous_cell_carcinoma"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which includes individuals with specific cancers if diagnosed and treated within the past 3 years, but the rule excludes them."
+        }
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "Uncontrolled intercurrent illness that would limit compliance with study requirements.",
+        "logic": {
+            "field": "health_status",
+            "operator": "NOT_IN",
+            "value": "uncontrolled"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'health_status' when a more specific schema field such as 'diagnosis' could be used, and the logic is partially preserved as it attempts to exclude uncontrolled intercurrent illness."
+        }
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "HIV-positive individuals on combination antiretroviral therapy are ineligible because of the potential for pharmacokinetic interactions with study drug.",
+        "logic": {
+            "field": "hiv_status",
+            "operator": "NOT_IN",
+            "value": "positive"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which excludes HIV-positive individuals, but the rule checks for NOT_IN 'positive', and also uses a custom field 'hiv_status' instead of a possible schema field like 'diagnosis' or a normalized lab field."
+        }
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "A diagnosis of active hepatitis B or C as defined by detectable viral load assays in the blood",
+        "logic": {
+            "field": "hepatitis_status",
+            "operator": "NOT_IN",
+            "value": "active"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'hepatitis_status' instead of the allowed schema field 'diagnosis', and the operator and value are also incorrect, as it should check for presence of 'hepatitis B' or 'hepatitis C' instead of excluding 'active'."
+        }
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Known hypersensitivity to thalidomide or lenalidomide.",
+        "logic": {
+            "field": "hypersensitivity",
+            "operator": "NOT_IN",
+            "value": "thalidomide,lenalidomide"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hypersensitivity' instead of a schema field, and the operator is incorrect for an exclusion criterion, it should be 'IN' instead of 'NOT_IN' to evaluate TRUE when the exclusion condition is present."
+        }
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "The development of erythema nodosum if characterized by a desquamating rash while taking lenalidomide.",
+        "logic": {
+            "field": "skin_condition",
+            "operator": "NOT_IN",
+            "value": "erythema_nodosum"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which states the development of erythema nodosum is characterized by a desquamating rash while taking lenalidomide, implying that the presence of erythema nodosum should exclude the patient, but the logic rule checks for the absence of erythema nodosum."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Known or suspected cardiac amyloidosis",
+        "logic": {
+            "field": "cardiac_condition",
+            "operator": "NOT_IN",
+            "value": "amyloidosis"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which is an exclusion criterion for known or suspected cardiac amyloidosis. The 'NOT_IN' operator would evaluate to TRUE when amyloidosis is not present, instead of when it is present."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Congestive heart failure of Class III or IV of the NYHA classification",
+        "logic": {
+            "field": "heart_failure",
+            "operator": "NOT_IN",
+            "value": "III,IV"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'heart_failure' instead of a schema field, and the operator is 'NOT_IN' which inverts the meaning of the original criterion, which is an exclusion criterion and should evaluate to TRUE when the condition is present."
+        }
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Uncontrolled angina, hypertension or arrhythmia",
+        "logic": {
+            "field": "cardiac_condition",
+            "operator": "NOT_IN",
+            "value": "angina,hypertension,arrhythmia"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'NOT_IN' operator which inverts the meaning of the exclusion criterion, and also uses a custom field 'cardiac_condition' instead of a more specific field like 'diagnosis'."
+        }
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Myocardial infarction in past 6 months",
+        "logic": {
+            "field": "cardiac_event",
+            "operator": "NOT_IN",
+            "value": "myocardial_infarction"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'NOT_IN' operator which inverts the meaning of the exclusion criterion, and also uses a custom field 'cardiac_event' instead of a more specific field related to myocardial infarction, and the time frame 'in past 6 months' is not considered."
+        }
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Any uncontrolled or severe cardiovascular disease",
+        "logic": {
+            "field": "cardiac_condition",
+            "operator": "NOT_IN",
+            "value": "uncontrolled,severe"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cardiac_condition' instead of a schema field, and the logic is partially preserved, but the operator and values are not entirely accurate for an exclusion criterion."
+        }
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "Prior cerebrovascular event with persistent neurologic deficit",
+        "logic": {
+            "field": "neurological_event",
+            "operator": "NOT_IN",
+            "value": "cerebrovascular_event"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'neurological_event' instead of a schema field, and the operator and value do not accurately represent the original criterion, which requires a 'persistent neurologic deficit' due to a 'cerebrovascular event'. The logic also inverts the expected condition for an exclusion criterion."
+        }
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "Medical conditions that, in the investigator's opinion, would impose excessive risk to the subject.",
+        "logic": {
+            "field": "risk_status",
+            "operator": "NOT_IN",
+            "value": "excessive"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'risk_status' when no schema field exists, which is acceptable, but the logic is simple and does not fully capture the complexity of the original criterion, which mentions 'Medical conditions' and 'investigator's opinion'."
+        }
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "Equal to or greater than grade 2 ataxia, cranial or peripheral neuropathy.",
+        "logic": {
+            "field": "neurological_condition",
+            "operator": "NOT_IN",
+            "value": "grade_2,ataxia,cranial_neuropathy,peripheral_neuropathy"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'neurological_condition' instead of a schema field, and the operator 'NOT_IN' inverts the meaning of the original criterion, which requires 'equal to or greater than grade 2' ataxia or neuropathy. The values in the logic rule also do not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "Systemic infection requiring IV antibiotic therapy within 7 days preceding the first dose of study drug, or other severe infection.",
+        "logic": {
+            "field": "infection_status",
+            "operator": "NOT_IN",
+            "value": "systemic,iv_antibiotic_therapy,severe"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'infection_status' instead of a schema field, and the logic is partially preserved, but the operator and value are not entirely accurate for the given criterion."
+        }
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Pregnant women are excluded from this study.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "NOT_IN",
+            "value": "pregnant"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'NOT_IN' operator with 'pregnant' value, which means the criterion is excluding those not pregnant, inverting the original meaning."
+        }
+    }
+]

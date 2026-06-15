@@ -1,0 +1,636 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Histologically confirmed high grade (WHO Grade IV) glioma including but not limited to glioblastoma, gliosarcoma, glioblastoma with oligodendroglial features, glioblastoma with PNET features, tested as IDH wild-type, as per revised WHO 2021 criteria.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "high_grade_glioma"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'diagnosis', but it does not fully capture the complexity of the original criterion, which includes specific subtypes of high-grade glioma and the IDH wild-type status."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patients must also have evidence of tumor recurrence/progression by MRI (RANO criteria) after standard front-line therapy.",
+        "logic": {
+            "field": "progression_date",
+            "operator": "exists"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the schema field 'progression_date' and preserves the meaning of the original criterion, which requires evidence of tumor recurrence/progression."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "First recurrence or progressive disease after a standard line therapy.",
+        "logic": {
+            "field": "progression_date",
+            "operator": "exists"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'progression_date' schema field and preserves the meaning of the original criterion, which implies the existence of a progression date as an indicator of first recurrence or progressive disease."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Resectable disease: Resection is being considered as part of the standard of care for the patient and it is thought that it is feasible that a majority of contrast-enhancing tumor mass/signal can be resected.",
+        "logic": {
+            "field": "resection_feasibility",
+            "operator": "=",
+            "value": "feasible"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'resection_feasibility' instead of a schema field, but the meaning is partially preserved. A more accurate representation would use a combination of fields, but 'resection_feasibility' is not a schema field."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Patients must be between the ages of 18 and 75 years old (inclusive).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "age",
+                    "operator": "<=",
+                    "value": "75"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and preserving the meaning with correct operators and values."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Karnofsky Performance score ≥ 60.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": ">=",
+            "value": "60"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The field used is ecog_ps, which represents the ECOG performance status, but the original criterion mentions the Karnofsky Performance score, which is a different scale."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Use of steroids must be limited to ≤ 4 mg of decadron daily.",
+        "logic": {
+            "field": "steroid_use",
+            "operator": "<=",
+            "value": "4",
+            "unit": "mg"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'steroid_use' instead of the allowed schema field 'treatment' or 'treatment_name', and the logic does not specify the type of steroid (decadron)."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Hgb ≥ 12 g/dL (male) or ≥ 11.5 g/dL (females)",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "hemoglobina",
+                    "operator": ">=",
+                    "value": "12",
+                    "unit": "g/dL"
+                },
+                {
+                    "field": "hemoglobina",
+                    "operator": ">=",
+                    "value": "11.5",
+                    "unit": "g/dL"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'hemoglobina' but fails to account for the gender condition specified in the original criterion."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "ANC ≥ 1500/uL",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1500",
+            "unit": "/uL"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'neutrofilos' instead of the normalized lab field 'neutrofilos' which is close but not the exact allowed field, however 'ANC' typically refers to 'leucocitos' or absolute neutrophil count which is more accurately represented by 'neutrofilos' in this context, but still it should be 'leucocitos' or a field that directly represents ANC."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Platelets ≥ 100,000/uL",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100000",
+            "unit": "/uL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct normalized lab field 'plaquetas' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Absolute lymphocyte count ≥150/uL",
+        "logic": {
+            "field": "linfocitos",
+            "operator": ">=",
+            "value": "150",
+            "unit": "/uL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'linfocitos' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Serum Creatinine ≤ 1.5mg/dl; Cr clearance should be ≥ 50 mL/min",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "mg/dL"
+                },
+                {
+                    "field": "creatinina_clearance",
+                    "operator": ">=",
+                    "value": "50",
+                    "unit": "mL/min"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'creatinina' and a custom field 'creatinina_clearance' since no schema field exists for creatinine clearance, while preserving the original meaning and operators."
+        }
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "Serum AST and ALT ≤ 3x ULN (Grade 1)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "3x_uln"
+                },
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "3x_uln"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields 'ast' and 'alt' instead of the normalized lab fields 'ast' and 'alt' which are not provided, but 'ast' and 'alt' are present in the list of normalized lab fields as 'ast' and 'alt', however the fields are not exactly matched with the provided normalized lab fields, the correct fields should be 'ast' and 'alt' which are present in the list as is, but the values are not matched with the ULN, the correct values should be the actual values of 3x ULN for AST and ALT."
+        }
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "Total Bilirubin ≤ 1.5 X ULN",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5x_uln"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'bilirrubina_total' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "PT or PTT ≤ 1.25 X ULN",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pt",
+                    "operator": "<=",
+                    "value": "1.25x_uln"
+                },
+                {
+                    "field": "ptt",
+                    "operator": "<=",
+                    "value": "1.25x_uln"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct fields and operators to represent the condition PT or PTT ≤ 1.25 X ULN."
+        }
+    },
+    {
+        "id": 16,
+        "type": "inclusion",
+        "text": "Cardiac ejection fraction ≥45% without signs of physiologically significant pericardial effusion or clinically significant ECG findings.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ejection_fraction",
+                    "operator": ">=",
+                    "value": "45",
+                    "unit": "%"
+                },
+                {
+                    "field": "pericardial_effusion_status",
+                    "operator": "!=",
+                    "value": "physiologically_significant"
+                },
+                {
+                    "field": "ecg_findings",
+                    "operator": "!=",
+                    "value": "clinically_significant"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (ejection_fraction, pericardial_effusion_status, ecg_findings) instead of the allowed schema fields or normalized lab fields, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "Baseline oxygen saturation > 92% on room air",
+        "logic": {
+            "field": "oxygen_saturation",
+            "operator": ">",
+            "value": "92",
+            "unit": "%"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'oxygen_saturation' instead of a normalized lab field or schema field, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Subjects of child-bearing or child-fathering potential must be willing to use an effective method of contraception (hormonal or two barrier methods) while on study and for at least 4 months following the last CAR T cell infusion or as long as B7-H3CART are detectable in peripheral blood or CSF.",
+        "logic": {
+            "field": "contraception_adherence",
+            "operator": "=",
+            "value": "willing"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'contraception_adherence' instead of a schema field, and it does not fully capture the complexity of the original criterion, which includes specific methods and durations of contraception."
+        }
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "All female subjects of childbearing age must have a negative blood or urine pregnancy test.",
+        "logic": {
+            "field": "pregnancy_test",
+            "operator": "=",
+            "value": "negative"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'pregnancy_test' instead of a normalized lab field, and it does not account for the 'childbearing age' condition, but the meaning is partially preserved."
+        }
+    },
+    {
+        "id": 20,
+        "type": "inclusion",
+        "text": "Ability to understand and willingness to sign a written informed consent document.",
+        "logic": {
+            "field": "consent_status",
+            "operator": "=",
+            "value": "signed"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a suitable custom field 'consent_status' since there is no direct schema field for consent status, and correctly implements the inclusion semantics."
+        }
+    },
+    {
+        "id": 21,
+        "type": "inclusion",
+        "text": "Must be willing and able to comply with procedures, return visits and evaluations at Stanford Health Care while on this protocol.",
+        "logic": {
+            "field": "protocol_compliance",
+            "operator": "=",
+            "value": "willing_and_able"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'protocol_compliance' when no schema field exists, which is acceptable, but the logic does not fully capture the original criterion's meaning, which includes compliance with procedures, return visits, and evaluations."
+        }
+    },
+    {
+        "id": 22,
+        "type": "inclusion",
+        "text": "At least 6 weeks following completion of front-line radiation therapy.",
+        "logic": {
+            "field": "radiation_therapy_completion",
+            "operator": ">=",
+            "value": "6",
+            "unit": "weeks"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'radiation_therapy_completion' instead of the allowed schema field 'treatment_end_date' which could be used to calculate the time since completion of front-line radiation therapy."
+        }
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "At least 3 weeks post chemotherapy or 5 half-lives, whichever is shorter must have elapsed since any prior systemic therapy, except for systemic inhibitory/stimulatory immune checkpoint therapy, which requires 5 half-lives.",
+        "logic": {
+            "field": "systemic_therapy_eligibility",
+            "operator": "exists"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the original criterion, which requires a specific time period (at least 3 weeks or 5 half-lives) to have elapsed since prior systemic therapy, with an exception for immune checkpoint therapy. The rule only checks for the existence of systemic therapy eligibility without considering the time period or exceptions."
+        }
+    },
+    {
+        "id": 24,
+        "type": "inclusion",
+        "text": "At least 4 weeks from bevacizumab treatment, which can be used only for radiation necrosis or pseudo-progression.",
+        "logic": {
+            "field": "bevacizumab_treatment",
+            "operator": "=",
+            "value": "none"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion, which requires at least 4 weeks from bevacizumab treatment, but the logic rule only checks if bevacizumab treatment is 'none'."
+        }
+    },
+    {
+        "id": 25,
+        "type": "inclusion",
+        "text": "Prior cytotoxic chemotherapy, radiation, or other anticancer therapies including investigational agents discontinued at least 4 weeks prior to Day 1 of treatment.",
+        "logic": {
+            "field": "prior_anticancer_therapy",
+            "operator": "=",
+            "value": "discontinued_at_least_4_weeks"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prior_anticancer_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', and the logic is partially preserved but lacks explicit information about the discontinuation date."
+        }
+    },
+    {
+        "id": 26,
+        "type": "inclusion",
+        "text": "Toxicities due to prior therapy must be stable and recovered to ≤ Grade 1 (except for clinically non-significant toxicities such as alopecia).",
+        "logic": {
+            "field": "toxicity_status",
+            "operator": "<=",
+            "value": "grade_1"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'toxicity_status' instead of a schema field, and the logic does not fully capture the exception for clinically non-significant toxicities."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Pregnant or patients who are breastfeeding.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "=",
+            "value": "pregnant_or_breastfeeding"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a correct field and operator, and preserves the meaning of the exclusion criterion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Prior or concurrent treatment with Avastin (bevacizumab) for the purposes of recurrent disease.",
+        "logic": {
+            "field": "bevacizumab_therapy",
+            "operator": "=",
+            "value": "prior_or_concurrent"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'bevacizumab_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', which could have been used to represent the treatment with Avastin (bevacizumab)."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Prior exposure to chimeric antigen receptor (CAR) based therapies.",
+        "logic": {
+            "field": "car_therapy_exposure",
+            "operator": "=",
+            "value": "prior"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'car_therapy_exposure' instead of the allowed schema field 'treatment' or 'treatment_name', which could be used to represent prior exposure to CAR-based therapies."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Known sensitivity or allergy to any agents/reagents used in this study.",
+        "logic": {
+            "field": "allergy_sensitivity",
+            "operator": "=",
+            "value": "known"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'allergy_sensitivity' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Requires current anticoagulation therapy that cannot be safely paused for surgical resection and Ommaya access.",
+        "logic": {
+            "field": "anticoagulation_therapy",
+            "operator": "=",
+            "value": "current"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'anticoagulation_therapy' instead of the schema field 'treatment' which could be used to represent the current anticoagulation therapy, and the logic rule does not fully capture the original criterion's meaning, specifically the part about not being able to safely pause the therapy for surgical resection and Ommaya access."
+        }
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "Prior malignancy except previously diagnosed and definitively treated more than 3 years prior to trial or whose prognosis is deemed good enough to not warrant surveillance.",
+        "logic": {
+            "field": "prior_malignancy",
+            "operator": "=",
+            "value": "excluded"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prior_malignancy' when a schema field 'diagnosis' could be used, and the logic does not fully capture the nuances of the original criterion, such as the time frame and prognosis."
+        }
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "Clinical evidence of significant increased intracranial pressure (i.e. impending herniation) or uncontrolled seizures.",
+        "logic": {
+            "field": "intracranial_pressure",
+            "operator": "=",
+            "value": "significant"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'intracranial_pressure' instead of a normalized lab field or schema field, and the logic does not fully capture the original criterion, which includes 'impending herniation' and 'uncontrolled seizures'."
+        }
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "Presence of fungal, bacterial, viral, or other infection that is uncontrolled or requiring IV antimicrobials for management.",
+        "logic": {
+            "field": "infection_status",
+            "operator": "=",
+            "value": "uncontrolled"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'infection_status' instead of a more specific schema field or normalized lab field, and it does not fully capture the original criterion's meaning, which includes multiple types of infections and the requirement of IV antimicrobials."
+        }
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Known history of infection with HIV or hepatitis B (HBsAg positive) or hepatitis C virus (anti-HCV positive).",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "infection_history",
+                    "operator": "=",
+                    "value": "hiv"
+                },
+                {
+                    "field": "infection_history",
+                    "operator": "=",
+                    "value": "hep_b"
+                },
+                {
+                    "field": "infection_history",
+                    "operator": "=",
+                    "value": "hep_c"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'infection_history' instead of using separate fields for each diagnosis, which could be mapped to the 'diagnosis' schema field. However, the logic accuracy and structure are correct, preserving the original meaning."
+        }
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Primary immunodeficiency or history of autoimmune disease (e.g. Crohn's, rheumatoid arthritis, systemic lupus) resulting in end organ injury or requiring systemic immunosuppression/systemic disease modifying agents within the last 2 years.",
+        "logic": {
+            "field": "autoimmune_disease_history",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'autoimmune_disease_history' instead of the allowed schema field 'diagnosis' which could be used to represent autoimmune diseases, and the logic rule does not fully capture the complexity of the original criterion, such as the requirement for end organ injury or systemic immunosuppression within the last 2 years."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Significant medical diseases or conditions, including poorly controlled conditions: i.e. hypertension, cardiovascular disease, diabetes mellitus, chronic obstructive pulmonary disease, pulmonary fibrosis, inflammatory disorders, immunodeficiency, renal failure including patients requiring dialysis, liver dysfunction, second malignancy, or active infection.",
+        "logic": {
+            "field": "comorbidity_status",
+            "operator": "=",
+            "value": "significant"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'comorbidity_status' instead of the allowed schema fields such as 'diagnosis' which could be used to represent significant medical diseases or conditions."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "History of bone marrow or stem cell transplantation.",
+        "logic": {
+            "field": "bone_marrow_transplant",
+            "operator": "=",
+            "value": "history"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'bone_marrow_transplant' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "In the investigator's judgment, the subject is unlikely to complete all protocol-required study visits or procedures, including follow-up visits, or comply with the study requirements for participation.",
+        "logic": {
+            "field": "study_compliance",
+            "operator": "=",
+            "value": "unlikely"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'study_compliance' when no schema field exists, which is acceptable, but the logic accuracy is preserved and the exclusion semantics are correctly applied, however, the field selection could be improved if a more specific schema field was available."
+        }
+    }
+]

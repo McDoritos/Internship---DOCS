@@ -1,0 +1,146 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Male and female;",
+        "logic": {
+            "field": "gender",
+            "operator": "IN",
+            "value": [
+                "male",
+                "female"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the schema field 'gender' and accurately represents the original criterion using the correct operator and values."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Age above 18 years old;",
+        "logic": {
+            "field": "age",
+            "operator": ">",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion using the correct schema field and operator."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Diagnosis of diffuse large B-cell lymphoma (DLBCL) and high-grade non-Hodgkin B-cell lymphoma at all stagings;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "diffuse large B-cell lymphoma (DLBCL)"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "high-grade non-Hodgkin B-cell lymphoma"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and preserves the meaning of the original criterion, requiring both DLBCL and high-grade non-Hodgkin B-cell lymphoma diagnoses."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Lymphoma classified for the cell of origin (GCB - Germinal Center B-Cell lymphoma, and non-germinal center);",
+        "logic": {
+            "field": "cell_origin",
+            "operator": "IN",
+            "value": [
+                "GCB - Germinal Center B-Cell lymphoma",
+                "non-germinal center"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cell_origin' instead of the allowed schema field 'diagnosis' or a more specific field, and the value 'non-germinal center' is not fully specific, it should be more detailed."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Having first life of treatment information available in institutional medical record;",
+        "logic": {
+            "field": "treatment_info_available",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'treatment_info_available' instead of the available schema field 'treatment' or a more specific field if available, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Having survival data available in institutional medical record.",
+        "logic": {
+            "field": "survival_data_available",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'survival_data_available' since no schema field exists, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "No medical record of the molecular subgroup classification;",
+        "logic": {
+            "field": "molecular_subgroup_record",
+            "operator": "=",
+            "value": "absent"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'molecular_subgroup_record' instead of the allowed schema field 'molecular_status', but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "Diagnosis of diffuse large B-cell lymphoma, confirmed in the year 2016;",
+        "logic": {
+            "field": "diagnosis_date",
+            "operator": "=",
+            "value": "2016"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule only checks if the diagnosis date is 2016, but it does not verify the diagnosis of diffuse large B-cell lymphoma."
+        }
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Patients diagnosed with Transformed Lymphomas.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": [
+                "transformed lymphoma"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the exclusion criterion for patients diagnosed with Transformed Lymphomas."
+        }
+    }
+]

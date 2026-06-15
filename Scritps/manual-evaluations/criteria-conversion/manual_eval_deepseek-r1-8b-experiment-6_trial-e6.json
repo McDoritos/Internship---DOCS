@@ -1,0 +1,376 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "The patient shall sign the Informed Consent Form.",
+        "logic": {
+            "field": "consent_form_signed",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using a custom field 'consent_form_signed' which is acceptable since there is no schema field for this condition, and the logic is straightforward and correct."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Aged 18 ≥ years.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Histological or cytological diagnosis of NSCLC by needle biopsy, and evaluated by researchers as stage III-IVA, and diagnosed as ALK positive through genetic testing.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": [
+                        "III",
+                        "IVA"
+                    ]
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "ALK_positive"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields (diagnosis, stage, molecular_status) and preserving the meaning with correct operators and values."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Eastern Cooperative Oncology Group (ECOG) performance-status score of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": [
+                "0",
+                "1"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and values."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "According to the MDT evaluation (which should include a thoracic surgeon specializing in tumor surgery), it is considered that the primary NSCLC is potentially completely resectable;",
+        "logic": {
+            "field": "resectability_assessment",
+            "operator": "=",
+            "value": "potentially_completely_resectable"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the original criterion, using a custom field 'resectability_assessment' which is acceptable since there is no direct schema field for this concept, and the operator and value correctly convey the meaning of the criterion."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "At least 1 measurable lesion according to RECIST 1.1.",
+        "logic": {
+            "field": "recist_measurable",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a relevant field and correct logic to represent the presence of at least 1 measurable lesion according to RECIST 1.1."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Patients with good function of other main organs (liver, kidney, blood system, etc.)",
+        "logic": {
+            "field": "organ_function_status",
+            "operator": "=",
+            "value": "good"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'organ_function_status' when a more specific schema field such as 'ecog_ps' or normalized lab fields related to liver, kidney, or blood system function could be used, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Patients with lung function can tolerate surgery;",
+        "logic": {
+            "field": "lung_function_sufficient",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lung_function_sufficient' instead of a schema field or a normalized lab field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Fertile female patients must voluntarily use effective contraceptives not less than 120 days after chemotherapy or the last dose of toripalimab (whichever is later) during the study period, and urine or serum pregnancy test results within 7 days prior to enrollment are negative.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "contraception_use",
+                    "operator": "=",
+                    "value": "effective"
+                },
+                {
+                    "field": "pregnancy_test",
+                    "operator": "=",
+                    "value": "negative"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule correctly maps to the schema field 'gender' and preserves the meaning of the original criterion, but it does not fully capture the temporal aspects and specifics of the contraception and pregnancy test requirements."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Unsterilized male patients must voluntarily use effective contraception during the study period not less than 120 d",
+        "logic": {
+            "field": "contraception_use",
+            "operator": "=",
+            "value": "effective"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'contraception_use' instead of a schema field, and the logic rule does not fully capture the original criterion, which includes the conditions of being unsterilized, male, and using contraception for at least 120 days."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Previously received targeted therapy (including TKI or monoclonal antibodies), immunotherapy, or any investigational drug treatment for NSCLC;",
+        "logic": {
+            "field": "treatment",
+            "operator": "IN",
+            "value": [
+                "targeted_therapy",
+                "immunotherapy",
+                "investigational_drug"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'treatment' schema field and accurately represents the exclusion criterion, checking if the patient has previously received targeted therapy, immunotherapy, or investigational drug treatment for NSCLC."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Pathological confirmation of mixed small cell and non-small cell lung cancer;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "NOT_IN",
+            "value": [
+                "mixed_small_cell_and_non_small_cell_lung_cancer"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses NOT_IN operator for an exclusion criterion, which inverts the meaning, and the value is also not correctly formatted as it seems to be a single diagnosis rather than a list of excluded diagnoses."
+        }
+    },
+    {
+        "id": "3",
+        "type": "exclusion",
+        "text": "Patients with a malignancy other than NSCLC within five years prior to the start of this trial，except for cured basal cell carcinoma of the skin, early gastrointestinal (GI) carcinoma excised through endoscopy, cervical carcinoma in situ, ductal carcinoma in situ of the breast, papillary thyroid carcinoma, or any cured cancer deemed to have no impact on the survival of the current NSCLC;",
+        "logic": {
+            "field": "other_malignancy",
+            "operator": "NOT_IN",
+            "value": [
+                "basal_cell_carcinoma_skin",
+                "early_gi_carcinoma_endoscopy",
+                "cervical_carcinoma_in_situ",
+                "ductal_carcinoma_in_situ_breast",
+                "papillary_thyroid_carcinoma"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'other_malignancy' instead of the allowed schema field 'diagnosis', and does not account for the time constraint 'within five years prior to the start of this trial'."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Participants with any unstable systemic disease (including active infection, uncontrolled hypertension), unstable angina pectoris, angina pectoris starting in the last three months, congestive heart failure (>= NYHA) Grade II), myocardial infarction (6 months before admission), severe arrhythmia requiring drug treatment, liver, kidney or metabolic diseases;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "systemic_disease_status",
+                    "operator": "!=",
+                    "value": "uncontrolled"
+                },
+                {
+                    "field": "infection_status",
+                    "operator": "!=",
+                    "value": "active"
+                },
+                {
+                    "field": "hypertension",
+                    "operator": "!=",
+                    "value": "uncontrolled"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion. It checks for the absence of uncontrolled systemic disease, active infection, and uncontrolled hypertension, but the original criterion excludes participants with any unstable systemic disease, including active infection and uncontrolled hypertension. The logic rule also misses other conditions mentioned in the original criterion, such as unstable angina pectoris, congestive heart failure, myocardial infarction, severe arrhythmia, liver, kidney, or metabolic diseases."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Patients with congenital or acquired immune dysfunction (such as HIV infected individuals);",
+        "logic": {
+            "field": "immune_status",
+            "operator": "!=",
+            "value": "dysfunction"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'immune_status' instead of the allowed schema field 'diagnosis' or 'molecular_status' which could be used to represent immune dysfunction, and the logic is partially preserved but the field is not ideal."
+        }
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "Received other major surgical treatments (excluding diagnosis) within 4 weeks prior to the start of the study or expected to undergo major surgical treatments during the study period;",
+        "logic": {
+            "field": "surgery_status",
+            "operator": "NOT_IN",
+            "value": [
+                "within_4_weeks",
+                "during_study_period"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'surgery_status' instead of the allowed schema field 'treatment' or 'treatment_name', and the logic does not fully capture the original criterion's meaning, specifically the time frames 'within 4 weeks prior to the start of the study' and 'during the study period'."
+        }
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "Participants who are allergic to the test drug or any auxiliary materials;",
+        "logic": {
+            "field": "allergy_status",
+            "operator": "!=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'allergy_status' instead of a more specific schema field, and the logic is mostly correct but could be improved with a more precise field, such as a specific allergy field."
+        }
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "A history of extensive diffuse bilateral interstitial fibrosis in the past or before medication, or a known grade 3 or 4 history of interstitial fibrosis or interstitial lung disease, including pneumonia, allergic pneumonia, interstitial pneumonia, interstitial lung disease, obliterative bronchiolitis, and pulmonary fibrosis, but not including local radiation pneumonia or radiation pulmonary fibrosis history;",
+        "logic": {
+            "field": "interstitial_lung_disease",
+            "operator": "!=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the complexity of the original criterion, which includes multiple conditions and exclusions, and the field 'interstitial_lung_disease' is not a direct match for the allowed schema fields or normalized lab fields."
+        }
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Pregnant or lactating women;",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "!=",
+            "value": "pregnant"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'pregnancy_status' instead of a schema field, and it only accounts for 'pregnant' but not 'lactating' women."
+        }
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Any malabsorption;",
+        "logic": {
+            "field": "malabsorption",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'malabsorption' when it could be mapped to the 'diagnosis' schema field, and the logic is otherwise correct."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Participants suffering from nervous system diseases or mental diseases that cannot cooperate",
+        "logic": {
+            "field": "neurological_status",
+            "operator": "!=",
+            "value": "disease"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'neurological_status' instead of the allowed schema field 'diagnosis', and the logic does not fully capture the original criterion's meaning, which includes mental diseases and cooperation ability."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Other factors that researchers think it is not suitable for enrollment.",
+        "logic": {
+            "field": "exclusion_other",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly uses a custom field for a criterion that cannot be mapped to a schema field, and the exclusion semantics are properly applied."
+        }
+    }
+]

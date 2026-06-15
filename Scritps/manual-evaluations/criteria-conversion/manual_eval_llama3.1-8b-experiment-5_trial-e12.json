@@ -1,0 +1,298 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Provision of signed and dated informed consent form.",
+        "logic": {
+            "field": "consent_form_signed",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using a custom field 'consent_form_signed' which is acceptable since there is no schema field for informed consent."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject is 18 years of age and older.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has a diagnosis of unresectable Stage 3 pancreatic adenocarcinoma cancer cytologically or pathologically confirmed per American Joint Committee on Cancer (AJCC) staging criteria.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "pancreatic_adenocarcinoma"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'diagnosis', but it does not fully capture the original criterion, which includes the stage and confirmation details."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has a tumor evaluated as Stage 3 according to National Comprehensive Cancer Network (NCCN) guidelines, based on radiographic imaging or exploratory surgery.",
+        "logic": {
+            "field": "tumor_stage",
+            "operator": "=",
+            "value": "Stage_3"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'tumor_stage' instead of the allowed schema field 'stage'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Maximum axial and anterior to posterior tumor dimension of ≤3.5cm, after receiving three months of treatment with the modified FOLFIRINOX regimen.",
+        "logic": {
+            "field": "tumor_dimension",
+            "operator": "<=",
+            "value": "3.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'tumor_dimension' instead of a more specific schema field, and it does not account for the treatment duration and regimen specified in the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has received 3 months of treatment with the modified FOLFIRINOX regimen.",
+        "logic": {
+            "field": "treatment_duration",
+            "operator": ">=",
+            "value": "3"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'treatment_duration' instead of the allowed schema fields 'treatment_start_date' and 'treatment_end_date' which could be used to calculate the duration."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has an Eastern Cooperative Oncology Group (ECOG) performance status of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "[0, 1]"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and values."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has an American Society of Anesthesiologists (ASA) classification of physical health status of 1 or 2.",
+        "logic": {
+            "field": "asa_classification",
+            "operator": "IN",
+            "value": "[1, 2]"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field 'asa_classification' as no schema field exists for ASA classification, and the logic accurately preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are or may be pregnant as determined by a positive pregnancy test or breastfeeding or male or female patients of reproductive potential who are not willing to employ highly effective birth control from screening to 6 months after the last dose of chemotherapy.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "breastfeeding_status",
+                    "operator": "=",
+                    "value": true
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only partially captures the original criterion, missing the conditions related to male or female patients of reproductive potential and their willingness to employ birth control."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are unable to tolerate general anesthetic with full skeletal muscle blockade.",
+        "logic": {
+            "field": "anesthesia_tolerance",
+            "operator": "=",
+            "value": false
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'anesthesia_tolerance' instead of a schema field, but the logic accuracy and structure are correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are actively bleeding, anticoagulated, coagulopathy, or have any of the following hematology results: hemoglobin less than 10 g/dL without the support of growth factors or transfusions absolute neutrophil count less than 1500 cells/mL; or platelet count less than 100,000.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bleeding_status",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "coagulopathy_status",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "hemoglobin_level",
+                    "operator": "<",
+                    "value": "10"
+                },
+                {
+                    "field": "absolute_neutrophil_count",
+                    "operator": "<",
+                    "value": "1500"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (bleeding_status, coagulopathy_status, hemoglobin_level, absolute_neutrophil_count) instead of normalized lab fields (hemoglobina, custom field for bleeding/coagulopathy status) and misses some conditions (anticoagulated, platelet count less than 100,000), but the meaning is partially preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects with the presence of implanted cardiac pacemakers, defibrillators, electronic devices or implanted devices with metal parts in the thoracic cavity at the time of IRE.",
+        "logic": {
+            "field": "implanted_device_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'implanted_device_status' instead of a more specific schema field, and the logic does not fully capture the complexity of the original criterion, which mentions multiple types of devices."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects with history of epilepsy or other neurological disease.",
+        "logic": {
+            "field": "epilepsy_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'epilepsy_status' instead of the allowed schema field 'diagnosis' which could potentially map to the criterion, and it does not account for 'other neurological disease'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects with renal, cardiac, liver, or hematological abnormalities of concern to the investigator.",
+        "logic": {
+            "field": "organ_abnormality_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'organ_abnormality_status' when a more specific schema field such as 'diagnosis' could be used, and the logic does not fully capture the complexity of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects with Stage 3, 4, or 5 chronic kidney disease.",
+        "logic": {
+            "field": "kidney_disease_stage",
+            "operator": "IN",
+            "value": "[3, 4, 5]"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'kidney_disease_stage' instead of the allowed schema field 'stage' which could be used to represent the stage of chronic kidney disease, and also 'diagnosis' could be used to specify the disease."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects receiving IRE for margin accentuation.",
+        "logic": {
+            "field": "ire_for_margin_accentuation",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'ire_for_margin_accentuation' when a schema field 'treatment' or 'treatment_name' could be used to convey the same meaning, albeit with additional context."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who at 3 months after FOLFIRINOX treatment have evidence of disease progression.",
+        "logic": {
+            "field": "disease_progression_status",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'disease_progression_status' instead of the allowed schema field 'progression_date' or a combination of fields to represent disease progression, but the logic accuracy and exclusion semantics are preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Participation in another interventional trial for pancreatic cancer.",
+        "logic": {
+            "field": "interventional_trial_participation",
+            "operator": "=",
+            "value": true
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'interventional_trial_participation' instead of a schema field, but the logic accuracy and structure are correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who did not meet study defined criteria for adequacy of induction treatment at the end of the 3 months.",
+        "logic": {
+            "field": "induction_treatment_adequacy",
+            "operator": "=",
+            "value": false
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'induction_treatment_adequacy' when no schema field exists, which is acceptable, but the logic is simple and correctly inverts the condition for an exclusion criterion."
+        }
+    }
+]

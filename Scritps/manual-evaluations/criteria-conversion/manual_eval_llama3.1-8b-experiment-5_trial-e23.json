@@ -1,0 +1,987 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Men or women at least 18 years of age with histologically or cytologically confirmed adenocarcinoma of the breast with unresectable or metastatic disease.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "IN",
+                    "value": [
+                        "male",
+                        "female"
+                    ]
+                },
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "adenocarcinoma of the breast"
+                },
+                {
+                    "field": "disease_status",
+                    "operator": "IN",
+                    "value": [
+                        "unresectable",
+                        "metastatic"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema fields for 'gender' and 'age', but uses 'disease_status' which is not a schema field, instead of 'stage' which could be a more suitable field to represent 'unresectable' or 'metastatic' disease."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Most recent tumor biopsy or surgical resection specimen must be either estrogen-receptor (ER) positive, progesterone receptors (PgR) positive, or both, as defined by immunohistochemistry (IHC) ≥1% (as per the American Society of Clinical Oncology (ASCO)-College of American Pathologists (CAP) guidelines).",
+        "logic": {
+            "field": "estrogen_receptor_status",
+            "operator": ">=",
+            "value": "1%"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'estrogen_receptor_status' instead of the allowed schema field 'molecular_status', and it only accounts for ER positive status, not PgR positive status or both."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "HER2-negative breast cancer defined as a negative in situ hybridization test or an immunohistochemistry (IHC) status of 0, 1+ or 2+. If IHC is 2+ (i.e. indeterminate), a negative in situ hybridization (Fluorescent in situ hybridization (FISH), Chromogenic in situ hybridization (CISH), or Silver-enhanced in situ hybridization (SISH)) test is required by local laboratory testing. (as per the ASCO-CAP guidelines).",
+        "logic": {
+            "field": "her2_status",
+            "operator": "=",
+            "value": [
+                "negative",
+                "0",
+                "1+",
+                "2+"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'her2_status' instead of the normalized molecular_status field, and it does not fully capture the complexity of the original criterion, which requires additional testing for IHC 2+ cases."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Postmenopausal status or receiving ovarian ablation with a GnRH agonist such as goserelin.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "postmenopausal_status",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "ovarian_ablation",
+                    "operator": "=",
+                    "value": "goserelin"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using the correct fields and operators to capture postmenopausal status or ovarian ablation with a GnRH agonist like goserelin."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Prior bilateral oophorectomy.",
+        "logic": {
+            "field": "bilateral_oophorectomy",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'bilateral_oophorectomy' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Age ≥60 years.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "60"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Age <60 and amenorrhea for 12 or more months (in the absence of chemotherapy, tamoxifen, toremifen, or ovarian suppression) and follicle stimulating hormone (FSH), luteinizing hormone (LH), and estradiol in the postmenopausal range per local normal.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": "<",
+                    "value": "60"
+                },
+                {
+                    "field": "amenorrhea_duration",
+                    "operator": ">=",
+                    "value": "12"
+                },
+                {
+                    "field": "fsfh_lh_estradiol_range",
+                    "operator": "=",
+                    "value": "postmenopausal"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'amenorrhea_duration' and 'fsfh_lh_estradiol_range' instead of available schema fields or normalized lab fields, and does not account for the absence of chemotherapy, tamoxifen, toremifen, or ovarian suppression."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "If the patient does not meet criteria for postmenopausal status but is receiving ovarian ablation therapy with a gonadotropin-releasing hormone (GnRH) agonist such as goserelin, the patient is eligible for this study, provided that the GnRH agonist is started at least 2 weeks prior to C1D1 of anti-estrogen therapy.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "postmenopausal_status",
+                    "operator": "!=",
+                    "value": "true"
+                },
+                {
+                    "field": "ovarian_ablation",
+                    "operator": "=",
+                    "value": "goserelin"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule partially captures the original criterion, but it lacks the condition for the GnRH agonist to be started at least 2 weeks prior to C1D1 of anti-estrogen therapy and the specific type of ovarian ablation therapy."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Have evidence of measurable or unmeasurable disease.",
+        "logic": {
+            "field": "disease measurability",
+            "operator": "IN",
+            "value": [
+                "measurable",
+                "unmeasurable"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'disease measurability' instead of the allowed schema field 'diagnosis' or a more specific field, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Eastern Cooperative Group (ECOG) performance status of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": [
+                "0",
+                "1"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and values."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "No prior cdk 4/6 inhibitor (Closed to Accrual).",
+        "logic": {
+            "field": "cdk_46_inhibitor_history",
+            "operator": "=",
+            "value": "false"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using a custom field 'cdk_46_inhibitor_history' which is acceptable since there is no schema field for this specific condition, and the logic is coherent with the inclusion criterion."
+        }
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "If patient has not previously received letrozole, letrozole will be supplied by Novartis.",
+        "logic": {
+            "field": "letrozole_reception",
+            "operator": "=",
+            "value": "false"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'letrozole_reception' which is acceptable since there is no direct schema field for 'letrozole reception'. The logic also correctly preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "If previously progressed on letrozole, another aromatase inhibitor that the patient has not previously received is allowed, per standard of care (anastrazole or exemestane, not supplied by study).",
+        "logic": {
+            "field": "letrozole_progression",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'letrozole_progression' instead of the allowed schema field 'treatment' or 'progression_date' which could be used to infer progression on letrozole, and does not account for the use of other aromatase inhibitors."
+        }
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "Ribociclib will be supplied by Novartis.",
+        "logic": {
+            "field": "ribociclib_supplied_by_novartis",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'ribociclib_supplied_by_novartis' when no schema field exists, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "If patient has previously received letrozole, anastrazole, and exemestane, (s)he is not eligible.",
+        "logic": {
+            "field": "letrozole_anastazol_exemestane_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'letrozole_anastazol_exemestane_history' instead of using the 'treatment' or 'treatment_name' schema field with the specific drug names. However, the logic accuracy is preserved, and the structure is coherent."
+        }
+    },
+    {
+        "id": 16,
+        "type": "inclusion",
+        "text": "For scenario 1, patients are allowed to have started the aromatase inhibitor within 4 consecutive weeks prior to protocol registration.",
+        "logic": {
+            "field": "aromatase_inhibitor_start_time",
+            "operator": "<=",
+            "value": "-28"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'aromatase_inhibitor_start_time' instead of the allowed schema field 'treatment_start_date' which could be used to represent the start time of the aromatase inhibitor treatment."
+        }
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "No prior fulvestrant allowed.",
+        "logic": {
+            "field": "fulvestrant_history",
+            "operator": "=",
+            "value": "false"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'fulvestrant_history' instead of the allowed schema field 'treatment' or 'treatment_name' which could better represent the criterion."
+        }
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "aromatase_inhibitor_history",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "palbociclib_received",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only partially captures the original criterion, as it does not account for other required treatments (tamoxifen, fulvestrant, CDK4/6 inhibitors) and disease progression."
+        }
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "If the patient was enrolled in a randomized clinical trial involving ribociclib or abemaciclib or palbociclib (such as the MONALEESA or PALOMA series of trials), then it must be known after study discontinuation and unblinding that the patient received the investigational drug and not placebo.",
+        "logic": {
+            "field": "ribociclib_abemaciclib_palbociclib_trial",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'ribociclib_abemaciclib_palbociclib_trial' instead of the allowed schema field 'treatment' or 'treatment_name', which could better represent the criterion."
+        }
+    },
+    {
+        "id": 20,
+        "type": "inclusion",
+        "text": "Documentation of progression and duration of response on aromatase inhibitor or tamoxifen plus CDK 4/6 inhibitor should be provided whenever possible.",
+        "logic": {
+            "field": "progression_documentation",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'progression_documentation' instead of the allowed schema field 'progression_date' or a combination of fields to convey the same meaning."
+        }
+    },
+    {
+        "id": 21,
+        "type": "inclusion",
+        "text": "If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization.",
+        "logic": {
+            "field": "fulvestrant_received",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only checks if the patient received prior fulvestrant, but it does not verify if exemestane is the hormone therapy backbone in the randomization, which is a required condition for inclusion."
+        }
+    },
+    {
+        "id": 22,
+        "type": "inclusion",
+        "text": "If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization.",
+        "logic": {
+            "field": "exemestane_received",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only checks if the patient received prior exemestane, but it does not verify if fulvestrant is the hormone therapy backbone in the randomization, which is a required condition for inclusion."
+        }
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "If neither has been administered, selection of fulvestrant or exemestane in the randomization will be per investigator discretion.",
+        "logic": {
+            "field": "fulvestrant_exemestane_randomization",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'fulvestrant_exemestane_randomization' instead of the allowed schema field 'treatment_name' or 'treatment', and the condition is not fully represented."
+        }
+    },
+    {
+        "id": 24,
+        "type": "inclusion",
+        "text": "Absolute neutrophil count ≥ 1500 per microliter, Platelets ≥ 75,000 per microliter, Hemoglobin level ≥ 8.0 gm/dL on screening complete blood count.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "absolute_neutrophil_count",
+                    "operator": ">=",
+                    "value": "1500"
+                },
+                {
+                    "field": "platelet_count",
+                    "operator": ">=",
+                    "value": "75000"
+                },
+                {
+                    "field": "hemoglobin_level",
+                    "operator": ">=",
+                    "value": "8.0"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (absolute_neutrophil_count, platelet_count, hemoglobin_level) instead of the normalized lab fields (neutrofilos, plaquetas, hemoglobina)."
+        }
+    },
+    {
+        "id": 25,
+        "type": "inclusion",
+        "text": "Potassium, sodium, total calcium (corrected only in the case of hypoalbuminemia), magnesium, and phosphorus within normal limits of the local laboratory.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "potassium_level",
+                    "operator": "=",
+                    "value": "normal"
+                },
+                {
+                    "field": "sodium_level",
+                    "operator": "=",
+                    "value": "normal"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only includes potassium and sodium levels, missing total calcium, magnesium, and phosphorus, and uses custom fields instead of normalized lab fields (e.g., 'potassio' instead of 'potassium_level')."
+        }
+    },
+    {
+        "id": 26,
+        "type": "inclusion",
+        "text": "Serum creatinine level ≤ 1.5 mg/dL or estimated glomerular filtration rate > 50 mL/min.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "serum_creatinine_level",
+                    "operator": "<=",
+                    "value": "1.5"
+                },
+                {
+                    "field": "estimated_glomerular_filtration_rate",
+                    "operator": ">",
+                    "value": "50"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'serum_creatinine_level' instead of the normalized lab field 'creatinina', and 'estimated_glomerular_filtration_rate' is not a schema field, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 27,
+        "type": "inclusion",
+        "text": "In absence of liver metastases, alanine aminotransferase (ALT) and aspartate aminotransferase (AST) should be below 2.5 × the upper limit of normal (ULN).",
+        "logic": {
+            "field": "liver_metastases_absent",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only addresses the absence of liver metastases, but does not account for the ALT and AST values being below 2.5 × ULN."
+        }
+    },
+    {
+        "id": 28,
+        "type": "inclusion",
+        "text": "If the patient has liver metastases, ALT and AST should be < 5 × ULN.",
+        "logic": {
+            "field": "liver_metastases_present",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only checks for liver metastases, but does not account for the ALT and AST conditions (< 5 × ULN) mentioned in the original criterion."
+        }
+    },
+    {
+        "id": 29,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 1.5 x ULN.",
+        "logic": {
+            "field": "total_bilirubin_level",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'total_bilirubin_level' instead of the normalized lab field 'bilirrubina_total', and the value is missing the ULN reference."
+        }
+    },
+    {
+        "id": 30,
+        "type": "inclusion",
+        "text": "In patients with well documented Gilbert's Syndrome, total bilirubin ≤ 3 × ULN with direct bilirubin within normal range.",
+        "logic": {
+            "field": "gilberts_syndrome_present",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'gilberts_syndrome_present' instead of the allowed schema field 'diagnosis', and did not account for the total and direct bilirubin conditions."
+        }
+    },
+    {
+        "id": 31,
+        "type": "inclusion",
+        "text": "international normalized ratio (INR) ≤ 1.5",
+        "logic": {
+            "field": "inr_level",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'inr_level' instead of a normalized lab field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 32,
+        "type": "inclusion",
+        "text": "Written informed consent and HIPAA authorization obtained from the subject/legal representative prior to performing any protocol-related procedures.",
+        "logic": {
+            "field": "informed_consent_obtained",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field that does not have a direct schema field equivalent, and correctly preserves the meaning of obtaining informed consent."
+        }
+    },
+    {
+        "id": 33,
+        "type": "inclusion",
+        "text": "Subjects must be willing and able to comply with scheduled visits, treatment schedule, laboratory testing, and other requirements of the study.",
+        "logic": {
+            "field": "compliance_willingness",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'compliance_willingness' when no schema field exists, which is acceptable, but the original criterion is about willingness and ability to comply with multiple aspects of the study, and the logic rule only captures willingness."
+        }
+    },
+    {
+        "id": 34,
+        "type": "inclusion",
+        "text": "Must be able to swallow ribociclib and oral aromatase inhibitor, such as letrozole or exemestane.",
+        "logic": {
+            "field": "ribociclib_exemestane_swallowability",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'ribociclib_exemestane_swallowability' when a more specific schema field such as 'treatment' could be used to convey the ability to swallow specific medications, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 35,
+        "type": "exclusion",
+        "text": "Patient has a known hypersensitivity to any of the excipients of ribociclib, aromatase inhibitors (such as letrozole) or fulvestrant",
+        "logic": {
+            "field": "ribociclib_aromatase_inhibitor_fulvestrant_hypersensitivity",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field when no schema field exists, which is acceptable, but the logic does not fully capture the complexity of the original criterion, which mentions hypersensitivity to excipients of multiple drugs."
+        }
+    },
+    {
+        "id": 36,
+        "type": "exclusion",
+        "text": "Active central nervous system (CNS) disease.",
+        "logic": {
+            "field": "active_cns_disease",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a custom field 'active_cns_disease' which is acceptable since there is no direct schema field for CNS disease, and the logic accurately preserves the meaning of the exclusion criterion."
+        }
+    },
+    {
+        "id": 37,
+        "type": "exclusion",
+        "text": "History of CNS metastases or cord compression is allowable if the patient has been clinically stable for at least 4 weeks since completion of definitive treatment and is off systemic steroids.",
+        "logic": {
+            "field": "cns_metastases_stable",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cns_metastases_stable' instead of a combination of schema fields such as 'diagnosis' and 'treatment_end_date' to represent the criterion, and the logic does not fully capture the conditions of being clinically stable for at least 4 weeks and off systemic steroids."
+        }
+    },
+    {
+        "id": 38,
+        "type": "exclusion",
+        "text": "In the case of brain metastases, the patient must have stable or improved imaging at least 4 weeks after completion of definitive treatment.",
+        "logic": {
+            "field": "brain_metastases_stable",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'brain_metastases_stable' instead of a schema field, and it does not fully capture the original criterion's meaning, which requires stable or improved imaging at least 4 weeks after treatment completion."
+        }
+    },
+    {
+        "id": 39,
+        "type": "exclusion",
+        "text": "If there is evidence of active leptomeningeal disease, the patient is ineligible.",
+        "logic": {
+            "field": "leptomeningeal_disease_active",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'leptomeningeal_disease_active' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 40,
+        "type": "exclusion",
+        "text": "Identified as having visceral crisis, lymphangitic spread, or leptomeningeal carcinomatosis.",
+        "logic": {
+            "field": "visceral_crisis_lymphangitic_spread_leptomeningeal_carcinomatosis",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field when a schema field 'diagnosis' could be used, and the logic accuracy is preserved but the field selection is imperfect."
+        }
+    },
+    {
+        "id": 41,
+        "type": "exclusion",
+        "text": "Received more than 1 prior systemic chemotherapy in the unresectable or metastatic setting.",
+        "logic": {
+            "field": "prior_systemic_chemotherapy",
+            "operator": ">=",
+            "value": "2"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prior_systemic_chemotherapy' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 42,
+        "type": "exclusion",
+        "text": "Completion of major surgery, chemotherapy, targeted therapy (such as everolimus or experimental agents) or radiation within 14 days prior to starting investigational drug or has not recovered from major side effects.",
+        "logic": {
+            "field": "major_surgery_chemotherapy_targeted_radiation_completion",
+            "operator": "<",
+            "value": "-14"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'major_surgery_chemotherapy_targeted_radiation_completion' when a schema field 'treatment' or 'treatment_name' could be used, and the logic is partially preserved but the field selection is imperfect."
+        }
+    },
+    {
+        "id": 43,
+        "type": "exclusion",
+        "text": "Residual acute toxic effects of prior anti-cancer therapy that have not resolved to CTCAE v.4 Grade ≤1.",
+        "logic": {
+            "field": "acute_toxic_effects_unresolved",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'acute_toxic_effects_unresolved' instead of a schema field or normalized lab field, and the logic does not explicitly reference the CTCAE v.4 Grade ≤1 condition."
+        }
+    },
+    {
+        "id": 44,
+        "type": "exclusion",
+        "text": "Presence of a concurrent malignancy or malignancy diagnosed within 5 years of randomization, with the exception of basal or squamous cell carcinoma, non-melanomatous skin cancer, curatively resected cervical cancer, localized prostate cancer treated with curative intent, and stage I colorectal cancer treated with curative resection.",
+        "logic": {
+            "field": "concurrent_malignancy",
+            "operator": "=",
+            "value": "false"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the complexity of the original criterion, which includes multiple exceptions and a time frame, and uses a custom field 'concurrent_malignancy' instead of the allowed schema field 'diagnosis' or 'diagnosis_date'."
+        }
+    },
+    {
+        "id": 45,
+        "type": "exclusion",
+        "text": "Patient has impairment of gastrointestinal (GI) function or GI disease that may significantly alter the absorption of the study drugs.",
+        "logic": {
+            "field": "gastrointestinal_impairment",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'gastrointestinal_impairment' when a more specific schema field such as 'diagnosis' could be used to map the criterion, and the logic is simple and preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 46,
+        "type": "exclusion",
+        "text": "Patient has a known history of HIV infection (testing not mandatory).",
+        "logic": {
+            "field": "hiv_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'hiv_history' which is acceptable since there is no schema field for HIV history, and the logic is straightforward and correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": 47,
+        "type": "exclusion",
+        "text": "History of myocardial infarction (MI), angina pectoris, symptomatic pericarditis, or coronary artery bypass graft (CABG) within 6 months prior to study entry",
+        "logic": {
+            "field": "myocardial_infarction_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'myocardial_infarction_history' instead of the allowed schema field 'diagnosis' or a more specific field, and the logic does not fully capture the original criterion's conditions and time frame."
+        }
+    },
+    {
+        "id": 48,
+        "type": "exclusion",
+        "text": "Documented cardiomyopathy",
+        "logic": {
+            "field": "cardiomyopathy_documented",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cardiomyopathy_documented' instead of the allowed schema field 'diagnosis' which could potentially map to cardiomyopathy."
+        }
+    },
+    {
+        "id": 49,
+        "type": "exclusion",
+        "text": "Patient has a known Left Ventricular Fraction (LVEF) <50% as determined by Multiple Gated acquisition (MUGA) scan or echocardiogram (ECHO).",
+        "logic": {
+            "field": "lvef_known",
+            "operator": "<",
+            "value": "0.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lvef_known' instead of a normalized lab field or schema field, and the operator and value are correct, but the field name does not exactly match the allowed schema fields or normalized lab fields."
+        }
+    },
+    {
+        "id": 50,
+        "type": "exclusion",
+        "text": "Long QT syndrome or family history of long QT syndrome or family history of idiopathic sudden death or congenital long QT syndrome.",
+        "logic": {
+            "field": "long_qt_syndrome_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'long_qt_syndrome_history' instead of a schema field, but the logic accuracy is preserved. A more accurate representation would use the 'diagnosis' field."
+        }
+    },
+    {
+        "id": 51,
+        "type": "exclusion",
+        "text": "Risk factors for Torsades de Pointe (TdP) including uncorrected hypocalcemia, hypokalemia or hypomagnesaemia, history of cardiac failure, or history of clinically significant/symptomatic bradycardia",
+        "logic": {
+            "field": "torsades_de_pointe_risk_factors",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'torsades_de_pointe_risk_factors' instead of utilizing the allowed schema fields or normalized lab fields to represent the individual risk factors mentioned in the original criterion, such as hypocalcemia (calcio), hypokalemia (potassio), or hypomagnesaemia."
+        }
+    },
+    {
+        "id": 52,
+        "type": "exclusion",
+        "text": "Concomitant medications(s) with a known risk to prolong the QT interval and/or known to cause Torsades de Pointe that cannot be discontinued or replaced by safe alternative medication (e.g. within 5 half-lives or 7 days prior to starting study drug)",
+        "logic": {
+            "field": "qt_interval_prolonging_medications",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the exclusion criterion, using a relevant field and correct logic to identify concomitant medications that pose a risk to prolong the QT interval."
+        }
+    },
+    {
+        "id": 53,
+        "type": "exclusion",
+        "text": "Inability to determine the QTc interval",
+        "logic": {
+            "field": "qt_interval_undeterminable",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field 'qt_interval_undeterminable' as no schema field exists for QTc interval, and the operator and value are correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": 54,
+        "type": "exclusion",
+        "text": "Clinically significant cardiac arrhythmias (e.g., ventricular tachycardia), complete left bundle branch block, high-grade Atrioventricular block (e.g., bifascicular block, Mobitz type II and third degree Atrioventricular (AV) block)",
+        "logic": {
+            "field": "clinically_significant_cardiac_arrhythmias",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'clinically_significant_cardiac_arrhythmias' instead of a more specific schema field or normalized lab field, and the logic does not fully capture the complexity of the original criterion."
+        }
+    },
+    {
+        "id": 55,
+        "type": "exclusion",
+        "text": "Systolic Blood Pressure (SPB) >160 or <90 mmHg.",
+        "logic": {
+            "field": "systolic_blood_pressure_out_of_range",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'systolic_blood_pressure_out_of_range' instead of a schema field or a normalized lab field, and the logic does not explicitly represent the original criterion's conditions (>160 or <90 mmHg)."
+        }
+    },
+    {
+        "id": 56,
+        "type": "exclusion",
+        "text": "Corrected QT interval (QTcF) > 450 msec (QT interval using Fridericia's correction) on screening electrocardiogram.",
+        "logic": {
+            "field": "qt_interval_corrected_undesirable",
+            "operator": ">",
+            "value": "450"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'qt_interval_corrected_undesirable' instead of a normalized lab field or schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 57,
+        "type": "exclusion",
+        "text": "Mean resting heart rate 50-100 bpm (determined from ECG).",
+        "logic": {
+            "field": "mean_resting_heart_rate_out_of_range",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'mean_resting_heart_rate_out_of_range' instead of a schema field or a normalized lab field, and the logic does not explicitly represent the range 50-100 bpm."
+        }
+    },
+    {
+        "id": 58,
+        "type": "exclusion",
+        "text": "The presence of any other concurrent severe and/or uncontrolled medical condition that would, in the investigator or treating physician's judgment, cause unacceptable safety risks, contraindicate patient participation in the clinical study or compromise compliance with the protocol.",
+        "logic": {
+            "field": "other_concurrent_medical_condition",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'other_concurrent_medical_condition' when a more specific schema field such as 'diagnosis' could be used, and the condition is not fully captured by the simple 'true' value."
+        }
+    },
+    {
+        "id": 59,
+        "type": "exclusion",
+        "text": "Currently receiving treatment, including medications and herbal preparations, with known strong inducers or inhibitors of cytochrome p450 enzymes CYP3A4/5 medications that have a narrow therapeutic window and are predominately metabolized through CYP3A4/5 or herbal preparations/medications, dietary supplements, which cannot be discontinued prior to receiving investigational drug.",
+        "logic": {
+            "field": "cytochrome_p450_inducers_inhibitors",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cytochrome_p450_inducers_inhibitors' instead of the allowed schema field 'treatment' or a combination of fields to accurately represent the criterion, and the logic does not fully capture the complexity of the original criterion regarding narrow therapeutic windows and metabolism through CYP3A4/5."
+        }
+    },
+    {
+        "id": 60,
+        "type": "exclusion",
+        "text": "Patients who are receiving any other investigational agents concurrently or have received investigational agents within 14 days or 5 half-lives of the compound or active metabolites, whichever is longer before the first dose of the study treatment.",
+        "logic": {
+            "field": "investigational_agent_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'investigational_agent_history' instead of a schema field, and it does not fully capture the complexity of the original criterion, which includes time frames and half-lives."
+        }
+    },
+    {
+        "id": 61,
+        "type": "exclusion",
+        "text": "Patient is concurrently using hormone replacement therapy.",
+        "logic": {
+            "field": "hormone_replacement_therapy",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hormone_replacement_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', which could better represent the concept of hormone replacement therapy."
+        }
+    },
+    {
+        "id": 62,
+        "type": "exclusion",
+        "text": "Subject is pregnant or nursing. Serum or urine Beta-Human chorionic gonadotropin (HCG) must be checked in all pre- and peri-menopausal patients.",
+        "logic": {
+            "field": "pregnancy_nursing_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pregnancy_nursing_status' instead of a schema field, and did not account for the HCG check requirement."
+        }
+    }
+]

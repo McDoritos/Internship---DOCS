@@ -1,0 +1,247 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologically confirmed pure seminomatous testicular germ cell tumor",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "pure seminomatous testicular germ cell tumor"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps the original criterion to the 'diagnosis' schema field with the correct operator and value, preserving the meaning of the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Presence of iliac or retroperitoneal lymph node metastasis detected in contrast-enhanced CT or MRI, classified as local or unilaterally regional",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "iliac or retroperitoneal lymph node metastasis"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the 'diagnosis' field, which is a schema field, but it does not fully capture the original criterion's meaning, as it lacks information about the detection method (contrast-enhanced CT or MRI) and the classification (local or unilaterally regional)."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Maximum extent of lymph node metastasis (LN-M) singular or multiple, with a maximum size of 5 cm in transverse CT diameter (UICC IIB)",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "LN-M"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the 'diagnosis' field, which is a schema field, but it does not fully capture the meaning of the original criterion, which includes specific details about the size and number of lymph node metastases."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with an elevation in HCG after orchiectomy at the time of staging examination can be included if the directly preoperatively determined HCG does not exceed 5 IU/L.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "hcg_before_orchiectomy",
+                    "operator": ">",
+                    "value": "5"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "directly preoperatively determined HCG does not exceed 5 IU/L."
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses an incorrect operator (>) instead of (< or <=) for the HCG value, and also includes an unmapped condition which seems to convey the opposite meaning of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Initial diagnosis of a tumor in UICC stage IIA/IIB",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "UICC stage IIA/IIB"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a tumor in clinical stage (CS) I under active surveillance",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "recurrence in CS I under active surveillance"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'diagnosis' and preserving the meaning of the criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a CS I tumor after adjuvant therapy with carboplatin mono",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "recurrence in CS I after adjuvant therapy with carboplatin mono"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the 'diagnosis' schema field and preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "LN-M with a transverse diameter >5 cm in CT (UICC IIC)",
+        "logic": {
+            "field": "diagnosis",
+            "operator": ">",
+            "value": "5 cm"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses the 'diagnosis' field, which is incorrect for describing a tumor size measurement. Additionally, the 'diagnosis' field is not suitable for a numerical comparison with '>'. A more suitable field, such as a custom field for 'tumor size' or 'transverse diameter', should be used along with the correct unit of measurement."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other metastases than LN-M (UICC III)",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "other metastases"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'diagnosis', but the value 'other metastases' does not accurately represent the original criterion 'Other metastases than LN-M (UICC III)'. The rule should be more specific to exclude only LN-M (UICC III) metastases."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient received a different chemotherapy than described above",
+        "logic": {
+            "field": "treatment",
+            "operator": "!=",
+            "value": "described above"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses '!=' operator which is correct for exclusion, but the value 'described above' is not a specific treatment name and is likely to be incorrect as it's a natural language description, not a concrete value that can be compared to 'treatment'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient underwent retroperitoneal radiotherapy",
+        "logic": {
+            "unmapped": true,
+            "source_text": "retroperitoneal radiotherapy"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not map to any allowed schema field and does not provide a clear logical condition for the exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient is in a reduced general condition or has a life-threatening illness",
+        "logic": {
+            "field": "general_condition_status",
+            "operator": "=",
+            "value": "reduced"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'general_condition_status' instead of the allowed schema field 'ecog_ps' which is more suitable for evaluating a patient's general condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient has a psychiatric illness",
+        "logic": {
+            "unmapped": true,
+            "source_text": "psychiatric illness"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not map to any allowed schema field and does not provide a clear logical condition for the exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Evidence of non-seminomatous germ cell tumor components in the RPLND histology",
+        "logic": {
+            "field": "histology",
+            "operator": "=",
+            "value": "non-seminomatous germ cell tumor"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a relevant field and correct operator and value for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Complete resection cannot be ensured due to previous surgeries",
+        "logic": {
+            "unmapped": true,
+            "source_text": "previous surgeries"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion, as it does not address the concept of 'complete resection' and only mentions 'previous surgeries' without any clear logical structure or field mapping."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "In the \"high risk\" group: Contraindications to cisplatin, etoposide, or bleomycin (severe liver insufficiency, severe kidney insufficiency, severe lung insufficiency, hypersensitivity, severe bone marrow depression, profound hearing impairments)",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "cisplatin_contraindication",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "etoposide_contraindication",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "bleomycin_contraindication",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses custom fields (cisplatin_contraindication, etoposide_contraindication, bleomycin_contraindication) instead of normalized fields or schema fields, but the meaning is partially preserved and the structure is coherent."
+        }
+    }
+]

@@ -1,0 +1,445 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "ECOG performance status of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": [
+                "0",
+                "1"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the allowed schema field 'ecog_ps' and accurately represents the original criterion using the correct operator and values."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed, Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule correctly uses the 'diagnosis' schema field and preserves the meaning of NSCLC, but it does not fully capture the original criterion, which also specifies Stage IV and non-squamous or squamous types."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "No prior treatment for Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "field": "prior_treatment",
+            "operator": "NOT_IN",
+            "value": [
+                "chemotherapy",
+                "radiotherapy",
+                "chemo-radiotherapy"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prior_treatment' instead of the allowed schema fields 'treatment' or 'treatment_name', but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Patients who have received prior neo-adjuvant, adjuvant chemotherapy, radiotherapy, or chemo-radiotherapy with curative intent for non-metastatic disease must have experienced a treatment free interval of at least 6 months from enrollment since the last chemotherapy, radiotherapy, or chemo-radiotherapy cycle.",
+        "logic": {
+            "field": "treatment_free_interval",
+            "operator": ">=",
+            "value": "6",
+            "unit": "months"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the original criterion, using the correct field and logic to represent the treatment free interval of at least 6 months."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Tumor TC3 or IC3, as determined by SP142 performed by a central laboratory on previously obtained archival tumor tissue or tissue obtained from a biopsy at screening.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": [
+                "TC3",
+                "IC3"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the molecular_status field and accurately represents the inclusion criterion with the correct operator and values."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Measurable disease, as defined by RECIST v1.1.",
+        "logic": {
+            "field": "measurable_disease",
+            "operator": "=",
+            "value": "RECIST v1.1"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'measurable_disease' when a schema field 'diagnosis' could be more appropriate, and the operator and value are correct but the field is not a direct match to the allowed schema fields."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Adequate hematologic and end-organ function.",
+        "logic": {
+            "field": "hematologic_function",
+            "operator": "=",
+            "value": "adequate"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hematologic_function' instead of using the available normalized lab fields such as 'hemoglobina', 'hematocrito', etc. to evaluate hematologic function."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Life expectancy ≥3 months.",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">=",
+            "value": "3",
+            "unit": "months"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'life_expectancy' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "For women of childbearing potential: agreement to remain abstinent or use contraception, and agreement to refrain from donating.",
+        "logic": {
+            "field": "contraception_use",
+            "operator": "IN",
+            "value": [
+                "abstinent",
+                "contraception"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'contraception_use' instead of a schema field, and the values are not normalized, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Known sensitizing mutation in the EGFR gene or ALK fusion oncogene.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "NOT_IN",
+            "value": [
+                "EGFR mutation",
+                "ALK fusion"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses NOT_IN operator, which means the criterion is not met if the molecular status is EGFR mutation or ALK fusion, but for an exclusion criterion, the logic must evaluate TRUE when the exclusion condition is present, so the operator should be IN instead."
+        }
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Symptomatic, untreated, or actively progressing CNS metastases.",
+        "logic": {
+            "field": "cns_metastases",
+            "operator": "NOT_IN",
+            "value": [
+                "symptomatic",
+                "untreated",
+                "actively progressing"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which is an exclusion criterion. The original criterion excludes patients with symptomatic, untreated, or actively progressing CNS metastases, but the logic rule checks if the value is NOT IN the list, which would actually include patients with these conditions."
+        }
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Spinal cord compression not definitively treated with surgery and/or radiation, or previously diagnosed and treated spinal cord compression without evidence that disease has been clinically stable for ≥2 weeks prior to enrollment.",
+        "logic": {
+            "field": "spinal_cord_compression",
+            "operator": "NOT_IN",
+            "value": [
+                "not definitively treated",
+                "previously diagnosed and treated without stability"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'spinal_cord_compression' which could be mapped to the 'diagnosis' schema field, and the meaning is partially preserved but the operators/values are not entirely correct."
+        }
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Current leptomeningeal disease.",
+        "logic": {
+            "field": "leptomeningeal_disease",
+            "operator": "=",
+            "value": "current"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'leptomeningeal_disease' instead of a schema field, but since there is no direct schema field for 'leptomeningeal disease', it is not heavily penalized. However, it would be better if it used a more specific field related to diagnosis, such as 'diagnosis' with a specific value."
+        }
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Uncontrolled tumor-related pain.",
+        "logic": {
+            "field": "tumor_pain",
+            "operator": "NOT_IN",
+            "value": [
+                "controlled"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'tumor_pain' instead of a possible schema field 'diagnosis' or a more specific field related to tumor pain, and the logic seems to preserve the meaning of uncontrolled tumor-related pain."
+        }
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Uncontrolled pleural effusion, pericardial effusion, or ascites requiring recurrent drainage procedures.",
+        "logic": {
+            "field": "effusion_ascites",
+            "operator": "NOT_IN",
+            "value": [
+                "controlled"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'effusion_ascites' instead of a more specific schema field, and the logic does not fully capture the original criterion's meaning, which includes multiple conditions and the need for recurrent drainage procedures."
+        }
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "Uncontrolled or symptomatic hypercalcemia.",
+        "logic": {
+            "field": "hypercalcemia",
+            "operator": "NOT_IN",
+            "value": [
+                "controlled",
+                "symptomatic"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which requires uncontrolled or symptomatic hypercalcemia, but the rule checks for NOT_IN 'controlled' or 'symptomatic', and also uses a custom field 'hypercalcemia' instead of a normalized lab field or schema field."
+        }
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "Malignancies other than NSCLC within 5 years prior to enrollment, with the exception of those with a negligible risk of metastasis or death treated with expected curative outcome.",
+        "logic": {
+            "field": "other_malignancies",
+            "operator": "NOT_IN",
+            "value": [
+                "NSCLC",
+                "negligible risk"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'other_malignancies' instead of the allowed schema field 'diagnosis', and the operator and value do not fully capture the original criterion's meaning, particularly the time frame and curative outcome aspects."
+        }
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "Pregnancy or breastfeeding, or intention of becoming pregnant during study treatment or within at least 5 months after the last dose of atezolizumab.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "NOT_IN",
+            "value": [
+                "pregnancy",
+                "breastfeeding",
+                "intention to become pregnant"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'NOT_IN' operator which inverts the meaning of the original criterion, and also uses a custom field 'pregnancy_status' instead of a schema field or normalized lab field, if available."
+        }
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "History of severe allergic, anaphylactic, or other hypersensitivity reactions to chimeric or humanized antibodies or fusion proteins.",
+        "logic": {
+            "field": "hypersensitivity",
+            "operator": "NOT_IN",
+            "value": [
+                "severe allergic",
+                "anaphylactic",
+                "other hypersensitivity"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which is an exclusion criterion. The 'NOT_IN' operator is used, but the original criterion is looking for a history of severe allergic reactions, so it should be checking if the value is 'IN' the list, not 'NOT_IN'."
+        }
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Known allergy or hypersensitivity to biopharmaceuticals produced in Chinese hamster ovary cells or any component of the atezolizumab formulation.",
+        "logic": {
+            "field": "allergy",
+            "operator": "NOT_IN",
+            "value": [
+                "biopharmaceuticals produced in Chinese hamster ovary cells",
+                "any component of atezolizumab formulation"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the exclusion condition by using 'NOT_IN' instead of 'IN', which would correctly evaluate to TRUE when the exclusion condition is present."
+        }
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Active or history of autoimmune disease or immune deficiency.",
+        "logic": {
+            "field": "autoimmune_immunedeficiency",
+            "operator": "NOT_IN",
+            "value": [
+                "active",
+                "history"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'NOT_IN' operator which inverts the meaning of the original criterion, and also uses a custom field 'autoimmune_immunedeficiency' instead of the allowed schema field 'diagnosis' or a more specific field related to autoimmune disease or immune deficiency."
+        }
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "History of idiopathic pulmonary fibrosis, organizing pneumonia, drug-induced pneumonitis, idiopathic pneumonitis, or evidence of active pneumonitis on screening chest CT scan.",
+        "logic": {
+            "field": "pulmonary_condition",
+            "operator": "NOT_IN",
+            "value": [
+                "idiopathic pulmonary fibrosis",
+                "organizing pneumonia",
+                "drug-induced pneumonitis",
+                "idiopathic pneumonitis",
+                "active pneumonitis"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'pulmonary_condition' instead of the allowed schema field 'diagnosis', and the operator is 'NOT_IN' which inverts the exclusion condition, meaning the logic will evaluate FALSE when the exclusion condition is present."
+        }
+    },
+    {
+        "id": 23,
+        "type": "exclusion",
+        "text": "Positive human immunodeficiency virus (HIV) test result at screening.",
+        "logic": {
+            "field": "hiv_status",
+            "operator": "=",
+            "value": "positive"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hiv_status' instead of a normalized field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 24,
+        "type": "exclusion",
+        "text": "Patients with active hepatitis B or active hepatitis C at screening.",
+        "logic": {
+            "field": "hepatitis_status",
+            "operator": "NOT_IN",
+            "value": [
+                "active hepatitis B",
+                "active hepatitis C"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the exclusion condition by using 'NOT_IN' instead of 'IN', which would correctly identify patients with active hepatitis B or C."
+        }
+    },
+    {
+        "id": 25,
+        "type": "exclusion",
+        "text": "Active tuberculosis.",
+        "logic": {
+            "field": "tuberculosis_status",
+            "operator": "=",
+            "value": "active"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'tuberculosis_status' instead of the allowed schema field 'diagnosis' which could potentially map to this condition."
+        }
+    },
+    {
+        "id": 26,
+        "type": "exclusion",
+        "text": "Severe infections within 4 weeks prior to randomization, including, but not limited to, hospitalization for complications of infection, bacteremia, or severe pneumonia.",
+        "logic": {
+            "field": "infection_status",
+            "operator": "NOT_IN",
+            "value": [
+                "severe infections",
+                "hospitalization for complications",
+                "bacteremia",
+                "severe pneumonia"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'infection_status' instead of a schema field, and the operator 'NOT_IN' inverts the meaning of the exclusion criterion, which requires the presence of severe infections within 4 weeks prior to randomization."
+        }
+    },
+    {
+        "id": 27,
+        "type": "exclusion",
+        "text": "Significant cardiovascular disease.",
+        "logic": {
+            "field": "cardiovascular_disease",
+            "operator": "NOT_IN",
+            "value": [
+                "significant"
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' with 'significant', when it should be checking for the presence of significant cardiovascular disease to exclude."
+        }
+    }
+]

@@ -1,0 +1,505 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Written informed consent for Part 1",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which does not accurately represent the original criterion of obtaining written informed consent for Part 1."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Newly diagnosed, histologically confirmed and unresectable Stage IIIB, IIIC or Stage IV melanoma including cutaneous (including acral, ungual subtypes), ocular (including uveal and extra-uveal), mucosal, and unknown primary).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis_date",
+                    "operator": ">",
+                    "value": null
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": [
+                        "IIIB",
+                        "IIIC",
+                        "IV"
+                    ]
+                },
+                {
+                    "field": "diagnosis_sub_type",
+                    "operator": "IN",
+                    "value": [
+                        "cutaneous",
+                        "ocular",
+                        "mucosal",
+                        "unknown primary"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'stage' and 'diagnosis_date', but uses a custom field 'diagnosis_sub_type' instead of the allowed schema field 'diagnosis' or a more specific field if available, and the 'diagnosis_date' condition is incomplete as it lacks a value to compare with."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Treatment-naïve for unresectable advanced or metastatic melanoma (systemic treatment given in the neoadjuvant and adjuvant settings are acceptable).",
+        "logic": {
+            "operator": "NOT",
+            "conditions": [
+                {
+                    "field": "treatment_start_date",
+                    "operator": "<",
+                    "value": null
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the meaning of the original criterion, which requires treatment-naivety for unresectable advanced or metastatic melanoma, but allows for neoadjuvant and adjuvant settings. The rule only checks for the absence of a treatment start date, which is not equivalent to the original criterion."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Tumour tissue available from advanced or metastatic disease.",
+        "logic": {
+            "field": "tissue_availability",
+            "operator": "=",
+            "value": "available"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'tissue_availability' which is acceptable since no schema field exists for this concept, and the logic accurately preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Archival tissue from primary or regional recurrent melanoma may be considered if no recent sample is available.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Male or female patients aged 18 or over.",
+        "logic": {
+            "field": "gender",
+            "operator": "=",
+            "value": [
+                "male",
+                "female"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule correctly uses the 'gender' schema field, but it does not account for the age criterion specified in the original criterion."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Standard of care molecular tumour testing which has identified NRAS wild type, and either BRAF wild type or non-V600 BRAF mutant melanoma.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status_NRAS",
+                    "operator": "=",
+                    "value": "wild type"
+                },
+                {
+                    "field": "molecular_status_BRAF",
+                    "operator": "IN",
+                    "value": [
+                        "wild type",
+                        "non-V600 mutant"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'molecular_status' and preserving the meaning with correct operators and values."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Adequate tissue available for the Molecular Testing Platform.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Standard of care molecular tumour testing which has identified non V600 BRAF or BRAF wild type, or NRAS wild type melanoma (NRAS mutant patients are eligible for Part 2, but will not undergo NGS testing).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status_BRAF",
+                    "operator": "=",
+                    "value": [
+                        "wild type",
+                        "non-V600 mutant"
+                    ]
+                },
+                {
+                    "field": "molecular_status_NRAS",
+                    "operator": "=",
+                    "value": "wild type"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'molecular_status' and preserving the meaning of the inclusion criterion."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Adequate tissue available per NGS specimen preparation instructions.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not provide any condition for the inclusion criterion, making it incorrect."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Written informed consent to receive targeted therapy (if applicable) and clinical follow up.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Patient has undergone NGS tumour testing or has NRAS or ALKati mutant melanoma on routine testing",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ngs_testing_status",
+                    "operator": "=",
+                    "value": "completed"
+                },
+                {
+                    "field": "molecular_status_NRAS",
+                    "operator": "=",
+                    "value": "mutant"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'ngs_testing_status' instead of a schema field, and it only accounts for NRAS mutation, missing ALKati mutant condition."
+        }
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "Histologically confirmed melanoma of any sub type with measurable disease per RECIST criteria.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "Received available standard therapies or clinical trial agents for unrectable metastatic melanoma that has progressed, unable to tolerate standard therapy, or standard therapy is contraindicated.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "Patient has an 'actionable' genetic aberration and matched targeted therapy is available.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "genetic_aberration_status",
+                    "operator": "=",
+                    "value": "actionable"
+                },
+                {
+                    "field": "targeted_therapy_availability",
+                    "operator": "=",
+                    "value": true
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the original criterion, using appropriate fields and operators to represent the presence of an 'actionable' genetic aberration and available matched targeted therapy."
+        }
+    },
+    {
+        "id": 16,
+        "type": "inclusion",
+        "text": "Patients with no genetic aberration or where no matched targeted therapy is available, patients will be offered trametinib",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "ECOG status 0 - 2.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "=",
+            "value": [
+                "0",
+                "1",
+                "2"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'ecog_ps' schema field and accurately represents the ECOG status range of 0-2 using the '=' operator and a list of values."
+        }
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "White cell count ≥ 2.0 × 10^9/L",
+        "logic": {
+            "field": "leucocitos",
+            "operator": ">=",
+            "value": "2.0"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is missing the unit and the exponent part of the value, it should be '2.0 × 10^9' to correctly represent the original criterion."
+        }
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "Neutrophil count ≥ 1.5 × 10^9/L",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a synonym 'neutrofilos' instead of the normalized lab field 'neutrofilos' which is acceptable, but it's missing the unit and the multiplier (× 10^9/L) in the value."
+        }
+    },
+    {
+        "id": 20,
+        "type": "inclusion",
+        "text": "Haemoglobin ≥ 90 g/L",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "90"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and accurately preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 21,
+        "type": "inclusion",
+        "text": "Platelet count ≥ 100 x 10^9/L",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'plaquetas' and accurately represents the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 22,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 3.0 x ULN",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "3.0"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'bilirrubina_total', but it's missing the 'x ULN' part, which is essential to the original criterion's meaning."
+        }
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "Alanine transaminase ≤ 3.0 x ULN",
+        "logic": {
+            "field": "ast",
+            "operator": "<=",
+            "value": "3.0"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used 'ast' instead of the correct normalized lab field 'alt' for Alanine transaminase, and also missed the 'x ULN' part of the value."
+        }
+    },
+    {
+        "id": 24,
+        "type": "inclusion",
+        "text": "Aspartate aminotransferase ≤ 3.0 x ULN",
+        "logic": {
+            "field": "alt",
+            "operator": "<=",
+            "value": "3.0"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses 'alt' which is a synonym for the normalized lab field 'ast', and it's missing the 'x ULN' part, which is an important detail in the original criterion."
+        }
+    },
+    {
+        "id": 25,
+        "type": "inclusion",
+        "text": "Serum creatinine ≤ 1.5 x the upper limit of normal (ULN).",
+        "logic": {
+            "field": "creatinina",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab field 'creatinina', but it does not account for the 'upper limit of normal (ULN)' in the value comparison, which is required to accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 26,
+        "type": "inclusion",
+        "text": "Life expectancy > 30 days.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 27,
+        "type": "inclusion",
+        "text": "Women of child bearing potential (WOCBP) to use contraception to avoid pregnancy.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 28,
+        "type": "inclusion",
+        "text": "Non sterile men with female partners of CBP to use contraception to avoid pregnancy.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": 29,
+        "type": "exclusion",
+        "text": "An expectation for the need for concurrent radiotherapy (unless safety has been established with the matched drug regimen and is directed at one anatomical region for symptom control).",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion, and therefore, the meaning is incorrect."
+        }
+    },
+    {
+        "id": 30,
+        "type": "exclusion",
+        "text": "Any clinically significant gastrointestinal abnormalities which may impair intake or absorption of the study drug.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion, and therefore, the meaning is incorrect."
+        }
+    },
+    {
+        "id": 31,
+        "type": "exclusion",
+        "text": "Any investigational drug or other systemic drug therapy for melanoma within 14 days or 5 half-lives from baseline, whichever is shorter.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "investigational_drug_status",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "systemic_therapy_start_date",
+                    "operator": "<",
+                    "value": null
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the original criterion. It checks for investigational drug status and systemic therapy start date, but does not account for the 14-day or 5 half-lives timeframe, and the second condition has a null value."
+        }
+    },
+    {
+        "id": 32,
+        "type": "exclusion",
+        "text": "Pregnant or breast feeding females.",
+        "logic": {
+            "operator": "=",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": true
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'pregnancy_status' instead of a schema field, and it only accounts for pregnant females, not breast feeding females."
+        }
+    },
+    {
+        "id": 33,
+        "type": "exclusion",
+        "text": "Drug specific exclusions as detailed in the TGA Product Information for each drug.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not provide any condition for the exclusion criterion, and therefore does not preserve the meaning of the original criterion."
+        }
+    }
+]

@@ -1,0 +1,174 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Age > 20, Japanese men at the time of informed consent.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">",
+                    "value": "20"
+                },
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule correctly uses the 'age' and 'gender' schema fields, but it does not account for the 'Japanese' ethnicity criterion, which is not a schema field."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patients who provided informed consent. If the patient has died, opt-out will be applicable.",
+        "logic": {
+            "field": "consent_status",
+            "operator": "=",
+            "value": "provided"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'consent_status' which is acceptable since there is no schema field for informed consent, and the logic accurately preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Patients who are diagnosed as mCRPC between January 1st in 2014 and December 31st in 2018.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "mCRPC"
+                },
+                {
+                    "field": "diagnosis_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "diagnosis_date",
+                    "operator": "<=",
+                    "value": "2018-12-31"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields (diagnosis and diagnosis_date) and preserving the meaning with correct operators and values."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Patients who have a FFPE tumor sample (primary or metastatic) with Formalin Neutral Buffer Solution.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "tumor_sample_type",
+                    "operator": "=",
+                    "value": "FFPE"
+                },
+                {
+                    "field": "buffer_solution",
+                    "operator": "=",
+                    "value": "Formalin Neutral Buffer Solution"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used custom fields 'tumor_sample_type' and 'buffer_solution' instead of schema fields or normalized lab fields, which is acceptable but not optimal."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Patients which the investigator judges to secure the enough amount of tumor samples for future laboratory test.",
+        "logic": {
+            "field": "tumor_sample_sufficiency",
+            "operator": "=",
+            "value": "enough"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'tumor_sample_sufficiency' when no schema field exists, which is acceptable, but it would be better to use a more explicit field or a combination of existing fields to convey the meaning."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Patients who have failed HRR-related gene mutation testing with the myChoice HRD plus in screening period.",
+        "logic": {
+            "field": "gene_test_status",
+            "operator": "=",
+            "value": "failed"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'gene_test_status' instead of the more specific 'molecular_status' field, which could be related to HRR-related gene mutation testing."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Patients who have an only FFPE primary tumor sample (primary or metastatic) with unbuffered formalin including acidic formalin.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "tumor_sample_type",
+                    "operator": "=",
+                    "value": "FFPE"
+                },
+                {
+                    "field": "buffer_solution",
+                    "operator": "=",
+                    "value": "unbuffered formalin including acidic formalin"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'tumor_sample_type' instead of a schema field, and 'buffer_solution' is not a normalized lab field or schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients who have taken an investigational medical product for prostate cancer from Jan 1st , 2014 to Dec 31st 2020.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_type",
+                    "operator": "=",
+                    "value": "investigational medical product for prostate cancer"
+                },
+                {
+                    "field": "treatment_start_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "treatment_end_date",
+                    "operator": "<=",
+                    "value": "2020-12-31"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'treatment_type' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy and structure are correct."
+        }
+    }
+]

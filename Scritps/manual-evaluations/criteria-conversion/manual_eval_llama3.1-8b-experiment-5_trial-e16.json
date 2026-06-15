@@ -1,0 +1,255 @@
+[
+    {
+        "id": "c1",
+        "type": "inclusion",
+        "text": "Age 18 and above, regardless of gender;",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+        }
+    },
+    {
+        "id": "c2",
+        "type": "inclusion",
+        "text": "Histopathological diagnosis with non-functional pancreatic neuroendocrine tumor, pancreatic ductal adenocarcinoma or solid pseudopapillary tumor;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "IN",
+                    "value": [
+                        "non-functional pancreatic neuroendocrine tumor",
+                        "pancreatic ductal adenocarcinoma",
+                        "solid pseudopapillary tumor"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion using the correct schema field 'diagnosis' and preserves the meaning with the correct operator and values."
+        }
+    },
+    {
+        "id": "c3",
+        "type": "inclusion",
+        "text": "Not receiving any anti-tumor treatment before surgery, including chemotherapy, embolization, ablation, radiotherapy, and molecular targeted therapy;",
+        "logic": {
+            "operator": "NOT_IN",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": [
+                        "chemotherapy",
+                        "embolization",
+                        "ablation",
+                        "radiotherapy",
+                        "molecular targeted therapy"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly uses the 'treatment_name' schema field and accurately represents the original criterion, which excludes patients receiving any anti-tumor treatment before surgery."
+        }
+    },
+    {
+        "id": "c4",
+        "type": "inclusion",
+        "text": "No obvious surgical contraindications;",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which does not accurately represent the original criterion."
+        }
+    },
+    {
+        "id": "c5",
+        "type": "inclusion",
+        "text": "Able to comply with research plans, follow-up plans, and other protocol requirements;",
+        "logic": {
+            "operator": "=",
+            "field": "compliance_status"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'compliance_status' instead of a more specific schema field, but the meaning is partially preserved."
+        }
+    },
+    {
+        "id": "c6",
+        "type": "inclusion",
+        "text": "Voluntary participation and signed informed consent.",
+        "logic": {
+            "operator": "=",
+            "field": "informed_consent_status"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the original criterion, using a suitable field and operator to represent voluntary participation and signed informed consent."
+        }
+    },
+    {
+        "id": "e1",
+        "type": "exclusion",
+        "text": "Pathological diagnosis was not pancreatic neuroendocrine tumor, pancreatic ductal adenocarcinoma or solid pseudopapillary tumor;",
+        "logic": {
+            "operator": "NOT_IN",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": [
+                        "non-functional pancreatic neuroendocrine tumor",
+                        "pancreatic ductal adenocarcinoma",
+                        "solid pseudopapillary tumor"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly uses the 'diagnosis' schema field, preserves the original meaning, and accurately implements the exclusion criterion using the NOT_IN operator."
+        }
+    },
+    {
+        "id": "e2",
+        "type": "exclusion",
+        "text": "Currently diagnosed with other types of tumors or any cancer history;",
+        "logic": {
+            "operator": "NOT_IN",
+            "conditions": [
+                {
+                    "field": "cancer_history",
+                    "operator": "=",
+                    "value": [
+                        "active",
+                        "history"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cancer_history' instead of the allowed schema field 'diagnosis' or 'molecular_status', but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": "e3",
+        "type": "exclusion",
+        "text": "Diagnosed with familial syndromes;",
+        "logic": {
+            "operator": "=",
+            "field": "familial_syndrome_status"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'familial_syndrome_status' instead of the allowed schema field 'diagnosis' which could potentially map to familial syndromes."
+        }
+    },
+    {
+        "id": "e4",
+        "type": "exclusion",
+        "text": "Receiving anti-tumor treatment before surgery, including chemotherapy, embolization, ablation, radiotherapy, and molecular targeted therapy;",
+        "logic": {
+            "operator": "IN",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": [
+                        "chemotherapy",
+                        "embolization",
+                        "ablation",
+                        "radiotherapy",
+                        "molecular targeted therapy"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct schema field 'treatment_name', but it does not account for the timing of the treatment ('before surgery') and the condition is not explicitly negated as required for an exclusion criterion."
+        }
+    },
+    {
+        "id": "e5",
+        "type": "exclusion",
+        "text": "Ongoing fever or recipient of anti-inflammation therapy within 14 days prior to study blood draw;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "infection_status",
+                    "operator": "=",
+                    "value": "active"
+                },
+                {
+                    "field": "anti_inflammation_therapy",
+                    "operator": ">=",
+                    "value": 14
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used custom fields 'infection_status' and 'anti_inflammation_therapy' instead of schema fields or normalized lab fields, and the logic for 'anti_inflammation_therapy' is incorrect as it should be checking for therapy within 14 days prior to study blood draw, not greater than or equal to 14."
+        }
+    },
+    {
+        "id": "e6",
+        "type": "exclusion",
+        "text": "Recipient of blood transfusion within 30 days prior to study blood draw;",
+        "logic": {
+            "field": "blood_transfusion_status",
+            "operator": ">=",
+            "value": 30
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is using a custom field 'blood_transfusion_status' and an incorrect operator '>=' which implies the number of days since the last blood transfusion is greater than or equal to 30, whereas the original criterion requires the blood transfusion to be within 30 days prior to the study blood draw."
+        }
+    },
+    {
+        "id": "e7",
+        "type": "exclusion",
+        "text": "Recipient of organ transplant or prior non-autologous (allogeneic) bone marrow or stem cell transplant;",
+        "logic": {
+            "field": "transplant_status",
+            "operator": "=",
+            "value": "active"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'transplant_status' instead of a schema field, but the logic accuracy and structure are mostly preserved."
+        }
+    },
+    {
+        "id": "e8",
+        "type": "exclusion",
+        "text": "Poor health condition and not suitable for blood draw;",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which means it does not provide any condition to evaluate the exclusion criterion, resulting in a completely incorrect representation of the original criterion."
+        }
+    },
+    {
+        "id": "e9",
+        "type": "exclusion",
+        "text": "Any other disease/condition deemed not suitable for study enrollment by researcher.",
+        "logic": null,
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is null, which does not accurately represent the original criterion, and does not evaluate to TRUE when the exclusion condition is present."
+        }
+    }
+]

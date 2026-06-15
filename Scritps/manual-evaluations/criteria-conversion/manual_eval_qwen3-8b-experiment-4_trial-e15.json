@@ -1,0 +1,558 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Diagnosis of localized or metastatic unresectable medullary thyroid cancer (MTC). The histological diagnosis of MTC must be confirmed on review of submitted tumor tissue by the Laboratory of Pathology in the National Cancer Institute",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "localized or metastatic unresectable medullary thyroid cancer (MTC)"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Measurable disease, defined as at least one lesion that can be accurately measured in at least one dimension (longest diameter to be recorded for non-nodal lesions and short axis for nodal lesions) as greater than or equal to 20 mm with conventional techniques or as greater than or equal to 10 mm with spiral computed tomography (CT) scan.",
+        "logic": {
+            "field": "measurable_disease",
+            "operator": "=",
+            "value": "defined as at least one lesion that can be accurately measured in at least one dimension (longest diameter to be recorded for non-nodal lesions and short axis for nodal lesions) as greater than or equal to 20 mm with conventional techniques or as greater than or equal to 10 mm with spiral computed tomography (CT) scan"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'measurable_disease' instead of breaking down the criterion into specific measurable fields such as 'lesion_size' or using existing schema fields, and the value is a textual description instead of a numerical value, but the meaning is partially preserved."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Disease amenable to biopsy and agree to undergo biopsy for molecular analysis",
+        "logic": {
+            "field": "biopsy_available",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'biopsy_available' instead of a schema field, but the logic accuracy and structure are correct."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "The last dose of previous therapy targeting rearranged during transfection (RET) kinase must be given at least 4 weeks prior to the first dose of ponatinib.",
+        "logic": {
+            "field": "last_ret_therapy_date",
+            "operator": ">=",
+            "value": "4 weeks prior"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'last_ret_therapy_date' instead of the allowed schema field 'treatment_end_date' which could be used to represent the last dose of previous therapy."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Previous treatment with cytotoxic chemotherapy, immunotherapy, or radiotherapy are permitted, if the last dose was given at least 4 weeks prior to the first dose of ponatinib",
+        "logic": {
+            "field": "previous_treatment",
+            "operator": "IN",
+            "value": "cytotoxic chemotherapy, immunotherapy, or radiotherapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'previous_treatment' instead of the allowed schema field 'treatment' and does not account for the time constraint of 'at least 4 weeks prior to the first dose of ponatinib'."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Patient must have failed (progressed on or been intolerant of) prior treatment with cabozantinib and vandetanib.",
+        "logic": {
+            "field": "prior_treatment_failure",
+            "operator": "IN",
+            "value": "cabozantinib and vandetanib"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prior_treatment_failure' when a schema field 'treatment' exists, and the logic does not fully capture the meaning of 'failed' (progressed on or been intolerant of) prior treatment."
+        }
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Age greater than or equal to 18 years old",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Eastern Cooperative Oncology Group (ECOG) performance status less than or equal to 2",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": "2"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and value."
+        }
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Leukocytes greater than or equal to microL",
+        "logic": {
+            "field": "leucocitos",
+            "operator": ">=",
+            "value": "microL"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The value 'microL' is a unit, not a numerical value, and the operator '>=' requires a numerical value to compare with the field 'leucocitos'."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Absolute neutrophil count 1,500/microL",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": "=",
+            "value": "1,500/microL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the normalized lab field 'neutrofilos' and preserves the meaning of the original criterion with the correct operator and value."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Platelet count greater than or equal to 100,000 microL",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100,000 microL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using the correct normalized lab field 'plaquetas' for platelet count and the correct operator and value."
+        }
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Total bilirubin < 1.5 times upper limit of normal (ULN)",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<",
+            "value": "1.5 times upper limit of normal (ULN)"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The field 'bilirrubina_total' is correct, but the value '1.5 times upper limit of normal (ULN)' should be a numerical value, not a string, to accurately represent the logic."
+        }
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "Aspartate aminotransferase (AST) serum glutamic oxaloacetic transaminase(SGOT)/alanine aminotransferase (ALT) serum glutamic pyruvic transaminase (SGPT) < 2.5 times institutional ULN or < 5 times ULN if liver involvement",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ast",
+                    "operator": "<",
+                    "value": "2.5 times institutional ULN"
+                },
+                {
+                    "field": "alt",
+                    "operator": "<",
+                    "value": "2.5 times institutional ULN or 5 times ULN if liver involvement"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses the correct normalized lab fields 'ast' and 'alt', but the values and conditions do not perfectly capture the original criterion's meaning, particularly the conditional 'or 5 times ULN if liver involvement' which is not explicitly represented in the logic rule."
+        }
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "Prothrombin Time < 1.5 times ULN",
+        "logic": {
+            "field": "prothrombin_time",
+            "operator": "<",
+            "value": "1.5 times ULN"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'prothrombin_time' instead of a normalized lab field, and the value '1.5 times ULN' is not a standard numeric value, but the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "Creatinine < 1.5 times ULN",
+        "logic": {
+            "field": "creatinina",
+            "operator": "<",
+            "value": "1.5 times ULN"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a synonym 'creatinina' instead of the normalized lab field, and the value '1.5 times ULN' should be a numerical value, but the field selection and logic accuracy are mostly correct."
+        }
+    },
+    {
+        "id": 16,
+        "type": "inclusion",
+        "text": "Lipase less than or equal to 1.5 times ULN",
+        "logic": {
+            "field": "lipase",
+            "operator": "<=",
+            "value": "1.5 times ULN"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lipase' instead of the normalized lab field, and the value '1.5 times ULN' is not a numerical value, which may lead to incorrect interpretation."
+        }
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "Negative pregnancy test for women of childbearing potential. The effects of ponatinib on the developing human fetus are unknown. For this reason, women of childbearing potential and men must agree to use adequate contraception (hormonal or barrier method of birth control; abstinence) prior to study entry and for the duration of study participation. Should a woman become pregnant or suspect she is pregnant while she or her partner is participating in this study, she should inform her treating physician immediately.",
+        "logic": {
+            "field": "pregnancy_test",
+            "operator": "=",
+            "value": "negative"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'pregnancy_test' which is acceptable since there is no direct schema field for pregnancy test results, and the logic accurately preserves the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Normal QT interval corrected (Fridericia) (QTcF) on screening electrocardiogram (ECG) evaluation, defined as QTcF of less than or equal to 450 ms in males or less than or equal to 470 ms in females.",
+        "logic": {
+            "field": "qtcf",
+            "operator": "<=",
+            "value": "450 ms in males or 470 ms in females"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'qtcf' instead of a normalized lab field, and the value is not properly formatted as a single value or separate values for males and females."
+        }
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "Ability to understand and the willingness to sign a written informed consent document and follow the guidelines of the clinical protocol including visits to National Cancer Institute (NCI), Bethesda, Maryland for treatment and follow up visits.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'informed_consent' instead of a schema field, but the meaning is preserved and the operator/value is correct. Since 'informed_consent' or a similar field is not in the allowed schema fields, it's considered a custom field, but the logic is mostly accurate."
+        }
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Patients who are receiving any other investigational agent.",
+        "logic": {
+            "field": "investigational_agent",
+            "operator": "IN",
+            "value": "any"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'investigational_agent' instead of the schema field 'treatment' which could be used to represent investigational agents, and the operator and value are not entirely clear in this context."
+        }
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Patients with brain metastases or spinal cord compression unless they completed radiation therapy greater than or equal to 4 weeks prior to the first dose of ponatinib and are stable without steroids or anti-convulsant therapy for greater than or equal to 10 days.",
+        "logic": {
+            "field": "brain_metastases",
+            "operator": "IN",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic rule only addresses part of the original criterion, missing conditions for spinal cord compression, radiation therapy, and stability without steroids or anti-convulsant therapy."
+        }
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "Medications that are known to be associated with Torsades de Pointes.",
+        "logic": {
+            "field": "medication_torsades",
+            "operator": "IN",
+            "value": "known"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'medication_torsades' instead of a schema field, and the operator and value seem to preserve the meaning, but the field selection is not optimal."
+        }
+    },
+    {
+        "id": 23,
+        "type": "exclusion",
+        "text": "Uncontrolled hypertension (systolic blood pressure > 150 or diastolic blood pressure > 100",
+        "logic": {
+            "field": "hypertension",
+            "operator": ">",
+            "value": "150 or 100"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses a custom field 'hypertension' and incorrect operator and value. It should use separate fields for systolic and diastolic blood pressure with correct operators and values."
+        }
+    },
+    {
+        "id": 24,
+        "type": "exclusion",
+        "text": "History of myocardial infarction",
+        "logic": {
+            "field": "myocardial_infarction",
+            "operator": "IN",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Custom field 'myocardial_infarction' is used instead of the allowed schema field 'diagnosis' which could potentially map to the condition."
+        }
+    },
+    {
+        "id": 25,
+        "type": "exclusion",
+        "text": "History of atrial or ventricular arrhythmia",
+        "logic": {
+            "field": "arrhythmia",
+            "operator": "IN",
+            "value": "atrial or ventricular"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'arrhythmia' instead of the allowed schema field 'diagnosis', and the value should be an array of specific arrhythmia types, not a string with 'or' operator."
+        }
+    },
+    {
+        "id": 26,
+        "type": "exclusion",
+        "text": "Unstable angina within 6 months prior to first dose of ponatinib",
+        "logic": {
+            "field": "unstable_angina",
+            "operator": "<=",
+            "value": "6 months"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'unstable_angina' instead of the allowed schema field 'diagnosis' and the logic is partially preserved, but the operator and value are correct."
+        }
+    },
+    {
+        "id": 27,
+        "type": "exclusion",
+        "text": "History of congestive heart failure",
+        "logic": {
+            "field": "congestive_heart_failure",
+            "operator": "IN",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'congestive_heart_failure' instead of the allowed schema field 'diagnosis' or a more specific field if available, but the logic accuracy and structure are correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": 28,
+        "type": "exclusion",
+        "text": "Left ventricular ejection fraction fraction (LVEF) less than lower limit of normal",
+        "logic": {
+            "field": "lvef",
+            "operator": "<",
+            "value": "lower limit of normal"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'lvef' instead of a normalized lab field or schema field, and the value 'lower limit of normal' is not a specific numerical value, but the logic accuracy and structure are mostly preserved."
+        }
+    },
+    {
+        "id": 29,
+        "type": "exclusion",
+        "text": "History of peripheral arterial occlusive disease",
+        "logic": {
+            "field": "peripheral_arterial_disease",
+            "operator": "IN",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'peripheral_arterial_disease' instead of the allowed schema field 'diagnosis' which could potentially map to the condition, and the logic seems to preserve the meaning of the original criterion."
+        }
+    },
+    {
+        "id": 30,
+        "type": "exclusion",
+        "text": "History of cerebrovascular accident or transient ischemic attack",
+        "logic": {
+            "field": "cerebrovascular_event",
+            "operator": "IN",
+            "value": "cerebrovascular accident or transient ischemic attack"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'cerebrovascular_event' instead of the allowed schema field 'diagnosis', and the logic is mostly correct but could be improved with a more specific diagnosis code or description."
+        }
+    },
+    {
+        "id": 31,
+        "type": "exclusion",
+        "text": "Venous thromboembolism including deep venous thrombosis or pulmonary embolism within 6 months prior to enrollment",
+        "logic": {
+            "field": "venous_thromboembolism",
+            "operator": "<=",
+            "value": "6 months"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'venous_thromboembolism' instead of a schema field, and the operator and value are correct but the field should be 'diagnosis' or 'diagnosis_date' with a specific diagnosis code for venous thromboembolism."
+        }
+    },
+    {
+        "id": 32,
+        "type": "exclusion",
+        "text": "A history of pancreatitis or alcohol abuse",
+        "logic": {
+            "field": "pancreatitis_alcohol_abuse",
+            "operator": "IN",
+            "value": "pancreatitis or alcohol abuse"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pancreatitis_alcohol_abuse' when it could be mapped to the 'diagnosis' schema field, and the logic accuracy is preserved."
+        }
+    },
+    {
+        "id": 33,
+        "type": "exclusion",
+        "text": "Uncontrolled hypertriglyceridemia (> 450 mg/dL)",
+        "logic": {
+            "field": "hypertriglyceridemia",
+            "operator": ">",
+            "value": "450 mg/dL"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'hypertriglyceridemia' instead of a normalized lab field, and there is no schema field for triglyceridemia. However, the logic accuracy and structure are correct, and the exclusion semantics are preserved."
+        }
+    },
+    {
+        "id": 34,
+        "type": "exclusion",
+        "text": "Major surgery (with the exception of minor surgical procedures, such as catheter placement or tumor biopsy) within 28 days prior to the first dose of ponatinib",
+        "logic": {
+            "field": "major_surgery",
+            "operator": "<=",
+            "value": "28 days"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'major_surgery' instead of the allowed schema field 'treatment' or 'treatment_name', and the logic is partially preserved but lacks the exception for minor surgical procedures."
+        }
+    },
+    {
+        "id": 35,
+        "type": "exclusion",
+        "text": "Ongoing or active infection including known history of human immunodeficiency virus [HIV], hepatitis B virus [HBV], or hepatitis C virus[HCV]. Testing for these viruses is not required in the absence of a history of infection.",
+        "logic": {
+            "field": "active_infection",
+            "operator": "IN",
+            "value": "HIV, HBV, or HCV"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'active_infection' instead of a schema field or normalized lab field, and the logic does not fully capture the 'ongoing or active infection' and 'known history' aspects of the original criterion."
+        }
+    },
+    {
+        "id": 36,
+        "type": "exclusion",
+        "text": "Suffer from any condition or illness that, in the opinion of the investigator, would compromise patient safety or interfere with the evaluation of the safety of the study drug",
+        "logic": {
+            "field": "compromised_safety",
+            "operator": "IN",
+            "value": "any"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'compromised_safety' when no schema field exists, which is acceptable, but the logic is simplified and does not fully capture the complexity of the original criterion."
+        }
+    },
+    {
+        "id": 37,
+        "type": "exclusion",
+        "text": "Evidence of a bleeding diathesis that cannot be corrected with standard therapy or factor replacement",
+        "logic": {
+            "field": "bleeding_diathesis",
+            "operator": "IN",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'bleeding_diathesis' when a more specific field related to diagnosis or condition could be used, but the logic accuracy and structure are correct for an exclusion criterion."
+        }
+    },
+    {
+        "id": 38,
+        "type": "exclusion",
+        "text": "Presence of another primary malignancy within the past 2 years (except for nonmelanoma skin cancer or cervical cancer in situ. Prior prostate cancer is also permitted if prostatic specific antigen (PSA) is now undetectable.)",
+        "logic": {
+            "field": "other_malignancy",
+            "operator": "<=",
+            "value": "2 years"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'other_malignancy' when a schema field 'diagnosis' could be used, and the logic rule does not fully capture the exceptions and conditions specified in the original criterion."
+        }
+    },
+    {
+        "id": 39,
+        "type": "exclusion",
+        "text": "Pregnant or lactating",
+        "logic": {
+            "field": "pregnant_lactating",
+            "operator": "IN",
+            "value": "pregnant or lactating"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The model used a custom field 'pregnant_lactating' when a more specific schema field could be considered, but since there is no direct schema field for 'pregnant or lactating', it is not heavily penalized. The logic accuracy is preserved, and the structure is coherent."
+        }
+    }
+]
