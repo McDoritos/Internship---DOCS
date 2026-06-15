@@ -1,0 +1,28 @@
+[
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "For patients with stage IIIc disease, patients are ineligible for or refuse standard treatment with platinum-double chemotherapy and radiation.",
+        "logic": {
+            "field": "stage",
+            "operator": "=",
+            "value": "IIIc"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the stage IIIc disease, but misses the conditions of ineligibility for or refusal of standard treatment with platinum-double chemotherapy and radiation, which are crucial parts of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "For patients with stage IV disease, platinum doublet chemotherapy is not appropriate, deemed unsafe by the treating physician, or declined by the patient",
+        "logic": {
+            "field": "stage",
+            "operator": "=",
+            "value": "IV"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the stage IV disease aspect, but misses the conditions regarding platinum doublet chemotherapy (inappropriateness, unsafety, or patient decline), which are crucial parts of the original criterion.",
+        "human_classification": "partial"
+    }
+]

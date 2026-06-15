@@ -1,0 +1,40 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Age：18-70 years old.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only includes the lower bound of the age range, missing the upper bound of 70 years old.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Postoperative high risk factors: ① lymph node metastasis, ② parauterine infiltration, ③ positive surgical margin.",
+        "logic": [
+            {
+                "field": "lymph_node_metastasis",
+                "operator": "=",
+                "value": "true"
+            },
+            {
+                "field": "parauterine_infiltration",
+                "operator": "=",
+                "value": "true"
+            },
+            {
+                "field": "positive_surgical_margin",
+                "operator": "=",
+                "value": "true"
+            }
+        ],
+        "auto_classification": "error",
+        "auto_explanation": "Invalid JSON returned by LLM",
+        "human_classification": "correct"
+    }
+]

@@ -1,0 +1,119 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Have received at least 1 prior line of cancer therapy with a PD-1 or PD-L1 inhibitor with or without platinum-based chemotherapy (unless subject is not eligible or refuses chemotherapy or PD-1/PD-L1 therapy and have documented progression on all prior cancer therapies",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "=",
+            "value": "pd-1 or pd-l1 inhibitor"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires at least 1 prior line of cancer therapy with a PD-1 or PD-L1 inhibitor, and also mentions platinum-based chemotherapy and progression on all prior cancer therapies. The logic rule only checks for 'pd-1 or pd-l1 inhibitor' in prior therapy, missing other important details.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+        "logic": {
+            "field": "kras_g12c_inhibitor_status",
+            "operator": "=",
+            "value": "refractory"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the refractory status to KRAS G12C inhibitor therapy, but misses the requirement of locally advanced or metastatic NSCLC and refractoriness or relapse to at least 1 prior cancer therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+        "logic": {
+            "field": "kras_g12c_inhibitor_status",
+            "operator": "=",
+            "value": "refractory"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the refractory status to KRAS G12C inhibitor therapy, but misses the requirement of being refractory to or relapsed on at least 1 prior cancer therapy. A more accurate representation would involve using the 'treatments' field to account for prior therapies and their outcomes.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and Naïve to KRAS G12C inhibitor therapy",
+        "logic": {
+            "field": "kras_g12c_inhibitor_status",
+            "operator": "=",
+            "value": "naive"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only addresses the 'Naïve to KRAS G12C inhibitor therapy' part of the criterion, but misses the 'Refractory to or relapsed on at least 1 prior cancer therapy' condition, which should be represented using the 'treatments' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+        "logic": {
+            "field": "kras_g12c_inhibitor_status",
+            "operator": "=",
+            "value": "refractory"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the refractory status to KRAS G12C inhibitor therapy, but misses the requirement of locally advanced or metastatic NSCLC and relapse/refractory to at least 1 prior cancer therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+        "logic": {
+            "field": "kras_g12c_inhibitor_status",
+            "operator": "=",
+            "value": "refractory"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the refractory status to KRAS G12C inhibitor therapy, but misses the requirement of locally advanced or metastatic NSCLC and refractoriness to or relapse on at least 1 prior cancer therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "Subjects with clinically stable (i.e., no increase in corticosteroid requirement) asymptomatic brain metastases are allowed without prior local therapy, as long as all lesions are each ≤ 1 cm.",
+        "logic": {
+            "field": "brain_metastasis_status",
+            "operator": "=",
+            "value": "asymptomatic"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which also includes requirements for clinical stability, no increase in corticosteroid requirement, and lesion size ≤ 1 cm. A more comprehensive logic rule would be needed to fully represent the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 1.5 times the ULN, unless due to Gilbert's disease, or < 3 times the ULN for subjects with liver metastases",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5 times the ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing the exceptions for Gilbert's disease and liver metastases.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 24,
+        "type": "inclusion",
+        "text": "ALT/AST ≤ 2 times the ULN, or < 3 times the ULN for subjects with liver metastases",
+        "logic": {
+            "field": "ast_alt",
+            "operator": "<=",
+            "value": "2 times the ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the exception of liver metastases, where the limit is < 3 times the ULN.",
+        "human_classification": "partial"
+    }
+]

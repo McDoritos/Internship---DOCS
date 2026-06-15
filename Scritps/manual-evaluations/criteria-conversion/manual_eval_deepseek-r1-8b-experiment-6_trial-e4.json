@@ -9,8 +9,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_consent_obtained' when a schema field 'control' could potentially be used, but since 'control' may not perfectly capture the concept of informed consent, it's not a clear mistake, hence 'partial'."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to administrative or procedural information, and using a custom field is acceptable."
         }
     },
     {
@@ -24,7 +24,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and preserving the meaning with the correct operator and value."
+            "explanation": "The logic rule correctly maps the original criterion to the 'age' field with the correct operator and value."
         }
     },
     {
@@ -47,8 +47,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses the correct schema field 'ecog_ps' but does not account for the time constraint 'within 28 days prior to registration'."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the ecog_ps field and accurately represents the ECOG Performance Status range of 0-2."
         }
     },
     {
@@ -81,8 +81,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_menopause_status' when no schema field exists for menopause status, but it correctly used the 'gender' schema field. The logic also accurately preserves the meaning of the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the inclusion criterion, using the 'gender' field and a custom field for menopause status, which is acceptable since menopause status is not a standard schema field."
         }
     },
     {
@@ -105,8 +105,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_menopause_status' instead of a schema field or normalized field, and the logic does not fully capture the original criterion's meaning of 'premenopausal patients who have been rendered postmenopausal'."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the original criterion, which includes premenopausal patients who have been rendered postmenopausal and are 18 or older. The use of a custom field for menopause status is acceptable since it's not a standard schema field, and the age condition is correctly applied."
         }
     },
     {
@@ -129,8 +129,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_amenorrhea_duration' instead of a schema field, but the logic and operators are correct. The field 'amenorrhea_duration' is not a schema field, so it's not penalized, however, it's not a normalized field either."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps the original criterion to the schema fields, using 'age' for the age condition and a custom field for the amenorrhea duration, which is not represented in the schema."
         }
     },
     {
@@ -159,8 +159,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields 'custom_amenorrhea_duration' and 'custom_estradiol_level' instead of schema fields or normalized lab fields, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps the original criterion to the schema fields, using a custom field for amenorrhea duration and estradiol level, which is acceptable since these concepts are not represented in the schema."
         }
     },
     {
@@ -194,8 +194,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields (custom_hysterectomy, custom_ovaries_status, custom_estradiol_level) when no schema fields exist for these conditions, but it did preserve the original meaning and used correct operators and values."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps the original criterion, using the 'age' field and custom fields for hysterectomy, ovaries status, and estradiol level, which are not represented in the schema fields."
         }
     },
     {
@@ -208,8 +208,8 @@
             "value": "bilateral"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_oophorectomy' instead of a schema field, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and using a custom field is acceptable."
         }
     },
     {
@@ -238,8 +238,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields (custom_lhrh_therapy, custom_lhrh_start_date, custom_estradiol_level) instead of available schema fields (treatment, treatment_start_date) and normalized lab fields (no direct match for estradiol, but could be considered under 'molecular_status' or a custom field), which is acceptable but not optimal."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, including the ongoing LHRH agonist treatment, the start date, and the estradiol level, using custom fields as the schema fields do not directly apply."
         }
     },
     {
@@ -252,8 +252,8 @@
             "value": "7_days"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_lhrh_administration' instead of the schema field 'treatment_start_date' or 'treatment_end_date', which could be used to represent the administration of LHRH agonist."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the requirement for LHRH agonist administration within 7 days of the scheduled administration date, using a custom field as the criterion does not correspond to any schema field."
         }
     },
     {
@@ -266,8 +266,8 @@
             "value": "metastatic_or_unresectable"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_cancer_status' instead of the allowed schema field 'diagnosis' or 'stage' which could better represent the cancer status."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which refers to a clinical concept (metastatic or unresectable breast cancer) not explicitly represented in the schema fields. Using a custom field is acceptable in this case."
         }
     },
     {
@@ -290,8 +290,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields (custom_er_level, custom_pr_level) instead of the allowed schema field molecular_status, which could potentially include hormone receptor status information."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which requires hormone receptor positivity with ER >=1% and/or PR >=1%. Although it uses custom fields, this is acceptable since the schema does not explicitly include fields for ER and PR levels, and the logic accurately represents the condition."
         }
     },
     {
@@ -304,8 +304,8 @@
             "value": "metastatic_site_or_primary"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_testing_method' when a more specific schema field such as 'diagnosis' or 'treatment' could be used, and the value is not a direct mapping to the allowed schema fields or normalized lab fields."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, which allows for preferred receptor testing from either a metastatic site or the primary breast/axilla biopsy, as long as it's the most recent biopsy. Since this refers to a clinical concept not directly represented in the schema, using a custom field is acceptable."
         }
     },
     {
@@ -319,7 +319,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The model used a custom field 'custom_her2_status' instead of the allowed schema field 'molecular_status' which could potentially represent HER2 status."
+            "explanation": "The criterion mentions a specific molecular status (HER2 negative), which should be mapped to the 'molecular_status' field instead of a custom field."
         }
     },
     {
@@ -335,8 +335,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_her2_testing' instead of the normalized field 'molecular_status' which could potentially represent HER2 status."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps the HER2 negative or non-amplified criterion to a custom field, as the schema does not have a specific field for HER2 testing by IHC."
         }
     },
     {
@@ -349,8 +349,8 @@
             "value": "2"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_her2_hybridization' instead of the normalized field 'molecular_status' which could potentially represent the Her2 status, and the logic does not fully capture the original criterion's conditions (Her2/CEP17 ratio <2 and HER2 copy number <6)."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which refers to a clinical concept (HER2 status) not directly represented in the schema fields, making the use of a custom field acceptable."
         }
     },
     {
@@ -363,8 +363,8 @@
             "value": "metastatic_site_or_primary"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_testing_method' instead of a possible schema field like 'diagnosis' or 'treatment', and the value is not a direct mapping of the original criterion, but the logic accuracy is preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, which refers to a clinical concept not represented in the schema. The use of a custom field is acceptable in this case."
         }
     },
     {
@@ -377,8 +377,8 @@
             "value": "identified"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_pik3ca_mutation' instead of the allowed schema field 'molecular_status' which could potentially represent the PIK3CA mutation status."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the presence of a PIK3CA mutation, which is a molecular status. Although it uses a custom field, this is acceptable since the meaning is preserved and the schema does not explicitly define a field for every possible mutation."
         }
     },
     {
@@ -401,8 +401,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields (custom_disease_status, custom_bone_lesion) instead of schema fields (diagnosis), and the logic does not fully capture the original criterion's meaning, including the time frame (within 28 days prior to registration) and the condition of having at least one measurable lesion or one predominantly lytic bone lesion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which requires either measurable disease or a predominantly lytic bone lesion. The use of custom fields is acceptable since the criterion refers to a clinical concept (disease status and bone lesions) not explicitly represented in the schema."
         }
     },
     {
@@ -415,8 +415,8 @@
             "value": "progression_after_irradiation"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_disease_progression' when a schema field 'progression_date' could be related, and the logic does not fully capture the original criterion's conditions."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and the logic matches the meaning, so using a custom field is acceptable."
         }
     },
     {
@@ -429,8 +429,8 @@
             "value": "1_line"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_endocrine_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', which could have been used to represent the endocrine therapy."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule uses a custom field to represent the clinical concept of prior endocrine therapy in the metastatic setting, which is not directly represented in the schema fields. The logic matches the meaning of the original criterion."
         }
     },
     {
@@ -444,7 +444,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The model used a custom field 'custom_last_therapy' instead of the allowed schema fields 'treatment' and 'treatment_name', and the logic does not fully capture the original criterion's meaning, which includes the type of therapy and the progression of disease."
+            "explanation": "The logic rule uses a custom field for last line of therapy, but it should use the 'treatments' field with specific details about the therapy (e.g., endocrine therapy, aromatase inhibitor, or fulvestrant) and the disease progression. The rule also lacks information about the progressive disease determination by the treating physician."
         }
     },
     {
@@ -457,8 +457,8 @@
             "value": "2"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_therapy_lines' instead of the allowed schema field 'treatment' or a more specific field related to endocrine therapy, which is available in the schema."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, which restricts the number of prior endocrine therapy lines. Although it uses a custom field, this is acceptable since the criterion refers to a clinical concept (prior therapy lines) not explicitly represented in the schema."
         }
     },
     {
@@ -471,8 +471,8 @@
             "value": "counts_as_one_line"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_therapy_transition' when a schema field 'treatment' or 'treatment_name' could be used to convey the same meaning, although it's not a perfect match."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and using a custom field is acceptable. The logic also accurately preserves the meaning of the original criterion."
         }
     },
     {
@@ -485,8 +485,8 @@
             "value": "one_line"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_combination_therapy' when a schema field 'treatment' exists, which could potentially capture this information."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, which refers to a clinical concept not directly represented in the schema. The use of a custom field is acceptable in this case."
         }
     },
     {
@@ -500,7 +500,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The model used a custom field 'custom_cdk4_6_inhibitor' instead of the allowed schema field 'treatment' or 'treatment_name', which could have been used to represent the treatment with a CDK4/6 inhibitor."
+            "explanation": "The criterion mentions a specific treatment (CDK4/6 inhibitor) and disease (breast cancer), which should be mapped to the 'treatments' and 'diagnosis' schema fields, respectively. However, a custom field 'custom_cdk4_6_inhibitor' is used instead."
         }
     },
     {
@@ -513,8 +513,8 @@
             "value": "allowed"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field when a schema field (treatment) could be used, and the logic is partially preserved, but the field selection is imperfect."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which allows CDK4/6 inhibitor discontinuation due to intolerance or reasons other than progression, using a custom field as the criterion does not correspond to any specific schema field."
         }
     },
     {
@@ -527,8 +527,8 @@
             "value": "adequate"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_organ_function' when a more specific schema field or normalized lab field could have been used, and the logic rule does not fully capture the original criterion's requirement for labs to be obtained within 28 days prior to registration."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (adequate organ function) not represented in the schema, and using a custom field is acceptable."
         }
     },
     {
@@ -541,8 +541,8 @@
             "value": "not_sterile"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_sterility_status' instead of a schema field, and the logic does not fully capture the original criterion's requirement for men to agree to use contraception if not sterile."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (sterility status) not represented in the schema, and the logic matches the meaning, so using a custom field is acceptable."
         }
     },
     {
@@ -559,8 +559,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_contraception_method' when no schema field exists for contraception method, but the logic accuracy is preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to pregnancy, contraception, and the logic matches the meaning, so using a custom field is acceptable."
         }
     },
     {
@@ -573,8 +573,8 @@
             "value": "required"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_condom_use' instead of a schema field, and the logic does not fully capture the original criterion's conditions, such as the patient's gender and the pregnancy status of their partner."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to administrative or procedural information (condom use) and does not correspond to any schema field, so using a custom field is acceptable."
         }
     },
     {
@@ -587,8 +587,8 @@
             "value": "allowed"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_abstinence' when a more suitable schema field such as 'treatment' or 'control' could be used to represent abstinence, but the logic accuracy is preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (abstinence) not represented in the schema, and using a custom field is acceptable. The logic matches the meaning of the original criterion."
         }
     },
     {
@@ -601,8 +601,8 @@
             "value": "required"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_premenopausal contraception' instead of using the allowed schema fields 'gender' and possibly 'treatment' or other relevant fields to convey the meaning of premenopausal females using contraception."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to pregnancy, contraception, and the logic matches the meaning, so using a custom field is acceptable."
         }
     },
     {
@@ -620,8 +620,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_contraception_methods' when no schema field exists, but the logic accuracy is preserved and the structure is coherent. However, the field selection is not optimal, as it could be mapped to a more specific field, such as 'treatment' or 'control', but since no schema field exists for contraception methods, it's not penalized. The logic is mostly correct, but the use of a custom field makes it 'partial'."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to contraception methods, which is not represented in the schema fields. The logic rule correctly maps to a custom field and preserves the meaning of the original criterion."
         }
     },
     {
@@ -634,8 +634,8 @@
             "value": "assessed_by_physician"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_study_compliance' when no schema field exists, which is acceptable, but the logic does not fully capture the original criterion's meaning of ability to understand and comply with study procedures."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to the ability to comply with study procedures, which is an administrative or procedural concept not represented in the schema fields. Using a custom field is acceptable in this case."
         }
     },
     {
@@ -649,7 +649,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The model used a custom field 'custom_hiv_status' instead of a schema field, and the logic rule does not fully capture the original criterion, which includes the condition of being on effective anti-retroviral therapy and having an undetectable viral load within 6 months of registration."
+            "explanation": "The logic rule uses a custom field for HIV status, but it does not account for the effective anti-retroviral therapy and the 6-month time frame mentioned in the original criterion."
         }
     },
     {
@@ -663,7 +663,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The model used a custom field 'custom_chemotherapy' instead of the schema field 'treatment' or 'treatment_name', which could better represent the criterion."
+            "explanation": "The criterion mentions prior chemotherapy, which should be mapped to the 'treatments' field, but a custom field 'custom_chemotherapy' is used instead."
         }
     },
     {
@@ -676,8 +676,8 @@
             "value": "active"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_infection_status' when no schema field exists for infection status, which is acceptable but not ideal. However, the logic accuracy and structure seem to be correct for an exclusion criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field, and using a custom field is acceptable. The logic matches the meaning of the original criterion."
         }
     },
     {
@@ -690,8 +690,8 @@
             "value": "interfering"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_prior_malignancy' when a schema field 'diagnosis' could be used, and the logic accuracy is partially preserved, but the field selection is imperfect."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and using a custom field is acceptable. The logic rule correctly captures the meaning of the original criterion."
         }
     },
     {
@@ -704,8 +704,8 @@
             "value": "active_or_require_therapy"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_cns_metastases' when a more specific schema field such as 'diagnosis' could be used, and the logic does not fully capture the original criterion's meaning, particularly the aspect of 'causing clinical symptoms' or 'leptomeningeal disease'."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (uncontrolled CNS metastases) not directly represented in the schema, and using a custom field is acceptable. The logic rule accurately captures the meaning of the original criterion."
         }
     },
     {
@@ -718,8 +718,8 @@
             "value": "required"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_brain_imaging' instead of a schema field, and the logic does not fully capture the original criterion's meaning, which includes multiple conditions (symptomatic, no prior brain imaging, and specific imaging tests within a time frame)."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (brain imaging) not represented in the schema, and the logic matches the meaning, requiring brain imaging for symptomatic subjects without prior imaging."
         }
     },
     {
@@ -732,8 +732,8 @@
             "value": "within_14_days"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_investigational_drug' when a schema field 'treatment' exists, and the logic is partially preserved but the operator and value are not accurately represented."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, using a custom field to represent the concept of investigational drug treatment within a specific time frame, which is not directly represented in the schema fields."
         }
     },
     {
@@ -747,7 +747,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "Custom field used instead of available schema fields (treatment, treatment_name, treatment_start_date) and imperfect logic representation of the original criterion."
+            "explanation": "The criterion refers to prior radiotherapy, which should be mapped to the 'treatments' field, but a custom field 'custom_radiotherapy' is used instead."
         }
     },
     {
@@ -760,8 +760,8 @@
             "value": "type_i_or_poorly_controlled"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_diabetes_status' instead of the allowed schema field 'diagnosis' or 'molecular_status', and did not account for the specific condition of 'hemoglobin A1c > 8.0% for 1 year or greater' which could be mapped to a normalized lab field 'hemoglobina' or 'hcm' with a specific threshold."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule uses a custom field to represent a clinical concept (diabetes status) not directly represented in the schema, which is acceptable according to the guidelines."
         }
     },
     {
@@ -774,8 +774,8 @@
             "value": "not_all_above_8"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_diabetes_newly' instead of the allowed schema fields and normalized lab fields, such as 'diagnosis' and 'hemoglobina' or 'hcm' (which could be related to hemoglobin A1c values), and the logic is not fully explicit."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule uses a custom field to represent a clinical concept not directly represented in the schema, which is acceptable. The logic also accurately preserves the meaning of the original criterion."
         }
     },
     {
@@ -788,8 +788,8 @@
             "value": "symptomatic_or_ineligible"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_disease_burden' when no schema field exists, which is acceptable, but the logic does not fully capture the complexity of the original criterion, which involves investigator judgment and multiple conditions."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and using a custom field is acceptable. The logic matches the meaning of the original criterion."
         }
     },
     {
@@ -802,8 +802,8 @@
             "value": "impairment"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_gi_function' when no schema field exists, which is acceptable, but it does not perfectly capture the nuance of 'impairment of gastrointestinal function or disease' as stated in the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (gastrointestinal function) not represented in the schema, so using a custom field is acceptable and the logic matches the meaning."
         }
     },
     {
@@ -816,8 +816,8 @@
             "value": "active"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_pneumonitis' instead of a possible schema field 'diagnosis' which could be used to represent pneumonitis."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (pneumonitis) not represented in the schema, and using a custom field is acceptable."
         }
     },
     {
@@ -830,8 +830,8 @@
             "value": "resolved"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_pneumonitis_history' instead of a schema field, and the logic does not fully capture the original criterion, which requires pneumonitis to be clinically resolved and treatments to be completed prior to randomization."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (pneumonitis history and treatment status) not directly represented in the schema, and using a custom field is acceptable. The logic rule correctly captures the meaning of the original criterion, which requires pneumonitis to be clinically resolved and treatments completed prior to randomization."
         }
     },
     {
@@ -864,8 +864,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_cardiac_history' instead of a schema field, and the logic does not account for the 6-month time frame prior to the start of study treatment."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion for active cardiac disease within 6 months prior to the start of study treatment using a custom field, which is acceptable since the criterion does not correspond to any specific schema field."
         }
     },
     {
@@ -878,8 +878,8 @@
             "value": "class_iii_iv"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_chf_status' instead of a schema field, and 'diagnosis' could be a possible mapping, but the logic accuracy and structure seem to be correct for an exclusion criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (congestive heart failure) not represented in the schema, and a custom field is used correctly to capture this information."
         }
     },
     {
@@ -892,8 +892,8 @@
             "value": "history"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_arrhythmias' when a schema field 'diagnosis' could be used to represent the condition, and the logic is partially correct in representing the history of cardiac arrhythmias."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (cardiac arrhythmias) not represented in the schema, and using a custom field is acceptable."
         }
     },
     {
@@ -916,8 +916,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields (custom_sbp, custom_dbp) instead of schema fields, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the original criterion using custom fields for systolic and diastolic blood pressure, which is acceptable since blood pressure is not a schema field."
         }
     },
     {
@@ -930,8 +930,8 @@
             "value": "allowed_prior"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_antihypertensive' when a schema field 'treatment' or 'treatment_name' could be used, and the logic seems to preserve the meaning of the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to an administrative or procedural concept, and using a custom field is acceptable. The logic rule accurately captures the meaning of the original criterion."
         }
     },
     {
@@ -944,8 +944,8 @@
             "value": "history"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_pancreatitis' when a schema field 'diagnosis' could be used, and the logic does not fully capture the original criterion's meaning, specifically the time frame and types of pancreatitis."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field, and using a custom field is acceptable. The logic matches the meaning of the criterion."
         }
     },
     {
@@ -959,7 +959,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The model used a custom field 'custom_pi3k_mtor_ak inhibitor' instead of the allowed schema field 'treatment' or 'treatment_name', which could have been used to represent prior treatment with PI3K, mTOR or AKT inhibitor."
+            "explanation": "The criterion refers to prior treatment with specific drugs, which should be mapped to the 'treatments' field instead of a custom field."
         }
     },
     {
@@ -972,8 +972,8 @@
             "value": "chronic"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'custom_steroid_use' instead of a schema field, and the logic does not fully capture the original criterion's meaning, which includes the duration of steroid use."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (chronic steroid use) not represented in the schema, and using a custom field is acceptable. The logic matches the meaning of the criterion."
         }
     }
 ]

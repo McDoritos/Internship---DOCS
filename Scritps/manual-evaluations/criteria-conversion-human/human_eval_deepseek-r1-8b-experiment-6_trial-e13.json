@@ -1,0 +1,184 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Presence of iliac or retroperitoneal lymph node metastasis detected in contrast-enhanced CT or MRI, classified as local or unilaterally regional",
+        "logic": {
+            "field": "stage",
+            "operator": "=",
+            "value": "local_or_unilaterally_regional"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the 'stage' field, which is a schema field, but it does not fully capture the original criterion, which mentions specific locations (iliac or retroperitoneal lymph node metastasis) and imaging modalities (contrast-enhanced CT or MRI).",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Maximum extent of lymph node metastasis (LN-M) singular or multiple, with a maximum size of 5 cm in transverse CT diameter (UICC IIB)",
+        "logic": {
+            "field": "lymph_node_size",
+            "operator": "<=",
+            "value": "5 cm"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'lymph_node_size' instead of a normalized field, and the operator and value are correct, but the field does not exactly match the allowed schema fields or normalized lab fields.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with an elevation in HCG after orchiectomy at the time of staging examination can be included if the directly preoperatively determined HCG does not exceed 5 IU/L.",
+        "logic": {
+            "field": "hcg_level",
+            "operator": "<=",
+            "value": "5 IU/L"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'hcg_level' instead of the normalized lab field, and the logic does not fully capture the original criterion's conditions, such as the elevation in HCG after orchiectomy and the staging examination.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Initial diagnosis of a tumor in UICC stage IIA/IIB",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "iiia_or_iib"
+        },
+        "auto_classification": "likely_wrong",
+        "auto_explanation": "The logic rule uses 'iiia_or_iib' as the value, but the original criterion specifies 'UICC stage IIA/IIB', which corresponds to a different stage.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a tumor in clinical stage (CS) I under active surveillance",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "recurrence_under_active_surveillance"
+        },
+        "auto_classification": "likely_wrong",
+        "auto_explanation": "The logic rule uses the 'treatment' field, which does not accurately represent the concept of 'recurrence of a tumor in clinical stage I under active surveillance'. A more suitable field would be 'diagnosis' or 'stage' in combination with other fields to convey the meaning of recurrence under active surveillance.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a CS I tumor after adjuvant therapy with carboplatin mono",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "recurrence_after_adjuvant_therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the 'treatment' field, which is a schema field, but the value 'recurrence_after_adjuvant_therapy' does not accurately represent the original criterion, which specifies 'Recurrence of a CS I tumor after adjuvant therapy with carboplatin mono'. A more accurate representation would require additional fields, such as 'diagnosis' and 'treatment_name'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "LN-M with a transverse diameter >5 cm in CT (UICC IIC)",
+        "logic": {
+            "field": "lymph_node_size",
+            "operator": ">",
+            "value": "5 cm"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'lymph_node_size' instead of a schema field, and the unit 'cm' is not normalized, but the logic accuracy and structure are correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other metastases than LN-M (UICC III)",
+        "logic": {
+            "field": "metastasis_type",
+            "operator": "=",
+            "value": "other_than_ln_m"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'metastasis_type' instead of the allowed schema field 'diagnosis' or 'stage', which could be used to represent the UICC stage and metastasis information.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient received a different chemotherapy than described above",
+        "logic": {
+            "field": "previous_chemotherapy",
+            "operator": "=",
+            "value": "different_than_described"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'previous_chemotherapy' when a schema field 'treatment' or 'treatment_name' could be used, and the logic is partially preserved but the field selection is not optimal.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient underwent retroperitoneal radiotherapy",
+        "logic": {
+            "field": "previous_radiotherapy",
+            "operator": "=",
+            "value": "retroperitoneal"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'previous_radiotherapy' instead of the allowed schema field 'treatment' or 'treatment_name', which could better represent the concept of retroperitoneal radiotherapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient is in a reduced general condition or has a life-threatening illness",
+        "logic": {
+            "field": "general_condition",
+            "operator": "=",
+            "value": "reduced_or_life_threatening"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'general_condition' when a schema field 'ecog_ps' exists, which is more specific to the patient's general condition.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient has a psychiatric illness",
+        "logic": {
+            "field": "psychiatric_illness",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'psychiatric_illness' when it could be mapped to the 'diagnosis' schema field, which is a more general field that could include psychiatric illness.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Complete resection cannot be ensured due to previous surgeries",
+        "logic": {
+            "field": "surgical_resection",
+            "operator": "=",
+            "value": "cannot_be_ensured"
+        },
+        "auto_classification": "likely_wrong",
+        "auto_explanation": "The logic rule uses a custom field 'surgical_resection' which does not exist in the allowed schema fields, and the meaning is also not preserved as it does not consider 'previous surgeries' as the reason for 'cannot be ensured'.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "In the \"high risk\" group: Contraindications to cisplatin, etoposide, or bleomycin (severe liver insufficiency, severe kidney insufficiency, severe lung insufficiency, hypersensitivity, severe bone marrow depression, profound hearing impairments)",
+        "logic": {
+            "field": "contraindications",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'contraindications' when a more specific schema field such as 'diagnosis' or normalized lab fields related to liver, kidney, or lung function could be used, and the rule does not fully capture the complexity of the original criterion.",
+        "human_classification": "partial"
+    }
+]

@@ -20,7 +20,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the schema field 'gender' and preserves the meaning of the original criterion using the correct operators and values."
+            "explanation": "The logic rule correctly represents the original criterion, which includes both male and female participants using the 'gender' field."
         }
     },
     {
@@ -34,7 +34,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'age' schema field and accurately represents the original criterion with the correct operator and value."
+            "explanation": "The logic rule correctly maps the original criterion to the 'age' field with the appropriate operator and value."
         }
     },
     {
@@ -58,7 +58,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and preserves the meaning of the original criterion, using the correct operator and values for an inclusion criterion."
+            "explanation": "The logic rule correctly maps the diagnosis of diffuse large B-cell lymphoma (DLBCL) and high-grade non-Hodgkin B-cell lymphoma to the 'diagnosis' field using an OR operator, preserving the original meaning."
         }
     },
     {
@@ -81,8 +81,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'lymphoma_cell_origin' instead of a normalized field, and the values are not exactly as expected, but the logic and meaning are preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the inclusion criterion for lymphoma classification, using a custom field since the schema does not explicitly include a field for lymphoma cell origin."
         }
     },
     {
@@ -96,7 +96,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'treatment' schema field and preserves the meaning of the original criterion, which requires the availability of first-line treatment information."
+            "explanation": "The logic rule correctly represents the original criterion, which requires the availability of first-line treatment information in the institutional medical record. The use of a custom field 'treatment' is acceptable since the criterion refers to the availability of treatment information, not a specific treatment or schema field."
         }
     },
     {
@@ -109,8 +109,8 @@
             "value": true
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'survival_data' when no schema field exists, which is acceptable, but it would be better to use a more specific field if available, such as 'control' or create a new field for this purpose."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the original criterion, which refers to the availability of survival data, a clinical concept not represented in the schema. Using a custom field is acceptable in this case."
         }
     },
     {
@@ -124,7 +124,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly uses the 'molecular_subgroup_classification' field, which is a synonym for the allowed schema field 'molecular_status', and checks for the absence of a medical record by comparing it to null, which aligns with the exclusion criterion."
+            "explanation": "The logic rule correctly uses a custom field to represent the molecular subgroup classification, which is not a standard schema field, and the operator '!!=' correctly checks for the absence of a medical record."
         }
     },
     {
@@ -138,7 +138,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is using a greater than or equal to operator, which would include diagnoses after 2016, but the original criterion specifies 'confirmed in the year 2016', implying an exact year match. Additionally, the rule does not account for the diagnosis type, which should be 'diffuse large B-cell lymphoma'."
+            "explanation": "The logic rule uses a greater-than-or-equal operator for the diagnosis date, which does not accurately represent the original criterion of a diagnosis confirmed in the year 2016. A more accurate representation would be an equality operator or a range operator to specify the year 2016."
         }
     },
     {
@@ -152,7 +152,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The model used a custom field 'lymphoma_type' instead of the allowed schema field 'diagnosis' or a more specific normalized field, which could better represent the condition."
+            "explanation": "The criterion mentions a specific diagnosis (Transformed Lymphomas), which should be mapped to the 'diagnosis' field, but the logic rule uses a custom field 'lymphoma_type' instead."
         }
     }
 ]

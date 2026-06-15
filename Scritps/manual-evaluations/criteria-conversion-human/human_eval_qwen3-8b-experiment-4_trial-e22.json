@@ -1,0 +1,54 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Subjects must have histologically or cytologically confirmed adenocarcinoma of the breast with locally recurrent or metastatic disease. Locally recurrent disease must not be amenable to any local treatment with curative intent. Metastatic disease must be demonstrated either radiographically or histologically.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "adenocarcinoma of the breast"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the diagnosis aspect, but misses the details about locally recurrent or metastatic disease, and the requirement that locally recurrent disease must not be amenable to any local treatment with curative intent.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Patients should have progressed on at least two lines of HER2-directed therapy in the metastatic setting, and prior therapy for metastatic disease should include both pertuzumab and ado-trastuzumab unless contraindicated or declined by the patient.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "pertuzumab, ado-trastuzumab"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires progression on at least two lines of HER2-directed therapy and prior therapy to include both pertuzumab and ado-trastuzumab, with exceptions for contraindication or patient decline.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Patients who have had chemotherapy, hormonal therapy, or radiotherapy within 2 weeks prior to entering the study or those who have not recovered from adverse events due to agents administered more than 2 weeks earlier.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "chemotherapy, hormonal therapy, radiotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes a time frame (within 2 weeks) and recovery from adverse events, but it does correctly identify the types of therapy (chemotherapy, hormonal therapy, radiotherapy). A more accurate representation would involve using the 'treatments' field with 'start_date' and 'end_date' to specify the time frame and possibly a custom field for 'recovery from adverse events'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients who have previously been treated with an interleukin-6 (IL-6), Janus kinase (JAK) or Signal Transducers and Activators of Transcription (STAT) inhibitor for any indication, such as ruxolitinib or tocilizumab.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "IL-6, JAK, STAT inhibitor"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_therapy' instead of the schema field 'treatments' which is more suitable for representing prior treatments with specific drugs like ruxolitinib or tocilizumab.",
+        "human_classification": "partial"
+    }
+]

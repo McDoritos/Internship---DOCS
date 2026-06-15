@@ -1,0 +1,137 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histologically confirmed diagnosis of Soft Tissue Sarcoma (STS) excepted GIST.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "soft_tissue_sarcoma",
+            "unmapped": true,
+            "source_text": "excepted GIST"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the correct schema field 'diagnosis', but the value does not fully capture the original criterion, which excludes GIST. The 'unmapped' flag and 'source_text' suggest an attempt to address this, but the logic does not explicitly exclude GIST.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Metastatic disease or unresectable locally advanced malignancy for which standard therapy by anthracycline is decided;",
+        "logic": {
+            "field": "disease_status",
+            "operator": "=",
+            "value": "metastatic_or_unresectable",
+            "unmapped": true,
+            "source_text": "for which standard therapy by anthracycline is decided"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'disease_status' instead of the allowed schema field 'diagnosis' or 'stage', but the logic accuracy is preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "At least one measurable lesion as per RECIST version 1.1.;",
+        "logic": {
+            "field": "lesion_measurable",
+            "operator": "=",
+            "value": "true",
+            "unmapped": true,
+            "source_text": "RECIST version 1.1"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'lesion_measurable' instead of a schema field, but the logic accuracy and structure are correct.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Patients must have an adequate organ and bone marrow function at baseline;",
+        "logic": {
+            "field": "organ_function",
+            "operator": "=",
+            "value": "adequate",
+            "unmapped": true,
+            "source_text": "bone marrow function"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'organ_function' when no schema field exists, but it partially preserves the meaning of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Patient should understand, sign, and date the written voluntary informed consent form prior to any protocol-specific procedures performed and should be able and willing to comply with procedures as per protocol;",
+        "logic": {
+            "field": "consent_status",
+            "operator": "=",
+            "value": "completed",
+            "unmapped": true,
+            "source_text": "understand, sign, and date the written voluntary informed consent form prior to any protocol-specific procedures performed and should be able and willing to comply with procedures as per protocol"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'consent_status' which is not a schema field, but the meaning is preserved and the operator/value is correct. A more accurate field would be 'control' as it relates to protocol compliance, but 'consent_status' is not entirely incorrect.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Covered by a medical insurance.",
+        "logic": {
+            "field": "insurance_status",
+            "operator": "=",
+            "value": "covered",
+            "unmapped": true,
+            "source_text": "Covered by a medical insurance"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'insurance_status' when no schema field exists, which is acceptable, but since 'insurance_status' is not a normalized field and there's no direct schema field for insurance, it's considered partial.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Evidence of significant uncontrolled concomitant disease that could affect compliance with the protocol or interpretation of results;",
+        "logic": {
+            "field": "comorbidity_control",
+            "operator": "=",
+            "value": "uncontrolled",
+            "unmapped": true,
+            "source_text": "Evidence of significant uncontrolled concomitant disease"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'comorbidity_control' instead of a schema field, and the logic accuracy is preserved, but the field selection is imperfect.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "History of other malignancy other than study disease (except for basal cell or squamous cell carcinoma of the skin or carcinoma in situ of the cervix) unless the patient has been free of disease for at least 3 years;",
+        "logic": {
+            "field": "other_malignancy_status",
+            "operator": "=",
+            "value": "present",
+            "unmapped": true,
+            "source_text": "History of other malignancy other than study disease (except for basal cell or squamous cell carcinoma of the skin or carcinoma in situ of the cervix) unless the patient has been free of disease for at least 3 years"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'other_malignancy_status' when a schema field 'diagnosis' could be used, and the logic does not fully capture the nuances of the original criterion, such as the exceptions for certain types of skin or cervical cancer and the requirement of being disease-free for at least 3 years.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Metabolic syndrome;",
+        "logic": {
+            "field": "metabolic_syndrome",
+            "operator": "=",
+            "value": "true",
+            "unmapped": true,
+            "source_text": "Metabolic syndrome"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'metabolic_syndrome' when no schema field exists, which is acceptable, but since 'diagnosis' is a schema field that could potentially be used to represent this condition, it's not a perfect mapping.",
+        "human_classification": "partial"
+    }
+]

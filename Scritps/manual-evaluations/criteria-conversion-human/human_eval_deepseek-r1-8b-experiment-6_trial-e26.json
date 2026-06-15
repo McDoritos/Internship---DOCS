@@ -1,0 +1,48 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "liver_function",
+                    "operator": "<=",
+                    "value": "3 × ULN"
+                },
+                {
+                    "field": "liver_function",
+                    "operator": "<=",
+                    "value": "5 × ULN"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes conditions about liver metastases. A custom field 'liver_function' is used, but the logic does not account for the presence or absence of liver metastases, which is a crucial part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 2.0 × ULN in the absence of Gilbert's Disease, OR ≤ 3 × ULN with Gilbert's Disease provided direct bilirubin is ≤ ULN",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "2.0 × ULN"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "3 × ULN"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing the conditions related to Gilbert's Disease and direct bilirubin.",
+        "human_classification": "partial"
+    }
+]

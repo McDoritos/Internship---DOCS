@@ -1,0 +1,29 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Patients with metastatic colorectal cancer with progression after previous therapy with 5-fluoropyrimidines, oxaliplatin or irinotecan.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "metastatic colorectal cancer"
+                },
+                {
+                    "field": "progression_after_therapy",
+                    "operator": "IN",
+                    "value": [
+                        "5-fluoropyrimidines",
+                        "oxaliplatin",
+                        "irinotecan"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'progression_after_therapy' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments.",
+        "human_classification": "partial"
+    }
+]

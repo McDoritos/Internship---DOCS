@@ -1,0 +1,99 @@
+[
+    {
+        "id": "2",
+        "type": "inclusion",
+        "text": "Males or females between 18 Years to 75 Years.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for gender, but the original criterion also specifies an age range (18-75 years) which is not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "3",
+        "type": "inclusion",
+        "text": "No prior SBRT, if the surgery or chemotherapy has been administered, the interval is at least above four weeks.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "NOT_IN",
+            "value": "SBRT"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which also mentions the interval between surgery or chemotherapy and the current treatment being at least four weeks. The 'treatments' field with 'start_date' and 'end_date' should be used to represent this condition, in addition to the 'NOT_IN' operator for 'SBRT' treatment.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "6",
+        "type": "inclusion",
+        "text": "Patients can have the brain / meningeal metastasis history, but the metastasis must be treated by operation or radiotherapy), and clinically stable for at least 2 months.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "brain_meningeal_metastasis_history",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "metastasis_treatment",
+                    "operator": "=",
+                    "value": "operation or radiotherapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing the condition of being clinically stable for at least 2 months.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "15",
+        "type": "exclusion",
+        "text": "Medically uncontrolled serious heart, lung, neurological, psychological, metabolic disease Second primary malignancy that is clinically detectable at the time of consideration for study enrollment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "heart_disease_status",
+                    "operator": "=",
+                    "value": "uncontrolled"
+                },
+                {
+                    "field": "lung_disease_status",
+                    "operator": "=",
+                    "value": "uncontrolled"
+                },
+                {
+                    "field": "neurological_disease_status",
+                    "operator": "=",
+                    "value": "uncontrolled"
+                },
+                {
+                    "field": "psychological_disease_status",
+                    "operator": "=",
+                    "value": "uncontrolled"
+                },
+                {
+                    "field": "metabolic_disease_status",
+                    "operator": "=",
+                    "value": "uncontrolled"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the 'Second primary malignancy' condition mentioned in the original criterion, and it uses custom fields instead of the 'control' field for disease control information.",
+        "human_classification": "partial"
+    }
+]

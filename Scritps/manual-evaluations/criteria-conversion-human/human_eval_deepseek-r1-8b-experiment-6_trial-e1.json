@@ -1,0 +1,237 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule correctly uses the 'diagnosis' schema field and preserves the meaning of NSCLC, but it does not account for the 'metastatic' and 'Stage IV' aspects of the original criterion.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "=",
+            "value": "platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'prior_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy and meaning are preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L.",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1.5",
+            "unit": "x 10^9/L"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a synonym 'neutrofilos' instead of the normalized lab field 'neutrofilos' is correct, but the value is missing the exponent part, it should be '1.5 x 10^9' to be very likely correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+        "logic": {
+            "field": "ast",
+            "operator": "<=",
+            "value": "2.5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the condition 'if liver metastases' which affects the value of the AST threshold.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+        "logic": {
+            "field": "alt",
+            "operator": "<=",
+            "value": "2.5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the condition 'if liver metastases' which alters the threshold value to ≤ 5 x ULN.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 1.5 x ULN.",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the correct normalized lab field 'bilirrubina_total', but the value '1.5 x ULN' should be a numerical value, not a string, and the ULN (Upper Limit of Normal) should be defined or referenced to a specific value.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+        "logic": {
+            "field": "pregnancy_test",
+            "operator": "=",
+            "value": "negative"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'pregnancy_test' instead of a normalized lab field or schema field, and it's missing the condition for 'women of childbearing potential'.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Known EGFR genomic alterations with available approved targeted therapy.",
+        "logic": {
+            "field": "egfr_status",
+            "operator": "=",
+            "value": "known with available targeted therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'egfr_status' instead of the allowed schema field 'molecular_status', which could convey similar information.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Known ALK genomic alterations with available approved targeted therapy.",
+        "logic": {
+            "field": "alk_status",
+            "operator": "=",
+            "value": "known with available targeted therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'alk_status' instead of the normalized field 'molecular_status' which could potentially represent ALK genomic alterations, and the value is not a simple value but a phrase, however the logic seems to preserve the original meaning.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "Known ROS1 genomic alterations with available approved targeted therapy.",
+        "logic": {
+            "field": "ros1_status",
+            "operator": "=",
+            "value": "known with available targeted therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'ros1_status' instead of the allowed schema field 'molecular_status', which could convey the same information.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "Untreated brain metastases.",
+        "logic": {
+            "field": "brain_metastases",
+            "operator": "=",
+            "value": "untreated"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'brain_metastases' instead of the allowed schema field 'diagnosis' or a more specific field related to brain metastases, and it also lacks the context of 'treatment' to fully represent 'untreated' brain metastases.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "Symptomatic brain metastases.",
+        "logic": {
+            "field": "brain_metastases",
+            "operator": "=",
+            "value": "symptomatic"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'brain_metastases' instead of the allowed schema field 'diagnosis' which could potentially include brain metastases, and there is no schema field for 'symptomatic' status.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "Active autoimmune disease requiring systemic immunosuppressive therapy.",
+        "logic": {
+            "field": "autoimmune_disease_status",
+            "operator": "=",
+            "value": "active requiring systemic immunosuppressive therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'autoimmune_disease_status' instead of the allowed schema field 'diagnosis' which could potentially map to autoimmune disease, and the value is not normalized.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Interstitial lung disease.",
+        "logic": {
+            "field": "interstitial_lung_disease",
+            "operator": "=",
+            "value": "present"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'interstitial_lung_disease' instead of the allowed schema field 'diagnosis' which could potentially map to this condition.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Active non-infectious pneumonitis.",
+        "logic": {
+            "field": "pneumonitis_status",
+            "operator": "=",
+            "value": "active non-infectious"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'pneumonitis_status' instead of the allowed schema field 'diagnosis' which could potentially map to this condition, and the logic accuracy is preserved.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "Active infection requiring systemic therapy.",
+        "logic": {
+            "field": "infection_status",
+            "operator": "=",
+            "value": "active requiring systemic therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'infection_status' instead of a schema field, and the value is not normalized, but the logic accuracy is preserved.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 23,
+        "type": "exclusion",
+        "text": "Prior exposure to LUMITAX.",
+        "logic": {
+            "field": "prior_exposure",
+            "operator": "=",
+            "value": "LUMITAX"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'prior_exposure' when a schema field 'treatment' or 'treatment_name' could be used, but the logic accuracy and structure are correct.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 24,
+        "type": "exclusion",
+        "text": "Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ).",
+        "logic": {
+            "field": "other_malignancy",
+            "operator": "=",
+            "value": "active invasive within 3 years except adequately treated non-melanoma skin cancer or carcinoma in situ"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'other_malignancy' when a schema field 'diagnosis' exists, and the logic does not fully capture the exception for adequately treated non-melanoma skin cancer or carcinoma in situ.",
+        "human_classification": "correct"
+    }
+]

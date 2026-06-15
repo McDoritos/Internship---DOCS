@@ -3,14 +3,11 @@ import re
 import glob
 import os
 
-# GOLD TRUTH FILES
 GOLD_FILES = glob.glob("../Test_Files/Matched_patients/matched_patient-*.json")
 
-# LLM OUTPUTS
 OUTPUT_DIR = "./llm-outputs/matching-patients/"
 OUTPUT_FILES = glob.glob(f"{OUTPUT_DIR}/*-experiment-clean.txt")
 
-# SAVE DIR
 SAVE_DIR = "./manual-evaluations/patient-matching/"
 os.makedirs(SAVE_DIR, exist_ok=True)
 
@@ -53,7 +50,6 @@ for output_file in OUTPUT_FILES:
 
         for gold_file in GOLD_FILES:
 
-            # Extract patient ID
             filename = os.path.basename(gold_file)
             patient_id = filename.split("matched_patient-")[1].replace(".json", "")
 
@@ -64,15 +60,12 @@ for output_file in OUTPUT_FILES:
                 print("Already evaluated, skipping.")
                 continue
 
-            # Load GOLD
             with open(gold_file, "r", encoding="utf-8") as gf:
                 gold_data = json.load(gf)
 
-            # Extract predicted JSON blocks for this patient
             outputs = output_text.split("Output for file ")
             outputs.pop(0)
 
-            # Correct pattern
             pattern = rf"diary_patient_{patient_id}\.txt"
 
             predicted = []
@@ -83,8 +76,6 @@ for output_file in OUTPUT_FILES:
                     if pred:
                         predicted.append(pred)
 
-
-            # Build dictionary: criterion → predicted item
             pred_map = {item["criterion"]: item for item in predicted}
 
             manual_results = {}
@@ -102,7 +93,6 @@ for output_file in OUTPUT_FILES:
                 ans = manual_compare(gold_item, pred_item)
                 manual_results[crit] = ans
 
-            # Metrics
             total = len(manual_results)
             correct = sum(1 for v in manual_results.values() if v == "y")
             partial = sum(1 for v in manual_results.values() if v == "partial")

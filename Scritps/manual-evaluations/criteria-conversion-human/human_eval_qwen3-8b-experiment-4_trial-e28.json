@@ -1,0 +1,30 @@
+[
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients who have taken an investigational medical product for prostate cancer from Jan 1st , 2014 to Dec 31st 2020.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_type",
+                    "operator": "=",
+                    "value": "investigational medical product for prostate cancer"
+                },
+                {
+                    "field": "treatment_start_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "treatment_end_date",
+                    "operator": "<=",
+                    "value": "2020-12-31"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses 'treatment_type' and 'treatment_start_date' and 'treatment_end_date' which are not exact schema fields. It should use 'treatments' field with 'name' and 'start_date' and 'end_date' subfields to accurately represent the treatment history.",
+        "human_classification": "partial"
+    }
+]

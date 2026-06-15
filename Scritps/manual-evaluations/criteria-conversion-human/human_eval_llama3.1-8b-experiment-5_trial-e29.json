@@ -1,0 +1,30 @@
+[
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Must not have received systemic anti-neoplastic therapy, including radiotherapy within 14 days of study treatment.",
+        "logic": {
+            "field": "systemic_anti_neoplastic_therapy",
+            "operator": "NOT_IN",
+            "value": [
+                "radiotherapy"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which mentions 'within 14 days of study treatment' and 'systemic anti-neoplastic therapy' broadly, not just 'radiotherapy'. A more accurate representation would involve using the 'treatments' field with specific details on therapy type and timing.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "Haploidentical 1st-degree relative as defined by 3/6 or 4/6 HLA-matched at HLA -A, -B, or -DRB1 who is 18-70 years of age.",
+        "logic": {
+            "field": "haploidentical_relative_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not accurately capture the age range (18-70 years) and HLA-matching criteria (3/6 or 4/6 HLA-matched at HLA-A, -B, or -DRB1) specified in the original criterion. A more accurate representation would involve using the 'age' field and a custom field for HLA-matching status.",
+        "human_classification": "wrong"
+    }
+]

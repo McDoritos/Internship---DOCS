@@ -1,0 +1,106 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patients with advanced renal cell carcinoma of a histological or cytological confirmation of clear cell (or with a component of clear cell) renal carcinoma that have previously progressed on or were intolerant to first-line therapy with sunitinib, sorafenib, pazopanib, axitinib, bevacizumab, or cytokine therapy.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "clear cell renal carcinoma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the diagnosis aspect, but misses the information about prior progression or intolerance to specific first-line therapies.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Patients must have had prior nephrectomy (partial or total).",
+        "logic": {
+            "field": "treatment",
+            "operator": "IN",
+            "value": "nephrectomy (partial or total)"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to a prior surgical procedure, which should be mapped to the 'treatments' field with a specific 'name' and possibly 'start_date' and 'end_date', rather than a simple 'treatment' field with an 'IN' operator.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "ALT and AST ≤ 2.5 x ULN. Patients with known liver metastases may enroll if their AST and ALT ≤ 5 x ULN",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "2.5",
+                    "unit": "x ULN"
+                },
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "2.5",
+                    "unit": "x ULN"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for patients with known liver metastases, who may enroll if their AST and ALT ≤ 5 x ULN, which is a significant part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "INR < 1.3 (INR < 3 in patients treated with anticoagulants)",
+        "logic": {
+            "field": "inr",
+            "operator": "<",
+            "value": "1.3",
+            "unit": "x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the exception in patients treated with anticoagulants, where the INR threshold is 3, not 1.3. It also uses 'x ULN' as the unit, which might not be appropriate for this context.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Patients who had radiation therapy within 4 weeks prior to start of study treatment (palliative radiotherapy to bone lesions allowed up to 2 weeks prior to study treatment start).",
+        "logic": {
+            "field": "radiation_status",
+            "operator": "IN",
+            "value": "within 4 weeks prior to start"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'radiation_status' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments like radiation therapy. Additionally, the logic rule does not fully capture the nuances of the original criterion, such as the allowance for palliative radiotherapy to bone lesions up to 2 weeks prior to study treatment start.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Patients who have received adjuvant therapy for RCC",
+        "logic": {
+            "field": "adjuvant_therapy",
+            "operator": "IN",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions a specific treatment history, which should be mapped to the 'treatments' field instead of a custom 'adjuvant_therapy' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Patients who have previously received systemic mTOR inhibitors (eg, sirolimus, temsirolimus, everolimus)",
+        "logic": {
+            "field": "mTOR_inhibitor",
+            "operator": "IN",
+            "value": "sirolimus, temsirolimus, everolimus"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'mTOR_inhibitor' instead of the 'treatments' schema field, which is more suitable for representing prior treatments with specific drugs.",
+        "human_classification": "partial"
+    }
+]

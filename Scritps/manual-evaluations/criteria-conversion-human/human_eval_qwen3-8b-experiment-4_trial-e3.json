@@ -1,0 +1,152 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Multifocal unilateral or bilateral breast adenocarcinoma tumours are allowed if all tested HER2-positive, according to local testing",
+        "logic": {
+            "field": "tumor_type",
+            "operator": "IN",
+            "value": [
+                "multifocal unilateral",
+                "bilateral breast adenocarcinoma tumours"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the HER2-positive status, which is a crucial part of the original criterion. It should include a condition related to the molecular_status field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Prior treatment with taxane, trastuzumab and pertuzumab (early or advanced setting) and T-DXd (metastatic setting).",
+        "logic": {
+            "field": "prior_treatment",
+            "operator": "IN",
+            "value": [
+                "taxane",
+                "trastuzumab",
+                "pertuzumab",
+                "T-DXd"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_treatment' instead of the schema field 'treatments' which is the correct field to use when referring to prior treatments or specific drugs.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "In order to be eligible, patients subjects must have received T-DXd as the last systemic metastatic treatment line before inclusion, and presented disease progression on this drug.",
+        "logic": {
+            "field": "treatment_last_line",
+            "operator": "=",
+            "value": "T-DXd"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which requires both the last systemic metastatic treatment line to be T-DXd and disease progression on this drug. The logic rule is missing the disease progression condition.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Prior therapy with tucatinib, trastuzumab, and capecitabine, in advanced setting, is permissible, provided that T-DXd serves as the last systemic metastatic treatment line before inclusion, and patient subject presented disease progression on this drug.",
+        "logic": {
+            "field": "prior_treatment",
+            "operator": "IN",
+            "value": [
+                "tucatinib",
+                "trastuzumab",
+                "capecitabine"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, missing details about the treatment setting, the requirement for T-DXd as the last systemic metastatic treatment line, and disease progression on this drug.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 16,
+        "type": "inclusion",
+        "text": "Serum creatinine ≤ 1.5 x upper limit of normal (ULN) or estimated creatinine clearance ≥ 60 ml/min as calculated using the method standard for the institution.",
+        "logic": {
+            "field": "serum_creatinine",
+            "operator": "<=",
+            "value": "1.5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which also includes an alternative condition for estimated creatinine clearance ≥ 60 ml/min.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "Total serum bilirubin ≤ 1.5 x ULN unless the patient subject has documented Gilbert syndrome.",
+        "logic": {
+            "field": "total_serum_bilirubin",
+            "operator": "<=",
+            "value": "1.5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the exception of patients with documented Gilbert syndrome, which is a significant part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Aspartate and Alanine Aminotransferase (AST and ALT) ≤ 2.5x ULN.",
+        "logic": {
+            "field": "ast",
+            "operator": "<=",
+            "value": "2.5x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for AST, but the original criterion also mentions ALT. Both AST and ALT should be included in the logic rule with the same condition (≤ 2.5x ULN).",
+        "human_classification": "partial"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Prior exposure to T-DM1 for the treatment of metastatic BC.",
+        "logic": {
+            "field": "prior_exposure",
+            "operator": "IN",
+            "value": [
+                "T-DM1",
+                "metastatic BC"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to prior treatment with a specific drug (T-DM1) for metastatic breast cancer, which should be mapped to the 'treatments' field, but the logic rule uses a custom 'prior_exposure' field instead.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Myocardial infarction within 12 months prior to randomization",
+        "logic": {
+            "field": "myocardial_infarction",
+            "operator": "IN",
+            "value": [
+                "within 12 months"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to a specific medical event (myocardial infarction) within a certain time frame, but the logic rule uses a custom field instead of a schema field. A more accurate representation would use the 'control' field or a custom field with a clear timestamp, such as 'myocardial_infarction_date' with an operator checking if the date is within 12 months prior to randomization.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "Prior history of other invasive cancer in the past 5 years except basal or squamous cell carcinoma of skin that has been definitively treated.",
+        "logic": {
+            "field": "prior_cancer",
+            "operator": "NOT_IN",
+            "value": [
+                "basal cell carcinoma",
+                "squamous cell carcinoma"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes a time frame (past 5 years) and the condition of definitive treatment for basal or squamous cell carcinoma of skin. The 'prior_cancer' field is not a standard schema field, but in this context, it could be argued as acceptable due to the complexity of the criterion. However, the absence of a time frame and treatment status in the logic rule makes it incomplete.",
+        "human_classification": "partial"
+    }
+]

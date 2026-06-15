@@ -1,0 +1,106 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Men and postmenopausal female patients.",
+        "logic": {
+            "field": "gender",
+            "operator": "IN",
+            "value": "male"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for male patients, but the original criterion also includes postmenopausal female patients, which is not represented in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "Must have received endocrine therapy (aromatase inhibitor or fulvestrant as single agent or in combination with other agents) as last line of therapy with progressive disease, as determined by treating physician.",
+        "logic": {
+            "field": "endocrine_therapy_last_line",
+            "operator": "=",
+            "value": "progressive disease"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires endocrine therapy as the last line of therapy with progressive disease. The rule only checks for 'endocrine_therapy_last_line' equals 'progressive disease', but it does not account for the type of endocrine therapy (aromatase inhibitor or fulvestrant) or the fact that it was the last line of therapy.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 27,
+        "type": "inclusion",
+        "text": "Patient must have received treatment with a CDK4/6 inhibitor for breast cancer in the metastatic setting.",
+        "logic": {
+            "field": "cdk4_6_inhibitor_status",
+            "operator": "=",
+            "value": "received"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions a specific treatment (CDK4/6 inhibitor) and a specific disease (breast cancer), which should be mapped to the 'treatments' and 'diagnosis' fields, respectively, but instead a custom field 'cdk4_6_inhibitor_status' is used.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 37,
+        "type": "inclusion",
+        "text": "HIV-infected patients on effective anti-retroviral therapy with undetectable viral load within 6 months of registration are eligible for this trial.",
+        "logic": {
+            "field": "hiv_status",
+            "operator": "IN",
+            "value": "undetectable viral load within 6 months"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires patients to be HIV-infected, on effective anti-retroviral therapy, and have an undetectable viral load within 6 months. The logic rule only mentions 'undetectable viral load within 6 months' without considering the HIV infection status and anti-retroviral therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Patients with prior chemotherapy for metastatic or advanced disease.",
+        "logic": {
+            "field": "chemotherapy_status",
+            "operator": "=",
+            "value": "prior"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions prior chemotherapy, which should be mapped to the 'treatments' field with a specific treatment object, not a custom 'chemotherapy_status' field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "Treatment with any investigational drug within 14 days prior to registration.",
+        "logic": {
+            "field": "investigational_drug_status",
+            "operator": "=",
+            "value": "within 14 days prior"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'investigational_drug_status' instead of the 'treatments' field, which is the appropriate schema field for treatment history. The correct logic rule should use the 'treatments' field with a condition to check if any investigational drug was administered within 14 days prior to registration.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "Radiotherapy to index lesion <= 4 weeks or limited field radiation to index lesion for palliation <= 2 weeks prior to randomization.",
+        "logic": {
+            "field": "radiotherapy_status",
+            "operator": "IN",
+            "value": "index lesion <= 4 weeks, limited field radiation <= 2 weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'radiotherapy_status' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments like radiotherapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Prior treatment with PI3K, mTOR or AKT inhibitor in the metastatic setting.",
+        "logic": {
+            "field": "inhibitor_treatment",
+            "operator": "IN",
+            "value": "PI3K, mTOR, AKT"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions prior treatment with specific inhibitors, which should be mapped to the 'treatments' field with a custom field for the inhibitor type, rather than a single custom field 'inhibitor_treatment'.",
+        "human_classification": "partial"
+    }
+]

@@ -1,0 +1,145 @@
+[
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Have a history of high fever or severe infection within 2 weeks prior to pretreatment, or are expected to undergo systemic anti-infective therapy or systemic steroid therapy during this trial;",
+        "logic": {
+            "field": "infection_status",
+            "operator": "IN",
+            "value": "severe infection"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which mentions a history of high fever or severe infection within 2 weeks prior to pretreatment, and also refers to expected systemic anti-infective therapy or systemic steroid therapy during the trial. The logic rule only addresses 'severe infection' and does not account for 'high fever', 'within 2 weeks prior to pretreatment', or the expected therapies.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "Clear neurological/psychiatric symptoms are known to be associated with brain metastases and/or assessed by MMSE;",
+        "logic": {
+            "field": "brain_metastases",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers brain metastases, but the original criterion also mentions neurological/psychiatric symptoms and MMSE assessment, which are not accounted for in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+        "logic": {
+            "field": "previous_anti_tumor_therapy",
+            "operator": "IN",
+            "value": "chemotherapeutic drugs"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only mentions 'chemotherapeutic drugs' whereas the original criterion includes other types of anti-tumor therapies such as targeted drugs, radio frequency ablation, or minimally invasive intervention, and also specifies a time frame of 'within 4 weeks before pretreatment'. The correct field to use would be 'treatments' with specific details about the type of treatment and the time frame.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+        "logic": {
+            "field": "previous_anti_tumor_therapy",
+            "operator": "IN",
+            "value": "targeted drugs"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only mentions 'targeted drugs' whereas the original criterion includes other anti-tumor therapies such as chemotherapeutic drugs, radio frequency ablation, or minimally invasive intervention, and also specifies a time frame of within 4 weeks before pretreatment.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+        "logic": {
+            "field": "previous_anti_tumor_therapy",
+            "operator": "IN",
+            "value": "radio frequency ablation"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only mentions 'radio frequency ablation' as the previous anti-tumor therapy, but the original criterion also includes other therapies such as chemotherapeutic drugs, targeted drugs, and minimally invasive intervention, which are not accounted for in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+        "logic": {
+            "field": "previous_anti_tumor_therapy",
+            "operator": "IN",
+            "value": "minimally invasive intervention"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only mentions 'minimally invasive intervention' whereas the original criterion also includes other anti-tumor therapies such as chemotherapeutic drugs, targeted drugs, and radio frequency ablation. Additionally, it does not account for the time frame of 'within 4 weeks before pretreatment'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Have received or are expected to participate in this study within 4 weeks before pretreatment to receive TIL required focus radiotherapy, or tumor evaluation focus (target focus or non-target focus) radiotherapy, or radical radiotherapy;",
+        "logic": {
+            "field": "radiotherapy",
+            "operator": "IN",
+            "value": "TIL required focus"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which mentions multiple types of radiotherapy (TIL required focus, tumor evaluation focus, target focus, non-target focus, and radical radiotherapy) and a specific time frame (within 4 weeks before pretreatment). The logic rule only includes 'TIL required focus' radiotherapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "Known or private HIV infection or syphilis infection;",
+        "logic": {
+            "field": "infection_status",
+            "operator": "IN",
+            "value": "HIV"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for HIV infection, but the original criterion also mentions syphilis infection, which is not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Known or private HIV infection or syphilis infection;",
+        "logic": {
+            "field": "infection_status",
+            "operator": "IN",
+            "value": "syphilis"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for syphilis infection, but the original criterion also mentions HIV infection, which is not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 28,
+        "type": "exclusion",
+        "text": "Pregnant, lactating women or within one year of having a family plan;",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "IN",
+            "value": "lactating"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for lactating women, but the original criterion also mentions pregnant women and those within one year of having a family plan, which are not captured in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 30,
+        "type": "exclusion",
+        "text": "Participated in other clinical trials within 3 months prior to screening;",
+        "logic": {
+            "field": "previous_clinical_trials",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_clinical_trials' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments or clinical trials. The logic also lacks specificity regarding the time frame, which is mentioned in the original criterion as 'within 3 months prior to screening'.",
+        "human_classification": "partial"
+    }
+]

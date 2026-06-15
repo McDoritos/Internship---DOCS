@@ -10,7 +10,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps the original criterion to the 'diagnosis' schema field with the correct operator and value, preserving the meaning of the inclusion criterion."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the original criterion."
         }
     },
     {
@@ -23,8 +23,8 @@
             "value": "local or unilaterally regional"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses the 'stage' field, which is a schema field, but the value 'local or unilaterally regional' is not a standard stage value. Additionally, the rule does not account for the presence of iliac or retroperitoneal lymph node metastasis, which is a key aspect of the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps the criterion to the 'stage' field, which is appropriate for cancer staging information, and the operator and value accurately reflect the meaning of the original criterion."
         }
     },
     {
@@ -37,8 +37,8 @@
             "value": "5 cm"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'ln_m_size' instead of a schema field, and the value '5 cm' should be a numerical value for accurate comparison."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, which specifies a maximum size of 5 cm for lymph node metastasis. The use of a custom field 'ln_m_size' is acceptable since the schema does not have a specific field for lymph node metastasis size."
         }
     },
     {
@@ -51,8 +51,8 @@
             "value": "5 IU/L"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'hcg_level' instead of the normalized lab field, and the logic rule does not fully capture the original criterion's conditions, such as the elevation in HCG after orchiectomy and the staging examination."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the condition for inclusion, which is based on a specific laboratory value (HCG level) that is not part of the normalized lab list, making the use of a custom field acceptable."
         }
     },
     {
@@ -66,7 +66,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'stage' schema field and accurately represents the original criterion with the correct operator and value."
+            "explanation": "The logic rule correctly maps to the stage schema field and accurately represents the meaning of the original criterion."
         }
     },
     {
@@ -80,7 +80,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule does not accurately capture the original criterion, which specifies 'recurrence of a tumor' in addition to the stage, but the logic rule only checks for the stage."
+            "explanation": "The logic rule does not capture the concept of 'recurrence of a tumor' and only checks for the stage, which is not sufficient to represent the original criterion."
         }
     },
     {
@@ -94,7 +94,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule uses the correct schema field 'treatment', but it does not fully capture the original criterion, which includes 'Recurrence of a CS I tumor after adjuvant therapy'. The rule only checks for 'carboplatin mono' treatment, missing the recurrence and tumor type aspects."
+            "explanation": "The logic rule only mentions the treatment, but the original criterion also refers to the recurrence of a CS I tumor, which should be represented in the 'diagnosis' field."
         }
     },
     {
@@ -107,8 +107,8 @@
             "value": "5 cm"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'ln_m_size' instead of a schema field, and the unit 'cm' is part of the value, it should be separated or handled properly."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the original criterion, which refers to a clinical concept (lymph node size) not explicitly represented in the schema. The use of a custom field 'ln_m_size' is acceptable."
         }
     },
     {
@@ -121,8 +121,8 @@
             "value": "LN-M"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'metastasis_type' instead of the allowed schema field 'diagnosis' or 'stage', which could be more suitable for representing UICC stage III. However, the logic accuracy is preserved, and the exclusion semantics are correctly implemented."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the exclusion criterion by checking if the metastasis type is not LN-M (UICC III), which aligns with the original criterion."
         }
     },
     {
@@ -136,7 +136,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly uses the 'treatment' schema field and the 'NOT_IN' operator to exclude patients who received a different chemotherapy, preserving the original meaning."
+            "explanation": "The logic rule correctly maps to the treatment field and uses the NOT_IN operator to exclude patients who received a different chemotherapy, which aligns with the exclusion criterion."
         }
     },
     {
@@ -149,8 +149,8 @@
             "value": "retroperitoneal radiotherapy"
         },
         "evaluation": {
-            "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'treatment' schema field and accurately represents the exclusion criterion."
+            "classification": "partial",
+            "explanation": "The criterion refers to a specific treatment, so it should use the 'treatments' field with a 'name' subfield, rather than a custom 'treatment' field."
         }
     },
     {
@@ -163,8 +163,8 @@
             "value": "reduced, life-threatening"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'general_condition' when a schema field 'ecog_ps' exists, which is a more specific and standardized field for measuring general condition."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, which refers to a clinical concept not represented in the schema, and uses a custom field as acceptable."
         }
     },
     {
@@ -178,7 +178,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule uses 'NOT_IN' operator which inverts the meaning of the exclusion criterion, and also uses a custom field 'psychiatric_illness' instead of the allowed schema field 'diagnosis'."
+            "explanation": "The logic rule inverts the meaning of the original criterion, which is an exclusion criterion. The operator should be 'IN' instead of 'NOT_IN' to correctly evaluate to TRUE when the exclusion condition is present."
         }
     },
     {
@@ -192,7 +192,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion, which is looking for evidence of non-seminomatous germ cell tumor components, but the rule is checking for the absence of this diagnosis."
+            "explanation": "The logic rule inverts the meaning of the original criterion, which is looking for evidence of non-seminomatous germ cell tumor components, but the logic rule is checking for the absence of this diagnosis."
         }
     },
     {
@@ -205,8 +205,8 @@
             "value": "complete"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses a custom field 'resection_status' instead of a schema field, and the operator and value are correct, but the field selection is imperfect."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, which excludes patients when complete resection cannot be ensured due to previous surgeries. The use of a custom field 'resection_status' is acceptable since the criterion does not correspond to any schema field."
         }
     },
     {
@@ -220,7 +220,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule uses a custom field 'contraindications' and incorrect operator 'NOT_IN', whereas it should use specific schema fields (e.g., diagnosis, treatment) and correct operators to represent the exclusion criterion accurately."
+            "explanation": "The logic rule inverts the meaning of the original criterion. The original criterion excludes patients with contraindications to cisplatin, etoposide, or bleomycin, but the logic rule checks if these contraindications are NOT present, which is the opposite of the intended meaning."
         }
     }
 ]

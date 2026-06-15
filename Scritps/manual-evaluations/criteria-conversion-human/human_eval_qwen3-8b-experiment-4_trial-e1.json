@@ -1,0 +1,56 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "CONTAINS",
+            "value": "platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment_name' instead of the 'treatments' field with a 'name' subfield, which is the correct schema field for referring to prior treatments. Additionally, the rule does not account for the 'first-line' aspect of the treatment.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+        "logic": {
+            "field": "ast",
+            "operator": "<=",
+            "value": "2.5 x ULN",
+            "unit": "x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the condition 'if liver metastases' which is a significant part of the original criterion, and also does not use a schema field for the liver metastases condition.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+        "logic": {
+            "field": "alt",
+            "operator": "<=",
+            "value": "2.5 x ULN",
+            "unit": "x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the condition 'if liver metastases' which is part of the original criterion, and it also does not use a control field for the liver metastases condition.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Known ALK genomic alterations with available approved targeted therapy.",
+        "logic": {
+            "field": "genomic_alterations",
+            "operator": "IN",
+            "value": "ALK"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'genomic_alterations' instead of the schema field 'molecular_status' which clearly applies to the criterion mentioning a specific genomic alteration (ALK).",
+        "human_classification": "partial"
+    }
+]

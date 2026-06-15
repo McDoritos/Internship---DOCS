@@ -1,0 +1,15 @@
+[
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients who have taken an investigational medical product for prostate cancer from Jan 1st , 2014 to Dec 31st 2020.",
+        "logic": {
+            "field": "investigational_product_use",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'investigational_product_use' instead of the 'treatments' field, which is the appropriate schema field for prior treatments. Additionally, the logic rule does not account for the specific time frame (Jan 1st, 2014 to Dec 31st, 2020) mentioned in the original criterion.",
+        "human_classification": "partial"
+    }
+]

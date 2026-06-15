@@ -42,7 +42,6 @@ for output_file in OUTPUT_FILES:
 
         for gold_file in GOLD_FILES:
 
-            # Extract trial ID
             filename = os.path.basename(gold_file)
             trial_id = filename.split("_")[-1].replace(".txt", "")
             print(f"\n=== Trial {trial_id} ===")
@@ -52,7 +51,6 @@ for output_file in OUTPUT_FILES:
                 print("Already evaluated, skipping.")
                 continue
 
-            # Load GOLD
             with open(gold_file, "r", encoding="utf-8") as gf:
                 gold_text = gf.read()
                 gold_data = safe_json_extract(gold_text)
@@ -61,12 +59,10 @@ for output_file in OUTPUT_FILES:
                 print("Could not parse GOLD JSON.")
                 continue
 
-            # Extract cohort-specific criteria from GOLD
             gold_incl = extract_cohort_criteria(gold_data, "inclusion_criteria")
             gold_excl = extract_cohort_criteria(gold_data, "exclusion_criteria")
             gold_all = gold_incl + gold_excl
 
-            # If GOLD has no cohort-specific criteria → auto 100%
             if len(gold_all) == 0:
                 print("No cohort-specific criteria in GOLD → auto 100% accuracy.")
                 with open(save_path, "w", encoding="utf-8") as f:
@@ -84,7 +80,6 @@ for output_file in OUTPUT_FILES:
                     }, f, indent=4, ensure_ascii=False)
                 continue
 
-            # Extract predicted JSON
             outputs = output_text.split("Ouput for file ")
             outputs.pop(0)
 
@@ -100,7 +95,6 @@ for output_file in OUTPUT_FILES:
                 print("Could not parse predicted JSON.")
                 continue
 
-            # Extract cohort-specific criteria from PREDICTED
             pred_incl = extract_cohort_criteria(pred_data, "inclusion_criteria")
             pred_excl = extract_cohort_criteria(pred_data, "exclusion_criteria")
             pred_all = pred_incl + pred_excl
@@ -121,7 +115,6 @@ for output_file in OUTPUT_FILES:
                 ans = input(f"\nWhich predicted matches GOLD [{i}]? ").strip().lower()
                 results.append(ans)
 
-            # Metrics
             total = len(results)
             correct = sum(1 for r in results if r.isdigit())
             partial = results.count("partial")

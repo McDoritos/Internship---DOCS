@@ -1,0 +1,27 @@
+[
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Alanine aminotransferase (ALT) and aspartate aminotransferase (AST) =< 3 x upper limit of normal (ULN) (ALT and AST =< 5 x ULN is acceptable if liver metastases are present)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "3",
+                    "unit": "x ULN"
+                },
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "3",
+                    "unit": "x ULN"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the exception when liver metastases are present, which allows ALT and AST to be =< 5 x ULN.",
+        "human_classification": "partial"
+    }
+]

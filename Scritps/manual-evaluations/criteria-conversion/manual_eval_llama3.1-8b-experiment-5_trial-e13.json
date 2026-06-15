@@ -10,7 +10,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps the original criterion to the 'diagnosis' schema field with the correct operator and value, preserving the meaning of the inclusion criterion."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the original criterion."
         }
     },
     {
@@ -24,7 +24,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule uses the 'diagnosis' field, which is a schema field, but it does not fully capture the original criterion's meaning, as it lacks information about the detection method (contrast-enhanced CT or MRI) and the classification (local or unilaterally regional)."
+            "explanation": "The logic rule uses the 'diagnosis' field, but the original criterion refers to the presence of lymph node metastasis, which is more accurately represented by the 'stage' or 'control' field, and also requires information about the detection method (CT or MRI) and classification (local or unilaterally regional), which is not captured in the logic rule."
         }
     },
     {
@@ -38,7 +38,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule uses the 'diagnosis' field, which is a schema field, but it does not fully capture the meaning of the original criterion, which includes specific details about the size and number of lymph node metastases."
+            "explanation": "The logic rule only considers the diagnosis field, but the original criterion also mentions specific details about the lymph node metastasis (maximum size of 5 cm in transverse CT diameter), which are not captured in the logic rule. Additionally, the stage (UICC IIB) is mentioned in the original criterion but not in the logic rule, which should use the 'stage' field."
         }
     },
     {
@@ -61,7 +61,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule uses an incorrect operator (>) instead of (< or <=) for the HCG value, and also includes an unmapped condition which seems to convey the opposite meaning of the original criterion."
+            "explanation": "The logic rule has an incorrect operator for the 'hcg_before_orchiectomy' condition. It should be '<=' instead of '>', as the original criterion states that the HCG level should not exceed 5 IU/L."
         }
     },
     {
@@ -75,7 +75,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion with the correct operator and value."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the original criterion."
         }
     },
     {
@@ -89,7 +89,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'diagnosis' and preserving the meaning of the criterion."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the original criterion."
         }
     },
     {
@@ -103,7 +103,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the 'diagnosis' schema field and preserves the meaning of the original criterion."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the original criterion."
         }
     },
     {
@@ -117,7 +117,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule uses the 'diagnosis' field, which is incorrect for describing a tumor size measurement. Additionally, the 'diagnosis' field is not suitable for a numerical comparison with '>'. A more suitable field, such as a custom field for 'tumor size' or 'transverse diameter', should be used along with the correct unit of measurement."
+            "explanation": "The logic rule is missing the context of 'LN-M' and 'transverse diameter' and only mentions 'diagnosis' which is not sufficient to represent the original criterion. Additionally, 'diagnosis' field is not suitable for size measurements."
         }
     },
     {
@@ -130,8 +130,8 @@
             "value": "other metastases"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses the correct schema field 'diagnosis', but the value 'other metastases' does not accurately represent the original criterion 'Other metastases than LN-M (UICC III)'. The rule should be more specific to exclude only LN-M (UICC III) metastases."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion. The original criterion mentions 'Other metastases than LN-M (UICC III)', which implies a specific type of metastasis, but the logic rule simply checks for 'other metastases' without considering the UICC stage or the exclusion of LN-M metastases."
         }
     },
     {
@@ -145,7 +145,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule uses '!=' operator which is correct for exclusion, but the value 'described above' is not a specific treatment name and is likely to be incorrect as it's a natural language description, not a concrete value that can be compared to 'treatment'."
+            "explanation": "The logic rule does not accurately represent the original criterion. The original criterion states that the patient received a different chemotherapy than described above, but the logic rule uses a vague value 'described above' which is not a specific chemotherapy name. Additionally, the logic rule is missing the context of what 'described above' refers to, and the field name 'treatment' should be 'treatments' according to the schema definition."
         }
     },
     {
@@ -157,8 +157,8 @@
             "source_text": "retroperitoneal radiotherapy"
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule does not map to any allowed schema field and does not provide a clear logical condition for the exclusion criterion."
+            "classification": "partial",
+            "explanation": "The criterion refers to a specific treatment (radiotherapy) which should be mapped to the 'treatments' field, but a custom field ('unmapped') is used instead."
         }
     },
     {
@@ -171,8 +171,8 @@
             "value": "reduced"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'general_condition_status' instead of the allowed schema field 'ecog_ps' which is more suitable for evaluating a patient's general condition."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (reduced general condition or life-threatening illness) not represented in the schema, and using a custom field is acceptable."
         }
     },
     {
@@ -184,8 +184,8 @@
             "source_text": "psychiatric illness"
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule does not map to any allowed schema field and does not provide a clear logical condition for the exclusion criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field, so using a custom field is acceptable."
         }
     },
     {
@@ -199,7 +199,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a relevant field and correct operator and value for an exclusion criterion."
+            "explanation": "The logic rule correctly maps to the original criterion, which refers to a clinical concept (histology result) not explicitly represented in the schema fields, making the use of a custom field acceptable."
         }
     },
     {
@@ -211,8 +211,8 @@
             "source_text": "previous surgeries"
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule does not accurately represent the original criterion, as it does not address the concept of 'complete resection' and only mentions 'previous surgeries' without any clear logical structure or field mapping."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (previous surgeries affecting resection) not directly represented in the schema, making the use of a custom field acceptable."
         }
     },
     {
@@ -240,8 +240,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses custom fields (cisplatin_contraindication, etoposide_contraindication, bleomycin_contraindication) instead of normalized fields or schema fields, but the meaning is partially preserved and the structure is coherent."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion by checking for contraindications to cisplatin, etoposide, or bleomycin, which aligns with the original criterion's intent to exclude patients with specific health issues."
         }
     }
 ]

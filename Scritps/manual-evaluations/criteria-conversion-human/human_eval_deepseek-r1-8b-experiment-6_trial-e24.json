@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Histologically confirmed high grade (WHO Grade IV) glioma including but not limited to glioblastoma, gliosarcoma, glioblastoma with oligodendroglial features, glioblastoma with PNET features, tested as IDH wild-type, as per revised WHO 2021 criteria.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "high_grade_glioma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which specifies high grade (WHO Grade IV) glioma, IDH wild-type, and includes several subtypes. The rule should also include molecular_status to capture the IDH wild-type requirement.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patients must also have evidence of tumor recurrence/progression by MRI (RANO criteria) after standard front-line therapy.",
+        "logic": {
+            "field": "progression_date",
+            "operator": "exists"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'progression_date' instead of the 'diagnosis_date' or 'control' field which could be more suitable to represent tumor recurrence/progression. Additionally, the rule does not capture the specifics of the RANO criteria or the standard front-line therapy.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Hgb ≥ 12 g/dL (male) or ≥ 11.5 g/dL (females)",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "hemoglobina",
+                    "operator": ">=",
+                    "value": "12",
+                    "unit": "g/dL"
+                },
+                {
+                    "field": "hemoglobina",
+                    "operator": ">=",
+                    "value": "11.5",
+                    "unit": "g/dL"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for gender, which is a crucial factor in the original criterion. The original criterion specifies different hemoglobin levels for males and females, but the logic rule does not differentiate between genders.",
+        "human_classification": "wrong"
+    }
+]

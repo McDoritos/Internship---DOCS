@@ -10,7 +10,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and preserving the meaning with the correct operator and value."
+            "explanation": "The logic rule correctly maps the original criterion to the 'age' field with the appropriate operator and value."
         }
     },
     {
@@ -24,7 +24,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion."
+            "explanation": "The logic rule correctly maps to the diagnosis field, accurately representing the original criterion for metastatic NSCLC (Stage IV)."
         }
     },
     {
@@ -48,7 +48,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion by using '!' for the prior therapy condition, and also incorrectly maps 'anti-PD-1 or anti-PD-L1 therapy' to 'molecular_status' instead of 'treatment' or 'treatment_name'."
+            "explanation": "The logic rule does not accurately represent the original criterion. The original criterion mentions 'documented progression after' first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy, but the logic rule inverts this by using '!' for the prior therapy condition and does not account for the progression aspect. Additionally, the molecular_status field is misused as it should represent biomarkers or mutations, not therapies."
         }
     },
     {
@@ -62,7 +62,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and operator '<=' to represent ECOG Performance Status 0-1."
+            "explanation": "The logic rule correctly maps the ECOG Performance Status criterion to the ecog_ps field with the appropriate operator and value."
         }
     },
     {
@@ -76,7 +76,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'measurable_lesion' which is acceptable since there is no direct schema field for this concept, and the operator and value correctly convey the meaning of 'at least one'."
+            "explanation": "The logic rule accurately represents the original criterion, which requires at least one measurable lesion per RECIST 1.1, using a custom field as the concept is not represented in the schema."
         }
     },
     {
@@ -90,7 +90,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the normalized lab field 'neutrofilos' and preserves the meaning of the original criterion with the correct operator and value."
+            "explanation": "The logic rule accurately represents the original criterion, which refers to a laboratory value. Since the schema does not include a normalized lab list for ANC, using a custom field is acceptable."
         }
     },
     {
@@ -104,7 +104,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the normalized lab field 'plaquetas' and accurately represents the original criterion with the correct operator and value."
+            "explanation": "The logic rule accurately represents the original criterion, which refers to a laboratory value. Since the schema does not include a normalized lab list for platelets, using a custom field ('plaquetas') is acceptable."
         }
     },
     {
@@ -118,7 +118,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and preserves the meaning of the original criterion with the correct operator and value."
+            "explanation": "The logic rule accurately represents the original criterion, which specifies a hemoglobin level of ≥ 9 g/dL, although it uses a custom field 'hemoglobina' which is acceptable since hemoglobin is not a normalized lab field in the schema."
         }
     },
     {
@@ -132,7 +132,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule does not account for the condition 'if liver metastases' which affects the ULN value, and it uses 'ast' instead of the normalized lab field 'ast' which is acceptable but could be improved for clarity and consistency."
+            "explanation": "The logic rule does not account for the condition 'if liver metastases' which should be included as a conditional statement to fully represent the original criterion."
         }
     },
     {
@@ -146,7 +146,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule does not account for the condition 'if liver metastases' which requires a different threshold (≤ 5 x ULN)."
+            "explanation": "The logic rule does not account for the condition 'if liver metastases' which should be included as a conditional statement to fully represent the original criterion."
         }
     },
     {
@@ -159,8 +159,8 @@
             "value": "1.5 x ULN"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses the correct normalized lab field 'bilirrubina_total', but the value '1.5 x ULN' is not a numerical value and should be calculated based on the upper limit of normal (ULN) for total bilirubin."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, which refers to a laboratory value not included in the normalized lab list, making the use of a custom field acceptable."
         }
     },
     {
@@ -173,8 +173,8 @@
             "value": "40 mL/min"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'creatinina_clearance_ckd_epi_formula' instead of using the allowed schema field 'creatinina' and calculating the clearance, and also used a synonym 'creatinina' instead of the normalized lab field 'creatinina' is acceptable but 'creatinina_clearance_ckd_epi_formula' is not."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using a custom field for creatinine clearance as it is not a standard schema field, and the meaning is preserved."
         }
     },
     {
@@ -188,7 +188,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'pregnancy_status' which is acceptable since there is no direct schema field for pregnancy test results, and the logic is straightforward and correct."
+            "explanation": "The logic rule correctly captures the requirement for women of childbearing potential to have a negative pregnancy test, which is an administrative or procedural criterion not directly corresponding to a specific schema field, making the use of a custom field acceptable."
         }
     },
     {
@@ -202,7 +202,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'informed_consent' which is acceptable since there is no schema field for informed consent."
+            "explanation": "The logic rule accurately represents the original criterion, which refers to a procedural aspect of the study, and using a custom field is acceptable in this case."
         }
     },
     {
@@ -215,8 +215,8 @@
             "value": "available approved targeted therapy"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'egfr_genomic_alterations' instead of the allowed schema field 'molecular_status', and the operator and value are not accurately representing the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the molecular_status field, which includes EGFR genomic alterations, and the meaning is preserved."
         }
     },
     {
@@ -229,8 +229,8 @@
             "value": "available approved targeted therapy"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'alk_genomic_alterations' instead of the allowed schema field 'molecular_status', and the operator and value are not accurately representing the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the molecular_status field, which includes ALK genomic alterations, and the presence of available approved targeted therapy is properly represented."
         }
     },
     {
@@ -243,8 +243,8 @@
             "value": "available approved targeted therapy"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'ros1_genomic_alterations' which is acceptable since there is no direct schema field for ROS1 genomic alterations, but the logic accuracy is preserved as it checks for the presence of available approved targeted therapy."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the molecular_status field, which includes ROS1 genomic alterations, and the meaning is preserved."
         }
     },
     {
@@ -257,8 +257,8 @@
             "value": "treated"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'brain_metastases_status' instead of a schema field, and the logic is mostly correct but could be improved with a more specific field if available."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the exclusion criterion for untreated brain metastases, using a custom field as the schema does not have a specific field for brain metastases status."
         }
     },
     {
@@ -271,8 +271,8 @@
             "value": "symptomatic"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'brain_metastases_symptoms' instead of a schema field, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion of symptomatic brain metastases using a custom field, as brain metastases are not explicitly represented in the schema fields."
         }
     },
     {
@@ -285,8 +285,8 @@
             "value": "active and requiring systemic immunosuppressive therapy"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'autoimmune_disease_status' instead of the allowed schema field 'diagnosis' which could be used to represent autoimmune disease, and the value is not normalized."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, which refers to a clinical concept not represented in the schema. The use of a custom field is acceptable in this case."
         }
     },
     {
@@ -299,8 +299,8 @@
             "value": "active"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'interstitial_lung_disease_status' instead of the allowed schema field 'diagnosis' which could potentially map to this condition, and there is no normalized lab field or schema field that exactly matches 'interstitial lung disease'. However, the logic accuracy and structure seem correct for an exclusion criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field, as interstitial lung disease does not correspond to any schema field, and the meaning is preserved."
         }
     },
     {
@@ -313,8 +313,8 @@
             "value": "active"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'non_infectious_pneumonitis_status' instead of the allowed schema field 'diagnosis' which could potentially map to the condition described."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the exclusion criterion, which is about the presence of active non-infectious pneumonitis, and uses a custom field as the concept is not represented in the schema."
         }
     },
     {
@@ -327,8 +327,8 @@
             "value": "active and requiring systemic therapy"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'infection_status' when a more specific schema field such as 'diagnosis' could be used, and the value is not normalized."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which refers to a clinical concept not represented in the schema. Using a custom field 'infection_status' is acceptable in this case."
         }
     },
     {
@@ -341,8 +341,8 @@
             "value": "prior"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "Custom field 'luminax_exposure' is used instead of a schema field, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which refers to prior exposure to a specific treatment, and uses a custom field as the schema does not have a specific field for this treatment."
         }
     },
     {
@@ -355,8 +355,8 @@
             "value": "within 3 years"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "Custom field used instead of schema field 'diagnosis' or 'diagnosis_date', and logic does not fully capture the exception for adequately treated non-melanoma skin cancer or carcinoma in situ."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the exception for adequately treated non-melanoma skin cancer or carcinoma in situ, and the operator and value do not correctly represent the time frame."
         }
     }
 ]

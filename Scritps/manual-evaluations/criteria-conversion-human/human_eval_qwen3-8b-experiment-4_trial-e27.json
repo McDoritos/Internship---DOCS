@@ -1,0 +1,28 @@
+[
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "ECOG（Eastern Cooperative Oncology Group ） score 0-1;",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "0"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only includes ECOG score 0, but the original criterion mentions scores 0-1, so the meaning is partially preserved.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Age: 18~80 years old;",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only includes the lower bound of the age range, missing the upper bound of 80 years old.",
+        "human_classification": "wrong"
+    }
+]

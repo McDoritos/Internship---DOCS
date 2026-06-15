@@ -1,0 +1,84 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has a diagnosis of unresectable Stage 3 pancreatic adenocarcinoma cancer cytologically or pathologically confirmed per American Joint Committee on Cancer (AJCC) staging criteria.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "pancreatic_adenocarcinoma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the diagnosis, but misses the stage and unresectable aspects of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has received 3 months of treatment with the modified FOLFIRINOX regimen.",
+        "logic": {
+            "field": "treatment_duration",
+            "operator": ">=",
+            "value": "3"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment_duration' instead of the 'treatments' field with a specific treatment name and duration, which is the correct schema field to use in this case.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are or may be pregnant as determined by a positive pregnancy test or breastfeeding or male or female patients of reproductive potential who are not willing to employ highly effective birth control from screening to 6 months after the last dose of chemotherapy.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "breastfeeding_status",
+                    "operator": "=",
+                    "value": true
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which also includes conditions for male or female patients of reproductive potential who are not willing to employ highly effective birth control. The logic rule only accounts for pregnancy and breastfeeding status.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are actively bleeding, anticoagulated, coagulopathy, or have any of the following hematology results: hemoglobin less than 10 g/dL without the support of growth factors or transfusions absolute neutrophil count less than 1500 cells/mL; or platelet count less than 100,000.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bleeding_status",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "coagulopathy_status",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "hemoglobin_level",
+                    "operator": "<",
+                    "value": "10"
+                },
+                {
+                    "field": "absolute_neutrophil_count",
+                    "operator": "<",
+                    "value": "1500"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing conditions for anticoagulation, platelet count, and the context of hemoglobin level without support of growth factors or transfusions.",
+        "human_classification": "partial"
+    }
+]

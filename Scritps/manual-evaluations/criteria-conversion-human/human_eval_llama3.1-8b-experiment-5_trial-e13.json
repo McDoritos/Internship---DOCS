@@ -1,0 +1,40 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Presence of iliac or retroperitoneal lymph node metastasis detected in contrast-enhanced CT or MRI, classified as local or unilaterally regional",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "iliac or retroperitoneal lymph node metastasis"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the 'diagnosis' field, but the original criterion refers to the presence of lymph node metastasis, which is more accurately represented by the 'stage' or 'control' field, and also requires information about the detection method (CT or MRI) and classification (local or unilaterally regional), which is not captured in the logic rule.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Maximum extent of lymph node metastasis (LN-M) singular or multiple, with a maximum size of 5 cm in transverse CT diameter (UICC IIB)",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "LN-M"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers the diagnosis field, but the original criterion also mentions specific details about the lymph node metastasis (maximum size of 5 cm in transverse CT diameter), which are not captured in the logic rule. Additionally, the stage (UICC IIB) is mentioned in the original criterion but not in the logic rule, which should use the 'stage' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient underwent retroperitoneal radiotherapy",
+        "logic": {
+            "unmapped": true,
+            "source_text": "retroperitoneal radiotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to a specific treatment (radiotherapy) which should be mapped to the 'treatments' field, but a custom field ('unmapped') is used instead.",
+        "human_classification": "wrong"
+    }
+]

@@ -1,0 +1,51 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed, Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the stage (Stage IV) and histology (non-squamous or squamous) specified in the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "No prior treatment for Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "field": "prior_treatment",
+            "operator": "NOT_IN",
+            "value": [
+                "chemotherapy",
+                "radiotherapy",
+                "chemo-radiotherapy"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_treatment' instead of the schema field 'treatments' which is more suitable for representing prior treatment history. Additionally, the rule does not explicitly mention Stage IV non-squamous or squamous NSCLC, which is part of the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "History of idiopathic pulmonary fibrosis, organizing pneumonia, drug-induced pneumonitis, idiopathic pneumonitis, or evidence of active pneumonitis on screening chest CT scan.",
+        "logic": {
+            "field": "pulmonary_condition",
+            "operator": "NOT_IN",
+            "value": [
+                "idiopathic pulmonary fibrosis",
+                "organizing pneumonia",
+                "drug-induced pneumonitis",
+                "idiopathic pneumonitis",
+                "active pneumonitis"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule partially preserves the meaning of the original criterion but misses the detail about evidence of active pneumonitis on screening chest CT scan.",
+        "human_classification": "wrong"
+    }
+]

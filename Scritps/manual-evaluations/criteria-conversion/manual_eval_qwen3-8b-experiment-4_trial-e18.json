@@ -23,7 +23,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields for gender and age, and preserving the meaning with correct operators and values."
+            "explanation": "The logic rule accurately represents the original criterion, using the correct schema fields for gender and age, and maintaining the correct meaning."
         }
     },
     {
@@ -51,7 +51,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion, including the exception for GIST."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the inclusion criterion, which includes STS diagnosis while excluding GIST."
         }
     },
     {
@@ -77,8 +77,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses the correct schema fields, but the condition for 'unresectable locally advanced malignancy' is simplified to 'unresectable' which may not fully capture the original meaning."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the schema fields, using 'stage' for metastatic or unresectable disease and 'treatment_name' for anthracycline, preserving the original meaning."
         }
     },
     {
@@ -92,7 +92,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'measurable_lesion' which is acceptable since there is no direct schema field for this concept, and the logic is straightforward and correct."
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, which requires at least one measurable lesion as per RECIST version 1.1. Since this criterion does not correspond to any specific schema field, using a custom field is acceptable."
         }
     },
     {
@@ -110,7 +110,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'ecog_ps' schema field and accurately represents the original criterion with the correct operator and values."
+            "explanation": "The logic rule correctly maps the ECOG Performance Status criterion to the ecog_ps field with the correct operator and values."
         }
     },
     {
@@ -123,8 +123,8 @@
             "value": "adequate"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'organ_and_bone_marrow_function' when no schema field exists, but it would be better to use a combination of existing fields such as molecular_status, ecog_ps, or other relevant schema fields to accurately represent the criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and using a custom field is acceptable."
         }
     },
     {
@@ -138,7 +138,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately captures the original criterion, which requires the patient to sign the informed consent form, using a custom field 'informed_consent' since no schema field exists for this concept."
+            "explanation": "The criterion refers to the patient's ability to understand and sign the informed consent form, which is an administrative or procedural concept not represented in the schema fields. The logic rule correctly captures this concept using a custom field."
         }
     },
     {
@@ -151,8 +151,8 @@
             "value": "covered"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'insurance_status' when no schema field exists, which is acceptable but not ideal. The logic accuracy and structure are correct, but since 'insurance_status' is not a schema field, it's classified as 'partial'."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, which refers to a clinical concept not represented in the schema, and uses a custom field as acceptable."
         }
     },
     {
@@ -167,8 +167,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'concomitant_disease' when a more specific schema field such as 'diagnosis' could be used, and the logic does not fully capture the complexity of the original criterion regarding 'significant' disease impact."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, which refers to a clinical concept not represented in the schema. The use of a custom field 'concomitant_disease' is acceptable in this case."
         }
     },
     {
@@ -184,7 +184,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the schema field 'treatment_name' and accurately preserves the meaning of the original criterion, which is an exclusion criterion for prior treatment with anthracycline."
+            "explanation": "The logic rule correctly maps to the 'treatments' field, specifically using 'treatment_name' to check for prior treatment with anthracycline, which is a specific drug."
         }
     },
     {
@@ -212,7 +212,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' for the exceptions and '<' for the time free of disease, which should be '>=' to exclude patients with less than 3 years of disease freedom."
+            "explanation": "The logic rule inverts the condition for time free of disease, using '<' instead of '>=' to check if the patient has been free of disease for at least 3 years."
         }
     },
     {
@@ -225,8 +225,8 @@
             "value": "present"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'metabolic_syndrome' when no schema field exists, but it is acceptable. However, the logic is simple and accurate, preserving the meaning of the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field as the criterion does not correspond to any schema field, and the meaning is preserved."
         }
     },
     {
@@ -243,7 +243,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the original criterion, using a custom field 'pregnancy_status' which is acceptable since there is no schema field for pregnancy status, and the logic accurately represents the exclusion condition."
+            "explanation": "The logic rule correctly maps to the concept of pregnancy or breastfeeding, which is not represented in the schema fields, making the use of a custom field acceptable."
         }
     }
 ]

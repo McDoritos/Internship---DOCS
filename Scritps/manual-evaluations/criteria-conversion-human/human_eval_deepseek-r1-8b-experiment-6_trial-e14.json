@@ -1,0 +1,262 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Life expectancy of at least 12 weeks.",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">=",
+            "value": "12"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'life_expectancy' when no schema field exists, but it is acceptable. However, the logic accuracy is preserved, and the structure is coherent.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have documented tumor progression after receiving all standard/approved chemotherapies per National Comprehensive Cancer Network (NCCN) guidelines (V1) for their specific cancer and no approved therapy exists.",
+        "logic": {
+            "field": "previous_chemotherapy",
+            "operator": "IN",
+            "value": "all standard/approved"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'previous_chemotherapy' instead of the allowed schema field 'treatment' and did not fully capture the meaning of the original criterion, which includes tumor progression and absence of approved therapy.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have archived tumor tissue available for biomarker analysis.",
+        "logic": {
+            "field": "tumor_tissue_available",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'tumor_tissue_available' instead of a schema field, but the logic accuracy and structure are correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have a negative serum pregnancy test if female of childbearing potential.",
+        "logic": {
+            "field": "pregnancy_test",
+            "operator": "=",
+            "value": "negative"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'pregnancy_test' instead of a normalized lab field or schema field, and it does not account for the 'female of childbearing potential' condition.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women of childbearing potential must have a negative serum pregnancy test at screening and must use an approved contraceptive method, if appropriate (for example, intrauterine device, birth control pills, or barrier device) beginning 2 weeks before the first dose of investigational product and for 28 days after the final dose of investigational product.",
+        "logic": {
+            "field": "contraception_use",
+            "operator": "=",
+            "value": "approved"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'contraception_use' instead of the allowed schema field 'treatment' or a more specific field, and it does not fully capture the original criterion's requirements, such as the negative serum pregnancy test and the duration of contraceptive use.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Males able to father a child must practice adequate methods of birth control or practice complete abstinence from intercourse from the first dose of investigational treatment until one week after the final dose of investigational treatment.",
+        "logic": {
+            "field": "male_birth_control",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'male_birth_control' instead of a schema field, and the logic does not fully capture the original criterion's meaning, which includes the requirement for adequate birth control methods or abstinence during a specific time period.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have a cardiac ejection fraction within institutional range of normal as measured by either echocardiogram or multigated acquisition scans.",
+        "logic": {
+            "field": "cardiac_ef",
+            "operator": "=",
+            "value": "institutional range"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'cardiac_ef' instead of a normalized lab field or schema field, and the value 'institutional range' is not a specific numerical value, but the logic accuracy is preserved.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases",
+        "logic": {
+            "field": "alt",
+            "operator": "<",
+            "value": "3 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the correct normalized lab field 'alt' for alanine aminotransferase, but it does not account for the condition 'if no documented liver metastases' which is part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "aspartate aminotransferase/alanine aminotransferase <5 x ULN with documented liver metastases",
+        "logic": {
+            "field": "alt",
+            "operator": "<",
+            "value": "5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the correct normalized lab field 'alt' for alanine aminotransferase, but it does not account for the aspartate aminotransferase (ast) and the condition of documented liver metastases.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have New York Heart Association Class III or IV, cardiac disease, myocardial infarction within past 6 months, unstable arrhythmia or evidence of ischemia on electrocardiogram.",
+        "logic": {
+            "field": "cardiac_condition",
+            "operator": "IN",
+            "value": "NYHA_class_III_or_IV, myocardial_infarction, unstable_arrhythmia, ischemia"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'cardiac_condition' instead of using the allowed schema fields such as 'diagnosis' and specific values related to cardiac conditions. However, the logic accuracy is preserved, and the exclusion semantics are correctly applied.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who have had chemotherapy or radiotherapy within 3 weeks prior to entering the study or who have unresolved or unstable, serious toxicity from prior administration of another investigational drug and/or of prior cancer treatment.",
+        "logic": {
+            "field": "previous_toxicity",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_toxicity' instead of the allowed schema fields such as 'treatment' or 'treatment_name', and does not fully capture the original criterion's conditions, including the time frame and type of prior treatments.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent treatment with an investigational agent or participation in another treatment clinical trial.",
+        "logic": {
+            "field": "concurrent_investigational",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'concurrent_investigational' when a more specific schema field such as 'treatment' could be used, and the logic is not fully explicit about 'participation in another treatment clinical trial'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior lapatinib therapy.",
+        "logic": {
+            "field": "previous_lapatinib",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'previous_lapatinib' instead of the allowed schema field 'treatment' or 'treatment_name' which could be used to represent prior lapatinib therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects receiving concurrent chemotherapy, radiation therapy, immunotherapy, biologic therapy (including an ErbB1 and/or ErbB2 inhibitor), or hormonal therapy for treatment of their cancer.",
+        "logic": {
+            "field": "concurrent_therapy",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'concurrent_therapy' when a schema field 'treatment' exists, and the logic does not explicitly specify the types of therapy mentioned in the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent treatment with bisphosphonates is allowed.",
+        "logic": {
+            "field": "bisphosphonates",
+            "operator": "=",
+            "value": "allowed"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'bisphosphonates' instead of the schema field 'treatment' or 'treatment_name', which could better represent the concept of concurrent treatment with bisphosphonates.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of allergic reactions attributed to compounds of similar chemical composition (quinazolines) to lapatinib.",
+        "logic": {
+            "field": "lapatinib_allergy",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'lapatinib_allergy' instead of a schema field or a more specific normalized field, but the logic accuracy and structure are correct for an exclusion criterion.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent treatment with prohibited medications.",
+        "logic": {
+            "field": "prohibited_medications",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'prohibited_medications' when a schema field 'treatment' exists, which could be used to represent the concept of prohibited medications.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Malabsorption syndrome, resection of the small bowel or active, uncontrolled ulcerative colitis.",
+        "logic": {
+            "field": "gastrointestinal_condition",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'gastrointestinal_condition' when a more specific schema field such as 'diagnosis' could be used, and the logic does not fully capture the original criterion's conditions.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent disease or condition that would make the subject inappropriate for study participation or any serious medical or psychiatric disorder that would interfere with the subject's safety.",
+        "logic": {
+            "field": "concurrent_disorder",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'concurrent_disorder' when a more specific schema field such as 'diagnosis' could be used, and the logic is simplified but preserves the original meaning.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Uncontrolled infection.",
+        "logic": {
+            "field": "infection_control",
+            "operator": "=",
+            "value": "false"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'infection_control' instead of a schema field, but the logic accuracy and structure are correct.",
+        "human_classification": "correct"
+    }
+]

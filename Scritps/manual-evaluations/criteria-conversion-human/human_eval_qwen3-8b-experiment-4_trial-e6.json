@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Previously received targeted therapy (including TKI or monoclonal antibodies), immunotherapy, or any investigational drug treatment for NSCLC;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": [
+                "targeted_therapy",
+                "immunotherapy",
+                "investigational_drug"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment_name' instead of the schema field 'treatments' which is more suitable for representing prior treatments. Additionally, the rule does not account for the specific disease 'NSCLC' mentioned in the original criterion, which could be represented using the 'diagnosis' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients with a malignancy other than NSCLC within five years prior to the start of this trial，except for cured basal cell carcinoma of the skin, early gastrointestinal (GI) carcinoma excised through endoscopy, cervical carcinoma in situ, ductal carcinoma in situ of the breast, papillary thyroid carcinoma, or any cured cancer deemed to have no impact on the survival of the current NSCLC;",
+        "logic": {
+            "field": "other_malignancy",
+            "operator": "NOT_IN",
+            "value": [
+                "basal_cell_carcinoma",
+                "early_gi_carcinoma",
+                "cervical_carcinoma_in_situ",
+                "ductal_carcinoma_in_situ",
+                "papillary_thyroid_carcinoma"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the time frame (within five years prior to the start of the trial) and the exception for 'cured' cancers, which are important aspects of the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "Received other major surgical treatments (excluding diagnosis) within 4 weeks prior to the start of the study or expected to undergo major surgical treatments during the study period;",
+        "logic": {
+            "field": "surgery_status",
+            "operator": "!=",
+            "value": "none"
+        },
+        "auto_classification": "error",
+        "auto_explanation": "Invalid JSON returned by LLM",
+        "human_classification": "partial"
+    }
+]

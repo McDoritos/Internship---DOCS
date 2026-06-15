@@ -1,0 +1,28 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Pathologically confirmed cervical cancer, including cervical squamous cell carcinoma, adenocarcinoma and adenosquamous carcinoma.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "adenosquamous carcinoma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only includes adenosquamous carcinoma, but the original criterion also mentions cervical squamous cell carcinoma and adenocarcinoma, which are not accounted for in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Postoperative high risk factors: ① lymph node metastasis, ② parauterine infiltration, ③ positive surgical margin.",
+        "logic": {
+            "field": "postoperative_risk_factors",
+            "operator": "IN",
+            "value": "positive surgical margin"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for one of the postoperative high risk factors (positive surgical margin) and does not consider the other factors mentioned (lymph node metastasis, parauterine infiltration).",
+        "human_classification": "partial"
+    }
+]

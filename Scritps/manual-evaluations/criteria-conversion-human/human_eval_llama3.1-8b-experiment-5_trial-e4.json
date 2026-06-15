@@ -1,0 +1,185 @@
+[
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Age >= 55 years and one year or more of amenorrhea.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "55"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for the age criterion, but misses the condition of 'one year or more of amenorrhea', which is a significant part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": "<",
+                    "value": "55"
+                },
+                {
+                    "field": "amenorrhea_status",
+                    "operator": ">=",
+                    "value": "1"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule is missing the condition for estradiol < 20 pg/ml, which is a significant part of the original criterion, and also uses a custom field 'amenorrhea_status' instead of a more appropriate field like 'control' or a custom field with a clear definition, as amenorrhea status is not a standard schema field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": "<",
+                    "value": "55"
+                },
+                {
+                    "field": "hysterectomy_status",
+                    "operator": "=",
+                    "value": "prior"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule is missing conditions for 'intact ovaries' and 'estradiol < 20 pg/ml', which are part of the original criterion. Additionally, 'hysterectomy_status' is not a defined schema field, but using a custom field for this concept is acceptable. However, the logic rule does not fully capture the meaning of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "lhrh_agonist_status",
+                    "operator": "=",
+                    "value": "ongoing"
+                },
+                {
+                    "field": "treatment_start_date",
+                    "operator": ">=",
+                    "value": "-4 weeks"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule is missing the condition for estradiol < 20 pg/ml, which is a significant part of the original criterion. Additionally, the field 'lhrh_agonist_status' is not a standard schema field, but in this case, it's acceptable as 'treatments' field could be used instead, which is a schema field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+        "logic": {
+            "field": "lhrh_agonist_administration_date",
+            "operator": "<=",
+            "value": "+7 days"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'lhrh_agonist_administration_date' instead of the 'treatments' field, which is the appropriate schema field for prior treatments or specific drugs. The meaning is partially preserved, but the field used is not the correct one.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 21,
+        "type": "inclusion",
+        "text": "Patients with no measurable disease and only one predominantly lytic bone lesion that has been previously irradiated are eligible if there is documented evidence of disease progression of the bone lesion after irradiation.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "measurable_disease_status",
+                    "operator": "=",
+                    "value": "absent"
+                },
+                {
+                    "field": "bone_lesion_previous_radiation_status",
+                    "operator": "=",
+                    "value": "irradiated"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires both 'no measurable disease' and 'one predominantly lytic bone lesion that has been previously irradiated' with 'documented evidence of disease progression of the bone lesion after irradiation'. The logic rule uses an OR operator, which does not preserve the meaning of the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 37,
+        "type": "inclusion",
+        "text": "HIV-infected patients on effective anti-retroviral therapy with undetectable viral load within 6 months of registration are eligible for this trial.",
+        "logic": {
+            "field": "hiv_status",
+            "operator": "=",
+            "value": "[undetectable]"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers HIV status as 'undetectable', but it does not account for the requirement of 'effective anti-retroviral therapy' and 'within 6 months of registration'. A more accurate representation would involve additional fields or conditions to capture these details.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 38,
+        "type": "exclusion",
+        "text": "Patients with prior chemotherapy for metastatic or advanced disease.",
+        "logic": {
+            "field": "prior_therapy_chemo_status",
+            "operator": "=",
+            "value": "[metastatic, advanced]"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions prior chemotherapy, which should be mapped to the 'treatments' field, but a custom field 'prior_therapy_chemo_status' is used instead.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 43,
+        "type": "exclusion",
+        "text": "Treatment with any investigational drug within 14 days prior to registration.",
+        "logic": {
+            "field": "investigational_drug_status",
+            "operator": "=",
+            "value": "[within 14 days]"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'investigational_drug_status' instead of the 'treatments' field, which is the appropriate schema field for treatment history.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 45,
+        "type": "exclusion",
+        "text": "Established diagnosis of diabetes mellitus type I or persistent poorly controlled diabetes mellitus, with an uninterrupted hemoglobin A1c > 8.0% for 1 year or greater despite standard care.",
+        "logic": {
+            "field": "diabetes_status",
+            "operator": "=",
+            "value": "[type I, poorly controlled]"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'diabetes_status' instead of the 'diagnosis' field and does not account for the hemoglobin A1c value and duration, which are important aspects of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 58,
+        "type": "exclusion",
+        "text": "Prior treatment with PI3K, mTOR or AKT inhibitor in the metastatic setting.",
+        "logic": {
+            "field": "prior_therapy_pik3m_status",
+            "operator": "=",
+            "value": "[metastatic]"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions prior treatment with specific inhibitors, which should be mapped to the 'treatments' field, but the logic rule uses a custom field 'prior_therapy_pik3m_status' instead.",
+        "human_classification": "partial"
+    }
+]

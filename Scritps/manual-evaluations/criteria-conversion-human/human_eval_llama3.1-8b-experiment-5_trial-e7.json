@@ -1,0 +1,28 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ECOG performance status of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "=",
+            "value": "1"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for ECOG performance status of 1, but the original criterion also includes a status of 0.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known sensitizing mutation in the EGFR gene or ALK fusion oncogene.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "EGFR"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for EGFR mutation, but the original criterion also mentions ALK fusion oncogene, which should be included in the molecular_status field with an 'or' operator.",
+        "human_classification": "partial"
+    }
+]

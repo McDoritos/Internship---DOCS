@@ -10,7 +10,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+            "explanation": "The logic rule correctly maps the original criterion to the 'age' schema field with the appropriate operator and value, and the meaning is fully preserved."
         }
     },
     {
@@ -24,7 +24,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion with the correct operator and values."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the original criterion."
         }
     },
     {
@@ -37,8 +37,8 @@
             "value": "chemotherapy, embolization, ablation, radiotherapy, molecular targeted therapy"
         },
         "evaluation": {
-            "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'treatment_name' and preserving the meaning with the correct operator and values."
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'treatment_name' instead of the schema field 'treatments' which is more suitable for representing prior treatments. Additionally, the logic rule does not account for the timing of the treatments (before surgery) as specified in the original criterion."
         }
     },
     {
@@ -51,8 +51,8 @@
             "value": "yes"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'surgical_contraindications' when no schema field exists, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which excludes patients with obvious surgical contraindications. The use of a custom field 'surgical_contraindications' is acceptable since it does not correspond to any schema field."
         }
     },
     {
@@ -65,8 +65,8 @@
             "value": "able"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'compliance_status' when no schema field exists, but the logic accuracy is preserved and the structure is coherent."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to the ability to comply with research plans, which does not correspond to any specific schema field, making the use of a custom field acceptable."
         }
     },
     {
@@ -80,7 +80,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a suitable field and correct logic to represent voluntary participation and signed informed consent."
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which requires voluntary participation and signed informed consent, using a custom field 'consent_status' as the schema does not have a specific field for this concept."
         }
     },
     {
@@ -94,7 +94,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly uses the 'diagnosis' schema field, preserves the original meaning, and accurately implements the exclusion criterion using the 'NOT_IN' operator."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the exclusion criterion using the NOT_IN operator."
         }
     },
     {
@@ -108,7 +108,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion, which excludes patients with other types of tumors or any cancer history. The 'NOT_IN' operator is incorrect, as it would include patients with 'other tumors' instead of excluding them."
+            "explanation": "The logic rule does not accurately represent the original criterion, which excludes patients with any cancer history, not just 'other tumors'. The operator should be 'NOT_EQUALS' to 'no cancer history' or a similar concept, and the value should reflect the exclusion of any cancer history, not just 'other tumors'."
         }
     },
     {
@@ -121,8 +121,8 @@
             "value": "yes"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'familial_syndromes' instead of the allowed schema field 'diagnosis' which could potentially map to this criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field, as the criterion refers to a clinical concept (familial syndromes) not represented in the schema, and the meaning is preserved."
         }
     },
     {
@@ -135,8 +135,8 @@
             "value": "chemotherapy, embolization, ablation, radiotherapy, molecular targeted therapy"
         },
         "evaluation": {
-            "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'treatment_name' schema field and accurately represents the exclusion criterion, including the correct use of the 'IN' operator and the specified treatment names."
+            "classification": "partial",
+            "explanation": "The logic rule uses a custom field 'treatment_name' instead of the schema field 'treatments' which is more suitable for representing prior treatments. Additionally, the logic rule does not account for the timing of the treatment (before surgery) as specified in the original criterion."
         }
     },
     {
@@ -159,8 +159,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields 'fever_status' and 'anti_inflammation_therapy' instead of schema fields or normalized lab fields, but the logic accuracy and structure are mostly preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, which excludes patients with ongoing fever or those who have received anti-inflammation therapy within 14 days prior to the study blood draw. The use of custom fields 'fever_status' and 'anti_inflammation_therapy' is acceptable since the criterion does not correspond to any schema field."
         }
     },
     {
@@ -174,7 +174,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion, which requires the presence of a blood transfusion within 30 days, but the 'NOT_IN' operator and 'none' value imply the absence of a blood transfusion."
+            "explanation": "The logic rule does not accurately represent the original criterion. The original criterion states that the recipient should NOT have received a blood transfusion within 30 days prior to the study blood draw, but the logic rule is checking if 'blood_transfusion' is NOT IN 'none', which does not convey the same meaning. Additionally, the logic rule does not account for the time frame of 30 days prior to the study blood draw."
         }
     },
     {
@@ -187,8 +187,8 @@
             "value": "none"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'transplant_status' instead of a more specific schema field, and the operator and value are correct but the field could be more precise."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule inverts the meaning of the original criterion, which excludes recipients of organ transplants or prior non-autologous bone marrow or stem cell transplants. The 'NOT_IN' operator with 'none' as the value does not accurately represent the exclusion condition."
         }
     },
     {
@@ -201,8 +201,8 @@
             "value": "good"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'health_status' when a more specific schema field or normalized lab field could be used, and the logic does not explicitly address 'not suitable for blood draw'."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field, and the logic rule uses a custom field to represent the concept of 'poor health condition', which is acceptable."
         }
     },
     {
@@ -215,8 +215,8 @@
             "value": "none"
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule does not accurately capture the original criterion, which is about the researcher's judgment of suitability for study enrollment, and the field 'other_disease_status' is not a schema field."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and the logic rule correctly captures the meaning of the original criterion using a custom field."
         }
     }
 ]

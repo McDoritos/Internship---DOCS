@@ -1,0 +1,51 @@
+[
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have had chemotherapy, hormonal therapy, or radiotherapy within 2 weeks prior to entering the study or those who have not recovered from adverse events due to agents administered more than 2 weeks earlier.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "recent_chemotherapy_use",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "recent_hormonal_therapy_use",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "recent_radiotherapy_use",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes the time frame of 2 weeks prior to entering the study and the condition of not having recovered from adverse events. The custom fields used (recent_chemotherapy_use, recent_hormonal_therapy_use, recent_radiotherapy_use) do not directly map to the schema fields, but in this case, using 'treatments' field with specific details about treatment timing would be more accurate.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have previously been treated with an interleukin-6 (IL-6), Janus kinase (JAK) or Signal Transducers and Activators of Transcription (STAT) inhibitor for any indication, such as ruxolitinib or tocilizumab.",
+        "logic": {
+            "operator": "=",
+            "conditions": [
+                {
+                    "field": "prior_jak_inhibitor_use",
+                    "operator": "=",
+                    "value": [
+                        "ruxolitinib",
+                        "tocilizumab"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_jak_inhibitor_use' instead of the 'treatments' schema field, which is more suitable for representing prior treatment history.",
+        "human_classification": "wrong"
+    }
+]

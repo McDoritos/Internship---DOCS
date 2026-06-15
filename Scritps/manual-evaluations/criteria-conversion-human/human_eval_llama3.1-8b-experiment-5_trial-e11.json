@@ -1,0 +1,91 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Newly diagnosed, histologically confirmed and unresectable Stage IIIB, IIIC or Stage IV melanoma including cutaneous (including acral, ungual subtypes), ocular (including uveal and extra-uveal), mucosal, and unknown primary).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis_date",
+                    "operator": ">",
+                    "value": null
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": [
+                        "IIIB",
+                        "IIIC",
+                        "IV"
+                    ]
+                },
+                {
+                    "field": "diagnosis_sub_type",
+                    "operator": "IN",
+                    "value": [
+                        "cutaneous",
+                        "ocular",
+                        "mucosal",
+                        "unknown primary"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses 'diagnosis_date' with a null value, which does not accurately represent 'newly diagnosed'. It should use 'diagnosis' to specify the type of melanoma instead of 'diagnosis_sub_type', which is not a defined schema field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Male or female patients aged 18 or over.",
+        "logic": {
+            "field": "gender",
+            "operator": "=",
+            "value": [
+                "male",
+                "female"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule correctly includes both male and female patients but misses the age criterion of 18 or over, which should be represented using the 'age' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Patient has undergone NGS tumour testing or has NRAS or ALKati mutant melanoma on routine testing",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ngs_testing_status",
+                    "operator": "=",
+                    "value": "completed"
+                },
+                {
+                    "field": "molecular_status_NRAS",
+                    "operator": "=",
+                    "value": "mutant"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule is missing the condition for ALKati mutant melanoma, which is part of the original criterion. The field 'molecular_status_ALK' should be included in the conditions with the operator '=' and value 'mutant' to fully represent the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 25,
+        "type": "inclusion",
+        "text": "Serum creatinine ≤ 1.5 x the upper limit of normal (ULN).",
+        "logic": {
+            "field": "creatinina",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'creatinina' instead of a normalized lab field, and it's missing the reference to the upper limit of normal (ULN).",
+        "human_classification": "partial"
+    }
+]

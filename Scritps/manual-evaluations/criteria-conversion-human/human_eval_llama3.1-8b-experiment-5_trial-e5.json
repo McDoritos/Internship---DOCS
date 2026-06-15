@@ -1,0 +1,241 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Have locally advanced or metastatic histologically or cytologically confirmed NSCLC, KRAS G12C-mutated",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "NSCLC"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the diagnosis (NSCLC) but misses the additional requirements of locally advanced or metastatic disease and KRAS G12C mutation, which should be represented using the 'stage' and 'molecular_status' fields respectively.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Have received at least 1 prior line of cancer therapy with a PD-1 or PD-L1 inhibitor with or without platinum-based chemotherapy (unless subject is not eligible or refuses chemotherapy or PD-1/PD-L1 therapy and have documented progression on all prior cancer therapies)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "PD-1 or PD-L1 inhibitor"
+                },
+                {
+                    "field": "treatment",
+                    "operator": "=",
+                    "value": "with or without platinum-based chemotherapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes conditions for subjects not eligible or refusing chemotherapy or PD-1/PD-L1 therapy and documented progression on all prior cancer therapies. The 'treatment' field in the logic rule is also not a defined schema field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "KRAS G12C inhibitor therapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes requirements for locally advanced or metastatic disease, refractoriness to at least 1 prior cancer therapy, and relapse/refractoriness on KRAS G12C inhibitor therapy as the most recent cancer therapy. The logic rule only includes diagnosis and treatment name, missing other crucial details.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "KRAS G12C inhibitor therapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which requires refractoriness to or relapse on at least 1 prior cancer therapy and specifically relapse/refractoriness on KRAS G12C inhibitor therapy as the most recent cancer therapy. The logic rule only checks for KRAS G12C inhibitor therapy without considering the prior cancer therapy or the sequence of treatments.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Refractory to or relapsed on at least 1 prior cancer therapy as noted above, and Naïve to KRAS G12C inhibitor therapy",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "Naïve"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, missing the condition of being refractory to or relapsed on at least 1 prior cancer therapy. It also incorrectly uses 'treatment_name' with value 'Naïve', which should be related to 'molecular_status' or a custom field indicating no prior KRAS G12C inhibitor therapy.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "KRAS G12C inhibitor therapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes requirements for locally advanced or metastatic disease, refractoriness to at least 1 prior cancer therapy, and relapse/refractoriness on KRAS G12C inhibitor therapy as the most recent cancer therapy. The logic rule only includes diagnosis and treatment name, missing other crucial details.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Locally advanced or metastatic NSCLC refractory to or relapsed on at least 1 prior cancer therapy as noted above, and relapsed/refractory on KRAS G12C inhibitor therapy as the most recent cancer therapy prior to study",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "KRAS G12C inhibitor therapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes requirements for locally advanced or metastatic disease, refractoriness to at least 1 prior cancer therapy, and relapse/refractoriness on KRAS G12C inhibitor therapy as the most recent cancer therapy. The logic rule only includes diagnosis and treatment name, missing other crucial details.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Have discontinued previous treatments for cancer, except for sotorasib for subjects to receive VIC-1911 plus sotorasib combination treatment, and have resolution, except where otherwise stated in the inclusion criteria, of all clinically significant toxic effects of prior cancer treatment, surgery, or radiotherapy to Grade ≤ 1",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "!=",
+                    "value": "sotorasib"
+                },
+                {
+                    "field": "toxic_effect_status",
+                    "operator": "=",
+                    "value": "Grade ≤ 1"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion. It only checks if the treatment name is not sotorasib and if the toxic effect status is Grade ≤ 1, but it does not account for the exception that allows sotorasib for subjects receiving VIC-1911 plus sotorasib combination treatment, and it does not check for the resolution of all clinically significant toxic effects of prior cancer treatment, surgery, or radiotherapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 1.5 times the ULN, unless due to Gilbert's disease, or < 3 times the ULN for subjects with liver metastases",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes exceptions for Gilbert's disease and liver metastases.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 24,
+        "type": "inclusion",
+        "text": "ALT/AST ≤ 2 times the ULN, or < 3 times the ULN for subjects with liver metastases",
+        "logic": {
+            "field": "alt_ast_ratio",
+            "operator": "<=",
+            "value": "2"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which has an exception for subjects with liver metastases. The rule should include a conditional statement to account for this exception.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 40,
+        "type": "exclusion",
+        "text": "Other active infection requiring IV antibiotic usage within the last week prior to study treatment",
+        "logic": {
+            "field": "infection_type_status",
+            "operator": "=",
+            "value": "active"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires IV antibiotic usage within the last week prior to study treatment. The 'infection_type_status' field is not a standard schema field, and the logic rule is missing the time frame and treatment details.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 42,
+        "type": "exclusion",
+        "text": "Previous MEK or EGFR inhibitor therapy",
+        "logic": {
+            "field": "inhibitor_therapy_status",
+            "operator": "=",
+            "value": "previous"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions previous MEK or EGFR inhibitor therapy, which should be mapped to the 'treatments' field with specific details about the therapy, but instead a custom field 'inhibitor_therapy_status' is used.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 47,
+        "type": "exclusion",
+        "text": "If female, pregnant, breast-feeding, or planning to become pregnant",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": "pregnant"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which also mentions 'breast-feeding' and 'planning to become pregnant', but these conditions are not included in the logic rule.",
+        "human_classification": "partial"
+    }
+]

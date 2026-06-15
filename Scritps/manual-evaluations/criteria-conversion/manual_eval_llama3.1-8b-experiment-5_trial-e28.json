@@ -19,8 +19,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule correctly uses the schema fields 'age' and 'gender', but it does not account for the 'Japanese' ethnicity condition mentioned in the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the schema fields for age and gender, and the conditions are accurately represented."
         }
     },
     {
@@ -42,8 +42,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses a custom field 'informed_consent' which is acceptable since there is no schema field for informed consent, but it does not fully capture the original criterion regarding the opt-out condition for deceased patients."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to the ability to provide consent, which is an administrative or procedural concept not directly represented in the schema fields, making the use of a custom field acceptable."
         }
     },
     {
@@ -72,7 +72,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields (diagnosis and diagnosis_date) and preserving the meaning with correct operators and values."
+            "explanation": "The logic rule accurately represents the original criterion, using the correct fields for diagnosis and diagnosis date, and maintaining the correct boolean structure."
         }
     },
     {
@@ -95,8 +95,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields 'sample_type' and 'sample_status' instead of potentially available schema fields, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the requirement for a FFPE tumor sample with Formalin Neutral Buffer Solution, using custom fields as the schema does not have specific fields for sample type and status."
         }
     },
     {
@@ -108,8 +108,8 @@
             "source_text": "Patients which the investigator judges to secure the enough amount of tumor samples for future laboratory test."
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule does not map to any schema field and does not provide a clear logical condition, failing to preserve the meaning of the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field and refers to an administrative or procedural concept, so using a custom field is acceptable."
         }
     },
     {
@@ -133,7 +133,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion by using '!=' for 'failed' instead of '=' and also lacks a field for 'HRR-related gene mutation testing' and 'screening period'."
+            "explanation": "The logic rule inverts the meaning of the original criterion, which excludes patients who have failed the test, but the logic rule checks for test results not equal to 'failed'."
         }
     },
     {
@@ -156,8 +156,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses custom fields 'sample_type' and 'sample_status' instead of possible schema fields, and the condition for 'sample_status' is not fully clear, but the meaning is partially preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the exclusion criterion, which refers to a clinical concept not directly represented in the schema. The use of custom fields for sample type and status is acceptable in this case."
         }
     },
     {
@@ -190,8 +190,8 @@
             ]
         },
         "evaluation": {
-            "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields and preserving the meaning of the exclusion condition."
+            "classification": "error",
+            "explanation": "Invalid JSON returned by LLM"
         }
     }
 ]

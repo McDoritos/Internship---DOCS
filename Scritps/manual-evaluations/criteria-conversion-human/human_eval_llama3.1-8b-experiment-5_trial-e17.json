@@ -1,0 +1,28 @@
+[
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Primary hepatocellular carcinoma (HCC) has recurred in the past, or has other types of liver cancer at the same time (such as intrahepatic cholangiocarcinoma, mixed type of liver cancer);",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "HCC recurrence"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for HCC recurrence, but the original criterion also mentions other types of liver cancer, such as intrahepatic cholangiocarcinoma and mixed type of liver cancer, which are not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+        "logic": {
+            "field": "anti_tumor_therapy",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'anti_tumor_therapy' instead of the 'treatments' field, which is the appropriate schema field for prior treatments. The logic also lacks specificity regarding the 4-week time frame.",
+        "human_classification": "partial"
+    }
+]

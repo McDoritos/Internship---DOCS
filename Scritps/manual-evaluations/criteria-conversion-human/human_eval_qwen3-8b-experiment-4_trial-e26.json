@@ -1,0 +1,77 @@
+[
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "ALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ALT",
+                    "operator": "<=",
+                    "value": "3"
+                },
+                {
+                    "field": "AST",
+                    "operator": "<=",
+                    "value": "3"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes conditions for liver metastases and different ULN multipliers. The rule also does not specify the ULN values.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 24,
+        "type": "inclusion",
+        "text": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion for which they derived clinical benefit (objective response of any duration or stable disease for at least 6 months) from prior FGFR inhibitor therapy, as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "FGFR2 fusion, FGFR2 in-frame rearrangement, FGFR2 extracellular domain in-frame deletion"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the molecular status aspect of the criterion, but misses the additional requirements of prior FGFR inhibitor therapy and derived clinical benefit, which should be represented using the 'treatments' field and possibly a custom field for clinical benefit.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "For patients treated with a prior FGFR inhibitor, those with known activating mutation(s) in the FGFR2 kinase domain on ctDNA or biopsy analysis within 8 weeks of start of study drugs; activating mutations in the FGFR2 kinase domain seen on ctDNA or biopsy analysis prior to the 8-week timepoint may be allowed after discussion with the study PI.",
+        "logic": {
+            "field": "mutation_status",
+            "operator": "IN",
+            "value": "activating mutation in FGFR2 kinase domain"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes conditions about prior treatment with FGFR inhibitor, timing of mutation analysis (within 8 weeks), and the possibility of allowing mutations prior to the 8-week timepoint after discussion with the study PI. The rule only checks for the presence of an activating mutation in the FGFR2 kinase domain.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Systemic or liver-directed anticancer therapy within 2 weeks; or anticancer monoclonal antibody within 4 weeks prior to planned start of pemigatinib and afatinib.",
+        "logic": {
+            "field": "previous_therapy",
+            "operator": "IN",
+            "value": "systemic or liver-directed anticancer therapy, anticancer monoclonal antibody"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_therapy' instead of the 'treatments' schema field, which is more suitable for representing prior treatments and their timing. Additionally, the logic rule does not capture the specific time frames mentioned in the original criterion (within 2 weeks for systemic or liver-directed anticancer therapy and within 4 weeks for anticancer monoclonal antibody).",
+        "human_classification": "partial"
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Fridericia's corrected QT interval (QTcF) > 480 ms on ECG conducted during Screening, or history of torsades de pointes or personal or family history of prolonged QT syndrome. Correction of suspected drug-induced QTcF prolongation can be attempted at the investigator's discretion and only if clinically safe to do so with either discontinuation of the offending drug or switch to another drug not known to be associated with QTcF prolongation.",
+        "logic": {
+            "field": "QTcF_status",
+            "operator": ">",
+            "value": "480"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which includes additional conditions such as history of torsades de pointes, personal or family history of prolonged QT syndrome, and correction of suspected drug-induced QTcF prolongation. The rule should use a custom field and include these conditions to fully represent the original criterion.",
+        "human_classification": "wrong"
+    }
+]

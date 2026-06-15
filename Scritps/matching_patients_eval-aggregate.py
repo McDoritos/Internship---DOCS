@@ -13,18 +13,14 @@ models = {}
 for fpath in eval_files:
     fname = os.path.basename(fpath)
 
-    # Remove prefix and suffix
     core = fname.replace("manual_eval_", "").replace(".json", "")
 
-    # Split into model + patient
-    # Example: gpt4o-experiment-1_patient-3
     if "_patient-" in core:
         exp_name, patient = core.split("_patient-")
     else:
         exp_name = core
         patient = "unknown"
 
-    # Extract model name (before "-experiment")
     if "-experiment" in exp_name:
         model = exp_name.split("-experiment")[0]
     else:
@@ -63,7 +59,6 @@ for fpath in eval_files:
         "partial_score": metrics["partial_score"]
     })
 
-# Compute global metrics
 for model, agg in models.items():
     total_fields = agg["total_fields"]
     correct = agg["correct"]
@@ -84,7 +79,6 @@ for model, agg in models.items():
     print(f"Global human accuracy: {global_accuracy:.2f}%")
     print(f"Global partial-aware score: {global_partial_score:.2f}%")
 
-# Save aggregated results
 save_path = os.path.join(SAVE_DIR, "AGGREGATED_RESULTS_BY_MODEL.json")
 
 with open(save_path, "w", encoding="utf-8") as f:

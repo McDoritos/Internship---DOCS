@@ -1,0 +1,69 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Alanine aminotransferase (ALT) and aspartate aminotransferase (AST) =< 3 x upper limit of normal (ULN) (ALT and AST =< 5 x ULN is acceptable if liver metastases are present)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "3"
+                },
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "3"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the exception when liver metastases are present, which allows ALT and AST to be =< 5 x ULN. Additionally, the fields 'alt' and 'ast' are not defined in the schema, but since they refer to laboratory values, using custom fields is acceptable. However, the logic rule does not fully capture the original criterion's meaning.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "ad major surgery within 14 days prior to starting study drug or has not recovered from major side effects (tumor biopsy is not considered major surgery) resulting from a prior surgery",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "major_surgery",
+                    "operator": ">=",
+                    "value": "14"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "has not recovered from major side effects (tumor biopsy is not considered major surgery) resulting from a prior surgery"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'major_surgery' instead of the 'treatments' schema field, which is more suitable for representing prior surgeries and their timing. Additionally, the second condition in the logic rule is unmapped and refers to recovery from major side effects, which could be related to the 'control' field or a custom field, but the meaning is partially preserved.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History or current evidence of any condition, therapy, or laboratory abnormality that might confound the results of the study, interfere with the patient's participation for the full duration of the study, or is not in the best interest of the patient to participate, including, but not limited to: Myocardial infarction or arterial or venous thromboembolic events within 6 months prior to baseline or severe or unstable angina, New York Heart Association (NYHA) class III or IV disease.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "myocardial_infarction",
+                    "operator": ">=",
+                    "value": "6"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "severe or unstable angina, New York Heart Association (NYHA) class III or IV disease."
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'myocardial_infarction' which is not a schema field, but it is acceptable since the criterion refers to a clinical concept not represented in the schema. However, the rule does not fully capture the original criterion, which includes other conditions such as arterial or venous thromboembolic events, and NYHA class III or IV disease, which are not properly mapped to schema fields or custom fields.",
+        "human_classification": "wrong"
+    }
+]

@@ -1,0 +1,73 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Postmenopausal status or receiving ovarian ablation with a GnRH agonist such as goserelin.",
+        "logic": {
+            "field": "postmenopausal_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for postmenopausal status, but the original criterion also includes receiving ovarian ablation with a GnRH agonist, which is not represented in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_type",
+                    "operator": "IN",
+                    "value": [
+                        "aromatase_inhibitor",
+                        "tamoxifen",
+                        "fulvestrant"
+                    ]
+                },
+                {
+                    "field": "cdk46_inhibitor_use",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "disease_progression",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not accurately represent the original criterion. It mentions 'treatment_type' which is not a defined schema field, and 'cdk46_inhibitor_use' which is also not a defined field. The original criterion refers to specific treatments and a CDK4/6 inhibitor, which should be mapped to the 'treatments' field. The 'disease_progression' condition is correctly represented.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 21,
+        "type": "inclusion",
+        "text": "If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization.",
+        "logic": {
+            "field": "fulvestrant_previous_use",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only checks for prior fulvestrant use, but it does not specify that exemestane must be the hormone therapy backbone in the randomization, which is a crucial part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 22,
+        "type": "inclusion",
+        "text": "If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization.",
+        "logic": {
+            "field": "exemestane_previous_use",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only checks for prior exemestane use, but it does not specify that fulvestrant must be the hormone therapy backbone in the randomization, which is a crucial part of the original criterion.",
+        "human_classification": "partial"
+    }
+]

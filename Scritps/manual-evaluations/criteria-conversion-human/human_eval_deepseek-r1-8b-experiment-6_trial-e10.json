@@ -1,0 +1,269 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patients with measurable disease without previous radiotherapy",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "disease_measurable",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "previous_radiotherapy",
+                    "operator": "=",
+                    "value": "false"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used custom fields 'disease_measurable' and 'previous_radiotherapy' instead of the allowed schema fields 'diagnosis' and 'treatment' or 'treatment_name' which could better represent the criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Patients with metastatic colorectal cancer with progression after previous therapy with 5-fluoropyrimidines, oxaliplatin or irinotecan.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "metastatic colorectal cancer"
+                },
+                {
+                    "field": "progression_therapy",
+                    "operator": "IN",
+                    "value": [
+                        "5-fluoropyrimidines",
+                        "oxaliplatin",
+                        "irinotecan"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the correct schema field 'diagnosis', but uses a custom field 'progression_therapy' instead of the allowed schema fields 'treatment' or 'treatment_name', and does not account for the 'progression' aspect, which could be related to 'progression_date'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Patients should have been treated with oxaliplatin, but if oxaliplatin has be contraindicated or not tolerated the patient can participate in the trial.",
+        "logic": {
+            "field": "previous_oxaliplatin_therapy",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_oxaliplatin_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', but the meaning is partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Patients with progression after therapy with irinotecan or cetuximab independent of KRAS mutation status.",
+        "logic": {
+            "field": "progression_after_therapy",
+            "operator": "IN",
+            "value": [
+                "irinotecan",
+                "cetuximab"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'progression_after_therapy' instead of the allowed schema field 'progression_date' and 'treatment', and does not account for the KRAS mutation status.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Previous radiotherapy is allowed to less than 25 % of the bone marrow.",
+        "logic": {
+            "field": "radiotherapy_dose",
+            "operator": "<",
+            "value": "25",
+            "unit": "%"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'radiotherapy_dose' instead of the allowed schema field 'treatment' or a more specific field related to radiotherapy, and the logic is partially preserved as it conveys the idea of a limit on radiotherapy dose, but the field selection is not optimal.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "An expected survival time of at least 3 months.",
+        "logic": {
+            "field": "expected_survival",
+            "operator": ">=",
+            "value": "3",
+            "unit": "months"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'expected_survival' when no schema field exists, but the logic accuracy and structure are correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Former or other concurrent malignant disease except treated basal cell carcinoma or in situ cervical cancer.",
+        "logic": {
+            "field": "malignant_disease",
+            "operator": "=",
+            "value": "present"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'malignant_disease' instead of the allowed schema field 'diagnosis', and the logic does not fully capture the exceptions for treated basal cell carcinoma or in situ cervical cancer.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "No cytotoxic therapy or other experimental treatment within 28 days before inclusion.",
+        "logic": {
+            "field": "recent_therapy",
+            "operator": "=",
+            "value": "false"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'recent_therapy' instead of a schema field like 'treatment' or 'treatment_start_date', but the logic accuracy is preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "No former therapy with everolimus or other rapamycin as sirolimus or temsirolimus.",
+        "logic": {
+            "field": "everolimus_therapy",
+            "operator": "=",
+            "value": "false"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'everolimus_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy is preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "No uncontrolled diabetes",
+        "logic": {
+            "field": "diabetes_status",
+            "operator": "=",
+            "value": "not_uncontrolled"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'diabetes_status' instead of a normalized field, and the logic is mostly correct but the field selection is imperfect.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "No serious non-healing wounds, gastric ulcers, bone fractures, greater surgical procedures, major traumatic injuries within 28 days before inclusion.",
+        "logic": {
+            "field": "recent_severe_condition",
+            "operator": "=",
+            "value": "false"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'recent_severe_condition' instead of a more specific schema field or combination of fields, but the meaning and logic accuracy are preserved.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "No liver disease as cirrhose, chronical active hepatitis or chronic persistent hepatitis.",
+        "logic": {
+            "field": "liver_disease",
+            "operator": "NOT_IN",
+            "value": [
+                "cirrhose",
+                "chronical active hepatitis",
+                "chronic persistent hepatitis"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'liver_disease' when a more specific schema field 'diagnosis' could be used, and the logic is mostly correct but could be improved with a more precise field.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "No gastrointestinal disturbances in function that might cause a major change in the absorption of everolimus as ulcerative disease, uncontrolled nausea, vomiting, diarrhoea, malabsorption syndrome.",
+        "logic": {
+            "field": "gastrointestinal_disturbance",
+            "operator": "=",
+            "value": "false"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'gastrointestinal_disturbance' instead of a more specific schema field or normalized lab field, but the logic accuracy and exclusion semantics are preserved.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "Patients that is unable to follow treatment or evaluation plan.",
+        "logic": {
+            "field": "compliance",
+            "operator": "=",
+            "value": "false"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'compliance' when no schema field exists, which is acceptable, but the logic seems to preserve the meaning of the original criterion.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 23,
+        "type": "exclusion",
+        "text": "Every condition or therapy that after the judgement of investigator might infer the patient a risk or influence the trials objective.",
+        "logic": {
+            "field": "investigator_judged_risk",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "likely_wrong",
+        "auto_explanation": "The logic rule uses a custom field 'investigator_judged_risk' which does not exist in the schema fields, and the original criterion is about any condition or therapy that might infer a risk, not just a single field. The meaning is also not fully preserved.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 25,
+        "type": "exclusion",
+        "text": "At fertile women this is insured by a negative test of pregnancy or use of a safe anticonception during the trial period and at least 3 months after end of treatment.",
+        "logic": {
+            "field": "fertility_requirements",
+            "operator": "=",
+            "value": "met"
+        },
+        "auto_classification": "likely_wrong",
+        "auto_explanation": "The logic rule does not accurately capture the original criterion, which requires a negative pregnancy test or use of safe anticonception, and the field 'fertility_requirements' is not a schema field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 26,
+        "type": "exclusion",
+        "text": "Patients with active infections or other serious medical co-morbidity, that might prevent the patient from being treated with the protocoled therapy.",
+        "logic": {
+            "field": "active_infection_or_comorbidity",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'active_infection_or_comorbidity' when no schema field exists, but the logic accuracy and structure are mostly preserved, aligning with the exclusion criterion's intent.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 27,
+        "type": "exclusion",
+        "text": "Incapacitated",
+        "logic": {
+            "field": "incapacitated",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'incapacitated' when a more suitable schema field such as 'ecog_ps' could be used to represent the patient's performance status, which can imply incapacitation.",
+        "human_classification": "correct"
+    }
+]

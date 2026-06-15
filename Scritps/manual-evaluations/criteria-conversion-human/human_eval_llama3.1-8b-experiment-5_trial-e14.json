@@ -1,0 +1,135 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have documented tumor progression after receiving all standard/approved chemotherapies per National Comprehensive Cancer Network (NCCN) guidelines (V1) for their specific cancer and no approved therapy exists.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_history",
+                    "operator": "=",
+                    "value": [
+                        "all standard/approved chemotherapies"
+                    ]
+                },
+                {
+                    "field": "approved_therapy_exists",
+                    "operator": "!=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment_history' instead of the schema field 'treatments' and 'approved_therapy_exists' which is not a defined schema field. However, the meaning of the original criterion is partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "liver_metastases_documented",
+                    "operator": "=",
+                    "value": "false"
+                },
+                {
+                    "field": "aspartate_aminotransferase",
+                    "operator": "<",
+                    "value": "3ULN"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the condition when liver metastases are documented, and it also uses a custom field 'liver_metastases_documented' instead of 'control' which could be more appropriate for disease control information. Additionally, it does not consider the alanine aminotransferase (ALT) value as mentioned in the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have New York Heart Association Class III or IV, cardiac disease, myocardial infarction within past 6 months, unstable arrhythmia or evidence of ischemia on electrocardiogram.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "new_york_heart_association_class",
+                    "operator": "=",
+                    "value": [
+                        3,
+                        4
+                    ]
+                },
+                {
+                    "field": "cardiac_disease",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, missing conditions for myocardial infarction within the past 6 months, unstable arrhythmia, and evidence of ischemia on electrocardiogram.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior lapatinib therapy.",
+        "logic": {
+            "field": "prior_lapatinib_therapy",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions prior lapatinib therapy, which refers to treatment history, so it should use the 'treatments' field instead of a custom field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects receiving concurrent chemotherapy, radiation therapy, immunotherapy, biologic therapy (including an ErbB1 and/or ErbB2 inhibitor), or hormonal therapy for treatment of their cancer.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "concurrent_chemotherapy",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "concurrent_radiation_therapy",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for chemotherapy and radiation therapy, but the original criterion also mentions immunotherapy, biologic therapy, and hormonal therapy, which are not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Malabsorption syndrome, resection of the small bowel or active, uncontrolled ulcerative colitis.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "malabsorption_syndrome",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "small_bowel_resection",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for 'active, uncontrolled ulcerative colitis', which is part of the original criterion.",
+        "human_classification": "partial"
+    }
+]

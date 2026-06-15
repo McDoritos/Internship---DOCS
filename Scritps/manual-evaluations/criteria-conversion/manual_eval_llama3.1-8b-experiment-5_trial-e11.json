@@ -5,8 +5,8 @@
         "text": "Written informed consent for Part 1",
         "logic": null,
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which does not accurately represent the original criterion of obtaining written informed consent for Part 1."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to administrative or procedural information (written informed consent), which does not correspond to any schema field, making the null logic rule correct."
         }
     },
     {
@@ -44,7 +44,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule uses the correct schema field 'stage' and 'diagnosis_date', but uses a custom field 'diagnosis_sub_type' instead of the allowed schema field 'diagnosis' or a more specific field if available, and the 'diagnosis_date' condition is incomplete as it lacks a value to compare with."
+            "explanation": "The logic rule uses 'diagnosis_date' with a null value, which does not accurately represent 'newly diagnosed'. It should use 'diagnosis' to specify the type of melanoma instead of 'diagnosis_sub_type', which is not a defined schema field."
         }
     },
     {
@@ -63,7 +63,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule does not accurately capture the meaning of the original criterion, which requires treatment-naivety for unresectable advanced or metastatic melanoma, but allows for neoadjuvant and adjuvant settings. The rule only checks for the absence of a treatment start date, which is not equivalent to the original criterion."
+            "explanation": "The logic rule does not accurately capture the meaning of the original criterion. The original criterion states that patients should be treatment-naïve for unresectable advanced or metastatic melanoma, but allows for systemic treatment given in the neoadjuvant and adjuvant settings. The logic rule only checks if the treatment start date is null, which does not fully capture the nuances of the original criterion."
         }
     },
     {
@@ -77,7 +77,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'tissue_availability' which is acceptable since no schema field exists for this concept, and the logic accurately preserves the meaning of the original criterion."
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which requires tumour tissue to be available from advanced or metastatic disease, using a custom field 'tissue_availability' since it doesn't correspond to any specific schema field."
         }
     },
     {
@@ -87,7 +87,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion. The original criterion discusses the consideration of archival tissue from primary or regional recurrent melanoma, but the logic rule does not capture this information."
         }
     },
     {
@@ -104,7 +104,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule correctly uses the 'gender' schema field, but it does not account for the age criterion specified in the original criterion."
+            "explanation": "The logic rule correctly includes both male and female patients but misses the age criterion of 18 or over, which should be represented using the 'age' field."
         }
     },
     {
@@ -131,7 +131,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'molecular_status' and preserving the meaning with correct operators and values."
+            "explanation": "The logic rule accurately represents the original criterion, using the correct molecular_status field for NRAS and BRAF, and correctly applying the AND operator to combine the conditions."
         }
     },
     {
@@ -140,8 +140,8 @@
         "text": "Adequate tissue available for the Molecular Testing Platform.",
         "logic": null,
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which does not accurately represent the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field and refers to a clinical concept, so using a custom field is acceptable."
         }
     },
     {
@@ -168,7 +168,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'molecular_status' and preserving the meaning of the inclusion criterion."
+            "explanation": "The logic rule accurately represents the original criterion, which requires non V600 BRAF or BRAF wild type and NRAS wild type melanoma. The use of molecular_status fields for BRAF and NRAS is correct, and the boolean structure is explicit and coherent."
         }
     },
     {
@@ -177,8 +177,8 @@
         "text": "Adequate tissue available per NGS specimen preparation instructions.",
         "logic": null,
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not provide any condition for the inclusion criterion, making it incorrect."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field and refers to a clinical concept not represented in the schema, so using a custom field is acceptable."
         }
     },
     {
@@ -187,8 +187,8 @@
         "text": "Written informed consent to receive targeted therapy (if applicable) and clinical follow up.",
         "logic": null,
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to willingness to provide consent and ability to comply with study visits, which does not correspond to any schema field, making the null logic rule acceptable."
         }
     },
     {
@@ -212,7 +212,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule uses a custom field 'ngs_testing_status' instead of a schema field, and it only accounts for NRAS mutation, missing ALKati mutant condition."
+            "explanation": "The logic rule is missing the condition for ALKati mutant melanoma, which is part of the original criterion. The field 'molecular_status_ALK' should be included in the conditions with the operator '=' and value 'mutant' to fully represent the original criterion."
         }
     },
     {
@@ -222,7 +222,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+            "explanation": "The logic rule is null, which means it does not capture the meaning of the original criterion, including the requirement for histologically confirmed melanoma and measurable disease per RECIST criteria."
         }
     },
     {
@@ -232,7 +232,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+            "explanation": "The logic rule is null, which means it does not capture any information from the original criterion, resulting in a complete loss of meaning."
         }
     },
     {
@@ -256,7 +256,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately captures the original criterion, using appropriate fields and operators to represent the presence of an 'actionable' genetic aberration and available matched targeted therapy."
+            "explanation": "The logic rule correctly captures the meaning of the original criterion, which requires both an 'actionable' genetic aberration and the availability of matched targeted therapy. The use of custom fields 'genetic_aberration_status' and 'targeted_therapy_availability' is acceptable since the criterion refers to a clinical concept not directly represented in the schema."
         }
     },
     {
@@ -266,7 +266,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion. The original criterion refers to genetic aberration and targeted therapy, which could be mapped to molecular_status and treatments fields, but the null logic rule does not capture this information."
         }
     },
     {
@@ -283,8 +283,8 @@
             ]
         },
         "evaluation": {
-            "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'ecog_ps' schema field and accurately represents the ECOG status range of 0-2 using the '=' operator and a list of values."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses an '=' operator, which will only match patients with an ECOG status of exactly 0, 1, or 2, but not those with a status between these values. A more accurate representation would use an operator that allows for a range, such as '<=' or a custom field with a range."
         }
     },
     {
@@ -298,7 +298,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is missing the unit and the exponent part of the value, it should be '2.0 × 10^9' to correctly represent the original criterion."
+            "explanation": "The logic rule uses a custom field 'leucocitos' instead of a normalized lab field, and the unit is missing. A more accurate representation would use a field for white blood cell count with the correct unit (× 10^9/L)."
         }
     },
     {
@@ -311,8 +311,8 @@
             "value": "1.5"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses a synonym 'neutrofilos' instead of the normalized lab field 'neutrofilos' which is acceptable, but it's missing the unit and the multiplier (× 10^9/L) in the value."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is missing the unit of measurement (× 10^9/L) and uses a non-standard field name ('neutrofilos' instead of a normalized lab field)."
         }
     },
     {
@@ -325,8 +325,8 @@
             "value": "90"
         },
         "evaluation": {
-            "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and accurately preserves the meaning of the original criterion with the correct operator and value."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'hemoglobina' instead of a normalized lab field for hemoglobin, and the unit is missing. However, the main issue is the operator, which should be '>=', but the field name is incorrect. A more significant issue is that the field name 'hemoglobina' does not match any schema field, but since hemoglobin is not in the normalized lab list, using a custom field would be acceptable if it were correctly implemented with the right unit (g/L)."
         }
     },
     {
@@ -340,7 +340,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the normalized lab field 'plaquetas' and accurately represents the original criterion with the correct operator and value."
+            "explanation": "The logic rule correctly represents the original criterion, using a custom field for platelet count, which is not included in the normalized lab list, making it an acceptable use of a custom field."
         }
     },
     {
@@ -353,8 +353,8 @@
             "value": "3.0"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses the correct normalized lab field 'bilirrubina_total', but it's missing the 'x ULN' part, which is essential to the original criterion's meaning."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule is missing the 'x ULN' part, which is crucial for the correct interpretation of the criterion. The field name 'bilirrubina_total' seems to be a typo and should be 'bilirubin_total', but more importantly, the rule does not account for the 'x ULN' condition."
         }
     },
     {
@@ -367,8 +367,8 @@
             "value": "3.0"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used 'ast' instead of the correct normalized lab field 'alt' for Alanine transaminase, and also missed the 'x ULN' part of the value."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'ast' which typically represents Aspartate transaminase, but the original criterion mentions Alanine transaminase (ALT). The correct field should be 'alt'."
         }
     },
     {
@@ -381,8 +381,8 @@
             "value": "3.0"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses 'alt' which is a synonym for the normalized lab field 'ast', and it's missing the 'x ULN' part, which is an important detail in the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the original criterion, using the appropriate field (alt for aspartate aminotransferase) and operator (<=) with the specified value (3.0)."
         }
     },
     {
@@ -396,7 +396,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule uses the correct normalized lab field 'creatinina', but it does not account for the 'upper limit of normal (ULN)' in the value comparison, which is required to accurately represent the original criterion."
+            "explanation": "The logic rule uses a custom field 'creatinina' instead of a normalized lab field, and it's missing the reference to the upper limit of normal (ULN)."
         }
     },
     {
@@ -405,8 +405,8 @@
         "text": "Life expectancy > 30 days.",
         "logic": null,
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field and is administrative or procedural, so not using a schema field is correct."
         }
     },
     {
@@ -416,7 +416,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+            "explanation": "The logic rule is null, which means it does not capture the meaning of the original criterion, and the criterion refers to pregnancy and contraception, which should be handled with a custom field."
         }
     },
     {
@@ -426,7 +426,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion."
+            "explanation": "The logic rule is null, which means it does not capture the meaning of the original criterion, and the criterion refers to pregnancy and contraception, which should be handled with a custom field, but the absence of any logic makes it incorrect."
         }
     },
     {
@@ -436,7 +436,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion, and therefore, the meaning is incorrect."
+            "explanation": "The logic rule is null, which means it does not capture the meaning of the original criterion, and therefore, the meaning is incorrect or missing."
         }
     },
     {
@@ -446,7 +446,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion, and therefore, the meaning is incorrect."
+            "explanation": "The logic rule is null, which means it does not capture the meaning of the original criterion, resulting in a loss of significant information."
         }
     },
     {
@@ -470,7 +470,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule does not accurately capture the original criterion. It checks for investigational drug status and systemic therapy start date, but does not account for the 14-day or 5 half-lives timeframe, and the second condition has a null value."
+            "explanation": "The logic rule does not accurately represent the original criterion. It mentions 'investigational_drug_status' and 'systemic_therapy_start_date' but does not account for the specific condition of 'within 14 days or 5 half-lives from baseline' for melanoma treatment. Additionally, the use of 'null' as a value for 'systemic_therapy_start_date' is incorrect and does not convey the intended meaning."
         }
     },
     {
@@ -488,8 +488,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses a custom field 'pregnancy_status' instead of a schema field, and it only accounts for pregnant females, not breast feeding females."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the exclusion criterion for pregnant or breastfeeding females using a custom field, which is acceptable according to the guidelines."
         }
     },
     {
@@ -499,7 +499,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not provide any condition for the exclusion criterion, and therefore does not preserve the meaning of the original criterion."
+            "explanation": "The logic rule is null, which means it does not provide any information to evaluate the exclusion criterion, resulting in a lack of meaning and incorrect representation of the original criterion."
         }
     }
 ]

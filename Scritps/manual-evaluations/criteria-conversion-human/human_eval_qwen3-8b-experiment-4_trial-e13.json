@@ -1,0 +1,28 @@
+[
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Recurrence of a CS I tumor after adjuvant therapy with carboplatin mono",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "carboplatin mono"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only mentions the treatment, but the original criterion also refers to the recurrence of a CS I tumor, which should be represented in the 'diagnosis' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "The patient underwent retroperitoneal radiotherapy",
+        "logic": {
+            "field": "treatment",
+            "operator": "IN",
+            "value": "retroperitoneal radiotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to a specific treatment, so it should use the 'treatments' field with a 'name' subfield, rather than a custom 'treatment' field.",
+        "human_classification": "partial"
+    }
+]

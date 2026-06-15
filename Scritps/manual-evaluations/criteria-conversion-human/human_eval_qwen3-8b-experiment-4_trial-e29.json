@@ -1,0 +1,28 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Adults, aged 18 through 75 years of age, with pathologically confirmed acute myelogenous leukemia, in pathologically confirmed complete remission following anti-leukemic therapy.",
+        "logic": {
+            "field": "age",
+            "operator": "BETWEEN",
+            "value": "18,75"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for the age criterion, but misses the diagnosis and treatment aspects of the original criterion, which are also crucial for determining eligibility.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Must not have received systemic anti-neoplastic therapy, including radiotherapy within 14 days of study treatment.",
+        "logic": {
+            "field": "treatment",
+            "operator": "NOT_IN",
+            "value": "systemic_anti_neoplastic_therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which mentions 'including radiotherapy' and a specific time frame 'within 14 days of study treatment'. The schema field 'treatments' should be used with more specific details.",
+        "human_classification": "partial"
+    }
+]

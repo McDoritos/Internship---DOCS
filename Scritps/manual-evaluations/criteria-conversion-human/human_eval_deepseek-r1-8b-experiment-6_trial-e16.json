@@ -1,0 +1,119 @@
+[
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "No obvious surgical contraindications",
+        "logic": {
+            "field": "surgical_contraindication",
+            "operator": "!=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'surgical_contraindication' when no schema field exists, which is acceptable, but the logic seems to preserve the meaning of the original criterion.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Diagnosed with familial syndromes",
+        "logic": {
+            "field": "familial_syndrome",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'familial_syndrome' instead of the allowed schema field 'diagnosis' which could potentially map to familial syndromes.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Receiving chemotherapy before surgery",
+        "logic": {
+            "field": "treatment",
+            "operator": "IN",
+            "value": "chemotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the correct schema field 'treatment', but it does not account for the timing of chemotherapy in relation to surgery, which is a crucial aspect of the original criterion.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "Receiving radiotherapy before surgery",
+        "logic": {
+            "field": "treatment",
+            "operator": "IN",
+            "value": "radiotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the correct schema field 'treatment', but it does not account for the timing of the radiotherapy in relation to surgery, which is a crucial aspect of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "Receiving molecular targeted therapy before surgery",
+        "logic": {
+            "field": "treatment",
+            "operator": "IN",
+            "value": "molecular targeted therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the correct schema field 'treatment', but it does not account for the timing of the treatment (before surgery), which is an important aspect of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "Ongoing fever or recipient of anti-inflammation therapy within 14 days prior to study blood draw",
+        "logic": {
+            "field": "fever_or_anti_inflammation",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'fever_or_anti_inflammation' instead of using separate fields for 'fever' and possibly a schema field or custom field for 'anti-inflammation therapy', and the logic does not account for the 14-day time frame.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Recipient of blood transfusion within 30 days prior to study blood draw",
+        "logic": {
+            "field": "blood_transfusion",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'blood_transfusion' instead of a schema field, and the logic does not fully capture the 'within 30 days prior to study blood draw' condition.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Recipient of organ transplant or prior non-autologous bone marrow or stem cell transplant",
+        "logic": {
+            "field": "transplant_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'transplant_history' when a more specific schema field such as 'treatment' or 'treatment_name' could be used, but the logic accuracy is preserved.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "Poor health condition and not suitable for blood draw",
+        "logic": {
+            "field": "health_condition",
+            "operator": "!=",
+            "value": "good"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'health_condition' when a more specific schema field or normalized lab field could be used, and the logic does not explicitly address 'not suitable for blood draw'.",
+        "human_classification": "partial"
+    }
+]

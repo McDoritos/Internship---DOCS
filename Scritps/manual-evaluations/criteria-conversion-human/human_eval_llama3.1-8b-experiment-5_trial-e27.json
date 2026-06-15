@@ -1,0 +1,15 @@
+[
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Normal hemodynamic indices before the recruitment (including blood cell count and liver/kidney function).",
+        "logic": {
+            "field": "hemoglobin_level",
+            "operator": ">",
+            "value": "9"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers hemoglobin level, but the original criterion mentions multiple hemodynamic indices, including blood cell count and liver/kidney function, which are not accounted for.",
+        "human_classification": "partial"
+    }
+]

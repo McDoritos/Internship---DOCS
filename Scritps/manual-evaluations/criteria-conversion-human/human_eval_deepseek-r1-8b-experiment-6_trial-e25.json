@@ -1,0 +1,109 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patients with advanced renal cell carcinoma of a histological or cytological confirmation of clear cell (or with a component of clear cell) renal carcinoma that have previously progressed on or were intolerant to first-line therapy with sunitinib, sorafenib, pazopanib, axitinib, bevacizumab, or cytokine therapy.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "renal_cell_carcinoma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the diagnosis of renal cell carcinoma, but misses the details about histological or cytological confirmation of clear cell carcinoma, prior progression or intolerance to specific first-line therapies.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "ALT and AST ≤ 2.5 x ULN. Patients with known liver metastases may enroll if their AST and ALT ≤ 5 x ULN,",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "2.5",
+                    "unit": "x ULN"
+                },
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "2.5",
+                    "unit": "x ULN"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "Patients with known liver metastases may enroll if their AST and ALT ≤ 5 x ULN"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, as it does not account for the exception for patients with known liver metastases, where AST and ALT can be ≤ 5 x ULN.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Patients who had radiation therapy within 4 weeks prior to start of study treatment (palliative radiotherapy to bone lesions allowed up to 2 weeks prior to study treatment start).",
+        "logic": {
+            "field": "radiation_status",
+            "operator": "=",
+            "value": "within_4_weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'radiation_status' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments like radiation therapy. Additionally, the logic rule does not fully capture the nuances of the original criterion, such as the allowance for palliative radiotherapy to bone lesions up to 2 weeks prior to study treatment start.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "Patients who had more than one prior treatment regimen for metastatic renal cell carcinoma",
+        "logic": {
+            "field": "previous_regimens",
+            "operator": ">",
+            "value": "1"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions a specific cancer (metastatic renal cell carcinoma) and treatment history, which should be mapped to 'diagnosis' and 'treatments' fields respectively, but the logic rule uses a custom field 'previous_regimens' instead.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 9,
+        "type": "exclusion",
+        "text": "Patients who had adjuvant therapy for RCC",
+        "logic": {
+            "field": "adjuvant_therapy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions adjuvant therapy, which should be mapped to the 'treatments' field, but the logic rule uses a custom field 'adjuvant_therapy' instead.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Patients who previously received systemic mTOR inhibitors (eg, sirolimus, temsirolimus, everolimus)",
+        "logic": {
+            "field": "mTOR_inhibitors",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions a specific treatment history, which should be mapped to the 'treatments' field, but a custom field 'mTOR_inhibitors' is used instead.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Patients with a known hypersensitivity to everolimus or other rapamycins (eg, sirolimus, temsirolimus) or to its excipients.",
+        "logic": {
+            "field": "hypersensitivity",
+            "operator": "=",
+            "value": "everolimus"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers hypersensitivity to everolimus, but the original criterion also mentions hypersensitivity to other rapamycins (sirolimus, temsirolimus) and excipients, which are not accounted for in the logic rule.",
+        "human_classification": "partial"
+    }
+]

@@ -1,0 +1,160 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients must be between the ages of 18 and 75 years old (inclusive).",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only includes the lower bound of the age range, missing the upper bound of 75 years old.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Karnofsky Performance score ≥ 60.",
+        "logic": {
+            "field": "kps",
+            "operator": ">=",
+            "value": "60"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions performance status, which should be mapped to the 'ecog_ps' field, but the model used a custom field 'kps' instead. However, the logic itself is correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Use of steroids must be limited to ≤ 4 mg of decadron daily.",
+        "logic": {
+            "field": "steroid_use",
+            "operator": "<=",
+            "value": "4"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to steroid use, which should be mapped to a 'treatments' field with specific details about the treatment, such as name (steroids) and dosage, rather than a custom 'steroid_use' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Hgb ≥ 12 g/dL (male) or ≥ 11.5 g/dL (females)",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "12"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the gender-specific hemoglobin values, only considering the value for males.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Serum Creatinine ≤ 1.5mg/dl; Cr clearance should be ≥ 50 mL/min",
+        "logic": {
+            "field": "creatinina",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which includes two conditions: Serum Creatinine ≤ 1.5mg/dl and Cr clearance ≥ 50 mL/min. The logic rule only addresses the first condition.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At least 6 weeks following completion of front-line radiation therapy.",
+        "logic": {
+            "field": "radiation_therapy_date",
+            "operator": ">=",
+            "value": "6 weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'radiation_therapy_date' instead of the 'treatments' field with a 'name' of 'Radiotherapy' and 'end_date' to represent the completion of front-line radiation therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At least 3 weeks post chemotherapy or 5 half-lives, whichever is shorter must have elapsed since any prior systemic therapy, except for systemic inhibitory/stimulatory immune checkpoint therapy, which requires 5 half-lives.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "chemotherapy_date",
+                    "operator": ">=",
+                    "value": "3 weeks"
+                },
+                {
+                    "field": "immunotherapy_date",
+                    "operator": ">=",
+                    "value": "5 half-lives"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires at least 3 weeks post chemotherapy or 5 half-lives, whichever is shorter, and also has a specific exception for systemic inhibitory/stimulatory immune checkpoint therapy. The use of 'chemotherapy_date' and 'immunotherapy_date' is not accurate as per the schema fields, it should be 'treatments' with specific conditions.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At least 4 weeks from bevacizumab treatment, which can be used only for radiation necrosis or pseudo-progression.",
+        "logic": {
+            "field": "bevacizumab_date",
+            "operator": ">=",
+            "value": "4 weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'bevacizumab_date' instead of the 'treatments' schema field, which is more suitable for representing treatment history, including the use of bevacizumab and the timing of its administration.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Prior cytotoxic chemotherapy, radiation, or other anticancer therapies including investigational agents discontinued at least 4 weeks prior to Day 1 of treatment.",
+        "logic": {
+            "operator": ">",
+            "conditions": [
+                {
+                    "field": "chemotherapy_date",
+                    "operator": "=",
+                    "value": "4 weeks"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not accurately represent the original criterion. It mentions 'chemotherapy_date' which is not a valid schema field, and it does not account for other anticancer therapies or the 4-week discontinuation period correctly. A more accurate representation would involve using the 'treatments' field with specific conditions for chemotherapy, radiation, and other anticancer therapies, including a time frame for discontinuation.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnant or patients who are breastfeeding.",
+        "logic": {
+            "field": "pregnancy_status",
+            "operator": "=",
+            "value": "pregnant"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for pregnancy, but the original criterion also mentions breastfeeding, which is not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known history of infection with HIV or hepatitis B (HBsAg positive) or hepatitis C virus (anti-HCV positive).",
+        "logic": {
+            "field": "hiv_status",
+            "operator": "=",
+            "value": "positive"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for HIV status, but the original criterion also mentions hepatitis B and hepatitis C, which are not included in the logic rule.",
+        "human_classification": "partial"
+    }
+]

@@ -1,0 +1,325 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "At the initial enrollment evaluation, patients were expected to accept radical resection of liver cancer and meet at least one of the following high-risk recurrence factors after surgery: ①There are 3 or more tumor lesions in the liver; ②The diameter of a single tumor lesion is >8cm; ③Existence macrovascular tumor thrombus; ④>5 MVI or MVI occurred in the distant paracancer tissues;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "accept_resection",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "tumor_count",
+                            "operator": ">=",
+                            "value": "3"
+                        },
+                        {
+                            "field": "tumor_diameter",
+                            "operator": ">",
+                            "value": "8"
+                        },
+                        {
+                            "field": "macrovascular_thrombus",
+                            "operator": "=",
+                            "value": "true"
+                        },
+                        {
+                            "operator": "OR",
+                            "conditions": [
+                                {
+                                    "field": "mvi_count",
+                                    "operator": ">=",
+                                    "value": "5"
+                                },
+                                {
+                                    "field": "mvi_elsewhere",
+                                    "operator": "=",
+                                    "value": "true"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses custom fields (accept_resection, tumor_count, tumor_diameter, macrovascular_thrombus, mvi_count, mvi_elsewhere) instead of the allowed schema fields, but the logic accuracy and structure are correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Must have at least 1 resectable lesion (diameter ≥2 cm);",
+        "logic": {
+            "field": "tumor_diameter",
+            "operator": ">",
+            "value": "2"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'tumor_diameter' instead of a schema field, and the operator and value are correct, but there is no direct schema field for 'tumor diameter', however 'tumor_diameter' seems to be a correct representation of the concept.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "Creatinine (Cr)≤1.5 times normal limit, creatinine clearance ≥50 mL/min",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "1.5 times normal limit"
+                },
+                {
+                    "field": "creatinine_clearance",
+                    "operator": ">=",
+                    "value": "50",
+                    "unit": "mL/min"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a synonym 'creatinina' which is a normalized lab field, but it used a custom field 'creatinine_clearance' instead of a schema field. The logic accuracy is preserved, and the structure is coherent.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "An estimated life expectancy of ≥3 months",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">=",
+            "value": "3"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'life_expectancy' when no schema field exists, but it is acceptable. However, it would be better if it used a more specific field if available, but since none exists, it's not heavily penalized. The logic accuracy is preserved, and the structure is coherent.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 14,
+        "type": "exclusion",
+        "text": "Primary hepatocellular carcinoma (HCC) has recurred in the past, or has other types of liver cancer at the same time (such as intrahepatic cholangiocarcinoma, mixed type of liver cancer)",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "hcc_recurrence",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "other_liver_cancer",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses custom fields (hcc_recurrence, other_liver_cancer) instead of the allowed schema field 'diagnosis' which could be used to represent the condition, but the meaning is preserved and operators/values are correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Have a history of high fever or severe infection within 2 weeks prior to pretreatment, or are expected to undergo systemic anti-infective therapy or systemic steroid therapy during this trial",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "infection_history",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "expected_antibiotic_therapy",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "expected_corticosteroid_therapy",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses custom fields ('infection_history', 'expected_antibiotic_therapy', 'expected_corticosteroid_therapy') instead of schema fields or normalized lab fields, but the logic accuracy and structure are preserved, and the exclusion semantics are correctly implemented.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 16,
+        "type": "exclusion",
+        "text": "Hepatic encephalopathy occurred within 2 weeks before pretreatment",
+        "logic": {
+            "field": "hepatic_encephalopathy",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'hepatic_encephalopathy' instead of the allowed schema field 'diagnosis' and did not account for the time constraint 'within 2 weeks before pretreatment'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "Previous or screening with autoimmune liver disease",
+        "logic": {
+            "field": "autoimmune_liver_disease",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'autoimmune_liver_disease' when it could be mapped to the 'diagnosis' schema field, and the logic seems to preserve the meaning of the original criterion.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "Screening with moderate or higher peritoneal effusion",
+        "logic": {
+            "field": "peritoneal_effusion",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'peritoneal_effusion' instead of a normalized lab field or schema field, and the value should be 'moderate or higher' instead of just 'true'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 19,
+        "type": "exclusion",
+        "text": "Clear neurological/psychiatric symptoms are known to be associated with brain metastases and/or assessed by MMSE",
+        "logic": {
+            "field": "neurological_symptoms",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'neurological_symptoms' instead of a more specific schema field or normalized field, and the logic does not fully capture the original criterion's meaning, which includes psychiatric symptoms and MMSE assessment.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment",
+        "logic": {
+            "field": "prior_anti_tumor_therapy",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'prior_anti_tumor_therapy' instead of the allowed schema field 'treatment' or 'treatment_name', and the logic does not fully capture the original criterion's meaning, specifically the time frame 'within 4 weeks before pretreatment'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Have received or are expected to participate in this study within 4 weeks before pretreatment to receive TIL required focus radiotherapy, or tumor evaluation focus (target focus or non-target focus) radiotherapy, or radical radiotherapy",
+        "logic": {
+            "field": "prior_radiotherapy",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_radiotherapy' instead of a schema field, and the operator/value are simplified and do not fully capture the original criterion's meaning.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 22,
+        "type": "exclusion",
+        "text": "Any toxic response resulting from previous anti-tumor treatment prior to pretreatment did not return to grade 1 or below (CTCAE5.0 version)",
+        "logic": {
+            "field": "toxic_response_not_resolved",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'toxic_response_not_resolved' which is not a schema field, but the meaning is preserved and the operator/value is correct. A more accurate field selection would be using a combination of fields related to treatment and diagnosis, but since no direct schema field exists for this specific condition, it's not penalized. However, the rule does not explicitly mention the CTCAE5.0 version and the grade of the toxic response.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 23,
+        "type": "exclusion",
+        "text": "Previous history of organ / stem cell transplantation or expected to be involved in this trial for organ / stem cell transplantation",
+        "logic": {
+            "field": "organ_transplantation",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'organ_transplantation' when a more specific schema field could be considered, but since there is no direct schema field for 'organ_transplantation', it's not entirely incorrect. The logic seems to preserve the meaning of the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 25,
+        "type": "exclusion",
+        "text": "Known or private HIV infection or syphilis infection",
+        "logic": {
+            "field": "infection_hiv_or_syphilis",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'infection_hiv_or_syphilis' instead of using the 'diagnosis' schema field, which could be used to represent HIV or syphilis infection.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 26,
+        "type": "exclusion",
+        "text": "The previous 3 years other system primary malignant tumor history (except skin basal cell carcinoma or cervical carcinoma in situ)",
+        "logic": {
+            "field": "other_primary_malignant_tumor",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'other_primary_malignant_tumor' instead of the allowed schema field 'diagnosis' or a more specific field, and does not account for the time frame (3 years) and exceptions (skin basal cell carcinoma or cervical carcinoma in situ).",
+        "human_classification": "partial"
+    },
+    {
+        "id": 27,
+        "type": "exclusion",
+        "text": "A known allergy to two or more non-homogeneous foods/drugs, or a known history of allergies to pre-treated drugs, including cyclophosphamide, fludarabin, interleukin",
+        "logic": {
+            "field": "allergy_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'allergy_history' instead of a more specific schema field, and the value is a simple 'true' which does not fully capture the complexity of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 29,
+        "type": "exclusion",
+        "text": "Participated in other clinical trials within 3 months prior to screening",
+        "logic": {
+            "field": "participation_in_other_trials",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'participation_in_other_trials' when a more specific schema field such as 'treatment' or 'control' could be related, and it also lacks the time constraint of 'within 3 months prior to screening'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 30,
+        "type": "exclusion",
+        "text": "Other circumstances that the researchers considered inappropriate to participate in the experiment",
+        "logic": {
+            "field": "other_inappropriate_circumstances",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "likely_wrong",
+        "auto_explanation": "The logic rule uses a custom field 'other_inappropriate_circumstances' which is not a schema field and does not map to any normalized lab field, also the meaning is not clearly preserved as it's too vague and does not specify what 'other circumstances' refers to.",
+        "human_classification": "partial"
+    }
+]

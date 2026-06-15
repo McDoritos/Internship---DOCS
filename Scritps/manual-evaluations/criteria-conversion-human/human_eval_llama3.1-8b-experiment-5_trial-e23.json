@@ -1,0 +1,149 @@
+[
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "If the patient does not meet criteria for postmenopausal status but is receiving ovarian ablation therapy with a gonadotropin-releasing hormone (GnRH) agonist such as goserelin, the patient is eligible for this study, provided that the GnRH agonist is started at least 2 weeks prior to C1D1 of anti-estrogen therapy.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "postmenopausal_status",
+                    "operator": "!=",
+                    "value": "true"
+                },
+                {
+                    "field": "ovarian_ablation",
+                    "operator": "=",
+                    "value": "goserelin"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires the GnRH agonist to be started at least 2 weeks prior to C1D1 of anti-estrogen therapy. The logic rule only checks for postmenopausal status and ovarian ablation therapy, but does not account for the timing of the GnRH agonist treatment.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "If previously progressed on letrozole, another aromatase inhibitor that the patient has not previously received is allowed, per standard of care (anastrazole or exemestane, not supplied by study).",
+        "logic": {
+            "field": "letrozole_progression",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'letrozole_progression' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments and treatment history.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "aromatase_inhibitor_history",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "palbociclib_received",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes multiple treatment options (aromatase inhibitors, tamoxifen, fulvestrant plus palbociclib, and CDK4/6 inhibitors) and the requirement of disease progression, but the logic rule only checks for aromatase inhibitor history and palbociclib received.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 21,
+        "type": "inclusion",
+        "text": "If patient received prior fulvestrant, exemestane must be the hormone therapy backbone in the randomization.",
+        "logic": {
+            "field": "fulvestrant_received",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only checks if the patient received prior fulvestrant, but it does not account for the condition that exemestane must be the hormone therapy backbone in the randomization.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 22,
+        "type": "inclusion",
+        "text": "If patient received prior exemestane, fulvestrant must be the hormone therapy backbone in the randomization.",
+        "logic": {
+            "field": "exemestane_received",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only checks if the patient received prior exemestane, but it does not specify that fulvestrant must be the hormone therapy backbone in the randomization, which is a crucial part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 25,
+        "type": "inclusion",
+        "text": "Potassium, sodium, total calcium (corrected only in the case of hypoalbuminemia), magnesium, and phosphorus within normal limits of the local laboratory.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "potassium_level",
+                    "operator": "=",
+                    "value": "normal"
+                },
+                {
+                    "field": "sodium_level",
+                    "operator": "=",
+                    "value": "normal"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only includes conditions for potassium and sodium levels, but the original criterion also mentions total calcium, magnesium, and phosphorus, which are missing in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 28,
+        "type": "inclusion",
+        "text": "If the patient has liver metastases, ALT and AST should be < 5 × ULN.",
+        "logic": {
+            "field": "liver_metastases_present",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only checks for the presence of liver metastases, but does not account for the ALT and AST values being < 5 × ULN, which is a significant part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 47,
+        "type": "exclusion",
+        "text": "History of myocardial infarction (MI), angina pectoris, symptomatic pericarditis, or coronary artery bypass graft (CABG) within 6 months prior to study entry",
+        "logic": {
+            "field": "myocardial_infarction_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'myocardial_infarction_history' instead of the 'control' field or 'treatments' field which could be more suitable for representing the patient's medical history. Additionally, the rule does not account for the 6-month time frame specified in the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 60,
+        "type": "exclusion",
+        "text": "Patients who are receiving any other investigational agents concurrently or have received investigational agents within 14 days or 5 half-lives of the compound or active metabolites, whichever is longer before the first dose of the study treatment.",
+        "logic": {
+            "field": "investigational_agent_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'investigational_agent_history' instead of the 'treatments' field, which is the appropriate schema field for prior treatments. Additionally, the logic rule does not capture the timing aspect of the criterion (within 14 days or 5 half-lives).",
+        "human_classification": "partial"
+    }
+]

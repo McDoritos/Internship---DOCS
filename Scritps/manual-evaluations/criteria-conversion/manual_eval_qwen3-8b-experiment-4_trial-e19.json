@@ -26,8 +26,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses the correct schema field for 'stage' but uses a custom field 'tumor_diameter' instead of a potentially available schema field, and also does not account for the range of stages (IB3-IIB) as a single condition."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, using the correct schema field for stage and a custom field for tumor diameter, which is not a standard schema field."
         }
     },
     {
@@ -41,7 +41,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule only includes one of the specified cancer types (adenosquamous carcinoma) and does not account for cervical squamous cell carcinoma and adenocarcinoma."
+            "explanation": "The logic rule only includes adenosquamous carcinoma, but the original criterion also mentions cervical squamous cell carcinoma and adenocarcinoma, which are not accounted for in the logic rule."
         }
     },
     {
@@ -65,7 +65,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately represents the original criterion, using the correct schema field 'age' and preserving the meaning with correct operators and values."
+            "explanation": "The logic rule accurately represents the original criterion, using the correct 'age' field and specifying the correct age range of 18-70 years old."
         }
     },
     {
@@ -79,7 +79,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and value."
+            "explanation": "The logic rule correctly maps the ECOG status score criterion to the ecog_ps field with the appropriate operator and value."
         }
     },
     {
@@ -133,7 +133,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema fields and preserving the meaning of the conditions."
+            "explanation": "The logic rule accurately represents the original criterion, which refers to laboratory values not included in the normalized lab list, making the use of custom fields acceptable."
         }
     },
     {
@@ -146,8 +146,8 @@
             "value": "well"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'compliance' when no schema field exists, but the logic accuracy is preserved. However, the field 'compliance' does not exactly match the original criterion 'Well-compliance and willing to keep in touch', which implies a more complex condition."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and the logic matches the meaning, so using a custom field is acceptable."
         }
     },
     {
@@ -161,7 +161,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'informed_consent' which is acceptable since there is no direct schema field for this concept, and the logic is straightforward and correct."
+            "explanation": "The criterion refers to an administrative or procedural concept, and using a custom field is acceptable. The logic matches the meaning of the original criterion."
         }
     },
     {
@@ -174,8 +174,8 @@
             "value": "laparotomic or laparoscopic extensive hysterectomy + pelvic lymph node dissection with cervical cancer foci sealed before dissection of the vagina and without uterine manipulator"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses a custom field 'surgical_procedure' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy and exclusion semantics are preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the exclusion criterion, which states that patients should not undergo a specific surgical procedure after 2-3 cycles of neoadjuvant chemotherapy. The use of a custom field 'surgical_procedure' is acceptable since the criterion refers to a clinical concept not represented in the schema."
         }
     },
     {
@@ -188,8 +188,8 @@
             "value": "postoperative adjuvant therapy regimens"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'chemotherapy_regimen' instead of the allowed schema field 'treatment' or 'treatment_name', but the logic accuracy is preserved."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately capture the meaning of the original criterion, which states that neoadjuvant chemotherapy regimens are different from postoperative adjuvant therapy regimens. The logic rule only checks if a chemotherapy regimen is not in a list of postoperative adjuvant therapy regimens, but it does not compare neoadjuvant and postoperative regimens."
         }
     },
     {
@@ -203,7 +203,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The model used a custom field 'postoperative_risk_factors' when a more specific schema field 'diagnosis' or 'treatment' could be used, and only one of the three risk factors is included in the logic rule."
+            "explanation": "The logic rule only accounts for one of the postoperative high risk factors (positive surgical margin) and does not consider the other factors mentioned (lymph node metastasis, parauterine infiltration)."
         }
     },
     {
@@ -216,8 +216,8 @@
             "value": "Sedlis standard of the NCCN guideline"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'postoperative_risk_factors' when it could be mapped to a more specific schema field or a combination of fields, and the logic seems to preserve the meaning but the field selection is not optimal."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (postoperative risk factors meeting the Sedlis standard of the NCCN guideline) not directly represented in the schema, and using a custom field is acceptable."
         }
     },
     {
@@ -231,7 +231,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the exclusion condition, it should evaluate TRUE when participation in other clinical trials is present, but the 'NOT_IN' operator suggests the opposite."
+            "explanation": "The logic rule should evaluate to TRUE when the patient is participating in other clinical trials, but the 'NOT_IN' operator inverts this meaning."
         }
     },
     {
@@ -244,8 +244,8 @@
             "value": "none"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'systemic_diseases' when a more specific schema field such as 'diagnosis' could be used, and the logic is partially preserved as it checks for absence of severe diseases."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field, and using a custom field is acceptable. The logic matches the meaning of the criterion, which is to exclude patients with severe diseases of other important systems and organs."
         }
     },
     {
@@ -258,8 +258,8 @@
             "value": "disposing capacity"
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule uses a custom field 'legal_capacity' instead of a schema field, and the field does not exist in the allowed schema fields. Additionally, the meaning of 'disposing capacity' is not clear in the context of the clinical trial, but it seems that the logic is trying to exclude people without it, which is the opposite of what the original criterion states."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly implements the exclusion criterion by checking if the person's legal capacity is not 'disposing capacity', which aligns with the original criterion."
         }
     },
     {
@@ -272,8 +272,8 @@
             "value": "none"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'substance_abuse' instead of a more specific schema field, and the logic is mostly correct but could be improved with a more precise field, however the meaning is preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field 'substance_abuse' since the criterion does not correspond to any schema field, and the meaning is preserved."
         }
     },
     {
@@ -286,8 +286,8 @@
             "value": "signed"
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule uses a custom field 'informed_consent' which is not a schema field, and the meaning is also not directly related to the inability or unwillingness to sign informed consents."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, which is about the inability or unwillingness to sign informed consents, using a custom field as the concept is not represented in the schema."
         }
     },
     {
@@ -300,8 +300,8 @@
             "value": "eligible"
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule uses a custom field 'eligibility' instead of a schema field, and the meaning is also incorrect as it checks for 'NOT_IN' 'eligible' which is opposite of the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the exclusion criterion, which states that patients not eligible for the study are excluded. The use of a custom field 'eligibility' is acceptable since the criterion does not correspond to any specific schema field."
         }
     }
 ]

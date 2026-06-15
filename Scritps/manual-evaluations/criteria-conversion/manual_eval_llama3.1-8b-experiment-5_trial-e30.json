@@ -10,7 +10,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion using the correct operator and value."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the original criterion."
         }
     },
     {
@@ -37,7 +37,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' for BRCA1 and BRCA2 genes, when it should be checking for the presence of alterations in these genes."
+            "explanation": "The logic rule inverts the meaning of the original criterion regarding BRCA1 and BRCA2 genes. The original criterion requires 'documented test results assessing alterations in the BRCA1 and BRCA2 genes', but the logic rule checks for 'NOT_IN' BRCA1 and BRCA2, which means it looks for cases without these alterations, contrary to the original intention."
         }
     },
     {
@@ -64,7 +64,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' for BRCA1 and BRCA2 genes, when it should be checking for the presence of alterations in these genes."
+            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' for BRCA1 and BRCA2 genes, which should be assessed, not excluded."
         }
     },
     {
@@ -91,7 +91,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule inverts the meaning of the original criterion by using 'NOT_IN' for BRCA1 and BRCA2 genes, when it should be checking for the presence of alterations in these genes."
+            "explanation": "The logic rule inverts the meaning of the original criterion. The original criterion requires documented test results assessing alterations in the BRCA1 and BRCA2 genes, but the logic rule checks if the BRCA1 and BRCA2 genes are NOT present in the brca_genetic_status field."
         }
     },
     {
@@ -115,7 +115,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct fields and operators to represent the inclusion condition."
+            "explanation": "The logic rule correctly maps to the original criterion, using appropriate fields for BRCA genetic status and prior therapy count, and maintains the correct meaning."
         }
     },
     {
@@ -139,7 +139,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct fields and operators to represent the conditions of being BRCA negative and having less than 3 prior lines of therapy."
+            "explanation": "The logic rule correctly maps to the original criterion, using appropriate fields for BRCA genetic status and prior therapy count, and maintains the correct meaning."
         }
     },
     {
@@ -163,7 +163,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using correct fields and operators to represent the inclusion condition of being BRCA positive and having previously received PARP therapy."
+            "explanation": "The logic rule correctly maps to the original criterion, using appropriate fields for BRCA genetic status and prior PARP therapy, and maintains the correct meaning with an AND operator."
         }
     },
     {
@@ -176,8 +176,8 @@
             "value": "primary refractory"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'platinum_resistance_status' instead of a schema field, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the meaning of the original criterion, which refers to a specific disease characteristic (platinum refractory disease) not directly represented in the schema fields, making the use of a custom field acceptable."
         }
     },
     {
@@ -190,8 +190,8 @@
             "value": "adequate"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'organ_function_status' instead of a schema field or normalized lab field, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and using a custom field is acceptable."
         }
     },
     {
@@ -204,8 +204,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'willingness_to_undergo_biopsy' when no schema field exists, but it is acceptable as no schema field is available for this criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to the patient's willingness to undergo a procedure, which is not represented in the schema fields. The logic rule correctly captures the meaning of the original criterion using a custom field."
         }
     },
     {
@@ -221,8 +221,8 @@
             ]
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule does not accurately represent the original criterion, which requires that all three agents have been previously received in the platinum-resistant setting. The current logic rule only checks if any of these agents are present, without considering the setting or the requirement that all three must have been received."
+            "classification": "partial",
+            "explanation": "The logic rule does not fully capture the original criterion, which requires that the patient has previously received all of the listed agents in the platinum-resistant setting. The logic rule only checks if the patient has received any of the agents, but does not account for the setting or the requirement that all agents must have been received."
         }
     },
     {
@@ -238,8 +238,8 @@
             ]
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule does not accurately represent the original criterion, which requires that all three agents have been previously received in the platinum-resistant setting. The current logic rule only checks if any of these agents are present, without considering the platinum-resistant setting or the requirement that all three agents have been received."
+            "classification": "partial",
+            "explanation": "The logic rule does not fully capture the original criterion, which requires that the patient has previously received all of the listed agents in the platinum-resistant setting. The logic rule only checks if the patient has received any of the agents, but does not account for the setting or the requirement that all agents must have been received."
         }
     },
     {
@@ -255,8 +255,8 @@
             ]
         },
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule does not accurately represent the original criterion, which requires that all three agents have been previously received in the platinum-resistant setting. The current logic rule only checks if any of these agents are present, without considering the setting or the requirement that all three must have been received."
+            "classification": "partial",
+            "explanation": "The logic rule is missing the context of the platinum-resistant setting and the fact that all of the mentioned agents must have been previously received. It only lists the agents, which is not sufficient to fully capture the original criterion's meaning."
         }
     },
     {
@@ -269,8 +269,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'cns_malignancy_status' instead of a schema field, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field, as the criterion refers to a clinical concept (CNS malignancy or metastasis) not represented in the schema, and the meaning is preserved."
         }
     },
     {
@@ -293,8 +293,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses custom fields ('previous_ck1_inhibitor_study_participation' and 'hypersensitivity_to_study_drug_or_excipients') instead of schema fields, but the meaning and logic accuracy are preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, using custom fields for concepts not represented in the schema, which is acceptable according to the guidelines."
         }
     },
     {
@@ -307,8 +307,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'abdominal_fistula_or_gi_perforation_history' instead of the allowed schema field 'diagnosis' or a more specific field, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field, as the criterion does not correspond to any schema field, and the meaning is preserved."
         }
     },
     {
@@ -321,8 +321,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'intra_abdominal_abscess_status' instead of a schema field, and the logic does not account for the time frame 'within last 3 months prior to the first dose of study drug'."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion of having an intra-abdominal abscess within the last 3 months, using a custom field as the schema does not have a specific field for this condition."
         }
     },
     {
@@ -335,8 +335,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'bowel_obstruction_status' instead of a schema field, and the logic does not fully capture the 'within 3 months prior' condition."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion of having a radiographically confirmed bowel obstruction within 3 months prior to the first dose of study drug, using a custom field as the schema does not have a specific field for this condition."
         }
     },
     {
@@ -349,8 +349,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'hiv_or_hepatitis_status' instead of the allowed schema field 'diagnosis' or a more specific normalized lab field, but the logic accuracy and structure are mostly preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, which refers to a clinical concept not represented in the schema. The use of a custom field 'hiv_or_hepatitis_status' is acceptable, and the logic matches the meaning of the original criterion."
         }
     },
     {
@@ -363,8 +363,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'serious_cardiac_condition' when it could be mapped to the 'diagnosis' schema field with a specific value, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field, and using a custom field is acceptable. The logic matches the meaning of the original criterion."
         }
     },
     {
@@ -377,8 +377,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'prior_radiotherapy_to_pelvis_status' instead of a schema field, but the logic and meaning are preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, which refers to a clinical concept not directly represented in the schema. The use of a custom field is acceptable in this case."
         }
     },
     {
@@ -391,8 +391,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'chronic_corticosteroid_use_status' instead of the allowed schema field 'treatment' which could be used to represent corticosteroid use, and the logic does not explicitly exclude inhaled or topical steroids."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately captures the exclusion criterion, which is about chronic daily treatment with corticosteroids. Since the criterion does not correspond to any specific schema field, using a custom field is acceptable."
         }
     },
     {
@@ -405,8 +405,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'infection_risk_factors_status' instead of a schema field or normalized lab field, but the logic accuracy and structure are mostly preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema, and using a custom field is acceptable. The logic rule accurately captures the meaning of the original criterion."
         }
     }
 ]

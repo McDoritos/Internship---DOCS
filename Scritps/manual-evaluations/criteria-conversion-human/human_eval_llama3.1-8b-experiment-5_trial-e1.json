@@ -1,0 +1,28 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+        "logic": {
+            "field": "ast",
+            "operator": "<=",
+            "value": "2.5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the condition 'if liver metastases' which should be included as a conditional statement to fully represent the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ALT ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+        "logic": {
+            "field": "alt",
+            "operator": "<=",
+            "value": "2.5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the condition 'if liver metastases' which should be included as a conditional statement to fully represent the original criterion.",
+        "human_classification": "partial"
+    }
+]

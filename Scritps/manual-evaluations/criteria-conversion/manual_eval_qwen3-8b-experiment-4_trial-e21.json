@@ -13,7 +13,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the schema field 'gender' and accurately represents the original criterion using the correct operator and values."
+            "explanation": "The logic rule correctly maps to the gender schema field and accurately represents the inclusion of both male and female participants."
         }
     },
     {
@@ -27,7 +27,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion using the correct schema field and operator."
+            "explanation": "The logic rule correctly maps the original criterion to the 'age' field with the appropriate operator and value."
         }
     },
     {
@@ -44,7 +44,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion using the correct operator and values."
+            "explanation": "The logic rule correctly maps to the diagnosis field and includes the specified diagnoses."
         }
     },
     {
@@ -61,7 +61,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the inclusion criterion for lymphoma classification."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the cell of origin classification for lymphoma."
         }
     },
     {
@@ -74,8 +74,8 @@
             "value": "available"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'treatment_information_available' instead of the available schema field 'treatment' or a more specific field if available, but the logic accuracy and structure are correct."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to the concept of having treatment information available, which is not explicitly covered by the schema fields. Using a custom field is acceptable in this case."
         }
     },
     {
@@ -89,7 +89,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'survival_data_available' which is acceptable since no schema field exists for this concept, and the logic is straightforward and correct."
+            "explanation": "The logic rule correctly maps to a custom field, as the criterion does not correspond to any schema field, and the meaning is preserved."
         }
     },
     {
@@ -105,7 +105,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly uses the 'molecular_status' field and 'NOT_IN' operator to exclude patients with a medical record of molecular subgroup classification."
+            "explanation": "The logic rule correctly uses the molecular_status field with a NOT_IN operator to represent the absence of a medical record of the molecular subgroup classification, which aligns with the original criterion."
         }
     },
     {
@@ -118,8 +118,8 @@
             "value": "2016"
         },
         "evaluation": {
-            "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the schema field 'diagnosis_date' and preserves the meaning of the original criterion, which requires a diagnosis in the year 2016."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule uses 'diagnosis_date' with an 'IN' operator and a value of '2016', which is incorrect because 'diagnosis_date' should be used with a specific date or a range, not just a year. Additionally, the original criterion mentions 'diagnosis of diffuse large B-cell lymphoma', which should be mapped to the 'diagnosis' field, not 'diagnosis_date'."
         }
     },
     {
@@ -135,7 +135,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately preserves the meaning of the original criterion."
+            "explanation": "The logic rule correctly maps to the diagnosis field and accurately represents the original criterion."
         }
     }
 ]

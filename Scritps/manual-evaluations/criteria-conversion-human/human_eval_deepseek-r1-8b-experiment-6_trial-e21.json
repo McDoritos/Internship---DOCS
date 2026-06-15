@@ -1,0 +1,57 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Lymphoma classified for the cell of origin (GCB - Germinal Center B-Cell lymphoma, and non-germinal center);",
+        "logic": {
+            "field": "cell_origin",
+            "operator": "IN",
+            "value": [
+                "GCB - Germinal Center B-Cell lymphoma",
+                "non-germinal center"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'cell_origin' instead of the allowed schema field 'diagnosis' or a more specific field, and the value 'non-germinal center' is not fully specific, it should be more detailed.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Having first life of treatment information available in institutional medical record;",
+        "logic": {
+            "field": "treatment_info_available",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'treatment_info_available' instead of the available schema field 'treatment' or a more specific field if available, but the logic accuracy and structure are correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "No medical record of the molecular subgroup classification;",
+        "logic": {
+            "field": "molecular_subgroup_record",
+            "operator": "=",
+            "value": "absent"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The model used a custom field 'molecular_subgroup_record' instead of the allowed schema field 'molecular_status', but the logic accuracy and structure are correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "Diagnosis of diffuse large B-cell lymphoma, confirmed in the year 2016;",
+        "logic": {
+            "field": "diagnosis_date",
+            "operator": "=",
+            "value": "2016"
+        },
+        "auto_classification": "likely_wrong",
+        "auto_explanation": "The logic rule only checks if the diagnosis date is 2016, but it does not verify the diagnosis of diffuse large B-cell lymphoma.",
+        "human_classification": "wrong"
+    }
+]

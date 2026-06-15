@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Previously received targeted therapy (including TKI or monoclonal antibodies), immunotherapy, or any investigational drug treatment for NSCLC;",
+        "logic": {
+            "field": "treatment",
+            "operator": "IN",
+            "value": [
+                "targeted_therapy",
+                "immunotherapy",
+                "investigational_drug"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment' with a simplified list of values, but it should use the 'treatments' field with more specific details, such as treatment names, start and end dates, to accurately represent the criterion.",
+        "human_classification": "correct"
+    },
+    {
+        "id": "3",
+        "type": "exclusion",
+        "text": "Patients with a malignancy other than NSCLC within five years prior to the start of this trial，except for cured basal cell carcinoma of the skin, early gastrointestinal (GI) carcinoma excised through endoscopy, cervical carcinoma in situ, ductal carcinoma in situ of the breast, papillary thyroid carcinoma, or any cured cancer deemed to have no impact on the survival of the current NSCLC;",
+        "logic": {
+            "field": "other_malignancy",
+            "operator": "NOT_IN",
+            "value": [
+                "basal_cell_carcinoma_skin",
+                "early_gi_carcinoma_endoscopy",
+                "cervical_carcinoma_in_situ",
+                "ductal_carcinoma_in_situ_breast",
+                "papillary_thyroid_carcinoma"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the time frame (within five years prior to the start of the trial) and the condition of 'cured' for the listed exceptions, which are crucial aspects of the original criterion.",
+        "human_classification": "partial"
+    }
+]

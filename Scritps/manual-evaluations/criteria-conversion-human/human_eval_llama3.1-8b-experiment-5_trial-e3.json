@@ -1,0 +1,201 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Must have histologically or cytologically confirmed progressive advanced/metastatic HER2-positive breast carcinoma as per the updated American Society of Clinical Oncology (ASCO) - College of American Pathologists (CAP) guidelines according to local testing.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "HER2-positive breast carcinoma"
+                },
+                {
+                    "field": "ecog_ps",
+                    "operator": "<=",
+                    "value": "1"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule correctly uses the 'diagnosis' field for HER2-positive breast carcinoma, but it also includes an ECOG performance status condition (ecog_ps <= 1) that is not mentioned in the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Multifocal unilateral or bilateral breast adenocarcinoma tumours are allowed if all tested HER2-positive, according to local testing.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "HER2-positive"
+                },
+                {
+                    "field": "tumor_location",
+                    "operator": "IN",
+                    "value": [
+                        "multifocal",
+                        "unilateral",
+                        "bilateral"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'tumor_location' instead of the schema field 'diagnosis' to represent the type of breast adenocarcinoma tumors, and it does not account for the 'all tested HER2-positive' condition correctly.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Prior treatment with taxane, trastuzumab and pertuzumab (early or advanced setting) and T-DXd (metastatic setting).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": [
+                        "taxane",
+                        "trastuzumab",
+                        "pertuzumab"
+                    ]
+                },
+                {
+                    "field": "treatment_stage",
+                    "operator": "=",
+                    "value": "early or advanced"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing the treatment with T-DXd in the metastatic setting.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "In order to be eligible, patients subjects must have received T-DXd as the last systemic metastatic treatment line before inclusion, and presented disease progression on this drug.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "T-DXd"
+                },
+                {
+                    "field": "last_metastatic_treatment_line",
+                    "operator": "=",
+                    "value": true
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule is missing the condition for disease progression on T-DXd, which is a crucial part of the original criterion. The field 'last_metastatic_treatment_line' is not a standard schema field and 'treatment_name' should be under the 'treatments' field with more specific details such as the last treatment line and progression status.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Prior therapy with tucatinib, trastuzumab, and capecitabine, in advanced setting, is permissible, provided that T-DXd serves as the last systemic metastatic treatment line before inclusion, and patient subject presented disease progression on this drug.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": [
+                        "tucatinib",
+                        "trastuzumab",
+                        "capecitabine"
+                    ]
+                },
+                {
+                    "field": "treatment_stage",
+                    "operator": "=",
+                    "value": "advanced"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing information about T-DXd as the last systemic metastatic treatment line and disease progression on this drug.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At screening FDG-PET at least two \"target\" lesions are required to fulfil the following criteria: (2) metabolically assessable with a maximum standard uptake value corrected for lean body mass (SUVmax) ≥ 1.5 x SUVmean + 2 standard deviations (SD) of the liver measured in a 3-cm-diameter spherical volume of interest (VOI) in normal liver parenchyma.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "fdg_pet_target_lesions",
+                    "operator": ">=",
+                    "value": "2"
+                },
+                {
+                    "field": "suvmax_corrected",
+                    "operator": ">=",
+                    "value": "(1.5 * suvmean) + 2"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, specifically missing the detail about the liver measurement and the standard deviations. The field 'suvmax_corrected' is also not a standard schema field, and the calculation '(1.5 * suvmean) + 2' is not fully represented in the logic rule.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "No history of a LVEF < 40% or symptomatic heart failure or a recent myocardial infarction.",
+        "logic": {
+            "operator": "NOT",
+            "conditions": [
+                {
+                    "field": "lvef_history",
+                    "operator": "<=",
+                    "value": "40"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for LVEF < 40%, but the original criterion also mentions symptomatic heart failure and recent myocardial infarction, which are not included in the logic rule.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of a decrease in LVEF to < 40% or symptomatic CHF with prior trastuzumab treatment (e.g., during preoperative therapy)",
+        "logic": {
+            "operator": "=",
+            "conditions": [
+                {
+                    "field": "lvef_decrease_history",
+                    "operator": "<",
+                    "value": "40"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which also mentions 'symptomatic CHF with prior trastuzumab treatment', but this information is not included in the logic rule. Additionally, the criterion refers to a specific treatment history, which should be mapped to the 'treatments' field, but is not.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior history of other invasive cancer in the past 5 years except basal or squamous cell carcinoma of skin that has been definitively treated.",
+        "logic": {
+            "field": "prior_invasive_cancer_status",
+            "operator": "<=",
+            "value": "5"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_invasive_cancer_status' instead of the 'treatments' or 'diagnosis' schema field, and does not account for the exceptions mentioned in the original criterion (basal or squamous cell carcinoma of skin that has been definitively treated).",
+        "human_classification": "partial"
+    }
+]

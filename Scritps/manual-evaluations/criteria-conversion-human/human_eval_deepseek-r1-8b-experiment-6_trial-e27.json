@@ -1,0 +1,15 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Postoperative patients who can tolerate 5-FU based (5-FU，S-1 or Capecitabine) adjuvant chemotherapy;",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "5-fluorouracil-based"
+        },
+        "auto_classification": "error",
+        "auto_explanation": "Invalid JSON returned by LLM",
+        "human_classification": "wrong"
+    }
+]

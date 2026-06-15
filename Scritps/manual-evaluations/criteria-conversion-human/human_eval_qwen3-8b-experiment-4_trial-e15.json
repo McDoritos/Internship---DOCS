@@ -1,0 +1,90 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "The last dose of previous therapy targeting rearranged during transfection (RET) kinase must be given at least 4 weeks prior to the first dose of ponatinib.",
+        "logic": {
+            "field": "last_ret_therapy_date",
+            "operator": ">=",
+            "value": "4 weeks prior"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'last_ret_therapy_date' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments and their timing.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Previous treatment with cytotoxic chemotherapy, immunotherapy, or radiotherapy are permitted, if the last dose was given at least 4 weeks prior to the first dose of ponatinib",
+        "logic": {
+            "field": "previous_treatment",
+            "operator": "IN",
+            "value": "cytotoxic chemotherapy, immunotherapy, or radiotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the timing of the previous treatment, specifically the 4-week washout period prior to the first dose of ponatinib, which is a crucial aspect of the original criterion. It should use the 'treatments' field with 'end_date' to capture this information.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Patient must have failed (progressed on or been intolerant of) prior treatment with cabozantinib and vandetanib.",
+        "logic": {
+            "field": "prior_treatment_failure",
+            "operator": "IN",
+            "value": "cabozantinib and vandetanib"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_treatment_failure' instead of the 'treatments' field, which is the appropriate schema field for prior treatment information.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "Aspartate aminotransferase (AST) serum glutamic oxaloacetic transaminase(SGOT)/alanine aminotransferase (ALT) serum glutamic pyruvic transaminase (SGPT) < 2.5 times institutional ULN or < 5 times ULN if liver involvement",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ast",
+                    "operator": "<",
+                    "value": "2.5 times institutional ULN"
+                },
+                {
+                    "field": "alt",
+                    "operator": "<",
+                    "value": "2.5 times institutional ULN or 5 times ULN if liver involvement"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not accurately capture the condition for liver involvement, which should be a separate condition for ALT with a value of '5 times ULN' when liver involvement is present, rather than being combined with the '2.5 times ULN' condition.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Patients who are receiving any other investigational agent.",
+        "logic": {
+            "field": "investigational_agent",
+            "operator": "IN",
+            "value": "any"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to treatment history, but the model used a custom field 'investigational_agent' instead of the 'treatments' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 34,
+        "type": "exclusion",
+        "text": "Major surgery (with the exception of minor surgical procedures, such as catheter placement or tumor biopsy) within 28 days prior to the first dose of ponatinib",
+        "logic": {
+            "field": "major_surgery",
+            "operator": "<=",
+            "value": "28 days"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'major_surgery' instead of the 'treatments' field, which is the appropriate schema field for prior treatments or surgical procedures.",
+        "human_classification": "partial"
+    }
+]

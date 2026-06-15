@@ -10,7 +10,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+            "explanation": "The logic rule correctly maps the original criterion to the 'age' field with the appropriate operator and value, and the criterion does not restrict gender, which is correctly not included in the logic rule."
         }
     },
     {
@@ -33,7 +33,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion using the correct schema field 'diagnosis' and preserves the meaning with the correct operator and values."
+            "explanation": "The logic rule correctly maps the diagnosis criterion to the 'diagnosis' field and uses the 'IN' operator to include the specified tumor types."
         }
     },
     {
@@ -58,7 +58,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly uses the 'treatment_name' schema field and accurately represents the original criterion, which excludes patients receiving any anti-tumor treatment before surgery."
+            "explanation": "The logic rule correctly implements the original criterion by checking if the patient is not receiving any of the specified anti-tumor treatments before surgery, using a NOT_IN operator with the correct treatment names."
         }
     },
     {
@@ -67,8 +67,8 @@
         "text": "No obvious surgical contraindications;",
         "logic": null,
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which does not accurately represent the original criterion."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not correspond to any schema field and refers to a clinical concept, so using a custom field or null is acceptable."
         }
     },
     {
@@ -80,8 +80,8 @@
             "field": "compliance_status"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses a custom field 'compliance_status' instead of a more specific schema field, but the meaning is partially preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept (compliance with research plans) not represented in the schema, and the logic rule accurately captures this concept using a custom field."
         }
     },
     {
@@ -94,7 +94,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the original criterion, using a suitable field and operator to represent voluntary participation and signed informed consent."
+            "explanation": "The logic rule correctly captures the concept of informed consent, which is not explicitly represented in the schema fields, making the use of a custom field acceptable."
         }
     },
     {
@@ -117,7 +117,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly uses the 'diagnosis' schema field, preserves the original meaning, and accurately implements the exclusion criterion using the NOT_IN operator."
+            "explanation": "The logic rule correctly uses the 'diagnosis' field and inverts the condition using 'NOT_IN' to match the exclusion criterion, which excludes patients with specific pancreatic tumor diagnoses."
         }
     },
     {
@@ -138,8 +138,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'cancer_history' instead of the allowed schema field 'diagnosis' or 'molecular_status', but the logic accuracy is preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly implements the exclusion criterion by checking if the patient's cancer history is not active or does not have a history of cancer, which aligns with the original criterion."
         }
     },
     {
@@ -151,8 +151,8 @@
             "field": "familial_syndrome_status"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'familial_syndrome_status' instead of the allowed schema field 'diagnosis' which could potentially map to familial syndromes."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly maps to a custom field, as the criterion refers to a clinical concept (familial syndromes) not represented in the schema."
         }
     },
     {
@@ -177,7 +177,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule uses the correct schema field 'treatment_name', but it does not account for the timing of the treatment ('before surgery') and the condition is not explicitly negated as required for an exclusion criterion."
+            "explanation": "The logic rule uses a custom field 'treatment_name' instead of the schema field 'treatments' which is the correct field to represent prior treatments. However, the meaning of the original criterion is partially preserved."
         }
     },
     {
@@ -200,8 +200,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used custom fields 'infection_status' and 'anti_inflammation_therapy' instead of schema fields or normalized lab fields, and the logic for 'anti_inflammation_therapy' is incorrect as it should be checking for therapy within 14 days prior to study blood draw, not greater than or equal to 14."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion. The condition for anti-inflammation therapy should be checking if the therapy was received within 14 days prior to the study blood draw, not if it is greater than or equal to 14. Additionally, the field 'infection_status' is not a standard schema field, but in this case, it is acceptable as 'ongoing fever' does not correspond to any schema field."
         }
     },
     {
@@ -215,7 +215,7 @@
         },
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is using a custom field 'blood_transfusion_status' and an incorrect operator '>=' which implies the number of days since the last blood transfusion is greater than or equal to 30, whereas the original criterion requires the blood transfusion to be within 30 days prior to the study blood draw."
+            "explanation": "The logic rule is incorrect because it checks if the blood transfusion status is greater than or equal to 30, which does not accurately represent the original criterion. The original criterion states that the recipient should not have received a blood transfusion within 30 days prior to the study blood draw, implying a need for a 'less than' or 'within' type operator and a custom field for 'days since last blood transfusion' or a similar concept."
         }
     },
     {
@@ -228,8 +228,8 @@
             "value": "active"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'transplant_status' instead of a schema field, but the logic accuracy and structure are mostly preserved."
+            "classification": "likely_wrong",
+            "explanation": "The logic rule does not accurately represent the original criterion. The original criterion mentions 'recipient of organ transplant or prior non-autologous (allogeneic) bone marrow or stem cell transplant', but the logic rule only checks for 'transplant_status' being 'active', which does not fully capture the meaning of the original criterion."
         }
     },
     {
@@ -239,7 +239,7 @@
         "logic": null,
         "evaluation": {
             "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which means it does not provide any condition to evaluate the exclusion criterion, resulting in a completely incorrect representation of the original criterion."
+            "explanation": "The logic rule is null, which means it does not accurately represent the original criterion. The original criterion refers to a poor health condition and suitability for blood draw, which cannot be mapped to any schema field, but the logic rule should still be able to capture this information using a custom field."
         }
     },
     {
@@ -248,8 +248,8 @@
         "text": "Any other disease/condition deemed not suitable for study enrollment by researcher.",
         "logic": null,
         "evaluation": {
-            "classification": "likely_wrong",
-            "explanation": "The logic rule is null, which does not accurately represent the original criterion, and does not evaluate to TRUE when the exclusion condition is present."
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a clinical concept not represented in the schema and is administrative or procedural, making it acceptable to not use a schema field."
         }
     }
 ]

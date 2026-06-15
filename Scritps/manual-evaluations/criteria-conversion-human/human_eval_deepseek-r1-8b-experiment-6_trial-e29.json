@@ -1,0 +1,60 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Adults, aged 18 through 75 years of age, with pathologically confirmed acute myelogenous leukemia, in pathologically confirmed complete remission following anti-leukemic therapy.",
+        "logic": {
+            "field": "age",
+            "operator": "IN",
+            "value": [
+                "18",
+                "75"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for the age criterion, but misses the diagnosis and treatment aspects of the original criterion, such as acute myelogenous leukemia and complete remission following anti-leukemic therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have a diagnosis of high-risk AML as established by a poor-risk karyotype, adverse risk by ELN criteria, a therapy-related AML, age ≥ 60 or with antecedent hematologic disorder",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "AML"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the diagnosis of AML, but misses other important conditions such as poor-risk karyotype, adverse risk by ELN criteria, therapy-related AML, age ≥ 60, and antecedent hematologic disorder.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Must not have received systemic anti-neoplastic therapy, including radiotherapy within 14 days of study treatment.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "!=",
+            "value": "within_14_days"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_therapy' instead of the schema field 'treatments' which is more suitable for representing prior therapy information, including radiotherapy and systemic anti-neoplastic therapy.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Haploidentical 1st-degree relative as defined by 3/6 or 4/6 HLA-matched at HLA -A, -B, or -DRB1 who is 18-70 years of age",
+        "logic": {
+            "field": "donor_age",
+            "operator": "IN",
+            "value": [
+                "18",
+                "70"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers the age of the donor, but the original criterion also specifies the HLA-matching requirement and the relationship with the patient (1st-degree relative), which are not captured in the logic rule.",
+        "human_classification": "partial"
+    }
+]

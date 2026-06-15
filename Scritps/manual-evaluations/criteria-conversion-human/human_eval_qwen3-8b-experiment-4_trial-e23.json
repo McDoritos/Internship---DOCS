@@ -1,0 +1,89 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Men or women at least 18 years of age with histologically or cytologically confirmed adenocarcinoma of the breast with unresectable or metastatic disease.",
+        "logic": {
+            "field": "gender",
+            "operator": "IN",
+            "value": [
+                "male",
+                "female"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only addresses the gender aspect of the criterion, missing the age and diagnosis components.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Scenario 2: the patient must have received an aromatase inhibitor (letrozole, arimidex, exemestane) or tamoxifen or fulvestrant plus palbociclib as standard of care or received a CDK4/6 inhibitor (palbociclib or ribociclib or abemaciclib), and demonstrated evidence of disease progression.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "prior_therapy",
+                    "operator": "IN",
+                    "value": [
+                        "aromatase inhibitor",
+                        "tamoxifen",
+                        "fulvestrant"
+                    ]
+                },
+                {
+                    "field": "cdk4_6_inhibitor",
+                    "operator": "IN",
+                    "value": [
+                        "palbociclib",
+                        "ribociclib",
+                        "abemaciclib"
+                    ]
+                },
+                {
+                    "field": "progression",
+                    "operator": "=",
+                    "value": "disease progression"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion. It mentions 'prior_therapy' and 'cdk4_6_inhibitor' as separate conditions, but the original criterion allows for combinations of these therapies. Additionally, 'fulvestrant plus palbociclib' is not explicitly represented in the logic rule. The 'treatments' field from the schema would be more suitable to represent the complex treatment history described in the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "If the patient was enrolled in a randomized clinical trial involving ribociclib or abemaciclib or palbociclib (such as the MONALEESA or PALOMA series of trials), then it must be known after study discontinuation and unblinding that the patient received the investigational drug and not placebo.",
+        "logic": {
+            "field": "prior_trial",
+            "operator": "IN",
+            "value": [
+                "ribociclib",
+                "abemaciclib",
+                "palbociclib"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only checks if the patient was in a trial involving the specified drugs, but it does not verify if the patient received the investigational drug and not placebo after study discontinuation and unblinding.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 8,
+        "type": "exclusion",
+        "text": "Completion of major surgery, chemotherapy, targeted therapy (such as everolimus or experimental agents) or radiation within 14 days prior to starting investigational drug or has not recovered from major side effects.",
+        "logic": {
+            "field": "recent_treatment",
+            "operator": "IN",
+            "value": [
+                "major surgery",
+                "chemotherapy",
+                "targeted therapy",
+                "radiation"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'recent_treatment' instead of the schema field 'treatments' which is more suitable for this criterion. Additionally, the logic rule does not account for the time frame (within 14 days) and recovery from major side effects mentioned in the original criterion.",
+        "human_classification": "partial"
+    }
+]

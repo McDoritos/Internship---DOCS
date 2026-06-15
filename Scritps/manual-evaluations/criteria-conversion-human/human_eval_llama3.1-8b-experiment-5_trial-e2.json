@@ -1,0 +1,122 @@
+[
+    {
+        "id": "2",
+        "type": "inclusion",
+        "text": "Patient who completed surgery for his breast cancer and for which definitive histo-pathological analysis of surgical specimen is available.",
+        "logic": {
+            "field": "treatment_start_date",
+            "operator": ">",
+            "value": null,
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "breast cancer surgery"
+                },
+                {
+                    "field": "histopathological_analysis_status",
+                    "operator": "=",
+                    "value": "definitive"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses 'treatment_start_date' which is not the most appropriate field for this criterion. It should use 'treatments' with 'name' as 'surgery' and 'diagnosis' as 'breast cancer' to better represent the completion of surgery for breast cancer. Additionally, 'histopathological_analysis_status' is not a defined schema field, but using a custom field for this is acceptable. However, the logic does not fully capture the meaning of the original criterion, which requires the availability of definitive histo-pathological analysis of the surgical specimen.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": "3",
+        "type": "inclusion",
+        "text": "Invasive breast carcinoma pN0 or pN(i+) with histological tumor size ≤ 10 mm (pT1a/b subgroup).",
+        "logic": {
+            "field": "tumor_size_mm",
+            "operator": "<=",
+            "value": "10"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers tumor size, but the original criterion also mentions invasive breast carcinoma, pN0 or pN(i+), and histological tumor size ≤ 10 mm (pT1a/b subgroup), which are not fully represented in the logic rule. The diagnosis field should be used to represent the type of cancer.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "4",
+        "type": "inclusion",
+        "text": "Invasive breast carcinoma with histological tumor size > 10 mm and ≤ 30 mm (pT1c T2 ≤ 30 mm control group).",
+        "logic": {
+            "field": "tumor_size_mm",
+            "operator": "<=",
+            "value": "30"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers the upper bound of the tumor size (≤ 30 mm), but misses the lower bound (> 10 mm) and the specific diagnosis (invasive breast carcinoma).",
+        "human_classification": "wrong"
+    },
+    {
+        "id": "5",
+        "type": "inclusion",
+        "text": "Patient with HER2-negative breast carcinoma: immuno-histochemistry (IHC) score = 0, 1+ or 2+ and in situ hybridization (FISH, CISH, or SISH) negative (local laboratory testing).",
+        "logic": {
+            "field": "ihc_score",
+            "operator": "IN",
+            "value": [
+                "0",
+                "1+",
+                "2+"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for the IHC score, but misses the condition of FISH, CISH, or SISH being negative, which is also crucial for determining HER2-negative status.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "6",
+        "type": "inclusion",
+        "text": "Patient with ER and PR negative invasive carcinoma (< 1% stained cells by immuno-histochemistry assay) (local laboratory testing).",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "PR-negative"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for PR-negative status, but the original criterion also mentions ER-negative status, which is not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "7",
+        "type": "inclusion",
+        "text": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup.",
+        "logic": {
+            "field": "tumor_size_mm",
+            "operator": "<=",
+            "value": "30"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which mentions two different size limits (≤ 10 mm or ≤ 30 mm) depending on the case of multifocality, and refers to the histological size of the largest tumor. The provided logic rule only accounts for a single size limit (≤ 30 mm) without considering the multifocality condition or the alternative size limit.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": "8",
+        "type": "inclusion",
+        "text": "In case of multifocality, all lesions must be ER, PR and HER2-negative.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "PR-negative"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for PR-negative status, but the original criterion also requires ER and HER2-negative status for all lesions in case of multifocality.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "16",
+        "type": "exclusion",
+        "text": "Patients who received neo-adjuvant treatment (radiotherapy or chemotherapy or other before surgery).",
+        "logic": {
+            "field": "neo_adjuvant_treatment_status",
+            "operator": "=",
+            "value": "received"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions specific treatments (radiotherapy and chemotherapy) which should be mapped to the 'treatments' field, but a custom field 'neo_adjuvant_treatment_status' is used instead.",
+        "human_classification": "partial"
+    }
+]

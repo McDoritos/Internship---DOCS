@@ -1,0 +1,35 @@
+[
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have taken an investigational medical product for prostate cancer from Jan 1st , 2014 to Dec 31st 2020.",
+        "logic": {
+            "operator": "=",
+            "conditions": [
+                {
+                    "field": "treatment",
+                    "operator": "=",
+                    "value": "investigational medical product"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "prostate cancer"
+                },
+                {
+                    "field": "treatment_start_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "treatment_end_date",
+                    "operator": "<=",
+                    "value": "2020-12-31"
+                }
+            ]
+        },
+        "auto_classification": "error",
+        "auto_explanation": "Invalid JSON returned by LLM",
+        "human_classification": "correct"
+    }
+]

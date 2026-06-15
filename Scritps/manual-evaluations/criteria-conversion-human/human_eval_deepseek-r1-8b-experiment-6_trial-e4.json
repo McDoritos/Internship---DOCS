@@ -1,0 +1,93 @@
+[
+    {
+        "id": 15,
+        "type": "inclusion",
+        "text": "Has confirmed HER2 negative breast cancer.",
+        "logic": {
+            "field": "custom_her2_status",
+            "operator": "=",
+            "value": "negative"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions a specific molecular status (HER2 negative), which should be mapped to the 'molecular_status' field instead of a custom field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "Must have received endocrine therapy (aromatase inhibitor or fulvestrant as single agent or in combination with other agents) as last line of therapy with progressive disease, as determined by treating physician.",
+        "logic": {
+            "field": "custom_last_therapy",
+            "operator": "=",
+            "value": "progressive_disease"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field for last line of therapy, but it should use the 'treatments' field with specific details about the therapy (e.g., endocrine therapy, aromatase inhibitor, or fulvestrant) and the disease progression. The rule also lacks information about the progressive disease determination by the treating physician.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 27,
+        "type": "inclusion",
+        "text": "Patient must have received treatment with a CDK4/6 inhibitor for breast cancer in the metastatic setting.",
+        "logic": {
+            "field": "custom_cdk4_6_inhibitor",
+            "operator": "=",
+            "value": "received"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions a specific treatment (CDK4/6 inhibitor) and disease (breast cancer), which should be mapped to the 'treatments' and 'diagnosis' schema fields, respectively. However, a custom field 'custom_cdk4_6_inhibitor' is used instead.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 37,
+        "type": "inclusion",
+        "text": "HIV-infected patients on effective anti-retroviral therapy with undetectable viral load within 6 months of registration are eligible for this trial.",
+        "logic": {
+            "field": "custom_hiv_status",
+            "operator": "=",
+            "value": "undetectable_viral_load"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field for HIV status, but it does not account for the effective anti-retroviral therapy and the 6-month time frame mentioned in the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 38,
+        "type": "exclusion",
+        "text": "Patients with prior chemotherapy for metastatic or advanced disease.",
+        "logic": {
+            "field": "custom_chemotherapy",
+            "operator": "=",
+            "value": "prior"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions prior chemotherapy, which should be mapped to the 'treatments' field, but a custom field 'custom_chemotherapy' is used instead.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 44,
+        "type": "exclusion",
+        "text": "Radiotherapy to index lesion <= 4 weeks or limited field radiation to index lesion for palliation <= 2 weeks prior to randomization.",
+        "logic": {
+            "field": "custom_radiotherapy",
+            "operator": "=",
+            "value": "recent"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to prior radiotherapy, which should be mapped to the 'treatments' field, but a custom field 'custom_radiotherapy' is used instead.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 57,
+        "type": "exclusion",
+        "text": "Prior treatment with PI3K, mTOR or AKT inhibitor in the metastatic setting.",
+        "logic": {
+            "field": "custom_pi3k_mtor_ak inhibitor",
+            "operator": "=",
+            "value": "prior"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to prior treatment with specific drugs, which should be mapped to the 'treatments' field instead of a custom field.",
+        "human_classification": "partial"
+    }
+]

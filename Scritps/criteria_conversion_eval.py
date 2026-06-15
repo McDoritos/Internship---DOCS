@@ -39,49 +39,117 @@ Classify the rule as:
 - "partial"
 - "likely_wrong"
 
-Evaluation rules:
+===========================================================
+FULL SCHEMA FIELD DEFINITIONS (IMPORTANT)
+===========================================================
 
-1. FIELD SELECTION (IMPORTANT)
-- If the criterion can be mapped to one of the allowed schema fields, the rule MUST use that field.
-- If the model used a custom field when a schema field exists → classify as "partial".
-- If the model used a synonym instead of the normalized lab field → classify as "partial".
-- If the model used a schema field incorrectly (wrong meaning) → classify as "likely_wrong".
-- If the model used a custom field AND no schema field exists → this is acceptable → not penalized.
+Use these definitions to decide whether a criterion CAN or CANNOT be mapped to a schema field.
 
-Allowed schema fields:
-age, gender, diagnosis, stage, ecog_ps, molecular_status,
-diagnosis_date, treatment, treatment_name,
-treatment_start_date, treatment_end_date,
-progression_date, death_date, control
+PATIENT FIELDS
+--------------
+- age: Age or date of birth. Only used when the criterion explicitly mentions age or age ranges.
+- gender: Only used when the criterion explicitly restricts male/female participants.
+- ecog_ps: ECOG Performance Status (0–5). Only used when the criterion mentions performance status.
+- diagnosis: The primary medical diagnosis (e.g., cancer type). Only used when the criterion refers to a specific disease.
+- diagnosis_date: Only used when the criterion refers to timing of diagnosis.
+- molecular_status: Biomarkers or mutations (e.g., PD‑L1, EGFR, ALK, ROS1).
+- stage: Cancer staging (TNM or overall stage).
 
-Normalized lab fields:
-leucocitos, neutrofilos, neutrofilos_percent,
-linfocitos, linfocitos_percent,
-monocitos, monocitos_percent,
-eosinofilos, eosinofilos_percent,
-basofilos, basofilos_percent,
-eritrocitos, hemoglobina, hematocrito,
-vc_medio, hcm, chcm, rdw,
-plaquetas, vpm, plaquetocrito, pdw,
-glicose, azoto_ureico, creatinina,
-sodio, potassio, proteinas_totais, albumina,
-calcio, osmolalidade, ldh, ast, alt,
-fosfatase_alcalina, gama_gt, bilirrubina_total,
-creatina_cinase
+TREATMENT FIELDS
+----------------
+- treatments: A list of treatments the patient received.
+  Each treatment object has the following fields:
+    - name: e.g., Pembrolizumab, Radiotherapy, Carboplatin + Paclitaxel
+    - start_date: YYYY-MM-DD
+    - end_date: YYYY-MM-DD or null if ongoing
 
-2. LOGIC ACCURACY
-- If meaning is preserved and operators/values are correct → "very_likely_correct" (if fields are correct) or "partial" (if fields are imperfect).
-- If meaning is partially preserved → "partial".
-- If meaning is incorrect or inverted → "likely_wrong".
+Use these fields ONLY when the criterion refers to:
+- prior treatments
+- specific drugs
+- chemotherapy
+- radiotherapy
+- immunotherapy
+- treatment duration
+- treatment cycles
+- treatment washout periods
 
-3. EXCLUSION SEMANTICS
-- For exclusion criteria, the logic must evaluate TRUE when the exclusion condition is present.
+CONTROL FIELD
+-------------
+- control: Information about disease control, metastases, comorbidities, or clinical follow‑up details.
+
+===========================================================
+WHEN *NOT* USING A SCHEMA FIELD IS CORRECT
+===========================================================
+
+Do NOT penalize the model (do NOT classify as partial) when:
+
+1. The criterion does not correspond to ANY schema field.
+   Examples:
+   - “Ability to swallow oral medication”
+   - “No active infection”
+   - “Adequate organ function”
+   - “No uncontrolled hypertension”
+   - “No pregnancy or breastfeeding”
+   - “No autoimmune disease”
+   - “No CNS involvement”
+   - “No hypersensitivity to study drug”
+   - “Life expectancy > 3 months”
+   - “Willingness to provide consent”
+   - “Able to comply with study visits”
+
+2. The criterion refers to a clinical concept NOT represented in the schema.
+
+3. The criterion is administrative or procedural.
+
+4. The criterion refers to laboratory values NOT included in the normalized lab list.
+
+5. The criterion refers to pregnancy, contraception, breastfeeding, or fertility.
+
+In all these cases, using a custom field is acceptable → classify as "very_likely_correct" if the logic matches the meaning.
+
+===========================================================
+WHEN NOT USING A SCHEMA FIELD *IS* A MISTAKE
+===========================================================
+
+Classify as "partial" ONLY when:
+
+1. A schema field clearly applies AND the model used a custom field instead.
+   Examples:
+   - Criterion mentions age → must use age_or_birthdate
+   - Criterion mentions ECOG → must use ecog_ps
+   - Criterion mentions a specific cancer → must use diagnosis
+   - Criterion mentions stage → must use stage
+   - Criterion mentions PD‑L1, EGFR, ALK → must use molecular_status
+   - Criterion mentions treatment history → must use treatments
+
+2. The model used a synonym instead of a normalized lab field.
+
+===========================================================
+LOGIC ACCURACY
+===========================================================
+
+- Meaning preserved → "very_likely_correct" (if fields correct) or "partial" (if fields imperfect).
+- Meaning partially preserved → "partial".
+- Meaning incorrect, inverted or missing significant information that it doesn't maintain its meaning → "likely_wrong".
+
+===========================================================
+EXCLUSION SEMANTICS
+===========================================================
+
+- Exclusion criteria must evaluate TRUE when the exclusion condition is present.
 - If inverted → "likely_wrong".
 
-4. STRUCTURE
+===========================================================
+STRUCTURE
+===========================================================
+
 - JSON must be coherent.
 - Boolean structure must be explicit.
 - Structural issues → "partial" unless completely invalid → "likely_wrong".
+
+===========================================================
+OUTPUT FORMAT
+===========================================================
 
 Output ONLY:
 {{
@@ -98,6 +166,7 @@ ORIGINAL:
 LOGIC:
 {logic}
 """
+
 
 def evaluate_rule(criterion_text, logic_json, ctype):
     prompt = PROMPT_TEMPLATE.format(

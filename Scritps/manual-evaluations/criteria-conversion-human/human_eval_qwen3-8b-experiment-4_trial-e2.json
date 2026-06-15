@@ -1,0 +1,46 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Invasive breast carcinoma pN0 or pN(i+) with histological tumor size ≤ 10 mm (pT1a/b subgroup).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "invasive breast carcinoma"
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": [
+                        "pN0",
+                        "pN(i+)"
+                    ]
+                },
+                {
+                    "field": "tumor_size_mm",
+                    "operator": "<=",
+                    "value": "10"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'tumor_size_mm' instead of a schema field, and the field 'stage' is used incorrectly as it should be 'pT1a/b subgroup' which is not directly represented in the schema. However, the meaning is partially preserved.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Patients who received neo-adjuvant treatment (radiotherapy or chemotherapy or other before surgery).",
+        "logic": {
+            "field": "neo_adjuvant_treatment",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions specific treatments (radiotherapy or chemotherapy) which should be mapped to the 'treatments' field, but a custom field 'neo_adjuvant_treatment' is used instead.",
+        "human_classification": "partial"
+    }
+]

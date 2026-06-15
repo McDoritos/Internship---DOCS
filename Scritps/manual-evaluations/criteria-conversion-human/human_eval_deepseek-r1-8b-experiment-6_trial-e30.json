@@ -1,0 +1,184 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women who have high-grade serous ovarian, primary peritoneal or fallopian tube cancer.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "high-grade serous ovarian cancer"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only mentions 'high-grade serous ovarian cancer', but the original criterion also includes 'primary peritoneal or fallopian tube cancer', which is not accounted for in the logic rule.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women who have high-grade serous ovarian, primary peritoneal or fallopian tube cancer.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "primary peritoneal cancer"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially matches the original criterion, as it only includes 'primary peritoneal cancer' and does not account for 'high-grade serous ovarian' or 'fallopian tube cancer'.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women who have high-grade serous ovarian, primary peritoneal or fallopian tube cancer.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "fallopian tube cancer"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for fallopian tube cancer, but the original criterion also includes high-grade serous ovarian and primary peritoneal cancer.",
+        "human_classification": "correct"
+    },
+    {
+        "id": "Cohort 1",
+        "type": "inclusion",
+        "text": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+        "logic": {
+            "field": "disease_status",
+            "operator": "=",
+            "value": "platinum-resistant"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the 'platinum-resistant disease' part of the criterion, but misses the 'documented test results assessing alterations in the BRCA1 and BRCA2 genes' part, which should be represented using the molecular_status field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "Cohort 2",
+        "type": "inclusion",
+        "text": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+        "logic": {
+            "field": "disease_status",
+            "operator": "=",
+            "value": "platinum-resistant"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the 'platinum-resistant disease' part of the criterion, but misses the 'documented test results assessing alterations in the BRCA1 and BRCA2 genes' part, which should be represented using the molecular_status field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": "Cohort 3",
+        "type": "inclusion",
+        "text": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+        "logic": {
+            "field": "disease_status",
+            "operator": "=",
+            "value": "platinum-resistant"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the 'platinum-resistant disease' part of the criterion, but misses the 'documented test results assessing alterations in the BRCA1 and BRCA2 genes' part, which should be represented using the molecular_status field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": "Cohort 1",
+        "type": "inclusion",
+        "text": "Are BRCA negative and have received 3 or more prior lines of therapy.",
+        "logic": {
+            "field": "brca_status",
+            "operator": "=",
+            "value": "negative"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for the BRCA negative status, but misses the condition of having received 3 or more prior lines of therapy, which should be represented using the 'treatments' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "Cohort 2",
+        "type": "inclusion",
+        "text": "Are BRCA negative and have received less than 3 prior lines of therapy.",
+        "logic": {
+            "field": "brca_status",
+            "operator": "=",
+            "value": "negative"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for the BRCA status, but misses the condition of having received less than 3 prior lines of therapy, which should be represented using the 'treatments' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "Cohort 3",
+        "type": "inclusion",
+        "text": "Are BRCA positive and have previously received a PARP.",
+        "logic": {
+            "field": "brca_status",
+            "operator": "=",
+            "value": "positive"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the BRCA positive status, but misses the condition of previously receiving a PARP, which should be represented using the 'treatments' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "Cohort 1",
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "field": "previous_drug_therapy",
+            "operator": "IN",
+            "value": "gemcitabine, pegylated liposomal doxorubicin, paclitaxel"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_drug_therapy' instead of the schema field 'treatments' which is more suitable for representing prior treatments. Additionally, the logic rule does not explicitly capture the 'platinum-resistant setting' condition mentioned in the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "Cohort 2",
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "field": "previous_drug_therapy",
+            "operator": "IN",
+            "value": "gemcitabine, pegylated liposomal doxorubicin, paclitaxel"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_drug_therapy' instead of the schema field 'treatments' which is more suitable for representing prior treatments. Additionally, the logic rule does not explicitly capture the 'platinum-resistant setting' condition mentioned in the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": "Cohort 3",
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "field": "previous_drug_therapy",
+            "operator": "IN",
+            "value": "gemcitabine, pegylated liposomal doxorubicin, paclitaxel"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_drug_therapy' instead of the schema field 'treatments' which is more suitable for representing prior treatments. Additionally, the logic rule does not explicitly capture the 'platinum-resistant setting' condition mentioned in the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have previously participated in any study involving a checkpoint kinase 1 inhibitor or have hypersensitivity to the study drug or excipients.",
+        "logic": {
+            "field": "previous_study_participation",
+            "operator": "=",
+            "value": "checkpoint kinase 1 inhibitor"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which also mentions hypersensitivity to the study drug or excipients, but this information is not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have a history of prior radiotherapy to the whole pelvis.",
+        "logic": {
+            "field": "radiation_status",
+            "operator": "=",
+            "value": "whole pelvis"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to prior radiotherapy, which should be mapped to the 'treatments' field, but the logic rule uses a custom 'radiation_status' field instead.",
+        "human_classification": "partial"
+    }
+]

@@ -1,0 +1,106 @@
+[
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Are BRCA negative and have received 3 or more prior lines of therapy.",
+        "logic": {
+            "field": "brca_status",
+            "operator": "NOT_IN",
+            "value": "BRCA1 alteration,BRCA2 alteration"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only addresses the BRCA status, but misses the information about receiving 3 or more prior lines of therapy, which should be represented using the 'treatments' field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Are BRCA negative and have received less than 3 prior lines of therapy.",
+        "logic": {
+            "field": "brca_status",
+            "operator": "NOT_IN",
+            "value": "BRCA1 alteration,BRCA2 alteration"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only addresses the BRCA status, but misses the information about the number of prior lines of therapy, which is also part of the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Are BRCA positive and have previously received a PARP.",
+        "logic": {
+            "field": "brca_status",
+            "operator": "IN",
+            "value": "BRCA1 alteration,BRCA2 alteration"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for BRCA status, but misses the condition of previously receiving a PARP, which should be included in the 'treatments' field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "field": "previous_agents",
+            "operator": "IN",
+            "value": "gemcitabine,pegylated liposomal doxorubicin,paclitaxel"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_agents' instead of the 'treatments' field, which is the appropriate schema field for prior treatments. The logic also does not account for the platinum-resistant setting.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 12,
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "field": "previous_agents",
+            "operator": "IN",
+            "value": "gemcitabine,pegylated liposomal doxorubicin,paclitaxel"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_agents' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "field": "previous_agents",
+            "operator": "IN",
+            "value": "gemcitabine,pegylated liposomal doxorubicin,paclitaxel"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_agents' instead of the 'treatments' field, which is the appropriate schema field for prior treatments. The logic also does not account for the platinum-resistant setting.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 15,
+        "type": "exclusion",
+        "text": "Have previously participated in any study involving a checkpoint kinase 1 inhibitor or have hypersensitivity to the study drug or excipients.",
+        "logic": {
+            "field": "previous_studies",
+            "operator": "IN",
+            "value": "checkpoint kinase 1 inhibitor"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which also mentions hypersensitivity to the study drug or excipients, but this part is not included in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Have a history of prior radiotherapy to the whole pelvis.",
+        "logic": {
+            "field": "radiotherapy_history",
+            "operator": "=",
+            "value": "whole pelvis"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to prior radiotherapy, which should use the 'treatments' field with a 'name' of 'Radiotherapy' and possibly 'start_date' and 'end_date', instead of a custom 'radiotherapy_history' field.",
+        "human_classification": "partial"
+    }
+]

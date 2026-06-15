@@ -1,0 +1,67 @@
+[
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Have ErbB2-positive cancer as determined by Fluorescence In Situ Hybridization (FISH) assay.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "ErbB2-positive"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses the 'diagnosis' field, but the original criterion specifically mentions 'ErbB2-positive cancer as determined by Fluorescence In Situ Hybridization (FISH) assay', which should be mapped to 'molecular_status' field for the biomarker information and 'diagnosis' for the cancer type.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Any chemotherapy, major surgery, or irradiation must have been completed at least 3 weeks prior to receiving study drug (6 weeks for mitomycin-C or nitrosourea) and subject must have recovered from all toxicities incurred as a result of previous therapy.",
+        "logic": {
+            "field": "previous_therapy_completion",
+            "operator": ">=",
+            "value": "3 weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes specific time frames for different types of therapy (6 weeks for mitomycin-C or nitrosourea) and requires recovery from all toxicities. A more accurate representation would involve using the 'treatments' field with specific conditions for each type of therapy and including a condition for recovery from toxicities.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 22,
+        "type": "inclusion",
+        "text": "aspartate aminotransferase/alanine aminotransferase <3 x ULN if no documented liver metastases",
+        "logic": {
+            "field": "ast",
+            "operator": "<",
+            "value": "3"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers aspartate aminotransferase (AST) and does not account for alanine aminotransferase (ALT) or the condition of no documented liver metastases.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "aspartate aminotransferase/alanine aminotransferase <5 x ULN with documented liver metastases",
+        "logic": {
+            "field": "alt",
+            "operator": "<",
+            "value": "5"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers ALT, but the original criterion mentions both aspartate aminotransferase (AST) and alanine aminotransferase (ALT) and also includes the condition of documented liver metastases, which is not represented in the logic rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Subjects who have had chemotherapy or radiotherapy within 3 weeks prior to entering the study or who have unresolved or unstable, serious toxicity from prior administration of another investigational drug and/or of prior cancer treatment.",
+        "logic": {
+            "field": "previous_therapy_completion",
+            "operator": "<",
+            "value": "3 weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which mentions both chemotherapy and radiotherapy, as well as unresolved or unstable toxicity from prior treatments. The rule should include multiple conditions and use the 'treatments' field to accurately represent the criterion.",
+        "human_classification": "partial"
+    }
+]

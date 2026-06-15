@@ -1,0 +1,178 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Multifocal unilateral or bilateral breast adenocarcinoma tumours are allowed if all tested HER2-positive, according to local testing",
+        "logic": {
+            "field": "tumour_type",
+            "operator": "=",
+            "value": "multifocal unilateral or bilateral breast adenocarcinoma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the HER2-positive status, which is a crucial part of the original criterion. It should include a field for molecular_status with a value of 'HER2-positive'.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Prior treatment with taxane, trastuzumab and pertuzumab (early or advanced setting) and T-DXd (metastatic setting).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": [
+                        "taxane",
+                        "trastuzumab",
+                        "pertuzumab"
+                    ]
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": [
+                        "T-DXd"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which mentions specific settings for the treatments (early or advanced for taxane, trastuzumab, and pertuzumab, and metastatic for T-DXd). The rule also does not account for the timing of the treatments.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "In order to be eligible, patients subjects must have received T-DXd as the last systemic metastatic treatment line before inclusion, and presented disease progression on this drug.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": [
+                "T-DXd"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which requires patients to have received T-DXd as the last systemic metastatic treatment line and presented disease progression on this drug. The logic rule only checks if T-DXd is one of the treatments, but does not verify it was the last treatment or that disease progression occurred.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Prior therapy with tucatinib, trastuzumab, and capecitabine, in advanced setting, is permissible, provided that T-DXd serves as the last systemic metastatic treatment line before inclusion, and patient subject presented disease progression on this drug.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": [
+                        "tucatinib",
+                        "trastuzumab",
+                        "capecitabine"
+                    ]
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": [
+                        "T-DXd"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes conditions such as 'in advanced setting', 'last systemic metastatic treatment line before inclusion', and 'disease progression on T-DXd'. The rule only checks for prior therapy with specific drugs, but misses other crucial details.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "Total serum bilirubin ≤ 1.5 x ULN unless the patient subject has documented Gilbert syndrome.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "1.5xULN"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "=",
+                    "value": "Gilbert syndrome"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'bilirrubina_total' instead of a normalized lab field, and the condition for Gilbert syndrome is not properly represented. The correct representation should use a control field for the exception of Gilbert syndrome, and the bilirubin condition should be clearly defined with a normalized lab value.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "For subjects exposed to T-DM1 for the treatment of early BC, subjects must not have relapsed while on or within 12 months of finishing treatment with T-DM1.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": [
+                "T-DM1"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only checks for exposure to T-DM1, but it does not account for the relapse condition within 12 months of finishing treatment, which is a crucial part of the original criterion. A more accurate representation would involve using the 'treatments' field with specific conditions on 'end_date' and possibly a custom field for 'relapse'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Brain metastasis as sole metastasis and/or symptomatic or requiring therapy to control symptoms.",
+        "logic": {
+            "field": "metastasis_type",
+            "operator": "=",
+            "value": "brain"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures 'brain metastasis' but misses the additional conditions 'as sole metastasis', 'symptomatic', and 'requiring therapy to control symptoms' mentioned in the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "History of interstitial lung disease / pneumonitis (grade 3 or 4) during the prior treatment with T-DXd.",
+        "logic": {
+            "field": "lung_disease_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions a specific treatment (T-DXd) and a medical condition (interstitial lung disease/pneumonitis), which should be mapped to the 'treatments' and 'control' or 'diagnosis' fields, but instead uses a custom 'lung_disease_history' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "History of a decrease in LVEF to < 40% or symptomatic CHF with prior trastuzumab treatment (e.g., during preoperative therapy)",
+        "logic": {
+            "field": "lvef_decrease",
+            "operator": "<",
+            "value": "40"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the decrease in LVEF to < 40%, but misses the condition of symptomatic CHF with prior trastuzumab treatment, which is a significant part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 11,
+        "type": "exclusion",
+        "text": "Myocardial infarction within 12 months prior to randomization",
+        "logic": {
+            "field": "mi_history",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to a specific medical event (myocardial infarction) within a certain time frame, which could be represented using the 'control' field or a custom field with more specific details about the timing, but the provided logic rule uses a custom field 'mi_history' without considering the time frame.",
+        "human_classification": "wrong"
+    }
+]

@@ -1,0 +1,38 @@
+[
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "CrCl>50 (if pemetrexed is to be offered)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "creatinine_clearance",
+                    "operator": ">",
+                    "value": "50",
+                    "unit": "ml/min"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "if pemetrexed is to be offered"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule correctly maps the creatinine clearance criterion to a schema field, but it does not properly handle the conditional statement 'if pemetrexed is to be offered', which should be related to the 'treatments' field. The 'unmapped' condition with 'source_text' does not accurately capture the conditional logic.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Patients on immunosuppressive medication, including steroids (if doses exceed equivalent of prednisone 10 mg daily)",
+        "logic": {
+            "field": "immunosuppressive_medication",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'immunosuppressive_medication' instead of the 'treatments' schema field, which is more suitable for representing prior treatments, including immunosuppressive medication.",
+        "human_classification": "correct"
+    }
+]

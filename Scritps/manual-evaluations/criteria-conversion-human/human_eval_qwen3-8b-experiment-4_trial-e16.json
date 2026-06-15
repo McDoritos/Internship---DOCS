@@ -1,0 +1,28 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Not receiving any anti-tumor treatment before surgery, including chemotherapy, embolization, ablation, radiotherapy, and molecular targeted therapy;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "NOT_IN",
+            "value": "chemotherapy, embolization, ablation, radiotherapy, molecular targeted therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment_name' instead of the schema field 'treatments' which is more suitable for representing prior treatments. Additionally, the logic rule does not account for the timing of the treatments (before surgery) as specified in the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "Receiving anti-tumor treatment before surgery, including chemotherapy, embolization, ablation, radiotherapy, and molecular targeted therapy;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "chemotherapy, embolization, ablation, radiotherapy, molecular targeted therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment_name' instead of the schema field 'treatments' which is more suitable for representing prior treatments. Additionally, the logic rule does not account for the timing of the treatment (before surgery) as specified in the original criterion.",
+        "human_classification": "partial"
+    }
+]

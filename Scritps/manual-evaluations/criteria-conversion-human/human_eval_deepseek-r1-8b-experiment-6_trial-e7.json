@@ -1,0 +1,38 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed, Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "IV"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the 'non-squamous or squamous' specification in the original criterion, which could be represented using the molecular_status field or a custom field for histology type.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "No prior treatment for Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "field": "prior_treatment_status",
+            "operator": "NOT_IN",
+            "value": "any"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_treatment_status' instead of the 'treatments' schema field, which is more suitable for representing prior treatment history. Additionally, the rule does not account for the specific cancer type (NSCLC) and stage mentioned in the original criterion, which should be represented using the 'diagnosis' and 'stage' schema fields, respectively.",
+        "human_classification": "wrong"
+    }
+]

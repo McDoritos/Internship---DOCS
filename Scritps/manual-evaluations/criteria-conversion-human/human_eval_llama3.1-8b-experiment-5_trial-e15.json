@@ -1,0 +1,126 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "The last dose of previous therapy targeting rearranged during transfection (RET) kinase must be given at least 4 weeks prior to the first dose of ponatinib.",
+        "logic": {
+            "field": "previous_therapy_ret",
+            "operator": ">=",
+            "value": "4"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_therapy_ret' instead of the 'treatments' field, which is the appropriate schema field for referring to prior treatments. The logic also lacks information about the type of treatment and the timing of the last dose in relation to the first dose of ponatinib.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Previous treatment with cytotoxic chemotherapy, immunotherapy, or radiotherapy are permitted, if the last dose was given at least 4 weeks prior to the first dose of ponatinib",
+        "logic": {
+            "operator": "IN",
+            "conditions": [
+                {
+                    "field": "previous_treatment_chemo",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "the last dose was given at least 4 weeks prior to the first dose of ponatinib"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'previous_treatment_chemo' instead of the 'treatments' schema field, which is more suitable for representing previous treatments. Additionally, the condition for the last dose being given at least 4 weeks prior to the first dose of ponatinib is not properly mapped to a schema field.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Patient must have failed (progressed on or been intolerant of) prior treatment with cabozantinib and vandetanib.",
+        "logic": {
+            "operator": "IN",
+            "conditions": [
+                {
+                    "field": "prior_treatment_cabozantinib",
+                    "operator": "=",
+                    "value": true
+                },
+                {
+                    "field": "prior_treatment_vandetanib",
+                    "operator": "=",
+                    "value": true
+                }
+            ]
+        },
+        "auto_classification": "error",
+        "auto_explanation": "Invalid JSON returned by LLM",
+        "human_classification": "partial"
+    },
+    {
+        "id": 18,
+        "type": "inclusion",
+        "text": "Normal QT interval corrected (Fridericia) (QTcF) on screening electrocardiogram (ECG) evaluation, defined as QTcF of less than or equal to 450 ms in males or less than or equal to 470 ms in females.",
+        "logic": {
+            "field": "qt_interval_corrected",
+            "operator": "<=",
+            "value": null
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the gender-specific QTcF values, and the value field is null. A correct implementation would require separate conditions for males and females with the respective QTcF thresholds.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 20,
+        "type": "exclusion",
+        "text": "Patients who are receiving any other investigational agent.",
+        "logic": {
+            "operator": "IN",
+            "conditions": [
+                {
+                    "field": "investigational_agent",
+                    "operator": "=",
+                    "value": true
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to receiving an investigational agent, which should be mapped to the 'treatments' field, but a custom field 'investigational_agent' is used instead.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 21,
+        "type": "exclusion",
+        "text": "Patients with brain metastases or spinal cord compression unless they completed radiation therapy greater than or equal to 4 weeks prior to the first dose of ponatinib and are stable without steroids or anti-convulsant therapy for greater than or equal to 10 days.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "brain_metastases",
+                    "operator": "=",
+                    "value": false
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "completed radiation therapy greater than or equal to 4 weeks prior to the first dose of ponatinib and are stable without steroids or anti-convulsant therapy for greater than or equal to 10 days"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not accurately capture the original criterion, which includes specific conditions for patients with brain metastases or spinal cord compression. The use of a custom field for the unmapped condition is acceptable, but the logic structure does not fully preserve the meaning of the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 26,
+        "type": "exclusion",
+        "text": "Unstable angina within 6 months prior to first dose of ponatinib",
+        "logic": {
+            "field": "unstable_angina",
+            "operator": "=",
+            "value": true
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'unstable_angina' instead of the 'control' field which could be used to represent disease control or clinical follow-up details, and it does not account for the 6-month time frame.",
+        "human_classification": "partial"
+    }
+]

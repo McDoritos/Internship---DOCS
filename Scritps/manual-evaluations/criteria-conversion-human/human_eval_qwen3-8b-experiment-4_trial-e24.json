@@ -1,0 +1,93 @@
+[
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Hgb ≥ 12 g/dL (male) or ≥ 11.5 g/dL (females)",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "12"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the gender-specific hemoglobin values, only considering the value for males.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 12,
+        "type": "inclusion",
+        "text": "Serum Creatinine ≤ 1.5mg/dl; Cr clearance should be ≥ 50 mL/min",
+        "logic": {
+            "field": "creatinina",
+            "operator": "<=",
+            "value": "1.5"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which includes two conditions: Serum Creatinine ≤ 1.5mg/dl and Cr clearance ≥ 50 mL/min. The logic rule only addresses the first condition.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 13,
+        "type": "inclusion",
+        "text": "Serum AST and ALT ≤ 3x ULN (Grade 1)",
+        "logic": {
+            "field": "ast",
+            "operator": "<=",
+            "value": "3x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for AST, but the original criterion also mentions ALT. Both AST and ALT should be included in the logic rule with the same condition (≤ 3x ULN).",
+        "human_classification": "partial"
+    },
+    {
+        "id": 23,
+        "type": "inclusion",
+        "text": "At least 3 weeks post chemotherapy or 5 half-lives, whichever is shorter must have elapsed since any prior systemic therapy, except for systemic inhibitory/stimulatory immune checkpoint therapy, which requires 5 half-lives.",
+        "logic": {
+            "field": "systemic_therapy_duration",
+            "operator": ">=",
+            "value": "3 weeks or 5 half-lives"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes exceptions for systemic inhibitory/stimulatory immune checkpoint therapy and the condition that the elapsed time since prior systemic therapy should be either 3 weeks or 5 half-lives, whichever is shorter. The rule also uses a custom field 'systemic_therapy_duration' instead of the 'treatments' field with 'end_date' and possibly 'name' for specifying the type of therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 24,
+        "type": "inclusion",
+        "text": "At least 4 weeks from bevacizumab treatment, which can be used only for radiation necrosis or pseudo-progression.",
+        "logic": {
+            "field": "bevacizumab_duration",
+            "operator": ">=",
+            "value": "4 weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'bevacizumab_duration' instead of the 'treatments' field, which is the appropriate schema field for prior treatments. The meaning is partially preserved, but the field usage is imperfect.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 25,
+        "type": "inclusion",
+        "text": "Prior cytotoxic chemotherapy, radiation, or other anticancer therapies including investigational agents discontinued at least 4 weeks prior to Day 1 of treatment.",
+        "logic": {
+            "field": "prior_anticancer_therapy",
+            "operator": ">=",
+            "value": "4 weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_anticancer_therapy' instead of the 'treatments' field, which is the appropriate schema field for prior treatments. However, the logic itself preserves the meaning of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 28,
+        "type": "exclusion",
+        "text": "Prior or concurrent treatment with Avastin (bevacizumab) for the purposes of recurrent disease.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "bevacizumab"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment_name' instead of the schema field 'treatments' which is the correct field to use when referring to prior or concurrent treatments.",
+        "human_classification": "partial"
+    }
+]

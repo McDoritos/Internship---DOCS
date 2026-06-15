@@ -1,0 +1,174 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "HER2 status may be determined in the primary breast cancer tumour or, when not available, in a metastatic lesion.",
+        "logic": {
+            "field": "her2_status",
+            "operator": "IN",
+            "value": "primary_tumor"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only considers the primary tumor for HER2 status, but the original criterion also allows determination in a metastatic lesion when the primary tumor is not available.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Prior treatment with taxane, trastuzumab and pertuzumab (early or advanced setting) and T-DXd (metastatic setting).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "taxane"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "trastuzumab"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "pertuzumab"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "T-DXd"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the specific settings (early, advanced, metastatic) in which the treatments were administered, and it does not utilize the 'treatments' schema field correctly, as it should include the treatment names in a list and consider the treatment settings.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "In order to be eligible, patients subjects must have received T-DXd as the last systemic metastatic treatment line before inclusion, and presented disease progression on this drug.",
+        "logic": {
+            "field": "treatment_line",
+            "operator": "IN",
+            "value": "last_systemic_metastatic"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which requires patients to have received T-DXd as the last systemic metastatic treatment line and presented disease progression on this drug. The rule only checks if T-DXd is in the treatment line, but does not account for it being the last treatment and the disease progression.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Prior therapy with tucatinib, trastuzumab, and capecitabine, in advanced setting, is permissible, provided that T-DXd serves as the last systemic metastatic treatment line before inclusion, and patient subject presented disease progression on this drug.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "tucatinib"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "trastuzumab"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "capecitabine"
+                },
+                {
+                    "field": "treatment_line",
+                    "operator": "IN",
+                    "value": "last_systemic_metastatic"
+                },
+                {
+                    "field": "progression_status",
+                    "operator": "=",
+                    "value": "disease_progression"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion. It correctly checks for prior therapy with tucatinib, trastuzumab, and capecitabine, but it does not account for the 'advanced setting' and the condition that T-DXd serves as the last systemic metastatic treatment line before inclusion. Additionally, the 'treatment_line' and 'progression_status' fields are not defined in the provided schema, which could be considered custom fields. However, the original criterion clearly refers to treatment history, which should be mapped to the 'treatments' field in the schema.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 17,
+        "type": "inclusion",
+        "text": "Total serum bilirubin ≤ 1.5 x ULN unless the patient subject has documented Gilbert syndrome.",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5 x ULN"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the exception of documented Gilbert syndrome, which is a significant part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 19,
+        "type": "inclusion",
+        "text": "Current left ventricular ejection fraction (LVEF) ≥ 50% on echocardiography or multiple-gated acquisition scanning and no history of a LVEF < 40% or symptomatic heart failure or a recent myocardial infarction.",
+        "logic": {
+            "field": "lvef",
+            "operator": ">=",
+            "value": "50%"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the LVEF ≥ 50% condition, but misses the additional conditions of no history of LVEF < 40%, no symptomatic heart failure, and no recent myocardial infarction, which are important for the overall criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "History of interstitial lung disease / pneumonitis (grade 3 or 4) during the prior treatment with T-DXd.",
+        "logic": {
+            "field": "interstitial_lung_disease",
+            "operator": "IN",
+            "value": "grade 3 or 4"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'interstitial_lung_disease' instead of the 'treatments' field, which is more suitable for prior treatment history, and also lacks information about the specific treatment 'T-DXd'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 10,
+        "type": "exclusion",
+        "text": "History of a decrease in LVEF to < 40% or symptomatic CHF with prior trastuzumab treatment (e.g., during preoperative therapy)",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "lvef",
+                    "operator": "<",
+                    "value": "40%"
+                },
+                {
+                    "field": "congestive_heart_failure",
+                    "operator": "IN",
+                    "value": "symptomatic"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not account for the prior trastuzumab treatment, which is a crucial part of the original criterion. It also uses a custom field 'lvef' and 'congestive_heart_failure' instead of the 'control' field which could be more suitable for this type of information.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 18,
+        "type": "exclusion",
+        "text": "Prior history of other invasive cancer in the past 5 years except basal or squamous cell carcinoma of skin that has been definitively treated.",
+        "logic": {
+            "field": "prior_cancer",
+            "operator": "NOT_IN",
+            "value": "basal or squamous cell carcinoma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'prior_cancer' instead of the 'treatments' or 'diagnosis' schema field, and it does not account for the 5-year time frame and definitive treatment conditions mentioned in the original criterion.",
+        "human_classification": "wrong"
+    }
+]

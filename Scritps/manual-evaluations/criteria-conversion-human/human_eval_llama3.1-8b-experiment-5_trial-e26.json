@@ -1,0 +1,163 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "FGFR1-3 fusion, rearrangement, activating mutation, or FGFR2 extracellular domain in-frame deletions on tumor profiling in tumor tissue as determined by testing routinely performed at a Clinical Laboratory Improvement Amendments (CLIA) or other similarly certified laboratory. If the FGFR alteration is present on circulating tumor DNA (ctDNA) analysis alone, the patient may be eligible with principal investigator approval. Additional mutations may be considered with principal investigator approval.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "fgfr1_status",
+                    "operator": "=",
+                    "value": "fusion"
+                },
+                {
+                    "field": "fgfr2_status",
+                    "operator": "=",
+                    "value": "in-frame deletion"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for FGFR1 fusion and FGFR2 in-frame deletion, but the original criterion also mentions FGFR1-3 rearrangement, activating mutation, and FGFR2 extracellular domain in-frame deletions, as well as the consideration of additional mutations with principal investigator approval.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "INR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "inr_status",
+                    "operator": "<=",
+                    "value": "1.5"
+                },
+                {
+                    "field": "pt_status",
+                    "operator": "<=",
+                    "value": "1.5"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes conditions for aPTT or PTT and the exception for participants receiving anticoagulant therapy.",
+        "human_classification": "partial"
+    },
+    {
+        "id": "Dose expansion cohort 1",
+        "type": "inclusion",
+        "text": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion on tumor profiling in tumor tissue as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "fgfr2_status",
+                    "operator": "=",
+                    "value": "fusion"
+                },
+                {
+                    "field": "in_frame_rearrangement_status",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing the 'extracellular domain in-frame deletion' and 'ctDNA analysis' conditions, and does not account for the requirement of testing at a CLIA-certified laboratory and principal investigator approval.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": "Dose expansion cohort 2",
+        "type": "inclusion",
+        "text": "FGFR2 fusion, in-frame rearrangement, or extracellular domain in-frame deletion for which they derived clinical benefit (objective response of any duration or stable disease for at least 6 months) from prior FGFR inhibitor therapy, as determined by testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory. If the FGFR alteration is present on ctDNA analysis alone, the patient may be eligible with principal investigator approval",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "fgfr2_status",
+                    "operator": "=",
+                    "value": "fusion"
+                },
+                {
+                    "field": "in_frame_rearrangement_status",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes conditions such as 'extracellular domain in-frame deletion', 'derived clinical benefit from prior FGFR inhibitor therapy', and 'testing routinely performed on tumor biopsy at a CLIA or other similarly certified laboratory'. The logic rule only includes 'FGFR2 fusion' and 'in-frame rearrangement status'.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": "Dose expansion cohort 2",
+        "type": "inclusion",
+        "text": "An archived tumor tissue sample after progression on or intolerance of prior FGFR inhibitor available in patients not undergoing fresh tumor biopsy. Patients who do not have adequate archival tumor tissue available are required to undergo a fresh tumor biopsy. If a fresh biopsy cannot be safely performed, the patient may be eligible with principal investigator approval.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "archived_tissue_sample_after_progression_status",
+                    "operator": "=",
+                    "value": "available"
+                },
+                {
+                    "field": "fresh_biopsy_status",
+                    "operator": "=",
+                    "value": "required"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes conditions for patients without adequate archival tumor tissue and the possibility of principal investigator approval for those who cannot undergo a fresh biopsy. The fields used do not directly match the schema fields provided, and the logic does not account for all scenarios described in the original criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Fridericia's corrected QT interval (QTcF) > 480 ms on ECG conducted during Screening, or history of torsades de pointes or personal or family history of prolonged QT syndrome. Correction of suspected drug-induced QTcF prolongation can be attempted at the investigator's discretion and only if clinically safe to do so with either discontinuation of the offending drug or switch to another drug not known to be associated with QTcF prolongation.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "qtcf_status",
+                    "operator": ">",
+                    "value": "480"
+                },
+                {
+                    "field": "history_of_torsades_de_pointes_status",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing the conditions for 'personal or family history of prolonged QT syndrome' and the details about correction of suspected drug-induced QTcF prolongation.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnancy during the study or within 30 days of the last dose of study intervention. Also excluded are any persons of childbearing potential, including men who are able to father a child, who are unwilling to use a medically acceptable method of contraception during the trial (see below section 3.3). Lactation and breastfeeding during the study or within 30 days of the last dose of study intervention is also not allowed. Female patients must have a negative pregnancy test (B-HCG test in urine or serum) prior to commencing study treatment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": "during the study"
+                },
+                {
+                    "field": "childbearing_potential_status",
+                    "operator": "=",
+                    "value": "unwilling to use a medically acceptable method of contraception"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, missing details about lactation, breastfeeding, and the requirement for a negative pregnancy test. Additionally, it does not explicitly address the 30-day period after the last dose of study intervention.",
+        "human_classification": "wrong"
+    }
+]

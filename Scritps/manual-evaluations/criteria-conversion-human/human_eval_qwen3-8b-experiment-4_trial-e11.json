@@ -1,0 +1,80 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Newly diagnosed, histologically confirmedand , unresectable Stage IIIB, IIIC or Stage IV melanoma including cutaneous (including acral, ungual subtypes), ocular (including uveal and extra-uveal), mucosal, and unknown primary).",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "melanoma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only captures the diagnosis as 'melanoma', but misses the specifics of the stage (IIIB, IIIC, or IV) and the subtypes (cutaneous, ocular, mucosal, unknown primary), which are important aspects of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 8,
+        "type": "inclusion",
+        "text": "Standard of care molecular tumour testing which has identified NRAS wild type, and either BRAF wild type or non-V600 BRAF mutant melanoma.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "NRAS_wild_type"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, missing the conditions for BRAF wild type or non-V600 BRAF mutant melanoma.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 9,
+        "type": "inclusion",
+        "text": "Standard of care molecular tumour testing which has identified non V600 BRAF or BRAF wild type, or NRAS wild type melanoma (NRAS mutant patients are eligible for Part 2, but will not undergo NGS testing).",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "BRAF_wild_type"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which also mentions non V600 BRAF and NRAS wild type melanoma. The rule should include these additional conditions to fully represent the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Standard of care molecular tumour testing which has identified non V600 BRAF or BRAF wild type, or NRAS wild type melanoma (NRAS mutant patients are eligible for Part 2, but will not undergo NGS testing).",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "non_V600_BRAF"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only partially captures the original criterion, which also mentions BRAF wild type and NRAS wild type melanoma. The rule should include these additional conditions to fully represent the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 14,
+        "type": "inclusion",
+        "text": "Patient has undergone NGS tumour testing or has NRAS or ALKati mutant melanoma on routine testing",
+        "logic": {
+            "field": "ngs_test",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for NGS tumour testing, but the original criterion also includes patients with NRAS or ALKati mutant melanoma, which should be represented using the molecular_status field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 33,
+        "type": "exclusion",
+        "text": "Any investigational drug or other systemic drug therapy for melanoma within 14 days or 5 half-lives from baseline, whichever is shorter.",
+        "logic": {
+            "field": "prior_therapy",
+            "operator": "IN",
+            "value": "investigational_drug"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which specifies a time frame (within 14 days or 5 half-lives) and the context (for melanoma), and uses a custom field 'prior_therapy' instead of the schema field 'treatments'.",
+        "human_classification": "partial"
+    }
+]

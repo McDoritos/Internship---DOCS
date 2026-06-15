@@ -10,7 +10,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'age' and operator '>=' with the correct value '18'."
+            "explanation": "The logic rule correctly maps the original criterion to the 'age' field with the appropriate operator and value."
         }
     },
     {
@@ -24,7 +24,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct schema field 'ecog_ps' and preserving the meaning with the correct operator and value."
+            "explanation": "The logic rule accurately maps to the ECOG performance status schema field and correctly represents the condition of having an ECOG performance status of =< 1."
         }
     },
     {
@@ -38,7 +38,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'diagnosis' schema field and accurately represents the original criterion with the correct operator and value."
+            "explanation": "The logic rule correctly maps to the diagnosis field with the correct value for small cell lung cancer (SCLC), accurately representing the original criterion."
         }
     },
     {
@@ -52,7 +52,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the 'stage' schema field and accurately represents the original criterion with the correct operator and value."
+            "explanation": "The logic rule correctly maps to the 'stage' schema field and accurately represents the extensive stage disease criterion."
         }
     },
     {
@@ -66,7 +66,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'disease_status' which is acceptable since there is no direct schema field for 'measurable disease' and the logic accurately preserves the meaning of the original criterion."
+            "explanation": "The logic rule accurately captures the requirement of having measurable disease based on RECIST 1.1, which is a clinical concept not directly represented in the schema fields, making the use of a custom field acceptable."
         }
     },
     {
@@ -81,7 +81,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the normalized lab field 'neutrofilos' and preserves the meaning of the original criterion with the correct operator and value."
+            "explanation": "The logic rule accurately represents the original criterion, which refers to a laboratory value. Since laboratory values are not included in the normalized lab list, using a custom field is acceptable."
         }
     },
     {
@@ -96,7 +96,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using the correct normalized lab field 'plaquetas' and preserving the meaning with the correct operator and value."
+            "explanation": "The logic rule accurately represents the original criterion, with the correct operator and value for platelet count, even though a custom field 'plaquetas' is used, which is acceptable since platelet count is not a normalized lab field in the schema."
         }
     },
     {
@@ -111,7 +111,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the normalized lab field 'hemoglobina' and preserves the meaning of the original criterion with the correct operator and value."
+            "explanation": "The logic rule accurately represents the original criterion, with the correct operator and value for hemoglobin level."
         }
     },
     {
@@ -136,8 +136,8 @@
             ]
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses the correct normalized lab field 'creatinina' for serum creatinine, but it does not correctly represent the value as a calculation of the institution's upper limit of normal (ULN), and 'creatinina_clearance' is not a normalized lab field, it should be 'creatinina' with a calculated clearance."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule accurately represents the original criterion, checking both serum creatinine and calculated creatinine clearance against specific thresholds, even though it uses custom fields which is acceptable for laboratory values not included in the normalized lab list."
         }
     },
     {
@@ -163,7 +163,7 @@
         },
         "evaluation": {
             "classification": "partial",
-            "explanation": "The logic rule uses custom fields 'alt' and 'ast' instead of the normalized lab field 'alt' which is not available, but 'ast' is available in the normalized lab fields. The logic also does not account for the exception when liver metastases are present."
+            "explanation": "The logic rule does not account for the exception when liver metastases are present, which allows ALT and AST to be =< 5 x ULN."
         }
     },
     {
@@ -178,7 +178,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule correctly maps to the normalized lab field 'bilirrubina_total' and preserves the meaning of the original criterion with the correct operator and value."
+            "explanation": "The logic rule accurately represents the original criterion, which refers to a laboratory value not included in the normalized lab list, making the use of a custom field acceptable."
         }
     },
     {
@@ -192,8 +192,8 @@
             "unit": "ULN"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'bilirrubina_total_conditional' instead of the normalized lab field 'bilirrubina_total', and also missed the condition for direct bilirubin."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the condition for patients with Gilbert's syndrome, although it uses a custom field 'bilirrubina_total_conditional' which is acceptable since the criterion refers to a clinical concept not fully represented in the schema."
         }
     },
     {
@@ -207,7 +207,7 @@
         },
         "evaluation": {
             "classification": "very_likely_correct",
-            "explanation": "The logic rule accurately maps to the original criterion, using a custom field 'informed_consent' which is acceptable since there is no schema field for informed consent, and the operator and value correctly convey the meaning of the criterion."
+            "explanation": "The criterion refers to willingness to provide consent, which is an administrative or procedural concept, and the logic rule accurately reflects this."
         }
     },
     {
@@ -220,8 +220,8 @@
             "value": "none"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'recent_surgery_or_side_effects' instead of a schema field, and the logic does not fully capture the original criterion's meaning, particularly the time frame and type of surgery."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, which refers to a clinical concept not represented in the schema. The use of a custom field 'recent_surgery_or_side_effects' is acceptable, and the logic preserves the meaning of the original criterion."
         }
     },
     {
@@ -234,8 +234,8 @@
             "value": "immunosuppressive_disease, AIDS, immune_depressing_disease"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'immunosuppression_status' instead of the allowed schema field 'diagnosis' or a more specific field, and used synonyms for the diseases, but the logic and meaning are preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion for immunosuppressive disease, AIDS, or other immune depressing diseases using a custom field, which is acceptable since the criterion does not correspond to any specific schema field."
         }
     },
     {
@@ -248,8 +248,8 @@
             "value": "HIV, HCV, HBV"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'mandatory_testing' instead of using the allowed schema fields or normalized lab fields, and the values are partially correct (HVC should be HCV, HBC should be HBV), but the meaning is preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the requirement for mandatory testing for HIV, HCV, and HBV prior to enrollment, even though it uses a custom field, which is acceptable in this case since the criterion refers to a clinical concept not represented in the schema."
         }
     },
     {
@@ -262,8 +262,8 @@
             "value": "true"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'hypersensitivity' when a more specific schema field or normalized lab field could be used, and the logic does not fully capture the original criterion's meaning regarding 'components of the study drugs or any analogs'."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion of known hypersensitivity to study drugs, using a custom field as the schema does not have a specific field for hypersensitivity."
         }
     },
     {
@@ -276,8 +276,8 @@
             "value": "myocardial_infarction, thromboembolic_events, severe_angina, NYHA_class_III_or_IV"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The logic rule uses a custom field 'concomitant_conditions' instead of a schema field, and the values are not normalized, but the meaning is partially preserved."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, which refers to a clinical concept not represented in the schema. The use of a custom field 'concomitant_conditions' is acceptable, and the logic matches the meaning of the original criterion."
         }
     },
     {
@@ -290,8 +290,8 @@
             "value": "history_NYHA_III_or_IV"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'heart_failure' instead of the allowed schema field 'diagnosis' and did not account for the time frame 'within 6 months prior to baseline'."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly captures the exclusion criterion, which refers to a clinical concept (congestive heart failure) not represented in the schema. Using a custom field is acceptable in this case."
         }
     },
     {
@@ -304,8 +304,8 @@
             "value": "controlled"
         },
         "evaluation": {
-            "classification": "partial",
-            "explanation": "The model used a custom field 'arrhythmia_status' instead of a schema field, and the logic is partially correct as it checks for uncontrolled arrhythmias, but the field selection is imperfect."
+            "classification": "very_likely_correct",
+            "explanation": "The logic rule correctly represents the exclusion criterion 'Poorly controlled arrhythmias' by using a custom field 'arrhythmia_status' with a 'NOT_EQUAL' operator and a value of 'controlled', which accurately conveys the meaning of the original criterion."
         }
     }
 ]

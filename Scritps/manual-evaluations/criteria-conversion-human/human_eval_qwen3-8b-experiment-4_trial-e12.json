@@ -1,0 +1,28 @@
+[
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Subject has a tumor evaluated as Stage 3 according to National Comprehensive Cancer Network (NCCN) guidelines, based on radiographic imaging or exploratory surgery.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "Stage 3 according to National Comprehensive Cancer Network (NCCN) guidelines, based on radiographic imaging or exploratory surgery"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion mentions cancer stage, which should be mapped to the 'stage' field, but it was mapped to 'diagnosis' instead.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Subject has received 3 months of treatment with the modified FOLFIRINOX regimen.",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "3 months of treatment with the modified FOLFIRINOX regimen"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'treatment' instead of the schema field 'treatments' which is more suitable for representing treatment history, and also lacks specific details such as start_date and treatment duration.",
+        "human_classification": "partial"
+    }
+]

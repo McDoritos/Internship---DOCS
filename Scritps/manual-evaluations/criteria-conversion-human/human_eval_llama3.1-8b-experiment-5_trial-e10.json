@@ -1,0 +1,86 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Patients with metastatic colorectal cancer with progression after previous therapy with 5-fluoropyrimidines, oxaliplatin or irinotecan.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "cancer_type",
+                    "operator": "=",
+                    "value": "colorectal cancer"
+                },
+                {
+                    "field": "metastatic_status",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "progression_after_previous_therapy_status",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not accurately capture the information about previous therapy with 5-fluoropyrimidines, oxaliplatin, or irinotecan, which should be represented using the 'treatments' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 7,
+        "type": "inclusion",
+        "text": "Previous radiotherapy is allowed to less than 25 % of the bone marrow.",
+        "logic": {
+            "field": "previous_radiotherapy_status",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not accurately capture the original criterion, which allows previous radiotherapy to less than 25% of the bone marrow. The rule should use the 'treatments' field with specific details about radiotherapy, rather than a custom 'previous_radiotherapy_status' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 13,
+        "type": "exclusion",
+        "text": "No cytotoxic therapy or other experimental treatment within 28 days before inclusion.",
+        "logic": {
+            "operator": "=",
+            "field": "cytotoxic_therapy_status",
+            "value": "false"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule uses a custom field 'cytotoxic_therapy_status' instead of the 'treatments' field, which is the appropriate schema field for prior treatments. The logic also does not account for the 28-day time frame specified in the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 17,
+        "type": "exclusion",
+        "text": "No serious non-healing wounds, gastric ulcers, bone fractures, greater surgical procedures, major traumatic injuries within 28 days before inclusion.",
+        "logic": {
+            "operator": "NOT_IN",
+            "field": "medical_condition_status",
+            "value": [
+                "serious non-healing wounds",
+                "gastric ulcers",
+                "bone fractures"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which includes 'greater surgical procedures' and 'major traumatic injuries' in addition to the listed medical conditions, and also specifies a time frame of 'within 28 days before inclusion'.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 24,
+        "type": "exclusion",
+        "text": "Pregnant or breastfeeding women.",
+        "logic": {
+            "operator": "=",
+            "field": "pregnancy_status",
+            "value": "pregnant"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only accounts for pregnant women, but the original criterion also includes breastfeeding women.",
+        "human_classification": "partial"
+    }
+]

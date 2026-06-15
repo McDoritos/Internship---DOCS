@@ -1,0 +1,51 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Male or female patients ≥ 18 years at the day of consenting;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule is missing the age condition (≥ 18 years) which is a crucial part of the original criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologically confirmed diagnosis of Soft Tissue Sarcoma (STS) excepted GIST.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "Soft Tissue Sarcoma"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule does not fully capture the original criterion, which excludes GIST (Gastrointestinal Stromal Tumor) from Soft Tissue Sarcoma (STS). The logic rule only checks for 'Soft Tissue Sarcoma' without considering the exception.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Metastatic disease or unresectable locally advanced malignancy for which standard therapy by anthracycline is decided;",
+        "logic": {
+            "field": "treatment",
+            "operator": "=",
+            "value": "anthracycline"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic rule only mentions treatment with anthracycline, but the original criterion also refers to metastatic disease or unresectable locally advanced malignancy, which should be represented using the 'diagnosis' and 'stage' fields.",
+        "human_classification": "partial"
+    }
+]

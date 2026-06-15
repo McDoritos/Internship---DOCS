@@ -71,8 +71,7 @@ for output_file in OUTPUT_FILES:
                 for output in outputs:
                     if not re.search(pattern, output):
                         continue
-                    
-                    # Extract JSON safely
+
                     json_match = re.search(r"\{.*\}", output, flags=re.DOTALL)
                     if not json_match:
                         print("No JSON found for", curr_gf_diary)
