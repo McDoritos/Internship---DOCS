@@ -1,8 +1,12 @@
 import json
 import glob
 import os
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 SAVE_DIR = "./manual-evaluations/trial-structure"
+PLOTS_SAVE_DIR = "./manual-evaluations/trial-structure/plots"
 
 eval_files = glob.glob(os.path.join(SAVE_DIR, "manual_eval_*.json"))
 
@@ -114,3 +118,55 @@ with open(save_path, "w", encoding="utf-8") as f:
     json.dump(models, f, indent=4, ensure_ascii=False)
 
 print(f"\nSaved aggregated results by model to {save_path}")
+
+os.makedirs(PLOTS_SAVE_DIR, exist_ok=True)
+
+rows = []
+for model, agg in models.items():
+    rows.append({
+        "model": model,
+        "accuracy": agg["global_accuracy"],
+        "partial_score": agg["global_partial_score"]
+    })
+
+df_global = pd.DataFrame(rows)
+
+plt.figure(figsize=(8,5))
+sns.barplot(data=df_global, x="accuracy", y="model", palette="viridis")
+plt.title("Global accuracy by model (Trial Structure Identification)")
+plt.xlabel("Accuracy (%)")
+plt.ylabel("Model")
+plt.tight_layout()
+
+plt.savefig(f"{PLOTS_SAVE_DIR}/global_accuracy_by_model.png", dpi=300)
+plt.show()
+
+plt.figure(figsize=(8,5))
+sns.barplot(data=df_global, x="partial_score", y="model", palette="magma")
+plt.title("Partial-aware score by model (Trial Structure Identification)")
+plt.xlabel("Partial-aware score (%)")
+plt.ylabel("Model")
+plt.tight_layout()
+
+plt.savefig(f"{PLOTS_SAVE_DIR}/partial_score_by_model.png", dpi=300)
+plt.show()
+
+rows = []
+for model, agg in models.items():
+    for trial in agg["per_trial"]:
+        rows.append({
+            "model": model,
+            "trial": trial["trial"],
+            "accuracy": trial["human_accuracy"]
+        })
+
+df_trials = pd.DataFrame(rows)
+pivot = df_trials.pivot(index="trial", columns="model", values="accuracy")
+
+plt.figure(figsize=(12,8))
+sns.heatmap(pivot, annot=True, cmap="coolwarm", fmt=".1f")
+plt.title("Per-trial accuracy heatmap (Trial Structure Identification)")
+plt.tight_layout()
+
+plt.savefig(f"{PLOTS_SAVE_DIR}/per_trial_accuracy_heatmap.png", dpi=300)
+plt.show()
