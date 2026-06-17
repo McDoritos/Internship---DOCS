@@ -1,8 +1,13 @@
 import json
 import glob
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 SAVE_DIR = "./manual-evaluations/criteria-extraction"
+PLOTS_DIR = "./manual-evaluations/criteria-extraction/plots/"
+
+os.makedirs(PLOTS_DIR, exist_ok=True)
 
 eval_files = glob.glob(os.path.join(SAVE_DIR, "manual_eval_*.json"))
 
@@ -15,6 +20,7 @@ for fpath in eval_files:
 
     core = (
         fname.replace("extraction_eval_", "")
+             .replace("manual_eval_", "")
              .replace(".json", "")
     )
 
@@ -107,10 +113,44 @@ for model, agg in models.items():
     print(f"Global accuracy: {global_accuracy:.2f}%")
     print(f"Global partial-aware score: {global_partial_score:.2f}%")
 
-
 save_path = os.path.join(SAVE_DIR, "AGGREGATED_RESULTS_BY_MODEL.json")
-
 with open(save_path, "w", encoding="utf-8") as f:
     json.dump(models, f, indent=4, ensure_ascii=False)
 
 print(f"\nSaved aggregated results by model to {save_path}")
+
+model_names = list(models.keys())
+correct = [models[m]["correct"] for m in model_names]
+partial = [models[m]["partial"] for m in model_names]
+wrong = [models[m]["wrong"] for m in model_names]
+accuracy = [models[m]["global_accuracy"] for m in model_names]
+partial_score = [models[m]["global_partial_score"] for m in model_names]
+
+x = np.arange(len(model_names))
+width = 0.25
+
+plt.figure(figsize=(10, 6))
+plt.bar(x, correct, width, label="Correct", color="#4CAF50")
+plt.bar(x, partial, width, bottom=correct, label="Partial", color="#FFC107")
+plt.bar(x, wrong, width, bottom=[c+p for c,p in zip(correct,partial)], label="Wrong", color="#F44336")
+plt.xticks(x, model_names, rotation=20)
+plt.ylabel("Number of criteria")
+plt.title("Criteria extraction – per-model outcome distribution")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(PLOTS_DIR, "criteria_extraction_outcome_distribution.png"), dpi=300)
+plt.close()
+
+plt.figure(figsize=(10, 6))
+plt.bar(x - width/2, accuracy, width, label="Accuracy (%)", color="#2196F3")
+plt.bar(x + width/2, partial_score, width, label="Partial-aware score (%)", color="#9C27B0")
+plt.xticks(x, model_names, rotation=20)
+plt.ylabel("Score (%)")
+plt.ylim(0, 100)
+plt.title("Criteria extraction – global accuracy vs partial-aware score")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(PLOTS_DIR, "criteria_extraction_global_scores.png"), dpi=300)
+plt.close()
+
+print(f"Saved plots to {PLOTS_DIR}")

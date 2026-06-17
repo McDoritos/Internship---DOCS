@@ -1,6 +1,10 @@
 import json
 import glob
 import os
+import json
+import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 SAVE_DIR = "./manual-evaluations/criteria-conversion"
 
@@ -142,3 +146,47 @@ with open(save_path, "w", encoding="utf-8") as f:
     json.dump(models, f, indent=4, ensure_ascii=False)
 
 print(f"\nSaved aggregated results by model to {save_path}")
+
+SAVE_DIR = "./manual-evaluations/criteria-conversion"
+agg_path = os.path.join(SAVE_DIR, "AGGREGATED_RESULTS_BY_MODEL.json")
+
+with open(agg_path, "r", encoding="utf-8") as f:
+    models = json.load(f)
+
+model_names = list(models.keys())
+correct = [models[m]["correct"] for m in model_names]
+partial = [models[m]["partial"] for m in model_names]
+wrong = [models[m]["wrong"] for m in model_names]
+acc = [models[m]["global_accuracy"] for m in model_names]
+partial_score = [models[m]["global_partial_score"] for m in model_names]
+
+x = np.arange(len(model_names))
+width = 0.6
+
+plt.figure(figsize=(8, 5))
+p1 = plt.bar(x, correct, width, label="Correct", color="#4CAF50")
+p2 = plt.bar(x, partial, width, bottom=correct, label="Partial", color="#FFC107")
+bottom_wrong = [c + p for c, p in zip(correct, partial)]
+p3 = plt.bar(x, wrong, width, bottom=bottom_wrong, label="Wrong", color="#F44336")
+
+plt.xticks(x, model_names, rotation=20)
+plt.ylabel("Number of criteria")
+plt.title("Criteria conversion – distribution by model")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SAVE_DIR, "criteria_conversion_stacked_counts.png"), dpi=300)
+
+bar_width = 0.35
+plt.figure(figsize=(8, 5))
+plt.bar(x - bar_width/2, acc, bar_width, label="Accuracy (%)", color="#2196F3")
+plt.bar(x + bar_width/2, partial_score, bar_width, label="Partial-aware score (%)", color="#9C27B0")
+
+plt.xticks(x, model_names, rotation=20)
+plt.ylabel("Score (%)")
+plt.ylim(0, 105)
+plt.title("Criteria conversion – global scores by model")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(SAVE_DIR, "criteria_conversion_global_scores.png"), dpi=300)
+
+plt.show()

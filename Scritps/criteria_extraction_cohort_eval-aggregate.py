@@ -1,8 +1,13 @@
 import json
 import glob
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 SAVE_DIR = "./manual-evaluations/cohort-assignment"
+PLOTS_DIR = "./manual-evaluations/cohort-assignment/plots/"
+
+os.makedirs(PLOTS_DIR, exist_ok=True)
 
 eval_files = glob.glob(os.path.join(SAVE_DIR, "manual_eval_*.json"))
 
@@ -23,6 +28,9 @@ for fpath in eval_files:
     else:
         exp_name = core
         trial = "unknown"
+
+    if exp_name.startswith("manual_eval_"):
+        exp_name = exp_name[len("manual_eval_"):]
 
     if "-experiment" in exp_name:
         model = exp_name.split("-experiment")[0]
@@ -107,10 +115,52 @@ for model, agg in models.items():
     print(f"Global accuracy: {global_accuracy:.2f}%")
     print(f"Global partial-aware score: {global_partial_score:.2f}%")
 
-
 save_path = os.path.join(SAVE_DIR, "AGGREGATED_RESULTS_BY_MODEL.json")
-
 with open(save_path, "w", encoding="utf-8") as f:
     json.dump(models, f, indent=4, ensure_ascii=False)
 
 print(f"\nSaved aggregated results by model to {save_path}")
+
+
+model_names = list(models.keys())
+accuracies = [models[m]["global_accuracy"] for m in model_names]
+partial_scores = [models[m]["global_partial_score"] for m in model_names]
+correct_counts = [models[m]["correct"] for m in model_names]
+partial_counts = [models[m]["partial"] for m in model_names]
+wrong_counts = [models[m]["wrong"] for m in model_names]
+
+x = np.arange(len(model_names))
+
+plt.figure(figsize=(8, 5))
+plt.bar(x, accuracies, color="#4C72B0")
+plt.xticks(x, model_names, rotation=30, ha="right")
+plt.ylabel("Global accuracy (%)")
+plt.title("Cohort assignment – Global accuracy by model")
+plt.tight_layout()
+plt.savefig(os.path.join(PLOTS_DIR, "cohort_assignment_global_accuracy.png"), dpi=300)
+plt.close()
+
+plt.figure(figsize=(8, 5))
+plt.bar(x, partial_scores, color="#55A868")
+plt.xticks(x, model_names, rotation=30, ha="right")
+plt.ylabel("Partial-aware score (%)")
+plt.title("Cohort assignment – Partial-aware score by model")
+plt.tight_layout()
+plt.savefig(os.path.join(PLOTS_DIR, "cohort_assignment_partial_score.png"), dpi=300)
+plt.close()
+
+plt.figure(figsize=(8, 5))
+bar_correct = plt.bar(x, correct_counts, color="#4C72B0", label="Correct")
+bar_partial = plt.bar(x, partial_counts, bottom=correct_counts, color="#DD8452", label="Partial")
+bottom_wrong = [c + p for c, p in zip(correct_counts, partial_counts)]
+bar_wrong = plt.bar(x, wrong_counts, bottom=bottom_wrong, color="#C44E52", label="Wrong")
+
+plt.xticks(x, model_names, rotation=30, ha="right")
+plt.ylabel("Number of criteria")
+plt.title("Cohort assignment – Outcome distribution by model")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(PLOTS_DIR, "cohort_assignment_outcome_distribution.png"), dpi=300)
+plt.close()
+
+print(f"Saved plots to {PLOTS_DIR}")
