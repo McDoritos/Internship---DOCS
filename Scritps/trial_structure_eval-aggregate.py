@@ -19,6 +19,7 @@ for fpath in eval_files:
 
     core = (
         fname.replace("structure_eval_", "")
+             .replace("manual_eval_", "")   # REMOVE PREFIX
              .replace(".json", "")
     )
 
@@ -110,7 +111,6 @@ for model, agg in models.items():
     print(f"Wrong: {wrong}")
     print(f"Global accuracy: {global_accuracy:.2f}%")
     print(f"Global partial-aware score: {global_partial_score:.2f}%")
-
 
 save_path = os.path.join(SAVE_DIR, "AGGREGATED_RESULTS_BY_MODEL.json")
 

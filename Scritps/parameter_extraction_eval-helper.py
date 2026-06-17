@@ -4,6 +4,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
 
 AGGREGATED_PATH = "./manual-evaluations/parameter-extraction/AGGREGATED_RESULTS_BY_MODEL.json"
 MANUAL_EVAL_DIR = "./manual-evaluations/parameter-extraction/"
@@ -173,3 +174,30 @@ plt.tight_layout()
 
 plt.savefig(f"{PLOTS_SAVE_DIR}/correct_partial_wrong_by_field_and_model_no_control.png", dpi=300)
 plt.show()
+
+with open(AGGREGATED_PATH, "r", encoding="utf-8") as f:
+    aggregated = json.load(f)
+
+model_names = list(aggregated.keys())
+accuracies = [aggregated[m]["global_accuracy"] for m in model_names]
+partial_scores = [aggregated[m]["global_partial_score"] for m in model_names]
+
+x = np.arange(len(model_names))
+width = 0.35
+
+plt.figure(figsize=(10, 6))
+plt.bar(x - width/2, accuracies, width, label="Accuracy (%)", color="#1f77b4")
+plt.bar(x + width/2, partial_scores, width, label="Partial-aware score (%)", color="#9467bd")
+
+plt.xticks(x, model_names, rotation=20)
+plt.ylabel("Score (%)")
+plt.ylim(0, 105)
+plt.title("Parameter Extraction – Global Accuracy vs Partial-aware Score")
+plt.legend()
+plt.tight_layout()
+
+# Save plot
+plt.savefig(f"{PLOTS_SAVE_DIR}/parameter_extraction_accuracy_vs_partial_score.png", dpi=300)
+plt.close()
+
+print(f"Saved accuracy/partial-aware plot to {PLOTS_SAVE_DIR}")

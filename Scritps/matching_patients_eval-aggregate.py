@@ -1,6 +1,10 @@
 import json
 import glob
 import os
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 
 SAVE_DIR = "./manual-evaluations/patient-matching/"
 
@@ -85,3 +89,80 @@ with open(save_path, "w", encoding="utf-8") as f:
     json.dump(models, f, indent=4, ensure_ascii=False)
 
 print(f"\nSaved aggregated results by model to {save_path}")
+
+PLOTS_DIR = "./manual-evaluations/patient-matching/plots"
+os.makedirs(PLOTS_DIR, exist_ok=True)
+
+AGG_PATH = os.path.join(SAVE_DIR, "AGGREGATED_RESULTS_BY_MODEL.json")
+
+with open(AGG_PATH, "r", encoding="utf-8") as f:
+    aggregated = json.load(f)
+
+rows = []
+for model, data in aggregated.items():
+    for p in data["per_patient"]:
+        rows.append({
+            "model": model,
+            "patient": p["patient"],
+            "accuracy": p["human_accuracy"]
+        })
+
+df = pd.DataFrame(rows)
+
+pivot = df.pivot(index="patient", columns="model", values="accuracy")
+
+plt.figure(figsize=(12, 8))
+sns.heatmap(pivot, annot=True, cmap="viridis", fmt=".1f")
+plt.title("Patient–Trial Matching Accuracy per Patient and Model")
+plt.xlabel("Model")
+plt.ylabel("Patient")
+plt.tight_layout()
+plt.savefig(f"{PLOTS_DIR}/patient_matching_heatmap.png", dpi=300)
+plt.close()
+
+print("Saved heatmap to:", f"{PLOTS_DIR}/patient_matching_heatmap.png")
+
+global_rows = []
+for model, data in aggregated.items():
+    global_rows.append({
+        "model": model,
+        "accuracy": data["global_accuracy"],
+        "partial_score": data["global_partial_score"]
+    })
+
+df_global = pd.DataFrame(global_rows)
+
+plt.figure(figsize=(8, 5))
+sns.barplot(data=df_global, x="model", y="accuracy", palette="crest")
+plt.title("Global Accuracy by Model – Patient–Trial Matching")
+plt.ylabel("Accuracy (%)")
+plt.xlabel("Model")
+plt.ylim(0, 100)
+plt.tight_layout()
+plt.savefig(f"{PLOTS_DIR}/patient_matching_global_accuracy.png", dpi=300)
+plt.close()
+
+print("Saved global accuracy bar chart to:", f"{PLOTS_DIR}/patient_matching_global_accuracy.png")
+
+dist_rows = []
+for model, data in aggregated.items():
+    dist_rows.append({
+        "model": model,
+        "correct": data["correct"],
+        "wrong": data["wrong"]
+    })
+
+df_dist = pd.DataFrame(dist_rows)
+df_dist_long = df_dist.melt(id_vars="model", value_vars=["correct", "wrong"],
+                            var_name="type", value_name="count")
+
+plt.figure(figsize=(8, 5))
+sns.barplot(data=df_dist_long, x="model", y="count", hue="type", palette="Set2")
+plt.title("Correct vs Wrong Assignments per Model")
+plt.ylabel("Count")
+plt.xlabel("Model")
+plt.tight_layout()
+plt.savefig(f"{PLOTS_DIR}/patient_matching_correct_wrong.png", dpi=300)
+plt.close()
+
+print("Saved correct/wrong distribution chart to:", f"{PLOTS_DIR}/patient_matching_correct_wrong.png")
