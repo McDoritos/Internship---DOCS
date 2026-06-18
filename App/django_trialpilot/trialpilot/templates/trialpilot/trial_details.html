@@ -6,6 +6,9 @@
 
 {% block content %}
 
+{% if not trial %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% else %}
 <!-- LOADING OVERLAY -->
 <div id="llm-loading-overlay"
      class="loading-overlay"
@@ -777,4 +780,5 @@
 
 </div>
 
+{% endif %}
 {% endblock %}

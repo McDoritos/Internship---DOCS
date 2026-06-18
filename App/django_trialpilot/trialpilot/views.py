@@ -2366,11 +2366,25 @@ def trial_details(request, trial_id):
         trial = Document.objects.get(id=trial_id)
         if trial.type != Document.DocumentType.CLINICAL_TRIAL:
             return render(request, 'trialpilot/trial_details.html', {
+            'trial': None,
+            'clinical_trial': None,
+            'cohorts': [],
+            'versions': [],
+            'matches': [],
+            'inclusion_criteria': [],
+            'exclusion_criteria': [],
             'error': 'Document is not a clinical trial.'
         })
         trial_content = extract_document_text(trial)
     except Document.DoesNotExist:
         return render(request, 'trialpilot/trial_details.html', {
+            'trial': None,
+            'clinical_trial': None,
+            'cohorts': [],
+            'versions': [],
+            'matches': [],
+            'inclusion_criteria': [],
+            'exclusion_criteria': [],
             'error': 'Document not found.'
         })
         
