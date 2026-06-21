@@ -1,0 +1,345 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Clinical stage IB3-IIB cervical cancer (FIGO, 2018 standard) with the tumor diameter > 4cm before treatment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "clinical_stage",
+                    "operator": "IN",
+                    "value": "IB3-IIB"
+                },
+                {
+                    "field": "tumor_diameter_cm",
+                    "operator": ">",
+                    "value": "4"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion involves cancer staging, which should map to the schema field 'stage', but the rule uses a custom field 'clinical_stage'. Tumor diameter has no dedicated schema field, so a custom field is acceptable. Meaning is mostly preserved, but misuse of a schema field leads to a partial rating."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Pathologically confirmed cervical cancer, including cervical squamous cell carcinoma, adenocarcinoma and adenosquamous carcinoma.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": [
+                "cervical squamous cell carcinoma",
+                "adenocarcinoma",
+                "adenosquamous carcinoma"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion specifies cervical cancer subtypes, correctly mapped to the 'diagnosis' field with an IN operator covering the listed histologies."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Age：18-70 years old.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "age",
+                    "operator": "<=",
+                    "value": "70"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The inclusion criterion about age 18-70 is correctly mapped to the 'age' field with >=18 and <=70 combined using AND."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "ECOG status score ≤1;",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<=",
+            "value": "1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the ecog_ps field with a ≤1 operator, matching the inclusion criterion exactly."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "WBC≥3.5*10^9/L, NEU≥1.5*10^9/L, Platelet≥80×10^9 /L; AST and ALT ≤1.5 times normal upper limit; Total bilirubin ≤1.5 times the upper limit of normal value; serum creatinine and blood urea nitrogen ≤the upper limit of normal value.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "leucocitos",
+                    "operator": ">=",
+                    "value": "3.5",
+                    "unit": "10^9/L"
+                },
+                {
+                    "field": "neutrofilos",
+                    "operator": ">=",
+                    "value": "1.5",
+                    "unit": "10^9/L"
+                },
+                {
+                    "field": "plaquetas",
+                    "operator": ">=",
+                    "value": "80",
+                    "unit": "10^9/L"
+                },
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "x ULN"
+                },
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "x ULN"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "x ULN"
+                },
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "ULN"
+                },
+                {
+                    "field": "azoto_ureico",
+                    "operator": "<=",
+                    "value": "ULN"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion only involves laboratory thresholds not represented in the schema; using custom lab fields is appropriate and the logical operators and values correctly reflect the original inclusion requirements."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Well-compliance and willing to keep in touch.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "compliance_status",
+                    "operator": "=",
+                    "value": "well"
+                },
+                {
+                    "field": "contact_willingness",
+                    "operator": "=",
+                    "value": "willing"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns compliance and willingness to stay in contact, which are not covered by the schema; using custom fields correctly captures the meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Able to sign informed consent, including complying with the requirements and restrictions listed in the Informed Consent (ICF) and this protocol.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "informed_consent_signed",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "consent_requirements_compliance",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is administrative (informed consent) and not covered by the schema, so custom fields are appropriate and the logic correctly captures the requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "After 2-3 cycles of neoadjuvant chemotherapy, patients do not undergo laparotomic or laparoscopic extensive hysterectomy + pelvic lymph node dissection with cervical cancer foci sealed before dissection of the vagina and without uterine manipulator.",
+        "logic": {
+            "field": "extensive_hysterectomy_pelvic_lymph_node_dissection",
+            "operator": "=",
+            "value": "performed"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the exclusion meaning (true when the extensive hysterectomy + pelvic lymph node dissection is performed), but it uses a custom field that is not in the schema; the procedure should be represented via the 'treatments' array, so the field choice is incorrect."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Neoadjuvant chemotherapy regimens are different from postoperative adjuvant therapy regimens.",
+        "logic": {
+            "field": "chemo_regimen_difference",
+            "operator": "=",
+            "value": "different"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion concerns chemotherapy regimen differences, which should be modeled using the existing 'treatments' field rather than a custom 'chemo_regimen_difference' field. Using a non‑schema field is a mistake, though the logical condition roughly captures the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Postoperative high risk factors: ① lymph node metastasis, ② parauterine infiltration, ③ positive surgical margin.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "postoperative_high_risk_factor",
+                    "operator": "=",
+                    "value": "lymph_node_metastasis"
+                },
+                {
+                    "field": "postoperative_high_risk_factor",
+                    "operator": "=",
+                    "value": "parauterine_infiltration"
+                },
+                {
+                    "field": "postoperative_high_risk_factor",
+                    "operator": "=",
+                    "value": "positive_surgical_margin"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to postoperative risk factors not covered by the schema, so a custom field is appropriate. The OR logic correctly captures exclusion when any listed factor is present."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Postoperative risk factors meet the Sedlis standard of the NCCN guideline.",
+        "logic": {
+            "field": "sedlis_standard_met",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly flags exclusion when the Sedlis standard is met."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Participate in other clinical trials.",
+        "logic": {
+            "field": "other_trial_participation",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any defined schema field, so a custom field is appropriate, and the rule correctly flags patients who are participating in other trials as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Severe diseases of other important systems and organs.",
+        "logic": {
+            "field": "severe_other_system_diseases",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate, and the logic correctly flags exclusion when severe other-system diseases are present."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Persons without disposing capacity.",
+        "logic": {
+            "field": "capacity_to_consent",
+            "operator": "=",
+            "value": "incapable"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to consent capacity, which is not covered by any predefined schema field, so a custom field is appropriate. The logic correctly captures persons who are incapable, matching the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Drug and/or alcohol abuse.",
+        "logic": {
+            "field": "substance_abuse",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion (drug/alcohol abuse) has no corresponding schema field, so a custom field is acceptable, and the logic correctly flags patients with abuse as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Unable or unwilling to sign informed consents.",
+        "logic": {
+            "field": "informed_consent_signed",
+            "operator": "=",
+            "value": "no"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is not covered by the schema, so a custom field is appropriate; the logic correctly flags patients who have not signed consent, matching the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Not eligible for the study judged by researchers.",
+        "logic": {
+            "field": "researcher_judged_eligibility",
+            "operator": "=",
+            "value": "ineligible"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is a generic researcher‑judged eligibility decision, which is not covered by any predefined schema field. Using a custom field to capture this judgment is appropriate, and the logic correctly flags the patient as excluded when the researcher marks them as ineligible."
+        }
+    }
+]

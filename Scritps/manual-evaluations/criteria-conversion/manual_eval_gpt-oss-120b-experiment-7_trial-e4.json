@@ -1,0 +1,1286 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Written informed consent and HIPAA authorization for release of personal health information.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Written informed consent and HIPAA authorization for release of personal health information."
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is an administrative consent requirement not covered by any schema field; using an unmapped flag correctly captures its meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Age ≥ 18 years at the time of consent.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion mentions age, correctly mapped to the 'age' field with the appropriate '>=' operator and value 18."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ECOG Performance Status of 0-2 within 28 days prior to registration.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ecog_ps",
+                    "operator": ">=",
+                    "value": "0"
+                },
+                {
+                    "field": "ecog_ps",
+                    "operator": "<=",
+                    "value": "2"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Correctly uses the ecog_ps field with range 0-2, but omits the required timing constraint (within 28 days), so the meaning is only partially captured."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Men and postmenopausal female patients.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "gender",
+                            "operator": "=",
+                            "value": "female"
+                        },
+                        {
+                            "field": "postmenopausal_status",
+                            "operator": "=",
+                            "value": "postmenopausal"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures \"men OR postmenopausal women\" using the gender field and a custom postmenopausal_status field (no schema field exists for this), preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Premenopausal patients (age 18 or older) who have been rendered postmenopausal will also be included.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "postmenopausal_status",
+                    "operator": "=",
+                    "value": "postmenopausal"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Menopausal status is not in the schema, so a custom field is acceptable; the rule correctly captures age ≥ 18 and postmenopausal status, preserving the original meaning."
+        }
+    },
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Age >= 55 years and one year or more of amenorrhea.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "55"
+                },
+                {
+                    "field": "amenorrhea_duration_years",
+                    "operator": ">=",
+                    "value": "1"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures age ≥ 55 and ≥ 1 year of amenorrhea; age uses the proper schema field and the amenorrhea duration is a valid custom field since no schema field exists for it."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Age < 55 years and one year or more of amenorrhea, with estradiol < 20 pg/ml",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": "<",
+                    "value": "55"
+                },
+                {
+                    "field": "amenorrhea_duration_years",
+                    "operator": ">=",
+                    "value": "1"
+                },
+                {
+                    "field": "estradiol",
+                    "operator": "<",
+                    "value": "20",
+                    "unit": "pg/ml"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures age < 55 and the required amenorrhea duration and estradiol level. Age uses the appropriate schema field; the other concepts are not represented in the schema, so custom fields are acceptable. Logic and JSON structure are accurate."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Age < 55 years with prior hysterectomy but intact ovaries, with estradiol < 20 pg/ml",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": "<",
+                    "value": "55"
+                },
+                {
+                    "field": "prior_hysterectomy",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "intact_ovaries",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "estradiol",
+                    "operator": "<",
+                    "value": "20",
+                    "unit": "pg/ml"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Age is correctly mapped to the schema; the other concepts (hysterectomy, ovarian status, estradiol) have no corresponding schema fields, so custom fields are appropriate. The logical AND correctly captures the inclusion condition."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Prior bilateral oophorectomy",
+        "logic": {
+            "field": "prior_bilateral_oophorectomy",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a surgical history not represented in the schema, so a custom field is appropriate; the logic correctly checks that the patient has a prior bilateral oophorectomy."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Ongoing treatment with luteinizing hormone-releasing hormone (LHRH) agonist, with treatment starting at least 4 weeks prior to randomization and with estradiol < 20 pg/ml.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "LHRH agonist"
+                },
+                {
+                    "field": "treatment_start_weeks_before_randomization",
+                    "operator": ">=",
+                    "value": "4"
+                },
+                {
+                    "field": "estradiol",
+                    "operator": "<",
+                    "value": "20",
+                    "unit": "pg/ml"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion involves prior therapy, which should be represented using the 'treatments' array field, but the rule uses custom fields ('treatment_name', 'treatment_start_weeks_before_randomization'). The estradiol lab value is also a custom field, which is acceptable, but the misuse of treatment schema makes the mapping only partially correct."
+        }
+    },
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "LHRH agonist must be administered within 7 days of scheduled administration date during the length of the clinical trial.",
+        "logic": {
+            "field": "lhrh_agonist_admin_interval",
+            "operator": "<=",
+            "value": "7",
+            "unit": "days"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a specific timing requirement for LHRH agonist administration, which has no dedicated schema field; using a custom field is appropriate and the logic correctly captures the 'within 7 days' condition."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histologically confirmed metastatic or unresectable (not amenable to curative therapy) breast cancer.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "breast cancer"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "stage",
+                            "operator": "=",
+                            "value": "metastatic"
+                        },
+                        {
+                            "field": "stage",
+                            "operator": "=",
+                            "value": "unresectable"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the diagnosis field for breast cancer and the stage field to capture metastatic or unresectable disease, preserving the original inclusion meaning."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Has confirmed hormone receptor positivity with ER >=1% and/or PR >=1%.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "estrogen_receptor_percent",
+                    "operator": ">=",
+                    "value": "1",
+                    "unit": "%"
+                },
+                {
+                    "field": "progesterone_receptor_percent",
+                    "operator": ">=",
+                    "value": "1",
+                    "unit": "%"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logical condition correctly captures ER ≥ 1% OR PR ≥ 1%, but it uses custom fields (estrogen_receptor_percent, progesterone_receptor_percent) instead of the appropriate schema field 'molecular_status' for biomarker status."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Preferred receptor testing is obtained from a metastatic site, but can be from the primary breast or axilla biopsy as long as this is most recent biopsy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "receptor_testing_source",
+                    "operator": "IN",
+                    "value": "metastatic_site,primary_breast,axilla_biopsy"
+                },
+                {
+                    "field": "receptor_testing_most_recent",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Custom fields are acceptable since the schema lacks receptor testing fields, but the logic forces the 'most recent' condition for all sources, whereas the original only requires it for primary breast or axilla biopsies."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Has confirmed HER2 negative breast cancer.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "breast cancer"
+                },
+                {
+                    "field": "her2_status",
+                    "operator": "=",
+                    "value": "negative"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic captures the meaning (breast cancer AND HER2‑negative) but uses a non‑schema field 'her2_status' instead of the required 'molecular_status', which is a schema misuse."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "HER2 negative or non-amplified is determined by the current ASCO-CAP criteria which are as follows: HER2 testing by IHC as 0 or 1+.",
+        "logic": {
+            "field": "her2_ihc",
+            "operator": "IN",
+            "value": "0,1+"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns HER2 IHC results, which are not represented in the schema, so a custom field is appropriate. The logic correctly requires IHC values of 0 or 1+, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Negative by in situ hybridization (FISH/CISH/SISH) defined as Her2/CEP17 ratio <2 and for single probe assessment a HER2 copy number <6).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "her2_fish_ratio",
+                    "operator": "<",
+                    "value": "2"
+                },
+                {
+                    "field": "her2_copy_number",
+                    "operator": "<",
+                    "value": "6"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logical condition correctly captures the HER2‑negative definition, but it uses custom fields (her2_fish_ratio, her2_copy_number) that are not part of the provided schema. The appropriate schema field would be molecular_status (e.g., HER2 negative), so using custom fields is a schema mismatch."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "PIK3CA mutation identified via local testing from tumor tissue or blood.",
+        "logic": {
+            "field": "pik3ca_mutation_status",
+            "operator": "=",
+            "value": "mutated"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the meaning (requires PIK3CA mutation) but uses a non‑standard field (pik3ca_mutation_status) instead of the defined 'molecular_status' field, which is a clear schema mismatch."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Has either measurable disease, i.e. at least one measurable lesion as per RECIST 1.1 criteria OR if no measurable disease is present, then at least one predominantly lytic bone lesion must be present, within 28 days prior to registration.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "measurable_disease",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "lytic_bone_lesion",
+                    "operator": "=",
+                    "value": "present"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule uses appropriate custom fields for concepts not in the schema and captures the main OR logic, but it omits the required timing condition (lesion must be documented within 28 days), so the meaning is only partially preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with no measurable disease and only one predominantly lytic bone lesion that has been previously irradiated are eligible if there is documented evidence of disease progression of the bone lesion after irradiation.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "measurable_disease",
+                    "operator": "=",
+                    "value": "no"
+                },
+                {
+                    "field": "bone_lesion_count",
+                    "operator": "=",
+                    "value": "1"
+                },
+                {
+                    "field": "bone_lesion_type",
+                    "operator": "=",
+                    "value": "lytic"
+                },
+                {
+                    "field": "bone_lesion_irradiated",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "bone_lesion_progression_after_irradiation",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema fields, so custom fields are appropriate, and the logical conditions accurately capture all required elements of the original inclusion statement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Has received at least one line of therapy with an endocrine therapy or endocrine therapy combination with other agents in the metastatic setting.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "endocrine_therapy_line_count",
+                    "operator": ">=",
+                    "value": "1"
+                },
+                {
+                    "field": "metastatic_setting",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the intended meaning (≥1 line of endocrine therapy in metastatic disease) but uses non‑schema fields (endocrine_therapy_line_count, metastatic_setting) instead of the defined 'treatments' list and stage/metastatic status fields."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Must have received endocrine therapy (aromatase inhibitor or fulvestrant as single agent or in combination with other agents) as last line of therapy with progressive disease, as determined by treating physician.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "last_line_therapy_type",
+                    "operator": "=",
+                    "value": "endocrine"
+                },
+                {
+                    "field": "last_line_therapy_agents",
+                    "operator": "IN",
+                    "value": [
+                        "aromatase inhibitor",
+                        "fulvestrant"
+                    ]
+                },
+                {
+                    "field": "progressive_disease",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the intended meaning but uses custom fields (last_line_therapy_type, last_line_therapy_agents, progressive_disease) instead of the defined 'treatments' field for therapy history; a schema field clearly applies, so the mapping is only partially correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "No more than two prior lines of endocrine therapy or endocrine therapy combinations in the metastatic setting.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "prior_endocrine_therapy_lines",
+                    "operator": "<=",
+                    "value": "2"
+                },
+                {
+                    "field": "metastatic_setting",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the intended meaning but uses custom fields (prior_endocrine_therapy_lines, metastatic_setting) instead of the defined schema fields (e.g., treatments and stage), which is a schema misuse."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Transition from one nonsteroidal aromatase inhibitor to a second nonsteroidal aromatase inhibitor due to tolerance will only count as one line of endocrine therapy.",
+        "logic": {
+            "field": "aromatase_inhibitor_transition_counts_as_one_line",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly captures that such a transition counts as one line of endocrine therapy."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Combination therapy will be considered one line even if one of the agents is discontinued and the other continued.",
+        "logic": {
+            "field": "combination_therapy_one_line",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any defined schema field, so a custom field is acceptable; the logic correctly captures that combination therapy counts as a single line."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient must have received treatment with a CDK4/6 inhibitor for breast cancer in the metastatic setting.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "CONTAINS",
+                    "value": "CDK4/6 inhibitor"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "breast cancer"
+                },
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "metastatic"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic captures the meaning, but uses a non‑schema field \"treatment_name\" instead of the required \"treatments\" array with a name subfield."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "CDK4/6 inhibitor discontinuation due to intolerance or reasons other than progression is allowed.",
+        "logic": {
+            "field": "cdk4_6_discontinuation_allowed",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a specific treatment discontinuation not covered by the schema, so a custom field is acceptable, and the logic correctly captures that discontinuation is allowed."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Demonstrate adequate organ function as defined in the protocol; all screening labs to be obtained within 28 days prior to registration.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "adequate_organ_function",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "screening_labs_within_days",
+                    "operator": "<=",
+                    "value": "28"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves organ function and timing of screening labs, which are not covered by the predefined schema fields. The custom fields correctly capture the required meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Men who are not surgically or medically sterile must agree to use an acceptable method of contraception.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "sterile_status",
+                    "operator": "=",
+                    "value": "false"
+                },
+                {
+                    "field": "contraception_agreement",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the gender requirement using the schema field and uses custom fields for sterile status and contraception agreement, which are not represented in the schema. The logic matches the original inclusion criterion."
+        }
+    },
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Acceptable forms of contraception include castration, vasectomy, and condom/occlusive cap with spermicidal foam/gel/film/cream/suppository.",
+        "logic": {
+            "field": "contraception_method",
+            "operator": "IN",
+            "value": [
+                "castration",
+                "vasectomy",
+                "condom_with_spermicidal_foam_gel_film_cream_suppository"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Contraception is not covered by the schema, so a custom field is appropriate; the logic correctly lists the acceptable methods."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Male patients with female sexual partners who are pregnant, possibly pregnant, or who could become pregnant during the study must agree to use condoms at least one month after the last dose of study drug.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "partner_pregnancy_status",
+                    "operator": "IN",
+                    "value": [
+                        "pregnant",
+                        "possibly pregnant",
+                        "could become pregnant"
+                    ]
+                },
+                {
+                    "field": "contraception_method",
+                    "operator": "=",
+                    "value": "condom_use_one_month_post_last_dose"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Gender field is correctly used; partner pregnancy status and contraception are not represented in the schema, so custom fields are acceptable. The logical conditions preserve the original meaning."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Total abstinence for the same study period is an acceptable alternative.",
+        "logic": {
+            "field": "contraception_method",
+            "operator": "=",
+            "value": "total_abstinence"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Contraception is not represented in the schema, so a custom field is appropriate. The rule correctly captures that total abstinence is an acceptable contraception method, preserving the original meaning."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Premenopausal females must agree to use an acceptable method of contraception or to abstain from sexual intercourse for the duration of their participation in the study and for 3 months after discontinuation of therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "menopausal_status",
+                    "operator": "=",
+                    "value": "premenopausal"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "contraception_method",
+                            "operator": "=",
+                            "value": "acceptable_contraception"
+                        },
+                        {
+                            "field": "contraception_method",
+                            "operator": "=",
+                            "value": "abstinence_3months_post_therapy"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Gender uses the correct schema field; menopausal status and contraception are not in the schema, so custom fields are acceptable. The logical structure (female AND premenopausal AND (acceptable contraception OR abstinence)) accurately captures the inclusion requirement."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Adequate forms of contraception include: total abstinence, surgery intended to prevent pregnancy (defined as hysterectomy, bilateral oophorectomy or bilateral tubal ligation), non-hormonal IUD, or condom/occlusive cap with spermicidal foam/gel/film/cream/suppository).",
+        "logic": {
+            "field": "contraception_method",
+            "operator": "IN",
+            "value": [
+                "total_abstinence",
+                "hysterectomy",
+                "bilateral_oophorectomy",
+                "bilateral_tubal_ligation",
+                "non_hormonal_iud",
+                "condom_with_spermicidal_foam_gel_film_cream_suppository"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Contraception is not covered by the predefined schema, so a custom field is appropriate; the IN list correctly captures the allowed methods, preserving the criterion's meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "As determined by the enrolling physician or protocol designee, ability of the subject to understand and comply with study procedures for the entire length of the study",
+        "logic": {
+            "field": "ability_to_understand_and_comply",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is an administrative eligibility item not covered by the schema; using a custom field to capture the required ability and setting it to true correctly preserves the meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "HIV-infected patients on effective anti-retroviral therapy with undetectable viral load within 6 months of registration are eligible for this trial.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "HIV"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "antiretroviral therapy"
+                },
+                {
+                    "field": "viral_load_undetectable_within_6_months",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the HIV diagnosis but incorrectly uses custom fields 'treatment_name' and 'viral_load_undetectable_within_6_months' instead of the schema's 'treatments' array for antiretroviral therapy; viral load has no schema field, but the treatment part should use the defined field."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients with prior chemotherapy for metastatic or advanced disease.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "chemotherapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the exclusion intent (identifies patients with chemotherapy), but uses a non‑schema field \"treatment_name\" instead of the defined \"treatments\" array, so it does not follow the prescribed schema."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active infection requiring systemic therapy.",
+        "logic": {
+            "field": "active_infection",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to active infection, which has no dedicated schema field, so a custom field is appropriate and the logic correctly flags patients with an infection (value \"yes\") as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients with a prior or concurrent malignancy whose natural history or treatment has the potential to interfere with the safety or efficacy assessment of the investigational regimen are not eligible for this trial.",
+        "logic": {
+            "field": "interfering_malignancy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns any prior or concurrent malignancy that could interfere, which has no direct schema field; using a custom field is acceptable and the logic correctly flags such patients for exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Uncontrolled, active CNS metastases causing clinical symptoms or metastases that require therapeutic intervention, including leptomeningeal disease.",
+        "logic": {
+            "field": "cns_metastases_status",
+            "operator": "IN",
+            "value": "uncontrolled"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "CNS metastases are not represented in the schema, so a custom field is appropriate; the rule correctly flags uncontrolled CNS disease, matching the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are symptomatic and have not undergone prior brain imaging must undergo a head computed tomography (CT) scan or brain magnetic resonance imaging (MRI) within 28 days prior to registration to exclude brain metastases.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "symptomatic",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "brain_imaging_within_28_days",
+                    "operator": "=",
+                    "value": "no"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves symptom status and recent brain imaging, which are not represented in the schema, so custom fields are appropriate. The AND condition correctly captures the requirement that symptomatic patients without imaging within 28 days need imaging, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Treatment with any investigational drug within 14 days prior to registration.",
+        "logic": {
+            "field": "investigational_drug_use",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion concerns recent investigational drug treatment, which should be represented using the 'treatments' field with date constraints. Using a custom field 'investigational_drug_use' and a simple yes/no check omits the 14‑day window, so the mapping is incomplete."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Radiotherapy to index lesion <= 4 weeks or limited field radiation to index lesion for palliation <= 2 weeks prior to randomization.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "radiotherapy_to_index_lesion",
+                    "operator": "<=",
+                    "value": "4",
+                    "unit": "weeks"
+                },
+                {
+                    "field": "limited_field_radiation_palliation",
+                    "operator": "<=",
+                    "value": "2",
+                    "unit": "weeks"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the OR logic and time windows correctly, but it uses custom fields (radiotherapy_to_index_lesion, limited_field_radiation_palliation) instead of the defined 'treatments' schema for prior radiotherapy, which is a clear mismatch."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Established diagnosis of diabetes mellitus type I or persistent poorly controlled diabetes mellitus, with an uninterrupted hemoglobin A1c > 8.0% for 1 year or greater despite standard care.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "diabetes mellitus type I"
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "diagnosis",
+                            "operator": "=",
+                            "value": "diabetes mellitus"
+                        },
+                        {
+                            "field": "hemoglobin_a1c",
+                            "operator": ">",
+                            "value": "8.0",
+                            "unit": "%"
+                        },
+                        {
+                            "field": "hemoglobin_a1c_duration_years",
+                            "operator": ">=",
+                            "value": "1"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the exclusion condition (type I diabetes OR diabetes with A1c > 8% for ≥1 year) using the appropriate diagnosis field and acceptable custom fields for hemoglobin A1c; the JSON structure is valid."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "For patients with newly diagnosed diabetes mellitus without 1 year of hemoglobin A1c values, available hemoglobin A1c values cannot all be > 8.0%.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "newly diagnosed diabetes mellitus"
+                },
+                {
+                    "field": "hemoglobin_a1c_all_above_8_percent",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the diagnosis and the condition that all available HbA1c values are >8%, but it omits the required clause about lacking a full year of HbA1c measurements, so the meaning is only partially preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Symptomatic visceral disease or any disease burden that makes the patient ineligible for endocrine therapy per the investigator's best judgment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "symptomatic_visceral_disease",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "endocrine_therapy_ineligible_disease_burden",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so custom fields are appropriate; the OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "As determined by the enrolling physician or protocol designee, impairment of gastrointestinal function or disease that may significantly alter the absorption of the study drugs.",
+        "logic": {
+            "field": "gastrointestinal_impairment",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns GI impairment, which has no dedicated schema field, so a custom field is appropriate; the logic correctly flags presence of impairment for an exclusion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Currently documented clinically active pneumonitis.",
+        "logic": {
+            "field": "pneumonitis_status",
+            "operator": "=",
+            "value": "active"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to active pneumonitis, which is not covered by the predefined schema, so a custom field is appropriate. The rule correctly flags patients with 'active' pneumonitis, matching the exclusion intent."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients could have received prior treatment for pneumonitis but pneumonitis must have clinically resolved and treatments for pneumonitis (e.g. steroids) must be completed prior to randomization.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pneumonitis_resolved",
+                    "operator": "!=",
+                    "value": "yes"
+                },
+                {
+                    "field": "pneumonitis_treatment_completed",
+                    "operator": "!=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic correctly captures the exclusion (unresolved pneumonitis OR incomplete treatment), but it uses custom fields (pneumonitis_resolved, pneumonitis_treatment_completed) instead of the appropriate generic 'control' field defined in the schema."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Active cardiac disease, defined as any of the following within 6 months prior to the start of study treatment:",
+        "logic": {
+            "field": "active_cardiac_disease",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a concept not covered by the schema, so a custom field is appropriate; the logic correctly flags patients with active cardiac disease (within 6 months) as excluded."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "History of angina pectoris, coronary artery bypass graft, symptomatic pericarditis, or myocardial infarction.",
+        "logic": {
+            "field": "cardiac_history",
+            "operator": "IN",
+            "value": "angina pectoris"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule uses a custom field (acceptable since cardiac history isn’t in the schema) but only checks for angina pectoris, omitting coronary artery bypass graft, symptomatic pericarditis, and myocardial infarction, so the exclusion condition is only partially captured."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of documented congestive heart failure (New York Heart Association functional classification III-IV).",
+        "logic": {
+            "field": "congestive_heart_failure_nyha_class",
+            "operator": "IN",
+            "value": "III-IV"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns CHF NYHA class III-IV, which has no dedicated schema field; using a custom field correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of any cardiac arrhythmias, (e.g., ventricular tachycardia), complete left bundle branch block, high grade AV block (e.g., bifascicular block, Mobitz type II and third degree AV block), supraventricular, nodal arrhythmias, or conduction abnormality.",
+        "logic": {
+            "field": "cardiac_arrhythmia_history",
+            "operator": "IN",
+            "value": "any cardiac arrhythmias"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns cardiac arrhythmia history, which is not represented in the predefined schema, so a custom field is appropriate. The logic correctly flags patients with any cardiac arrhythmia, matching the exclusion intent, and the JSON is syntactically valid."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Systolic blood pressure (SBP) >180 mmHg and/or Diastolic Blood Pressure (DBP) ≥ 100 mm Hg at screening.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "systolic_blood_pressure",
+                    "operator": ">",
+                    "value": "180",
+                    "unit": "mmHg"
+                },
+                {
+                    "field": "diastolic_blood_pressure",
+                    "operator": ">=",
+                    "value": "100",
+                    "unit": "mmHg"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Blood pressure is not represented in the schema, so custom fields are appropriate. The JSON correctly captures the exclusion condition with an OR of SBP > 180 mmHg and DBP ≥ 100 mmHg."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Initiation or adjustment of antihypertensive medication(s) is allowed prior to screening.",
+        "logic": {
+            "field": "antihypertensive_medication_change",
+            "operator": "=",
+            "value": "allowed"
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The rule uses a custom field (acceptable) but for an exclusion criterion it should evaluate true when the disallowed condition is present; the original text states the change is allowed, so the logic is inverted."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of acute pancreatitis within 1 year of screening or a past medical history of chronic pancreatitis.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "acute_pancreatitis_recent",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "chronic_pancreatitis_history",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Pancreatitis is not covered by the schema, so custom fields are appropriate; the OR logic correctly captures the exclusion of patients with recent acute pancreatitis or chronic pancreatitis."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior treatment with PI3K, mTOR or AKT inhibitor in the metastatic setting.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": [
+                        "PI3K inhibitor",
+                        "mTOR inhibitor",
+                        "AKT inhibitor"
+                    ]
+                },
+                {
+                    "field": "treatment_setting",
+                    "operator": "=",
+                    "value": "metastatic"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion concerns prior treatment history, which should be expressed using the 'treatments' array field from the schema. The rule incorrectly uses custom fields 'treatment_name' and 'treatment_setting' that are not defined, so the mapping is only partially correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of chronic steroid use (defined as daily steroid use > 14 days) and requirement for continued chronic steroid use.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "steroid_use_days",
+                    "operator": ">",
+                    "value": "14"
+                },
+                {
+                    "field": "steroid_use_continued",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves chronic steroid use, which has no dedicated schema field, so custom fields are appropriate; the AND logic correctly captures the required conditions for exclusion."
+        }
+    }
+]

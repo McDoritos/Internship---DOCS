@@ -1,0 +1,410 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Provision of signed and dated informed consent form.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Provision of signed and dated informed consent form."
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is administrative (signed consent) and has no corresponding schema field; using an unmapped placeholder correctly reflects that it cannot be mapped to patient data."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject is 18 years of age and older.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The inclusion criterion about age is correctly mapped to the 'age' field with a '>=' operator and value 18, preserving the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has a diagnosis of unresectable Stage 3 pancreatic adenocarcinoma cancer cytologically or pathologically confirmed per American Joint Committee on Cancer (AJCC) staging criteria.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "pancreatic adenocarcinoma"
+                },
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "Stage 3"
+                },
+                {
+                    "field": "resectability_status",
+                    "operator": "=",
+                    "value": "unresectable"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Uses correct schema fields for diagnosis and stage; adds a custom field for unresectable status, which is not in the schema but acceptable. Logic accurately reflects the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has a tumor evaluated as Stage 3 according to National Comprehensive Cancer Network (NCCN) guidelines, based on radiographic imaging or exploratory surgery.",
+        "logic": {
+            "field": "stage",
+            "operator": "=",
+            "value": "Stage 3"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion specifies tumor stage 3, which maps directly to the 'stage' field; the equality operator correctly captures the inclusion requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Maximum axial and anterior to posterior tumor dimension of ≤3.5cm, after receiving three months of treatment with the modified FOLFIRINOX regimen.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "tumor_max_dimension_cm",
+                    "operator": "<=",
+                    "value": "3.5",
+                    "unit": "cm"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "modified FOLFIRINOX"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Tumor size is captured with a custom field (acceptable as size isn’t in the schema), but the treatment requirement should use the 'treatments' list and include the three‑month duration; using a custom 'treatment_name' field and omitting the duration loses important meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has received 3 months of treatment with the modified FOLFIRINOX regimen.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "modified FOLFIRINOX"
+                },
+                {
+                    "field": "treatment_duration_months",
+                    "operator": ">=",
+                    "value": "3"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the intended meaning (specific regimen and ≥3 months), but it uses non‑schema fields (treatment_name, treatment_duration_months) instead of the defined treatments array with name and dates."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has an Eastern Cooperative Oncology Group (ECOG) performance status of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "0,1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the ecog_ps field with an IN operator for values 0 and 1, matching the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has an American Society of Anesthesiologists (ASA) classification of physical health status of 1 or 2.",
+        "logic": {
+            "field": "asa_classification",
+            "operator": "IN",
+            "value": "1,2"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "ASA classification is not part of the defined schema, so a custom field is appropriate. The rule correctly checks that the ASA class is 1 or 2, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are or may be pregnant as determined by a positive pregnancy test or breastfeeding or male or female patients of reproductive potential who are not willing to employ highly effective birth control from screening to 6 months after the last dose of chemotherapy.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": "positive"
+                },
+                {
+                    "field": "breastfeeding_status",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "reproductive_potential",
+                            "operator": "=",
+                            "value": "true"
+                        },
+                        {
+                            "field": "birth_control_use",
+                            "operator": "=",
+                            "value": "not_willing"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the exclusion logic (positive pregnancy OR breastfeeding OR reproductive potential + unwilling birth control) using acceptable custom fields for pregnancy, breastfeeding, and contraception."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are unable to tolerate general anesthetic with full skeletal muscle blockade.",
+        "logic": {
+            "field": "general_anesthetic_tolerance",
+            "operator": "=",
+            "value": "unable"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns anesthetic tolerance, which has no corresponding schema field, so a custom field is appropriate and the logic correctly captures the 'unable to tolerate' exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are actively bleeding, anticoagulated, coagulopathy, or have any of the following hematology results: hemoglobin less than 10 g/dL without the support of growth factors or transfusions absolute neutrophil count less than 1500 cells/mL; or platelet count less than 100,000.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bleeding_status",
+                    "operator": "=",
+                    "value": "active"
+                },
+                {
+                    "field": "anticoagulation_status",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "coagulopathy_status",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "hemoglobina",
+                    "operator": "<",
+                    "value": "10",
+                    "unit": "g/dL"
+                },
+                {
+                    "field": "neutrofilos",
+                    "operator": "<",
+                    "value": "1500",
+                    "unit": "cells/mL"
+                },
+                {
+                    "field": "plaquetas",
+                    "operator": "<",
+                    "value": "100000"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Custom fields are acceptable since the schema lacks these concepts, and the OR logic matches the exclusion intent, but the hemoglobin condition omits the required qualifier about lack of growth factor or transfusion support, so the meaning is only partially preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects with the presence of implanted cardiac pacemakers, defibrillators, electronic devices or implanted devices with metal parts in the thoracic cavity at the time of IRE.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "cardiac_pacemaker",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "defibrillator",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "electronic_implant",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "thoracic_metal_implant",
+                    "operator": "=",
+                    "value": "present"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns implanted devices not covered by the schema, so custom fields are appropriate, and the OR logic correctly flags exclusion when any device is present."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects with history of epilepsy or other neurological disease.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "epilepsy_history",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "neurological_disease_history",
+                    "operator": "=",
+                    "value": "present"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to neurological disease history, which has no dedicated schema field, so custom fields are appropriate. The OR logic correctly captures 'history of epilepsy or other neurological disease' for an exclusion rule."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Subjects with renal, cardiac, liver, or hematological abnormalities of concern to the investigator.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "renal_abnormalities",
+                    "operator": "=",
+                    "value": "abnormal"
+                },
+                {
+                    "field": "cardiac_abnormalities",
+                    "operator": "=",
+                    "value": "abnormal"
+                },
+                {
+                    "field": "liver_abnormalities",
+                    "operator": "=",
+                    "value": "abnormal"
+                },
+                {
+                    "field": "hematological_abnormalities",
+                    "operator": "=",
+                    "value": "abnormal"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns organ function abnormalities, which are not represented in the schema, so custom fields are appropriate. The OR logic correctly captures that any listed abnormality leads to exclusion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Subjects with Stage 3, 4, or 5 chronic kidney disease.",
+        "logic": {
+            "field": "ckd_stage",
+            "operator": "=",
+            "value": "3"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "CKD stage is not a defined schema field, so a custom field is acceptable, but the rule only checks for stage 3 and omits stages 4 and 5, missing part of the exclusion criterion."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Subjects receiving IRE for margin accentuation.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "IRE"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the exclusion intent (exclude if receiving IRE) but uses a non‑schema field \"treatment_name\" instead of the defined treatments list with a \"name\" attribute, so the field choice is incorrect."
+        }
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "Subjects who at 3 months after FOLFIRINOX treatment have evidence of disease progression.",
+        "logic": {
+            "field": "progression_after_folfirinox_3months",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the exclusion condition correctly, but it uses a custom field (progression_after_folfirinox_3months) even though the generic 'control' field could represent disease progression, so a schema field was missed."
+        }
+    },
+    {
+        "id": 7,
+        "type": "exclusion",
+        "text": "Participation in another interventional trial for pancreatic cancer.",
+        "logic": {
+            "field": "other_interventional_trial_participation",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate, and the rule correctly flags patients who are participating in another interventional pancreatic cancer trial."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who did not meet study defined criteria for adequacy of induction treatment at the end of the 3 months.",
+        "logic": {
+            "field": "induction_treatment_adequacy",
+            "operator": "=",
+            "value": "inadequate"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to induction treatment adequacy, which has no dedicated schema field; using a custom field is acceptable and the logic correctly captures the exclusion of subjects with inadequate induction treatment."
+        }
+    }
+]

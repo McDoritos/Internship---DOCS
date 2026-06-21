@@ -1,0 +1,652 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Written informed consent for Part 1",
+        "logic": {
+            "field": "written_informed_consent_part1",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Consent is an administrative criterion not covered by the schema; using a custom field correctly captures the requirement."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Newly diagnosed, histologically confirmedand , unresectable Stage IIIB, IIIC or Stage IV melanoma including cutaneous (including acral, ungual subtypes), ocular (including uveal and extra-uveal), mucosal, and unknown primary).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "melanoma"
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": [
+                        "IIIB",
+                        "IIIC",
+                        "IV"
+                    ]
+                },
+                {
+                    "field": "tumor_resectability",
+                    "operator": "=",
+                    "value": "unresectable"
+                },
+                {
+                    "field": "newly_diagnosed",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule captures all required concepts (melanoma diagnosis, stages IIIB/IIIC/IV, unresectable disease, and newly diagnosed) using appropriate custom fields for concepts not in the schema, preserving the original meaning."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Treatment-naïve for unresectable advanced orf metastatic melanoma (systemic treatment given in the neoadjuvant and adjuvant settings are acceptable).",
+        "logic": {
+            "field": "treatment_naive_advanced_melanoma",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule uses a non‑schema field (treatment_naive_advanced_melanoma) instead of the appropriate 'treatments' field, and it oversimplifies the criterion, ignoring the allowance for prior neoadjuvant/adjuvant systemic therapy."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Tumour tissue available from advanced or metastatic disease.",
+        "logic": {
+            "field": "tumor_tissue_available",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate and the logic correctly captures the requirement for tumor tissue availability."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Archival tissue from primary or regional recurrent melanoma may be considered if no recent sample is available.",
+        "logic": {
+            "field": "archival_tissue_considered",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "A custom field is appropriate since no schema field fits, but the logic omits the crucial condition “if no recent sample is available,” so the meaning is only partially captured."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Male or female patients aged 18 or over.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "IN",
+                    "value": "male,female"
+                },
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the gender and age fields to capture \"male or female\" and \"aged 18 or over\" with an AND conjunction, preserving the original inclusion meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Standard of care molecular tumour testing which has identified NRAS wild type, and either BRAF wild type or non-V600 BRAF mutant melanoma.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "NRAS_wild_type"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "molecular_status",
+                            "operator": "=",
+                            "value": "BRAF_wild_type"
+                        },
+                        {
+                            "field": "molecular_status",
+                            "operator": "=",
+                            "value": "BRAF_non_V600_mutant"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the molecular_status field to require NRAS wild type AND (BRAF wild type OR non‑V600 BRAF mutant), matching the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Adequate tissue available for the Molecular Testing Platform.",
+        "logic": {
+            "field": "adequate_tissue",
+            "operator": "=",
+            "value": "adequate"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns tissue availability, which is not covered by the predefined schema, so a custom field is appropriate and the logic correctly requires adequate tissue."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Standard of care molecular tumour testing which has identified non V600 BRAF or BRAF wild type, or NRAS wild type melanoma (NRAS mutant patients are eligible for Part 2, but will not undergo NGS testing).",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "BRAF_non_V600_mutant"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "BRAF_wild_type"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "NRAS_wild_type"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the molecular_status field with an OR of the three required biomarker states, matching the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Adequate tissue available per NGS specimen preparation instructions.",
+        "logic": {
+            "field": "adequate_tissue",
+            "operator": "=",
+            "value": "adequate"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns tissue adequacy, which is not covered by the predefined schema fields; using a custom field is appropriate and the logic correctly captures the requirement for adequate tissue."
+        }
+    },
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Written informed consent to receive targeted therapy (if applicable) and clinical follow up.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "written"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Informed consent is not covered by the schema, so a custom field is appropriate; the rule correctly captures the requirement for written consent."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patient has undergone NGS tumour testing or has NRAS or ALKati mutant melanoma on routine testing",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ngs_testing_done",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "IN",
+                    "value": "NRAS,ALKati"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the OR condition using a permissible custom field for NGS testing and the appropriate molecular_status field; meaning is preserved."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Histologically confirmed melanoma of any sub type with measurable disease per RECIST criteria.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "melanoma"
+                },
+                {
+                    "field": "measurable_disease",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the required diagnosis using the 'diagnosis' field and represents the measurable disease requirement with a custom field, which is acceptable because no schema field exists for that concept."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Received available standard therapies or clinical trial agents for unrectable metastatic melanoma that has progressed, unable to tolerate standard therapy, or standard therapy is contraindicated.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "prior_treatment",
+                    "operator": "IN",
+                    "value": "standard_therapy,clinical_trial_agent"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "disease_progression",
+                            "operator": "=",
+                            "value": "yes"
+                        },
+                        {
+                            "field": "treatment_intolerance",
+                            "operator": "=",
+                            "value": "yes"
+                        },
+                        {
+                            "field": "standard_therapy_contraindicated",
+                            "operator": "=",
+                            "value": "yes"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion involves prior therapy, which should be captured using the 'treatments' field, not a custom 'prior_treatment' field. Other concepts (progression, intolerance, contraindication) lack schema equivalents, so custom fields are acceptable there. The logical structure otherwise matches the intended meaning."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Patient has an 'actionable' genetic aberration and matched targeted therapy is available.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "actionable_genetic_aberration",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "matched_targeted_therapy_available",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logical condition correctly captures the meaning (both actionable mutation and therapy availability must be true), but it uses custom fields instead of the appropriate schema field 'molecular_status' for genetic aberrations."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with no genetic aberration or where no matched targeted therapy is available, patients will be offered trametinib",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "none"
+                },
+                {
+                    "field": "matched_targeted_therapy_available",
+                    "operator": "=",
+                    "value": "no"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the OR condition using the appropriate molecular_status field and a permissible custom field for the unavailable targeted therapy concept; the logic matches the original inclusion meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ECOG status 0 - 2.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ecog_ps",
+                    "operator": ">=",
+                    "value": "0"
+                },
+                {
+                    "field": "ecog_ps",
+                    "operator": "<=",
+                    "value": "2"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The inclusion criterion about ECOG 0‑2 is correctly mapped to the ecog_ps field with appropriate range checks."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "White cell count ≥ 2.0 × 109/L",
+        "logic": {
+            "field": "leucocitos",
+            "operator": ">=",
+            "value": "2.0",
+            "unit": "10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is a lab value not covered by the schema; the custom field correctly captures white cell count ≥ 2.0 × 10⁹/L."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Neutrophil count ≥ 1.5 × 109/L",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1.5",
+            "unit": "10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Neutrophil count is not covered by the schema, so a custom field is appropriate and the logic correctly captures ≥ 1.5 × 10^9/L."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Haemoglobin ≥ 90 g/L",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "90",
+            "unit": "g/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Hemoglobin is not represented in the schema, so a custom field is appropriate; the logic correctly captures the ≥ 90 g/L requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Platelet count ≥ 100 x 109/L",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100",
+            "unit": "x 10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Platelet count is a lab value not covered by the schema, so a custom field is appropriate. The logic correctly captures the ≥ 100 × 10⁹/L requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 3.0 x ULN",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "3.0",
+            "unit": "x ULN"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns a lab value not represented in the schema, so a custom field is appropriate and the logic correctly captures 'Total bilirubin ≤ 3.0 times ULN'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Alanine transaminase ≤ 3.0 x ULN",
+        "logic": {
+            "field": "alt",
+            "operator": "<=",
+            "value": "3.0",
+            "unit": "x ULN"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "ALT is not a defined schema field, so a custom field is appropriate; the logic correctly captures ≤ 3.0 × ULN."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Aspartate aminotransferase ≤ 3.0 x ULN",
+        "logic": {
+            "field": "ast",
+            "operator": "<=",
+            "value": "3.0",
+            "unit": "x ULN"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is a lab value not covered by the schema; using a custom 'ast' field with <= 3.0 × ULN correctly captures the meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Serum creatinine ≤ 1.5 x the upper limit of normal (ULN).",
+        "logic": {
+            "field": "creatinina",
+            "operator": "<=",
+            "value": "1.5",
+            "unit": "x ULN"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the inclusion condition (creatinine ≤ 1.5 × ULN) using a custom lab field, which is acceptable since labs are not in the schema, and the logic matches the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Life expectancy > 30 days.",
+        "logic": {
+            "field": "life_expectancy",
+            "operator": ">",
+            "value": "30",
+            "unit": "days"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion has no matching schema field, so a custom field is appropriate; the logic correctly captures 'life expectancy greater than 30 days'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women of child bearing potential (WOCBP) to use contraception to avoid pregnancy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "contraception_use",
+                    "operator": "=",
+                    "value": "required"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the inclusion requirement (female gender and required contraception) using a custom field, which is acceptable for contraception criteria."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Non sterile men with female partners of CBP to use contraception to avoid pregnancy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "sterile",
+                    "operator": "=",
+                    "value": "false"
+                },
+                {
+                    "field": "contraception_use",
+                    "operator": "=",
+                    "value": "required"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the gender field and captures the intended meaning with additional custom fields for sterility and contraception, which are not represented in the schema; thus the logic matches the criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "An expectation for the need for concurrent radiotherapy (unless safety has been established with the matched drug regimen and is directed at one anatomical region for symptom control).",
+        "logic": {
+            "field": "concurrent_radiotherapy_needed",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion concerns concurrent radiotherapy, which should be captured using the 'treatments' field, not a custom 'concurrent_radiotherapy_needed' field, and the logic omits the exception clause about established safety and symptom‑control‑only radiotherapy."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Any clinically significant gastrointestinal abnormalities which may impair intake or absorption of the study drug.",
+        "logic": {
+            "field": "gastrointestinal_abnormalities",
+            "operator": "=",
+            "value": "clinically_significant"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a concept not covered by the schema, so a custom field is appropriate. The rule correctly captures the presence of clinically significant GI abnormalities for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Any investigational drug or other systemic drug therapy for melanoma within 14 days or 5 half-lives from baseline, whichever is shorter.",
+        "logic": {
+            "field": "melanoma_investigational_drug_recent",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion concerns recent systemic melanoma therapy, which should be captured using the 'treatments' field; using a custom field instead is a misuse of the schema despite correct exclusion logic."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnant or breast feeding females.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "pregnancy_or_breastfeeding",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the exclusion of pregnant or breastfeeding females using an acceptable custom field; the logic (female AND pregnancy_or_breastfeeding = true) evaluates true when the exclusion condition is present."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Drug specific exclusions as detailed in the TGA Product Information for each drug.",
+        "logic": {
+            "field": "tga_product_information_exclusion",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to drug‑specific exclusions that are not represented in the predefined schema, so a custom boolean field is appropriate. The logic correctly flags exclusion when the field is true."
+        }
+    }
+]

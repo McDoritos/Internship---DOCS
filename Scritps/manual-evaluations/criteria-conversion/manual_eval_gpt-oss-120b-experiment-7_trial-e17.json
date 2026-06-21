@@ -1,0 +1,639 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Age ≥18 years, gender unlimited;",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the inclusion requirement of age ≥ 18 using the appropriate 'age' field; gender is unrestricted, so omitting a gender field is appropriate."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients diagnosis of primary hepatocellular carcinoma by histopathology and/or cytology;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "primary hepatocellular carcinoma"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion specifies a diagnosis of primary hepatocellular carcinoma, correctly mapped to the 'diagnosis' field with an equality check, preserving the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At the initial enrollment evaluation, patients were expected to accept radical resection of liver cancer and meet at least one of the following high-risk recurrence factors after surgery: ①There are 3 or more tumor lesions in the liver; ②The diameter of a single tumor lesion is >8cm; ③Existence macrovascular tumor thrombus; ④>5 MVI or MVI occurred in the distant paracancer tissues;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "radical resection"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "tumor_lesion_count",
+                            "operator": ">=",
+                            "value": "3"
+                        },
+                        {
+                            "field": "largest_tumor_diameter_cm",
+                            "operator": ">",
+                            "value": "8",
+                            "unit": "cm"
+                        },
+                        {
+                            "field": "macrovascular_tumor_thrombus",
+                            "operator": "=",
+                            "value": "present"
+                        },
+                        {
+                            "operator": "OR",
+                            "conditions": [
+                                {
+                                    "field": "mvi_count",
+                                    "operator": ">",
+                                    "value": "5"
+                                },
+                                {
+                                    "field": "mvi_distant_paracancer",
+                                    "operator": "=",
+                                    "value": "present"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the intended logic, but it uses a custom field \"treatment_name\" instead of the defined \"treatments\" list (a schema field that applies to treatment history). Other clinical features are not in the schema, so custom fields are acceptable for them."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Before enrollment (after radical resection of liver cancer), imaging evaluation was performed to ensure that the tumor was completely removed (clear margin);",
+        "logic": {
+            "field": "clear_margin",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a concept (clear surgical margin) not covered by the predefined schema, so a custom field is appropriate. The logic correctly requires the clear_margin to be 'yes', preserving the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Must have at least 1 resectable lesion (diameter ≥2 cm);",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "resectable_lesion_count",
+                    "operator": ">=",
+                    "value": "1"
+                },
+                {
+                    "field": "resectable_lesion_diameter_cm",
+                    "operator": ">=",
+                    "value": "2",
+                    "unit": "cm"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so custom fields are appropriate. The logic correctly captures “at least one resectable lesion with diameter ≥ 2 cm.”"
+        }
+    },
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "ECOG score <2;",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "<",
+            "value": "2"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the ecog_ps field with a '< 2' condition, matching the inclusion criterion that the ECOG score must be less than 2."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Child-Pugh score ≤7;",
+        "logic": {
+            "field": "child_pugh_score",
+            "operator": "<=",
+            "value": "7"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Child-Pugh score is not represented in the schema, so a custom field is appropriate; the logic correctly captures ≤7."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "White blood cell count ≥3.0E+9/ L, neutrophil count ≥1.5E+9/ L, platelet countPlatelet count ≥8.0E10/ L, hemoglobin ≥80g/L",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "leucocitos",
+                    "operator": ">=",
+                    "value": "3.0E+9",
+                    "unit": "10^9/L"
+                },
+                {
+                    "field": "neutrofilos",
+                    "operator": ">=",
+                    "value": "1.5E+9",
+                    "unit": "10^9/L"
+                },
+                {
+                    "field": "plaquetas",
+                    "operator": ">=",
+                    "value": "8.0E10",
+                    "unit": "10^9/L"
+                },
+                {
+                    "field": "hemoglobina",
+                    "operator": ">=",
+                    "value": "80",
+                    "unit": "g/L"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures all lab thresholds with AND logic; labs are not in the schema, so custom fields are appropriate."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Aspartate aminotransferase (AST)≤5 times normal value, alanine aminotransferase (ALT)≤5 times normal value, bilirubin ≤5 times normal value, serum albumin ≥28 g/L;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "5",
+                    "unit": "times_normal"
+                },
+                {
+                    "field": "alt",
+                    "operator": "<=",
+                    "value": "5",
+                    "unit": "times_normal"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "5",
+                    "unit": "times_normal"
+                },
+                {
+                    "field": "albumina",
+                    "operator": ">=",
+                    "value": "28",
+                    "unit": "g/L"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the inclusion thresholds for AST, ALT, bilirubin (≤5 × normal) and albumin (≥28 g/L) using custom fields, which is appropriate because lab values are not part of the defined schema."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Creatinine (Cr)≤1.5 times normal limit, creatinine clearance ≥50 mL/min;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "times_normal"
+                },
+                {
+                    "field": "creatinine_clearance",
+                    "operator": ">=",
+                    "value": "50",
+                    "unit": "mL/min"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves lab values not covered by the schema, so custom fields are appropriate. The JSON correctly captures both conditions (creatinine ≤1.5 × normal and clearance ≥50 mL/min) with proper operators and units."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "An estimated life expectancy of ≥3 months;",
+        "logic": {
+            "field": "life_expectancy_months",
+            "operator": ">=",
+            "value": "3",
+            "unit": "months"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Life expectancy is not a defined schema field, so a custom field is appropriate; the logic correctly captures the ≥3‑month requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Participation in this clinical study voluntary, can cooperate with researchers to carry out research, and sign informed consent.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Participation in this clinical study voluntary, can cooperate with researchers to carry out research, and sign informed consent."
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is administrative (voluntary participation and consent) and does not map to any schema field; using an unmapped flag correctly captures its meaning."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Primary hepatocellular carcinoma (HCC) has recurred in the past, or has other types of liver cancer at the same time (such as intrahepatic cholangiocarcinoma, mixed type of liver cancer);",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "hcc_recurrence",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "IN",
+                    "value": [
+                        "intrahepatic cholangiocarcinoma",
+                        "mixed type of liver cancer"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the OR logic of HCC recurrence or other liver cancer diagnoses; recurrence isn’t a defined schema field, so a custom field is acceptable."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Have a history of high fever or severe infection within 2 weeks prior to pretreatment, or are expected to undergo systemic anti-infective therapy or systemic steroid therapy during this trial;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "infection_history",
+                    "operator": "IN",
+                    "value": [
+                        "high_fever",
+                        "severe_infection"
+                    ]
+                },
+                {
+                    "field": "expected_anti_infective_therapy",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "expected_systemic_steroid_therapy",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the presence of high fever, severe infection, and expected anti‑infective or steroid therapy, but it omits the required 2‑week window before pretreatment, so the meaning is only partially preserved."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Hepatic encephalopathy occurred within 2 weeks before pretreatment;",
+        "logic": {
+            "field": "hepatic_encephalopathy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Custom field is acceptable, but the logic omits the required 2‑week timing, so the meaning is only partially captured."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Previous or screening with autoimmune liver disease;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": [
+                "autoimmune liver disease"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a specific diagnosis, so using the 'diagnosis' field with an IN operator correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Screening with moderate or higher peritoneal effusion;",
+        "logic": {
+            "field": "peritoneal_effusion_grade",
+            "operator": "IN",
+            "value": [
+                "moderate",
+                "high",
+                "severe"
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to peritoneal effusion severity, which is not in the schema, so a custom field is appropriate. The logic correctly captures 'moderate or higher' and aligns with exclusion semantics."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Clear neurological/psychiatric symptoms are known to be associated with brain metastases and/or assessed by MMSE;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "neurological_psychiatric_symptoms",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "mmse_assessed",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves neurological/psychiatric symptoms and MMSE assessment, which have no corresponding schema fields, so custom fields are appropriate; the OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+        "logic": {
+            "field": "recent_anti_tumor_therapy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The exclusion refers to recent anti‑tumor treatments, which should be captured using the 'treatments' schema field (e.g., checking treatment names and dates). The rule uses a non‑schema field 'recent_anti_tumor_therapy', so the mapping is incomplete despite the correct logical intent."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Have received or are expected to participate in this study within 4 weeks before pretreatment to receive TIL required focus radiotherapy, or tumor evaluation focus (target focus or non-target focus) radiotherapy, or radical radiotherapy;",
+        "logic": {
+            "field": "recent_radiotherapy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion concerns recent radiotherapy, which should be captured using the 'treatments' field with date logic; using a custom 'recent_radiotherapy' field is inappropriate despite the correct exclusion logic."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Any toxic response resulting from previous anti-tumor treatment prior to pretreatment did not return to grade 1 or below (CTCAE5.0 version);",
+        "logic": {
+            "field": "toxicity_grade",
+            "operator": ">",
+            "value": "1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Toxicity grade is not represented in the schema, so a custom field is acceptable, and the condition 'grade > 1' correctly captures the exclusion meaning."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Previous history of organ / stem cell transplantation or expected to be involved in this trial for organ / stem cell transplantation;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "organ_transplant_history",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "organ_transplant_planned",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Organ/stem cell transplant is not covered by the schema, so custom fields are appropriate; the OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Left ventricular ejection fraction (LVEF)<45% or New York Heart Association (NYHA)≥ grade 2;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "left_ventricular_ejection_fraction",
+                    "operator": "<",
+                    "value": "45",
+                    "unit": "%"
+                },
+                {
+                    "field": "nyha_class",
+                    "operator": ">=",
+                    "value": "2",
+                    "unit": "grade"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "LVEF and NYHA are not represented in the schema, so custom fields are appropriate; the logical expression correctly captures the exclusion condition (LVEF < 45% OR NYHA ≥ 2)."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Known or private HIV infection or syphilis infection;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "hiv_infection",
+                    "operator": "=",
+                    "value": "positive"
+                },
+                {
+                    "field": "syphilis_infection",
+                    "operator": "=",
+                    "value": "positive"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves infections not covered by the schema, so custom fields are appropriate; the OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "The previous 3 years other system primary malignant tumor history (except skin basal cell carcinoma or cervical carcinoma in situ);",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "prior_primary_malignant_tumor_within_years",
+                    "operator": "<=",
+                    "value": "3"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "skin basal cell carcinoma"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "cervical carcinoma in situ"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the exclusion: a prior primary malignant tumor within 3 years, excluding skin basal cell carcinoma and cervical carcinoma in situ. No appropriate schema field exists, so a custom field is acceptable."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "A known allergy to two or more non-homogeneous foods/drugs, or a known history of allergies to pre-treated drugs, including cyclophosphamide, fludarbin, interleukin;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "allergy_count",
+                    "operator": ">=",
+                    "value": "2"
+                },
+                {
+                    "field": "drug_allergy_history",
+                    "operator": "IN",
+                    "value": "cyclophosphamide, fludarbin, interleukin"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Allergy concepts are not covered by the schema, so custom fields are appropriate, and the OR logic correctly captures both parts of the exclusion criterion."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Pregnant, lactating women or within one year of having a family plan;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": "pregnant"
+                },
+                {
+                    "field": "lactation_status",
+                    "operator": "=",
+                    "value": "lactating"
+                },
+                {
+                    "field": "family_planning_recent",
+                    "operator": "=",
+                    "value": "within_one_year"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns pregnancy, lactation, and recent family planning, which are not in the schema, so custom fields are appropriate. The OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Participated in other clinical trials within 3 months prior to screening;",
+        "logic": {
+            "field": "clinical_trial_participation_within_months",
+            "operator": "<=",
+            "value": "3",
+            "unit": "months"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion has no matching schema field, so a custom field is appropriate, and the logic (≤ 3 months) correctly captures participation in another trial within the last 3 months for an exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other circumstances that the researchers considered inappropriate to participate in the experiment.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Other circumstances that the researchers considered inappropriate to participate in the experiment."
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is a generic catch‑all exclusion with no specific clinical attribute, so using an unmapped/custom field is appropriate and the logic preserves the meaning."
+        }
+    }
+]

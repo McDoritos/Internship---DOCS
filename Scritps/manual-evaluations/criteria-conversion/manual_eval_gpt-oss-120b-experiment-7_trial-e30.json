@@ -1,0 +1,398 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women who have high-grade serous ovarian, primary peritoneal or fallopian tube cancer.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "IN",
+                    "value": "high-grade serous ovarian, primary peritoneal, fallopian tube cancer"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Uses correct schema fields (gender and diagnosis) and captures the intended meaning, but the diagnosis values are given as a single comma‑separated string instead of a proper list, which is a structural issue."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Have platinum-resistant disease and have documented test results assessing alterations in the BRCA1 and BRCA2 genes prior to receiving study treatment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "platinum_resistant",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "brca_testing_done",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the two required conditions, but it uses a custom field \"brca_testing_done\" instead of the appropriate schema field \"molecular_status\" for BRCA testing, which is a clear mismatch."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Are BRCA negative and have received 3 or more prior lines of therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "BRCA negative"
+                },
+                {
+                    "field": "prior_therapy_lines",
+                    "operator": ">=",
+                    "value": "3"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the meaning but uses a non‑schema field 'prior_therapy_lines' instead of the defined 'treatments' array, which is a schema mismatch."
+        }
+    },
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Are BRCA negative and have received less than 3 prior lines of therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "BRCA negative"
+                },
+                {
+                    "field": "prior_therapy_lines",
+                    "operator": "<",
+                    "value": "3"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the intended meaning, but uses a non‑schema field \"prior_therapy_lines\" instead of representing prior therapy via the defined \"treatments\" field."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Are BRCA positive and have previously received a PARP.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "BRCA positive"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "PARP"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion correctly uses molecular_status for BRCA, but it uses a non‑schema field \"treatment_name\" instead of the defined treatments list (e.g., treatments.name), so the mapping to prior PARP therapy is imperfect."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Have primary platinum refractory disease.",
+        "logic": {
+            "field": "platinum_refractory",
+            "operator": "=",
+            "value": "primary"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to platinum‑refractory disease, which has no dedicated schema field; using a custom 'platinum_refractory' field correctly captures the required condition."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Have adequate organ function.",
+        "logic": {
+            "field": "adequate_organ_function",
+            "operator": "=",
+            "value": "adequate"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate and the logic correctly captures the requirement of adequate organ function."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Must be able and willing to undergo mandatory tumor biopsy.",
+        "logic": {
+            "field": "tumor_biopsy_consent",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly requires a positive consent for tumor biopsy."
+        }
+    },
+    {
+        "id": "Cohort 1",
+        "type": "exclusion",
+        "text": "Have previously received all of the following agents at any time in the platinum-resistant setting: gemcitabine, pegylated liposomal doxorubicin, and paclitaxel.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "gemcitabine"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "pegylated liposomal doxorubicin"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "paclitaxel"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule should use the defined 'treatments' array (e.g., treatments.name) instead of a non‑existent 'treatment_name' field, and it omits the required context of the platinum‑resistant setting, so the meaning is only partially captured."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have known central nervous system malignancy or metastasis.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "cns_malignancy",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "cns_metastasis",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic correctly captures the exclusion (CNS malignancy OR metastasis), but it uses custom fields (cns_malignancy, cns_metastasis) instead of the appropriate schema field (e.g., control) that can represent metastases/comorbidities."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have previously participated in any study involving a checkpoint kinase 1 inhibitor or have hypersensitivity to the study drug or excipients.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "prior_ck1_study_participation",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "hypersensitivity_study_drug",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "hypersensitivity_excipients",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves prior study participation and hypersensitivity, which are not covered by the schema, so custom fields are appropriate; the OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "history of abdominal fistula or gastrointestinal perforation",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "abdominal_fistula_history",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "gastrointestinal_perforation_history",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is not covered by the predefined schema, so custom fields are appropriate; the OR logic correctly flags patients with either history, matching the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "intra-abdominal abscess within last 3 months prior to the first dose of study drug",
+        "logic": {
+            "field": "intra_abdominal_abscess",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a condition not covered by the schema, so a custom field is appropriate; the logic correctly flags patients with a recent intra‑abdominal abscess (value \"yes\") as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "a radiographically confirmed bowel obstruction within 3 months prior to the first dose of study drug",
+        "logic": {
+            "field": "bowel_obstruction_recent",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Bowel obstruction is not represented in the schema, so a custom field is appropriate. The rule correctly flags patients with a recent radiographically confirmed obstruction, matching the exclusion meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have a symptomatic human immunodeficiency virus infection or symptomatic activated/reactivated hepatitis A, B, or C (screening is not required).",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "hiv_infection_symptomatic",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "hepatitis_a_symptomatic",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "hepatitis_b_symptomatic",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "hepatitis_c_symptomatic",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves symptomatic HIV or hepatitis infections, which are not covered by the schema fields, so custom fields are appropriate. The OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have a serious cardiac condition.",
+        "logic": {
+            "field": "serious_cardiac_condition",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a concept not covered by the schema, so a custom field is appropriate; the rule correctly flags patients with a serious cardiac condition (value \"yes\") as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have a history of prior radiotherapy to the whole pelvis.",
+        "logic": {
+            "field": "prior_radiotherapy_whole_pelvis",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion concerns prior radiotherapy, which should be represented using the 'treatments' field per the schema. Using a custom field 'prior_radiotherapy_whole_pelvis' is a misuse of schema fields, though the logical condition itself matches the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have chronic daily treatment with corticosteroids, excluding inhaled or topical steroids.",
+        "logic": {
+            "field": "chronic_corticosteroid_use",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns chronic systemic corticosteroid use, which has no dedicated schema field, so a custom field is appropriate and the logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Have known factors that may increase the risk of infection while on study drug treatment. These may include, but are not limited to, an indwelling peritoneal catheter or open wounds. Catheters for vascular access are permitted.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "indwelling_peritoneal_catheter",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "open_wound",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns infection‑risk factors not represented in the schema, so custom fields are appropriate; the OR logic correctly captures exclusion when either a peritoneal catheter or an open wound is present."
+        }
+    }
+]

@@ -1,0 +1,229 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Male or female patients ≥ 18 years at the day of consenting;",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the age ≥ 18 requirement using the appropriate 'age' field; gender is irrelevant and its omission does not affect meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologically confirmed diagnosis of Soft Tissue Sarcoma (STS) excepted GIST.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "Soft Tissue Sarcoma"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "!=",
+                    "value": "GIST"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the diagnosis field to require Soft Tissue Sarcoma and exclude GIST, matching the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Metastatic disease or unresectable locally advanced malignancy for which standard therapy by anthracycline is decided;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "disease_status",
+                    "operator": "=",
+                    "value": "metastatic"
+                },
+                {
+                    "field": "disease_status",
+                    "operator": "=",
+                    "value": "unresectable_locally_advanced"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Used a non‑schema field (disease_status) instead of the appropriate 'stage' field and omitted the condition about anthracycline therapy, so the meaning is only partially captured."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At least one measurable lesion as per RECIST version 1.1.;",
+        "logic": {
+            "field": "measurable_lesion",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion has no matching schema field, so a custom field is acceptable; the logic correctly captures the requirement of a measurable lesion being present."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ECOG Performance Status of 0-2;",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "0,1,2"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the ecog_ps field with values 0,1,2 to represent ECOG 0‑2, preserving the inclusion meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients must have an adequate organ and bone marrow function at baseline;",
+        "logic": {
+            "field": "organ_and_bone_marrow_function",
+            "operator": "=",
+            "value": "adequate"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns organ and bone marrow function, which has no dedicated schema field; using a custom field with value 'adequate' correctly captures the requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient should understand, sign, and date the written voluntary informed consent form prior to any protocol-specific procedures performed and should be able and willing to comply with procedures as per protocol;",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "signed"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The consent requirement is not covered by any schema field, so a custom 'informed_consent' field is appropriate and the logic correctly captures the essential condition (signed consent)."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Covered by a medical insurance.",
+        "logic": {
+            "field": "medical_insurance_coverage",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate and the logic correctly captures the requirement of having medical insurance."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Evidence of significant uncontrolled concomitant disease that could affect compliance with the protocol or interpretation of results;",
+        "logic": {
+            "field": "uncontrolled_concomitant_disease",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The exclusion logic correctly captures the presence of uncontrolled disease, but it uses a custom field instead of the appropriate 'control' schema field."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior treatment with anthracycline;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "anthracycline"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion clearly maps to the 'treatments' field, but the rule uses a non‑schema field 'treatment_name', so the mapping is imperfect despite correct exclusion logic."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of other malignancy other than study disease (except for basal cell or squamous cell carcinoma of the skin or carcinoma in situ of the cervix) unless the patient has been free of disease for at least 3 years;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "basal cell carcinoma of the skin"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "squamous cell carcinoma of the skin"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "carcinoma in situ of the cervix"
+                },
+                {
+                    "field": "other_malignancy_history",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "years_since_other_malignancy_free",
+                    "operator": "<",
+                    "value": "3"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The rule misuses the 'diagnosis' field (meant for the study disease) to check the type of prior malignancy and adds unnecessary custom fields; this does not correctly capture the exclusion logic for other malignancies and their 3‑year disease‑free requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Metabolic syndrome;",
+        "logic": {
+            "field": "metabolic_syndrome",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Metabolic syndrome is not represented in the schema, so a custom field is acceptable. The rule correctly flags patients with metabolic syndrome as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnant or breast-feeding woman criteria",
+        "logic": {
+            "field": "pregnant_or_breastfeeding",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Pregnancy/breastfeeding is not in the schema, so a custom field is appropriate; the rule correctly flags exclusion when the condition is present."
+        }
+    }
+]

@@ -1,0 +1,490 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "The patient shall sign the Informed Consent Form.",
+        "logic": {
+            "field": "informed_consent_signed",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field; using a custom 'informed_consent_signed' field with value true correctly captures the requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Aged 18 ≥ years.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The inclusion criterion requires participants to be at least 18 years old, and the rule correctly uses the 'age' field with a '>=' operator and value 18."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histological or cytological diagnosis of NSCLC by needle biopsy, and evaluated by researchers as stage III-IVA, and diagnosed as ALK positive through genetic testing.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": "III-IVA"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "ALK positive"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Uses appropriate schema fields (diagnosis, stage, molecular_status) and correctly captures all required elements; extra detail about needle biopsy is not represented in the schema but its omission is acceptable."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Eastern Cooperative Oncology Group (ECOG) performance-status score of 0 or 1.",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "0,1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is about ECOG performance status and correctly uses the ecog_ps field with an IN operator for values 0 and 1, preserving the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "According to the MDT evaluation (which should include a thoracic surgeon specializing in tumor surgery), it is considered that the primary NSCLC is potentially completely resectable;",
+        "logic": {
+            "field": "tumor_resectable",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Resectability is not covered by the predefined schema, so a custom field is appropriate; the rule correctly requires the tumor to be resectable (true) for inclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At least 1 measurable lesion according to RECIST 1.1.",
+        "logic": {
+            "field": "measurable_lesion_count",
+            "operator": ">=",
+            "value": "1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion has no matching schema field, so a custom field is appropriate; the logic correctly captures 'at least 1 measurable lesion'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with good function of other main organs (liver, kidney, blood system, etc.)",
+        "logic": {
+            "field": "organ_function_status",
+            "operator": "=",
+            "value": "good"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns organ function, which is not covered by any predefined schema field. Using a custom field (organ_function_status = 'good') correctly captures the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with lung function can tolerate surgery;",
+        "logic": {
+            "field": "lung_function_adequate_for_surgery",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate and the logic correctly captures the requirement that lung function must be adequate for surgery."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Fertile female patients must voluntarily use effective contraceptives not less than 120 days after chemotherapy or the last dose of toripalimab (whichever is later) during the study period, and urine or serum pregnancy test results within 7 days prior to enrollment are negative.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "fertility_status",
+                    "operator": "=",
+                    "value": "fertile"
+                },
+                {
+                    "field": "contraception_use_duration_days",
+                    "operator": ">=",
+                    "value": "120"
+                },
+                {
+                    "field": "pregnancy_test_result",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "pregnancy_test_within_days",
+                    "operator": "<=",
+                    "value": "7"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Custom fields are acceptable, but the rule omits the crucial timing condition relative to chemotherapy or toripalimab, so the meaning is only partially captured."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Unsterilized male patients must voluntarily use effective contraception during the study period not less than 120 d",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "sterilization_status",
+                    "operator": "=",
+                    "value": "unsterilized"
+                },
+                {
+                    "field": "contraception_use_duration_days",
+                    "operator": ">=",
+                    "value": "120"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the requirement for unsterilized male patients to use contraception for at least 120 days; although it uses custom fields, contraception criteria are excluded from the schema, so this is acceptable."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Previously received targeted therapy (including TKI or monoclonal antibodies), immunotherapy, or any investigational drug treatment for NSCLC;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": [
+                "targeted therapy",
+                "immunotherapy",
+                "investigational drug"
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion clearly maps to the 'treatments' field, but the rule uses a non‑existent 'treatment_name' field instead of the schema's treatments list, so the mapping is imperfect."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Pathological confirmation of mixed small cell and non-small cell lung cancer;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "mixed small cell and non-small cell lung cancer"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a specific cancer diagnosis, correctly mapped to the 'diagnosis' field with an equality check; the logic matches the exclusion intent and the JSON is well‑formed."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients with a malignancy other than NSCLC within five years prior to the start of this trial，except for cured basal cell carcinoma of the skin, early gastrointestinal (GI) carcinoma excised through endoscopy, cervical carcinoma in situ, ductal carcinoma in situ of the breast, papillary thyroid carcinoma, or any cured cancer deemed to have no impact on the survival of the current NSCLC;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "other_malignancy_within_5_years",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": [
+                        "basal cell carcinoma of the skin",
+                        "early gastrointestinal carcinoma",
+                        "cervical carcinoma in situ",
+                        "ductal carcinoma in situ of the breast",
+                        "papillary thyroid carcinoma",
+                        "cured cancer with no impact on survival"
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the exclusion: it flags patients with any other malignancy within 5 years (custom field allowed) and excludes those whose diagnosis is in the listed exception list. Fields and logic preserve the original meaning."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Participants with any unstable systemic disease (including active infection, uncontrolled hypertension), unstable angina pectoris, angina pectoris starting in the last three months, congestive heart failure (>= NYHA) Grade II), myocardial infarction (6 months before admission), severe arrhythmia requiring drug treatment, liver, kidney or metabolic diseases;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "systemic_disease_status",
+                    "operator": "=",
+                    "value": "unstable"
+                },
+                {
+                    "field": "infection_status",
+                    "operator": "=",
+                    "value": "active"
+                },
+                {
+                    "field": "hypertension_status",
+                    "operator": "=",
+                    "value": "uncontrolled"
+                },
+                {
+                    "field": "angina_status",
+                    "operator": "=",
+                    "value": "unstable"
+                },
+                {
+                    "field": "angina_onset_months",
+                    "operator": "<=",
+                    "value": "3"
+                },
+                {
+                    "field": "congestive_heart_failure_grade",
+                    "operator": ">=",
+                    "value": "II"
+                },
+                {
+                    "field": "myocardial_infarction_months",
+                    "operator": "<=",
+                    "value": "6"
+                },
+                {
+                    "field": "arrhythmia_severity",
+                    "operator": "=",
+                    "value": "severe"
+                },
+                {
+                    "field": "liver_disease",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "kidney_disease",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "metabolic_disease",
+                    "operator": "=",
+                    "value": "present"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion describes various medical conditions not covered by the schema, so custom fields are appropriate. The OR logic correctly captures the ‘any of these conditions’ exclusion semantics."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Patients with congenital or acquired immune dysfunction (such as HIV infected individuals);",
+        "logic": {
+            "field": "immune_dysfunction",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to immune dysfunction, which has no dedicated schema field, so a custom field is appropriate. The logic correctly flags patients with immune dysfunction (value \"yes\") for exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Received other major surgical treatments (excluding diagnosis) within 4 weeks prior to the start of the study or expected to undergo major surgical treatments during the study period;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "major_surgical_treatment_recent",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "expected_major_surgical_treatment",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logical condition (OR of recent or expected major surgery) matches the exclusion meaning, but the schema provides a 'treatments' field that should capture surgical history; using custom fields instead is a misuse of the defined schema."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Participants who are allergic to the test drug or any auxiliary materials;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "allergy_to_test_drug",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "allergy_to_auxiliary_materials",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Allergy criteria are not covered by the schema, so custom fields are appropriate, and the OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "A history of extensive diffuse bilateral interstitial fibrosis in the past or before medication, or a known grade 3 or 4 history of interstitial fibrosis or interstitial lung disease, including pneumonia, allergic pneumonia, interstitial pneumonia, interstitial lung disease, obliterative bronchiolitis, and pulmonary fibrosis, but not including local radiation pneumonia or radiation pulmonary fibrosis history;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "extensive_diffuse_bilateral_interstitial_fibrosis_history",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "interstitial_fibrosis_grade",
+                    "operator": "IN",
+                    "value": "3,4"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns interstitial lung disease, which has no corresponding schema field, so custom fields are appropriate. The OR logic correctly captures both the extensive fibrosis history and grade 3‑4 fibrosis condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnant or lactating women;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": "pregnant"
+                },
+                {
+                    "field": "lactation_status",
+                    "operator": "=",
+                    "value": "lactating"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Pregnancy and lactation are not represented in the schema; using custom fields is appropriate and the OR logic correctly captures the exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Any malabsorption;",
+        "logic": {
+            "field": "malabsorption",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Malabsorption is not a defined schema field, so a custom field is appropriate, and the rule correctly flags patients with malabsorption (true) as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Participants suffering from nervous system diseases or mental diseases that cannot cooperate",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "nervous_system_disease",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "mental_disease",
+                    "operator": "=",
+                    "value": "cannot_cooperate"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so custom fields are appropriate, and the OR logic correctly captures exclusion for any nervous system disease or for mental disease with inability to cooperate."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other factors that researchers think it is not suitable for enrollment.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Other factors that researchers think it is not suitable for enrollment."
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is a vague catch‑all with no applicable schema field; using an unmapped flag correctly reflects its meaning."
+        }
+    }
+]

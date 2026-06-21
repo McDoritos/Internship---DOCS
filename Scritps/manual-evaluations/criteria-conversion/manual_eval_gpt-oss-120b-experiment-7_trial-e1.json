@@ -1,0 +1,425 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Age ≥ 18 years.",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the age field with the appropriate operator and value, preserving the original inclusion criterion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed metastatic NSCLC (Stage IV).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "IV"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the 'diagnosis' field for NSCLC and the 'stage' field for IV, preserving the meaning of confirmed metastatic (Stage IV) NSCLC."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "first_line_combination_therapy",
+                    "operator": "=",
+                    "value": "platinum + anti-PD-1/PD-L1"
+                },
+                {
+                    "field": "progression_status",
+                    "operator": "=",
+                    "value": "documented"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the intended meaning (documented progression after first‑line platinum + anti‑PD‑1/PD‑L1 therapy) but uses non‑schema fields (first_line_combination_therapy, progression_status) instead of the appropriate 'treatments' list (and possibly 'control') defined in the schema."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "ECOG Performance Status 0–1.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ecog_ps",
+                    "operator": ">=",
+                    "value": "0"
+                },
+                {
+                    "field": "ecog_ps",
+                    "operator": "<=",
+                    "value": "1"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the ecog_ps field with bounds 0 to 1, preserving the inclusion meaning."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "At least one measurable lesion per RECIST 1.1.",
+        "logic": {
+            "field": "measurable_lesion",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion has no matching schema field, so a custom field is appropriate; the logic correctly captures the requirement of having a measurable lesion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Absolute neutrophil count (ANC) ≥ 1.5 x 10^9/L.",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1.5",
+            "unit": "x10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "ANC is not represented in the schema, so a custom field is appropriate and the logic correctly captures the ≥ 1.5 × 10⁹/L requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Platelets ≥ 100 x 10^9/L.",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100",
+            "unit": "x10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Platelet count is not covered by the schema, so a custom field is appropriate and the logic correctly captures ≥ 100 ×10⁹/L."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Hemoglobin ≥ 9 g/dL.",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "9",
+            "unit": "g/dL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is a lab value not covered by the schema, so a custom field is appropriate and the logic correctly captures Hemoglobin ≥ 9 g/dL."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "AST ≤ 2.5 x ULN (≤ 5 x ULN if liver metastases).",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ast",
+                    "operator": "<=",
+                    "value": "2.5",
+                    "unit": "x ULN"
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "liver_metastases",
+                            "operator": "=",
+                            "value": "true"
+                        },
+                        {
+                            "field": "ast",
+                            "operator": "<=",
+                            "value": "5",
+                            "unit": "x ULN"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the inclusion condition (AST ≤2.5 × ULN, or ≤5 × ULN when liver metastases are present) and uses a custom 'ast' field, which is appropriate because lab values are not part of the defined schema."
+        }
+    },
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Total bilirubin ≤ 1.5 x ULN.",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5 x ULN"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Bilirubin is a lab value not covered by the schema, so a custom field is appropriate and the logic correctly captures ≤ 1.5 × ULN."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Creatinine clearance ≥ 40 mL/min (CKD-EPI formula).",
+        "logic": {
+            "field": "creatinine_clearance",
+            "operator": ">=",
+            "value": "40",
+            "unit": "mL/min"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Creatinine clearance is not represented in the schema, so a custom field is appropriate and the logic correctly captures ≥ 40 mL/min."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Women of childbearing potential must have a negative pregnancy test prior to treatment initiation.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "pregnancy_test_result",
+                    "operator": "=",
+                    "value": "negative"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Pregnancy testing is not represented in the schema, so a custom field is acceptable. The rule correctly requires female gender and a negative test, preserving the intended meaning."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Signed informed consent prior to any study-specific procedure.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Signed informed consent prior to any study-specific procedure."
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is procedural and not covered by any schema field; using an unmapped flag correctly captures the requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known EGFR genomic alterations with available approved targeted therapy.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "EGFR"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The exclusion criterion about EGFR alterations is correctly mapped to the molecular_status field with an equality check, preserving the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Untreated brain metastases.",
+        "logic": {
+            "field": "brain_metastases_status",
+            "operator": "=",
+            "value": "untreated"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to untreated brain metastases, which has no dedicated schema field; using a custom field is acceptable and the logic correctly flags patients with 'untreated' status for exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Symptomatic brain metastases.",
+        "logic": {
+            "field": "brain_metastases_symptomatic",
+            "operator": "=",
+            "value": "symptomatic"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to symptomatic brain metastases, which has no corresponding schema field, so a custom field is appropriate. The logic correctly flags exclusion when the field equals 'symptomatic'."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active autoimmune disease requiring systemic immunosuppressive therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "autoimmune_disease_status",
+                    "operator": "=",
+                    "value": "active"
+                },
+                {
+                    "field": "systemic_immunosuppressive_therapy",
+                    "operator": "=",
+                    "value": "required"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so custom fields are appropriate; the logic correctly captures an active autoimmune disease that requires systemic immunosuppressive therapy for an exclusion rule."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Interstitial lung disease.",
+        "logic": {
+            "field": "interstitial_lung_disease",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Interstitial lung disease is not covered by the schema, so a custom field is appropriate; the rule correctly flags patients with the disease as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active non-infectious pneumonitis.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "pneumonitis_status",
+                    "operator": "=",
+                    "value": "active"
+                },
+                {
+                    "field": "pneumonitis_type",
+                    "operator": "=",
+                    "value": "non_infectious"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a condition not covered by the schema, so custom fields are appropriate. The logic correctly captures 'active non‑infectious pneumonitis' with an AND of status and type, matching the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active infection requiring systemic therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "infection_status",
+                    "operator": "=",
+                    "value": "active"
+                },
+                {
+                    "field": "infection_therapy",
+                    "operator": "=",
+                    "value": "systemic"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves infection, which is not represented in the schema, so custom fields are appropriate; the logic correctly requires both active infection and systemic therapy, matching the exclusion meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior exposure to LUMITAX.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "LUMITAX"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the exclusion intent but uses a non‑schema field \"treatment_name\" instead of the defined \"treatments\" array with a name subfield."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "active_invasive_malignancy",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "diagnosis_date_within_3_years",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "!=",
+                    "value": "non-melanoma skin cancer"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "!=",
+                    "value": "carcinoma in situ"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic correctly captures the exclusion (active invasive malignancy within 3 years except non‑melanoma skin cancer or carcinoma in situ) but uses non‑schema fields (active_invasive_malignancy, diagnosis_date_within_3_years) instead of the defined fields like diagnosis and diagnosis_date, which is a misuse of the schema."
+        }
+    }
+]

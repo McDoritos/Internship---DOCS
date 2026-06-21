@@ -1,0 +1,138 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Male and female;",
+        "logic": {
+            "field": "gender",
+            "operator": "IN",
+            "value": "male,female"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion allows both male and female participants; using the gender field with an IN operator for ['male','female'] correctly captures this inclusion rule."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Age above 18 years old;",
+        "logic": {
+            "field": "age",
+            "operator": ">",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is about age > 18, correctly mapped to the 'age' field with the appropriate operator; the JSON is valid and preserves the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Diagnosis of diffuse large B-cell lymphoma (DLBCL) and high-grade non-Hodgkin B-cell lymphoma at all stagings;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "IN",
+            "value": "diffuse large B-cell lymphoma,high-grade non-Hodgkin B-cell lymphoma"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to diagnosis, correctly mapped to the 'diagnosis' field with an IN operator covering both lymphoma types; meaning is fully preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Lymphoma classified for the cell of origin (GCB - Germinal Center B-Cell lymphoma, and non-germinal center);",
+        "logic": {
+            "field": "cell_of_origin",
+            "operator": "IN",
+            "value": "GCB,non-germinal center"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to lymphoma cell of origin, which is not represented in the schema, so a custom field is appropriate. The logic correctly includes both GCB and non‑germinal center categories."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Having first life of treatment information available in institutional medical record;",
+        "logic": {
+            "field": "first_line_treatment_info_available",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate, and the logic correctly requires the information to be present."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Having survival data available in institutional medical record.",
+        "logic": {
+            "field": "survival_data_available",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly requires survival data to be present."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "No medical record of the molecular subgroup classification;",
+        "logic": {
+            "field": "molecular_subgroup_classification",
+            "operator": "=",
+            "value": "missing"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion refers to molecular classification, which should map to the schema field 'molecular_status'. Using a custom field 'molecular_subgroup_classification' is a misuse of the schema, though the logic for missing value is correct."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Diagnosis of diffuse large B-cell lymphoma, confirmed in the year 2016;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "diffuse large B-cell lymphoma"
+                },
+                {
+                    "field": "diagnosis_date",
+                    "operator": "=",
+                    "value": "2016"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the diagnosis and diagnosis_date fields with an AND, matching the exclusion criterion that the patient must have diffuse large B‑cell lymphoma diagnosed in 2016."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Patients diagnosed with Transformed Lymphomas.",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "Transformed Lymphomas"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The exclusion criterion correctly uses the 'diagnosis' field with equality to identify patients with Transformed Lymphomas, matching the intended meaning."
+        }
+    }
+]

@@ -1,0 +1,460 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologic or cytologic diagnosis of thymoma, Stage II-IV.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "thymoma"
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": "II,III,IV"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the diagnosis and stage fields to require thymoma and stage II‑IV, matching the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Males or females between 18 Years to 75 Years.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "age",
+                    "operator": "<=",
+                    "value": "75"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the age range (18‑75). The criterion does not restrict gender (it includes both males and females), so omitting a gender field is appropriate."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "No prior SBRT, if the surgery or chemotherapy has been administered, the interval is at least above four weeks.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "SBRT"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "treatment_name",
+                            "operator": "IN",
+                            "value": "surgery"
+                        },
+                        {
+                            "field": "treatment_name",
+                            "operator": "IN",
+                            "value": "chemotherapy"
+                        }
+                    ]
+                },
+                {
+                    "field": "treatment_gap_weeks",
+                    "operator": ">=",
+                    "value": "4"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The rule uses non‑existent fields (treatment_name, treatment_gap_weeks) instead of the schema's treatments array, and it incorrectly requires surgery or chemotherapy (instead of making it conditional), thus misrepresenting the original criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Performance status of 0, 1 on the ECOG criteria. Expected survival is above three months.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "ecog_ps",
+                    "operator": "IN",
+                    "value": "0,1"
+                },
+                {
+                    "field": "expected_survival_months",
+                    "operator": ">",
+                    "value": "3"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures ECOG performance status 0‑1 and the >3‑month expected survival; ECOG uses the proper schema field, and the survival concept is not in the schema, so a custom field is acceptable."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At least one unidimensional measurable lesion meeting Response Evaluation Criteria in Solid Tumors (RECIST. 2000).",
+        "logic": {
+            "field": "measurable_lesion_count",
+            "operator": ">=",
+            "value": "1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns measurable lesions, which has no dedicated schema field, so a custom field is appropriate. The logic correctly captures “at least one” by requiring count ≥ 1."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients can have the brain / meningeal metastasis history, but the metastasis must be treated by operation or radiotherapy), and clinically stable for at least 2 months.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "brain_meningeal_metastasis_treatment",
+                    "operator": "IN",
+                    "value": "operation, radiotherapy"
+                },
+                {
+                    "field": "clinical_stability_months",
+                    "operator": ">=",
+                    "value": "2"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion involves brain/meningeal metastasis treatment and clinical stability, which can be represented using the 'control' field, but the rule uses custom fields (brain_meningeal_metastasis_treatment, clinical_stability_months) instead of the appropriate schema field."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Adequate hematologic (neutrophil count >= 1,500/uL, platelets >= 100,000/uL), hepatic (transaminase =< upper normal limit(UNL)x2.5, bilirubin level =< UNLx1.5), and renal (creatinine =< UNL) function.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "neutrofilos",
+                    "operator": ">=",
+                    "value": "1500",
+                    "unit": "uL"
+                },
+                {
+                    "field": "plaquetas",
+                    "operator": ">=",
+                    "value": "100000",
+                    "unit": "uL"
+                },
+                {
+                    "field": "transaminase",
+                    "operator": "<=",
+                    "value": "UNL*2.5"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "UNL*1.5"
+                },
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "UNL"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns laboratory thresholds not covered by the schema, so custom fields are appropriate and the logic correctly captures the required values."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient compliance that allow adequate follow-up. Informed consent from patient or patient's relative.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "patient_compliance",
+                    "operator": "=",
+                    "value": "adequate_follow_up"
+                },
+                {
+                    "field": "informed_consent_obtained",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns compliance and consent, which are not covered by the schema, so custom fields are appropriate and the logic correctly captures both required conditions."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "If female: childbearing potential either terminated by surgery, radiation, or menopause, or attenuated by use of an approved contraceptive method (intrauterine device [IUD], birth control pills, or barrier device) during and for 2 months after trial.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "female_contraceptive_method",
+                    "operator": "IN",
+                    "value": "surgery, radiation, menopause, IUD, birth_control_pills, barrier_device"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly requires female gender and checks a custom field for acceptable contraceptive or sterilization methods, which is appropriate because the schema has no dedicated field for this concept. The logical condition captures the intended inclusion requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "If male, use of an approved contraceptive method during the study and 2 months afterwards.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "male_contraceptive_method",
+                    "operator": "=",
+                    "value": "approved_method"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Uses the correct gender field and a permissible custom field for male contraceptive use; the AND logic captures the conditional requirement despite timing details not being representable in the schema."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Females with childbearing potential must have a urine negative HCG test within 7 days prior to the study enrollment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "hcg_test_result",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "hcg_test_timing_days",
+                    "operator": "<=",
+                    "value": "7"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Gender and negative HCG within 7 days are correctly captured using schema and custom fields, but the criterion also requires \"childbearing potential,\" which is omitted; the logic does not fully preserve the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "No concomitant prescriptions including cyclosporin A, valproic acid, phenobarbital, phenytoin, ketoconazole.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "cyclosporin A"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "valproic acid"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "phenobarbital"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "phenytoin"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "ketoconazole"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the intended meaning (patient must not be on any listed drug) but uses a non‑existent field \"treatment_name\" instead of the schema's \"treatments\" list, which is a clear misuse of the defined schema."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "No pathological or cytological evidence of cancer.",
+        "logic": {
+            "field": "cancer_pathology_evidence",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion has no matching schema field, so a custom field is acceptable; the logic correctly flags exclusion when pathological evidence is present."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Inability to comply with protocol or study procedures.",
+        "logic": {
+            "field": "protocol_compliance",
+            "operator": "=",
+            "value": "unable"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly flags participants as excluded when they are unable to comply."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Medically uncontrolled serious heart, lung, neurological, psychological, metabolic disease Second primary malignancy that is clinically detectable at the time of consideration for study enrollment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "uncontrolled_serious_disease",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "second_primary_malignancy",
+                    "operator": "=",
+                    "value": "detectable"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The exclusion logic (OR) is correct, but the first condition should use the schema's 'control' field for uncontrolled disease rather than a custom field; the second condition has no direct schema field, so a custom field is acceptable."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Pregnant or breast-feeding.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnant",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "breastfeeding",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Pregnancy and breastfeeding are not represented in the schema; using custom fields is appropriate and the OR logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Enrollment in other study within 30 days.",
+        "logic": {
+            "field": "other_study_enrollment_days",
+            "operator": "<=",
+            "value": "30"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate, and the logic correctly captures enrollment in another study within 30 days for an exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Brain metastasis with symptoms.",
+        "logic": {
+            "field": "brain_metastasis_symptomatic",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to symptomatic brain metastasis, which has no corresponding schema field, so a custom field is appropriate and the logic correctly flags exclusion when present."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Hypokalemic and intestinal obstruction history.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "hypokalemia",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "intestinal_obstruction_history",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves concepts not covered by the schema, so custom fields are appropriate, and the AND logic correctly captures the exclusion condition."
+        }
+    }
+]

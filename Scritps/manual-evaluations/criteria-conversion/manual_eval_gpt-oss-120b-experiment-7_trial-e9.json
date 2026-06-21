@@ -1,0 +1,345 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Absolute neutrophil count (ANC) >= 1.5 x 10^9/L",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1.5",
+            "unit": "10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is a lab value not covered by the schema, so a custom field is appropriate and the logic correctly captures ANC ≥ 1.5 × 10⁹/L."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Platelets >= 100 x 10^9/L",
+        "logic": {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100",
+            "unit": "10^9/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Platelet count is not covered by the schema, so a custom field is appropriate and the logic correctly captures the >= 100 × 10⁹/L requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Hemoglobin >= 9 g/dL",
+        "logic": {
+            "field": "hemoglobina",
+            "operator": ">=",
+            "value": "9",
+            "unit": "g/dL"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Hemoglobin is not represented in the schema, so a custom field is appropriate and the logic correctly captures the >= 9 g/dL requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Serum creatinine =< 1.5 x institution upper limit of normal (ULN) and calculated creatinine clearance of at least 15 ml/min.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "creatinina",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "x ULN"
+                },
+                {
+                    "field": "creatinine_clearance",
+                    "operator": ">=",
+                    "value": "15",
+                    "unit": "ml/min"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the two lab thresholds using custom fields (acceptable since labs aren't in the schema) and the logical operators match the original inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Alanine aminotransferase (ALT) and aspartate aminotransferase (AST) =< 3 x upper limit of normal (ULN) (ALT and AST =< 5 x ULN is acceptable if liver metastases are present)",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "alt",
+                            "operator": "<=",
+                            "value": "3",
+                            "unit": "x ULN"
+                        },
+                        {
+                            "field": "ast",
+                            "operator": "<=",
+                            "value": "3",
+                            "unit": "x ULN"
+                        }
+                    ]
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "liver_metastases",
+                            "operator": "=",
+                            "value": "present"
+                        },
+                        {
+                            "field": "alt",
+                            "operator": "<=",
+                            "value": "5",
+                            "unit": "x ULN"
+                        },
+                        {
+                            "field": "ast",
+                            "operator": "<=",
+                            "value": "5",
+                            "unit": "x ULN"
+                        }
+                    ]
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the ALT/AST limits and the exception for liver metastases using custom fields, which is acceptable since labs and metastasis status are not in the schema."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Total serum bilirubin =< 1.5 x ULN.",
+        "logic": {
+            "field": "bilirrubina_total",
+            "operator": "<=",
+            "value": "1.5 x ULN"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Bilirubin is not represented in the schema, so a custom field is appropriate and the logic correctly captures '<= 1.5 x ULN'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "For patients with well documented Gilbert's syndrome, total bilirubin =< 3 x ULN with direct bilirubin within normal range.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "Gilbert's syndrome"
+                },
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "3 x ULN"
+                },
+                {
+                    "field": "direct_bilirubin",
+                    "operator": "=",
+                    "value": "normal"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the diagnosis requirement using the schema field and represents the bilirubin criteria with custom fields, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Participant must understand the investigational nature of this study and sign an approved written informed consent form prior to receiving any study related procedure.",
+        "logic": {
+            "unmapped": true,
+            "source_text": "Participant must understand the investigational nature of this study and sign an approved written informed consent form prior to receiving any study related procedure."
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns informed consent, which has no corresponding schema field; using an unmapped/custom field correctly captures the meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "ad major surgery within 14 days prior to starting study drug or has not recovered from major side effects (tumor biopsy is not considered major surgery) resulting from a prior surgery",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "days_since_major_surgery",
+                    "operator": "<=",
+                    "value": "14"
+                },
+                {
+                    "field": "major_surgery_side_effects_recovered",
+                    "operator": "=",
+                    "value": "false"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves recent major surgery and recovery from side effects, which are not covered by the predefined schema, so custom fields are appropriate and the logic correctly captures the OR condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Positive for immunosuppressive disease, acquired immunodeficiency syndrome (AIDS) or other immune depressing diseases.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "immunosuppressive_condition",
+                    "operator": "=",
+                    "value": "immunosuppressive disease"
+                },
+                {
+                    "field": "immunosuppressive_condition",
+                    "operator": "=",
+                    "value": "AIDS"
+                },
+                {
+                    "field": "immunosuppressive_condition",
+                    "operator": "=",
+                    "value": "other immune depressing disease"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to immunosuppressive conditions not covered by the schema, so a custom field is appropriate; the OR logic correctly captures exclusion when any listed condition is present."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "For human immunodeficiency virus (HIV), HVC and HBC-mandatory testing is required prior to enrollment",
+        "logic": {
+            "field": "hiv_hvc_hbc_testing_completed",
+            "operator": "=",
+            "value": "false"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns mandatory HIV/HVC/HBC testing, which has no corresponding schema field, so a custom field is appropriate. The logic correctly excludes patients when testing is not completed, matching the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patient has known hypersensitivity to the components of the study drugs or any analogs",
+        "logic": {
+            "field": "hypersensitivity_to_study_drug",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate, and the logic correctly flags patients with hypersensitivity (true) as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History or current evidence of any condition, therapy, or laboratory abnormality that might confound the results of the study, interfere with the patient's participation for the full duration of the study, or is not in the best interest of the patient to participate, including, but not limited to: Myocardial infarction or arterial or venous thromboembolic events within 6 months prior to baseline or severe or unstable angina, New York Heart Association (NYHA) class III or IV disease.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "myocardial_infarction_within_months",
+                    "operator": "<=",
+                    "value": "6"
+                },
+                {
+                    "field": "thromboembolic_event_within_months",
+                    "operator": "<=",
+                    "value": "6"
+                },
+                {
+                    "field": "unstable_angina",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "nyha_class",
+                    "operator": "IN",
+                    "value": "III,IV"
+                },
+                {
+                    "field": "confounding_condition_present",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion involves cardiovascular events and NYHA class, which are not represented in the schema, so custom fields are appropriate. The OR logic correctly flags exclusion when any listed condition is present, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of documented congestive heart failure (New York Heart Association functional classification III or IV) within 6 months prior to baseline.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "congestive heart failure"
+                },
+                {
+                    "field": "nyha_class",
+                    "operator": "IN",
+                    "value": "III,IV"
+                },
+                {
+                    "field": "chf_recent_within_6_months",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logical conditions correctly capture CHF, NYHA III/IV, and recent timing, but the rule misuses the 'diagnosis' field (meant for primary cancer) for a comorbidity, which should be a custom or control field."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Poorly controlled arrhythmias",
+        "logic": {
+            "field": "arrhythmia_control",
+            "operator": "=",
+            "value": "poorly_controlled"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any defined schema field, so a custom field is acceptable, and the logic correctly captures exclusion for poorly controlled arrhythmias."
+        }
+    }
+]

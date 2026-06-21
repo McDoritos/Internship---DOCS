@@ -1,0 +1,516 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "ECOG performance status of 0 or 1.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "ecog_ps",
+                    "operator": "=",
+                    "value": "0"
+                },
+                {
+                    "field": "ecog_ps",
+                    "operator": "=",
+                    "value": "1"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the ecog_ps field with an OR condition to capture ECOG scores of 0 or 1, matching the inclusion criterion."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histologically or cytologically confirmed, Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "IV"
+                },
+                {
+                    "field": "histology_type",
+                    "operator": "IN",
+                    "value": "non-squamous,squamous"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Uses correct schema fields for diagnosis and stage; histology type isn’t in the schema so a custom field is acceptable; the AND logic accurately captures the original inclusion criterion."
+        }
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "No prior treatment for Stage IV non-squamous or squamous NSCLC.",
+        "logic": {
+            "field": "prior_treatment",
+            "operator": "=",
+            "value": "none"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule uses a non‑schema field \"prior_treatment\" and ignores the required stage (Stage IV) and diagnosis (non‑squamous or squamous NSCLC). The correct schema fields would be \"stage\", \"diagnosis\", and checking that the \"treatments\" list is empty."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Patients who have received prior neo-adjuvant, adjuvant chemotherapy, radiotherapy, or chemo-radiotherapy with curative intent for non-metastatic disease must have experienced a treatment free interval of at least 6 months from enrollment since the last chemotherapy, radiotherapy, or chemo-radiotherapy cycle.",
+        "logic": {
+            "field": "treatment_free_interval_months",
+            "operator": ">=",
+            "value": "6",
+            "unit": "months"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the 6‑month treatment‑free interval but uses a non‑existent custom field (treatment_free_interval_months) instead of the defined 'treatments' list to represent prior therapy timing."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Tumor TC3 or IC3, as determined by SP142 performed by a central laboratory on previously obtained archival tumor tissue or tissue obtained from a biopsy at screening.",
+        "logic": {
+            "field": "tumor_tc_ic_score",
+            "operator": "IN",
+            "value": "TC3,IC3"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns a PD‑L1 SP142 TC3/IC3 score, which has no dedicated schema field, so a custom field is appropriate and the logic correctly captures the 'TC3 or IC3' requirement."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Measurable disease, as defined by RECIST v1.1.",
+        "logic": {
+            "field": "measurable_disease",
+            "operator": "=",
+            "value": "RECIST v1.1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly captures the requirement of measurable disease defined by RECIST v1.1."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Adequate hematologic and end-organ function.",
+        "logic": {
+            "field": "adequate_hematologic_and_end_organ_function",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to general organ function, which has no dedicated schema field, so a custom boolean field is appropriate and the logic correctly requires it to be true."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Life expectancy ≥3 months.",
+        "logic": {
+            "field": "life_expectancy_months",
+            "operator": ">=",
+            "value": "3",
+            "unit": "months"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Life expectancy is not represented in the schema, so a custom field is appropriate; the logic correctly captures '≥ 3 months'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "For women of childbearing potential: agreement to remain abstinent or use contraception, and agreement to refrain from donating.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "contraception_agreement",
+                    "operator": "=",
+                    "value": "agreed"
+                },
+                {
+                    "field": "donation_agreement",
+                    "operator": "=",
+                    "value": "refrain"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Uses gender field correctly and appropriate custom fields for contraception and donation agreements, which are acceptable for pregnancy‑related criteria; the logic captures the required agreements."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known sensitizing mutation in the EGFR gene.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "EGFR sensitizing mutation"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to an EGFR sensitizing mutation, which correctly maps to the molecular_status field; the logic checks for presence of that mutation, preserving the exclusion meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known sensitizing mutation in the ALK fusion oncogene.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "IN",
+            "value": "ALK fusion oncogene"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Uses the appropriate molecular_status field with a suitable operator to capture the ALK fusion mutation exclusion; meaning and structure are preserved."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Symptomatic, untreated, or actively progressing CNS metastases.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "cns_metastases_status",
+                    "operator": "=",
+                    "value": "symptomatic"
+                },
+                {
+                    "field": "cns_metastases_status",
+                    "operator": "=",
+                    "value": "untreated"
+                },
+                {
+                    "field": "cns_metastases_status",
+                    "operator": "=",
+                    "value": "actively_progressing"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic correctly captures the exclusion (OR of symptomatic, untreated, or actively progressing CNS metastases), but it uses a custom field 'cns_metastases_status' instead of the appropriate 'control' field defined for metastases, which is a schema mismatch."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Spinal cord compression not definitively treated with surgery and/or radiation, or previously diagnosed and treated spinal cord compression without evidence that disease has been clinically stable for ≥2 weeks prior to enrollment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "spinal_cord_compression_treatment",
+                    "operator": "!=",
+                    "value": "definitive"
+                },
+                {
+                    "field": "spinal_cord_compression_stable_weeks",
+                    "operator": "<",
+                    "value": "2"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logical meaning (OR of non‑definitive treatment or stability < 2 weeks) matches the criterion, but it uses custom fields (spinal_cord_compression_treatment, spinal_cord_compression_stable_weeks) that are not part of the defined schema; the concept should be captured with the existing 'control' field."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Current leptomeningeal disease.",
+        "logic": {
+            "field": "leptomeningeal_disease_status",
+            "operator": "=",
+            "value": "current"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Leptomeningeal disease is not represented in the schema, so a custom field is appropriate; the logic correctly flags current disease for exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Uncontrolled tumor-related pain.",
+        "logic": {
+            "field": "tumor_related_pain_status",
+            "operator": "=",
+            "value": "uncontrolled"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to uncontrolled tumor‑related pain, which has no corresponding schema field, so a custom field is appropriate and the logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Uncontrolled pleural effusion, pericardial effusion, or ascites requiring recurrent drainage procedures.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pleural_effusion_status",
+                    "operator": "=",
+                    "value": "requiring_recurrent_drainage"
+                },
+                {
+                    "field": "pericardial_effusion_status",
+                    "operator": "=",
+                    "value": "requiring_recurrent_drainage"
+                },
+                {
+                    "field": "ascites_status",
+                    "operator": "=",
+                    "value": "requiring_recurrent_drainage"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to uncontrolled effusions, which have no dedicated schema field, so custom fields are appropriate; the OR logic correctly captures any effusion requiring recurrent drainage, preserving the exclusion meaning."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Uncontrolled or symptomatic hypercalcemia.",
+        "logic": {
+            "field": "hypercalcemia_status",
+            "operator": "=",
+            "value": "uncontrolled_or_symptomatic"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Hypercalcemia is not covered by the schema, so a custom field is acceptable; the rule correctly flags patients with uncontrolled or symptomatic hypercalcemia for exclusion."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Malignancies other than NSCLC within 5 years prior to enrollment, with the exception of those with a negligible risk of metastasis or death treated with expected curative outcome.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "!=",
+                    "value": "NSCLC"
+                },
+                {
+                    "field": "diagnosis_date",
+                    "operator": ">=",
+                    "value": "5_years_prior"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Uses correct schema fields (diagnosis, diagnosis_date) and captures the main exclusion (non‑NSCLC malignancy within 5 years), but omits the important exception for negligible‑risk, curatively treated cancers, so the meaning is only partially preserved."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Pregnancy or breastfeeding, or intention of becoming pregnant during study treatment or within at least 5 months after the last dose of atezolizumab.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": "pregnant"
+                },
+                {
+                    "field": "breastfeeding_status",
+                    "operator": "=",
+                    "value": "breastfeeding"
+                },
+                {
+                    "field": "pregnancy_intention",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Custom fields are acceptable for pregnancy/breastfeeding, but the rule omits the timing restriction (within treatment or up to 5 months post‑dose), so the meaning is only partially captured."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "History of severe allergic, anaphylactic, or other hypersensitivity reactions to chimeric or humanized antibodies or fusion proteins.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "severe_allergic_reaction",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "anaphylactic_reaction",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "hypersensitivity_to_antibodies",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so custom fields are appropriate. The OR logic correctly captures the exclusion condition of any severe allergic, anaphylactic, or hypersensitivity reaction to the specified antibodies."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known allergy or hypersensitivity to biopharmaceuticals produced in Chinese hamster ovary cells or any component of the atezolizumab formulation.",
+        "logic": {
+            "field": "atezolizumab_allergy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Allergy/hypersensitivity is not represented in the schema, so a custom field is appropriate. The rule correctly flags patients with a known atezolizumab (or CHO‑cell biopharma) allergy as excluded."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active or history of autoimmune disease or immune deficiency.",
+        "logic": {
+            "field": "autoimmune_disease",
+            "operator": "IN",
+            "value": "active,history"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Using a custom field is acceptable, but the rule only checks for 'active' or 'history' and omits the immune deficiency component, so the meaning is only partially captured."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of idiopathic pulmonary fibrosis, organizing pneumonia, drug-induced pneumonitis, idiopathic pneumonitis, or evidence of active pneumonitis on screening chest CT scan.",
+        "logic": {
+            "field": "pulmonary_fibrosis_pneumonitis",
+            "operator": "IN",
+            "value": "idiopathic pulmonary fibrosis,organizing pneumonia,drug-induced pneumonitis,idiopathic pneumonitis,active pneumonitis"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns pulmonary fibrosis/pneumonitis, which has no dedicated schema field, so a custom field is appropriate; the IN operator with the listed conditions correctly captures the exclusion logic."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Positive human immunodeficiency virus (HIV) test result at screening.",
+        "logic": {
+            "field": "hiv_status",
+            "operator": "=",
+            "value": "positive"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "HIV status is not represented in the schema, so a custom field is appropriate. The rule correctly flags a positive HIV test as the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients with active hepatitis B at screening.",
+        "logic": {
+            "field": "hepatitis_status",
+            "operator": "=",
+            "value": "active hepatitis B"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to hepatitis B status, which is not covered by the predefined schema, so a custom field is appropriate. The logic correctly flags patients with active hepatitis B, matching the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active tuberculosis.",
+        "logic": {
+            "field": "tuberculosis_status",
+            "operator": "=",
+            "value": "active"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to active tuberculosis, which has no dedicated schema field, so a custom field is appropriate. The rule correctly flags patients where tuberculosis_status = 'active', matching the exclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Severe infections within 4 weeks prior to randomization, including, but not limited to, hospitalization for complications of infection, bacteremia, or severe pneumonia.",
+        "logic": {
+            "field": "infection_recent",
+            "operator": "=",
+            "value": "severe"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion refers to a concept (recent severe infection) not covered by the schema, so a custom field is acceptable, but the logic only checks for 'severe' infection and omits the required 4‑week time window, thus only partially preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Significant cardiovascular disease.",
+        "logic": {
+            "field": "cardiovascular_disease_status",
+            "operator": "=",
+            "value": "significant"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to cardiovascular disease, which has no dedicated schema field, so a custom field is appropriate. The rule correctly flags exclusion when the status equals 'significant', preserving the intended meaning."
+        }
+    }
+]

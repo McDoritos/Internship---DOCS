@@ -1,0 +1,334 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Histologically confirmed pure seminomatous testicular germ cell tumor",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "pure seminomatous testicular germ cell tumor"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion specifies a diagnosis, correctly mapped to the 'diagnosis' field with an equality check, preserving the intended meaning."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Presence of iliac or retroperitoneal lymph node metastasis detected in contrast-enhanced CT or MRI, classified as local or unilaterally regional",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "lymph_node_metastasis_location",
+                    "operator": "=",
+                    "value": "iliac"
+                },
+                {
+                    "field": "metastasis_classification",
+                    "operator": "=",
+                    "value": "local_or_unilaterally_regional"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Custom fields are acceptable (no matching schema fields), but the logic only checks for iliac nodes and omits retroperitoneal locations, so the original meaning is only partially captured."
+        }
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Maximum extent of lymph node metastasis (LN-M) singular or multiple, with a maximum size of 5 cm in transverse CT diameter (UICC IIB)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "lymph_node_metastasis_extent",
+                    "operator": "=",
+                    "value": "singular_or_multiple"
+                },
+                {
+                    "field": "lymph_node_metastasis_max_size_cm",
+                    "operator": "<=",
+                    "value": "5",
+                    "unit": "cm"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns lymph node metastasis extent and size, which are not represented in the schema, so custom fields are appropriate. The logic correctly captures 'singular or multiple' and a maximum size of ≤5 cm, preserving the original meaning."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Patients with an elevation in HCG after orchiectomy at the time of staging examination can be included if the directly preoperatively determined HCG does not exceed 5 IU/L.",
+        "logic": {
+            "field": "hcg_level",
+            "operator": "<=",
+            "value": "5",
+            "unit": "IU/L"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the inclusion condition (pre‑operative HCG ≤ 5 IU/L). HCG is not a defined schema field, so a custom field is appropriate."
+        }
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Initial diagnosis of a tumor in UICC stage IIA/IIB",
+        "logic": {
+            "field": "stage",
+            "operator": "=",
+            "value": "IIA"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Uses the correct 'stage' field but only checks for IIA, omitting IIB and does not enforce the requirement of an initial diagnosis."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a tumor in clinical stage (CS) I under active surveillance",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "I"
+                },
+                {
+                    "field": "tumor_recurrence",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "active_surveillance",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic correctly captures recurrence, stage I, and active surveillance, but 'tumor_recurrence' and 'active_surveillance' are not schema fields; they should be represented using the 'control' field."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a CS I tumor after adjuvant therapy with carboplatin mono",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "I"
+                },
+                {
+                    "field": "tumor_recurrence",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "carboplatin"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Stage criterion is correctly mapped, but the rule uses undefined fields (tumor_recurrence, treatment_name) instead of the schema's treatments or control fields, so the mapping is only partially correct."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "LN-M with a transverse diameter >5 cm in CT (UICC IIC)",
+        "logic": {
+            "field": "ln_m_transverse_diameter",
+            "operator": ">",
+            "value": "5",
+            "unit": "cm"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns lymph node size, which is not represented in the schema, so a custom field is appropriate; the logic correctly captures >5 cm transverse diameter for an exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other metastases than LN-M (UICC III)",
+        "logic": {
+            "field": "other_metastases",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the exclusion (presence of other metastases) correctly, but uses a custom field 'other_metastases' instead of the appropriate 'control' field defined for metastases."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient received a different chemotherapy than described above",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "!=",
+            "value": "specified_chemotherapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion concerns chemotherapy history, which should use the 'treatments' field, but the rule uses a non‑schema field 'treatment_name'; the logical condition itself matches the meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient underwent retroperitoneal radiotherapy",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "CONTAINS",
+            "value": "retroperitoneal radiotherapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion clearly maps to the 'treatments' field (treatments.name), but the rule uses a non‑schema field 'treatment_name', so the mapping is imperfect despite correct logical intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient is in a reduced general condition or has a life‑threatening illness",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "general_condition",
+                    "operator": "=",
+                    "value": "reduced"
+                },
+                {
+                    "field": "life_threatening_illness",
+                    "operator": "=",
+                    "value": "present"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any defined schema field; using custom fields is acceptable and the OR logic correctly captures the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient has a psychiatric illness",
+        "logic": {
+            "field": "psychiatric_illness",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Psychiatric illness is not covered by the schema, so a custom field is appropriate; the rule correctly flags presence of the illness for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Evidence of non-seminomatous germ cell tumor components in the RPLND histology",
+        "logic": {
+            "field": "non_seminomatous_germ_cell_components",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate, and the logic correctly flags exclusion when non‑seminomatous components are present."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Complete resection cannot be ensured due to previous surgeries",
+        "logic": {
+            "field": "complete_resection_possible",
+            "operator": "=",
+            "value": "no"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly flags exclusion when complete resection is not possible."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "In the \"high risk\" group: Contraindications to cisplatin, etoposide, or bleomycin (severe liver insufficiency, severe kidney insufficiency, severe lung insufficiency, hypersensitivity, severe bone marrow depression, profound hearing impairments)",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "cisplatin_contraindication",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "etoposide_contraindication",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "bleomycin_contraindication",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "severe_liver_insufficiency",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "severe_kidney_insufficiency",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "severe_lung_insufficiency",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "hypersensitivity",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "severe_bone_marrow_depression",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "profound_hearing_impairments",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion lists contraindications that are not represented in the schema, so custom fields are appropriate. The OR logic correctly flags exclusion when any listed contraindication is present."
+        }
+    }
+]

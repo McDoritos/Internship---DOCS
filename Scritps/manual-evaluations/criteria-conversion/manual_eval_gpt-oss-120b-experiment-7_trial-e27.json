@@ -1,0 +1,295 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histopathology or cytopathology proven gastric cancer;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "gastric cancer"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion specifies confirmed gastric cancer, which correctly maps to the 'diagnosis' field with an equality check."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Operable advanced gastric cancer patients: primary lesions can be completely excision, no distant metastasis;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "resectable",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "distant_metastasis",
+                    "operator": "=",
+                    "value": "absent"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic correctly captures both conditions with AND, but it uses non‑schema fields ('resectable' and 'distant_metastasis') instead of the appropriate schema field (e.g., 'control' for metastasis or 'stage' for operability)."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Postoperative patients who can tolerate 5-FU based (5-FU，S-1 or Capecitabine) adjuvant chemotherapy;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "5-FU, S-1, Capecitabine"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule uses a non‑existent field \"treatment_name\" instead of the defined \"treatments\" array (e.g., treatments.name) and does not capture the postoperative or tolerance aspects of the criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Life expectancy of at least 6 months;",
+        "logic": {
+            "field": "life_expectancy_months",
+            "operator": ">=",
+            "value": "6"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is acceptable, and the logic correctly captures 'life expectancy of at least 6 months'."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ECOG（Eastern Cooperative Oncology Group ） score 0-1;",
+        "logic": {
+            "field": "ecog_ps",
+            "operator": "IN",
+            "value": "0,1"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the ecog_ps field with an IN operator to require ECOG scores of 0 or 1, matching the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Age: 18~80 years old;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "age",
+                    "operator": "<=",
+                    "value": "80"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the age field with >=18 and <=80 combined by AND, matching the inclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Normal hemodynamic indices before the recruitment (including blood cell count and liver/kidney function).",
+        "logic": {
+            "field": "hemodynamic_indices_normal",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to normal hemodynamic/lab values, which are not represented in the schema; using a custom boolean field correctly captures the required condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "WBC（White blood cell count ）>4.0×109/L; NEU（Neutrophils）>1.5×109/L; PLT（Platelet）>100×109/L;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "leucocitos",
+                    "operator": ">",
+                    "value": "4.0",
+                    "unit": "10^9/L"
+                },
+                {
+                    "field": "neutrofilos",
+                    "operator": ">",
+                    "value": "1.5",
+                    "unit": "10^9/L"
+                },
+                {
+                    "field": "plaquetas",
+                    "operator": ">",
+                    "value": "100",
+                    "unit": "10^9/L"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures the inclusion thresholds for WBC, neutrophils, and platelets using custom fields, which is acceptable because lab values are not represented in the schema."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Roughly normal cardiopulmonary function: No coronary heart disease, myocardial infarction, pulmonary heart disease, refractory hypertension;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "coronary_heart_disease",
+                    "operator": "=",
+                    "value": "absent"
+                },
+                {
+                    "field": "myocardial_infarction",
+                    "operator": "=",
+                    "value": "absent"
+                },
+                {
+                    "field": "pulmonary_heart_disease",
+                    "operator": "=",
+                    "value": "absent"
+                },
+                {
+                    "field": "refractory_hypertension",
+                    "operator": "=",
+                    "value": "absent"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns comorbidities not covered by the schema, so custom fields are appropriate; the logic correctly requires all listed conditions to be absent, matching the inclusion intent."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Not concomitant with other uncontrollable benign diseases before the recruitment;",
+        "logic": {
+            "field": "uncontrollable_benign_diseases",
+            "operator": "=",
+            "value": "absent"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to a concept not covered by the schema, so a custom field is acceptable; the logic correctly requires the condition to be absent."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Voluntarily signed the informed consent.",
+        "logic": {
+            "field": "informed_consent_signed",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly checks that informed consent has been signed."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Advanced gastric cancer patients with distant metastasis and inoperable ;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "gastric cancer"
+                },
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "IV"
+                },
+                {
+                    "field": "inoperable",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Uses appropriate schema fields (diagnosis, stage) and a permissible custom field for inoperability; logical AND correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who cannot tolerate 5-FU based adjuvant chemotherapy;",
+        "logic": {
+            "field": "cannot_tolerate_5fu_chemo",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to tolerance of a specific chemotherapy, which has no dedicated schema field; using a custom field correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Pregnant or lactating women;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "pregnant",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "lactating",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "Pregnancy and lactation are not represented in the schema, so custom fields are appropriate; the OR condition correctly captures the exclusion of pregnant or lactating women."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have no desire to participate in the study.",
+        "logic": {
+            "field": "willing_to_participate",
+            "operator": "=",
+            "value": "false"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is not covered by any schema field, so a custom field is appropriate; the logic correctly captures patients unwilling to participate for an exclusion rule."
+        }
+    }
+]

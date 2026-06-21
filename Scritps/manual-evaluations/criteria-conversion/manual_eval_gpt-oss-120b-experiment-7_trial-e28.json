@@ -1,0 +1,174 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Age > 20, Japanese men at the time of informed consent.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "age",
+                    "operator": ">",
+                    "value": "20"
+                },
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "ethnicity",
+                    "operator": "=",
+                    "value": "Japanese"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly captures age > 20 and male gender using schema fields; ethnicity is not in the schema, so a custom field is acceptable, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients who provided informed consent. If the patient has died, opt-out will be applicable.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "provided"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Using a custom field for consent is acceptable, but the rule omits the death/opt‑out condition, so the original meaning is only partially captured."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients who are diagnosed as mCRPC between January 1st in 2014 and December 31st in 2018.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "mCRPC"
+                },
+                {
+                    "field": "diagnosis_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "diagnosis_date",
+                    "operator": "<=",
+                    "value": "2018-12-31"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The rule correctly uses the diagnosis and diagnosis_date fields to capture mCRPC diagnosis within the specified date range, preserving the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients who have a FFPE tumor sample (primary or metastatic) with Formalin Neutral Buffer Solution.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "tumor_sample_type",
+                    "operator": "=",
+                    "value": "FFPE"
+                },
+                {
+                    "field": "sample_preservation",
+                    "operator": "=",
+                    "value": "Formalin Neutral Buffer Solution"
+                },
+                {
+                    "field": "sample_origin",
+                    "operator": "IN",
+                    "value": "primary,metastatic"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns tumor sample characteristics not covered by the schema, so custom fields are appropriate. The logic correctly requires FFPE type, Formalin Neutral Buffer Solution preservation, and origin being primary or metastatic, matching the original meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients which the investigator judges to secure the enough amount of tumor samples for future laboratory test.",
+        "logic": {
+            "field": "sufficient_tumor_sample",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns tumor sample adequacy, which has no dedicated schema field; using a custom field correctly captures the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have failed HRR-related gene mutation testing with the myChoice HRD plus in screening period.",
+        "logic": {
+            "field": "hrd_testing_result",
+            "operator": "=",
+            "value": "failed"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to HRD testing results, which has no corresponding schema field, so a custom field is appropriate. The logic correctly captures patients who failed the test for an exclusion criterion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have an only FFPE primary tumor sample (primary or metastatic) with unbuffered formalin including acidic formalin.",
+        "logic": {
+            "field": "ffpe_fixative",
+            "operator": "IN",
+            "value": "unbuffered formalin, acidic formalin"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns FFPE fixative, which is not represented in the schema, so a custom field is appropriate. The logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have taken an investigational medical product for prostate cancer from Jan 1st , 2014 to Dec 31st 2020.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "investigational_product_indication",
+                    "operator": "=",
+                    "value": "prostate cancer"
+                },
+                {
+                    "field": "investigational_product_start_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "investigational_product_end_date",
+                    "operator": "<=",
+                    "value": "2020-12-31"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The logic captures the correct meaning and exclusion semantics, but it uses custom fields (investigational_product_*) instead of the defined 'treatments' field, which should represent prior investigational product use."
+        }
+    }
+]

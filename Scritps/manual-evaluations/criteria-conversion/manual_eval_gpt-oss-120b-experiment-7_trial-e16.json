@@ -1,0 +1,267 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Age 18 and above, regardless of gender;",
+        "logic": {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion specifies age ≥ 18, which is correctly captured using the 'age' field with '>=' operator; no other schema fields are needed."
+        }
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histopathological diagnosis with non-functional pancreatic neuroendocrine tumor, pancreatic ductal adenocarcinoma or solid pseudopapillary tumor;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "non-functional pancreatic neuroendocrine tumor"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "Uses the correct 'diagnosis' field but only checks for non-functional pancreatic neuroendocrine tumor, omitting pancreatic ductal adenocarcinoma and solid pseudopapillary tumor, so the inclusion condition is incomplete."
+        }
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Not receiving any anti-tumor treatment before surgery, including chemotherapy, embolization, ablation, radiotherapy, and molecular targeted therapy;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "NOT_IN",
+            "value": "chemotherapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule uses a non‑schema field (treatment_name) instead of the treatments array and only checks for chemotherapy, missing other listed anti‑tumor therapies."
+        }
+    },
+    {
+        "id": 10,
+        "type": "inclusion",
+        "text": "No obvious surgical contraindications;",
+        "logic": {
+            "field": "surgical_contraindications",
+            "operator": "=",
+            "value": "none"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so a custom field is appropriate; the logic correctly requires no surgical contraindications."
+        }
+    },
+    {
+        "id": 11,
+        "type": "inclusion",
+        "text": "Able to comply with research plans, follow-up plans, and other protocol requirements;",
+        "logic": {
+            "field": "protocol_compliance",
+            "operator": "=",
+            "value": "able"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns protocol compliance, which is not covered by the predefined schema fields. Using a custom field (protocol_compliance) with value 'able' correctly captures the intended meaning."
+        }
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Voluntary participation and signed informed consent.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "voluntary_participation",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "signed_informed_consent",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is administrative (voluntary participation and consent) and not covered by the schema, so custom fields are appropriate and the logic correctly requires both to be true."
+        }
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Pathological diagnosis was not pancreatic neuroendocrine tumor, pancreatic ductal adenocarcinoma or solid pseudopapillary tumor;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "pancreatic neuroendocrine tumor"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "pancreatic ductal adenocarcinoma"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "solid pseudopapillary tumor"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "likely_wrong",
+            "explanation": "The exclusion should be true when the diagnosis is one of the listed tumors, but the rule uses three NOT_IN conditions combined with OR, which evaluates to true for almost any diagnosis, inverting the intended meaning."
+        }
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Currently diagnosed with other types of tumors or any cancer history;",
+        "logic": {
+            "field": "cancer_history",
+            "operator": "=",
+            "value": "present"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The exclusion logic correctly checks for presence of cancer history, but it uses a non‑schema field \"cancer_history\" instead of the appropriate \"diagnosis\" field, which is required for cancer‑related criteria."
+        }
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Diagnosed with familial syndromes;",
+        "logic": {
+            "field": "familial_syndrome",
+            "operator": "=",
+            "value": "yes"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to familial syndromes, which is not covered by any predefined schema field, so a custom field is appropriate. The logic correctly flags patients with a familial syndrome ('yes') for exclusion."
+        }
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Receiving anti-tumor treatment before surgery, including chemotherapy, embolization, ablation, radiotherapy, and molecular targeted therapy;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "chemotherapy, embolization, ablation, radiotherapy, molecular targeted therapy"
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The criterion refers to prior anti‑tumor treatments, which should use the 'treatments' field in the schema, not a custom 'treatment_name' field, and the logic does not capture the timing relative to surgery."
+        }
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Ongoing fever or recipient of anti-inflammation therapy within 14 days prior to study blood draw;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "fever_status",
+                    "operator": "=",
+                    "value": "ongoing"
+                },
+                {
+                    "field": "anti_inflammation_therapy_recent",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "partial",
+            "explanation": "The rule captures the OR logic correctly, but uses custom fields (fever_status, anti_inflammation_therapy_recent) instead of the appropriate 'treatments' schema field for recent anti‑inflammatory therapy, which is a clear schema match."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Recipient of blood transfusion within 30 days prior to study blood draw;",
+        "logic": {
+            "field": "days_since_last_blood_transfusion",
+            "operator": "<=",
+            "value": "30"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion concerns recent blood transfusion, which has no dedicated schema field, so a custom field is appropriate; the logic correctly captures 'within 30 days' for an exclusion."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Recipient of organ transplant or prior non-autologous (allogeneic) bone marrow or stem cell transplant;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "organ_transplant_status",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "stem_cell_transplant_type",
+                    "operator": "=",
+                    "value": "allogeneic"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion does not map to any predefined schema field, so custom fields are acceptable. The logic correctly captures the exclusion condition (organ transplant OR allogeneic stem cell transplant)."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Poor health condition and not suitable for blood draw;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "health_status",
+                    "operator": "=",
+                    "value": "poor"
+                },
+                {
+                    "field": "blood_draw_eligibility",
+                    "operator": "=",
+                    "value": "no"
+                }
+            ]
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion refers to vague health status and blood‑draw suitability, which are not covered by the schema, so custom fields are acceptable and the AND logic correctly captures the exclusion condition."
+        }
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Any other disease/condition deemed not suitable for study enrollment by researcher.",
+        "logic": {
+            "field": "researcher_discretion_exclusion",
+            "operator": "=",
+            "value": "true"
+        },
+        "evaluation": {
+            "classification": "very_likely_correct",
+            "explanation": "The criterion is a discretionary exclusion not covered by any schema field; using a custom field correctly captures the intended meaning."
+        }
+    }
+]
