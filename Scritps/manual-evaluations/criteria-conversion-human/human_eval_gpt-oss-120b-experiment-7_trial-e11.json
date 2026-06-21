@@ -1,0 +1,115 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Treatment-naïve for unresectable advanced orf metastatic melanoma (systemic treatment given in the neoadjuvant and adjuvant settings are acceptable).",
+        "logic": {
+            "field": "treatment_naive_advanced_melanoma",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑schema field (treatment_naive_advanced_melanoma) instead of the appropriate 'treatments' field, and it oversimplifies the criterion, ignoring the allowance for prior neoadjuvant/adjuvant systemic therapy.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Archival tissue from primary or regional recurrent melanoma may be considered if no recent sample is available.",
+        "logic": {
+            "field": "archival_tissue_considered",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "A custom field is appropriate since no schema field fits, but the logic omits the crucial condition “if no recent sample is available,” so the meaning is only partially captured.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "Received available standard therapies or clinical trial agents for unrectable metastatic melanoma that has progressed, unable to tolerate standard therapy, or standard therapy is contraindicated.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "prior_treatment",
+                    "operator": "IN",
+                    "value": "standard_therapy,clinical_trial_agent"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "disease_progression",
+                            "operator": "=",
+                            "value": "yes"
+                        },
+                        {
+                            "field": "treatment_intolerance",
+                            "operator": "=",
+                            "value": "yes"
+                        },
+                        {
+                            "field": "standard_therapy_contraindicated",
+                            "operator": "=",
+                            "value": "yes"
+                        }
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion involves prior therapy, which should be captured using the 'treatments' field, not a custom 'prior_treatment' field. Other concepts (progression, intolerance, contraindication) lack schema equivalents, so custom fields are acceptable there. The logical structure otherwise matches the intended meaning.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Patient has an 'actionable' genetic aberration and matched targeted therapy is available.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "actionable_genetic_aberration",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "matched_targeted_therapy_available",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical condition correctly captures the meaning (both actionable mutation and therapy availability must be true), but it uses custom fields instead of the appropriate schema field 'molecular_status' for genetic aberrations.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "An expectation for the need for concurrent radiotherapy (unless safety has been established with the matched drug regimen and is directed at one anatomical region for symptom control).",
+        "logic": {
+            "field": "concurrent_radiotherapy_needed",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion concerns concurrent radiotherapy, which should be captured using the 'treatments' field, not a custom 'concurrent_radiotherapy_needed' field, and the logic omits the exception clause about established safety and symptom‑control‑only radiotherapy.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Any investigational drug or other systemic drug therapy for melanoma within 14 days or 5 half-lives from baseline, whichever is shorter.",
+        "logic": {
+            "field": "melanoma_investigational_drug_recent",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion concerns recent systemic melanoma therapy, which should be captured using the 'treatments' field; using a custom field instead is a misuse of the schema despite correct exclusion logic.",
+        "human_classification": "wrong"
+    }
+]

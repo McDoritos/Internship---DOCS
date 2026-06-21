@@ -1,0 +1,386 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Unresectable or metastatic, histologically confirmed advanced solid tumor, where standard curative or palliative measures are no longer effective or are not considered appropriate or safe in the opinion of the investigator.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "tumor_status",
+                            "operator": "=",
+                            "value": "unresectable"
+                        },
+                        {
+                            "field": "tumor_status",
+                            "operator": "=",
+                            "value": "metastatic"
+                        }
+                    ]
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "solid tumor"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses a non‑schema field (tumor_status) instead of stage and omits the clause about standard treatments being ineffective, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "FGFR1-3 fusion, rearrangement, activating mutation, or FGFR2 extracellular domain in-frame deletions on tumor profiling in tumor tissue as determined by testing routinely performed at a Clinical Laboratory Improvement Amendments (CLIA) or other similarly certified laboratory. If the FGFR alteration is present on circulating tumor DNA (ctDNA) analysis alone, the patient may be eligible with principal investigator approval. Additional mutations may be considered with principal investigator approval.",
+        "logic": {
+            "field": "molecular_status",
+            "operator": "CONTAINS",
+            "value": "FGFR"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses the correct molecular_status field, but the rule oversimplifies the criterion, ignoring the requirement for tissue testing and the conditional eligibility via ctDNA or additional mutations with PI approval.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "ALT or AST ≤ 3 × the ULN in the absence of liver metastases, OR ≤ 5 × ULN with documented liver metastases",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "liver_metastases",
+                            "operator": "=",
+                            "value": "false"
+                        },
+                        {
+                            "operator": "OR",
+                            "conditions": [
+                                {
+                                    "field": "alt",
+                                    "operator": "<=",
+                                    "value": "3*ULN"
+                                },
+                                {
+                                    "field": "ast",
+                                    "operator": "<=",
+                                    "value": "3*ULN"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "liver_metastases",
+                            "operator": "=",
+                            "value": "true"
+                        },
+                        {
+                            "operator": "OR",
+                            "conditions": [
+                                {
+                                    "field": "alt",
+                                    "operator": "<=",
+                                    "value": "5*ULN"
+                                },
+                                {
+                                    "field": "ast",
+                                    "operator": "<=",
+                                    "value": "5*ULN"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical condition correctly captures the ALT/AST thresholds, but it uses a custom field \"liver_metastases\" instead of the generic \"control\" field that should represent metastasis status, which is a clear schema field.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "INR or PT, aPTT or PTT ≤ 1.5 × ULN unless participant is receiving anticoagulant therapy",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "anticoagulant"
+                },
+                {
+                    "field": "inr",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "ULN"
+                },
+                {
+                    "field": "pt",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "ULN"
+                },
+                {
+                    "field": "aptt",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "ULN"
+                },
+                {
+                    "field": "ptt",
+                    "operator": "<=",
+                    "value": "1.5",
+                    "unit": "ULN"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Lab fields (inr, pt, aptt, ptt) are not in the schema, so custom fields are acceptable, but the treatment condition should use the 'treatments' array (e.g., treatments.name = 'anticoagulant'), not a custom 'treatment_name' field. Hence the rule is only partially correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 4,
+        "type": "inclusion",
+        "text": "No prior treatment with a selective FGFR inhibitor treatment",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "NOT_IN",
+            "value": "FGFR inhibitor"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' field in the schema, but the rule uses a non‑existent custom field 'treatment_name'. The logical condition (NOT_IN FGFR inhibitor) is correct, yet the field choice is improper.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "For patients treated with a prior FGFR inhibitor, those with known activating mutation(s) in the FGFR2 kinase domain on ctDNA or biopsy analysis within 8 weeks of start of study drugs; activating mutations in the FGFR2 kinase domain seen on ctDNA or biopsy analysis prior to the 8-week timepoint may be allowed after discussion with the study PI.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "FGFR inhibitor"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "CONTAINS",
+                    "value": "FGFR2 activating mutation"
+                },
+                {
+                    "field": "fgfr2_mutation_detection_timing",
+                    "operator": "=",
+                    "value": "within_8_weeks_of_start"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical condition (prior FGFR inhibitor AND FGFR2 activating mutation detected within 8 weeks) matches the criterion, but it uses a non‑schema field \"treatment_name\" instead of the required \"treatments\" array, so the schema mapping is imperfect.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Systemic or liver-directed anticancer therapy within 2 weeks; or anticancer monoclonal antibody within 4 weeks prior to planned start of pemigatinib and afatinib.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "recent_systemic_or_liver_directed_therapy",
+                    "operator": "=",
+                    "value": "within_2_weeks"
+                },
+                {
+                    "field": "recent_monoclonal_antibody_therapy",
+                    "operator": "=",
+                    "value": "within_4_weeks"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly refers to recent anticancer treatments, which should be represented using the 'treatments' field. Custom fields 'recent_systemic_or_liver_directed_therapy' and 'recent_monoclonal_antibody_therapy' are not part of the schema, so the mapping is imperfect despite preserving the logical meaning.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Received prior palliative non-CNS radiation within 2 weeks or extended-field radiation administered within 4 weeks of first dose of study drug. Subjects must have recovered from all radiation-related toxicities, not require corticosteroids, and not have had radiation pneumonitis. Fibrotic pulmonary disease from prior radiotherapy is permissible with approval of the study PI.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "prior_palliative_non_cns_radiation_within_weeks",
+                    "operator": "<=",
+                    "value": "2"
+                },
+                {
+                    "field": "extended_field_radiation_within_weeks",
+                    "operator": "<=",
+                    "value": "4"
+                },
+                {
+                    "field": "radiation_toxicities_recovered",
+                    "operator": "!=",
+                    "value": "true"
+                },
+                {
+                    "field": "corticosteroid_requirement",
+                    "operator": "=",
+                    "value": "required"
+                },
+                {
+                    "field": "radiation_pneumonitis",
+                    "operator": "=",
+                    "value": "present"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical operators and exclusion semantics are correct, but the rule uses custom fields (e.g., prior_palliative_non_cns_radiation_within_weeks) that are not part of the defined schema; radiation timing and history should be captured via the 'treatments' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known pre-existing interstitial lung disease",
+        "logic": {
+            "field": "interstitial_lung_disease",
+            "operator": "=",
+            "value": "present"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion meaning (true when interstitial lung disease is present), but uses a custom field instead of the appropriate 'control' field, which is defined for comorbidities.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Child-Pugh B and C cirrhosis",
+        "logic": {
+            "field": "child_pugh_class",
+            "operator": "IN",
+            "value": "B"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The custom field is acceptable, but the logic only checks for Child‑Pugh B and omits the required C class, so the exclusion condition is not fully captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Patients with a history of another primary malignancy that is currently clinically significant, and has potential for metastases or currently requires active intervention (except for gonadotropin-releasing hormone (GnRH) or luteinizing hormone-releasing hormone (LH-RH) agonists in prostate cancer or hormonal therapy in breast cancer",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "other_primary_malignancy",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "GnRH, LH-RH agonist, hormonal therapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical meaning matches the exclusion, but it uses non‑schema fields (other_primary_malignancy, treatment_name) instead of the defined fields such as diagnosis or treatments[].name, which is a schema mismatch.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Active central nervous system (CNS) metastases are not eligible. Patients with asymptomatic and treated brain metastases may participate provided that they are stable for ≥ 2 months. Patients with suspected or confirmed leptomeningeal disease are not eligible even if treated. Patients with glioblastoma multiforme (GBM) are not eligible.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "cns_metastases_active",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "leptomeningeal_disease_present",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "glioblastoma multiforme"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a custom field (cns_metastases_active) instead of the schema's 'control' field for CNS metastases and omits the exception for asymptomatic treated brain metastases stable ≥ 2 months, so the mapping is incomplete.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known human immunodeficiency virus (HIV) and on anti-retroviral therapy for HIV (excluded due to potential drug-drug interactions between anti-retroviral medications and study treatment but HIV itself is not an exclusion).",
+        "logic": {
+            "field": "antiretroviral_therapy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly excludes patients on antiretroviral therapy, but it uses a custom field instead of the appropriate 'treatments' schema field, which is a misuse of the defined schema.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concomitant treatment with known strong p-gp inhibitor.",
+        "logic": {
+            "field": "pgp_inhibitor_use",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion concerns concomitant treatment (a drug) and should be represented using the 'treatments' field, but a custom field 'pgp_inhibitor_use' was used instead, even though the logic itself matches the exclusion meaning.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Any other concomitant serious illness or organ system dysfunction which in the opinion of the investigator would either compromise patient safety or interfere with the evaluation of the safety of the study drug. Patients unable or deemed by the investigator as unlikely to comply with the protocol are also excluded.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "serious_illness",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "organ_system_dysfunction",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "investigator_assessed_compliance",
+                    "operator": "=",
+                    "value": "unlikely"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The exclusion logic correctly captures the OR condition, but the criterion involves comorbidities (serious illness/organ dysfunction) which should map to the existing 'control' field rather than custom fields; using custom fields when a schema field clearly applies warrants a partial rating.",
+        "human_classification": "correct"
+    }
+]

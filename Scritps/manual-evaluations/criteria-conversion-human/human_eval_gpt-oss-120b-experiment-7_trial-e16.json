@@ -1,0 +1,77 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Histopathological diagnosis with non-functional pancreatic neuroendocrine tumor, pancreatic ductal adenocarcinoma or solid pseudopapillary tumor;",
+        "logic": {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "non-functional pancreatic neuroendocrine tumor"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses the correct 'diagnosis' field but only checks for non-functional pancreatic neuroendocrine tumor, omitting pancreatic ductal adenocarcinoma and solid pseudopapillary tumor, so the inclusion condition is incomplete.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "Not receiving any anti-tumor treatment before surgery, including chemotherapy, embolization, ablation, radiotherapy, and molecular targeted therapy;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "NOT_IN",
+            "value": "chemotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑schema field (treatment_name) instead of the treatments array and only checks for chemotherapy, missing other listed anti‑tumor therapies.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Currently diagnosed with other types of tumors or any cancer history;",
+        "logic": {
+            "field": "cancer_history",
+            "operator": "=",
+            "value": "present"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The exclusion logic correctly checks for presence of cancer history, but it uses a non‑schema field \"cancer_history\" instead of the appropriate \"diagnosis\" field, which is required for cancer‑related criteria.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Receiving anti-tumor treatment before surgery, including chemotherapy, embolization, ablation, radiotherapy, and molecular targeted therapy;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "chemotherapy, embolization, ablation, radiotherapy, molecular targeted therapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to prior anti‑tumor treatments, which should use the 'treatments' field in the schema, not a custom 'treatment_name' field, and the logic does not capture the timing relative to surgery.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Ongoing fever or recipient of anti-inflammation therapy within 14 days prior to study blood draw;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "fever_status",
+                    "operator": "=",
+                    "value": "ongoing"
+                },
+                {
+                    "field": "anti_inflammation_therapy_recent",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the OR logic correctly, but uses custom fields (fever_status, anti_inflammation_therapy_recent) instead of the appropriate 'treatments' schema field for recent anti‑inflammatory therapy, which is a clear schema match.",
+        "human_classification": "partial"
+    }
+]

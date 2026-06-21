@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Clinical stage IB3-IIB cervical cancer (FIGO, 2018 standard) with the tumor diameter > 4cm before treatment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "clinical_stage",
+                    "operator": "IN",
+                    "value": "IB3-IIB"
+                },
+                {
+                    "field": "tumor_diameter_cm",
+                    "operator": ">",
+                    "value": "4"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion involves cancer staging, which should map to the schema field 'stage', but the rule uses a custom field 'clinical_stage'. Tumor diameter has no dedicated schema field, so a custom field is acceptable. Meaning is mostly preserved, but misuse of a schema field leads to a partial rating.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "After 2-3 cycles of neoadjuvant chemotherapy, patients do not undergo laparotomic or laparoscopic extensive hysterectomy + pelvic lymph node dissection with cervical cancer foci sealed before dissection of the vagina and without uterine manipulator.",
+        "logic": {
+            "field": "extensive_hysterectomy_pelvic_lymph_node_dissection",
+            "operator": "=",
+            "value": "performed"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion meaning (true when the extensive hysterectomy + pelvic lymph node dissection is performed), but it uses a custom field that is not in the schema; the procedure should be represented via the 'treatments' array, so the field choice is incorrect.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Neoadjuvant chemotherapy regimens are different from postoperative adjuvant therapy regimens.",
+        "logic": {
+            "field": "chemo_regimen_difference",
+            "operator": "=",
+            "value": "different"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion concerns chemotherapy regimen differences, which should be modeled using the existing 'treatments' field rather than a custom 'chemo_regimen_difference' field. Using a non‑schema field is a mistake, though the logical condition roughly captures the intended meaning.",
+        "human_classification": "partial"
+    }
+]

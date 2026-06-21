@@ -1,0 +1,43 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients who provided informed consent. If the patient has died, opt-out will be applicable.",
+        "logic": {
+            "field": "informed_consent",
+            "operator": "=",
+            "value": "provided"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Using a custom field for consent is acceptable, but the rule omits the death/opt‑out condition, so the original meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have taken an investigational medical product for prostate cancer from Jan 1st , 2014 to Dec 31st 2020.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "investigational_product_indication",
+                    "operator": "=",
+                    "value": "prostate cancer"
+                },
+                {
+                    "field": "investigational_product_start_date",
+                    "operator": ">=",
+                    "value": "2014-01-01"
+                },
+                {
+                    "field": "investigational_product_end_date",
+                    "operator": "<=",
+                    "value": "2020-12-31"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic captures the correct meaning and exclusion semantics, but it uses custom fields (investigational_product_*) instead of the defined 'treatments' field, which should represent prior investigational product use.",
+        "human_classification": "partial"
+    }
+]

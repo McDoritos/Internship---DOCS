@@ -1,0 +1,232 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subjects must have histologically or cytologically confirmed adenocarcinoma of the breast with locally recurrent or metastatic disease. Locally recurrent disease must not be amenable to any local treatment with curative intent. Metastatic disease must be demonstrated either radiographically or histologically.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "adenocarcinoma of the breast"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "disease_status",
+                            "operator": "=",
+                            "value": "locally recurrent"
+                        },
+                        {
+                            "field": "disease_status",
+                            "operator": "=",
+                            "value": "metastatic"
+                        }
+                    ]
+                },
+                {
+                    "field": "local_treatment_curative_amenable",
+                    "operator": "!=",
+                    "value": "true"
+                },
+                {
+                    "field": "metastatic_disease_confirmation",
+                    "operator": "IN",
+                    "value": "radiographic,histologic"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses correct diagnosis field, but adds a metastatic confirmation check for all patients, whereas the original only requires it for metastatic disease; also uses custom fields where schema lacks equivalents, which is acceptable.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Dual-probe HER2/Chromosome 17 centromere (CEP17) ratio ≥2.0 with an average HER2 copy number ≥4.0 signals/cell",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "her2_cep17_ratio",
+                    "operator": ">=",
+                    "value": "2.0"
+                },
+                {
+                    "field": "her2_copy_number_dual_probe",
+                    "operator": ">=",
+                    "value": "4.0",
+                    "unit": "signals/cell"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the correct numeric thresholds, but it uses custom fields (her2_cep17_ratio, her2_copy_number_dual_probe) instead of the appropriate schema field 'molecular_status' for HER2 biomarker criteria.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients should have progressed on at least two lines of HER2-directed therapy in the metastatic setting, and prior therapy for metastatic disease should include both pertuzumab and ado-trastuzumab unless contraindicated or declined by the patient.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "her2_directed_therapy_lines",
+                    "operator": ">=",
+                    "value": "2"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "pertuzumab"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "ado-trastuzumab"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "unless contraindicated or declined by the patient"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly involves prior HER2‑directed treatments, which should be represented using the 'treatments' array field, but the rule uses custom fields 'her2_directed_therapy_lines' and 'treatment_name' that are not in the schema.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "There is no upper limit on the number prior therapies",
+        "logic": {
+            "unmapped": true,
+            "source_text": "There is no upper limit on the number prior therapies"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to prior therapies, which should map to the 'treatments' field; using an unmapped placeholder is a schema misuse, though the meaning (no upper limit) is retained.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women of childbearing potential and men must use adequate contraception prior to study entry and for the duration of study participation. Contraception should continue to be used for a minimum of 5 mean half-lives after the last dose of study drugs (mean Trastuzumab half-life at 6 mg/kg 16 days; mean half-life Ruxolitinib: 3 hours)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "contraception_use",
+                    "operator": "=",
+                    "value": "adequate"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "Contraception should continue to be used for a minimum of 5 mean half-lives after the last dose of study drugs (mean Trastuzumab half-life at 6 mg/kg 16 days; mean half-life Ruxolitinib: 3 hours)"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses a custom field for contraception, which is appropriate, but only checks that contraception is \"adequate\" and does not enforce the required timing (prior to entry and for 5 half‑lives after last dose), so the meaning is only partially captured.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have had chemotherapy, hormonal therapy, or radiotherapy within 2 weeks prior to entering the study or those who have not recovered from adverse events due to agents administered more than 2 weeks earlier.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "treatment_name",
+                            "operator": "IN",
+                            "value": "chemotherapy, hormonal therapy, radiotherapy"
+                        },
+                        {
+                            "field": "treatment_within_2_weeks",
+                            "operator": "=",
+                            "value": "true"
+                        }
+                    ]
+                },
+                {
+                    "field": "adverse_event_recovered",
+                    "operator": "=",
+                    "value": "false"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses non‑schema fields (treatment_name, treatment_within_2_weeks, adverse_event_recovered) instead of the required 'treatments' array, and it omits the condition that adverse events must be from agents given >2 weeks earlier, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who are receiving any other investigational agents or have received other investigational agents within 2 weeks or 5 half-lives of the compound or active metabolites, whichever is longer before the first dose of the study treatment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "other_investigational_agent",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "investigational_agent_recent",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The exclusion logic (OR of current or recent investigational agents) is correct, but the criterion maps to the existing 'treatments' field (prior treatment history). Using custom fields like 'other_investigational_agent' is unnecessary, so the mapping is only partially correct.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have previously been treated with an interleukin-6 (IL-6), Janus kinase (JAK) or Signal Transducers and Activators of Transcription (STAT) inhibitor for any indication, such as ruxolitinib or tocilizumab.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "ruxolitinib, tocilizumab"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑existent field \"treatment_name\" instead of the defined treatments list, and it only checks for ruxolitinib and tocilizumab, missing the broader class of IL‑6/JAK/STAT inhibitors required by the criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The effects of ruxolitinib on the developing human fetus are unknown. For this reason and because Janus kinase 2 (JAK2) inhibitor agents as well as other therapeutic agents used in this trial are known to be teratogenic, women of child-bearing potential and men must agree to use adequate contraception (hormonal or barrier method of birth control; abstinence) prior to study entry and for the duration of study participation. Should a woman become pregnant or suspect she is pregnant while she or her partner is participating in this study, she should inform the principal investigator immediately.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "contraception_use",
+                    "operator": "!=",
+                    "value": "adequate"
+                },
+                {
+                    "field": "pregnancy_status",
+                    "operator": "=",
+                    "value": "pregnant"
+                },
+                {
+                    "field": "breastfeeding",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule correctly captures lack of adequate contraception and pregnancy as exclusion conditions, but adds an unnecessary breastfeeding check that is not in the original criterion, altering the intended meaning.",
+        "human_classification": "wrong"
+    }
+]

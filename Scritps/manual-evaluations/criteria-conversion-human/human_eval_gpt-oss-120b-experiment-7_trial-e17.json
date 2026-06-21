@@ -1,0 +1,126 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At the initial enrollment evaluation, patients were expected to accept radical resection of liver cancer and meet at least one of the following high-risk recurrence factors after surgery: ①There are 3 or more tumor lesions in the liver; ②The diameter of a single tumor lesion is >8cm; ③Existence macrovascular tumor thrombus; ④>5 MVI or MVI occurred in the distant paracancer tissues;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "radical resection"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "tumor_lesion_count",
+                            "operator": ">=",
+                            "value": "3"
+                        },
+                        {
+                            "field": "largest_tumor_diameter_cm",
+                            "operator": ">",
+                            "value": "8",
+                            "unit": "cm"
+                        },
+                        {
+                            "field": "macrovascular_tumor_thrombus",
+                            "operator": "=",
+                            "value": "present"
+                        },
+                        {
+                            "operator": "OR",
+                            "conditions": [
+                                {
+                                    "field": "mvi_count",
+                                    "operator": ">",
+                                    "value": "5"
+                                },
+                                {
+                                    "field": "mvi_distant_paracancer",
+                                    "operator": "=",
+                                    "value": "present"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the intended logic, but it uses a custom field \"treatment_name\" instead of the defined \"treatments\" list (a schema field that applies to treatment history). Other clinical features are not in the schema, so custom fields are acceptable for them.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Have a history of high fever or severe infection within 2 weeks prior to pretreatment, or are expected to undergo systemic anti-infective therapy or systemic steroid therapy during this trial;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "infection_history",
+                    "operator": "IN",
+                    "value": [
+                        "high_fever",
+                        "severe_infection"
+                    ]
+                },
+                {
+                    "field": "expected_anti_infective_therapy",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "expected_systemic_steroid_therapy",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the presence of high fever, severe infection, and expected anti‑infective or steroid therapy, but it omits the required 2‑week window before pretreatment, so the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Hepatic encephalopathy occurred within 2 weeks before pretreatment;",
+        "logic": {
+            "field": "hepatic_encephalopathy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom field is acceptable, but the logic omits the required 2‑week timing, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Anti-tumor therapy such as chemotherapeutic drugs, targeted drugs, radio frequency ablation or minimally invasive intervention was received within 4 weeks before pretreatment;",
+        "logic": {
+            "field": "recent_anti_tumor_therapy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The exclusion refers to recent anti‑tumor treatments, which should be captured using the 'treatments' schema field (e.g., checking treatment names and dates). The rule uses a non‑schema field 'recent_anti_tumor_therapy', so the mapping is incomplete despite the correct logical intent.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Have received or are expected to participate in this study within 4 weeks before pretreatment to receive TIL required focus radiotherapy, or tumor evaluation focus (target focus or non-target focus) radiotherapy, or radical radiotherapy;",
+        "logic": {
+            "field": "recent_radiotherapy",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion concerns recent radiotherapy, which should be captured using the 'treatments' field with date logic; using a custom 'recent_radiotherapy' field is inappropriate despite the correct exclusion logic.",
+        "human_classification": "partial"
+    }
+]

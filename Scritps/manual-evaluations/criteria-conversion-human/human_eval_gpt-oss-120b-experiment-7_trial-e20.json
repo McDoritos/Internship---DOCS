@@ -1,0 +1,114 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients can have the brain / meningeal metastasis history, but the metastasis must be treated by operation or radiotherapy), and clinically stable for at least 2 months.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "brain_meningeal_metastasis_treatment",
+                    "operator": "IN",
+                    "value": "operation, radiotherapy"
+                },
+                {
+                    "field": "clinical_stability_months",
+                    "operator": ">=",
+                    "value": "2"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion involves brain/meningeal metastasis treatment and clinical stability, which can be represented using the 'control' field, but the rule uses custom fields (brain_meningeal_metastasis_treatment, clinical_stability_months) instead of the appropriate schema field.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Females with childbearing potential must have a urine negative HCG test within 7 days prior to the study enrollment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "hcg_test_result",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "hcg_test_timing_days",
+                    "operator": "<=",
+                    "value": "7"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Gender and negative HCG within 7 days are correctly captured using schema and custom fields, but the criterion also requires \"childbearing potential,\" which is omitted; the logic does not fully preserve the original meaning.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "No concomitant prescriptions including cyclosporin A, valproic acid, phenobarbital, phenytoin, ketoconazole.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "cyclosporin A"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "valproic acid"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "phenobarbital"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "phenytoin"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "ketoconazole"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the intended meaning (patient must not be on any listed drug) but uses a non‑existent field \"treatment_name\" instead of the schema's \"treatments\" list, which is a clear misuse of the defined schema.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Medically uncontrolled serious heart, lung, neurological, psychological, metabolic disease Second primary malignancy that is clinically detectable at the time of consideration for study enrollment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "uncontrolled_serious_disease",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "second_primary_malignancy",
+                    "operator": "=",
+                    "value": "detectable"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The exclusion logic (OR) is correct, but the first condition should use the schema's 'control' field for uncontrolled disease rather than a custom field; the second condition has no direct schema field, so a custom field is acceptable.",
+        "human_classification": "correct"
+    }
+]

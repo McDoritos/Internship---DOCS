@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "No medical record of the molecular subgroup classification;",
+        "logic": {
+            "field": "molecular_subgroup_classification",
+            "operator": "=",
+            "value": "missing"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to molecular classification, which should map to the schema field 'molecular_status'. Using a custom field 'molecular_subgroup_classification' is a misuse of the schema, though the logic for missing value is correct.",
+        "human_classification": "correct"
+    }
+]

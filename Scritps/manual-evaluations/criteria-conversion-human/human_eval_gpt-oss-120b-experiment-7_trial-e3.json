@@ -1,0 +1,382 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Must have histologically or cytologically confirmed progressive advanced/metastatic HER2-positive breast carcinoma as per the updated American Society of Clinical Oncology (ASCO) - College of American Pathologists (CAP) guidelines according to local testing.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "breast carcinoma"
+                },
+                {
+                    "field": "stage",
+                    "operator": "IN",
+                    "value": "advanced,metastatic"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "HER2-positive"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses appropriate fields for diagnosis, stage, and HER2 status, but omits the required 'progressive' disease condition, which is not captured in the rule.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Multifocal unilateral or bilateral breast adenocarcinoma tumours are allowed if all tested HER2-positive, according to local testing",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "multifocal_tumor",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "HER2-positive"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures HER2‑positive status but uses a custom 'multifocal_tumor' field and omits the required 'diagnosis' field for breast adenocarcinoma, which is a clear schema field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Prior treatment with taxane, trastuzumab and pertuzumab (early or advanced setting) and T-DXd (metastatic setting).",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "taxane,trastuzumab,pertuzumab,T-DXd"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑existent field \"treatment_name\" instead of the schema's treatments list and only checks if a single treatment name is in a list, not that all four required prior treatments are present.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "In order to be eligible, patients subjects must have received T-DXd as the last systemic metastatic treatment line before inclusion, and presented disease progression on this drug.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "T-DXd"
+                },
+                {
+                    "field": "progression_on_treatment",
+                    "operator": "=",
+                    "value": "T-DXd"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' field (last systemic metastatic line) and requires disease progression, but the rule uses non‑schema fields (treatment_name, progression_on_treatment) and misrepresents progression, so the mapping is imperfect.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Prior therapy with tucatinib, trastuzumab, and capecitabine, in advanced setting, is permissible, provided that T-DXd serves as the last systemic metastatic treatment line before inclusion, and patient subject presented disease progression on this drug.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "T-DXd"
+                },
+                {
+                    "field": "progression_on_treatment",
+                    "operator": "=",
+                    "value": "T-DXd"
+                },
+                {
+                    "field": "allowed_prior_therapy",
+                    "operator": "IN",
+                    "value": [
+                        "tucatinib",
+                        "trastuzumab",
+                        "capecitabine"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' schema field (prior therapies and last line T‑DXd with progression), but the rule uses custom fields (treatment_name, progression_on_treatment, allowed_prior_therapy) instead of the normalized schema and does not enforce that all three prior drugs were used or that T‑DXd is the last systemic line, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "At screening FDG-PET at least two \"target\" lesions are required to fulfil the following criteria: (2) metabolically assessable with a maximum standard uptake value corrected for lean body mass (SUVmax) ≥ 1.5 x SUVmean + 2 standard deviations (SD) of the liver measured in a 3-cm-diameter spherical volume of interest (VOI) in normal liver parenchyma.",
+        "logic": {
+            "field": "lesion_suvmax_criteria",
+            "operator": "=",
+            "value": "SUVmax >= 1.5 x SUVmean + 2 SD of liver"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a custom field (acceptable since no schema field fits), but it omits the requirement of having at least two target lesions and uses an inappropriate '=' operator, so the original meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Total serum bilirubin ≤ 1.5 x ULN unless the patient subject has documented Gilbert syndrome.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bilirrubina_total",
+                    "operator": "<=",
+                    "value": "1.5 x ULN"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "Gilbert syndrome"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Logical condition (bilirubin ≤1.5 × ULN OR Gilbert syndrome) is correct, but using the 'diagnosis' field for Gilbert syndrome is inappropriate; a comorbidity field (e.g., control) should be used.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Prior exposure to T-DM1 for the treatment of metastatic BC.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "T-DM1"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion (prior T‑DM1 exposure) but uses a non‑schema field \"treatment_name\" instead of the defined \"treatments\" array, so it only partially follows the schema.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "For subjects exposed to T-DM1 for the treatment of early BC, subjects must not have relapsed while on or within 12 months of finishing treatment with T-DM1.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "T-DM1"
+                },
+                {
+                    "field": "relapse_within_12_months_of_T-DM1",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures the exclusion (requires T‑DM1 exposure AND relapse within 12 months), but it uses non‑schema fields ('treatment_name' and 'relapse_within_12_months_of_T-DM1') instead of the defined 'treatments' array and appropriate control fields.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Brain metastasis as sole metastasis and/or symptomatic or requiring therapy to control symptoms.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "brain_metastasis_as_sole_metastasis",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "brain_metastasis_symptomatic",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic omits the 'requiring therapy to control symptoms' condition and uses custom fields (brain_metastasis_as_sole_metastasis, brain_metastasis_symptomatic) instead of the appropriate 'control' field for metastasis, so the mapping is incomplete.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "History of interstitial lung disease / pneumonitis (grade 3 or 4) during the prior treatment with T-DXd.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "interstitial_lung_disease_grade",
+                    "operator": ">=",
+                    "value": "3"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "T-DXd"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion involves prior treatment with T‑DxD, which should be captured using the defined 'treatments' array field, not a custom 'treatment_name' field. Using a custom field for a concept that has a schema mapping makes the rule only partially correct, though the overall logic (grade ≥ 3 AND treatment T‑DxD) matches the intended meaning.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Significant symptoms (Grade ≥ 2) relating to LV dysfunction, cardiac arrhythmia, or cardiac ischemia while or since receiving preoperative therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "cardiac_symptom_grade",
+                    "operator": ">=",
+                    "value": "2"
+                },
+                {
+                    "field": "cardiac_symptom_type",
+                    "operator": "IN",
+                    "value": "LV dysfunction, cardiac arrhythmia, cardiac ischemia"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom fields for cardiac symptom grade and type are acceptable, but the rule omits the timing qualifier (“while or since receiving preoperative therapy”) that could be captured with the schema’s treatments field, resulting in incomplete representation of the exclusion criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Progression within the first 6 months of T-DXd therapy after the first 7 \"rapid progressors\" included.",
+        "logic": {
+            "field": "tdxd_progression_within_6_months",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures the exclusion (progression within 6 months = yes), but it uses a custom field (tdxd_progression_within_6_months) instead of the appropriate schema field (e.g., control) that can represent disease progression.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior history of other invasive cancer in the past 5 years except basal or squamous cell carcinoma of skin that has been definitively treated.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "prior_invasive_cancer",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "cancer_type",
+                    "operator": "NOT_IN",
+                    "value": "basal cell carcinoma, squamous cell carcinoma of skin"
+                },
+                {
+                    "field": "cancer_diagnosis_date",
+                    "operator": ">=",
+                    "value": "5 years ago"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures prior invasive cancer within 5 years and excludes basal/squamous types, but it omits the exception for basal or squamous skin cancers that have been definitively treated, so the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Serum pregnancy test (for subjects of childbearing potential) positive within 15 days prior to enrolment.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "pregnancy_test_result",
+                    "operator": "=",
+                    "value": "positive"
+                },
+                {
+                    "field": "pregnancy_test_date",
+                    "operator": ">=",
+                    "value": "15 days before enrolment"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom fields for pregnancy test are acceptable, but the date condition only checks that the test was on/after 15 days before enrolment and does not restrict it to be before enrolment, so the logic does not fully capture “within 15 days prior”.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Women of childbearing potential refusing to use one highly effective method of contraception from ICF signature, during the course of the study and at least 7 months after the last administration of T-DM1.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "childbearing_potential",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "contraception_use",
+                    "operator": "=",
+                    "value": "refusing"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Gender is correctly used, but the rule omits the required check on prior T‑DM1 treatment timing (a clear treatments field) and relies on custom fields for childbearing potential and contraception, resulting in only a partially correct mapping.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Men with childbearing potential partner refusing to use condom during the course of this study and for at least 7 months after the last administration of T-DM1.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "male"
+                },
+                {
+                    "field": "partner_childbearing_potential",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "condom_use",
+                    "operator": "=",
+                    "value": "refusing"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom fields are acceptable, but the rule omits the required 7‑month post‑treatment period, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    }
+]

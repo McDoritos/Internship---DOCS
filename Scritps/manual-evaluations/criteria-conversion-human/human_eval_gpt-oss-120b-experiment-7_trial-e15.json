@@ -1,0 +1,196 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "The last dose of previous therapy targeting rearranged during transfection (RET) kinase must be given at least 4 weeks prior to the first dose of ponatinib.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "RET inhibitor"
+                },
+                {
+                    "field": "ret_therapy_last_dose_interval_weeks",
+                    "operator": ">=",
+                    "value": "4"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the required 4‑week washout for a prior RET‑targeting therapy, but it uses non‑schema fields (treatment_name, ret_therapy_last_dose_interval_weeks) instead of the defined 'treatments' array, so the mapping to the schema is incomplete.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Previous treatment with cytotoxic chemotherapy, immunotherapy, or radiotherapy are permitted, if the last dose was given at least 4 weeks prior to the first dose of ponatinib",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "previous_treatment_type",
+                    "operator": "IN",
+                    "value": "cytotoxic chemotherapy, immunotherapy, radiotherapy"
+                },
+                {
+                    "field": "previous_treatment_last_dose_interval_weeks",
+                    "operator": ">=",
+                    "value": "4"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses custom fields (previous_treatment_type, previous_treatment_last_dose_interval_weeks) instead of the defined 'treatments' field, and it requires a prior treatment to be present (AND), which misrepresents the inclusion criterion that permits but does not require such treatments.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient must have failed (progressed on or been intolerant of) prior treatment with cabozantinib and vandetanib.",
+        "logic": {
+            "field": "failed_treatment",
+            "operator": "IN",
+            "value": "cabozantinib, vandetanib"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion concerns prior treatment failure, which should be represented using the 'treatments' field, not a custom 'failed_treatment' field, and the logic should require failure of both drugs, not just inclusion of either.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Absolute neutrophil count 1,500/microL",
+        "logic": {
+            "field": "neutrofilos",
+            "operator": "=",
+            "value": "1500",
+            "unit": "microL"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Using a custom lab field is acceptable, but the operator '=' requires the neutrophil count to be exactly 1500 /µL, whereas the criterion implies a threshold (≥ 1500 /µL), so the meaning is not fully preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who are receiving any other investigational agent.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "CONTAINS",
+            "value": "investigational"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion intent but uses a non‑schema field (treatment_name) instead of the defined treatments list, which is a schema mismatch.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients with brain metastases or spinal cord compression unless they completed radiation therapy greater than or equal to 4 weeks prior to the first dose of ponatinib and are stable without steroids or anti-convulsant therapy for greater than or equal to 10 days.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "brain_metastases",
+                            "operator": "=",
+                            "value": "present"
+                        },
+                        {
+                            "field": "spinal_cord_compression",
+                            "operator": "=",
+                            "value": "present"
+                        }
+                    ]
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "radiation_therapy_weeks_before_ponatinib",
+                            "operator": "<",
+                            "value": "4",
+                            "unit": "weeks"
+                        },
+                        {
+                            "field": "steroid_anticonvulsant_stable_days",
+                            "operator": "<",
+                            "value": "10",
+                            "unit": "days"
+                        }
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical expression correctly captures the exclusion condition, but it uses custom fields (brain_metastases, spinal_cord_compression, radiation_therapy_weeks_before_ponatinib, steroid_anticonvulsant_stable_days) instead of the appropriate schema fields such as 'control' for metastases/compression and 'treatments' for radiation timing, resulting in a partial mismatch.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Unstable angina within 6 months prior to first dose of ponatinib",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "unstable_angina",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "within 6 months prior to first dose of ponatinib"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion involves a comorbidity (unstable angina) that should be captured with the defined 'control' field, not a custom 'unstable_angina' field, and the 6‑month timing relative to the first ponatinib dose is not represented in the logic.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "History of congestive heart failure",
+        "logic": {
+            "field": "congestive_heart_failure_history",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures the exclusion (CHF history = yes), but it uses a custom field instead of the appropriate 'control' field for comorbidities, which is a schema field that should have been used.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Presence of another primary malignancy within the past 2 years (except for nonmelanoma skin cancer or cervical cancer in situ. Prior prostate cancer is also permitted if prostatic specific antigen (PSA) is now undetectable.)",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "other_primary_malignancy_recent",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "nonmelanoma skin cancer"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "NOT_IN",
+                    "value": "cervical cancer in situ"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑schema field (other_primary_malignancy_recent) instead of diagnosis/date fields, and omits the prostate‑cancer/PSA exception and the 2‑year timing requirement, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    }
+]

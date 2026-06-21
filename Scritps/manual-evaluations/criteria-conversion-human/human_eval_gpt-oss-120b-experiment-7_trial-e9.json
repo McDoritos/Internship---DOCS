@@ -1,0 +1,30 @@
+[
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of documented congestive heart failure (New York Heart Association functional classification III or IV) within 6 months prior to baseline.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "congestive heart failure"
+                },
+                {
+                    "field": "nyha_class",
+                    "operator": "IN",
+                    "value": "III,IV"
+                },
+                {
+                    "field": "chf_recent_within_6_months",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical conditions correctly capture CHF, NYHA III/IV, and recent timing, but the rule misuses the 'diagnosis' field (meant for primary cancer) for a comorbidity, which should be a custom or control field.",
+        "human_classification": "correct"
+    }
+]

@@ -1,0 +1,178 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with a histological or cytological verified adenocarcinoma of the colon or rectum with non-resectable or metastatic cancer.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "IN",
+                    "value": "colon adenocarcinoma,rectal adenocarcinoma"
+                },
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "stage",
+                            "operator": "=",
+                            "value": "non-resectable"
+                        },
+                        {
+                            "field": "stage",
+                            "operator": "=",
+                            "value": "metastatic"
+                        }
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Diagnosis mapping is correct, but using the 'stage' field for 'non‑resectable' and 'metastatic' is inappropriate; the schema has no standard stage values for these terms, so the rule only partially captures the criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with measurable disease without previous radiotherapy",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "measurable_disease",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "!=",
+                    "value": "radiotherapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom field for measurable disease is acceptable, but prior radiotherapy should be captured via the 'treatments' array; using a top‑level 'treatment_name' field does not follow the schema.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with metastatic colorectal cancer with progression after previous therapy with 5-fluoropyrimidines, oxaliplatin or irinotecan.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "colorectal cancer"
+                },
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "metastatic"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "5-fluoropyrimidines,oxaliplatin,irinotecan"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures diagnosis and metastatic stage correctly, but uses a non‑schema field \"treatment_name\" instead of the required \"treatments\" array and does not represent the progression after prior therapy, so the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients should have been treated with oxaliplatin, but if oxaliplatin has be contraindicated or not tolerated the patient can participate in the trial.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "oxaliplatin"
+                },
+                {
+                    "field": "oxaliplatin_contraindicated",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "oxaliplatin_not_tolerated",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical meaning (oxaliplatin treated OR contraindicated OR not tolerated) is correct, but the rule uses non‑schema fields like \"treatment_name\" instead of the defined \"treatments\" array, and introduces custom fields for contraindication/tolerance that are not part of the schema.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients with progression after therapy with irinotecan or cetuximab independent of KRAS mutation status.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "irinotecan, cetuximab"
+                },
+                {
+                    "field": "progression_after_therapy",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule tries to capture the required meaning but uses non‑schema fields (treatment_name, progression_after_therapy) instead of the defined 'treatments' array and lacks a proper way to represent progression; therefore it only partially matches the criterion.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "No cytotoxic therapy or other experimental treatment within 28 days before inclusion.",
+        "logic": {
+            "field": "recent_cytotoxic_or_experimental_therapy",
+            "operator": "=",
+            "value": "within_28_days"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly refers to prior cytotoxic or experimental therapy, which should be captured using the 'treatments' field (with dates) from the schema. Using a custom field 'recent_cytotoxic_or_experimental_therapy' is inappropriate, so the mapping is only partially correct.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "No former therapy with everolimus or other rapamycin as sirolimus or temsirolimus.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "everolimus"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "sirolimus"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "temsirolimus"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical condition (OR of the three drugs) correctly captures the exclusion, but it uses a non‑schema field \"treatment_name\" instead of the required \"treatments\" array with a name subfield.",
+        "human_classification": "correct"
+    }
+]

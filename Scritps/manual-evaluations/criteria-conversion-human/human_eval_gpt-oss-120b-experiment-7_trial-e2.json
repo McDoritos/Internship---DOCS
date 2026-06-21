@@ -1,0 +1,160 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Invasive breast carcinoma pN0 or pN(i+) with histological tumor size ≤ 10 mm (pT1a/b subgroup).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "Invasive breast carcinoma"
+                },
+                {
+                    "field": "pN_status",
+                    "operator": "IN",
+                    "value": "pN0, pN(i+)"
+                },
+                {
+                    "field": "tumor_size_mm",
+                    "operator": "<=",
+                    "value": "10"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the meaning but uses custom fields (pN_status, tumor_size_mm) that should be represented by the schema's stage field; diagnosis is correct.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient with HER2-negative breast carcinoma: immuno-histochemistry (IHC) score = 0, 1+ or 2+ and in situ hybridization (FISH, CISH, or SISH) negative (local laboratory testing).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "her2_status",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "ihc_score",
+                    "operator": "IN",
+                    "value": "0, 1+, 2+"
+                },
+                {
+                    "field": "ish_result",
+                    "operator": "=",
+                    "value": "negative"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the HER2‑negative requirement correctly, but it uses custom fields (her2_status, ihc_score, ish_result) that are not part of the defined schema; the appropriate field would be molecular_status. Hence the mapping is imperfect.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patient with ER and PR negative invasive carcinoma (< 1% stained cells by immuno-histochemistry assay) (local laboratory testing).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "er_percent",
+                    "operator": "<",
+                    "value": "1",
+                    "unit": "%"
+                },
+                {
+                    "field": "pr_percent",
+                    "operator": "<",
+                    "value": "1",
+                    "unit": "%"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical conditions correctly capture ER and PR <1%, but the schema provides a molecular_status field for such biomarkers; using custom er_percent/pr_percent fields is a misuse of the defined schema.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "largest_tumor_size_mm",
+                    "operator": "<=",
+                    "value": "10"
+                },
+                {
+                    "field": "largest_tumor_size_mm",
+                    "operator": "<=",
+                    "value": "30"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a custom field (acceptable) but omits the required multifocality condition and the OR clause is redundant, so the original meaning is not fully captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "In case of multifocality, all lesions must be ER, PR and HER2-negative.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "er_status",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "pr_status",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "her2_status",
+                    "operator": "=",
+                    "value": "negative"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the ER/PR/HER2 negativity but uses non‑schema fields (er_status, pr_status, her2_status) instead of the appropriate molecular_status field and omits the required condition about multifocality, so the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "In case of breast conserving surgery, clear margins are required.",
+        "logic": {
+            "field": "margin_status",
+            "operator": "=",
+            "value": "clear"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a custom 'margin_status' field, which is acceptable because the schema lacks a margin field, but it omits the required condition that the patient must have undergone breast‑conserving surgery (a treatment that could be captured with the 'treatments' field). Hence the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Patients who received neo-adjuvant treatment (radiotherapy or chemotherapy or other before surgery).",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "CONTAINS",
+            "value": "neoadjuvant"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly refers to prior treatments, which should use the defined 'treatments' field, but the rule uses a non‑schema field 'treatment_name'. The logic otherwise matches the exclusion intent.",
+        "human_classification": "correct"
+    }
+]

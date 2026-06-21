@@ -1,0 +1,149 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Must not have received systemic anti-neoplastic therapy, including radiotherapy within 14 days of study treatment.",
+        "logic": {
+            "field": "systemic_therapy_within_14_days",
+            "operator": "=",
+            "value": "false"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the “no therapy within 14 days” condition, but uses a non‑schema field (systemic_therapy_within_14_days) instead of the required 'treatments' structure, so the mapping is incomplete.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Female patients of childbearing age must have negative pregnancy test.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "pregnancy_test",
+                    "operator": "=",
+                    "value": "negative"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures gender and pregnancy test, but omits the required age restriction for childbearing age, which should use the 'age' field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Haploidentical 1st-degree relative as defined by 3/6 or 4/6 HLA-matched at HLA -A, -B, or -DRB1 who is 18-70 years of age",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "haploidentical_relative_age",
+                    "operator": ">=",
+                    "value": "18"
+                },
+                {
+                    "field": "haploidentical_relative_age",
+                    "operator": "<=",
+                    "value": "70"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom field for relative age is acceptable, and the age range is correctly captured, but the logic omits the required HLA‑matching condition, so the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Active refractory or relapsed acute leukemia",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "acute leukemia"
+                },
+                {
+                    "field": "leukemia_status",
+                    "operator": "IN",
+                    "value": [
+                        "refractory",
+                        "relapsed"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures acute leukemia with refractory or relapsed status, but it uses a non‑schema field 'leukemia_status' instead of an appropriate schema field such as 'control', so the field mapping is imperfect.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 3,
+        "type": "exclusion",
+        "text": "Prior use of fludarabine, as this agent has been associated with higher subsequent rates of graft versus host disease",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "fludarabine"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' field, but the rule uses a non‑schema field 'treatment_name', so the mapping is imperfect despite the correct intent.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The development of erythema nodosum if characterized by a desquamating rash while taking lenalidomide.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "lenalidomide"
+                },
+                {
+                    "field": "adverse_event",
+                    "operator": "=",
+                    "value": "erythema nodosum with desquamating rash"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the intended meaning (lenalidomide exposure AND erythema nodosum with desquamating rash) but uses non‑schema fields. The drug should be referenced via the 'treatments' array (e.g., treatments.name) rather than a custom 'treatment_name' field, and 'adverse_event' is not a defined schema field. Hence the mapping is imperfect.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Known or suspected cardiac amyloidosis",
+        "logic": {
+            "field": "cardiac_amyloidosis",
+            "operator": "IN",
+            "value": "known,suspected"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures 'known or suspected' cardiac amyloidosis, but the criterion could be represented using the existing 'control' field (for comorbidities) instead of a custom 'cardiac_amyloidosis' field.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Equal to or greater than grade 2 ataxia, cranial or peripheral neuropathy.",
+        "logic": {
+            "field": "ataxia_grade",
+            "operator": ">=",
+            "value": "2"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion involves neurological toxicity (ataxia and cranial/peripheral neuropathy) which has no dedicated schema field, so a custom field is acceptable. However, the logic only checks ataxia_grade ≥ 2 and ignores cranial or peripheral neuropathy, thus only partially preserving the original meaning.",
+        "human_classification": "partial"
+    }
+]

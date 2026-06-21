@@ -1,0 +1,71 @@
+[
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Documented progression after first-line platinum-based chemotherapy combined with anti-PD-1 or anti-PD-L1 therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "first_line_combination_therapy",
+                    "operator": "=",
+                    "value": "platinum + anti-PD-1/PD-L1"
+                },
+                {
+                    "field": "progression_status",
+                    "operator": "=",
+                    "value": "documented"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the intended meaning (documented progression after first‑line platinum + anti‑PD‑1/PD‑L1 therapy) but uses non‑schema fields (first_line_combination_therapy, progression_status) instead of the appropriate 'treatments' list (and possibly 'control') defined in the schema.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior exposure to LUMITAX.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "LUMITAX"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion intent but uses a non‑schema field \"treatment_name\" instead of the defined \"treatments\" array with a name subfield.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other active invasive malignancy within 3 years (except adequately treated non-melanoma skin cancer or carcinoma in situ).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "active_invasive_malignancy",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "diagnosis_date_within_3_years",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "!=",
+                    "value": "non-melanoma skin cancer"
+                },
+                {
+                    "field": "diagnosis",
+                    "operator": "!=",
+                    "value": "carcinoma in situ"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures the exclusion (active invasive malignancy within 3 years except non‑melanoma skin cancer or carcinoma in situ) but uses non‑schema fields (active_invasive_malignancy, diagnosis_date_within_3_years) instead of the defined fields like diagnosis and diagnosis_date, which is a misuse of the schema.",
+        "human_classification": "correct"
+    }
+]

@@ -1,0 +1,143 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Participants must be >18 years old at time of diagnosis",
+        "logic": {
+            "field": "age",
+            "operator": ">",
+            "value": "18"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses the correct 'age' field, but does not capture the required condition that the age be >18 specifically at the time of diagnosis.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 5,
+        "type": "inclusion",
+        "text": "For patients with stage IIIc disease, patients are ineligible for or refuse standard treatment with platinum-double chemotherapy and radiation.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "IIIc"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "platinum-double chemotherapy"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "radiation"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑schema field (treatment_name) instead of the required 'treatments' array, which is a schema misuse. The logical structure otherwise captures stage IIIc and the absence of both chemo and radiation, but the field choice makes it only partially correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "For patients with stage IV disease, platinum doublet chemotherapy is not appropriate, deemed unsafe by the treating physician, or declined by the patient",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "IV"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": "platinum doublet chemotherapy"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the stage IV requirement and the exclusion of platinum doublet chemotherapy, but it uses a non‑schema field \"treatment_name\" instead of the defined \"treatments\" array, so the field mapping is imperfect.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "CrCl>50 (if pemetrexed is to be offered)",
+        "logic": {
+            "field": "creatinine_clearance",
+            "operator": ">",
+            "value": "50"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses an acceptable custom field for creatinine clearance, but omits the conditional that the threshold applies only if pemetrexed is to be offered.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Patients on immunosuppressive medication, including steroids (if doses exceed equivalent of prednisone 10 mg daily).",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "immunosuppressive_medication",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "steroid_prednisone_equivalent_dose_mg",
+                    "operator": ">",
+                    "value": "10"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical condition (OR) correctly captures the exclusion intent, but it uses custom fields (immunosuppressive_medication, steroid_prednisone_equivalent_dose_mg) that are not part of the defined schema; the criterion should be expressed using the 'treatments' field.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 4,
+        "type": "exclusion",
+        "text": "Patients with cardiovascular, hepatic, or renal systemic diseases that would preclude use of chemotherapy and/or immunotherapy per the treating investigator.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "cardiovascular_disease",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "hepatic_disease",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "renal_disease",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures the exclusion (OR of the three disease flags), but the criterion pertains to comorbidities, which should be represented using the 'control' field rather than custom disease-specific fields.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Symptomatic, untreated brain metastases.",
+        "logic": {
+            "field": "brain_metastases_symptomatic_untreated",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion maps to the 'control' field (metastases), but a custom field 'brain_metastases_symptomatic_untreated' was used instead, which is a misuse of the schema despite correct logical condition.",
+        "human_classification": "correct"
+    }
+]

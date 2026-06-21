@@ -1,0 +1,198 @@
+[
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "Have documented tumor progression after receiving all standard/approved chemotherapies per National Comprehensive Cancer Network (NCCN) guidelines (V1) for their specific cancer and no approved therapy exists.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "standard_chemotherapy_completed",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "approved_therapy_exists",
+                    "operator": "=",
+                    "value": "false"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses custom fields (standard_chemotherapy_completed, approved_therapy_exists) instead of the appropriate schema fields such as treatments and control to capture prior chemotherapy and documented progression, so the mapping is incomplete.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Any chemotherapy, major surgery, or irradiation must have been completed at least 3 weeks prior to receiving study drug (6 weeks for mitomycin-C or nitrosourea) and subject must have recovered from all toxicities incurred as a result of previous therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "operator": "AND",
+                            "conditions": [
+                                {
+                                    "field": "treatment_name",
+                                    "operator": "IN",
+                                    "value": "mitomycin-C"
+                                },
+                                {
+                                    "field": "therapy_completion_interval_weeks",
+                                    "operator": ">=",
+                                    "value": "6"
+                                }
+                            ]
+                        },
+                        {
+                            "operator": "AND",
+                            "conditions": [
+                                {
+                                    "field": "treatment_name",
+                                    "operator": "IN",
+                                    "value": "nitrosourea"
+                                },
+                                {
+                                    "field": "therapy_completion_interval_weeks",
+                                    "operator": ">=",
+                                    "value": "6"
+                                }
+                            ]
+                        },
+                        {
+                            "operator": "AND",
+                            "conditions": [
+                                {
+                                    "field": "treatment_name",
+                                    "operator": "NOT_IN",
+                                    "value": "mitomycin-C"
+                                },
+                                {
+                                    "field": "treatment_name",
+                                    "operator": "NOT_IN",
+                                    "value": "nitrosourea"
+                                },
+                                {
+                                    "field": "therapy_completion_interval_weeks",
+                                    "operator": ">=",
+                                    "value": "3"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "field": "toxicity_recovered",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures the 3‑week vs 6‑week washout and toxicity recovery, but it uses custom fields (treatment_name, therapy_completion_interval_weeks, toxicity_recovered) instead of the defined schema fields such as the treatments list and control, which is a misuse of the schema.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Women of childbearing potential must have a negative serum pregnancy test at screening and must use an approved contraceptive method, if appropriate (for example, intrauterine device, birth control pills, or barrier device) beginning 2 weeks before the first dose of investigational product and for 28 days after the final dose of investigational product.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "pregnancy_test_result",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "contraceptive_use",
+                    "operator": "=",
+                    "value": "approved"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule correctly uses gender and custom fields for pregnancy test and contraceptive use (acceptable since pregnancy/contraception are not in the schema), but it omits the timing requirements (2 weeks before first dose and 28 days after last dose), so the meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who have had chemotherapy or radiotherapy within 3 weeks prior to entering the study or who have unresolved or unstable, serious toxicity from prior administration of another investigational drug and/or of prior cancer treatment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "recent_chemotherapy_radiotherapy",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "unresolved_serious_toxicity",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly uses OR, but it employs custom fields (recent_chemotherapy_radiotherapy, unresolved_serious_toxicity) instead of the appropriate schema fields (e.g., treatments with date checks or control). Since a schema field clearly applies, the field choice is imperfect.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Concurrent treatment with an investigational agent or participation in another treatment clinical trial.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "investigational_agent_concurrent",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "other_trial_participation",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the intended meaning but uses custom fields (investigational_agent_concurrent, other_trial_participation) instead of the defined 'treatments' schema, which should represent concurrent investigational agents or trial participation.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior lapatinib therapy.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "lapatinib"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' field (treatment name), but the rule uses a non‑schema field 'treatment_name'. The exclusion logic itself is correct, but the field choice is improper.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Malabsorption syndrome, resection of the small bowel or active, uncontrolled ulcerative colitis.",
+        "logic": {
+            "field": "malabsorption_syndrome",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures only malabsorption syndrome and omits resection of the small bowel and active uncontrolled ulcerative colitis, so the exclusion meaning is only partially represented.",
+        "human_classification": "partial"
+    }
+]

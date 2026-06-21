@@ -1,0 +1,51 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Metastatic disease or unresectable locally advanced malignancy for which standard therapy by anthracycline is decided;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "disease_status",
+                    "operator": "=",
+                    "value": "metastatic"
+                },
+                {
+                    "field": "disease_status",
+                    "operator": "=",
+                    "value": "unresectable_locally_advanced"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Used a non‑schema field (disease_status) instead of the appropriate 'stage' field and omitted the condition about anthracycline therapy, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Evidence of significant uncontrolled concomitant disease that could affect compliance with the protocol or interpretation of results;",
+        "logic": {
+            "field": "uncontrolled_concomitant_disease",
+            "operator": "=",
+            "value": "present"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The exclusion logic correctly captures the presence of uncontrolled disease, but it uses a custom field instead of the appropriate 'control' schema field.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior treatment with anthracycline;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "anthracycline"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' field, but the rule uses a non‑schema field 'treatment_name', so the mapping is imperfect despite correct exclusion logic.",
+        "human_classification": "correct"
+    }
+]

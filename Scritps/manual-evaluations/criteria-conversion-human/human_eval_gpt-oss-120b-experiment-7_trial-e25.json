@@ -1,0 +1,314 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Patients with advanced renal cell carcinoma of a histological or cytological confirmation of clear cell (or with a component of clear cell) renal carcinoma that have previously progressed on or were intolerant to first-line therapy with sunitinib, sorafenib, pazopanib, axitinib, bevacizumab, or cytokine therapy.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "renal cell carcinoma"
+                },
+                {
+                    "field": "histology_subtype",
+                    "operator": "CONTAINS",
+                    "value": "clear cell"
+                },
+                {
+                    "field": "disease_stage",
+                    "operator": "=",
+                    "value": "advanced"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "sunitinib, sorafenib, pazopanib, axitinib, bevacizumab, cytokine therapy"
+                },
+                {
+                    "field": "treatment_response",
+                    "operator": "IN",
+                    "value": "progressed, intolerant"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the required concepts (advanced RCC, clear‑cell histology, prior progression/intolerance to listed therapies) but uses non‑schema fields (histology_subtype, disease_stage, treatment_name, treatment_response) instead of the defined fields (stage, treatments). Hence the meaning is partly preserved but the field mapping is incorrect.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "Patients must have had prior nephrectomy (partial or total).",
+        "logic": {
+            "field": "nephrectomy_status",
+            "operator": "IN",
+            "value": "partial, total"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to a prior surgical treatment, which should be captured using the 'treatments' field, not a custom 'nephrectomy_status' field. The logic of partial or total is correct, but the field choice is inappropriate.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients with brain metastases.",
+        "logic": {
+            "field": "brain_metastases",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule correctly captures the exclusion (true when brain metastases present) but uses a custom field 'brain_metastases' instead of the appropriate 'control' field defined for metastases.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have received more than one prior treatment regimen for metastatic renalcell carcinoma",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "metastatic renalcell carcinoma"
+                },
+                {
+                    "field": "prior_treatment_regimen_count",
+                    "operator": ">",
+                    "value": "1"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule correctly checks diagnosis, but uses a non‑schema field 'prior_treatment_regimen_count' instead of the required 'treatments' array to capture prior regimens, so the mapping is incomplete.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have received adjuvant therapy for RCC",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "=",
+                    "value": "RCC"
+                },
+                {
+                    "field": "adjuvant_therapy_received",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the intended meaning but uses a non‑schema field (adjuvant_therapy_received) instead of the required 'treatments' field for prior therapy, so it is only partially correct.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Patients who have previously received systemic mTOR inhibitors (eg, sirolimus)",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "sirolimus"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑schema field (treatment_name) instead of the defined treatments list, and only checks for sirolimus rather than all systemic mTOR inhibitors, so it only partially captures the exclusion criterion.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "History or clinical evidence of central nervous system (CNS) metastases.",
+        "logic": {
+            "field": "cns_metastases",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion correctly (true when CNS metastases are present), but uses a custom field 'cns_metastases' instead of the appropriate 'control' field defined for metastases.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of abdominal fistula, gastrointestinal perforation, or intra abdominal abscess within 28 days prior to beginning study treatment.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "abdominal_fistula_history",
+                            "operator": "=",
+                            "value": "true"
+                        },
+                        {
+                            "unmapped": true,
+                            "source_text": "within 28 days prior to beginning study treatment"
+                        }
+                    ]
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "gastrointestinal_perforation_history",
+                            "operator": "=",
+                            "value": "true"
+                        },
+                        {
+                            "unmapped": true,
+                            "source_text": "within 28 days prior to beginning study treatment"
+                        }
+                    ]
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "intra_abdominal_abscess_history",
+                            "operator": "=",
+                            "value": "true"
+                        },
+                        {
+                            "unmapped": true,
+                            "source_text": "within 28 days prior to beginning study treatment"
+                        }
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the three medical history items but uses non‑schema custom fields (abdominal_fistula_history, etc.) instead of the appropriate 'control' field, and the 28‑day time window is left unmapped, so the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "active or uncontrolled severe infection,",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "infection_status",
+                    "operator": "=",
+                    "value": "active"
+                },
+                {
+                    "field": "infection_status",
+                    "operator": "=",
+                    "value": "uncontrolled"
+                },
+                {
+                    "field": "infection_status",
+                    "operator": "=",
+                    "value": "severe"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a custom field (infection_status), which is acceptable because infection is not in the schema. However, it treats 'severe' as a separate OR condition, covering any severe infection even if controlled, whereas the original criterion likely meant only uncontrolled severe infections. This over‑includes cases, so the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Patients who have a history of another primary malignancy and off treatment for ≤ 3 years, with the exception of non-melanoma skin cancer and carcinoma in situ of the uterine cervix or breast, and localized cancer of the bladder (T1) and prostate (T1 - T2).",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "other_primary_malignancy_history",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "off_treatment_years",
+                    "operator": "<=",
+                    "value": "3"
+                },
+                {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "field": "diagnosis",
+                            "operator": "NOT_IN",
+                            "value": "non-melanoma skin cancer"
+                        },
+                        {
+                            "field": "diagnosis",
+                            "operator": "NOT_IN",
+                            "value": "carcinoma in situ of the uterine cervix"
+                        },
+                        {
+                            "field": "diagnosis",
+                            "operator": "NOT_IN",
+                            "value": "carcinoma in situ of the breast"
+                        },
+                        {
+                            "field": "diagnosis",
+                            "operator": "NOT_IN",
+                            "value": "localized bladder cancer T1"
+                        },
+                        {
+                            "field": "diagnosis",
+                            "operator": "NOT_IN",
+                            "value": "localized prostate cancer T1-T2"
+                        }
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical meaning is captured correctly, but the rule uses non‑schema fields (other_primary_malignancy_history, off_treatment_years) even though the concept could be expressed with existing fields like diagnosis and treatments.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Patients who are using other investigational agents or who had received investigational drugs ≤ 2 weeks prior to study treatment start. This should not include sunitinib, sorafenib, axitinib, pazopanib and cytokines.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "operator": "OR",
+                    "conditions": [
+                        {
+                            "field": "investigational_agent_use",
+                            "operator": "=",
+                            "value": "yes"
+                        },
+                        {
+                            "field": "investigational_agent_recent_use",
+                            "operator": "<=",
+                            "value": "2",
+                            "unit": "weeks"
+                        }
+                    ]
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "NOT_IN",
+                    "value": [
+                        "sunitinib",
+                        "sorafenib",
+                        "axitinib",
+                        "pazopanib",
+                        "cytokines"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical structure correctly captures the exclusion (use of investigational agents or recent use, excluding specific drugs), but it uses custom fields (investigational_agent_use, investigational_agent_recent_use, treatment_name) that are not part of the defined schema. The criterion should be expressed using the 'treatments' array (name and dates) instead.",
+        "human_classification": "correct"
+    }
+]

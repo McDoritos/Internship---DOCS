@@ -1,0 +1,133 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Maximum axial and anterior to posterior tumor dimension of ≤3.5cm, after receiving three months of treatment with the modified FOLFIRINOX regimen.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "tumor_max_dimension_cm",
+                    "operator": "<=",
+                    "value": "3.5",
+                    "unit": "cm"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "modified FOLFIRINOX"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Tumor size is captured with a custom field (acceptable as size isn’t in the schema), but the treatment requirement should use the 'treatments' list and include the three‑month duration; using a custom 'treatment_name' field and omitting the duration loses important meaning.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Subject has received 3 months of treatment with the modified FOLFIRINOX regimen.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "=",
+                    "value": "modified FOLFIRINOX"
+                },
+                {
+                    "field": "treatment_duration_months",
+                    "operator": ">=",
+                    "value": "3"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the intended meaning (specific regimen and ≥3 months), but it uses non‑schema fields (treatment_name, treatment_duration_months) instead of the defined treatments array with name and dates.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Subjects who are actively bleeding, anticoagulated, coagulopathy, or have any of the following hematology results: hemoglobin less than 10 g/dL without the support of growth factors or transfusions absolute neutrophil count less than 1500 cells/mL; or platelet count less than 100,000.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "bleeding_status",
+                    "operator": "=",
+                    "value": "active"
+                },
+                {
+                    "field": "anticoagulation_status",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "coagulopathy_status",
+                    "operator": "=",
+                    "value": "present"
+                },
+                {
+                    "field": "hemoglobina",
+                    "operator": "<",
+                    "value": "10",
+                    "unit": "g/dL"
+                },
+                {
+                    "field": "neutrofilos",
+                    "operator": "<",
+                    "value": "1500",
+                    "unit": "cells/mL"
+                },
+                {
+                    "field": "plaquetas",
+                    "operator": "<",
+                    "value": "100000"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom fields are acceptable since the schema lacks these concepts, and the OR logic matches the exclusion intent, but the hemoglobin condition omits the required qualifier about lack of growth factor or transfusion support, so the meaning is only partially preserved.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 2,
+        "type": "exclusion",
+        "text": "Subjects with Stage 3, 4, or 5 chronic kidney disease.",
+        "logic": {
+            "field": "ckd_stage",
+            "operator": "=",
+            "value": "3"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "CKD stage is not a defined schema field, so a custom field is acceptable, but the rule only checks for stage 3 and omits stages 4 and 5, missing part of the exclusion criterion.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": 5,
+        "type": "exclusion",
+        "text": "Subjects receiving IRE for margin accentuation.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "IRE"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion intent (exclude if receiving IRE) but uses a non‑schema field \"treatment_name\" instead of the defined treatments list with a \"name\" attribute, so the field choice is incorrect.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 6,
+        "type": "exclusion",
+        "text": "Subjects who at 3 months after FOLFIRINOX treatment have evidence of disease progression.",
+        "logic": {
+            "field": "progression_after_folfirinox_3months",
+            "operator": "=",
+            "value": "yes"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion condition correctly, but it uses a custom field (progression_after_folfirinox_3months) even though the generic 'control' field could represent disease progression, so a schema field was missed.",
+        "human_classification": "correct"
+    }
+]

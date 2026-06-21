@@ -1,0 +1,133 @@
+[
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "Presence of iliac or retroperitoneal lymph node metastasis detected in contrast-enhanced CT or MRI, classified as local or unilaterally regional",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "lymph_node_metastasis_location",
+                    "operator": "=",
+                    "value": "iliac"
+                },
+                {
+                    "field": "metastasis_classification",
+                    "operator": "=",
+                    "value": "local_or_unilaterally_regional"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom fields are acceptable (no matching schema fields), but the logic only checks for iliac nodes and omits retroperitoneal locations, so the original meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 6,
+        "type": "inclusion",
+        "text": "Initial diagnosis of a tumor in UICC stage IIA/IIB",
+        "logic": {
+            "field": "stage",
+            "operator": "=",
+            "value": "IIA"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses the correct 'stage' field but only checks for IIA, omitting IIB and does not enforce the requirement of an initial diagnosis.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a tumor in clinical stage (CS) I under active surveillance",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "I"
+                },
+                {
+                    "field": "tumor_recurrence",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "active_surveillance",
+                    "operator": "=",
+                    "value": "yes"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures recurrence, stage I, and active surveillance, but 'tumor_recurrence' and 'active_surveillance' are not schema fields; they should be represented using the 'control' field.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Recurrence of a CS I tumor after adjuvant therapy with carboplatin mono",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "stage",
+                    "operator": "=",
+                    "value": "I"
+                },
+                {
+                    "field": "tumor_recurrence",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "carboplatin"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Stage criterion is correctly mapped, but the rule uses undefined fields (tumor_recurrence, treatment_name) instead of the schema's treatments or control fields, so the mapping is only partially correct.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Other metastases than LN-M (UICC III)",
+        "logic": {
+            "field": "other_metastases",
+            "operator": "=",
+            "value": "present"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the exclusion (presence of other metastases) correctly, but uses a custom field 'other_metastases' instead of the appropriate 'control' field defined for metastases.",
+        "human_classification": "wrong"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient received a different chemotherapy than described above",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "!=",
+            "value": "specified_chemotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion concerns chemotherapy history, which should use the 'treatments' field, but the rule uses a non‑schema field 'treatment_name'; the logical condition itself matches the meaning.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "The patient underwent retroperitoneal radiotherapy",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "CONTAINS",
+            "value": "retroperitoneal radiotherapy"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' field (treatments.name), but the rule uses a non‑schema field 'treatment_name', so the mapping is imperfect despite correct logical intent.",
+        "human_classification": "correct"
+    }
+]

@@ -1,0 +1,80 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Fertile female patients must voluntarily use effective contraceptives not less than 120 days after chemotherapy or the last dose of toripalimab (whichever is later) during the study period, and urine or serum pregnancy test results within 7 days prior to enrollment are negative.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "fertility_status",
+                    "operator": "=",
+                    "value": "fertile"
+                },
+                {
+                    "field": "contraception_use_duration_days",
+                    "operator": ">=",
+                    "value": "120"
+                },
+                {
+                    "field": "pregnancy_test_result",
+                    "operator": "=",
+                    "value": "negative"
+                },
+                {
+                    "field": "pregnancy_test_within_days",
+                    "operator": "<=",
+                    "value": "7"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Custom fields are acceptable, but the rule omits the crucial timing condition relative to chemotherapy or toripalimab, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 1,
+        "type": "exclusion",
+        "text": "Previously received targeted therapy (including TKI or monoclonal antibodies), immunotherapy, or any investigational drug treatment for NSCLC;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": [
+                "targeted therapy",
+                "immunotherapy",
+                "investigational drug"
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' field, but the rule uses a non‑existent 'treatment_name' field instead of the schema's treatments list, so the mapping is imperfect.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Received other major surgical treatments (excluding diagnosis) within 4 weeks prior to the start of the study or expected to undergo major surgical treatments during the study period;",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "major_surgical_treatment_recent",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "expected_major_surgical_treatment",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logical condition (OR of recent or expected major surgery) matches the exclusion meaning, but the schema provides a 'treatments' field that should capture surgical history; using custom fields instead is a misuse of the defined schema.",
+        "human_classification": "partial"
+    }
+]

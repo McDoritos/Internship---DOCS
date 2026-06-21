@@ -1,0 +1,38 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Operable advanced gastric cancer patients: primary lesions can be completely excision, no distant metastasis;",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "resectable",
+                    "operator": "=",
+                    "value": "yes"
+                },
+                {
+                    "field": "distant_metastasis",
+                    "operator": "=",
+                    "value": "absent"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic correctly captures both conditions with AND, but it uses non‑schema fields ('resectable' and 'distant_metastasis') instead of the appropriate schema field (e.g., 'control' for metastasis or 'stage' for operability).",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Postoperative patients who can tolerate 5-FU based (5-FU，S-1 or Capecitabine) adjuvant chemotherapy;",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "5-FU, S-1, Capecitabine"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑existent field \"treatment_name\" instead of the defined \"treatments\" array (e.g., treatments.name) and does not capture the postoperative or tolerance aspects of the criterion.",
+        "human_classification": "correct"
+    }
+]

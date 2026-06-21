@@ -1,0 +1,220 @@
+[
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Histologically confirmed high grade (WHO Grade IV) glioma including but not limited to glioblastoma, gliosarcoma, glioblastoma with oligodendroglial features, glioblastoma with PNET features, tested as IDH wild-type, as per revised WHO 2021 criteria.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "diagnosis",
+                    "operator": "IN",
+                    "value": "glioblastoma, gliosarcoma, glioblastoma with oligodendroglial features, glioblastoma with PNET features"
+                },
+                {
+                    "field": "glioma_grade",
+                    "operator": "=",
+                    "value": "IV"
+                },
+                {
+                    "field": "molecular_status",
+                    "operator": "=",
+                    "value": "IDH wild-type"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "Uses correct schema fields for diagnosis and molecular_status, but adds a non‑schema 'glioma_grade' field (acceptable as no grade field exists) and restricts diagnosis to only the listed subtypes, whereas the original allows other WHO Grade IV gliomas.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Patients must also have evidence of tumor recurrence/progression by MRI (RANO criteria) after standard front-line therapy.",
+        "logic": {
+            "field": "tumor_progression_rano",
+            "operator": "=",
+            "value": "true"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the required tumor progression condition, but it uses a custom field (tumor_progression_rano) instead of the appropriate schema field 'control' for disease status.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "All female subjects of childbearing age must have a negative blood or urine pregnancy test.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "gender",
+                    "operator": "=",
+                    "value": "female"
+                },
+                {
+                    "field": "pregnancy_test_result",
+                    "operator": "=",
+                    "value": "negative"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures gender and a custom pregnancy test field (acceptable), but omits the required age restriction for childbearing age, which should be expressed using the schema's age field.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 1,
+        "type": "inclusion",
+        "text": "At least 6 weeks following completion of front-line radiation therapy.",
+        "logic": {
+            "field": "weeks_since_frontline_radiation",
+            "operator": ">=",
+            "value": "6",
+            "unit": "weeks"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion concerns timing after a prior radiation therapy, which should be represented using the 'treatments' field (radiation as a treatment). Using a custom 'weeks_since_frontline_radiation' field ignores the available schema field, so the mapping is only partially correct despite preserving the meaning.",
+        "human_classification": "correct"
+    },
+    {
+        "id": 2,
+        "type": "inclusion",
+        "text": "At least 3 weeks post chemotherapy or 5 half-lives, whichever is shorter must have elapsed since any prior systemic therapy, except for systemic inhibitory/stimulatory immune checkpoint therapy, which requires 5 half-lives.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "weeks_since_prior_systemic_therapy",
+                    "operator": ">=",
+                    "value": "3",
+                    "unit": "weeks"
+                },
+                {
+                    "unmapped": true,
+                    "source_text": "5 half-lives requirement; exception for immune checkpoint therapy requiring 5 half-lives"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule uses a non‑schema field (weeks_since_prior_systemic_therapy) instead of the treatments list, and it only checks the 3‑week requirement, omitting the 5‑half‑life condition and the immune‑checkpoint exception, so the meaning is only partially captured.",
+        "human_classification": "partial"
+    },
+    {
+        "id": 3,
+        "type": "inclusion",
+        "text": "At least 4 weeks from bevacizumab treatment, which can be used only for radiation necrosis or pseudo-progression.",
+        "logic": {
+            "operator": "AND",
+            "conditions": [
+                {
+                    "field": "weeks_since_bevacizumab",
+                    "operator": ">=",
+                    "value": "4",
+                    "unit": "weeks"
+                },
+                {
+                    "field": "bevacizumab_indication",
+                    "operator": "IN",
+                    "value": [
+                        "radiation necrosis",
+                        "pseudo-progression"
+                    ]
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The logic captures the meaning, but it uses custom fields (weeks_since_bevacizumab, bevacizumab_indication) instead of the defined 'treatments' schema for prior bevacizumab exposure, which is a mistake.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "inclusion",
+        "text": "Prior cytotoxic chemotherapy, radiation, or other anticancer therapies including investigational agents discontinued at least 4 weeks prior to Day 1 of treatment.",
+        "logic": {
+            "field": "prior_therapy_discontinuation_weeks",
+            "operator": ">=",
+            "value": "4"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the correct meaning (≥4 weeks washout) but uses a non‑existent custom field instead of the defined 'treatments' field with end dates, which is the appropriate schema element.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior or concurrent treatment with Avastin (bevacizumab) for the purposes of recurrent disease.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "avastin"
+                },
+                {
+                    "field": "treatment_name",
+                    "operator": "IN",
+                    "value": "bevacizumab"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion clearly maps to the 'treatments' field in the schema, but the rule uses a non‑existent field 'treatment_name' instead of referencing treatments.name, so the correct schema field is not used.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Prior exposure to chimeric antigen receptor (CAR) based therapies.",
+        "logic": {
+            "field": "treatment_name",
+            "operator": "CONTAINS",
+            "value": "CAR"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The rule captures the intended meaning (excludes patients with CAR‑based therapies) but uses an incorrect field name; the schema requires using the 'treatments' array (e.g., treatments.name) rather than a custom 'treatment_name' field.",
+        "human_classification": "correct"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "Primary immunodeficiency or history of autoimmune disease (e.g. Crohn's, rheumatoid arthritis, systemic lupus) resulting in end organ injury or requiring systemic immunosuppression/systemic disease modifying agents within the last 2 years.",
+        "logic": {
+            "operator": "OR",
+            "conditions": [
+                {
+                    "field": "primary_immunodeficiency",
+                    "operator": "=",
+                    "value": "true"
+                },
+                {
+                    "field": "autoimmune_disease_history",
+                    "operator": "IN",
+                    "value": "Crohn's, rheumatoid arthritis, systemic lupus"
+                },
+                {
+                    "field": "systemic_immunosuppression_last_2_years",
+                    "operator": "=",
+                    "value": "true"
+                }
+            ]
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion could be expressed using the existing 'control' field for comorbidities (primary immunodeficiency, autoimmune disease), but custom fields are used instead, and the logic does not fully capture the requirement that immunosuppression must be linked to the autoimmune disease, leading to only partial correctness.",
+        "human_classification": "partial"
+    },
+    {
+        "id": null,
+        "type": "exclusion",
+        "text": "History of bone marrow or stem cell transplantation.",
+        "logic": {
+            "field": "transplant_history",
+            "operator": "=",
+            "value": "bone_marrow_or_stem_cell"
+        },
+        "auto_classification": "partial",
+        "auto_explanation": "The criterion refers to a prior treatment (bone marrow or stem cell transplant) and should be captured using the 'treatments' field, not a custom 'transplant_history' field. The logical condition itself is correct, but the field choice is suboptimal.",
+        "human_classification": "correct"
+    }
+]
