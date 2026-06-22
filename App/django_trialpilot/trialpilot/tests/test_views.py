@@ -7,6 +7,14 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
+from django.conf import settings
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+from django.test import override_settings
+from django.core.files.storage import FileSystemStorage
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
+import os
 
 from trialpilot.forms import UploadDocumentForm, UploadTrialForm
 from trialpilot.models import (
@@ -764,7 +772,76 @@ class DiaryRemoveViewTest(TestCase):
         data = response.json()
         self.assertEqual(data["status"], "success")
         self.assertFalse(Document.objects.filter(id=doc_id).exists())
- 
+        
+    def test_delete_existing_diary_removes_versions(self):
+        doc = make_document()
+
+        version = Version.objects.create(
+            document=doc,
+            version_name="RAW",
+            file_path=ContentFile(
+                b"dummy content",
+                name="raw_test.txt"
+            )
+        )
+
+        version_id = version.id
+
+        response = self.client.post(
+            reverse("diary_remove"),
+            data=json.dumps({"diaries": [doc.id]}),
+            content_type="application/json"
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertFalse(
+            Version.objects.filter(id=version_id).exists()
+        )
+
+    def test_delete_existing_diary_removes_files(self):
+
+        with TemporaryDirectory() as tmp:
+
+            with override_settings(MEDIA_ROOT=tmp):
+
+                doc = make_document()
+                
+                default_storage._wrapped = FileSystemStorage()
+                
+                saved_path = default_storage.save(
+                    "documents/test_file.txt",
+                    ContentFile(b"hello")
+                )
+
+                Version.objects.create(
+                    document=doc,
+                    version_name="RAW_test_file.txt",
+                    file_path=saved_path
+                )
+
+                file_path = os.path.join(
+                    tmp,
+                    saved_path
+                )
+
+                self.assertTrue(
+                    os.path.exists(file_path)
+                )
+
+
+                self.client.post(
+                    reverse("diary_remove"),
+                    data=json.dumps({
+                        "diaries": [doc.id]
+                    }),
+                    content_type="application/json"
+                )
+
+
+                self.assertFalse(
+                    os.path.exists(file_path)
+                )
         
 class TrialRemoveViewTest(TestCase):
  
@@ -785,6 +862,115 @@ class TrialRemoveViewTest(TestCase):
         data = response.json()
         self.assertEqual(data["status"], "success")
         self.assertFalse(Document.objects.filter(id=doc_id).exists())
+    
+    def test_delete_existing_trial_removes_files(self):
+
+        with TemporaryDirectory() as tmp:
+            
+            with override_settings(MEDIA_ROOT=tmp):
+
+                doc = make_clinical_trial_document()
+
+                default_storage._wrapped = FileSystemStorage()
+                
+                saved_path = default_storage.save(
+                    "documents/trial_file.txt",
+                    ContentFile(b"trial content")
+                )
+
+                Version.objects.create(
+                    document=doc,
+                    version_name="RAW_trial_file.txt",
+                    file_path=saved_path
+                )
+
+
+                file_path = default_storage.path(saved_path)
+
+                self.assertTrue(
+                    os.path.exists(file_path)
+                )
+
+
+                self.client.post(
+                    reverse("trial_remove"),
+                    data=json.dumps({
+                        "trials": [doc.id]
+                    }),
+                    content_type="application/json"
+                )
+
+
+                self.assertFalse(
+                    os.path.exists(file_path)
+                )
+    
+    def test_delete_trial_removes_clinical_trial(self):
+
+        doc = make_clinical_trial_document()
+
+        trial_id = doc.clinical_trial.id
+
+
+        self.client.post(
+            reverse("trial_remove"),
+            data=json.dumps({"trials":[doc.id]}),
+            content_type="application/json"
+        )
+
+
+        self.assertFalse(
+            ClinicalTrial.objects.filter(
+                id=trial_id
+            ).exists()
+        )
+    
+    def test_delete_trial_removes_related_structures(self):
+
+        doc = make_clinical_trial_document()
+
+        cohort = Trial_cohort.objects.create(
+            clinical_trial=doc.clinical_trial,
+            cohort_id="1",
+            name="Cohort A"
+        )
+
+
+        criterion = Trial_criteria.objects.create(
+            document=doc,
+            cohort=cohort,
+            type="inclusion",
+            raw_criterion="Age > 18"
+        )
+
+
+        logic = Logic_criteria.objects.create(
+            criterion=criterion,
+            raw_logic={"field":"age"}
+        )
+
+
+        self.client.post(
+            reverse("trial_remove"),
+            data=json.dumps({"trials":[doc.id]}),
+            content_type="application/json"
+        )
+
+
+        self.assertFalse(
+            Trial_cohort.objects.filter(id=cohort.id).exists()
+        )
+
+        self.assertFalse(
+            Trial_criteria.objects.filter(id=criterion.id).exists()
+        )
+
+        self.assertFalse(
+            Logic_criteria.objects.filter(id=logic.id).exists()
+        )
+        
+        
+    
         
 class PatientResetViewTest(TestCase):
  
@@ -801,6 +987,133 @@ class PatientResetViewTest(TestCase):
         data = response.json()
         self.assertEqual(data["status"], "ok")
         self.assertFalse(Patient_profile.objects.filter(id=patient_id).exists())
+        
+        
+    def test_reset_patient_removes_extracted_files(self):
+
+        with TemporaryDirectory() as tmp:
+
+            with override_settings(MEDIA_ROOT=tmp):
+
+                doc = make_document()
+
+                default_storage._wrapped = FileSystemStorage()
+                
+                patient = make_patient(doc)
+
+
+                saved_path = default_storage.save(
+                    "documents/parameters.json",
+                    ContentFile(b"json content")
+                )
+
+
+                extracted_version = Version.objects.create(
+                    document=doc,
+                    version_name="EXTRACTED_parameters.json",
+                    file_path=saved_path
+                )
+
+
+                file_path = default_storage.path(saved_path)
+
+
+                self.assertTrue(
+                    os.path.exists(file_path)
+                )
+
+
+                response = self.client.post(
+                    reverse(
+                        "patient_reset",
+                        args=[patient.id]
+                    )
+                )
+
+
+                self.assertEqual(
+                    response.status_code,
+                    200
+                )
+
+
+                self.assertFalse(
+                    os.path.exists(file_path)
+                )
+                
+    def test_reset_patient_removes_extracted_versions(self):
+
+        doc = make_document()
+
+        patient = make_patient(doc)
+
+
+        raw_version = Version.objects.create(
+            document=doc,
+            version_name="RAW",
+            file_path=ContentFile(
+                b"raw",
+                name="raw.txt"
+            )
+        )
+
+
+        extracted_version = Version.objects.create(
+            document=doc,
+            version_name="EXTRACTED",
+            file_path=ContentFile(
+                b"json",
+                name="params.json"
+            )
+        )
+
+
+        self.client.post(
+            reverse(
+                "patient_reset",
+                args=[patient.id]
+            )
+        )
+
+
+        self.assertTrue(
+            Version.objects.filter(
+                id=raw_version.id
+            ).exists()
+        )
+
+
+        self.assertFalse(
+            Version.objects.filter(
+                id=extracted_version.id
+            ).exists()
+        )
+        
+    def test_reset_patient_marks_document_as_not_extracted(self):
+
+        doc = make_document()
+
+        doc.extracted=True
+        doc.save()
+
+
+        patient = make_patient(doc)
+
+
+        self.client.post(
+            reverse(
+                "patient_reset",
+                args=[patient.id]
+            )
+        )
+
+
+        doc.refresh_from_db()
+
+
+        self.assertFalse(
+            doc.extracted
+        )
         
 class DocumentUploadViewTest(TestCase):
  

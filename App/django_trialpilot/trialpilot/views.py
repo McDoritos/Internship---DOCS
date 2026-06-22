@@ -1146,10 +1146,6 @@ def deduplicate(criteria_list):
     return result
 
 def deduplicate_cohort_criteria(criteria_list):
-    """
-    Deduplicação para critérios com estrutura {"cohort_id": ..., "text": ...}.
-    Dois critérios similares mas de cohorts diferentes são entradas distintas.
-    """
     result = []
 
     for c in criteria_list:
@@ -1391,56 +1387,7 @@ def _extract_criteria_with_cohorts(trial, trial_content, cohorts):
         "inclusion_criteria": deduplicate_cohort_criteria(all_inclusion),
         "exclusion_criteria": deduplicate_cohort_criteria(all_exclusion)
     }
-        
-def criteria_extraction_step_bp(trial, trial_content):
 
-    inclusion_text, exclusion_text = split_by_sections_trial(trial_content)
-    if not inclusion_text and not exclusion_text:
-        raise ValueError("Could not detect Inclusion/Exclusion sections")
-
-    all_inclusion = []
-    all_exclusion = []
-
-    inclusion_chunks = split_text_into_chunks(inclusion_text, max_chars=2000, overlap=100)
-
-    for i, chunk in enumerate(inclusion_chunks):
-        print(f"{trial.title} - Inclusion Chunk {i+1}/{len(inclusion_chunks)}")
-
-        result = run_json_prompt_pipeline(
-            system_prompt_path=SYS_CRITERIA_EXTRACTION_PROMPT_FILE,
-            user_prompt_path=CRITERIA_EXTRACTION_PROMPT_FILE,
-            replacements={
-                "{{TRIAL_TEXT}}": chunk,
-                "{{CRITERIA_TYPE}}": "inclusion"
-            },
-            log_label=f"{trial.title} (inclusion chunk {i+1})"
-        )
-
-        all_inclusion.extend(result.get("inclusion_criteria", []))
-
-    exclusion_chunks = split_text_into_chunks(exclusion_text, max_chars=2000, overlap=100)
-
-    for i, chunk in enumerate(exclusion_chunks):
-        print(f"{trial.title} - Exclusion Chunk {i+1}/{len(exclusion_chunks)}")
-
-        result = run_json_prompt_pipeline(
-            system_prompt_path=SYS_CRITERIA_EXTRACTION_PROMPT_FILE,
-            user_prompt_path=CRITERIA_EXTRACTION_PROMPT_FILE,
-            replacements={
-                "{{TRIAL_TEXT}}": chunk,
-                "{{CRITERIA_TYPE}}": "exclusion"
-            },
-            log_label=f"{trial.title} (exclusion chunk {i+1})"
-        )
-        
-        all_exclusion.extend(result.get("exclusion_criteria", []))
-
-    return {
-        "document_id": trial.id,
-        "document_title": trial.title,
-        "inclusion_criteria": deduplicate(all_inclusion),
-        "exclusion_criteria": deduplicate(all_exclusion)
-    }
 
 def criteria_conversion_step(criteria_extracted, batch_size=5):
 
