@@ -2209,6 +2209,9 @@ def document_save(document, file, new_filename, version_id):
     
 
 def get_ordered_logic_with_positions(logic_criteria_qs, cohorts):
+    if cohorts is None:
+        cohorts = []
+        
     ordered = []
 
     for lc in logic_criteria_qs:
@@ -2784,22 +2787,22 @@ def clinical_trial_upload(request):
 
 def parameter_extraction(request, diary_id):
     try:
-        document = Document.objects.get(id=diary_id)
-        document_content = extract_document_text(document)
-        
-        if not document_content.strip():
-            return render(request, 'trialpilot/diary_parameter-extraction.html', {
-                'error': 'Could not extract readable text from this document.'
-            })
+        document = Document.objects.get(id=diary_id)    
     except Document.DoesNotExist:
         return render(request, 'trialpilot/diary_parameter-extraction.html', {'error': 'Document not found.'})
     
     if document.extracted:
         return render(request, 'trialpilot/diary_parameter-extraction.html', {'error': 'Parameters have already been extracted and validated for this document.'})
-    elif document.type != Document.DocumentType.CLINICAL_DIARY:
+    if document.type != Document.DocumentType.CLINICAL_DIARY:
         return render(request, 'trialpilot/diary_parameter-extraction.html', {'error': 'This pipeline only accepts Clinical Diary documents.'})
     else:
         if request.method == 'GET':
+            document_content = extract_document_text(document)
+        
+            if not document_content.strip():
+                return render(request, 'trialpilot/diary_parameter-extraction.html', {
+                    'error': 'Could not extract readable text from this document.'
+                })
             
             patient_id = extract_patient_id_from_title(document.title)
             analysis_content = get_analysis_for_patient(patient_id)
