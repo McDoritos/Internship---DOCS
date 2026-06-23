@@ -1,3 +1,71 @@
+"""
+Testes Unitários — criteria_extraction view
+============================================
+ 
+Cobre todos os caminhos da view e das funções auxiliares que ela invoca.
+A principal diferença em relação ao parameter_extraction é o CHUNKING:
+os critérios são extraídos por secções (Inclusion / Exclusion) e por chunks
+dentro de cada secção, com merge e deduplicação no final.
+ 
+  GUARD CLAUSES (GET)
+    1.  Documento não existe
+    2.  Tipo errado (não é CLINICAL_TRIAL)
+    3.  Texto extraído está vazio
+    4.  Documento já extraído (extracted=True)
+ 
+  HAPPY PATH GET — sem cohorts
+    5.  GET retorna 200 e template correto
+    6.  Contexto tem as chaves essenciais
+    7.  Trial_criteria de inclusão criados na BD
+    8.  Trial_criteria de exclusão criados na BD
+    9.  Version EXTRACTED criada
+   10.  has_cohorts=False quando LLM não detecta cohorts
+ 
+  HAPPY PATH GET — com cohorts
+   11.  Trial_cohort objetos criados na BD
+   12.  Trial_criteria associados ao cohort correto
+   13.  has_cohorts=True no contexto
+   14.  Cohort context enviado ao LLM de extração com cohorts
+ 
+  PIPELINE DE EXTRAÇÃO — sem cohorts / com chunking
+   15.  _extract_criteria_no_cohorts — texto com 1 chunk → LLM chamado 2× (inclusion + exclusion)
+   16.  _extract_criteria_no_cohorts — texto longo → LLM chamado >2× (múltiplos chunks)
+   17.  _extract_criteria_no_cohorts — texto sem secções → ValueError
+   18.  Critérios duplicados entre chunks são deduplicados
+   19.  merge_results combina listas de múltiplos chunks
+ 
+  PIPELINE DE EXTRAÇÃO — com cohorts (sem chunking por secção)
+   20.  _extract_criteria_with_cohorts — LLM chamado 2× (inclusion + exclusion)
+   21.  Critérios associados ao cohort_id correto
+   22.  Critérios de cohorts diferentes com texto idêntico NÃO são deduplicados
+   23.  Secção vazia (ex.: exclusion) é ignorada sem erro
+ 
+  SPLIT & CHUNK HELPERS
+   24.  split_by_sections_trial — extrai inclusion e exclusion corretamente
+   25.  split_by_sections_trial — sem secções devolve ("", "")
+   26.  split_text_into_chunks — texto curto → 1 chunk
+   27.  split_text_into_chunks — texto longo → múltiplos chunks com overlap
+ 
+  DEDUPLICAÇÃO
+   28.  deduplicate — strings exatamente iguais → 1 entrada
+   29.  deduplicate — strings muito similares (>0.92) → 1 entrada
+   30.  deduplicate — strings distintas → todas mantidas
+   31.  deduplicate_cohort_criteria — igual texto, mesmo cohort → 1 entrada
+   32.  deduplicate_cohort_criteria — igual texto, cohorts diferentes → 2 entradas
+ 
+  POST — validação de critérios
+   33.  POST atualiza criterion.validated_criterion e validated=True
+   34.  POST com criterion_id inválido é ignorado sem erro
+   35.  POST cria novos critérios de inclusão via inclusion[]
+   36.  POST cria novos critérios de exclusão via exclusion[]
+   37.  POST ignora inclusion[] em branco
+   38.  POST cria critério associado a cohort via new_inclusion_cohort_{id}[]
+   39.  POST cria critério de exclusão associado a cohort via new_exclusion_cohort_{id}[]
+   40.  POST redireciona para criteria_conversion com trial_id correto
+   41.  POST cria Version VALIDATED
+   42.  POST payload VALIDATED tem estrutura correta
+"""
+
 import json
 import uuid
 import datetime

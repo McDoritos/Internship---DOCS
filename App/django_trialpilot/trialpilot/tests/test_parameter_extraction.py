@@ -1,3 +1,42 @@
+"""
+Testes Unitários — parameter_extraction view
+=============================================
+ 
+  GUARD CLAUSES (GET)
+    1. Document não existe
+    2. Documento já extraído (extracted=True)
+    3. Tipo errado (não é CLINICAL_DIARY)
+    4. Ficheiro existe mas está vazio / ilegível
+ 
+  HAPPY PATH (GET)
+    5. GET bem-sucedido → pipeline LLM chamado, contexto renderizado com secções corretas
+ 
+  POST — criação de Patient_profile
+    6. POST mínimo — cria perfil, redireciona para diary_list
+    7. POST com lab fields — cria Analysis corretamente
+    8. POST com tratamentos — cria Treatment corretamente
+    9. POST com tratamento sem nome não cria registo
+   10. POST com múltiplos tratamentos cria todos
+   11. Após POST, document.extracted fica True
+   12. Após POST, é criada uma Version com status VALIDATED
+ 
+  PIPELINE AUXILIARES
+   13. parameter_extraction_pipeline — sem chunking, chama _run_single_prompt uma vez
+   14. _run_single_prompt — LLM retorna JSON válido à 1ª tentativa
+   15. _run_single_prompt — LLM falha 2x, recupera na 3ª
+   16. _run_single_prompt — LLM falha todas as tentativas → ValueError
+   17. extract_patient_id_from_title — formato correto extraído
+   18. extract_patient_id_from_title — formato errado retorna None
+   19. normalize_docs — remove headers do diário clínico
+   20. normalize_docs — strip de header de ensaio clínico
+   21. load_analysis_json — JSON válido
+   22. load_analysis_json — JSON inválido retorna None
+ 
+  LAB PROCESSING (POST)
+   23. Grouped lab fields → análises corretas (valor + percentagem)
+   24. Lab field sem valor não cria Analysis
+"""
+
 import json
 import uuid
 from io import BytesIO

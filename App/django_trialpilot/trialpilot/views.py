@@ -3535,28 +3535,28 @@ def match_patients(request, trial_id):
                     criterion_id = int(override["criterion_id"])
                     decision = override["decision"]
 
+                    patient = Patient_profile.objects.get(id=patient_id)
+                    criterion = Trial_criteria.objects.get(id=criterion_id)
+
+                    match_obj = Patient_trial_match.objects.get(
+                        patient=patient,
+                        trial=document
+                    )
+
+                    criterion_eval = Criterion_evaluation.objects.get(
+                        match=match_obj,
+                        criterion=criterion
+                    )
+
+                    criterion_eval.manual_result = decision
+                    criterion_eval.save()
+
+                    overridden_criteria_ids.add(criterion_eval.id) 
+                    affected_matches.add(match_obj.id)
+                
                 except Exception as e:
                     print(f"[ERROR] Invalid override: {e}")
                     continue
-
-                patient = Patient_profile.objects.get(id=patient_id)
-                criterion = Trial_criteria.objects.get(id=criterion_id)
-
-                match_obj = Patient_trial_match.objects.get(
-                    patient=patient,
-                    trial=document
-                )
-
-                criterion_eval = Criterion_evaluation.objects.get(
-                    match=match_obj,
-                    criterion=criterion
-                )
-
-                criterion_eval.manual_result = decision
-                criterion_eval.save()
-
-                overridden_criteria_ids.add(criterion_eval.id) 
-                affected_matches.add(match_obj.id)
 
             remaining_evals = Criterion_evaluation.objects.filter(
                 match__trial=document
