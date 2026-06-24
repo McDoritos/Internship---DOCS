@@ -48,3 +48,196 @@ Table Version [headercolor: #175e7a] {
 
     created_at datetime [not null]
 }
+
+Table Patient_profile [headercolor: #175e7a] {
+    id integer [pk, increment, not null]
+
+    document integer [
+        not null,
+        ref: > Document.id
+    ]
+
+    age integer
+
+    gender varchar(10) [
+        note: 'enum: male | female'
+    ]
+
+    ecog_ps integer
+
+    diagnosis varchar(255)
+
+    diagnosis_date date
+
+    molecular_status varchar(255)
+
+    stage varchar(50)
+
+    control varchar(255)
+
+    pathology_group varchar(255) [
+        note: 'enum: cabeca_pescoco | dermatologia | digestivo | ginecologia | mama | oncologia_pediatrica | pele | pneumologia | snc | tne'
+    ]
+
+    created_at datetime [not null]
+}
+
+
+Table Treatment [headercolor: #175e7a] {
+    id integer [pk, increment, not null]
+
+    patient integer [
+        not null,
+        ref: > Patient_profile.id
+    ]
+
+    treatment_name varchar(255) [not null]
+
+    start_date date
+    end_date date
+}
+
+Table Analysis [headercolor: #175e7a] {
+    id integer [pk, increment, not null]
+
+    patient integer [
+        not null,
+        ref: > Patient_profile.id
+    ]
+
+    name varchar(255) [not null]
+
+    value float
+    unit varchar(50)
+}
+
+Table Trial_cohort [headercolor: #175e7a] {
+    id integer [pk, increment, not null]
+
+    clinical_trial integer [
+        not null,
+        ref: > ClinicalTrial.id
+    ]
+
+    cohort_id varchar(50) [not null]
+    name varchar(255) [not null]
+
+    description text
+
+    created_at datetime [not null]
+}
+
+Table Trial_criteria [headercolor: #175e7a] {
+    id integer [pk, increment, not null]
+
+    document integer [
+        not null,
+        ref: > Document.id
+    ]
+
+    cohort integer [
+        ref: > Trial_cohort.id
+    ]
+
+    type varchar(20) [
+        not null,
+        note: 'enum: inclusion | exclusion'
+    ]
+
+    raw_criterion text [not null]
+
+    validated_criterion text
+
+    validated boolean [
+        not null,
+        default: false
+    ]
+
+    created_at datetime [not null]
+    updated_at datetime [not null]
+}
+
+Table Logic_criteria [headercolor: #175e7a] {
+    id integer [pk, increment, not null]
+
+    criterion integer [
+        not null,
+        unique,
+        ref: > Trial_criteria.id
+    ]
+
+    raw_logic json
+    validated_logic json
+
+    validated boolean [
+        not null,
+        default: false
+    ]
+
+    created_at datetime [not null]
+    updated_at datetime [not null]
+}
+
+Table Patient_trial_match [headercolor: #175e7a] {
+    id integer [pk, increment, not null]
+
+    patient integer [
+        not null,
+        ref: > Patient_profile.id
+    ]
+
+    trial integer [
+        not null,
+        ref: > Document.id
+    ]
+
+    decision varchar(20) [
+        not null,
+        note: 'enum: eligible | ineligible | inconclusive'
+    ]
+
+    deterministic_result boolean [
+        not null,
+        default: false
+    ]
+
+    llm_justification text
+    summary text
+
+    matched_at datetime [not null]
+
+    Note: 'unique: patient, trial'
+}
+
+Table Criterion_evaluation [headercolor: #175e7a] {
+    id integer [pk, increment, not null]
+
+    match integer [
+        not null,
+        ref: > Patient_trial_match.id
+    ]
+
+    criterion integer [
+        not null,
+        ref: > Trial_criteria.id
+    ]
+
+    automatic_result varchar(10) [
+        not null,
+        note: 'enum: pass | fail'
+    ]
+
+    manual_result varchar(10) [
+        note: 'enum: pass | fail'
+    ]
+
+    llm_justification text
+
+    evaluation_method varchar(15) [
+        note: 'enum: llm | rule'
+    ]
+
+    evaluated_at datetime [not null]
+
+    Note: 'unique: match, criterion'
+}
