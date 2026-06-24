@@ -144,8 +144,8 @@ class Trial_criteria(models.Model):
         INCLUSION = "inclusion", "Inclusion"
         EXCLUSION = "exclusion", "Exclusion"
 
-    document = models.ForeignKey(
-        Document,
+    clinical_trial = models.ForeignKey(
+        ClinicalTrial,
         on_delete=models.CASCADE,
         related_name="trial_criteria"
     )
@@ -168,7 +168,8 @@ class Trial_criteria(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.document.title} - {self.type} Criterion: {self.validated_criterion}"
+        return f"{self.clinical_trial.study_name} - {self.type} Criterion: {self.validated_criterion}"
+
     
 class Logic_criteria(models.Model):
     criterion = models.OneToOneField(
@@ -195,7 +196,7 @@ class Patient_trial_match(models.Model):
         INCONCLUSIVE = "inconclusive", "Inconclusive"
 
     patient = models.ForeignKey(Patient_profile, on_delete=models.CASCADE, related_name="trial_matches")
-    trial = models.ForeignKey(Document, on_delete=models.CASCADE, related_name="patient_matches")
+    trial = models.ForeignKey(ClinicalTrial, on_delete=models.CASCADE, related_name="patient_matches")
 
     decision = models.CharField(max_length=20, choices=Decision.choices)
     deterministic_result = models.BooleanField(default=False)

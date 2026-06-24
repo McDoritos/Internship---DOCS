@@ -157,7 +157,6 @@ def make_trial_doc(title="trial_study_abc123.pdf", extracted=False):
         extracted=extracted
     )
 
-
     Version.objects.create(
         document=doc,
         version_name="original",
@@ -167,7 +166,6 @@ def make_trial_doc(title="trial_study_abc123.pdf", extracted=False):
         )
     )
 
-
     ClinicalTrial.objects.create(
         document=doc,
         study_name="Study ABC",
@@ -176,7 +174,6 @@ def make_trial_doc(title="trial_study_abc123.pdf", extracted=False):
         end_date=datetime.date(2026,1,1),
         status="recruiting"
     )
-
 
     return doc
 
@@ -262,7 +259,7 @@ class CriteriaExtractionGetNoCohortTest(TestCase):
     def test_get_creates_inclusion_criteria_in_db(self):
         self._run_get()
         inclusions = Trial_criteria.objects.filter(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             type=Trial_criteria.CriterionType.INCLUSION
         )
         self.assertGreater(inclusions.count(), 0)
@@ -272,7 +269,7 @@ class CriteriaExtractionGetNoCohortTest(TestCase):
     def test_get_creates_exclusion_criteria_in_db(self):
         self._run_get()
         exclusions = Trial_criteria.objects.filter(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             type=Trial_criteria.CriterionType.EXCLUSION
         )
         self.assertGreater(exclusions.count(), 0)
@@ -303,13 +300,13 @@ class CriteriaExtractionGetNoCohortTest(TestCase):
 
     def test_get_criteria_have_null_cohort_when_no_cohorts(self):
         self._run_get()
-        criteria = Trial_criteria.objects.filter(document=self.doc)
+        criteria = Trial_criteria.objects.filter(clinical_trial=self.doc.clinical_trial)
         for c in criteria:
             self.assertIsNone(c.cohort)
 
     def test_get_criteria_created_as_not_validated(self):
         self._run_get()
-        criteria = Trial_criteria.objects.filter(document=self.doc)
+        criteria = Trial_criteria.objects.filter(clinical_trial=self.doc.clinical_trial)
         for c in criteria:
             self.assertFalse(c.validated)
 
@@ -326,9 +323,9 @@ class CriteriaExtractionGetWithCohortTest(TestCase):
         with patch("trialpilot.views.extract_document_text", return_value=SAMPLE_TRIAL_CONTENT), \
              patch("trialpilot.views.load_prompt_files", return_value=("sys", "{{TRIAL_TEXT}} {{CRITERIA_TYPE}} {{COHORTS_CONTEXT}}")), \
              patch("trialpilot.views.call_llm", side_effect=[
-                 COHORT_RESPONSE_WITH_COHORTS,    # cohort_identification_step
-                 COHORT_INCLUSION_LLM_RESPONSE,   # inclusion criteria
-                 COHORT_EXCLUSION_LLM_RESPONSE,   # exclusion criteria
+                 COHORT_RESPONSE_WITH_COHORTS,
+                 COHORT_INCLUSION_LLM_RESPONSE,
+                 COHORT_EXCLUSION_LLM_RESPONSE,
              ]), \
              patch("trialpilot.views.document_save"):
             return self.client.get(self.url)
@@ -351,7 +348,7 @@ class CriteriaExtractionGetWithCohortTest(TestCase):
             cohort_id="A"
         )
         criteria_a = Trial_criteria.objects.filter(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             cohort=cohort_a,
             type=Trial_criteria.CriterionType.INCLUSION
         )
@@ -367,7 +364,7 @@ class CriteriaExtractionGetWithCohortTest(TestCase):
     def test_get_general_criterion_has_null_cohort(self):
         self._run_get_with_cohorts()
         general = Trial_criteria.objects.filter(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             cohort=None,
             type=Trial_criteria.CriterionType.INCLUSION
         )
@@ -457,7 +454,7 @@ class ExtractCriteriaNoCohortsPipelineTest(TestCase):
             _extract_criteria_no_cohorts(doc, trial_content)
 
         self.assertGreater(call_count["n"], 2)
-        
+
     def test_no_sections_raises_value_error(self):
         doc = self._make_trial()
         bad_content = "Some text without any criteria sections."
@@ -488,7 +485,7 @@ class ExtractCriteriaNoCohortsPipelineTest(TestCase):
             1
         )
 
-# 5. EXTRACTION PIPELINE - with cohorts
+# EXTRACTION PIPELINE - with cohorts
 
 class ExtractCriteriaWithCohortsPipelineTest(TestCase):
 
@@ -535,7 +532,6 @@ class ExtractCriteriaWithCohortsPipelineTest(TestCase):
         self.assertIn("A", cohort_ids)
         self.assertIn("B", cohort_ids)
 
-
     @patch("trialpilot.views.load_prompt_files", return_value=("sys", "{{TRIAL_TEXT}} {{CRITERIA_TYPE}} {{COHORTS_CONTEXT}}"))
     def test_with_cohorts_none_cohort_id_preserved(self, _mock_prompts):
         doc = self._make_trial()
@@ -568,7 +564,7 @@ class ExtractCriteriaWithCohortsPipelineTest(TestCase):
     @patch("trialpilot.views.load_prompt_files", return_value=("sys", "{{TRIAL_TEXT}} {{CRITERIA_TYPE}} {{COHORTS_CONTEXT}}"))
     def test_with_cohorts_empty_section_ignored(self, _mock_prompts):
         doc = self._make_trial()
-        
+
         content_no_exclusion = "Inclusion Criteria:\n- Age >= 18\n"
 
         with patch("trialpilot.views.call_llm", return_value=json.dumps({
@@ -629,7 +625,6 @@ class SplitTextIntoChunksTest(TestCase):
         self.assertIn("Line 1", chunks[0])
 
     def test_long_text_produces_multiple_chunks(self):
-
         text = "\n".join("X" * 80 for _ in range(50))
         chunks = split_text_into_chunks(text, max_chars=2000)
         self.assertGreater(len(chunks), 1)
@@ -641,12 +636,10 @@ class SplitTextIntoChunksTest(TestCase):
             self.assertTrue(chunk.strip(), "Found empty chunk")
 
     def test_overlap_carries_tail_of_previous_chunk(self):
-        """O início do 2º chunk deve conter parte do final do 1º chunk."""
         text = "\n".join(f"Line {i}" for i in range(30))
         chunks = split_text_into_chunks(text, max_chars=150, overlap=30)
 
         if len(chunks) >= 2:
-
             end_of_chunk1 = chunks[0][-30:]
             self.assertTrue(
                 any(word in chunks[1] for word in end_of_chunk1.split()),
@@ -673,7 +666,7 @@ class MergeResultsTest(TestCase):
 
     def test_deduplicates_merged_lists(self):
         r1 = {"inclusion_criteria": ["Age >= 18 years"]}
-        r2 = {"inclusion_criteria": ["Age >= 18 years"]}  # duplicate
+        r2 = {"inclusion_criteria": ["Age >= 18 years"]}
         merged = merge_results([r1, r2])
         self.assertEqual(
             sum(1 for c in merged["inclusion_criteria"] if c == "Age >= 18 years"),
@@ -708,14 +701,14 @@ class CriteriaExtractionPostTest(TestCase):
         self.url = reverse("criteria_extraction", args=[self.doc.id])
 
         self.inc1 = Trial_criteria.objects.create(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             type=Trial_criteria.CriterionType.INCLUSION,
             raw_criterion="Age >= 18 years",
             validated_criterion="Age >= 18 years",
             validated=False,
         )
         self.exc1 = Trial_criteria.objects.create(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             type=Trial_criteria.CriterionType.EXCLUSION,
             raw_criterion="Active infection",
             validated_criterion="Active infection",
@@ -727,7 +720,7 @@ class CriteriaExtractionPostTest(TestCase):
         if extra_data:
             data.update(extra_data)
         with patch("trialpilot.views.document_save"), \
-             patch("trialpilot.views.extract_document_text",return_value="mock trial content"):
+             patch("trialpilot.views.extract_document_text", return_value="mock trial content"):
             return self.client.post(self.url, data=data)
 
     def test_post_updates_existing_criterion(self):
@@ -743,7 +736,7 @@ class CriteriaExtractionPostTest(TestCase):
     def test_post_creates_new_inclusion_criteria(self):
         self._post({"inclusion[]": ["Signed informed consent", "Life expectancy >= 3 months"]})
         texts = list(Trial_criteria.objects.filter(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             type=Trial_criteria.CriterionType.INCLUSION,
             validated=True,
         ).values_list("raw_criterion", flat=True))
@@ -753,22 +746,22 @@ class CriteriaExtractionPostTest(TestCase):
     def test_post_creates_new_exclusion_criteria(self):
         self._post({"exclusion[]": ["Prior chemotherapy within 3 months"]})
         texts = list(Trial_criteria.objects.filter(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             type=Trial_criteria.CriterionType.EXCLUSION,
             validated=True,
         ).values_list("raw_criterion", flat=True))
         self.assertIn("Prior chemotherapy within 3 months", texts)
-    
+
     def test_post_blank_inclusion_not_created(self):
-        before = Trial_criteria.objects.filter(document=self.doc).count()
+        before = Trial_criteria.objects.filter(clinical_trial=self.doc.clinical_trial).count()
         self._post({"inclusion[]": ["", "   "]})
-        after = Trial_criteria.objects.filter(document=self.doc).count()
+        after = Trial_criteria.objects.filter(clinical_trial=self.doc.clinical_trial).count()
         self.assertEqual(before, after)
 
     def test_post_blank_exclusion_not_created(self):
-        before = Trial_criteria.objects.filter(document=self.doc).count()
+        before = Trial_criteria.objects.filter(clinical_trial=self.doc.clinical_trial).count()
         self._post({"exclusion[]": ["", "  "]})
-        after = Trial_criteria.objects.filter(document=self.doc).count()
+        after = Trial_criteria.objects.filter(clinical_trial=self.doc.clinical_trial).count()
         self.assertEqual(before, after)
 
     def test_post_creates_cohort_inclusion_criterion(self):
@@ -780,7 +773,7 @@ class CriteriaExtractionPostTest(TestCase):
         self._post({f"new_inclusion_cohort_{cohort.id}[]": ["EGFR exon 19 deletion confirmed"]})
 
         criterion = Trial_criteria.objects.get(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             cohort=cohort,
             type=Trial_criteria.CriterionType.INCLUSION,
             raw_criterion="EGFR exon 19 deletion confirmed",
@@ -796,7 +789,7 @@ class CriteriaExtractionPostTest(TestCase):
         self._post({f"new_exclusion_cohort_{cohort.id}[]": ["Prior ALK inhibitor therapy"]})
 
         criterion = Trial_criteria.objects.get(
-            document=self.doc,
+            clinical_trial=self.doc.clinical_trial,
             cohort=cohort,
             type=Trial_criteria.CriterionType.EXCLUSION,
             raw_criterion="Prior ALK inhibitor therapy",
@@ -817,7 +810,7 @@ class CriteriaExtractionPostTest(TestCase):
 
         mock_save.assert_called_once()
         self.assertEqual(mock_save.call_args[0][3], "VALIDATED")
-        
+
     def test_post_validated_payload_structure(self):
         captured = {}
 
@@ -837,7 +830,6 @@ class CriteriaExtractionPostTest(TestCase):
         self.assertIn("validated_at", payload)
         self.assertIn("inclusion_criteria", payload)
         self.assertIn("exclusion_criteria", payload)
-
 
         for entry in payload["inclusion_criteria"]:
             self.assertIn("id", entry)

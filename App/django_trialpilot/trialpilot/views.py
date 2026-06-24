@@ -1170,7 +1170,7 @@ def run_json_prompt_pipeline(
     user_prompt_path,
     replacements,
     log_label=None,
-    max_retries=3,
+    max_retries=5,
     enable_chunking=False,
     chunk_key=None,
     max_chars=2000,
@@ -2338,8 +2338,12 @@ def trial_details(request, trial_id):
             'error': 'Document not found.'
         })
         
-    criteria = Trial_criteria.objects.filter(
+    clinical_trial = ClinicalTrial.objects.get(
         document=trial
+    )
+        
+    criteria = Trial_criteria.objects.filter(
+        clinical_trial=clinical_trial
     ).select_related("logic").order_by("type", "id")
     
     inclusion_criteria = [c for c in criteria if c.type == "inclusion"]
@@ -2358,10 +2362,6 @@ def trial_details(request, trial_id):
    
     versions = Version.objects.filter(document=trial)
     
-    clinical_trial = ClinicalTrial.objects.get(
-        document=trial
-    )
-    
     cohorts = Trial_cohort.objects.filter(
         clinical_trial=clinical_trial
     ).order_by("id")
@@ -2378,7 +2378,7 @@ def trial_details(request, trial_id):
         ).count()
 
     matches = Patient_trial_match.objects.filter(
-        trial=trial
+        trial=clinical_trial
     ).select_related("patient")
 
     has_cohorts = cohorts.exists()
@@ -2952,6 +2952,10 @@ def criteria_extraction(request, trial_id):
         })
 
     document_content = extract_document_text(document)
+    
+    clinical_trial = ClinicalTrial.objects.get(
+        document=document
+    )
 
     if not document_content.strip():
         return render(request, 'trialpilot/trial_criteria-extraction.html', {
@@ -2977,7 +2981,6 @@ def criteria_extraction(request, trial_id):
             
             if has_cohorts and cohorts_data:
                 with transaction.atomic():
-                    clinical_trial = document.clinical_trial
                     for cohort_data in cohorts_data:
                         cohort_obj = Trial_cohort.objects.create(
                             cohort_id=cohort_data["cohort_id"],
@@ -3025,7 +3028,7 @@ def criteria_extraction(request, trial_id):
                         cohort_obj = None
 
                     Trial_criteria.objects.create(
-                        document=document,
+                        clinical_trial=clinical_trial,
                         cohort=cohort_obj,
                         type=Trial_criteria.CriterionType.INCLUSION,
                         raw_criterion=criterion_text,
@@ -3042,7 +3045,7 @@ def criteria_extraction(request, trial_id):
                         cohort_obj = None
 
                     Trial_criteria.objects.create(
-                        document=document,
+                        clinical_trial=clinical_trial,
                         cohort=cohort_obj,
                         type=Trial_criteria.CriterionType.EXCLUSION,
                         raw_criterion=criterion_text,
@@ -3051,17 +3054,17 @@ def criteria_extraction(request, trial_id):
                     )
 
             inclusion_criteria = Trial_criteria.objects.filter(
-                document=document,
+                clinical_trial=clinical_trial,
                 type=Trial_criteria.CriterionType.INCLUSION
             )
 
             exclusion_criteria = Trial_criteria.objects.filter(
-                document=document,
+                clinical_trial=clinical_trial,
                 type=Trial_criteria.CriterionType.EXCLUSION
             )
             
             cohorts = Trial_cohort.objects.filter(
-                clinical_trial=document.clinical_trial
+                clinical_trial=clinical_trial
             ).order_by('cohort_id') if has_cohorts else []
 
             return render(request, 'trialpilot/trial_criteria-extraction.html', {
@@ -3082,7 +3085,7 @@ def criteria_extraction(request, trial_id):
                         try:
                             criterion = Trial_criteria.objects.get(
                                 id=criterion_id,
-                                document=document
+                                clinical_trial=clinical_trial
                             )
 
                             criterion.validated_criterion = value.strip()
@@ -3098,7 +3101,7 @@ def criteria_extraction(request, trial_id):
                 for text in new_inclusions:
                     if text.strip():
                         Trial_criteria.objects.create(
-                            document=document,
+                            clinical_trial=clinical_trial,
                             cohort=None,
                             type=Trial_criteria.CriterionType.INCLUSION,
                             raw_criterion=text.strip(),
@@ -3109,7 +3112,7 @@ def criteria_extraction(request, trial_id):
                 for text in new_exclusions:
                     if text.strip():
                         Trial_criteria.objects.create(
-                            document=document,
+                            clinical_trial=clinical_trial,
                             cohort=None,
                             type=Trial_criteria.CriterionType.EXCLUSION,
                             raw_criterion=text.strip(),
@@ -3120,12 +3123,16 @@ def criteria_extraction(request, trial_id):
                 for key in request.POST:
                     if key.startswith("new_inclusion_cohort_"):
                         cohort_id = key.replace("new_inclusion_cohort_", "").replace("[]", "")
-                        cohort_obj = Trial_cohort.objects.get(id=cohort_id)
+                        cohort_obj = Trial_cohort.objects.get(
+                            id=cohort_id,
+                            clinical_trial=clinical_trial
+                        )
+
 
                         for text in request.POST.getlist(key):
                             if text.strip():
                                 Trial_criteria.objects.create(
-                                    document=document,
+                                    clinical_trial=clinical_trial,
                                     cohort=cohort_obj,
                                     type=Trial_criteria.CriterionType.INCLUSION,
                                     raw_criterion=text.strip(),
@@ -3135,12 +3142,16 @@ def criteria_extraction(request, trial_id):
 
                     if key.startswith("new_exclusion_cohort_"):
                         cohort_id = key.replace("new_exclusion_cohort_", "").replace("[]", "")
-                        cohort_obj = Trial_cohort.objects.get(id=cohort_id)
+                        cohort_obj = Trial_cohort.objects.get(
+                            id=cohort_id,
+                            clinical_trial=clinical_trial
+                        )
+
 
                         for text in request.POST.getlist(key):
                             if text.strip():
                                 Trial_criteria.objects.create(
-                                    document=document,
+                                    clinical_trial=clinical_trial,
                                     cohort=cohort_obj,
                                     type=Trial_criteria.CriterionType.EXCLUSION,
                                     raw_criterion=text.strip(),
@@ -3149,12 +3160,12 @@ def criteria_extraction(request, trial_id):
                                 )
                 
                 inclusion_criteria = Trial_criteria.objects.filter(
-                    document=document,
+                    clinical_trial=clinical_trial,
                     type=Trial_criteria.CriterionType.INCLUSION
                 )
 
                 exclusion_criteria = Trial_criteria.objects.filter(
-                    document=document,
+                    clinical_trial=clinical_trial,
                     type=Trial_criteria.CriterionType.EXCLUSION
                 )
 
@@ -3205,8 +3216,10 @@ def criteria_conversion(request, trial_id):
         return render(request, 'trialpilot/trial_criteria-conversion.html', {
             'error': 'This pipeline only accepts Clinical Trial documents.'
         })
-
-    validated_criteria = Trial_criteria.objects.filter(document=document).order_by("type", "id")
+    clinical_trial = ClinicalTrial.objects.get(
+        document=document
+    )
+    validated_criteria = Trial_criteria.objects.filter(clinical_trial=clinical_trial).order_by("type", "id")
     
 
     if document.extracted:
@@ -3264,7 +3277,7 @@ def criteria_conversion(request, trial_id):
                     try:
                         criterion = Trial_criteria.objects.get(
                             id=criterion_id,
-                            document=document,
+                            clinical_trial=clinical_trial,
                             type=Trial_criteria.CriterionType.INCLUSION
                         )
 
@@ -3287,7 +3300,7 @@ def criteria_conversion(request, trial_id):
                     try:
                         criterion = Trial_criteria.objects.get(
                             id=criterion_id,
-                            document=document,
+                            clinical_trial=clinical_trial,
                             type=Trial_criteria.CriterionType.EXCLUSION
                         )
 
@@ -3303,7 +3316,7 @@ def criteria_conversion(request, trial_id):
                         continue
 
             logic_criteria = Logic_criteria.objects.filter(
-                criterion__document=document
+                criterion__clinical_trial=clinical_trial
             ).select_related("criterion").order_by("criterion__type", "criterion__id")
             
             for logic in logic_criteria:
@@ -3337,8 +3350,9 @@ def criteria_conversion(request, trial_id):
                     print(json.dumps(condition, indent=2))
                     
             cohorts = Trial_cohort.objects.filter(
-                clinical_trial=document.clinical_trial
+                clinical_trial=clinical_trial
             ).order_by("cohort_id")
+
 
             has_cohorts = cohorts.exists()
             
@@ -3365,7 +3379,7 @@ def criteria_conversion(request, trial_id):
                         try:
                             logic_obj = Logic_criteria.objects.get(
                                 id=logic_id,
-                                criterion__document=document
+                                criterion__clinical_trial=clinical_trial
                             )
 
                             group_operator = request.POST.get(f"group_operator_{logic_id}", "AND")
@@ -3418,12 +3432,12 @@ def criteria_conversion(request, trial_id):
                             continue
 
                 inclusion_logic = Logic_criteria.objects.filter(
-                    criterion__document=document,
+                    criterion__clinical_trial=clinical_trial,
                     criterion__type=Trial_criteria.CriterionType.INCLUSION
                 ).select_related("criterion").order_by("criterion__id")
 
                 exclusion_logic = Logic_criteria.objects.filter(
-                    criterion__document=document,
+                    criterion__clinical_trial=clinical_trial,
                     criterion__type=Trial_criteria.CriterionType.EXCLUSION
                 ).select_related("criterion").order_by("criterion__id")
 
@@ -3483,8 +3497,12 @@ def match_patients(request, trial_id):
             'error': 'Criteria must be extracted and validated before matching patients.'
         })
     else:
+        clinical_trial = ClinicalTrial.objects.get(
+            document=document
+        )
         if request.method == 'GET':
-            trial_criteria = Trial_criteria.objects.filter(document=document).select_related("logic")
+            
+            trial_criteria = Trial_criteria.objects.filter(clinical_trial=clinical_trial).select_related("logic")
             
             trial_details = ClinicalTrial.objects.get(document=document)
 
@@ -3498,7 +3516,7 @@ def match_patients(request, trial_id):
             for patient in patients:
                 match_result = patient_matching_step(
                                     patient,
-                                    document,
+                                    clinical_trial,
                                     trial_criteria
                                 )
                 matches.append({
@@ -3536,11 +3554,15 @@ def match_patients(request, trial_id):
                     decision = override["decision"]
 
                     patient = Patient_profile.objects.get(id=patient_id)
-                    criterion = Trial_criteria.objects.get(id=criterion_id)
+                    criterion = Trial_criteria.objects.get(
+                        id=criterion_id,
+                        clinical_trial=clinical_trial
+                    )
+
 
                     match_obj = Patient_trial_match.objects.get(
                         patient=patient,
-                        trial=document
+                        trial=clinical_trial
                     )
 
                     criterion_eval = Criterion_evaluation.objects.get(
@@ -3559,7 +3581,7 @@ def match_patients(request, trial_id):
                     continue
 
             remaining_evals = Criterion_evaluation.objects.filter(
-                match__trial=document
+                match__trial=clinical_trial
             ).exclude(id__in=overridden_criteria_ids)
 
             for ev in remaining_evals:
