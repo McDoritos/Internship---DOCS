@@ -935,27 +935,23 @@ class TrialRemoveViewTest(TestCase):
             name="Cohort A"
         )
 
-
         criterion = Trial_criteria.objects.create(
-            document=doc,
+            clinical_trial=doc.clinical_trial,
             cohort=cohort,
             type="inclusion",
             raw_criterion="Age > 18"
         )
-
 
         logic = Logic_criteria.objects.create(
             criterion=criterion,
             raw_logic={"field":"age"}
         )
 
-
         self.client.post(
             reverse("trial_remove"),
             data=json.dumps({"trials":[doc.id]}),
             content_type="application/json"
         )
-
 
         self.assertFalse(
             Trial_cohort.objects.filter(id=cohort.id).exists()

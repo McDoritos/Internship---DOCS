@@ -81,7 +81,6 @@ from trialpilot.views import (
     KNOWN_FIELDS,
 )
 
-
 def make_trial_doc(title="trial_study_abc123.pdf", extracted=False):
     doc = Document.objects.create(
         title=title,
@@ -102,7 +101,7 @@ def make_trial_doc(title="trial_study_abc123.pdf", extracted=False):
 
 def make_criterion(doc, text, ctype=Trial_criteria.CriterionType.INCLUSION, cohort=None):
     return Trial_criteria.objects.create(
-        document=doc,
+        clinical_trial=doc.clinical_trial,
         cohort=cohort,
         type=ctype,
         raw_criterion=text,
@@ -226,13 +225,13 @@ class CriteriaConversionGetTest(TestCase):
 
     def test_get_creates_inclusion_logic_criteria(self):
         self._run_get()
-        lc = Logic_criteria.objects.filter(criterion__document=self.doc,
+        lc = Logic_criteria.objects.filter(criterion__clinical_trial=self.doc.clinical_trial,
                                            criterion__type=Trial_criteria.CriterionType.INCLUSION)
         self.assertEqual(lc.count(), 2)
 
     def test_get_creates_exclusion_logic_criteria(self):
         self._run_get()
-        lc = Logic_criteria.objects.filter(criterion__document=self.doc,
+        lc = Logic_criteria.objects.filter(criterion__clinical_trial=self.doc.clinical_trial,
                                            criterion__type=Trial_criteria.CriterionType.EXCLUSION)
         self.assertEqual(lc.count(), 1)
 
@@ -430,7 +429,8 @@ class CriteriaConversionStepTest(TestCase):
             })
 
         payload = {
-            "document_id": 1, "document_title": "t.pdf",
+            "document_id": 1,
+            "document_title": "t.pdf",
             "inclusion_criteria": [{"id": i, "text": "Age >= 18 years"} for i in range(6)],
             "exclusion_criteria": [],
         }

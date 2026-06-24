@@ -165,7 +165,7 @@ def make_patient(pathology_group="pneumologia", age=55, ecog_ps=1,
 
 def make_criterion(doc, text, ctype=Trial_criteria.CriterionType.INCLUSION, cohort=None):
     return Trial_criteria.objects.create(
-        document=doc,
+        clinical_trial=doc.clinical_trial,
         cohort=cohort,
         type=ctype,
         raw_criterion=text,
@@ -254,13 +254,13 @@ class MatchPatientsGetTest(TestCase):
         self.client.get(self.url)
         self.assertTrue(
             Patient_trial_match.objects.filter(
-                patient=self.patient, trial=self.doc
+                patient=self.patient, trial=self.doc.clinical_trial
             ).exists()
         )
 
     def test_get_creates_criterion_evaluation(self):
         self.client.get(self.url)
-        match_obj = Patient_trial_match.objects.get(patient=self.patient, trial=self.doc)
+        match_obj = Patient_trial_match.objects.get(patient=self.patient, trial=self.doc.clinical_trial)
         self.assertTrue(
             Criterion_evaluation.objects.filter(
                 match=match_obj, criterion=self.age_criterion
@@ -309,7 +309,7 @@ class MatchPatientsPostTest(TestCase):
         self.client.get(self.url)
 
         self.match_obj = Patient_trial_match.objects.get(
-            patient=self.patient, trial=self.doc
+            patient=self.patient, trial=self.doc.clinical_trial
         )
         self.eval_obj = Criterion_evaluation.objects.get(
             match=self.match_obj, criterion=self.criterion
@@ -428,18 +428,18 @@ class PatientMatchingStepNoCohortTest(TestCase):
         return Trial_criteria.objects.filter(id__in=ids).select_related("logic")
 
     def test_creates_patient_trial_match(self):
-        result = patient_matching_step(self.patient, self.doc, [])
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, [])
         self.assertTrue(
             Patient_trial_match.objects.filter(
-                patient=self.patient, trial=self.doc
+                patient=self.patient, trial=self.doc.clinical_trial
             ).exists()
         )
 
     def test_get_or_create_does_not_duplicate_match(self):
-        patient_matching_step(self.patient, self.doc, [])
-        patient_matching_step(self.patient, self.doc, [])
+        patient_matching_step(self.patient, self.doc.clinical_trial, [])
+        patient_matching_step(self.patient, self.doc.clinical_trial, [])
         count = Patient_trial_match.objects.filter(
-            patient=self.patient, trial=self.doc
+            patient=self.patient, trial=self.doc.clinical_trial
         ).count()
         self.assertEqual(count, 1)
 
@@ -449,7 +449,7 @@ class PatientMatchingStepNoCohortTest(TestCase):
             {"field": "age", "operator": ">=", "value": 18}
         )
         criteria = self._criteria_with_select_related([c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertEqual(result["inclusion_passed"], 1)
         self.assertTrue(result["eligible"])
 
@@ -459,7 +459,7 @@ class PatientMatchingStepNoCohortTest(TestCase):
             {"field": "stage", "operator": "=", "value": "I"}
         )
         criteria = self._criteria_with_select_related([c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertEqual(result["inclusion_passed"], 0)
         self.assertFalse(result["eligible"])
 
@@ -470,7 +470,7 @@ class PatientMatchingStepNoCohortTest(TestCase):
             ctype=Trial_criteria.CriterionType.EXCLUSION,
         )
         criteria = self._criteria_with_select_related([c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertEqual(result["exclusion_triggered"], 1)
         self.assertFalse(result["eligible"])
 
@@ -481,18 +481,18 @@ class PatientMatchingStepNoCohortTest(TestCase):
             ctype=Trial_criteria.CriterionType.EXCLUSION,
         )
         criteria = self._criteria_with_select_related([c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertEqual(result["exclusion_triggered"], 0)
         self.assertTrue(result["eligible"])
 
     def test_has_cohorts_false_without_cohort_criteria(self):
-        result = patient_matching_step(self.patient, self.doc, [])
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, [])
         self.assertFalse(result["has_cohorts"])
 
     def test_criterion_without_logic_skipped(self):
         c = make_criterion(self.doc, "Criterion without logic")
         criteria = self._criteria_with_select_related([c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertEqual(result["inclusion_total"], 0)
 
     def test_criterion_evaluation_created_in_db(self):
@@ -501,8 +501,8 @@ class PatientMatchingStepNoCohortTest(TestCase):
             {"field": "age", "operator": ">=", "value": 18}
         )
         criteria = self._criteria_with_select_related([c])
-        patient_matching_step(self.patient, self.doc, criteria)
-        match_obj = Patient_trial_match.objects.get(patient=self.patient, trial=self.doc)
+        patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
+        match_obj = Patient_trial_match.objects.get(patient=self.patient, trial=self.doc.clinical_trial)
         self.assertTrue(
             Criterion_evaluation.objects.filter(match=match_obj, criterion=c).exists()
         )
@@ -534,7 +534,7 @@ class PatientMatchingStepWithCohortTest(TestCase):
             cohort=self.cohort_a,
         )
         criteria = self._criteria_qs([general, cohort_c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertTrue(result["has_cohorts"])
 
     def test_eligible_in_general_and_cohort_a(self):
@@ -547,7 +547,7 @@ class PatientMatchingStepWithCohortTest(TestCase):
             cohort=self.cohort_a,
         )
         criteria = self._criteria_qs([general, cohort_a_c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertFalse(result["eligible"])
         self.assertEqual(result["eligible_cohorts"], [])
 
@@ -561,7 +561,7 @@ class PatientMatchingStepWithCohortTest(TestCase):
             cohort=self.cohort_a,
         )
         criteria = self._criteria_qs([general, cohort_a_c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertTrue(result["eligible"])
         self.assertEqual(len(result["eligible_cohorts"]), 1)
         self.assertEqual(result["eligible_cohorts"][0]["cohort_id"], "A")
@@ -576,7 +576,7 @@ class PatientMatchingStepWithCohortTest(TestCase):
             cohort=self.cohort_a,
         )
         criteria = self._criteria_qs([general, cohort_a_c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         self.assertFalse(result["eligible"])
         self.assertEqual(result["eligible_cohorts"], [])
 
@@ -587,7 +587,7 @@ class PatientMatchingStepWithCohortTest(TestCase):
             cohort=self.cohort_a,
         )
         criteria = self._criteria_qs([cohort_a_c])
-        result = patient_matching_step(self.patient, self.doc, criteria)
+        result = patient_matching_step(self.patient, self.doc.clinical_trial, criteria)
         cohort_results = result["cohort_results"]
         names = [v["cohort_name"] for v in cohort_results.values()]
         self.assertIn("EGFR+", names)
@@ -871,10 +871,10 @@ class ExtractEvidenceTest(TestCase):
         logic = {"field": "age", "operator": ">=", "value": 18}
         evidences = extract_evidence(self.patient, logic)
         self.assertEqual(len(evidences), 1)
-        ev = evidences[0]
-        self.assertEqual(ev["field"], "age")
-        self.assertEqual(ev["operator"], ">=")
-        self.assertEqual(ev["expected_value"], 18)
+        self.季 = evidences[0]
+        self.assertEqual(self.季["field"], "age")
+        self.assertEqual(self.季["operator"], ">=")
+        self.assertEqual(self.季["expected_value"], 18)
 
     def test_group_condition_returns_all_evidences(self):
         logic = {
