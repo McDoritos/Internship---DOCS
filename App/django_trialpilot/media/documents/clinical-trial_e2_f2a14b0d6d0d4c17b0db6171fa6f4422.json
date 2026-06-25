@@ -1,0 +1,264 @@
+{
+  "document_id": 33,
+  "document_title": "clinical-trial_e2_0145337549f24da18be6030777228931.pdf",
+  "validated_at": "2026-06-25T09:49:46.254075+00:00",
+  "inclusion_criteria": [
+    {
+      "id": 71,
+      "text": "Woman with age ≥ 18 years.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "gender",
+            "operator": "=",
+            "value": "female"
+          },
+          {
+            "field": "age",
+            "operator": ">=",
+            "value": "18"
+          }
+        ]
+      }
+    },
+    {
+      "id": 72,
+      "text": "Patient who completed surgery for his breast cancer and for which definitive histo-pathological analysis of surgical specimen is available.",
+      "logic": {
+        "field": "surgery_status",
+        "operator": "=",
+        "value": "completed"
+      }
+    },
+    {
+      "id": 73,
+      "text": "Invasive breast carcinoma pN0 or pN(i+) with histological tumor size ≤ 10 mm (pT1a/b subgroup) or invasive breast carcinoma with histological tumor size > 10 mm and ≤ 30 mm (pT1c T2 ≤ 30 mm control group).",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "tumor_size",
+            "operator": ">",
+            "value": "10"
+          },
+          {
+            "field": "tumor_size",
+            "operator": "<=",
+            "value": "30"
+          }
+        ]
+      }
+    },
+    {
+      "id": 74,
+      "text": "Patient with HER2-negative breast carcinoma: immuno-histochemistry (IHC) score = 0, 1+ or 2+ and in situ hybridization (FISH, CISH, or SISH) negative (local laboratory testing).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "her2_status",
+            "operator": "in",
+            "value": "['0', '1+', '2+']"
+          },
+          {
+            "field": "her2_fish_status",
+            "operator": "=",
+            "value": "negative"
+          }
+        ]
+      }
+    },
+    {
+      "id": 75,
+      "text": "Patient with ER and PR negative invasive carcinoma (< 1% stained cells by immuno-histochemistry assay) (local laboratory testing).",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "er_status",
+            "operator": "<",
+            "value": "1"
+          },
+          {
+            "field": "pr_status",
+            "operator": "<",
+            "value": "1"
+          }
+        ]
+      }
+    },
+    {
+      "id": 76,
+      "text": "In case of multifocality, the histological size of the largest tumor must be ≤ 10 mm or ≤ 30 mm according to the inclusion subgroup.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "tumor_size",
+            "operator": "<=",
+            "value": "10"
+          },
+          {
+            "field": "tumor_size",
+            "operator": "<=",
+            "value": "30"
+          }
+        ]
+      }
+    },
+    {
+      "id": 77,
+      "text": "All lesions must be ER, PR and HER2-negative.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "er_status",
+            "operator": "=",
+            "value": "negative"
+          },
+          {
+            "field": "pr_status",
+            "operator": "=",
+            "value": "negative"
+          },
+          {
+            "field": "her2_status",
+            "operator": "=",
+            "value": "negative"
+          }
+        ]
+      }
+    },
+    {
+      "id": 78,
+      "text": "In case of breast conserving surgery, clear margins are required.",
+      "logic": {
+        "field": "surgical_margin_status",
+        "operator": "=",
+        "value": "clear"
+      }
+    },
+    {
+      "id": 79,
+      "text": "Patient affiliated to a Social Health Insurance in France.",
+      "logic": {
+        "field": "health_insurance_status",
+        "operator": "=",
+        "value": "affiliated"
+      }
+    },
+    {
+      "id": 80,
+      "text": "Patient information and written informed consent form signed prior to any study specific procedures.",
+      "logic": {
+        "field": "informed_consent_status",
+        "operator": "=",
+        "value": "signed"
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 81,
+      "text": "Patients with any previous malignancy of the breast or other site, with the exception of adequately treated basal or squamous cell carcinoma, non-melanomatous skin cancer totally resected.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "previous_malignancy",
+            "operator": "=",
+            "value": "breast"
+          },
+          {
+            "field": "previous_malignancy_site",
+            "operator": "!=",
+            "value": "basal_or_squamous_cell_carcinoma"
+          },
+          {
+            "field": "previous_malignancy_site",
+            "operator": "!=",
+            "value": "non_melanomatous_skin_cancer"
+          }
+        ]
+      }
+    },
+    {
+      "id": 82,
+      "text": "Non-invasive breast carcinoma (i.e. ductal carcinoma in situ exclusively).",
+      "logic": {
+        "field": "breast_carcinoma_type",
+        "operator": "=",
+        "value": "non_invasive"
+      }
+    },
+    {
+      "id": 83,
+      "text": "Inoperable breast invasive carcinoma.",
+      "logic": {
+        "field": "breast_carcinoma_type",
+        "operator": "=",
+        "value": "inoperable_invasive"
+      }
+    },
+    {
+      "id": 84,
+      "text": "Synchronous bilateral breast cancer.",
+      "logic": {
+        "field": "breast_cancer_type",
+        "operator": "=",
+        "value": "synchronous_bilateral"
+      }
+    },
+    {
+      "id": 85,
+      "text": "Patients who received neo-adjuvant treatment (radiotherapy or chemotherapy or other before surgery).",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "treatment_type",
+            "operator": "=",
+            "value": "neo_adjuvant_radiotherapy"
+          },
+          {
+            "field": "treatment_type",
+            "operator": "=",
+            "value": "neo_adjuvant_chemotherapy"
+          },
+          {
+            "field": "treatment_type",
+            "operator": "=",
+            "value": "other_neo_adjuvant_treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": 86,
+      "text": "Pregnant or breast-feeding women.",
+      "logic": {
+        "field": "pregnancy_status",
+        "operator": "=",
+        "value": "pregnant"
+      }
+    },
+    {
+      "id": 87,
+      "text": "Any psychological, familial, geographic or social situation, according to the judgment of investigator, potentially preventing the provision of informed consent or compliance to study procedure.",
+      "logic": {
+        "operator": "AND",
+        "conditions": []
+      }
+    },
+    {
+      "id": 88,
+      "text": "Patient who has forfeited his/her freedom by administrative or legal award or who is under guardianship.",
+      "logic": {
+        "operator": "AND",
+        "conditions": []
+      }
+    }
+  ]
+}

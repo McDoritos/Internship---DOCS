@@ -970,7 +970,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /* Trial Criteria Extraction */
 document.addEventListener("DOMContentLoaded", function () {
 
-function renumberAll() {
+    function renumberAll() {
         let counter = 1;
 
         document.querySelectorAll("#inclusion-container .criterion-item").forEach(item => {
@@ -1476,6 +1476,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+/* Matching patients logic */
+
 document.addEventListener("DOMContentLoaded", function () {
 
     window.setCriterionOverride = function (patientId, criterionId, decision, button) {
@@ -1541,6 +1543,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
             cohortBadge.className = `badge ${isCohortEligible ? "bg-success" : "bg-danger"}`;
             cohortBadge.innerText = isCohortEligible ? "Eligible" : "Ineligible";
+        }
+        
+        // ── Atualizar lista de eligible cohorts ───────────────────────────────
+        const eligibleCohortsContainer = document.getElementById(`eligible-cohorts-${patientId}`);
+
+        if (eligibleCohortsContainer) {
+
+            const eligibleBadges = Array.from(
+                document.querySelectorAll(`[id^="cohort-badge-${patientId}-"]`)
+            ).filter(b => b.innerText.trim() === "Eligible");
+
+
+            if (eligibleBadges.length > 0) {
+
+                eligibleCohortsContainer.innerHTML = "";
+
+                eligibleBadges.forEach(badge => {
+
+                    const cohortName = badge.dataset.cohortName;
+
+                    const span = document.createElement("span");
+                    span.className =
+                        "badge bg-success-subtle text-success border border-success-subtle me-1";
+
+                    span.innerText = cohortName;
+
+                    eligibleCohortsContainer.appendChild(span);
+                });
+
+            } else {
+
+                eligibleCohortsContainer.innerHTML = `
+            <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                No eligible cohort
+            </span>
+        `;
+            }
         }
 
         // ── Recalcular elegibilidade global do paciente ────────────────────

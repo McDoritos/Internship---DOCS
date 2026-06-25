@@ -112,8 +112,8 @@ class Analysis(models.Model):
     patient = models.ForeignKey(Patient_profile, on_delete=models.CASCADE, related_name="analysis")
 
     name = models.CharField(max_length=255)
-    value = models.FloatField(null=True, blank=True)
-    unit = models.CharField(max_length=50, null=True, blank=True)
+    value = models.FloatField(blank=True)
+    unit = models.CharField(max_length=50, blank=True)
     
     def __str__(self):
         return f"Analysis for patient {self.patient.id}"
@@ -128,11 +128,6 @@ class Trial_cohort(models.Model):
 
     cohort_id = models.CharField(max_length=50)
     name = models.CharField(max_length=255)
-
-    description = models.TextField(
-        null=True,
-        blank=True
-    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -178,7 +173,7 @@ class Logic_criteria(models.Model):
         related_name="logic"
     )
 
-    raw_logic = models.JSONField(blank=True, null=True)
+    raw_logic = models.JSONField(blank=True)
     validated_logic = models.JSONField(blank=True, null=True)
 
     validated = models.BooleanField(default=False)
@@ -199,10 +194,6 @@ class Patient_trial_match(models.Model):
     trial = models.ForeignKey(ClinicalTrial, on_delete=models.CASCADE, related_name="patient_matches")
 
     decision = models.CharField(max_length=20, choices=Decision.choices)
-    deterministic_result = models.BooleanField(default=False)
-
-    llm_justification = models.TextField(null=True, blank=True)
-    summary = models.TextField(null=True, blank=True)
 
     matched_at = models.DateTimeField(auto_now_add=True)
 
@@ -229,7 +220,7 @@ class Criterion_evaluation(models.Model):
     manual_result = models.CharField(max_length=10, choices=EvaluationChoices.choices, null=True, blank=True)   
 
     llm_justification = models.TextField(null=True, blank=True)
-    evaluation_method = models.CharField(max_length=15, null=True, blank=True, choices=EvaluationMethod.choices)
+    evaluation_method = models.CharField(max_length=15, blank=True, choices=EvaluationMethod.choices)
 
     evaluated_at = models.DateTimeField(auto_now_add=True)
 

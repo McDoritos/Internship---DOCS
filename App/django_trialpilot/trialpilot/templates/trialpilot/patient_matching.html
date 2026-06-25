@@ -80,7 +80,7 @@
                     </small>
 
                     {% if m.result.has_cohorts %}
-                    <div class="mt-1">
+                    <div class="mt-1" id="eligible-cohorts-{{ m.patient.id }}">
                         {% if m.result.eligible_cohorts %}
                             {% for cohort in m.result.eligible_cohorts %}
                                 <span class="badge bg-success-subtle text-success border border-success-subtle me-1">
@@ -211,7 +211,8 @@
                                 </small>
                                 <span
                                     id="cohort-badge-{{ m.patient.id }}-{{ cohort_id }}"
-                                    class="text-white badge {% if cohort_data.eligible %}bg-success{% else %}bg-danger{% endif %}"
+                                    data-cohort-name="{{ cohort_data.cohort_name }}"
+                                    class="badge {% if cohort_data.eligible %}text-white bg-success{% else %}text-white bg-danger{% endif %} text-white"
                                 >
                                     {% if cohort_data.eligible %}Eligible{% else %}Ineligible{% endif %}
                                 </span>

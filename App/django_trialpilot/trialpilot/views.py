@@ -1513,7 +1513,7 @@ def patient_matching_step(patient, trial, trial_criteria):
             evaluation = evaluate_condition(patient, logic)
             auto_result = evaluation["result"]
             justification = evaluation["justification"]
-            evaluation_method = evaluation["method"]
+            evaluation_method = evaluation.get("method") or Criterion_evaluation.EvaluationMethod.RULE
 
             Criterion_evaluation.objects.update_or_create(
                 match=match_obj,
@@ -1783,7 +1783,7 @@ def evaluate_condition(patient, logic):
         return {
             "result": True,
             "justification": None,
-            "method": None
+            "method": Criterion_evaluation.EvaluationMethod.RULE
         }
 
     # Simple
@@ -1879,14 +1879,14 @@ def evaluate_condition(patient, logic):
                 return {
                     "result": False,
                     "justification": None,
-                    "method": None
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
                 }
 
         if patient_value is None:
             return {
                 "result": False,
                 "justification": None,
-                "method": None
+                "method": Criterion_evaluation.EvaluationMethod.RULE
             }
 
         # Normalize lists as strings
@@ -1919,7 +1919,7 @@ def evaluate_condition(patient, logic):
                 return {
                     "result": False,
                     "justification": None,
-                    "method": None
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
                 }
                 
             return {
@@ -1940,7 +1940,7 @@ def evaluate_condition(patient, logic):
                 return {
                     "result": False,
                     "justification": None,
-                    "method": None
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
                 }
             return {
                 "result": left <= right,
@@ -1960,7 +1960,7 @@ def evaluate_condition(patient, logic):
                 return {
                     "result": False,
                     "justification": None,
-                    "method": None
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
                 }
 
             return {
@@ -1981,7 +1981,7 @@ def evaluate_condition(patient, logic):
                 return {
                     "result": False,
                     "justification": None,
-                    "method": None
+                    "method": Criterion_evaluation.EvaluationMethod.RULE
                 }
 
             return {
@@ -2066,7 +2066,7 @@ def evaluate_condition(patient, logic):
         return {
             "result": False,
             "justification": None,
-            "method": None
+            "method": Criterion_evaluation.EvaluationMethod.RULE
         } 
 
     # Nested
@@ -2084,7 +2084,7 @@ def evaluate_condition(patient, logic):
             return {
                 "result": False,
                 "justification": None,
-                "method": None
+                "method": Criterion_evaluation.EvaluationMethod.RULE
             }
 
         method = (
@@ -2105,7 +2105,7 @@ def evaluate_condition(patient, logic):
     return {
         "result": False,
         "justification": None,
-        "method": None
+        "method": Criterion_evaluation.EvaluationMethod.RULE
     } 
 
 def extract_document_text(document):
@@ -2986,7 +2986,6 @@ def criteria_extraction(request, trial_id):
                             cohort_id=cohort_data["cohort_id"],
                             clinical_trial=clinical_trial,
                             name=cohort_data["name"],
-                            description=cohort_data.get("description","")
                         )
                         
                         cohort_map[cohort_data["cohort_id"]] = cohort_obj
@@ -3598,20 +3597,70 @@ def match_patients(request, trial_id):
                     .select_related("criterion")
                 )
 
-                inclusion_results = []
-                exclusion_results = []
+                general_inclusions = []
+                general_exclusions = []
+                cohort_results = {}
+
 
                 for evaluation in evaluations:
 
-                    final_result = evaluation.manual_result
-                    passed = final_result == Criterion_evaluation.EvaluationChoices.PASS
+                    criterion = evaluation.criterion
 
-                    if evaluation.criterion.type == "inclusion":
-                        inclusion_results.append(passed)
+                    final_result = (
+                        evaluation.manual_result == Criterion_evaluation.EvaluationChoices.PASS
+                    )
+
+                    passed = final_result
+
+                    if criterion.cohort_id is None:
+
+                        if criterion.type == "inclusion":
+                            general_inclusions.append(passed)
+                        else:
+                            general_exclusions.append(passed)
+
                     else:
-                        exclusion_results.append(passed)
 
-                eligible = all(inclusion_results) and not any(exclusion_results)
+                        cid = criterion.cohort_id
+
+                        if cid not in cohort_results:
+                            cohort_results[cid] = {
+                                "inclusion": [],
+                                "exclusion": []
+                            }
+
+                        if criterion.type == "inclusion":
+                            cohort_results[cid]["inclusion"].append(passed)
+                        else:
+                            cohort_results[cid]["exclusion"].append(passed)
+
+
+
+                general_passes = (
+                    all(general_inclusions)
+                    and not any(general_exclusions)
+                )
+
+
+                eligible_cohort_exists = False
+
+                for cohort in cohort_results.values():
+
+                    cohort_ok = (
+                        all(cohort["inclusion"])
+                        and not any(cohort["exclusion"])
+                    )
+
+                    if cohort_ok:
+                        eligible_cohort_exists = True
+                        break
+
+
+
+                if cohort_results:
+                    eligible = general_passes and eligible_cohort_exists
+                else:
+                    eligible = general_passes
 
                 match_obj.decision = (
                     Patient_trial_match.Decision.ELIGIBLE
@@ -3700,8 +3749,6 @@ def dev_tools(request):
     ineligible = Patient_trial_match.objects.filter(decision="ineligible").count()
     inconclusive = Patient_trial_match.objects.filter(decision="inconclusive").count()
 
-    deterministic = Patient_trial_match.objects.filter(deterministic_result=True).count()
-
     return render(request, 'trialpilot/dev_tools.html', {
         'n_diaries': n_diaries,
         'n_patients': n_patients,
@@ -3721,5 +3768,4 @@ def dev_tools(request):
         'eligible': eligible,
         'ineligible': ineligible,
         'inconclusive': inconclusive,
-        'deterministic': deterministic,
     })
