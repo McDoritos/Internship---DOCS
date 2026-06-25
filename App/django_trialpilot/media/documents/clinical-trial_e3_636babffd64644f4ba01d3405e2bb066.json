@@ -1,0 +1,805 @@
+{
+  "inclusion_criteria": [
+    {
+      "id": 89,
+      "text": "ECOG performance status â ¤ 1",
+      "logic": {
+        "field": "ecog_ps",
+        "operator": "<=",
+        "value": "1"
+      }
+    },
+    {
+      "id": 90,
+      "text": "Must have histologically or cytologically confirmed progressive advanced/metastatic HER2-positive breast carcinoma as per the updated American Society of Clinical Oncology (ASCO) - College of American Pathologists (CAP) guidelines according to local testing. HER2 status may be determined in the primary breast cancer tumour or, when not available, in a metastatic lesion.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast carcinoma"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2-positive"
+          },
+          {
+            "field": "stage",
+            "operator": "=",
+            "value": "advanced/metastatic"
+          }
+        ]
+      }
+    },
+    {
+      "id": 91,
+      "text": "Multifocal unilateral or bilateral breast adenocarcinoma tumours are allowed if all tested HER2-positive, according to local testing",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "breast adenocarcinoma"
+          },
+          {
+            "field": "molecular_status",
+            "operator": "=",
+            "value": "HER2-positive"
+          }
+        ]
+      }
+    },
+    {
+      "id": 92,
+      "text": "Prior treatment with taxane, trastuzumab and pertuzumab (early or advanced setting) and T-DXd (metastatic setting). In order to be eligible, patients subjects must have received T-DXd as the last systemic metastatic treatment line before inclusion, and presented disease progression on this drug.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "taxane"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "trastuzumab"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "pertuzumab"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "T-DXd"
+          },
+          {
+            "field": "progression_on_treatment",
+            "operator": "=",
+            "value": "T-DXd"
+          }
+        ]
+      }
+    },
+    {
+      "id": 93,
+      "text": "Prior therapy with tucatinib, trastuzumab, and capecitabine, in advanced setting, is permissible, provided that T-DXd serves as the last systemic metastatic treatment line before inclusion, and patient subject presented disease progression on this drug.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "tucatinib"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "trastuzumab"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "capecitabine"
+          },
+          {
+            "field": "treatment_name",
+            "operator": "=",
+            "value": "T-DXd"
+          },
+          {
+            "field": "progression_on_treatment",
+            "operator": "=",
+            "value": "T-DXd"
+          }
+        ]
+      }
+    },
+    {
+      "id": 94,
+      "text": "Life expectancy â ¥ 6 months.",
+      "logic": {
+        "field": "life_expectancy_months",
+        "operator": ">=",
+        "value": "6"
+      }
+    },
+    {
+      "id": 95,
+      "text": "At screening FDG-PET at least two \"target\" lesions are required to fulfil the following criteria: (1) anatomically transaxial diameter â ¥ 1.5 cm",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "number_of_target_lesions",
+            "operator": ">=",
+            "value": "2"
+          },
+          {
+            "field": "lesion_diameter_cm",
+            "operator": ">=",
+            "value": "1.5"
+          }
+        ]
+      }
+    },
+    {
+      "id": 96,
+      "text": "(2) metabolically assessable with a maximum standard uptake value corrected for lean body mass (SUVmax) â ¥ 1.5 x SUVmean + 2 standard deviations (SD) of the liver measured in a 3-cm-diameter spherical volume of interest (VOI) in normal liver parenchyma.",
+      "logic": {
+        "field": "lesion_suvmax_liver_ratio",
+        "operator": ">=",
+        "value": "1.5 * SUVmean_liver + 2 * SD_liver"
+      }
+    },
+    {
+      "id": 97,
+      "text": "In case of suspected liver metastasis, a lesion should have a SUVmax â ¥ 2 x SUVmean + 3 SD of the blood pool measured in a 1 cm-diameter VOI within descending thoracic aorta.",
+      "logic": {
+        "field": "lesion_suvmax_bloodpool_ratio",
+        "operator": ">=",
+        "value": "2 * SUVmean_bloodpool + 3 * SD_bloodpool"
+      }
+    },
+    {
+      "id": 98,
+      "text": "Lesions pre-treated with irradiation are not eligible for consideration as \"target\" lesions.",
+      "logic": {
+        "field": "lesion_pretreated_irradiation",
+        "operator": "=",
+        "value": "false"
+      }
+    },
+    {
+      "id": 99,
+      "text": "Absolute Neutrophil Count (ANC) â ¥1000/Î1⁄4L or â ¥1x109/L.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1000",
+            "unit": "/µL"
+          },
+          {
+            "field": "neutrofilos",
+            "operator": ">=",
+            "value": "1",
+            "unit": "x10^9/L"
+          }
+        ]
+      }
+    },
+    {
+      "id": 100,
+      "text": "Platelets â ¥100,000/Î1⁄4L or â ¥ 100 x 109/L.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100000",
+            "unit": "/µL"
+          },
+          {
+            "field": "plaquetas",
+            "operator": ">=",
+            "value": "100",
+            "unit": "x10^9/L"
+          }
+        ]
+      }
+    },
+    {
+      "id": 101,
+      "text": "Haemoglobin â ¥ 9 g/dL.",
+      "logic": {
+        "field": "hemoglobina",
+        "operator": ">=",
+        "value": "9",
+        "unit": "g/dL"
+      }
+    },
+    {
+      "id": 102,
+      "text": "Adequate Renal Function including serum creatinine â ¤ 1.5 x upper limit of normal (ULN) or estimated creatinine clearance â ¥ 60 ml/min as calculated using the method standard for the institution.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "creatinina",
+            "operator": "<=",
+            "value": "1.5",
+            "unit": "x ULN"
+          },
+          {
+            "field": "creatinine_clearance",
+            "operator": ">=",
+            "value": "60",
+            "unit": "ml/min"
+          }
+        ]
+      }
+    },
+    {
+      "id": 103,
+      "text": "Total serum bilirubin â ¤ 1.5 x ULN unless the patient subject has documented Gilbert syndrome.",
+      "logic": {
+        "field": "bilirrubina_total",
+        "operator": "<=",
+        "value": "1.5",
+        "unit": "x ULN"
+      }
+    },
+    {
+      "id": 104,
+      "text": "Aspartate and Alanine Aminotransferase (AST and ALT) â ¤ 2.5x ULN.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "ast",
+            "operator": "<=",
+            "value": "2.5",
+            "unit": "x ULN"
+          },
+          {
+            "field": "alt",
+            "operator": "<=",
+            "value": "2.5",
+            "unit": "x ULN"
+          }
+        ]
+      }
+    },
+    {
+      "id": 105,
+      "text": "Current left ventricular ejection fraction (LVEF) â ¥ 50% on echocardiography or multiple-gated acquisition scanning and no history of a LVEF < 40% or symptomatic heart failure or a recent myocardial infarction.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "left_ventricular_ejection_fraction",
+            "operator": ">=",
+            "value": "50",
+            "unit": "%"
+          },
+          {
+            "field": "history_of_lvef_below_40",
+            "operator": "=",
+            "value": "false"
+          },
+          {
+            "field": "symptomatic_heart_failure",
+            "operator": "=",
+            "value": "false"
+          },
+          {
+            "field": "recent_myocardial_infarction",
+            "operator": "=",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "id": 106,
+      "text": "Willingness to provide tumour tissue (mandatory biopsy) and blood samples (mandatory) for translational research activities.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "willingness_provide_tumour_tissue",
+            "operator": "=",
+            "value": "true"
+          },
+          {
+            "field": "willingness_provide_blood_samples",
+            "operator": "=",
+            "value": "true"
+          }
+        ]
+      }
+    },
+    {
+      "id": 107,
+      "text": "Willingness to comply with the protocol for the duration of the study including treatment and scheduled visits and examinations.",
+      "logic": {
+        "field": "willingness_comply_protocol",
+        "operator": "=",
+        "value": "true"
+      }
+    },
+    {
+      "id": 108,
+      "text": "Signed Informed Consent form (ICF) obtained prior to any study related procedure.",
+      "logic": {
+        "field": "informed_consent_obtained",
+        "operator": "=",
+        "value": "true"
+      }
+    },
+    {
+      "id": 109,
+      "text": "Affiliated to the French Social Security System",
+      "logic": {
+        "field": "social_security_affiliation",
+        "operator": "=",
+        "value": "French"
+      }
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": 110,
+      "text": "Prior exposure to T-DM1 for the treatment of metastatic BC.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "T-DM1"
+          },
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "metastatic breast cancer"
+          }
+        ]
+      }
+    },
+    {
+      "id": 111,
+      "text": "For subjects exposed to T-DM1 for the treatment of early BC, subjects must not have relapsed while or within 12 months of finishing treatment with T-DM1.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "T-DM1"
+          },
+          {
+            "field": "diagnosis",
+            "operator": "=",
+            "value": "early breast cancer"
+          },
+          {
+            "field": "relapse_within_12_months",
+            "operator": "=",
+            "value": "yes"
+          }
+        ]
+      }
+    },
+    {
+      "id": 112,
+      "text": "Brain metastasis as sole metastasis and/or symptomatic or requiring therapy to control symptoms.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "brain_metastasis",
+            "operator": "=",
+            "value": "present"
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "field": "sole_metastasis",
+                "operator": "=",
+                "value": "yes"
+              },
+              {
+                "field": "symptomatic_brain_metastasis",
+                "operator": "=",
+                "value": "yes"
+              },
+              {
+                "field": "therapy_required_brain_metastasis",
+                "operator": "=",
+                "value": "yes"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 113,
+      "text": "History of interstitial lung disease / pneumonitis (grade 3 or 4) during the prior treatment with T-DXd.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "treatment_name",
+            "operator": "IN",
+            "value": "T-DXd"
+          },
+          {
+            "field": "interstitial_lung_disease_grade",
+            "operator": ">=",
+            "value": "3"
+          }
+        ]
+      }
+    },
+    {
+      "id": 114,
+      "text": "Significant symptoms (Grade â ¥ 2) relating to LV dysfunction, cardiac  arrhythmia, or cardiac ischemia while or since receiving preoperative therapy.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "cardiac_symptom_grade",
+            "operator": ">=",
+            "value": "2"
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "field": "lv_dysfunction",
+                "operator": "=",
+                "value": "yes"
+              },
+              {
+                "field": "cardiac_arrhythmia",
+                "operator": "=",
+                "value": "yes"
+              },
+              {
+                "field": "cardiac_ischemia",
+                "operator": "=",
+                "value": "yes"
+              }
+            ]
+          },
+          {
+            "field": "preoperative_therapy",
+            "operator": "=",
+            "value": "yes"
+          }
+        ]
+      }
+    },
+    {
+      "id": 115,
+      "text": "Uncontrolled hypertension (systolic blood pressure > 180 mmHg and/or diastolic blood pressure > 100 mmHg)",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "systolic_bp",
+            "operator": ">",
+            "value": "180",
+            "unit": "mmHg"
+          },
+          {
+            "field": "diastolic_bp",
+            "operator": ">",
+            "value": "100",
+            "unit": "mmHg"
+          }
+        ]
+      }
+    },
+    {
+      "id": 116,
+      "text": "Inadequately controlled angina, serious cardiac arrhythmia not controlled by adequate medication, severe conduction abnormality, or clinically significant valvular disease",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "angina_status",
+            "operator": "=",
+            "value": "inadequately_controlled"
+          },
+          {
+            "field": "cardiac_arrhythmia_control",
+            "operator": "=",
+            "value": "not_controlled"
+          },
+          {
+            "field": "conduction_abnormality_severity",
+            "operator": "=",
+            "value": "severe"
+          },
+          {
+            "field": "valvular_disease_significance",
+            "operator": "=",
+            "value": "clinically_significant"
+          }
+        ]
+      }
+    },
+    {
+      "id": 117,
+      "text": "Screening LVEF < 50% by either ECHO or MUGA",
+      "logic": {
+        "field": "lvef",
+        "operator": "<",
+        "value": "50"
+      }
+    },
+    {
+      "id": 118,
+      "text": "History of NCI CTCAE (Version 4.0) Grade â ¥ 3 symptomatic congestive heart  failure (CHF) or New York Heart Association (NYHA) criteria Class â ¥ II",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "chf_grade",
+            "operator": ">=",
+            "value": "3"
+          },
+          {
+            "field": "nyha_class",
+            "operator": ">=",
+            "value": "II"
+          }
+        ]
+      }
+    },
+    {
+      "id": 119,
+      "text": "History of a decrease in LVEF to < 40% or symptomatic CHF with prior trastuzumab treatment (e.g., during preoperative therapy)",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "lvef",
+            "operator": "<",
+            "value": "40"
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "field": "chf_symptomatic",
+                "operator": "=",
+                "value": "true"
+              },
+              {
+                "field": "treatment_name",
+                "operator": "IN",
+                "value": "trastuzumab"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 120,
+      "text": "Myocardial infarction within 12 months prior to randomization",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "myocardial_infarction",
+            "operator": "=",
+            "value": "true"
+          },
+          {
+            "unmapped": true,
+            "source_text": "within 12 months prior to randomization"
+          }
+        ]
+      }
+    },
+    {
+      "id": 121,
+      "text": "Requirement for continuous oxygen therapy",
+      "logic": {
+        "field": "continuous_oxygen_therapy",
+        "operator": "=",
+        "value": "true"
+      }
+    },
+    {
+      "id": 122,
+      "text": "Known prior severe hypersensitivity to investigational product or any component in its formulations, including known severe hypersensitivity reactions to trastuzumab or excipients.",
+      "logic": {
+        "field": "severe_hypersensitivity",
+        "operator": "=",
+        "value": "true"
+      }
+    },
+    {
+      "id": 123,
+      "text": "Contra-indication for treatment with T-DM1.",
+      "logic": {
+        "field": "treatment_contraindication_T-DM1",
+        "operator": "=",
+        "value": "true"
+      }
+    },
+    {
+      "id": 124,
+      "text": "After the first 7 \"rapid progressors\" included, progression within the first 6 months of T-DXd therapy will be considered as an exclusion criterion.",
+      "logic": {
+        "unmapped": true,
+        "source_text": "After the first 7 \"rapid progressors\" included, progression within the first 6 months of T-DXd therapy will be considered as an exclusion criterion."
+      }
+    },
+    {
+      "id": 125,
+      "text": "Any known liver disease, including known carriers of hepatitis B virus, hepatitis C, autoimmune hepatic disorders and sclerosing cholangitis.",
+      "logic": {
+        "field": "liver_disease",
+        "operator": "IN",
+        "value": "hepatitis B, hepatitis C, autoimmune hepatic disorder, sclerosing cholangitis"
+      }
+    },
+    {
+      "id": 126,
+      "text": "Concurrent, serious, uncontrolled infections or known infection with HIV.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "infection_status",
+            "operator": "=",
+            "value": "serious_uncontrolled"
+          },
+          {
+            "field": "infection_status",
+            "operator": "=",
+            "value": "HIV"
+          }
+        ]
+      }
+    },
+    {
+      "id": 127,
+      "text": "Prior history of other invasive cancer in the past 5 years except basal or squamous cell carcinoma of skin that has been definitively treated.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "prior_invasive_cancer",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "cancer_type",
+            "operator": "NOT_IN",
+            "value": "basal cell carcinoma, squamous cell carcinoma of skin"
+          },
+          {
+            "unmapped": true,
+            "source_text": "in the past 5 years"
+          }
+        ]
+      }
+    },
+    {
+      "id": 128,
+      "text": "Pregnant and/or lactating women, or intending to become pregnant during the study. Serum pregnancy test (for subjects of childbearing potential) positive within 15 days prior to enrolment.",
+      "logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "field": "pregnancy_status",
+            "operator": "IN",
+            "value": "pregnant, lactating, intending"
+          },
+          {
+            "field": "pregnancy_test_result",
+            "operator": "=",
+            "value": "positive"
+          },
+          {
+            "unmapped": true,
+            "source_text": "within 15 days prior to enrolment"
+          }
+        ]
+      }
+    },
+    {
+      "id": 129,
+      "text": "Women of childbearing potential refusing to use one highly effective method of contraception from ICF signature, during the course of the study and at least 7 months after the last administration of T-DM1.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "gender",
+            "operator": "=",
+            "value": "female"
+          },
+          {
+            "field": "childbearing_potential",
+            "operator": "=",
+            "value": "yes"
+          },
+          {
+            "field": "contraception_use",
+            "operator": "=",
+            "value": "refused"
+          },
+          {
+            "unmapped": true,
+            "source_text": "at least 7 months after the last administration of T-DM1"
+          }
+        ]
+      }
+    },
+    {
+      "id": 130,
+      "text": "Men with childbearing potential partner refusing to use condom during the course of this study and for at least 7 months after the last administration of T-DM1.",
+      "logic": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "field": "gender",
+            "operator": "=",
+            "value": "male"
+          },
+          {
+            "field": "partner_childbearing_potential",
+            "operator": "=",
+            "value": "true"
+          },
+          {
+            "field": "partner_condom_use",
+            "operator": "=",
+            "value": "refusing"
+          },
+          {
+            "field": "condom_use_refusal_duration_months",
+            "operator": ">=",
+            "value": "7"
+          }
+        ]
+      }
+    },
+    {
+      "id": 131,
+      "text": "Subject with a significant medical, neuro-psychiatric, or surgical condition, currently uncontrolled by treatment, which, in the principal investigator's opinion, may interfere with completion of the study.",
+      "logic": {
+        "field": "uncontrolled_significant_condition",
+        "operator": "=",
+        "value": "true"
+      }
+    },
+    {
+      "id": 132,
+      "text": "Vulnerable persons according to the article L.1121-6 of the Public Health Code, adults who are the subject of a measure of legal protection or unable to express their consent according to article L.1121-8 of the Public Health Code.",
+      "logic": {
+        "field": "vulnerable_person",
+        "operator": "=",
+        "value": "true"
+      }
+    }
+  ]
+}

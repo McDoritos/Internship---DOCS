@@ -5,13 +5,9 @@
 {% block content %}
 
 <div class="d-flex flex-column mb-4 ml-3 mr-3">
-
-    <!-- Page Title -->
     <h3 class="mb-3">Clinical Diary List</h3>
     <p class="text-muted">Details page for the clinical diary {{ diary.title }}</p>
-
     <div class="sidebar-divider mb-4"></div>
-
 </div>
 
 <div class="container mt-4">
@@ -50,7 +46,6 @@
             <h5 class="mb-0">Document Versions</h5>
         </div>
         <div class="card-body">
-
             {% if versions %}
             <ul class="list-group">
                 {% for v in versions %}
@@ -59,7 +54,6 @@
                         <strong>{{ v.version_name }}</strong><br>
                         <small>Created: {{ v.created_at }}</small>
                     </div>
-
                     <a href="{{ v.file_path.url }}" class="btn btn-outline-primary btn-sm rounded-ui" download>
                         Download
                     </a>
@@ -69,7 +63,6 @@
             {% else %}
             <p class="text-muted">No versions available.</p>
             {% endif %}
-
         </div>
     </div>
 
@@ -81,22 +74,72 @@
         <div class="card-body">
 
             {% if patient %}
-            <p><strong>Age:</strong> {{ patient.age }}</p>
-            <p><strong>ECOG:</strong> {{ patient.ecog_ps }}</p>
-            <p><strong>Diagnosis:</strong> {{ patient.diagnosis }}</p>
-            <p><strong>Diagnosis Date:</strong> {{ patient.diagnosis_date }}</p>
-            <p><strong>Molecular Status:</strong> {{ patient.molecular_status }}</p>
-            <p><strong>Stage:</strong> {{ patient.stage }}</p>
-            <p><strong>Control:</strong> {{ patient.control }}</p>
+                <div class="card-header bg-light-subtle py-2">
+                    <strong>Patient Overview</strong>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="text-muted small">Age</div>
+                            <div class="fw-semibold fs-5">{{ patient.age|default:"-" }}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-muted small">Diagnosis Date</div>
+                            <div class="fw-semibold fs-5">{{ patient.diagnosis_date|default:"-" }}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-muted small">ECOG</div>
+                            <span class="badge bg-primary-subtle text-primary fs-5">
+                                {{ patient.ecog_ps|default:"-" }}
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-muted small">Stage</div>
+                            <span class="badge bg-warning-subtle text-warning fs-5">
+                                {{ patient.stage|default:"-" }}
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-muted small">Pathology Group</div>
+                            <span class="badge bg-info-subtle text-info fs-5">
+                                {{ patient.get_pathology_group_display|default:"-" }}
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-muted small">Gender</div>
+                            <div class="fw-semibold fs-5">{{ patient.get_gender_display|default:"-" }}</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-muted small">Diagnosis</div>
+                            <div class="fw-semibold">{{ patient.diagnosis|default:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-header bg-light-subtle py-2">
+                    <strong>Clinical Details</strong>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="text-muted small">Molecular Status</div>
+                            <div class="fw-semibold">{{ patient.molecular_status|default:"-" }}</div>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <div class="text-muted small mb-1">Clinical Control / Follow-up</div>
+                            <div class="fw-semibold">{{ patient.control|default:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
             {% else %}
             <p class="text-muted">No patient profile available.</p>
             {% endif %}
 
-            <div class="card-header">
-                <h7 class="mb-0">Treatments</h5>
+            <!-- Treatments -->
+            <div class="card-header bg-light-subtle py-2">
+                <strong>Treatments</strong>
             </div>
             <div class="card-body">
-
                 {% if treatments %}
                 <ul class="list-group">
                     {% for t in treatments %}
@@ -111,8 +154,286 @@
                 {% else %}
                 <p class="text-muted">No treatments available.</p>
                 {% endif %}
-
             </div>
+
+        </div>
+    </div>
+
+    <!-- Laboratory Analysis -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">Laboratory Analysis</h5>
+        </div>
+        <div class="card-body">
+
+            {% if analysis %}
+
+                {% with a=analysis %}
+
+                <!-- Hematology -->
+                <div class="card mb-3 border-0">
+                    <div class="card-header bg-primary-subtle text-primary py-2">
+                        <strong>Hematology</strong>
+                    </div>
+                    <div class="card-body bg-light-subtle">
+                        <div class="row g-2">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Leucocytes</div>
+                                    <div class="fw-semibold">{{ a.leucocitos.value|default:a.leucocitos|default:"-" }} {{ a.leucocitos.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Neutrophils</div>
+                                    <div class="fw-semibold">
+                                        {{ a.neutrofilos.value|default:a.neutrofilos|default:"-" }} {{ a.neutrofilos.unit|default:"" }}
+                                        {% if a.neutrofilos_percent %}<span class="badge bg-secondary-subtle text-secondary">{{ a.neutrofilos_percent.value|default:a.neutrofilos_percent }} {{ a.neutrofilos_percent.unit|default:"" }}</span>{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Lymphocytes</div>
+                                    <div class="fw-semibold">
+                                        {{ a.linfocitos.value|default:a.linfocitos|default:"-" }} {{ a.linfocitos.unit|default:"" }}
+                                        {% if a.linfocitos_percent %}<span class="badge bg-secondary-subtle text-secondary">{{ a.linfocitos_percent.value|default:a.linfocitos_percent }} {{ a.linfocitos_percent.unit|default:"" }}</span>{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Monocytes</div>
+                                    <div class="fw-semibold">
+                                        {{ a.monocitos.value|default:a.monocitos|default:"-" }} {{ a.monocitos.unit|default:"" }}
+                                        {% if a.monocitos_percent %}<span class="badge bg-secondary-subtle text-secondary">{{ a.monocitos_percent.value|default:a.monocitos_percent }} {{ a.monocitos_percent.unit|default:"" }}</span>{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Eosinophils</div>
+                                    <div class="fw-semibold">
+                                        {{ a.eosinofilos.value|default:a.eosinofilos|default:"-" }} {{ a.eosinofilos.unit|default:"" }}
+                                        {% if a.eosinofilos_percent %}<span class="badge bg-secondary-subtle text-secondary">{{ a.eosinofilos_percent.value|default:a.eosinofilos_percent }} {{ a.eosinofilos_percent.unit|default:"" }}</span>{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Basophils</div>
+                                    <div class="fw-semibold">
+                                        {{ a.basofilos.value|default:a.basofilos|default:"-" }} {{ a.basofilos.unit|default:"" }}
+                                        {% if a.basofilos_percent %}<span class="badge bg-secondary-subtle text-secondary">{{ a.basofilos_percent.value|default:a.basofilos_percent }} {{ a.basofilos_percent.unit|default:"" }}</span>{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Erythrocytes -->
+                <div class="card mb-3 border-0">
+                    <div class="card-header bg-danger-subtle text-danger py-2">
+                        <strong>Erythrocytes</strong>
+                    </div>
+                    <div class="card-body bg-light-subtle">
+                        <div class="row g-2">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">RBC</div>
+                                    <div class="fw-semibold">{{ a.eritrocitos.value|default:a.eritrocitos|default:"-" }} {{ a.eritrocitos.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Hemoglobin</div>
+                                    <div class="fw-semibold">{{ a.hemoglobina.value|default:a.hemoglobina|default:"-" }} {{ a.hemoglobina.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Hematocrit</div>
+                                    <div class="fw-semibold">{{ a.hematocrito.value|default:a.hematocrito|default:"-" }} {{ a.hematocrito.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">MCV</div>
+                                    <div class="fw-semibold">{{ a.vc_medio.value|default:a.vc_medio|default:"-" }} {{ a.vc_medio.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">MCH</div>
+                                    <div class="fw-semibold">{{ a.hcm.value|default:a.hcm|default:"-" }} {{ a.hcm.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">MCHC</div>
+                                    <div class="fw-semibold">{{ a.chcm.value|default:a.chcm|default:"-" }} {{ a.chcm.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">RDW</div>
+                                    <div class="fw-semibold">{{ a.rdw.value|default:a.rdw|default:"-" }} {{ a.rdw.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platelets -->
+                <div class="card mb-3 border-0">
+                    <div class="card-header bg-warning-subtle text-warning py-2">
+                        <strong>Platelets</strong>
+                    </div>
+                    <div class="card-body bg-light-subtle">
+                        <div class="row g-2">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Platelets</div>
+                                    <div class="fw-semibold">{{ a.plaquetas.value|default:a.plaquetas|default:"-" }} {{ a.plaquetas.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">MPV</div>
+                                    <div class="fw-semibold">{{ a.vpm.value|default:a.vpm|default:"-" }} {{ a.vpm.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">PCT</div>
+                                    <div class="fw-semibold">{{ a.plaquetocrito.value|default:a.plaquetocrito|default:"-" }} {{ a.plaquetocrito.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">PDW</div>
+                                    <div class="fw-semibold">{{ a.pdw.value|default:a.pdw|default:"-" }} {{ a.pdw.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biochemistry -->
+                <div class="card mb-3 border-0">
+                    <div class="card-header bg-success-subtle text-success py-2">
+                        <strong>Biochemistry</strong>
+                    </div>
+                    <div class="card-body bg-light-subtle">
+                        <div class="row g-2">
+                            {% for label, field in analysis_biochem_fields %}
+                            {% endfor %}
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Glucose</div>
+                                    <div class="fw-semibold">{{ a.glicose.value|default:a.glicose|default:"-" }} {{ a.glicose.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">BUN</div>
+                                    <div class="fw-semibold">{{ a.azoto_ureico.value|default:a.azoto_ureico|default:"-" }} {{ a.azoto_ureico.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Creatinine</div>
+                                    <div class="fw-semibold">{{ a.creatinina.value|default:a.creatinina|default:"-" }} {{ a.creatinina.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Sodium</div>
+                                    <div class="fw-semibold">{{ a.sodio.value|default:a.sodio|default:"-" }} {{ a.sodio.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Potassium</div>
+                                    <div class="fw-semibold">{{ a.potassio.value|default:a.potassio|default:"-" }} {{ a.potassio.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Total Proteins</div>
+                                    <div class="fw-semibold">{{ a.proteinas_totais.value|default:a.proteinas_totais|default:"-" }} {{ a.proteinas_totais.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Albumin</div>
+                                    <div class="fw-semibold">{{ a.albumina.value|default:a.albumina|default:"-" }} {{ a.albumina.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Calcium</div>
+                                    <div class="fw-semibold">{{ a.calcio.value|default:a.calcio|default:"-" }} {{ a.calcio.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Osmolality</div>
+                                    <div class="fw-semibold">{{ a.osmolalidade.value|default:a.osmolalidade|default:"-" }} {{ a.osmolalidade.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">LDH</div>
+                                    <div class="fw-semibold">{{ a.ldh.value|default:a.ldh|default:"-" }} {{ a.ldh.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">AST</div>
+                                    <div class="fw-semibold">{{ a.ast.value|default:a.ast|default:"-" }} {{ a.ast.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">ALT</div>
+                                    <div class="fw-semibold">{{ a.alt.value|default:a.alt|default:"-" }} {{ a.alt.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">ALP</div>
+                                    <div class="fw-semibold">{{ a.fosfatase_alcalina.value|default:a.fosfatase_alcalina|default:"-" }} {{ a.fosfatase_alcalina.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">GGT</div>
+                                    <div class="fw-semibold">{{ a.gama_gt.value|default:a.gama_gt|default:"-" }} {{ a.gama_gt.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">Bilirubin</div>
+                                    <div class="fw-semibold">{{ a.bilirrubina_total.value|default:a.bilirrubina_total|default:"-" }} {{ a.bilirrubina_total.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="rounded p-2 h-100 bg-white border">
+                                    <div class="text-muted small">CK</div>
+                                    <div class="fw-semibold">{{ a.creatina_cinase.value|default:a.creatina_cinase|default:"-" }} {{ a.creatina_cinase.unit|default:"" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endwith %}
+
+            {% else %}
+            <p class="text-muted">No laboratory analysis available.</p>
+            {% endif %}
 
         </div>
     </div>

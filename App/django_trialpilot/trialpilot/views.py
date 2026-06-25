@@ -2302,13 +2302,24 @@ def diary_details(request, diary_id):
     patient = Patient_profile.objects.filter(document=document).first()
 
     treatments = Treatment.objects.filter(patient=patient) if patient else []
+    
+    analysis = Analysis.objects.filter(patient=patient) if patient else None
+    
+    analysis = {}
+    if patient:
+        for a in Analysis.objects.filter(patient=patient):
+            analysis[a.name] = {
+                "value": a.value,
+                "unit": a.unit,
+            }
 
     return render(request, 'trialpilot/diary_details.html', {
         "diary": document,
         "diary_contents": document_content,
         "versions": versions,
         "patient": patient,
-        "treatments": treatments
+        "treatments": treatments,
+        "analysis": analysis
     })
     
 def trial_details(request, trial_id):
