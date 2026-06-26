@@ -46,6 +46,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 from trialpilot.models import (
     Document, Patient_profile, Treatment, Analysis, Version
@@ -108,9 +109,6 @@ SAMPLE_ANALYSIS_JSON = json.dumps({
         "creatinina": {"value": "0.9", "unit": "mg/dL"}
     }
 })
-
-
-from django.core.files.base import ContentFile
 
 
 def make_diary_doc(title="inconsistancy-diary_patient_42_abc123.txt", extracted = False):
@@ -231,7 +229,6 @@ class ParameterExtractionGetHappyPathTest(TestCase):
         response = self._run_get()
         lab = response.context["extracted_params"].get("lab", {})
 
-        # hemoglobina vem do SAMPLE_ANALYSIS_JSON
         self.assertIn("hemoglobina", lab)
         self.assertEqual(lab["hemoglobina"]["value"], "11.2")
 
