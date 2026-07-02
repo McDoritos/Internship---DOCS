@@ -1,0 +1,9 @@
+Statement of Significance
+
+Problem or Issue: Oncology departments rely heavily on unstructured clinical documentation, making patient screening for clinical trial time-consuming, inconsistent, difficult to scale and error prone, leading to financial and opportunity losses.
+
+What is Already Known: Previous studies have shown that LLMs can extract clinical information or assist with patient-trial matching. However, many approaches rely solely on probabilistic model outputs, provide limited clinician validation, or do not separate information extraction from eligibility evaluation.
+
+What this Paper Adds: This work proposes a clinician-validated pipeline that transforms free-text oncology diaries into structured patient profiles, converts trial criteria into logical rules, and performs semi-deterministic patient–trial matching through deterministic evaluation of structured criteria complemented by LLM-assisted reasoning for schema-independent requirements.
+
+Who would benefit: Clinical researchers, oncologists, hospitals adopting AI-assisted workflows, and researchers developing trustworthy LLM-based clinical decision support systems.
