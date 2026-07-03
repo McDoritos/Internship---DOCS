@@ -4,6 +4,7 @@ import os
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 
 SAVE_DIR = "./manual-evaluations/trial-structure"
 PLOTS_SAVE_DIR = "./manual-evaluations/trial-structure/plots"
@@ -170,3 +171,25 @@ plt.tight_layout()
 
 plt.savefig(f"{PLOTS_SAVE_DIR}/per_trial_accuracy_heatmap.png", dpi=300)
 plt.show()
+
+
+x = np.arange(len(df_global))
+width = 0.35
+
+plt.figure(figsize=(10, 6))
+plt.bar(x - width/2, df_global["accuracy"], width,
+        label="Accuracy (%)", color="#1f77b4")
+plt.bar(x + width/2, df_global["partial_score"], width,
+        label="Partial-aware score (%)", color="#9467bd")
+
+plt.xticks(x, df_global["model"], rotation=20)
+plt.ylabel("Score (%)")
+plt.ylim(0, 105)
+plt.title("Trial Structure – Global Accuracy vs Partial-aware Score")
+plt.legend()
+plt.tight_layout()
+
+plt.savefig(f"{PLOTS_SAVE_DIR}/trial_structure_accuracy_vs_partial_score.png", dpi=300)
+plt.close()
+
+print(f"Saved accuracy/partial-aware plot to {PLOTS_SAVE_DIR}")
